@@ -1,0 +1,2 @@
+# aaonri-android
+A platfrom which is more focused on both social aspects and providing services/help for same community people in US. There are differnt type of probelm this platfrom is solving. Platfrom will act as first go-to place for anyone new to US and look for help in same community. Platfrom provide services like Classifed, e-Ecommerence, Jobs, Visa queries, Ads and a lot more will be added down the line.
