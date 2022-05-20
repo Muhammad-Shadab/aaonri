@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_steps_nav"
-    app:startDestination="@id/basicDetailsFragment">
+    app:startDestination="@id/introFragment">
 
     <fragment
         android:id="@+id/basicDetailsFragment"
@@ -37,4 +37,13 @@
         android:name="com.aaonri.com.ui.authentication.register.fragment.ServicesCategoryFragment"
         android:label="fragment_services_category"
         tools:layout="@layout/fragment_services_category" />
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.aaonri.com.ui.authentication.register.fragment.IntroFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_intro" >
+        <action
+            android:id="@+id/action_introFragment_to_basicDetailsFragment"
+            app:destination="@id/basicDetailsFragment" />
+    </fragment>
 </navigation>
