@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/frame_stepper"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -25,10 +25,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:stepperIconSize="@dimen/_20sdp"
+        app:stepperWidgetColor="@color/blue"
+        android:outlineAmbientShadowColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
         app:stepperItems="@menu/registration_steps"
-        app:stepperType="tab_numbered"
-        app:stepperWidgetColor="@color/blue" />
+        app:stepperType="tab_numbered" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
