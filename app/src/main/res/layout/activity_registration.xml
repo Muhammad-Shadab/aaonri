@@ -4,19 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.authentication.register.RegistrationActivity">
+    tools:context=".MainActivity">
 
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+    <fragment
+        android:id="@+id/frame_stepper"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stepper"
+        app:navGraph="@navigation/registration_steps_nav"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.aceinteract.android.stepper.StepperNavigationView
+        android:id="@+id/stepper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/registration_steps_nav" />
+        app:stepperItems="@menu/registration_steps"
+        app:stepperType="tab_numbered" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
