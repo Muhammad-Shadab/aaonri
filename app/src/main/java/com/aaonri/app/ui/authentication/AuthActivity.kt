@@ -1,18 +1,17 @@
-package com.aaonri.com.ui.authentication
+package com.aaonri.app.ui.authentication
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.aaonri.com.base.BaseActivity
-import com.aaonri.com.databinding.ActivityAuthBinding
+import com.aaonri.app.R
+import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.databinding.ActivityAuthBinding
 
 
 class AuthActivity : BaseActivity() {
-    var authBinding: ActivityAuthBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authBinding = ActivityAuthBinding.inflate(layoutInflater)
-        setContentView(authBinding?.root)
+        setContentView(R.layout.activity_auth)
 
         // hiding the status bar and making it transparent
         supportActionBar?.hide()

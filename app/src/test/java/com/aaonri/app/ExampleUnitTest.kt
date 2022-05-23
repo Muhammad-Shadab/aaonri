@@ -1,4 +1,4 @@
-package com.aaonri.com
+package com.aaonri.app
 
 import org.junit.Test
 

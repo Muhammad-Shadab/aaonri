@@ -1,9 +1,8 @@
-package com.aaonri.com.di
+package com.aaonri.app.di
 
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

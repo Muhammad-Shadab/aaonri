@@ -1,4 +1,4 @@
-package com.aaonri.com.base
+package com.aaonri.app.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

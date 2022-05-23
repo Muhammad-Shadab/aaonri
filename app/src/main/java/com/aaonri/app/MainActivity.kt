@@ -1,9 +1,9 @@
-package com.aaonri.com
+package com.aaonri.app
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.aaonri.com.base.BaseActivity
+import com.aaonri.app.base.BaseActivity
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.aaonri.com
+package com.aaonri.app
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
