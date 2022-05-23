@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/user_registration_graph"
+    android:id="@+id/intro_graph"
     app:startDestination="@id/introFragment">
 
     <fragment
@@ -11,8 +11,8 @@
         android:label="fragment_intro"
         tools:layout="@layout/fragment_intro" >
         <action
-            android:id="@+id/action_introFragment_to_user_registration_graph"
-            app:destination="@id/user_registration_graph" />
+            android:id="@+id/action_introFragment_to_registration_na_graph"
+            app:destination="@id/registration_na_graph" />
     </fragment>
-    <include app:graph="@navigation/user_registration_graph" />
+    <include app:graph="@navigation/registration_graph" />
 </navigation>
