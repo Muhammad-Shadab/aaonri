@@ -12,5 +12,9 @@
     <color name="blue">#355FA2</color>
     <color name="blueBtnColor">#355FA2</color>
     <color name="greenBtnColor">#40BC82</color>
+    <color name="lightWhite">#F9F9F9</color>
+    <color name="lightGrey">#D9D9D9</color>
+    <color name="hintColor">#979797</color>
+    <color name="editTextColor">#333333</color>
 
 </resources>
