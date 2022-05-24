@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/introFragment"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.LoginRegisterFragment"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.LoginFragment"
         android:label="fragment_intro"
-        tools:layout="@layout/fragment_login_register" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_introFragment_to_registration_na_graph"
             app:destination="@id/registration_na_graph" />

@@ -16,5 +16,6 @@
     <color name="lightGrey">#D9D9D9</color>
     <color name="hintColor">#979797</color>
     <color name="editTextColor">#333333</color>
+    <!--<color name="editTextColor">#707070</color>-->
 
 </resources>

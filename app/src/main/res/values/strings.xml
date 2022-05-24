@@ -6,6 +6,7 @@
     <string name="register_now">REGISTER NOW</string>
     <string name="guest_user"><u>Guest User</u></string>
     <string name="forgot_password"><u>Forgot Password</u></string>
+    <string name="create_account"><u>Create New Account</u></string>
     <string name="registration">Registration</string>
     <string name="address_line_1">Address Line 1*</string>
     <string name="address_line_2">Address Line 2*</string>
@@ -14,4 +15,6 @@
     <string name="login">LOGIN</string>
     <string name="email_address">Email Address*</string>
     <string name="password">Password*</string>
+    <string name="new_user">New User?</string>
+    <string name="connect_with">Connect with</string>
 </resources>
