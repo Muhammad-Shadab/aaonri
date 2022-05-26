@@ -18,5 +18,31 @@
         android:id="@+id/addressDetailsFragment2"
         android:name="com.aaonri.app.ui.authentication.register.fragment.AddressDetailsFragment"
         android:label="fragment_address_details"
-        tools:layout="@layout/fragment_address_details" />
+        tools:layout="@layout/fragment_address_details" >
+        <action
+            android:id="@+id/action_addressDetailsFragment2_to_locationDetailsFragment2"
+            app:destination="@id/locationDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailsFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.LocationDetailsFragment"
+        android:label="fragment_location_details"
+        tools:layout="@layout/fragment_location_details" >
+        <action
+            android:id="@+id/action_locationDetailsFragment2_to_servicesCategoryFragment2"
+            app:destination="@id/servicesCategoryFragment2" />
+        <action
+            android:id="@+id/action_locationDetailsFragment2_to_communityBottomFragment"
+            app:destination="@id/communityBottomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/servicesCategoryFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.ServicesCategoryFragment"
+        android:label="fragment_services_category"
+        tools:layout="@layout/fragment_services_category" />
+    <dialog
+        android:id="@+id/communityBottomFragment"
+        android:name="com.aaonri.app.CommunityBottomFragment"
+        android:label="fragment_community_bottom"
+        tools:layout="@layout/fragment_community_bottom" />
 </navigation>

@@ -17,8 +17,8 @@ class LoginFragment : Fragment() {
     ): View? {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
         introBinding?.apply {
-            loginBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_introFragment_to_registration_na_graph)
+            createAccountTv.setOnClickListener {
+                findNavController().navigate(R.id.action_introFragment_to_onbardingNavHostFragment)
             }
         }
 

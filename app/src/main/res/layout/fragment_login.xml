@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_70sdp"
             android:layout_marginEnd="@dimen/_32sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/login_to_explore"
@@ -41,11 +41,12 @@
             android:background="@drawable/edit_text_shape"
             android:fontFamily="@font/sf_pro_regular"
             android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
             android:lines="1"
             android:maxLines="1"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
             android:textColor="@color/editTextColor"
             android:textColorHint="@color/hintColor" />
 
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
+            android:minHeight="0dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
@@ -70,10 +72,9 @@
                 android:inputType="textPassword"
                 android:lines="1"
                 android:maxLines="1"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_20sdp"
-                android:paddingBottom="@dimen/_8sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_2sdp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
 
@@ -90,7 +91,7 @@
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/forgot_password"
             android:textColor="@color/blueBtnColor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_10sdp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
@@ -102,6 +103,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp" />
@@ -110,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -122,6 +124,7 @@
                 android:textSize="@dimen/_10sdp" />
 
             <TextView
+                android:id="@+id/createAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_2sdp"
@@ -219,7 +222,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <ImageView
         android:id="@+id/imageView2"

@@ -17,4 +17,23 @@
     <string name="password">Password*</string>
     <string name="new_user">New User?</string>
     <string name="connect_with">Connect with</string>
+    <string name="first_name">First Name*</string>
+    <string name="last_name">Last Name*</string>
+    <string name="password_must_contains_8_characters_1_uppercase_1_number"><![CDATA[Password must contains 8 characters, 1 uppercase & 1 number]]></string>
+    <string name="next">NEXT</string>
+    <string name="zip_code">Zip Code*</string>
+    <string name="select_country_of_origin">Select country of origin*</string>
+    <string name="select_your_community">Select your community*</string>
+    <string name="select_one_or_multiple_communities">Select one or multiple communities</string>
+    <string name="you_have_selected_communities">You have selected communities</string>
+    <string name="submit">SUBMIT</string>
+    <string name="choose_any_three_or_more_categories">Choose any three or more Categories</string>
+    <string name="as_you_have_selected">As you have selected Jobs module on AAONRI, check the box if you are a recruiter.</string>
+    <string name="your_company_s_email">Your Company\'s email</string>
+    <string name="choose_an_alias">Choose an alias name to be used on AAONRI \n (Chat, Immigration, and Messanger)</string>
+    <string name="your_company_s_email_id">Your Company\'s Email ID</string>
+    <string name="alias_name">Alias Name</string>
+    <string name="belong_to_any_cricket_league_in_nj_yes_or_no">Belong to any Cricket League in NJ? Yes or No</string>
+    <string name="just_want_my_full_name_as_my_alias_name">Just want my full name as my alias name.</string>
+    <string name="register_to_explore_all_services_offering_by_aaonri">Register to explore all services offering by AAONRI?</string>
 </resources>

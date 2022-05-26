@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background_gradient"
+    tools:context=".ui.authentication.register.fragment.LoginFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:background="@drawable/top_rounded_corner_shape"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.aceinteract.android.stepper.StepperNavigationView
+            android:id="@+id/stepper"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_height="wrap_content"
+            app:stepperItems="@menu/onboarding_steps_menu"
+            app:stepperType="tab_numbered" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_32sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="@string/register_to_explore_all_services_offering_by_aaonri"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/onBoardingNavHost"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/registration_graph" />
+
+
+    </LinearLayout>
+
+   <!-- <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/person"
+        android:translationY="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,8 +11,16 @@
         android:label="fragment_intro"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_introFragment_to_registration_na_graph"
-            app:destination="@id/registration_na_graph" />
+            android:id="@+id/action_introFragment_to_onbardingNavHostFragment"
+            app:destination="@id/onbardingNavHostFragment" />
     </fragment>
     <include app:graph="@navigation/registration_graph" />
+    <fragment
+        android:id="@+id/onbardingNavHostFragment"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.OnbardingNavHostFragment"
+        android:label="OnbardingNavHostFragment" >
+        <action
+            android:id="@+id/action_onbardingNavHostFragment_to_registration_na_graph"
+            app:destination="@id/registration_na_graph" />
+    </fragment>
 </navigation>
