@@ -7,24 +7,54 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.register.fragment.LoginFragment">
 
+    <ImageView
+        android:id="@+id/navigateBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:background="@drawable/blue_circle_shape"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/navigate_back"
+        app:layout_constraintBottom_toBottomOf="@+id/registrationText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/registrationText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <TextView
+        android:id="@+id/registrationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="@string/registration"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="31dp" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
         <com.aceinteract.android.stepper.StepperNavigationView
             android:id="@+id/stepper"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_height="wrap_content"
+            app:stepperIconSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             app:stepperItems="@menu/onboarding_steps_menu"
             app:stepperType="tab_numbered" />
 
@@ -32,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_32sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/register_to_explore_all_services_offering_by_aaonri"
@@ -51,7 +80,7 @@
 
     </LinearLayout>
 
-   <!-- <ImageView
+    <!-- <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

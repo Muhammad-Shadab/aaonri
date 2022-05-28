@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/basicDetailsFragment2"
-        android:title="Step 1" />
+        android:title="" />
 
     <item
         android:id="@+id/addressDetailsFragment2"
-        android:title="Step 2" />
+        android:title="" />
 
     <item
         android:id="@+id/locationDetailsFragment2"
-        android:title="Step 3" />
+        android:title="" />
 
     <item
         android:id="@+id/servicesCategoryFragment2"
-        android:title="Step 4" />
+        android:title="" />
 
 </menu>

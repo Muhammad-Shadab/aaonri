@@ -9,17 +9,18 @@
     app:strokeWidth="1dp">
 
     <TextView
-        android:id="@+id/communityText"
+        android:id="@+id/selectedCommunityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:paddingStart="@dimen/_16sdp"
+        android:background="@color/blueBtnColor"
         android:paddingTop="@dimen/_3sdp"
         android:paddingEnd="@dimen/_16sdp"
         android:paddingBottom="@dimen/_3sdp"
         android:text="demo Shadab"
-        android:textColor="@color/textViewColor"
+        android:textColor="@color/white"
         android:textSize="@dimen/_12sdp" />
 
 </com.google.android.material.card.MaterialCardView>

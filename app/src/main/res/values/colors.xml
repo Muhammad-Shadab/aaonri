@@ -18,7 +18,5 @@
     <color name="editTextColor">#333333</color>
     <color name="textViewColor">#333333</color>
     <color name="serviceCardLightBlue">#DFE9F6</color>
-    <!--<color name="checkBoxColor">#2F6CA8</color>-->
-    <!--<color name="editTextColor">#707070</color>-->
 
 </resources>

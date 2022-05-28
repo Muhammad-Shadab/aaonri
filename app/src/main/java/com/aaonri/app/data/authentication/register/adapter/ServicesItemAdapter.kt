@@ -20,7 +20,6 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
 
     private var data = listOf<ServicesModel>()
 
-
     var selectedCategoriesList: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -37,7 +36,7 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
                 servicesGridTv.text = data[position].title
 
                 itemView.setOnClickListener {
-                    if (selectedCategoriesList.contains(data[position].title)) {
+                    /*if () {
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -51,8 +50,7 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
                             )
                         )
 
-                    }
-                    if (selectedCategoriesList.isEmpty() || !selectedCategoriesList.contains(data[position].title)) {
+                    } else {
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -72,7 +70,7 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
                         showLayout(true)
                     } else {
                         showLayout(false)
-                    }
+                    }*/
                 }
             }
         }
