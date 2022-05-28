@@ -1,7 +1,9 @@
 package com.aaonri.app.data.authentication.register.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
@@ -63,6 +65,9 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<CommunityRecyclerViewHolder
             notifyDataSetChanged()
         }
 
+    var itemClickListener: ((view: View, item: CommunityRecyclerViewItem, position: Int) -> Unit)? =
+        null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommunityRecyclerViewHolder {
         return when (viewType) {
             R.layout.community_item -> CommunityRecyclerViewHolder.CommunityItemViewHolder(
@@ -82,6 +87,7 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<CommunityRecyclerViewHolder
     }
 
     override fun onBindViewHolder(holder: CommunityRecyclerViewHolder, position: Int) {
+        holder.itemClickListener = itemClickListener
         when (holder) {
             is CommunityRecyclerViewHolder.CommunityItemViewHolder -> holder.bind(items[position] as CommunityRecyclerViewItem.CommunityItem)
             is CommunityRecyclerViewHolder.SelectCommunityItemViewHolder -> holder.bind(items[position] as CommunityRecyclerViewItem.SelectedCommunityItem)

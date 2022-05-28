@@ -33,29 +33,18 @@ class LocationDetailsFragment : Fragment() {
 
         homeRecyclerViewAdapter = HomeRecyclerViewAdapter()
 
-        val homeList = mutableListOf<CommunityRecyclerViewItem>()
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
-        homeList.add(CommunityRecyclerViewItem.SelectedCommunityItem("Shadab"))
 
 
         locationDetailsBinding?.apply {
 
-            homeRecyclerViewAdapter?.items = homeList
-
-            /*if (commonViewModel.selectedCommunityList.isNotEmpty()) {
-                *//*communityItemAdapter!!.setData(commonViewModel.selectedCommunityList)*//*
-
-
+            if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+                homeRecyclerViewAdapter?.items = commonViewModel.selectedCommunityList
                 selectCommunityEt.visibility = View.GONE
                 selectedCommunitySizeTv.text =
                     "Your selected community (${commonViewModel.selectedCommunityList.size})"
             } else {
                 selectedCardView.visibility = View.GONE
-            }*/
+            }
 
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment2_to_communityBottomFragment)
