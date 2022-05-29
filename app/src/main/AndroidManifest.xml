@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aaonri.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.aaonri.app.base.ApplicationClass"
         android:allowBackup="true"
