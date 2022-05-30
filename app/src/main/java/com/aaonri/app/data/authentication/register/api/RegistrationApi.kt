@@ -1,7 +1,7 @@
 package com.aaonri.app.data.authentication.register.api
 
-import com.aaonri.app.data.authentication.register.model.CommunitiesListResponse
-import retrofit2.Response
+import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
+import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import retrofit2.http.GET
 
 interface RegistrationApi {

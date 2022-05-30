@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
-import com.aaonri.app.data.authentication.register.model.listOfService
+import com.aaonri.app.data.authentication.register.model.services.listOfService
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
 
 class ServicesCategoryFragment : Fragment() {

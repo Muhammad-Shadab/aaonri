@@ -1,4 +1,4 @@
-package com.aaonri.app.data.authentication.register.model
+package com.aaonri.app.data.authentication.register.model.community
 
 data class Community(
     val communityId: Int,

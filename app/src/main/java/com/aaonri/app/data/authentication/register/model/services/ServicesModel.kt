@@ -1,4 +1,4 @@
-package com.aaonri.app.data.authentication.register.model
+package com.aaonri.app.data.authentication.register.model.services
 
 import com.aaonri.app.R
 

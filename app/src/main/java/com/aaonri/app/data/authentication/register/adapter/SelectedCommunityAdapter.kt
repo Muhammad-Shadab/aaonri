@@ -3,11 +3,8 @@ package com.aaonri.app.data.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.Community
+import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.databinding.CommunitySelectedItemBinding
 
 class SelectedCommunityAdapter :

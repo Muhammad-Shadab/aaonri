@@ -56,7 +56,7 @@
         android:id="@+id/selectCountryBottomFragment"
         android:name="com.aaonri.app.ui.authentication.register.fragment.SelectCountryBottomFragment"
         android:label="fragment_select_country_bottom"
-        tools:layout="@layout/fragment_select_country_bottom" >
+        tools:layout="@layout/fragment_select_country_bottom">
         <action
             android:id="@+id/action_selectCountryBottomFragment_to_locationDetailsFragment2"
             app:destination="@id/locationDetailsFragment2" />

@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.CommunityItemAdapter
-import com.aaonri.app.data.authentication.register.model.Community
+import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
@@ -26,7 +25,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val registrationViewModel: RegistrationViewModel by viewModels()
     val commonViewModel: CommonViewModel by activityViewModels()
-    var communityItemAdapter: CommunityItemAdapter? = null
+    private var communityItemAdapter: CommunityItemAdapter? = null
     var communityBottomBinding: FragmentCommunityBottomBinding? = null
     var communities = listOf<Community>()
 
@@ -36,7 +35,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
-        registrationViewModel.getCommunities()
         getCommunities()
 
 
@@ -53,7 +51,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
                     "You have selected $size communities"
             }
-            if (communitiesList.isNotEmpty() ) {
+            if (communitiesList.isNotEmpty()) {
                 communities = communitiesList
                 if (commonViewModel.selectedCommunityList.isEmpty()) {
                     communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
@@ -90,6 +88,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCommunities() {
+        registrationViewModel.getCommunities()
         lifecycleScope.launchWhenCreated {
             registrationViewModel.communities.collect { response ->
                 when (response) {

@@ -1,5 +1,6 @@
 package com.aaonri.app.data.authentication.register.di
 
+import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
 import com.aaonri.app.util.Constant
@@ -40,8 +41,21 @@ object RegistrationModule {
 
     @Provides
     @Singleton
-    fun provideRegistrationRepository(registrationApi: RegistrationApi) =
-        RegistrationRepository(registrationApi)
+    fun providesCountryApi(): CountriesApi =
+        Retrofit.Builder()
+            .baseUrl("https://corona.lmao.ninja")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CountriesApi::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideRegistrationRepository(
+        registrationApi: RegistrationApi,
+        countriesApi: CountriesApi
+    ) =
+        RegistrationRepository(registrationApi, countriesApi)
 
 
 }

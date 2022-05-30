@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.ServicesModel
+import com.aaonri.app.data.authentication.register.model.services.ServicesModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
 import com.aaonri.app.databinding.ServicesGridItemBinding
 
