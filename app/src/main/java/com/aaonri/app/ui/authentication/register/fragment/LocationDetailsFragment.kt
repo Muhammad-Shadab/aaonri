@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -35,6 +36,18 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
+
+        if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+
+            selectedCommunityAdapter!!.setData(commonViewModel.selectedCommunityList)
+
+            locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
+            locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
+        } else {
+            locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
+        }
+
+
         locationDetailsBinding?.apply {
 
             selectMoreCommunityIv.setOnClickListener {
@@ -46,6 +59,9 @@ class LocationDetailsFragment : Fragment() {
             }
             selectCommunityEt.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment2_to_communityBottomFragment)
+            }
+            selectCountryOrigin.setOnClickListener {
+                findNavController().navigate(R.id.action_locationDetailsFragment2_to_selectCountryBottomFragment)
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)

@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_locationDetailsFragment2_to_communityBottomFragment"
             app:destination="@id/communityBottomFragment" />
+        <action
+            android:id="@+id/action_locationDetailsFragment2_to_selectCountryBottomFragment"
+            app:destination="@id/selectCountryBottomFragment" />
     </fragment>
     <fragment
         android:id="@+id/servicesCategoryFragment2"
@@ -42,11 +45,20 @@
         tools:layout="@layout/fragment_services_category" />
     <dialog
         android:id="@+id/communityBottomFragment"
-        android:name="com.aaonri.app.CommunityBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.CommunityBottomFragment"
         android:label="fragment_community_bottom"
         tools:layout="@layout/fragment_community_bottom">
         <action
             android:id="@+id/action_communityBottomFragment_to_locationDetailsFragment2"
+            app:destination="@id/locationDetailsFragment2" />
+    </dialog>
+    <dialog
+        android:id="@+id/selectCountryBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.SelectCountryBottomFragment"
+        android:label="fragment_select_country_bottom"
+        tools:layout="@layout/fragment_select_country_bottom" >
+        <action
+            android:id="@+id/action_selectCountryBottomFragment_to_locationDetailsFragment2"
             app:destination="@id/locationDetailsFragment2" />
     </dialog>
 </navigation>

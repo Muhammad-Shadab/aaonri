@@ -3,17 +3,23 @@ package com.aaonri.app.data.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.Community
+import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.CommunityItemBinding
+import javax.inject.Inject
 
 
-class CommunityItemAdapter :
+class CommunityItemAdapter(private var selectedCommunity: ((value: List<Community>) -> Unit)? = null) :
     RecyclerView.Adapter<CommunityItemAdapter.CustomViewHolder>() {
 
     private var data = listOf<Community>()
+
+    var selectedCommunityList = mutableListOf<Community>()
+    var savedCommunityList = mutableListOf<Community>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,19 +29,39 @@ class CommunityItemAdapter :
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
-        with(holder) {
-            with(binding) {
-                communityText.text = data[position].communityName
-                itemView.setOnClickListener {
-                    communityText.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    communityText.setBackgroundColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.blueBtnColor
-                        )
+        holder.binding.communityText.text = data[position].communityName
+
+        if (savedCommunityList.contains(data[position])) {
+            holder.binding.communityText.setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.blueBtnColor
+                )
+            )
+            holder.binding.communityText.setTextColor(context.getColor(R.color.white))
+        }
+
+        holder.itemView.setOnClickListener {
+            if (selectedCommunityList.contains(data[position])) {
+                selectedCommunityList.remove(data[position])
+                holder.binding.communityText.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.white
                     )
-                }
+                )
+                holder.binding.communityText.setTextColor(context.getColor(R.color.textViewColor))
+            } else {
+                holder.binding.communityText.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.blueBtnColor
+                    )
+                )
+                holder.binding.communityText.setTextColor(context.getColor(R.color.white))
+                selectedCommunityList.add(data[position])
             }
+            selectedCommunity?.let { it1 -> it1(selectedCommunityList) }
         }
     }
 

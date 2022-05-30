@@ -21,17 +21,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
+                <TextView
+                    android:id="@+id/selectCountryOrigin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:drawableRight="@drawable/arrow_down_spinner"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/select_country_of_origin"
-                    android:inputType="textEmailAddress"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -39,7 +38,8 @@
                     android:paddingEnd="@dimen/_8sdp"
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor" />
+                    android:textColorHint="@color/hintColor"
+                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 <EditText
                     android:layout_width="match_parent"
