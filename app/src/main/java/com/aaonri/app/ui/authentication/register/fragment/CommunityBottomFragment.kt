@@ -39,23 +39,34 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         registrationViewModel.getCommunities()
         getCommunities()
 
+
+        if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+            communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+            communityBottomBinding?.numberOfSelectedCommunity?.text =
+                "You have selected ${commonViewModel.selectedCommunityList.size} communities"
+        }
+
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
-            if (communitiesList.isNotEmpty()) {
+            if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+                val size: Int = communitiesList.size + commonViewModel.selectedCommunityList.size
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${communitiesList.size} communities"
+                    "You have selected $size communities"
+            }
+            if (communitiesList.isNotEmpty() ) {
                 communities = communitiesList
+                if (commonViewModel.selectedCommunityList.isEmpty()) {
+                    communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+                    communityBottomBinding?.numberOfSelectedCommunity?.text =
+                        "You have selected ${communitiesList.size} communities"
+                }
+
             } else {
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
         }
 
         if (commonViewModel.selectedCommunityList.isNotEmpty()) {
-            Toast.makeText(
-                context,
-                "${commonViewModel.selectedCommunityList.size}",
-                Toast.LENGTH_SHORT
-            ).show()
             communityItemAdapter?.savedCommunityList = commonViewModel.selectedCommunityList
         }
 
@@ -68,11 +79,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
             communitySubmitBtn.setOnClickListener {
                 commonViewModel.addCommunityList(communities)
-                Toast.makeText(
-                    context,
-                    "${commonViewModel.selectedCommunityList.size}",
-                    Toast.LENGTH_SHORT
-                ).show()
                 findNavController().navigate(R.id.action_communityBottomFragment_to_locationDetailsFragment2)
             }
 
@@ -100,4 +106,5 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
 }

@@ -38,13 +38,14 @@ class LocationDetailsFragment : Fragment() {
 
 
         if (commonViewModel.selectedCommunityList.isNotEmpty()) {
-
+            locationDetailsBinding?.selectedCommunitySizeTv?.text =
+                "Your selected community ${commonViewModel.selectedCommunityList.size}"
             selectedCommunityAdapter!!.setData(commonViewModel.selectedCommunityList)
-
             locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
             locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
         } else {
             locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
+            locationDetailsBinding?.selectedCardView?.visibility = View.GONE
         }
 
 

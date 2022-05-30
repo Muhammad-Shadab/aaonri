@@ -31,7 +31,7 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         val context = holder.itemView.context
         holder.binding.communityText.text = data[position].communityName
 
-        if (savedCommunityList.contains(data[position])) {
+        if (savedCommunityList.contains(data[position]) || selectedCommunityList.contains(data[position])) {
             holder.binding.communityText.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
@@ -42,8 +42,9 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         }
 
         holder.itemView.setOnClickListener {
-            if (selectedCommunityList.contains(data[position])) {
+            if (selectedCommunityList.contains(data[position]) || savedCommunityList.contains(data[position])) {
                 selectedCommunityList.remove(data[position])
+                savedCommunityList.remove(data[position])
                 holder.binding.communityText.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
