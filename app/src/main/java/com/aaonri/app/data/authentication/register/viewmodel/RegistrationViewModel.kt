@@ -1,7 +1,10 @@
 package com.aaonri.app.data.authentication.register.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.login.model.Login
+import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
@@ -12,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +32,7 @@ class RegistrationViewModel
         MutableStateFlow(Resource.Empty())
     val countriesList: StateFlow<Resource<CountriesResponse>> = mutableCountries
 
+    val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 
     fun getCommunities() = viewModelScope.launch {
         mutableCommunities.value = Resource.Loading()
@@ -45,6 +50,22 @@ class RegistrationViewModel
         }.collect { response ->
             mutableCountries.value = Resource.Success(response)
         }
+    }
+
+
+    fun loginUser(login: Login) = viewModelScope.launch {
+        loginData.postValue(Resource.Loading())
+        val response = repository.loginUser(login)
+        loginData.postValue(handleLoginResponse(response))
+    }
+
+    private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

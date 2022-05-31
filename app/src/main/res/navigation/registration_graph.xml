@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/basicDetailsFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.BasicDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.BasicDetailsFragment"
         android:label="fragment_basic_details"
         tools:layout="@layout/fragment_basic_details">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/addressDetailsFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.AddressDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.AddressDetailsFragment"
         android:label="fragment_address_details"
         tools:layout="@layout/fragment_address_details">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationDetailsFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.LocationDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.LocationDetailsFragment"
         android:label="fragment_location_details"
         tools:layout="@layout/fragment_location_details">
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/servicesCategoryFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.ServicesCategoryFragment"
+        android:name="com.aaonri.app.ui.authentication.register.ServicesCategoryFragment"
         android:label="fragment_services_category"
         tools:layout="@layout/fragment_services_category" />
     <dialog
         android:id="@+id/communityBottomFragment"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.CommunityBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.CommunityBottomFragment"
         android:label="fragment_community_bottom"
         tools:layout="@layout/fragment_community_bottom">
         <action
@@ -54,7 +54,7 @@
     </dialog>
     <dialog
         android:id="@+id/selectCountryBottomFragment"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.SelectCountryBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.SelectCountryBottomFragment"
         android:label="fragment_select_country_bottom"
         tools:layout="@layout/fragment_select_country_bottom">
         <action

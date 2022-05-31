@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.authentication.register.fragment
+package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
@@ -30,7 +31,6 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-
         if (commonViewModel.selectedCommunityList.isNotEmpty()) {
             locationDetailsBinding?.selectedCommunitySizeTv?.text =
                 "Your selected community ${commonViewModel.selectedCommunityList.size}"
@@ -45,7 +45,13 @@ class LocationDetailsFragment : Fragment() {
 
         locationDetailsBinding?.apply {
 
-            selectCountryOrigin.text = commonViewModel.selectedCountry
+            if (commonViewModel.selectedCountry?.first?.isNotEmpty() == true) {
+                countryFlagIcon.load(commonViewModel.selectedCountry?.second)
+                selectCountryOrigin.text = commonViewModel.selectedCountry?.first
+                countryFlagIcon.visibility = View.VISIBLE
+            } else {
+                countryFlagIcon.visibility = View.GONE
+            }
 
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment2_to_communityBottomFragment)

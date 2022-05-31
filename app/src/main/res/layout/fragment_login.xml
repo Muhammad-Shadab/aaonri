@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.authentication.register.fragment.LoginFragment">
+    tools:context=".ui.authentication.login.LoginFragment">
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -33,6 +34,7 @@
             android:textSize="@dimen/_14sdp" />
 
         <EditText
+            android:id="@+id/loginEmailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
@@ -46,11 +48,13 @@
             android:maxLines="1"
             android:paddingStart="@dimen/_12sdp"
             android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_12sdp"
             android:paddingBottom="@dimen/_6sdp"
             android:textColor="@color/editTextColor"
             android:textColorHint="@color/hintColor" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginPasswordTi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -61,7 +65,8 @@
             app:passwordToggleDrawable="@drawable/show_password_selector"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPasswordEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -74,6 +79,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/_12sdp"
                 android:paddingTop="@dimen/_2sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_2sdp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
@@ -211,6 +217,7 @@
                 android:src="@drawable/ic_apple" />
         </LinearLayout>
 
+
     </LinearLayout>
 
     <ImageView
@@ -234,5 +241,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressBarCommunityBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.authentication.register.fragment.RegistrationFragment">
+    tools:context=".ui.authentication.register.RegistrationFragment">
 
     <TextView
         android:id="@+id/textView"

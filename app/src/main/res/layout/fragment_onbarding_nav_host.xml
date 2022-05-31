@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.authentication.register.fragment.LoginFragment">
+    tools:context=".ui.authentication.login.LoginFragment">
 
     <ImageView
         android:id="@+id/navigateBack"
@@ -53,10 +53,11 @@
             android:id="@+id/stepper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:stepperIconSize="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_12sdp"
+            app:stepperIconSize="@dimen/_20sdp"
             app:stepperItems="@menu/onboarding_steps_menu"
-            app:stepperType="tab_numbered" />
+            app:stepperType="tab_numbered"
+            app:stepperWidgetColor="@color/blueBtnColor" />
 
         <TextView
             android:layout_width="wrap_content"

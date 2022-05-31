@@ -1,10 +1,12 @@
-package com.aaonri.app.ui.authentication.register.fragment
+package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -99,6 +101,12 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                     is Resource.Success -> {
                         communityBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
                         response.data?.community?.let { communityItemAdapter?.setData(it) }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                        Log.i("Loading", "Error: ${response.message}")
+                        communityBottomBinding?.progressBarCommunityBottom?.visibility =
+                            View.GONE
                     }
                     else -> {}
                 }

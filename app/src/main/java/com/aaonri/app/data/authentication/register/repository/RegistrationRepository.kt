@@ -1,5 +1,7 @@
 package com.aaonri.app.data.authentication.register.repository
 
+import com.aaonri.app.data.authentication.login.model.Login
+import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
@@ -23,5 +25,7 @@ class RegistrationRepository @Inject constructor(
         emit(countriesApi.getCountriesList())
     }.flowOn(Dispatchers.IO)
 
+
+    suspend fun loginUser(login: Login) = registrationApi.userLogin(login)
 
 }
