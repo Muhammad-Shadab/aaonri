@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_rounded_corner_shape"
     tools:context=".ui.authentication.register.ServicesCategoryFragment">
 
     <LinearLayout
@@ -24,7 +23,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/servicesGridRecyclerView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_8sdp"

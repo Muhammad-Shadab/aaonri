@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,9 +42,10 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             FragmentSelectCountryBottomBinding.inflate(inflater, container, false)
 
         getCountries()
-        countryAdapter = CountryAdapter { countryName, countryFlag ->
-            commonViewModel.selectCountry(countryName, countryFlag)
-            findNavController().navigate(R.id.action_selectCountryBottomFragment_to_locationDetailsFragment2)
+
+        countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
+            commonViewModel.selectCountry(countryName, countryFlag, countryCode)
+            findNavController().navigateUp()
         }
 
         countryBottomBinding?.apply {

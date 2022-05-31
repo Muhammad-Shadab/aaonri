@@ -2,6 +2,7 @@ package com.aaonri.app.data.authentication.register.di
 
 import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
+import com.aaonri.app.data.authentication.register.api.ZipCodeApi
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
 import com.aaonri.app.util.Constant
 import dagger.Module
@@ -52,14 +53,24 @@ object RegistrationModule {
             .build()
             .create(CountriesApi::class.java)
 
+    @Provides
+    @Singleton
+    fun providesZipCodeApi(): ZipCodeApi =
+        Retrofit.Builder()
+            .baseUrl("https://api.worldpostallocations.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ZipCodeApi::class.java)
+
 
     @Provides
     @Singleton
     fun provideRegistrationRepository(
         registrationApi: RegistrationApi,
-        countriesApi: CountriesApi
+        countriesApi: CountriesApi,
+        zipCodeApi: ZipCodeApi
     ) =
-        RegistrationRepository(registrationApi, countriesApi)
+        RegistrationRepository(registrationApi, countriesApi, zipCodeApi)
 
 
 }

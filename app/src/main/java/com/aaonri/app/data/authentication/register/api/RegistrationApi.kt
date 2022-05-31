@@ -4,6 +4,7 @@ import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,6 +15,9 @@ interface RegistrationApi {
 
     @GET("/api/v1/community/activecommunities")
     suspend fun getAllCommunities(): CommunitiesListResponse
+
+    @GET("api/v1/interests/all")
+    suspend fun getAllServicesInterest(): ServicesResponse
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/authorize")

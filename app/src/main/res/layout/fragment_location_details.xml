@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_rounded_corner_shape"
     tools:context=".ui.authentication.register.LocationDetailsFragment">
 
     <ImageView
@@ -67,40 +66,17 @@
 
                 </LinearLayout>
 
-
-                <!--
-                                <TextView
-                                    android:id="@+id/selectCountryOrigin"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_20sdp"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    android:layout_marginEnd="@dimen/_20sdp"
-                                    android:background="@drawable/edit_text_shape"
-                                    android:fontFamily="@font/sf_pro_regular"
-                                    android:hint="@string/select_country_of_origin"
-                                    android:lines="1"
-                                    android:maxLines="1"
-                                    android:paddingStart="@dimen/_16sdp"
-                                    android:paddingTop="@dimen/_6sdp"
-                                    android:paddingEnd="@dimen/_8sdp"
-                                    android:paddingBottom="@dimen/_6sdp"
-                                    android:textColor="@color/editTextColor"
-                                    android:textColorHint="@color/hintColor"
-                                    android:textSize="@dimen/_14sdp"
-                                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
-                -->
-
                 <EditText
+                    android:id="@+id/zipCodeLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/state"
-                    android:inputType="textEmailAddress"
+                    android:hint="@string/zip_code"
+                    android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -110,7 +86,28 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/stateLocationDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:hint="@string/state"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/cityLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
@@ -127,7 +124,8 @@
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor" />
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
                     android:id="@+id/selectCommunityEt"
@@ -147,6 +145,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/_14sdp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -156,6 +155,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:strokeColor="@color/lightGrey"
                     app:strokeWidth="@dimen/_1sdp">

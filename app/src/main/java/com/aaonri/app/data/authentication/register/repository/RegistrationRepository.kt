@@ -4,8 +4,10 @@ import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
+import com.aaonri.app.data.authentication.register.api.ZipCodeApi
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
     private val registrationApi: RegistrationApi,
-    private val countriesApi: CountriesApi
+    private val countriesApi: CountriesApi,
+    private val zipCodeApi: ZipCodeApi
 ) {
 
     fun getCommunitiesList(): Flow<CommunitiesListResponse> = flow {
@@ -25,7 +28,13 @@ class RegistrationRepository @Inject constructor(
         emit(countriesApi.getCountriesList())
     }.flowOn(Dispatchers.IO)
 
+    fun getServicesInterest(): Flow<ServicesResponse> = flow {
+        emit(registrationApi.getAllServicesInterest())
+    }.flowOn(Dispatchers.IO)
 
     suspend fun loginUser(login: Login) = registrationApi.userLogin(login)
+
+    suspend fun getLocationByZipCode(postalCode: String, countryCode: String) =
+        zipCodeApi.getLocation(postalCode, countryCode)
 
 }

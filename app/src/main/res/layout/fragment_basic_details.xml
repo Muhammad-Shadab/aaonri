@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_rounded_corner_shape"
     tools:context=".ui.authentication.register.BasicDetailsFragment">
 
     <ImageView
@@ -53,6 +52,7 @@
             </FrameLayout>
 
             <EditText
+                android:id="@+id/firstNameBasicDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -73,6 +73,7 @@
 
 
             <EditText
+                android:id="@+id/lastNameBasicDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -92,6 +93,7 @@
                 android:textColorHint="@color/hintColor" />
 
             <EditText
+                android:id="@+id/emailAddressBasicDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -121,7 +123,8 @@
                 app:passwordToggleDrawable="@drawable/show_password_selector"
                 app:passwordToggleEnabled="true">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordBasicDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"

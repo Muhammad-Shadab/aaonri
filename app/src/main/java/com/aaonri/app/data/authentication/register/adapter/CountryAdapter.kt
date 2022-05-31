@@ -12,7 +12,7 @@ import com.aaonri.app.data.authentication.register.model.countries.CountriesResp
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.databinding.CountryLayoutItemBinding
 
-class CountryAdapter(private var countryClicked: ((countryName: String, countryFlag: String) -> Unit)? = null) :
+class CountryAdapter(private var countryClicked: ((countryName: String, countryFlag: String, countryCode: String) -> Unit)? = null) :
     RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
 
     private var data = listOf<CountriesResponseItem>()
@@ -27,7 +27,13 @@ class CountryAdapter(private var countryClicked: ((countryName: String, countryF
         val currentFlag = data[position].countryInfo
         with(holder) {
             itemView.setOnClickListener {
-                countryClicked?.let { it1 -> it1(data[position].country, currentFlag.flag) }
+                countryClicked?.let { it1 ->
+                    it1(
+                        data[position].country,
+                        currentFlag.flag,
+                        data[position].countryInfo.iso2
+                    )
+                }
             }
             with(binding) {
                 countryIcon.load(currentFlag.flag)

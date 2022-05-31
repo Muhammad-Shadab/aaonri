@@ -1,26 +1,20 @@
 package com.aaonri.app.data.authentication.register.adapter
 
 import android.annotation.SuppressLint
-import android.os.strictmode.UnsafeIntentLaunchViolation
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.services.ServicesModel
-import com.aaonri.app.databinding.FragmentServicesCategoryBinding
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
 
-class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
+class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit)) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
 
-    private var data = listOf<ServicesModel>()
+    private var data = listOf<ServicesResponseItem>()
 
-    var selectedCategoriesList: MutableList<String> = mutableListOf()
+    var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,11 +26,27 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-                servicesGridIv.load(data[position].image)
-                servicesGridTv.text = data[position].title
+                servicesGridTv.text = data[position].interestDesc
+
+                if (selectedCategoriesList.contains(data[position])) {
+                    selectedCategoriesList.add(data[position])
+                    servicesGridIv.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.white
+                        )
+                    )
+                    servicesGridIv.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.blueBtnColor
+                        )
+                    )
+                }
 
                 itemView.setOnClickListener {
-                    /*if () {
+                    if (selectedCategoriesList.contains(data[position])) {
+                        selectedCategoriesList.remove(data[position])
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -49,8 +59,8 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
                                 R.color.serviceCardLightBlue
                             )
                         )
-
                     } else {
+                        selectedCategoriesList.add(data[position])
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -63,14 +73,8 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
                                 R.color.blueBtnColor
                             )
                         )
-                        selectedCategoriesList.add(data[position].title)
                     }
-
-                    if (selectedCategoriesList.size >= 3) {
-                        showLayout(true)
-                    } else {
-                        showLayout(false)
-                    }*/
+                    selectedServices(selectedCategoriesList)
                 }
             }
         }
@@ -79,7 +83,7 @@ class ServicesItemAdapter(private var showLayout: ((value: Boolean) -> Unit)) :
     override fun getItemCount() = data.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<ServicesModel>) {
+    fun setData(data: List<ServicesResponseItem>) {
         this.data = data
         notifyDataSetChanged()
     }

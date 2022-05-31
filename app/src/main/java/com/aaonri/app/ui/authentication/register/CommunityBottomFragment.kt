@@ -39,14 +39,27 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
 
+        communityItemAdapter = CommunityItemAdapter { communitiesList ->
+            if (communitiesList.isNotEmpty()) {
+                communities = communitiesList
+                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+                communityBottomBinding?.numberOfSelectedCommunity?.text =
+                    "You have selected ${communitiesList.size} communities"
+            }
 
-        if (commonViewModel.selectedCommunityList.isNotEmpty()) {
-            communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
-            communityBottomBinding?.numberOfSelectedCommunity?.text =
-                "You have selected ${commonViewModel.selectedCommunityList.size} communities"
+            commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
+                communityItemAdapter?.savedCommunityList = selectedCommunitiesList
+            }
         }
 
-        communityItemAdapter = CommunityItemAdapter { communitiesList ->
+
+        /* if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+             communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+             communityBottomBinding?.numberOfSelectedCommunity?.text =
+                 "You have selected ${commonViewModel.selectedCommunityList.size} communities"
+         }*/
+
+        /*communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (commonViewModel.selectedCommunityList.isNotEmpty()) {
                 val size: Int = communitiesList.size + commonViewModel.selectedCommunityList.size
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
@@ -64,12 +77,12 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             } else {
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
-        }
+        }*/
 
-        if (commonViewModel.selectedCommunityList.isNotEmpty()) {
+        /*if (commonViewModel.selectedCommunityList.isNotEmpty()) {
             communityItemAdapter?.savedCommunityList = commonViewModel.selectedCommunityList
         }
-
+*/
 
         communityBottomBinding?.apply {
 
@@ -78,8 +91,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
 
             communitySubmitBtn.setOnClickListener {
-                commonViewModel.addCommunityList(communities)
-                findNavController().navigate(R.id.action_communityBottomFragment_to_locationDetailsFragment2)
+                commonViewModel.addCommunityList(communities as MutableList<Community>)
+                findNavController().navigateUp()
             }
 
             rvBottomFragment.layoutManager = FlexboxLayoutManager(context)

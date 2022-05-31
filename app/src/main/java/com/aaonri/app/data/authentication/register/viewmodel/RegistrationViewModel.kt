@@ -7,6 +7,8 @@ import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
+import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
 import com.example.newsapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,11 +30,17 @@ class RegistrationViewModel
         MutableStateFlow(Resource.Empty())
     val communities: StateFlow<Resource<CommunitiesListResponse>> = mutableCommunities
 
+    private var mutableServices: MutableStateFlow<Resource<ServicesResponse>> =
+        MutableStateFlow(Resource.Empty())
+    val service: StateFlow<Resource<ServicesResponse>> = mutableServices
+
     private var mutableCountries: MutableStateFlow<Resource<CountriesResponse>> =
         MutableStateFlow(Resource.Empty())
     val countriesList: StateFlow<Resource<CountriesResponse>> = mutableCountries
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+
+    val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
     fun getCommunities() = viewModelScope.launch {
         mutableCommunities.value = Resource.Loading()
@@ -52,6 +60,14 @@ class RegistrationViewModel
         }
     }
 
+    fun getServices() = viewModelScope.launch {
+        mutableServices.value = Resource.Loading()
+        repository.getServicesInterest().catch { e ->
+            mutableServices.value = Resource.Error(e.localizedMessage)
+        }.collect { response ->
+            mutableServices.value = Resource.Success(response)
+        }
+    }
 
     fun loginUser(login: Login) = viewModelScope.launch {
         loginData.postValue(Resource.Loading())
@@ -67,5 +83,21 @@ class RegistrationViewModel
         }
         return Resource.Error(response.message())
     }
+
+    fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
+        zipCodeData.postValue(Resource.Loading())
+        val response = repository.getLocationByZipCode(postalCode, countryCode)
+        zipCodeData.postValue(handleZipCodeResponse(response))
+    }
+
+    private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 
 }

@@ -1,22 +1,74 @@
 package com.aaonri.app.data.authentication.register.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.community.Community
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
+import com.example.newsapp.utils.Resource
 
 class CommonViewModel : ViewModel() {
 
-    var selectedCommunityList = mutableListOf<Community>()
+    var basicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedCountry: Pair<String, String>? = null
+    var locationDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
-    fun addCommunityList(value: List<Community>) {
-        selectedCommunityList.addAll(value)
+    var addressDetails: MutableMap<String, String> = mutableMapOf()
+        private set
+
+    var selectedCommunityList: MutableLiveData<MutableList<Community>> = MutableLiveData()
+        private set
+
+    var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
+        private set
+
+    var selectedCountry: MutableLiveData<Triple<String, String, String>>? = MutableLiveData()
+        private set
+
+    fun addCommunityList(value: MutableList<Community>) {
+        selectedCommunityList.value = value
     }
 
-    fun selectCountry(value: String, countryFlag: String) {
-        selectedCountry = Pair(first = value, second = countryFlag)
+    fun addServicesList(value: MutableList<ServicesResponseItem>) {
+        selectedServicesList.value = value
+    }
+
+    fun selectCountry(value: String, countryFlag: String, countryCode: String) {
+        selectedCountry?.value = Triple(first = value, second = countryFlag, third = countryCode)
+    }
+
+    fun addBasicDetails(
+        firstName: String,
+        lastName: String,
+        emailAddress: String,
+        password: String
+    ) {
+        basicDetailsMap["firstName"] = firstName
+        basicDetailsMap["lastName"] = lastName
+        basicDetailsMap["emailAddress"] = emailAddress
+        basicDetailsMap["password"] = password
+    }
+
+    fun addLocationDetails(
+        zipCode: String,
+        state: String,
+        city: String
+    ) {
+        locationDetails["zipCode"] = zipCode
+        locationDetails["state"] = state
+        locationDetails["city"] = city
+    }
+
+    fun addAddressDetails(
+        address1: String,
+        address2: String,
+        phoneNumber: String
+    ) {
+        addressDetails["address1"] = address1
+        addressDetails["address2"] = address2
+        addressDetails["phoneNumber"] = phoneNumber
     }
 
 

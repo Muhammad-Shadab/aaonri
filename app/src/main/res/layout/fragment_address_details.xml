@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_rounded_corner_shape"
     tools:context=".ui.authentication.register.AddressDetailsFragment">
 
 
@@ -27,6 +26,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/address1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -46,6 +46,7 @@
                 android:textColorHint="@color/hintColor" />
 
             <EditText
+                android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -64,46 +65,8 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="@string/zip_code"
-                android:inputType="textEmailAddress"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@drawable/edit_text_shape"
-                android:drawableRight="@drawable/arrow_down_spinner"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="@string/state"
-                android:inputType="textEmailAddress"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
-
-            <EditText
+            <TextView
+                android:id="@+id/cityNameAddressDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -112,7 +75,6 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
                 android:hint="@string/city"
-                android:inputType="textEmailAddress"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
@@ -120,10 +82,11 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/_14sdp" />
 
-
-            <EditText
+            <TextView
+                android:id="@+id/stateNameAddressDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -131,8 +94,29 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
-                android:hint="Phone Number*"
-                android:inputType="textEmailAddress"
+                android:hint="@string/state"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/_14sdp" />
+
+
+            <EditText
+                android:id="@+id/phoneNumberAddressDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"

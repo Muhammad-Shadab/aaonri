@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Real State"
+        android:textAlignment="center"
         android:textColor="@color/textViewColor"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
