@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
@@ -39,6 +41,8 @@ class RegistrationViewModel
     val countriesList: StateFlow<Resource<CountriesResponse>> = mutableCountries
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+
+    val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
     val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
@@ -76,6 +80,21 @@ class RegistrationViewModel
     }
 
     private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun registerUser(registerRequest: RegisterRequest) = viewModelScope.launch {
+        registerData.postValue(Resource.Loading())
+        val response = repository.registerUser(registerRequest)
+        registerData.postValue(handleRegisterResponse(response))
+    }
+
+    private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

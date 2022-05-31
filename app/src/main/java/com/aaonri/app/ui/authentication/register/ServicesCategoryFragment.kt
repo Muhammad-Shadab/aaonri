@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
+import com.aaonri.app.data.authentication.register.model.add_user.Community
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.model.services.listOfService
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
@@ -36,6 +38,9 @@ class ServicesCategoryFragment : Fragment() {
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()
 
+        val companyEmail = servicesGridItemBinding?.companyEmailServices?.text
+        val aliasName = servicesGridItemBinding?.aliasNameServices?.text
+
         adapter = ServicesItemAdapter { selectedCommunity ->
             commonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
         }
@@ -46,12 +51,80 @@ class ServicesCategoryFragment : Fragment() {
             } else {
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }
-            Toast.makeText(context, "${it.size}", Toast.LENGTH_SHORT).show()
         }
 
         servicesGridItemBinding?.apply {
+            serviceSubmitBtn.setOnClickListener {
+                if (companyEmail.toString().isNotEmpty() && aliasName.toString().isNotEmpty()) {
+                    commonViewModel.addCompanyEmailAliasName(
+                        companyEmail.toString(),
+                        aliasName.toString()
+                    )
+                    registrationViewModel.registerUser(
+                        RegisterRequest(
+                            activeUser = true,
+                            address1 = commonViewModel.addressDetails["address1"]!!,
+                            address2 = commonViewModel.addressDetails["address2"]!!,
+                            aliasName = commonViewModel.companyEmailAliasName!!.value!!.first,
+                            authorized = true,
+                            city = "bulandshahr",
+                            community = listOf(
+                                Community(1, "Home Needs"),
+                                Community(2, "Foundation & Donations")
+                            ),
+                            commonViewModel.companyEmailAliasName!!.value!!.second,
+                            emailId = commonViewModel.basicDetailsMap["emailAddress"]!!,
+                            firstName = commonViewModel.basicDetailsMap["firstName"]!!,
+                            interests = "1,4,19",
+                            isAdmin = 0,
+                            isFullNameAsAliasName = true,
+                            isJobRecruiter = false,
+                            isPrimeUser = false,
+                            isSurveyCompleted = false,
+                            lastName = commonViewModel.basicDetailsMap["lastName"]!!,
+                            newsletter = false,
+                            originCity = "",
+                            originCountry = "",
+                            originState = "",
+                            password = commonViewModel.basicDetailsMap["password"]!!,
+                            phoneNo = commonViewModel.addressDetails["phoneNumber"]!!,
+                            picture = "",
+                            regdEmailSent = false,
+                            registeredBy = "manual",
+                            userName = "asjdas sdaksd",
+                            zipcode = "203001"
+                        )
+                    )
+                } else {
+                    Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                }
+            }
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
+        }
+
+        registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    Toast.makeText(context, "${response.data?.status}", Toast.LENGTH_SHORT)
+                        .show()
+                    /*if (response.data?.userName.equals("failed")) {
+                        Toast.makeText(context, "Check your email and password", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        Toast.makeText(context, "Successfully login", Toast.LENGTH_SHORT)
+                            .show()
+                    }*/
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
         }
 
         return servicesGridItemBinding?.root
@@ -63,12 +136,14 @@ class ServicesCategoryFragment : Fragment() {
             registrationViewModel.service.collect { response ->
                 when (response) {
                     is Resource.Loading -> {
-
+                        servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+                        servicesGridItemBinding?.progressBar?.visibility = View.GONE
                         response.data?.let { adapter?.setData(it) }
                     }
                     is Resource.Error -> {
+                        servicesGridItemBinding?.progressBar?.visibility = View.GONE
                         Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                     }
                     else -> {}

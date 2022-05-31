@@ -48,7 +48,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
 
             commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
-                communityItemAdapter?.savedCommunityList = selectedCommunitiesList
+                communityItemAdapter?.savedCommunityList = selectedCommunitiesList as MutableList<Community>
             }
         }
 

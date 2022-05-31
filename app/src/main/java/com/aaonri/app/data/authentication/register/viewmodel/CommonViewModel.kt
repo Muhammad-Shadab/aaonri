@@ -2,10 +2,8 @@ package com.aaonri.app.data.authentication.register.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
-import com.example.newsapp.utils.Resource
 
 class CommonViewModel : ViewModel() {
 
@@ -18,13 +16,16 @@ class CommonViewModel : ViewModel() {
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedCommunityList: MutableLiveData<MutableList<Community>> = MutableLiveData()
+    var selectedCommunityList: MutableLiveData<List<Community>> = MutableLiveData()
         private set
 
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
 
     var selectedCountry: MutableLiveData<Triple<String, String, String>>? = MutableLiveData()
+        private set
+
+    var companyEmailAliasName: MutableLiveData<Pair<String, String>>? = MutableLiveData()
         private set
 
     fun addCommunityList(value: MutableList<Community>) {
@@ -69,6 +70,10 @@ class CommonViewModel : ViewModel() {
         addressDetails["address1"] = address1
         addressDetails["address2"] = address2
         addressDetails["phoneNumber"] = phoneNumber
+    }
+
+    fun addCompanyEmailAliasName(companyEmail: String, aliasName: String) {
+        companyEmailAliasName?.value = Pair(companyEmail, aliasName)
     }
 
 

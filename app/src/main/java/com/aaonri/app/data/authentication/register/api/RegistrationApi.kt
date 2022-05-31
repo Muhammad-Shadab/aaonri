@@ -2,6 +2,8 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
@@ -22,5 +24,9 @@ interface RegistrationApi {
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/authorize")
     suspend fun userLogin(@Body login: Login): Response<LoginResponse>
+
+    @Headers("Content-Type:application/json")
+    @POST("/api/v1/user/add")
+    suspend fun userRegister(@Body registerRequest: RegisterRequest): Response<RegisterationResponse>
 
 }
