@@ -21,12 +21,6 @@
             android:text="@string/choose_any_three_or_more_categories"
             android:textColor="@color/black" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/servicesGridRecyclerView"
@@ -122,6 +116,7 @@
                         android:maxLines="1"
                         android:paddingStart="@dimen/_16sdp"
                         android:paddingTop="@dimen/_6sdp"
+                        android:paddingEnd="@dimen/_16sdp"
                         android:paddingBottom="@dimen/_6sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor" />
@@ -151,6 +146,7 @@
                         android:maxLines="1"
                         android:paddingStart="@dimen/_16sdp"
                         android:paddingTop="@dimen/_6sdp"
+                        android:paddingEnd="@dimen/_16sdp"
                         android:paddingBottom="@dimen/_6sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor" />
@@ -232,6 +228,13 @@
 
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
     </LinearLayout>
 

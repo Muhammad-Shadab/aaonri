@@ -11,7 +11,7 @@
         android:id="@+id/servicesGridCv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        app:cardBackgroundColor="@color/white"
         android:padding="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_50sdp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -156,6 +156,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:visibility="gone"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:strokeColor="@color/lightGrey"
                     app:strokeWidth="@dimen/_1sdp">

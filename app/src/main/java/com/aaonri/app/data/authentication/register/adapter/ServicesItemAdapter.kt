@@ -27,7 +27,6 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
         holder.apply {
             binding.apply {
                 servicesGridTv.text = data[position].interestDesc
-
                 if (selectedCategoriesList.contains(data[position])) {
                     selectedCategoriesList.add(data[position])
                     servicesGridIv.setColorFilter(
@@ -40,6 +39,19 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
                         ContextCompat.getColor(
                             context,
                             R.color.blueBtnColor
+                        )
+                    )
+                } else {
+                    servicesGridIv.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.blueBtnColor
+                        )
+                    )
+                    servicesGridIv.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.serviceCardLightBlue
                         )
                     )
                 }

@@ -37,6 +37,15 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
             )
             holder.binding.communityText.setTextColor(context.getColor(R.color.white))
         }
+        else {
+            holder.binding.communityText.setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.white
+                )
+            )
+            holder.binding.communityText.setTextColor(context.getColor(R.color.textViewColor))
+        }
 
         holder.itemView.setOnClickListener {
             if (selectedCommunityList.contains(data[position]) || savedCommunityList.contains(data[position])) {

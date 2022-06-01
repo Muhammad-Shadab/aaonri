@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
@@ -98,6 +100,7 @@ class ServicesCategoryFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
                 }
+
             }
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
@@ -106,19 +109,17 @@ class ServicesCategoryFragment : Fragment() {
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
+                    servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    Toast.makeText(context, "${response.data?.status}", Toast.LENGTH_SHORT)
-                        .show()
-                    /*if (response.data?.userName.equals("failed")) {
-                        Toast.makeText(context, "Check your email and password", Toast.LENGTH_SHORT)
+                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    if (response.data?.status.equals("true")) {
+                        Toast.makeText(context, "Successfully Registered", Toast.LENGTH_LONG)
                             .show()
-                    } else {
-                        Toast.makeText(context, "Successfully login", Toast.LENGTH_SHORT)
-                            .show()
-                    }*/
+                    }
                 }
                 is Resource.Error -> {
+                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

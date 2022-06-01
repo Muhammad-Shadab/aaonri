@@ -75,6 +75,7 @@ class LoginFragment : Fragment() {
                         Toast.makeText(context, "Check your email and password", Toast.LENGTH_SHORT)
                             .show()
                     } else {
+                        findNavController().navigate(R.id.action_introFragment_to_dashboard_nav_graph)
                         Toast.makeText(context, "Successfully login", Toast.LENGTH_SHORT)
                             .show()
                     }

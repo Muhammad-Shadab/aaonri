@@ -82,7 +82,8 @@
                 android:paddingEnd="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_2sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/_14sdp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
