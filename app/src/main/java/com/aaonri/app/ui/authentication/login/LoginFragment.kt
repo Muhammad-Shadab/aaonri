@@ -29,13 +29,13 @@ class LoginFragment : Fragment() {
     ): View? {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        val userEmail = introBinding?.loginEmailEt?.text
-        val loginPasswordEt = introBinding?.loginPasswordEt?.text
-
-
         introBinding?.apply {
 
             loginBtn.setOnClickListener {
+
+                val userEmail = loginEmailEt.text
+                val loginPasswordEt = loginPasswordEt.text
+
                 if (userEmail?.toString()?.isNotEmpty() == true && loginPasswordEt?.toString()
                         ?.isNotEmpty() == true
                 ) {

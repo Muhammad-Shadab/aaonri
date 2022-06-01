@@ -125,6 +125,7 @@ class ServicesCategoryFragment : Fragment() {
                 is Resource.Success -> {
                     servicesGridItemBinding?.progressBar?.visibility = View.GONE
                     if (response.data?.status.equals("true")) {
+                        //findNavController().navigate(R.id.action_onbardingNavHostFragment_to_introFragment)
                         Toast.makeText(context, "Successfully Registered", Toast.LENGTH_LONG)
                             .show()
                     } else {

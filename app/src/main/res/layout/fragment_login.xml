@@ -8,7 +8,7 @@
     tools:context=".ui.authentication.login.LoginFragment">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,23 +22,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/loginToExploreTv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_70sdp"
-            android:layout_marginEnd="@dimen/_32sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="86dp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/login_to_explore"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/loginEmailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/edit_text_shape"
             android:fontFamily="@font/sf_pro_regular"
@@ -51,17 +56,25 @@
             android:paddingEnd="@dimen/_12sdp"
             android:paddingBottom="@dimen/_6sdp"
             android:textColor="@color/editTextColor"
-            android:textColorHint="@color/hintColor" />
+            android:textColorHint="@color/hintColor"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginToExploreTv" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginPasswordTi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:minHeight="0dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/loginEmailEt"
             app:passwordToggleDrawable="@drawable/show_password_selector"
             app:passwordToggleEnabled="true">
 
@@ -69,8 +82,6 @@
                 android:id="@+id/loginPasswordEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
                 android:hint="@string/password"
@@ -87,18 +98,20 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <TextView
             android:id="@+id/guestUserTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_24sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/forgot_password"
             android:textColor="@color/blueBtnColor"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginPasswordTi"
+            tools:layout_editor_absoluteX="185dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
@@ -106,22 +119,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="52dp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:minHeight="0dp"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginPasswordTi"
+            tools:layout_editor_absoluteX="0dp" />
 
         <LinearLayout
+            android:id="@+id/createNewAccountLinear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginBtn">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -160,13 +182,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/connectWithUs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_20sdp"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_24sdp"
-            android:gravity="center">
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createNewAccountLinear">
 
             <View
                 android:layout_width="@dimen/_100sdp"
@@ -196,7 +223,11 @@
             android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_24sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/connectWithUs">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -212,9 +243,10 @@
                 android:src="@drawable/ic_facebook" />
 
         </LinearLayout>
+        -->
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView"
@@ -230,7 +262,7 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/logo_background_shape"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"

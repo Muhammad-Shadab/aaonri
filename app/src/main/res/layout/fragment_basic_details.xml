@@ -152,7 +152,7 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/sf_pro_regular"
                 android:text="@string/password_must_contains_8_characters_1_uppercase_1_number"
-                android:textColor="@color/textViewColor"
+                android:textColor="#757575"
                 android:textSize="@dimen/_10sdp" />
 
             <androidx.appcompat.widget.AppCompatButton

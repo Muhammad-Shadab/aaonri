@@ -49,26 +49,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
-        <com.aceinteract.android.stepper.StepperNavigationView
-            android:id="@+id/stepper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            app:stepperIconSize="@dimen/_20sdp"
-            app:stepperItems="@menu/onboarding_steps_menu"
-            app:stepperType="tab_numbered"
-            app:stepperWidgetColor="@color/blueBtnColor" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_32sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/register_to_explore_all_services_offering_by_aaonri"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp" />
+
+        <com.aceinteract.android.stepper.StepperNavigationView
+            android:id="@+id/stepper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:stepperIconSize="@dimen/_20sdp"
+            app:stepperItems="@menu/onboarding_steps_menu"
+            app:stepperType="tab_numbered"
+            app:stepperWidgetColor="@color/blueBtnColor" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/onBoardingNavHost"
@@ -80,16 +80,6 @@
 
 
     </LinearLayout>
-
-    <!-- <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/person"
-        android:translationY="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

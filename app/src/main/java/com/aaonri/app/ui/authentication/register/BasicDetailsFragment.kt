@@ -30,12 +30,19 @@ class BasicDetailsFragment : Fragment() {
 
         basicDetailsBinding?.apply {
 
-            val firstName = firstNameBasicDetails.text
-            val lastName = lastNameBasicDetails.text
-            val emailAddress = emailAddressBasicDetails.text
-            val password = passwordBasicDetails.text
-
             basicDetailsNextBtn.setOnClickListener {
+                //val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+                val firstName = firstNameBasicDetails.text
+                val lastName = lastNameBasicDetails.text
+                val emailAddress = emailAddressBasicDetails.text
+                val password = passwordBasicDetails.text
+
+                /*  Toast.makeText(
+                      context,
+                      "${EMAIL_REGEX.toRegex().matches(emailAddress)}",
+                      Toast.LENGTH_SHORT
+                  ).show()*/
+
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && emailAddress?.isNotEmpty() == true && password?.isNotEmpty() == true) {
                     commonViewModel.addBasicDetails(
                         firstName.toString(),
@@ -44,35 +51,37 @@ class BasicDetailsFragment : Fragment() {
                         password.toString()
                     )
                     registrationViewModel.isEmailAlreadyRegister(EmailVerifyRequest(emailAddress.toString()))
+                    findNavController().navigate(R.id.action_basicDetailsFragment_to_locationDetailsFragment)
                 } else {
                     Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
                 }
-                registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
-                    when (response) {
-                        is Resource.Loading -> {
-                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
-                        }
-                        is Resource.Success -> {
-                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-                            if (response.data?.status == "true") {
-                                Toast.makeText(context, response.data.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-                                findNavController().navigate(R.id.action_basicDetailsFragment2_to_locationDetailsFragment22)
-                            }
-                        }
-                        is Resource.Error -> {
-                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-                            Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {
-                        }
-                    }
-                }
-
             }
         }
 
+        registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    if (response.data?.status == "true") {
+                        Toast.makeText(context, response.data.message, Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+
+                    }
+                }
+                is Resource.Error -> {
+                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
+        }
 
 
         return basicDetailsBinding?.root

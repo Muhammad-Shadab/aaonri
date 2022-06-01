@@ -46,7 +46,7 @@ class AddressDetailsFragment : Fragment() {
                         phoneNumber.toString()
                     )
                 }
-                findNavController().navigate(R.id.action_addressDetailsFragment2_to_servicesCategoryFragment2)
+                findNavController().navigate(R.id.action_addressDetailsFragment_to_servicesCategoryFragment)
             }
         }
 

@@ -50,6 +50,7 @@ class LocationDetailsFragment : Fragment() {
 
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                selectedCommunityAdapter
                 locationDetailsBinding?.selectedCommunitySizeTv?.text =
                     "Your selected community ${it.size}"
                 locationDetailsBinding?.selectedCardView?.visibility = View.VISIBLE
@@ -92,7 +93,7 @@ class LocationDetailsFragment : Fragment() {
             }
 
             selectMoreCommunityIv.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment2_to_communityBottomFragment)
+                findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
 
             locationDetailsNextBtn.setOnClickListener {
@@ -110,17 +111,15 @@ class LocationDetailsFragment : Fragment() {
                 }
                 if (cityName.isNotEmpty() && stateName.isNotEmpty()) {
                     val action =
-                        LocationDetailsFragmentDirections.actionLocationDetailsFragment2ToAddressDetailsFragment22(
+                        LocationDetailsFragmentDirections.actionLocationDetailsFragmentToAddressDetailsFragment(
                             cityName,
                             stateName
                         )
                     findNavController().navigate(action)
                 }
-
-
             }
             selectCommunityEt.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment2_to_communityBottomFragment)
+                findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
             selectCountryOrigin.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment2_to_selectCountryBottomFragment)
