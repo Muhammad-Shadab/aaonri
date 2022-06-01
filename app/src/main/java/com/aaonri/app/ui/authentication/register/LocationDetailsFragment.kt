@@ -47,8 +47,6 @@ class LocationDetailsFragment : Fragment() {
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
         val zipCode = locationDetailsBinding?.zipCodeLocationDetails?.text
-        val state = locationDetailsBinding?.stateLocationDetails?.text
-        val city = locationDetailsBinding?.cityLocationDetails?.text
 
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
@@ -65,7 +63,6 @@ class LocationDetailsFragment : Fragment() {
         }
 
         var job: Job? = null
-
 
         locationDetailsBinding?.apply {
 
@@ -99,6 +96,11 @@ class LocationDetailsFragment : Fragment() {
             }
 
             locationDetailsNextBtn.setOnClickListener {
+
+                val zipCode = zipCodeLocationDetails.text
+                val state = stateLocationDetails.text
+                val city = cityLocationDetails.text
+
                 if (zipCode?.isNotEmpty() == true && state?.isNotEmpty() == true && city?.isNotEmpty() == true) {
                     commonViewModel.addLocationDetails(
                         zipCode.toString(),

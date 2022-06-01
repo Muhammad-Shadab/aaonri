@@ -26,15 +26,17 @@ class AddressDetailsFragment : Fragment() {
     ): View? {
         addressDetailsBinding = FragmentAddressDetailsBinding.inflate(inflater, container, false)
 
-        val address1 = addressDetailsBinding?.address1?.text
-        val address2 = addressDetailsBinding?.address2?.text
-        val phoneNumber = addressDetailsBinding?.phoneNumberAddressDetails?.text
-
         addressDetailsBinding?.apply {
+
             cityNameAddressDetails.text = args.cityName
             stateNameAddressDetails.text = args.stateName
 
             addressDetailsNextBtn.setOnClickListener {
+
+                val address1 = address1.text
+                val address2 = address2.text
+                val phoneNumber = phoneNumberAddressDetails.text
+
                 if (address1.toString().isNotEmpty() && address2.toString()
                         .isNotEmpty() && phoneNumber.toString().isNotEmpty()
                 ) {

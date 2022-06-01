@@ -60,11 +60,9 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         servicesGridItemBinding?.apply {
-
-            val companyEmail = companyEmailServices.text
-            val aliasName = aliasNameServices.text
             serviceSubmitBtn.setOnClickListener {
-
+                val companyEmail = companyEmailServices.text
+                val aliasName = aliasNameServices.text
                 if (aliasName.toString().isNotEmpty()) {
                     commonViewModel.addCompanyEmailAliasName(
                         companyEmail.toString(),

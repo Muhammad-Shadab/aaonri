@@ -28,12 +28,12 @@ class BasicDetailsFragment : Fragment() {
     ): View? {
         basicDetailsBinding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
 
-        val firstName = basicDetailsBinding?.firstNameBasicDetails?.text
-        val lastName = basicDetailsBinding?.lastNameBasicDetails?.text
-        val emailAddress = basicDetailsBinding?.emailAddressBasicDetails?.text
-        val password = basicDetailsBinding?.passwordBasicDetails?.text
-
         basicDetailsBinding?.apply {
+
+            val firstName = firstNameBasicDetails.text
+            val lastName = lastNameBasicDetails.text
+            val emailAddress = emailAddressBasicDetails.text
+            val password = passwordBasicDetails.text
 
             basicDetailsNextBtn.setOnClickListener {
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && emailAddress?.isNotEmpty() == true && password?.isNotEmpty() == true) {
@@ -47,31 +47,33 @@ class BasicDetailsFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
                 }
+                registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resource.Loading -> {
+                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
+                            if (response.data?.status == "true") {
+                                Toast.makeText(context, response.data.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                findNavController().navigate(R.id.action_basicDetailsFragment2_to_locationDetailsFragment22)
+                            }
+                        }
+                        is Resource.Error -> {
+                            basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
+                            Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                        }
+                    }
+                }
+
             }
         }
 
-        registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-                    if (response.data?.status == "true") {
-                        Toast.makeText(context, response.data.message, Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        findNavController().navigate(R.id.action_basicDetailsFragment2_to_locationDetailsFragment22)
-                    }
-                }
-                is Resource.Error -> {
-                    basicDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                }
-            }
-        }
+
 
         return basicDetailsBinding?.root
     }
