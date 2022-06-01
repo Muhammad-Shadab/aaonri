@@ -40,47 +40,61 @@ class ServicesCategoryFragment : Fragment() {
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()
 
-        val companyEmail = servicesGridItemBinding?.companyEmailServices?.text
-        val aliasName = servicesGridItemBinding?.aliasNameServices?.text
-
         adapter = ServicesItemAdapter { selectedCommunity ->
             commonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
         }
 
-        commonViewModel.selectedServicesList.observe(viewLifecycleOwner) {
-            if (it.size >= 3) {
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+        commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
+            adapter?.savedCategoriesList = serviceResponseItem
+            if (serviceResponseItem.size >= 3) {
+                serviceResponseItem.forEach {
+                    if (it.id == 3 || it.interestDesc == "Jobs") {
+                        servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+                    } else {
+                        servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                    }
+                }
             } else {
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }
         }
 
         servicesGridItemBinding?.apply {
+
+            val companyEmail = companyEmailServices.text
+            val aliasName = aliasNameServices.text
             serviceSubmitBtn.setOnClickListener {
-                if (companyEmail.toString().isNotEmpty() && aliasName.toString().isNotEmpty()) {
+
+                if (aliasName.toString().isNotEmpty()) {
                     commonViewModel.addCompanyEmailAliasName(
                         companyEmail.toString(),
                         aliasName.toString()
                     )
+                    commonViewModel.addCompanyEmailAliasCheckBoxValue(
+                        isRecruiterCheckBox.isChecked,
+                        isAliasNameCheckBox.isChecked,
+                        belongToCricketCheckBox.isChecked
+                    )
+
                     registrationViewModel.registerUser(
                         RegisterRequest(
                             activeUser = true,
                             address1 = commonViewModel.addressDetails["address1"]!!,
                             address2 = commonViewModel.addressDetails["address2"]!!,
-                            aliasName = commonViewModel.companyEmailAliasName!!.value!!.first,
+                            aliasName = if (commonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.second else "",
                             authorized = true,
                             city = "bulandshahr",
                             community = listOf(
                                 Community(1, "Home Needs"),
                                 Community(2, "Foundation & Donations")
                             ),
-                            commonViewModel.companyEmailAliasName!!.value!!.second,
+                            companyEmail = if (commonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.first else "",
                             emailId = commonViewModel.basicDetailsMap["emailAddress"]!!,
                             firstName = commonViewModel.basicDetailsMap["firstName"]!!,
                             interests = "1,4,19",
                             isAdmin = 0,
-                            isFullNameAsAliasName = true,
-                            isJobRecruiter = false,
+                            isFullNameAsAliasName = commonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
+                            isJobRecruiter = commonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,
                             isPrimeUser = false,
                             isSurveyCompleted = false,
                             lastName = commonViewModel.basicDetailsMap["lastName"]!!,
@@ -98,9 +112,8 @@ class ServicesCategoryFragment : Fragment() {
                         )
                     )
                 } else {
-                    Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Alias name required", Toast.LENGTH_SHORT).show()
                 }
-
             }
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
@@ -116,6 +129,12 @@ class ServicesCategoryFragment : Fragment() {
                     if (response.data?.status.equals("true")) {
                         Toast.makeText(context, "Successfully Registered", Toast.LENGTH_LONG)
                             .show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            response.data?.message.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
                 is Resource.Error -> {

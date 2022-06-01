@@ -2,6 +2,8 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
@@ -20,6 +22,12 @@ interface RegistrationApi {
 
     @GET("api/v1/interests/all")
     suspend fun getAllServicesInterest(): ServicesResponse
+
+    @Headers("Content-Type:application/json")
+    @POST("/api/v1/user/userExists")
+    suspend fun isEmailAlreadyRegistered(
+        @Body emailVerifyRequest: EmailVerifyRequest
+    ): Response<EmailVerificationResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/authorize")

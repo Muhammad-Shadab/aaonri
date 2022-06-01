@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
@@ -39,6 +41,9 @@ class RegistrationViewModel
     private var mutableCountries: MutableStateFlow<Resource<CountriesResponse>> =
         MutableStateFlow(Resource.Empty())
     val countriesList: StateFlow<Resource<CountriesResponse>> = mutableCountries
+
+    val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
+        MutableLiveData()
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 
@@ -80,6 +85,21 @@ class RegistrationViewModel
     }
 
     private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun isEmailAlreadyRegister(emailVerifyRequest: EmailVerifyRequest) = viewModelScope.launch {
+        emailAlreadyRegisterData.postValue(Resource.Loading())
+        val response = repository.isEmailAlreadyRegistered(emailVerifyRequest)
+        emailAlreadyRegisterData.postValue(handleIsEmailVerifyResponse(response))
+    }
+
+    private fun handleIsEmailVerifyResponse(response: Response<EmailVerificationResponse>): Resource<EmailVerificationResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -44,7 +44,6 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_12sdp"
-                        android:src="@drawable/ic_apple"
                         android:visibility="gone" />
 
                     <TextView

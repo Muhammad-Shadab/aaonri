@@ -28,6 +28,9 @@ class CommonViewModel : ViewModel() {
     var companyEmailAliasName: MutableLiveData<Pair<String, String>>? = MutableLiveData()
         private set
 
+    var companyEmailAliasCheckBoxValue: MutableMap<String, Boolean> = mutableMapOf()
+        private set
+
     fun addCommunityList(value: MutableList<Community>) {
         selectedCommunityList.value = value
     }
@@ -74,6 +77,16 @@ class CommonViewModel : ViewModel() {
 
     fun addCompanyEmailAliasName(companyEmail: String, aliasName: String) {
         companyEmailAliasName?.value = Pair(companyEmail, aliasName)
+    }
+
+    fun addCompanyEmailAliasCheckBoxValue(
+        isRecruiterCheckBox: Boolean,
+        isAliasNameCheckBox: Boolean,
+        belongToCricketCheckBox: Boolean
+    ) {
+        companyEmailAliasCheckBoxValue["isRecruiterCheckBox"] = isRecruiterCheckBox
+        companyEmailAliasCheckBoxValue["isAliasNameCheckBox"] = isAliasNameCheckBox
+        companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
     }
 
 

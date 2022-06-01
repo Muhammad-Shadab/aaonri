@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_onbardingNavHostFragment_to_registration_na_graph"
             app:destination="@id/registration_na_graph" />
+        <action
+            android:id="@+id/action_onbardingNavHostFragment_to_dashboard_nav_graph"
+            app:destination="@id/dashboard_nav_graph" />
     </fragment>
     <include app:graph="@navigation/dashboard_nav_graph" />
 </navigation>

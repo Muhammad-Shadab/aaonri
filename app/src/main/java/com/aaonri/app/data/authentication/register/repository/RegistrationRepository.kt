@@ -5,6 +5,7 @@ import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.api.ZipCodeApi
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
@@ -32,6 +33,9 @@ class RegistrationRepository @Inject constructor(
     fun getServicesInterest(): Flow<ServicesResponse> = flow {
         emit(registrationApi.getAllServicesInterest())
     }.flowOn(Dispatchers.IO)
+
+    suspend fun isEmailAlreadyRegistered(emailVerifyRequest: EmailVerifyRequest) =
+        registrationApi.isEmailAlreadyRegistered(emailVerifyRequest)
 
     suspend fun loginUser(login: Login) = registrationApi.userLogin(login)
 

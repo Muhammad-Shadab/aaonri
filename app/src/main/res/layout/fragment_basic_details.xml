@@ -152,6 +152,7 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/sf_pro_regular"
                 android:text="@string/password_must_contains_8_characters_1_uppercase_1_number"
+                android:textColor="@color/textViewColor"
                 android:textSize="@dimen/_10sdp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -173,5 +174,16 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBarBasicDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

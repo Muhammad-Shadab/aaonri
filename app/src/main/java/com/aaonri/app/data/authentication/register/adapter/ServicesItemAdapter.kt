@@ -14,7 +14,9 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
 
     private var data = listOf<ServicesResponseItem>()
 
+
     var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
+    var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,7 +29,10 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
         holder.apply {
             binding.apply {
                 servicesGridTv.text = data[position].interestDesc
-                if (selectedCategoriesList.contains(data[position])) {
+                if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
+                        data[position]
+                    )
+                ) {
                     selectedCategoriesList.add(data[position])
                     servicesGridIv.setColorFilter(
                         ContextCompat.getColor(
