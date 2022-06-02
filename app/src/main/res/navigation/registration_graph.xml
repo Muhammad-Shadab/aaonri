@@ -11,8 +11,8 @@
         android:label="fragment_basic_details"
         tools:layout="@layout/fragment_basic_details">
         <action
-            android:id="@+id/action_basicDetailsFragment_to_locationDetailsFragment"
-            app:destination="@id/locationDetailsFragment" />
+            android:id="@+id/action_basicDetailsFragment_to_addressDetailsFragment"
+            app:destination="@id/addressDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addressDetailsFragment"
@@ -20,29 +20,32 @@
         android:label="fragment_address_details"
         tools:layout="@layout/fragment_address_details">
         <action
-            android:id="@+id/action_addressDetailsFragment_to_servicesCategoryFragment"
-            app:destination="@id/servicesCategoryFragment" />
-        <argument
-            android:name="cityName"
-            app:argType="string" />
-        <argument
-            android:name="stateName"
-            app:argType="string" />
+            android:id="@+id/action_addressDetailsFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+        <action
+            android:id="@+id/action_addressDetailsFragment_to_selectCountryBottomFragment"
+            app:destination="@id/selectCountryBottomFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationDetailsFragment"
         android:name="com.aaonri.app.ui.authentication.register.LocationDetailsFragment"
         android:label="fragment_location_details"
         tools:layout="@layout/fragment_location_details">
+        <argument
+            android:name="cityName"
+            app:argType="string" />
+        <argument
+            android:name="stateName"
+            app:argType="string" />
         <action
             android:id="@+id/action_locationDetailsFragment_to_communityBottomFragment"
             app:destination="@id/communityBottomFragment" />
         <action
-            android:id="@+id/action_locationDetailsFragment2_to_selectCountryBottomFragment"
+            android:id="@+id/action_locationDetailsFragment_to_selectCountryBottomFragment"
             app:destination="@id/selectCountryBottomFragment" />
         <action
-            android:id="@+id/action_locationDetailsFragment_to_addressDetailsFragment"
-            app:destination="@id/addressDetailsFragment" />
+            android:id="@+id/action_locationDetailsFragment_to_servicesCategoryFragment"
+            app:destination="@id/servicesCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/servicesCategoryFragment"

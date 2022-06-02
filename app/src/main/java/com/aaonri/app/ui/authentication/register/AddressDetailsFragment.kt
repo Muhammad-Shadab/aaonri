@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddressDetailsFragment : Fragment() {
     val commonViewModel: CommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
-    val args: AddressDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +26,6 @@ class AddressDetailsFragment : Fragment() {
         addressDetailsBinding = FragmentAddressDetailsBinding.inflate(inflater, container, false)
 
         addressDetailsBinding?.apply {
-
-            cityNameAddressDetails.text = args.cityName
-            stateNameAddressDetails.text = args.stateName
 
             addressDetailsNextBtn.setOnClickListener {
 
@@ -46,7 +42,7 @@ class AddressDetailsFragment : Fragment() {
                         phoneNumber.toString()
                     )
                 }
-                findNavController().navigate(R.id.action_addressDetailsFragment_to_servicesCategoryFragment)
+                findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
             }
         }
 

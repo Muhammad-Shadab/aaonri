@@ -46,7 +46,7 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-        val zipCode = locationDetailsBinding?.zipCodeLocationDetails?.text
+//        val zipCode = locationDetailsBinding?.zipCodeLocationDetails?.text
 
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
@@ -67,7 +67,7 @@ class LocationDetailsFragment : Fragment() {
 
         locationDetailsBinding?.apply {
 
-            commonViewModel.selectedCountry?.observe(viewLifecycleOwner) {
+            /*commonViewModel.selectedCountry?.observe(viewLifecycleOwner) {
                 val countryCode = it.third
                 if (it.first.isNotEmpty()) {
                     zipCodeLocationDetails.addTextChangedListener { editable ->
@@ -90,7 +90,7 @@ class LocationDetailsFragment : Fragment() {
                 } else {
                     countryFlagIcon.visibility = View.GONE
                 }
-            }
+            }*/
 
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
@@ -98,31 +98,24 @@ class LocationDetailsFragment : Fragment() {
 
             locationDetailsNextBtn.setOnClickListener {
 
-                val zipCode = zipCodeLocationDetails.text
+//                val zipCode = zipCodeLocationDetails.text
                 val state = stateLocationDetails.text
                 val city = cityLocationDetails.text
 
-                if (zipCode?.isNotEmpty() == true && state?.isNotEmpty() == true && city?.isNotEmpty() == true) {
-                    commonViewModel.addLocationDetails(
-                        zipCode.toString(),
-                        state.toString(),
-                        city.toString()
-                    )
-                }
-                if (cityName.isNotEmpty() && stateName.isNotEmpty()) {
-                    val action =
-                        LocationDetailsFragmentDirections.actionLocationDetailsFragmentToAddressDetailsFragment(
-                            cityName,
-                            stateName
-                        )
-                    findNavController().navigate(action)
-                }
+                /* if (zipCode?.isNotEmpty() == true && state?.isNotEmpty() == true && city?.isNotEmpty() == true) {
+                     commonViewModel.addLocationDetails(
+                         zipCode.toString(),
+                         state.toString(),
+                         city.toString()
+                     )
+                 }*/
+                findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
             }
             selectCommunityEt.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
             selectCountryOrigin.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment2_to_selectCountryBottomFragment)
+                findNavController().navigate(R.id.action_locationDetailsFragment_to_selectCountryBottomFragment)
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
