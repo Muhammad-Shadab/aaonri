@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityMainBinding
+import meow.bottomnavigation.MeowBottomNavigation
 
 class MainActivity : BaseActivity() {
     var mainActivityBinding: ActivityMainBinding? = null
@@ -23,10 +24,13 @@ class MainActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.dashboardNavHost) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.dashboardNavHost) as NavHostFragment
         val navController = navHostFragment.navController
 
+
         mainActivityBinding?.apply {
+
             bottomNavigation.setupWithNavController(navController)
 
         }
