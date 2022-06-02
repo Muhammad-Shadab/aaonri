@@ -38,6 +38,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        isCancelable = false
         countryBottomBinding =
             FragmentSelectCountryBottomBinding.inflate(inflater, container, false)
 

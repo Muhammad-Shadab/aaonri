@@ -36,6 +36,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        isCancelable = false
         communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
 
@@ -48,7 +49,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
 
             commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
-                communityItemAdapter?.savedCommunityList = selectedCommunitiesList as MutableList<Community>
+                communityItemAdapter?.savedCommunityList =
+                    selectedCommunitiesList as MutableList<Community>
             }
         }
 

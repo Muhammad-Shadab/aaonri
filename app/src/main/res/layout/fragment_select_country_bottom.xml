@@ -62,7 +62,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/countriesRv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_200sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp" />
