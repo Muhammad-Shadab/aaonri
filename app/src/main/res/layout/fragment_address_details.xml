@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.authentication.register.AddressDetailsFragment">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,15 +35,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/countryFlagIcon"
+                    android:id="@+id/countryFlagIconAddress"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:visibility="gone" />
+                    android:layout_marginStart="@dimen/_12sdp"/>
 
                 <TextView
-                    android:id="@+id/selectCountryOrigin"
+                    android:id="@+id/selectCountryOriginAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
@@ -106,7 +104,7 @@
                 android:textColorHint="@color/hintColor" />
 
             <EditText
-                android:id="@+id/zipCodeLocationDetails"
+                android:id="@+id/zipCodeAddressDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -206,6 +204,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

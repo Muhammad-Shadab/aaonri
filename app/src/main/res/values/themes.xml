@@ -17,7 +17,7 @@
 
 
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-
+        <item name="behavior_peekHeight">500dp</item>
         <item name="android:typeface">monospace</item>
         <item name="android:background">@drawable/bottom_sheet_shape</item>
     </style>

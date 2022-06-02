@@ -46,18 +46,20 @@ object RegistrationModule {
 
     @Provides
     @Singleton
-    fun providesCountryApi(): CountriesApi =
+    fun providesCountryApi(okHttpClient: OkHttpClient): CountriesApi =
         Retrofit.Builder()
             .baseUrl("https://corona.lmao.ninja")
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CountriesApi::class.java)
 
     @Provides
     @Singleton
-    fun providesZipCodeApi(): ZipCodeApi =
+    fun providesZipCodeApi(okHttpClient: OkHttpClient): ZipCodeApi =
         Retrofit.Builder()
             .baseUrl("https://api.worldpostallocations.com")
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ZipCodeApi::class.java)

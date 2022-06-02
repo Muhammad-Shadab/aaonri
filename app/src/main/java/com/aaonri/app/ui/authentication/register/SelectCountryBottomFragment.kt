@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
@@ -41,11 +39,11 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         isCancelable = false
         countryBottomBinding =
             FragmentSelectCountryBottomBinding.inflate(inflater, container, false)
-
+        
         getCountries()
 
         countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
-            commonViewModel.selectCountry(countryName, countryFlag, countryCode)
+            commonViewModel.addSelectedCountry(countryName, countryFlag, countryCode)
             findNavController().navigateUp()
         }
 
@@ -62,21 +60,18 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCountries() {
-        registrationViewModel.getCountriesList()
-        lifecycleScope.launchWhenCreated {
-            registrationViewModel.countriesList.collect { response ->
-                when (response) {
-                    is Resource.Error -> {
-                        countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                    }
-                    is Resource.Loading -> {
-                        countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        searchCountry(response.data)
-                        countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                        response.data?.let { countryAdapter?.setData(response.data) }
-                    }
+        commonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Error -> {
+                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                }
+                is Resource.Loading -> {
+                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    searchCountry(response.data)
+                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    response.data?.let { countryAdapter?.setData(response.data) }
                 }
             }
         }

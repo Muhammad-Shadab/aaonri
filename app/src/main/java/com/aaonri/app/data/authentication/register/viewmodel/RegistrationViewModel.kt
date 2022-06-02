@@ -38,10 +38,6 @@ class RegistrationViewModel
         MutableStateFlow(Resource.Empty())
     val service: StateFlow<Resource<ServicesResponse>> = mutableServices
 
-    private var mutableCountries: MutableStateFlow<Resource<CountriesResponse>> =
-        MutableStateFlow(Resource.Empty())
-    val countriesList: StateFlow<Resource<CountriesResponse>> = mutableCountries
-
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()
 
@@ -49,7 +45,6 @@ class RegistrationViewModel
 
     val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
-    val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
     fun getCommunities() = viewModelScope.launch {
         mutableCommunities.value = Resource.Loading()
@@ -57,15 +52,6 @@ class RegistrationViewModel
             mutableCommunities.value = Resource.Error(e.localizedMessage)
         }.collect { response ->
             mutableCommunities.value = Resource.Success(response)
-        }
-    }
-
-    fun getCountriesList() = viewModelScope.launch {
-        mutableCountries.value = Resource.Loading()
-        repository.getCountriesList().catch { e ->
-            mutableCountries.value = Resource.Error(e.localizedMessage)
-        }.collect { response ->
-            mutableCountries.value = Resource.Success(response)
         }
     }
 
@@ -123,20 +109,6 @@ class RegistrationViewModel
         return Resource.Error(response.message())
     }
 
-    fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
-        zipCodeData.postValue(Resource.Loading())
-        val response = repository.getLocationByZipCode(postalCode, countryCode)
-        zipCodeData.postValue(handleZipCodeResponse(response))
-    }
-
-    private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
 
 
 }

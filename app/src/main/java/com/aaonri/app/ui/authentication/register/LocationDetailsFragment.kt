@@ -46,8 +46,6 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-//        val zipCode = locationDetailsBinding?.zipCodeLocationDetails?.text
-
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 selectedCommunityAdapter
@@ -115,14 +113,14 @@ class LocationDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
             selectCountryOrigin.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment_to_selectCountryBottomFragment)
+
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
             rvLocationDetails.adapter = selectedCommunityAdapter
         }
 
-        registrationViewModel.zipCodeData.observe(
+        /*registrationViewModel.zipCodeData.observe(
             viewLifecycleOwner
         ) { response ->
             when (response) {
@@ -148,7 +146,7 @@ class LocationDetailsFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
 
 
         return locationDetailsBinding?.root
