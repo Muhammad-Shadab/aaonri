@@ -20,6 +20,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
 import com.example.newsapp.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -33,9 +34,7 @@ class LocationDetailsFragment : Fragment() {
     var locationDetailsBinding: FragmentLocationDetailsBinding? = null
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
-
-    var cityName: String = ""
-    var stateName: String = ""
+    var isCommunitySelected = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -44,10 +43,13 @@ class LocationDetailsFragment : Fragment() {
     ): View? {
         locationDetailsBinding = FragmentLocationDetailsBinding.inflate(inflater, container, false)
 
+        getCommunities()
+
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                isCommunitySelected = true
                 selectedCommunityAdapter
                 locationDetailsBinding?.selectedCommunitySizeTv?.text =
                     "Your selected community ${it.size}"
@@ -56,107 +58,68 @@ class LocationDetailsFragment : Fragment() {
                 locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
                 locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
             } else {
+                isCommunitySelected = false
                 locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
                 locationDetailsBinding?.selectedCardView?.visibility = View.GONE
             }
         }
 
-        var job: Job? = null
 
         locationDetailsBinding?.apply {
 
-
-            Toast.makeText(
-                context,
-                "${commonViewModel.locationDetails["city"]}",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            /*commonViewModel.selectedCountry?.observe(viewLifecycleOwner) {
-                val countryCode = it.third
-                if (it.first.isNotEmpty()) {
-                    zipCodeLocationDetails.addTextChangedListener { editable ->
-                        job?.cancel()
-                        job = MainScope().launch {
-                            delay(500L)
-                            editable?.let {
-                                if (editable.toString().isNotEmpty()) {
-                                    registrationViewModel.getLocationByZipCode(
-                                        zipCode.toString(),
-                                        countryCode
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    countryFlagIcon.load(it.second)
-                    selectCountryOrigin.text = it.first
-                    countryFlagIcon.visibility = View.VISIBLE
-                } else {
-                    countryFlagIcon.visibility = View.GONE
-                }
-            }*/
+            commonViewModel.apply {
+                stateLocationDetails.text = locationDetails["state"].toString()
+                cityLocationDetails.setText(locationDetails["city"].toString())
+                selectCountryLocation.text = selectedCountry?.value?.first
+                countryFlagIcon.load(selectedCountry?.value?.second)
+            }
 
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
 
             locationDetailsNextBtn.setOnClickListener {
-
-//                val zipCode = zipCodeLocationDetails.text
-                val state = stateLocationDetails.text
-                val city = cityLocationDetails.text
-
-                /* if (zipCode?.isNotEmpty() == true && state?.isNotEmpty() == true && city?.isNotEmpty() == true) {
-                     commonViewModel.addLocationDetails(
-                         zipCode.toString(),
-                         state.toString(),
-                         city.toString()
-                     )
-                 }*/
-                findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
+                if (stateLocationDetails.text.isNotEmpty() && cityLocationDetails.text.isNotEmpty() && isCommunitySelected) {
+                    findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please complete all details", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
             selectCommunityEt.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
-            }
-            selectCountryOrigin.setOnClickListener {
-
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
             rvLocationDetails.adapter = selectedCommunityAdapter
         }
 
-        /*registrationViewModel.zipCodeData.observe(
-            viewLifecycleOwner
-        ) { response ->
+
+        return locationDetailsBinding?.root
+    }
+
+    private fun getCommunities() {
+        commonViewModel.getCommunities()
+
+        commonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
                 }
                 is Resource.Success -> {
-                    try {
-                        cityName = response.data?.result?.get(1)?.district.toString()
-                        stateName = response.data?.result?.get(1)?.state.toString()
-                        locationDetailsBinding?.stateLocationDetails?.text =
-                            response.data?.result?.get(1)?.state.toString()
-                        locationDetailsBinding?.cityLocationDetails?.text =
-                            response.data?.result?.get(1)?.district.toString()
-                    } catch (e: Exception) {
-                        Log.i("location", "onCreateView: ${e.localizedMessage}")
-                    }
+
                 }
                 is Resource.Error -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
 
                 }
+                else -> {}
             }
-        }*/
-
-
-        return locationDetailsBinding?.root
+        }
     }
 
 }

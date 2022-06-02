@@ -18,7 +18,7 @@ import retrofit2.http.POST
 interface RegistrationApi {
 
     @GET("/api/v1/community/activecommunities")
-    suspend fun getAllCommunities(): CommunitiesListResponse
+    suspend fun getAllCommunities(): Response<CommunitiesListResponse>
 
     @GET("api/v1/interests/all")
     suspend fun getAllServicesInterest(): ServicesResponse

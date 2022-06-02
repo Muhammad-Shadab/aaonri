@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_na_graph"
-    app:startDestination="@id/addressDetailsFragment">
+    app:startDestination="@id/basicDetailsFragment">
 
     <fragment
         android:id="@+id/basicDetailsFragment"
@@ -31,12 +31,6 @@
         android:name="com.aaonri.app.ui.authentication.register.LocationDetailsFragment"
         android:label="fragment_location_details"
         tools:layout="@layout/fragment_location_details">
-        <argument
-            android:name="cityName"
-            app:argType="string" />
-        <argument
-            android:name="stateName"
-            app:argType="string" />
         <action
             android:id="@+id/action_locationDetailsFragment_to_communityBottomFragment"
             app:destination="@id/communityBottomFragment" />

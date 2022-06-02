@@ -73,26 +73,20 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCommunities() {
-        registrationViewModel.getCommunities()
-        lifecycleScope.launchWhenCreated {
-            registrationViewModel.communities.collect { response ->
-                when (response) {
-                    is Resource.Loading -> {
-                        communityBottomBinding?.progressBarCommunityBottom?.visibility =
-                            View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        communityBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                        response.data?.community?.let { communityItemAdapter?.setData(it) }
-                    }
-                    is Resource.Error -> {
-                        Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                        Log.i("Loading", "Error: ${response.message}")
-                        communityBottomBinding?.progressBarCommunityBottom?.visibility =
-                            View.GONE
-                    }
-                    else -> {}
+        commonViewModel.getCommunities()
+        commonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
                 }
+                is Resource.Success -> {
+                    response.data?.community?.let { communityItemAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                    Log.i("Loading", "Error: ${response.message}")
+                }
+                else -> {}
             }
         }
     }

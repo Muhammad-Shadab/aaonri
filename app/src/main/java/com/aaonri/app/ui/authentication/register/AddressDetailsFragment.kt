@@ -93,7 +93,6 @@ class AddressDetailsFragment : Fragment() {
                         .isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
                         .isNotEmpty()
                 ) {
-                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
                     commonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,

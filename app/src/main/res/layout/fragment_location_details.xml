@@ -49,11 +49,10 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:visibility="gone" />
+                        android:layout_marginStart="@dimen/_12sdp" />
 
                     <TextView
-                        android:id="@+id/selectCountryOrigin"
+                        android:id="@+id/selectCountryLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
@@ -68,10 +67,30 @@
                         android:paddingBottom="@dimen/_6sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/_14sdp"
-                        app:drawableRightCompat="@drawable/arrow_down_spinner" />
+                        android:textSize="@dimen/_14sdp" />
 
                 </LinearLayout>
+
+                <EditText
+                    android:id="@+id/cityLocationDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:hint="@string/city"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
                     android:id="@+id/stateLocationDetails"
@@ -93,26 +112,6 @@
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/_14sdp" />
 
-                <TextView
-                    android:id="@+id/cityLocationDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_28sdp"
-                    android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/city"
-                    android:inputType="textEmailAddress"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:paddingBottom="@dimen/_6sdp"
-                    android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
                     android:id="@+id/selectCommunityEt"

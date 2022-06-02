@@ -2,12 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/dashbaordNavHostFragment">
+    android:id="@+id/dashboard_nav_graph">
 
-    <fragment
-        android:id="@+id/dashbaordNavHostFragment"
-        android:name="com.aaonri.app.ui.dashboard.DashbaordNavHostFragment"
-        android:label="fragment_dashbaord_nav_host"
-        tools:layout="@layout/fragment_dashbaord_nav_host" />
+
 </navigation>

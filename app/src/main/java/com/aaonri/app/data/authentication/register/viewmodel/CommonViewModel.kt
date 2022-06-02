@@ -3,6 +3,7 @@ package com.aaonri.app.data.authentication.register.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
@@ -47,6 +48,8 @@ class CommonViewModel @Inject constructor(
 
     val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
+    val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
+
     fun addCommunityList(value: MutableList<Community>) {
         selectedCommunityList.value = value
     }
@@ -56,7 +59,8 @@ class CommonViewModel @Inject constructor(
     }
 
     fun addSelectedCountry(countryName: String, countryFlag: String, countryCode: String) {
-        selectedCountry?.value = Triple(first = countryName, second = countryFlag, third = countryCode)
+        selectedCountry?.value =
+            Triple(first = countryName, second = countryFlag, third = countryCode)
     }
 
     fun addBasicDetails(
@@ -103,6 +107,21 @@ class CommonViewModel @Inject constructor(
         companyEmailAliasCheckBoxValue["isRecruiterCheckBox"] = isRecruiterCheckBox
         companyEmailAliasCheckBoxValue["isAliasNameCheckBox"] = isAliasNameCheckBox
         companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
+    }
+
+    fun getCommunities() = viewModelScope.launch {
+        communitiesList.postValue(Resource.Loading())
+        val response = registrationRepository.getCommunitiesList()
+        communitiesList.postValue(handleCommunitiesResponse(response))
+    }
+
+    private fun handleCommunitiesResponse(response: Response<CommunitiesListResponse>): Resource<CommunitiesListResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
     fun getCountries() = viewModelScope.launch {

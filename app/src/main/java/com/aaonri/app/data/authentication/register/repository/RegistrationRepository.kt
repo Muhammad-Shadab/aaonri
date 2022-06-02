@@ -22,9 +22,7 @@ class RegistrationRepository @Inject constructor(
     private val zipCodeApi: ZipCodeApi
 ) {
 
-    fun getCommunitiesList(): Flow<CommunitiesListResponse> = flow {
-        emit(registrationApi.getAllCommunities())
-    }.flowOn(Dispatchers.IO)
+    suspend fun getCommunitiesList() = registrationApi.getAllCommunities()
 
     suspend fun getCountries() = countriesApi.getCountriesList()
 

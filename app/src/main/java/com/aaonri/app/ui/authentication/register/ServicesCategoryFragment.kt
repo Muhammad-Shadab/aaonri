@@ -63,56 +63,56 @@ class ServicesCategoryFragment : Fragment() {
             serviceSubmitBtn.setOnClickListener {
                 val companyEmail = companyEmailServices.text
                 val aliasName = aliasNameServices.text
-                if (aliasName.toString().isNotEmpty()) {
-                    commonViewModel.addCompanyEmailAliasName(
-                        companyEmail.toString(),
-                        aliasName.toString()
-                    )
-                    commonViewModel.addCompanyEmailAliasCheckBoxValue(
-                        isRecruiterCheckBox.isChecked,
-                        isAliasNameCheckBox.isChecked,
-                        belongToCricketCheckBox.isChecked
-                    )
+                /*if (aliasName.toString().isNotEmpty()) {*/
+                commonViewModel.addCompanyEmailAliasName(
+                    companyEmail.toString(),
+                    aliasName.toString()
+                )
+                commonViewModel.addCompanyEmailAliasCheckBoxValue(
+                    isRecruiterCheckBox.isChecked,
+                    isAliasNameCheckBox.isChecked,
+                    belongToCricketCheckBox.isChecked
+                )
 
-                    registrationViewModel.registerUser(
-                        RegisterRequest(
-                            activeUser = true,
-                            address1 = commonViewModel.addressDetails["address1"]!!,
-                            address2 = commonViewModel.addressDetails["address2"]!!,
-                            aliasName = if (commonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.second else "",
-                            authorized = true,
-                            city = "bulandshahr",
-                            community = listOf(
-                                Community(1, "Home Needs"),
-                                Community(2, "Foundation & Donations")
-                            ),
-                            companyEmail = if (commonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.first else "",
-                            emailId = commonViewModel.basicDetailsMap["emailAddress"]!!,
-                            firstName = commonViewModel.basicDetailsMap["firstName"]!!,
-                            interests = "1,4,19",
-                            isAdmin = 0,
-                            isFullNameAsAliasName = commonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
-                            isJobRecruiter = commonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,
-                            isPrimeUser = false,
-                            isSurveyCompleted = false,
-                            lastName = commonViewModel.basicDetailsMap["lastName"]!!,
-                            newsletter = false,
-                            originCity = "",
-                            originCountry = "",
-                            originState = "",
-                            password = commonViewModel.basicDetailsMap["password"]!!,
-                            phoneNo = commonViewModel.addressDetails["phoneNumber"]!!,
-                            picture = "",
-                            regdEmailSent = false,
-                            registeredBy = "manual",
-                            userName = "asjdas sdaksd",
-                            zipcode = "203001"
-                        )
+                registrationViewModel.registerUser(
+                    RegisterRequest(
+                        activeUser = true,
+                        address1 = commonViewModel.addressDetails["address1"]!!,
+                        address2 = commonViewModel.addressDetails["address2"]!!,
+                        aliasName = if (commonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.second else "",
+                        authorized = true,
+                        city = commonViewModel.locationDetails["city"]!!,
+                        community = listOf(
+                            Community(1, "Home Needs"),
+                            Community(2, "Foundation & Donations")
+                        ),
+                        companyEmail = if (commonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.first else "",
+                        emailId = commonViewModel.basicDetailsMap["emailAddress"]!!,
+                        firstName = commonViewModel.basicDetailsMap["firstName"]!!,
+                        interests = "1,4,19",
+                        isAdmin = 0,
+                        isFullNameAsAliasName = commonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
+                        isJobRecruiter = commonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,
+                        isPrimeUser = false,
+                        isSurveyCompleted = false,
+                        lastName = commonViewModel.basicDetailsMap["lastName"]!!,
+                        newsletter = false,
+                        originCity = commonViewModel.locationDetails["city"]!!,
+                        originCountry = commonViewModel.selectedCountry!!.value!!.first,
+                        originState = commonViewModel.locationDetails["state"]!!,
+                        password = commonViewModel.basicDetailsMap["password"]!!,
+                        phoneNo = commonViewModel.addressDetails["phoneNumber"]!!,
+                        picture = "",
+                        regdEmailSent = false,
+                        registeredBy = "manual",
+                        userName = "asjdas sdaksd",
+                        zipcode = commonViewModel.locationDetails["zipCode"]!!
                     )
-                } else {
+                )
+            } /*else if (isRecruiterCheckBox.isChecked) {
                     Toast.makeText(context, "Alias name required", Toast.LENGTH_SHORT).show()
-                }
-            }
+                }*/
+            //}
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         }
