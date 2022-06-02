@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
 import com.example.newsapp.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -32,6 +33,7 @@ class AddressDetailsFragment : Fragment() {
 
     var cityName: String = ""
     var stateName: String = ""
+    var zipCode: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +45,7 @@ class AddressDetailsFragment : Fragment() {
         var job: Job? = null
 
         addressDetailsBinding?.apply {
-
             val zipCode = zipCodeAddressDetails.text
-
 
             commonViewModel.addSelectedCountry(
                 countryName = "USA",
@@ -87,17 +87,32 @@ class AddressDetailsFragment : Fragment() {
                 val address1 = address1.text
                 val address2 = address2.text
                 val phoneNumber = phoneNumberAddressDetails.text
+                val userEnteredCity = cityNameAddressDetails.text
 
-                if (address1.toString().isNotEmpty() && address2.toString()
-                        .isNotEmpty() && phoneNumber.toString().isNotEmpty()
+                if (phoneNumber.toString()
+                        .isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
+                        .isNotEmpty()
                 ) {
+                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
+                    commonViewModel.addLocationDetails(
+                        zipCode = zipCode.toString(),
+                        state = stateName,
+                        city = userEnteredCity.toString()
+                    )
                     commonViewModel.addAddressDetails(
                         address1.toString(),
                         address2.toString(),
                         phoneNumber.toString()
                     )
+                    findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please complete all details", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
-                findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
             }
         }
 
@@ -112,16 +127,13 @@ class AddressDetailsFragment : Fragment() {
                     try {
                         cityName = response.data?.result?.get(1)?.district.toString()
                         stateName = response.data?.result?.get(1)?.state.toString()
-                        addressDetailsBinding?.stateNameAddressDetails?.text =
-                            response.data?.result?.get(1)?.state.toString()
-                        addressDetailsBinding?.cityNameAddressDetails?.setText(
-                            response.data?.result?.get(
-                                1
-                            )?.district.toString()
-                        )
+                        zipCode = addressDetailsBinding?.zipCodeAddressDetails?.text.toString()
+                        addressDetailsBinding?.stateNameAddressDetails?.text = stateName
+                        addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
                     } catch (e: Exception) {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
+                    addressDetailsBinding?.cityNameAddressDetails?.setText(if (commonViewModel.locationDetails["city"]?.isNotEmpty() == true) commonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -146,7 +158,6 @@ class AddressDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-
                     try {
 
                     } catch (e: Exception) {

@@ -65,6 +65,13 @@ class LocationDetailsFragment : Fragment() {
 
         locationDetailsBinding?.apply {
 
+
+            Toast.makeText(
+                context,
+                "${commonViewModel.locationDetails["city"]}",
+                Toast.LENGTH_SHORT
+            ).show()
+
             /*commonViewModel.selectedCountry?.observe(viewLifecycleOwner) {
                 val countryCode = it.third
                 if (it.first.isNotEmpty()) {

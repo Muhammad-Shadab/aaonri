@@ -8,8 +8,8 @@
     <string name="forgot_password"><u>Forgot Password?</u></string>
     <string name="create_account"><u>Create New Account</u></string>
     <string name="registration">Registration</string>
-    <string name="address_line_1">Address Line 1*</string>
-    <string name="address_line_2">Address Line 2*</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
     <string name="city">City*</string>
     <string name="state">State*</string>
     <string name="login">LOGIN</string>
