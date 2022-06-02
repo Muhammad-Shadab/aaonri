@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
@@ -81,7 +85,9 @@ class ServicesCategoryFragment : Fragment() {
                             )
                             .setPositiveButton(
                                 "OK"
-                            ) { p0, p1 -> }
+                            ) { p0, p1 ->
+
+                            }
                             .show()
                     }
                     /*registrationViewModel.registerUser(

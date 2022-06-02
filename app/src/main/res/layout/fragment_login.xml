@@ -197,6 +197,7 @@
                 android:background="@color/hintColor" />
 
             <TextView
+                android:id="@+id/guestUserLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_2sdp"

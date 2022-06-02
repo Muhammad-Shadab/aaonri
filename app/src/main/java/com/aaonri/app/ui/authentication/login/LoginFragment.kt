@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -30,6 +32,12 @@ class LoginFragment : Fragment() {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
 
         introBinding?.apply {
+
+            guestUserLogin.setOnClickListener {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
 
             loginBtn.setOnClickListener {
 

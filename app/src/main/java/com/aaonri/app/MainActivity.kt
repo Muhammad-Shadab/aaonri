@@ -30,9 +30,7 @@ class MainActivity : BaseActivity() {
 
 
         mainActivityBinding?.apply {
-
             bottomNavigation.setupWithNavController(navController)
-
         }
 
     }
