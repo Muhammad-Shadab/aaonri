@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.utils.Validation
 import com.example.newsapp.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -30,6 +32,7 @@ class BasicDetailsFragment : Fragment() {
     var basicDetailsBinding: FragmentBasicDetailsBinding? = null
     val commonViewModel: CommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
+    var isEmailValid = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,11 +58,13 @@ class BasicDetailsFragment : Fragment() {
                                     )
                                 )
                             } else {
+                                isEmailValid = false
                                 basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.VISIBLE
                                 basicDetailsBinding?.emailAlreadyExistTv?.text =
                                     "Please enter valid email"
                             }
                         } else {
+                            isEmailValid = false
                             basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
                         }
                     }
@@ -68,12 +73,14 @@ class BasicDetailsFragment : Fragment() {
 
 
             basicDetailsNextBtn.setOnClickListener {
+
                 val firstName = firstNameBasicDetails.text
                 val lastName = lastNameBasicDetails.text
                 val emailAddress = emailAddressBasicDetails.text
                 val password = passwordBasicDetails.text
 
-                if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && emailAddress?.isNotEmpty() == true && password?.isNotEmpty() == true) {
+
+                if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && password?.isNotEmpty() == true) {
 
                     commonViewModel.addBasicDetails(
                         firstName.toString(),
@@ -81,10 +88,14 @@ class BasicDetailsFragment : Fragment() {
                         emailAddress.toString(),
                         password.toString()
                     )
-
                     findNavController().navigate(R.id.action_basicDetailsFragment_to_locationDetailsFragment)
                 } else {
-                    Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please complete all details", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         }
@@ -96,11 +107,12 @@ class BasicDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.status == "true") {
+                        isEmailValid = false
                         basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.VISIBLE
                         basicDetailsBinding?.emailAlreadyExistTv?.text =
                             "This email is already registered"
                     } else {
-
+                        isEmailValid = true
                     }
                 }
                 is Resource.Error -> {
