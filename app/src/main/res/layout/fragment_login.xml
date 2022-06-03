@@ -130,14 +130,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="42dp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/forgot_password"
             android:textColor="@color/blueBtnColor"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@id/loginGuideLine2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/loginGuideLine2" />
+            app:layout_constraintTop_toBottomOf="@+id/loginPasswordTi" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBtn"
