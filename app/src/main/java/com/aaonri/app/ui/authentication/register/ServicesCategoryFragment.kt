@@ -23,6 +23,7 @@ import com.aaonri.app.data.authentication.register.model.services.ServicesRespon
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
+import com.aaonri.app.util.Constant
 import com.aaonri.app.utils.Validator
 import com.example.newsapp.utils.Resource
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -71,6 +72,8 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         servicesGridItemBinding?.apply {
+
+            commonViewModel.addNavigationForStepper(Constant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 if (p1) {

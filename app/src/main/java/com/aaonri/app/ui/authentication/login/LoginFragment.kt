@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
@@ -36,7 +37,6 @@ class LoginFragment : Fragment() {
             guestUserLogin.setOnClickListener {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
-                activity?.finish()
             }
 
             loginBtn.setOnClickListener {
@@ -58,7 +58,12 @@ class LoginFragment : Fragment() {
                         )
                     )
                 } else {
-                    Toast.makeText(context, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please enter valid details", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
 
@@ -68,8 +73,6 @@ class LoginFragment : Fragment() {
         }
 
 
-
-
         registrationViewModel.loginData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -77,15 +80,17 @@ class LoginFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                    Toast.makeText(context, "${response.data?.userName}", Toast.LENGTH_SHORT)
-                        .show()
                     if (response.data?.userName.equals("failed")) {
-                        Toast.makeText(context, "Check your email and password", Toast.LENGTH_SHORT)
-                            .show()
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Please enter valid email and password", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     } else {
-                        findNavController().navigate(R.id.action_introFragment_to_dashboard_nav_graph)
-                        Toast.makeText(context, "Successfully login", Toast.LENGTH_SHORT)
-                            .show()
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
                     }
                 }
                 is Resource.Error -> {

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.FragmentOnbardingNavHostBinding
+import com.aaonri.app.util.Constant
 
 class OnboardingNavHostFragment : Fragment() {
     var onboardingBinding: FragmentOnbardingNavHostBinding? = null
@@ -26,7 +27,22 @@ class OnboardingNavHostFragment : Fragment() {
 
         onboardingBinding?.apply {
 
-            stepView.go(2, true)
+            commonViewModel.navigationForStepper.observe(viewLifecycleOwner) { route ->
+                when (route) {
+                    Constant.BASIC_DETAILS_SCREEN -> {
+                        stepView.go(0, true)
+                    }
+                    Constant.ADDRESS_DETAILS_SCREEN -> {
+                        stepView.go(1, true)
+                    }
+                    Constant.LOCATION_DETAILS_SCREEN -> {
+                        stepView.go(2, true)
+                    }
+                    Constant.SERVICE_DETAILS_SCREEN -> {
+                        stepView.go(3, true)
+                    }
+                }
+            }
 
             navigateBack.setOnClickListener {
                 activity?.onBackPressed()
@@ -38,6 +54,8 @@ class OnboardingNavHostFragment : Fragment() {
                 findNavController().navigateUp()
             }
         }
+
+
 
 
         return onboardingBinding?.root

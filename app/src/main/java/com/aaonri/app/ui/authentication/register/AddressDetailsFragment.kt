@@ -16,6 +16,7 @@ import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
+import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -46,6 +47,8 @@ class AddressDetailsFragment : Fragment() {
 
         addressDetailsBinding?.apply {
             val zipCode = zipCodeAddressDetails.text
+
+            commonViewModel.addNavigationForStepper(Constant.ADDRESS_DETAILS_SCREEN)
 
             if (!isCountrySelected)
                 commonViewModel.addSelectedCountry(

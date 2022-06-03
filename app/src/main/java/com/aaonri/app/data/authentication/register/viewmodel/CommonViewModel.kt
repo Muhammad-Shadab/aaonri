@@ -48,6 +48,8 @@ class CommonViewModel @Inject constructor(
 
     val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
+    val navigationForStepper: MutableLiveData<String> = MutableLiveData()
+
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
     var navigateToLoginScreen: MutableLiveData<Boolean>? = MutableLiveData()
@@ -55,6 +57,10 @@ class CommonViewModel @Inject constructor(
 
     fun addNavigateToLoginScreen(value: Boolean) {
         navigateToLoginScreen?.value = value
+    }
+
+    fun addNavigationForStepper(value: String) {
+        navigationForStepper.value = value
     }
 
     fun addCommunityList(value: MutableList<Community>) {

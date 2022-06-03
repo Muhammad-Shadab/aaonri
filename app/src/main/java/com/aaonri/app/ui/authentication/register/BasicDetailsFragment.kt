@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
+import com.aaonri.app.util.Constant
 import com.aaonri.app.utils.Validator
 import com.example.newsapp.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -43,6 +44,8 @@ class BasicDetailsFragment : Fragment() {
         var job: Job? = null
 
         basicDetailsBinding?.apply {
+
+            commonViewModel.addNavigationForStepper(Constant.BASIC_DETAILS_SCREEN)
 
             emailAddressBasicDetails.addTextChangedListener { editable ->
                 job?.cancel()

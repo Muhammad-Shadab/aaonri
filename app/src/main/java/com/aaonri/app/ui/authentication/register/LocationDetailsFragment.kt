@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdap
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
+import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -67,6 +68,8 @@ class LocationDetailsFragment : Fragment() {
 
 
         locationDetailsBinding?.apply {
+
+            commonViewModel.addNavigationForStepper(Constant.LOCATION_DETAILS_SCREEN)
 
             commonViewModel.apply {
                 stateLocationDetails.text = locationDetails["state"].toString()
