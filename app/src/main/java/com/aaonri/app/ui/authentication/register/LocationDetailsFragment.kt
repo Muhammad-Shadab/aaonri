@@ -47,6 +47,7 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
+
         commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 isCommunitySelected = true

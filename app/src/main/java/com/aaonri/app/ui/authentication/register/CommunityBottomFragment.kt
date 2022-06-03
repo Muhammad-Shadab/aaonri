@@ -29,7 +29,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     val commonViewModel: CommonViewModel by activityViewModels()
     private var communityItemAdapter: CommunityItemAdapter? = null
     var communityBottomBinding: FragmentCommunityBottomBinding? = null
-    var communities = listOf<Community>()
+    var communities = mutableListOf<Community>()
+    var selectedCommunitiesSize = 0
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -40,18 +41,29 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
 
+
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
-                communities = communitiesList
+                commonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${communitiesList.size} communities"
+                    "You have selected ${communitiesList.size + selectedCommunitiesSize} communities"
+            } else {
+                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
 
-            commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
-                communityItemAdapter?.savedCommunityList = communities as MutableList<Community>
-            }
         }
+
+        commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
+            selectedCommunitiesSize = selectedCommunitiesList.size
+            communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+            communityBottomBinding?.numberOfSelectedCommunity?.text =
+                "You have selected ${selectedCommunitiesList.size} communities"
+            communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
+            communityItemAdapter?.savedCommunityList =
+                selectedCommunitiesList as MutableList<Community>
+        }
+
 
         communityBottomBinding?.apply {
 
@@ -60,7 +72,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
 
             communitySubmitBtn.setOnClickListener {
-                commonViewModel.addCommunityList(communities as MutableList<Community>)
+
                 findNavController().navigateUp()
             }
 

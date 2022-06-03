@@ -39,7 +39,6 @@ class RegistrationViewModel
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 
-
     val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
 

@@ -3,6 +3,7 @@ package com.aaonri.app.data.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
@@ -36,8 +37,7 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
                 )
             )
             holder.binding.communityText.setTextColor(context.getColor(R.color.white))
-        }
-        else {
+        } else {
             holder.binding.communityText.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
@@ -48,6 +48,7 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         }
 
         holder.itemView.setOnClickListener {
+
             if (selectedCommunityList.contains(data[position]) || savedCommunityList.contains(data[position])) {
                 selectedCommunityList.remove(data[position])
                 savedCommunityList.remove(data[position])
@@ -78,6 +79,12 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Community>) {
         this.data = data
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setDataSavedList(savedCommunityList: MutableList<Community>) {
+        this.savedCommunityList = savedCommunityList
         notifyDataSetChanged()
     }
 

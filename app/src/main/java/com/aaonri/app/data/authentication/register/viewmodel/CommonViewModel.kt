@@ -1,5 +1,6 @@
 package com.aaonri.app.data.authentication.register.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,8 +30,7 @@ class CommonViewModel @Inject constructor(
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedCommunityList: MutableLiveData<List<Community>> = MutableLiveData()
-        private set
+    var selectedCommunityList: MutableLiveData<MutableList<Community>> = MutableLiveData()
 
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
@@ -51,7 +51,7 @@ class CommonViewModel @Inject constructor(
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
     fun addCommunityList(value: MutableList<Community>) {
-        selectedCommunityList.value = value
+        selectedCommunityList.postValue(value)
     }
 
     fun addServicesList(value: MutableList<ServicesResponseItem>) {
