@@ -5,11 +5,13 @@
     android:id="@+id/intro_graph"
     app:startDestination="@id/introFragment">
 
+    <include app:graph="@navigation/registration_graph"/>
+
     <fragment
         android:id="@+id/introFragment"
         android:name="com.aaonri.app.ui.authentication.login.LoginFragment"
         android:label="fragment_intro"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_introFragment_to_onbardingNavHostFragment"
             app:destination="@id/onbardingNavHostFragment" />
@@ -17,11 +19,10 @@
             android:id="@+id/action_introFragment_to_dashboard_nav_graph"
             app:destination="@id/dashboard_nav_graph" />
     </fragment>
-    <include app:graph="@navigation/registration_graph" />
     <fragment
         android:id="@+id/onbardingNavHostFragment"
-        android:name="com.aaonri.app.ui.authentication.register.OnbardingNavHostFragment"
-        android:label="OnbardingNavHostFragment" >
+        android:name="com.aaonri.app.ui.authentication.register.OnboardingNavHostFragment"
+        android:label="OnbardingNavHostFragment">
         <action
             android:id="@+id/action_onbardingNavHostFragment_to_registration_na_graph"
             app:destination="@id/registration_na_graph" />

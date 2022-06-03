@@ -87,11 +87,10 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
     // Stepper
-    implementation 'com.github.acefalobi:android-stepper:0.3.0'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
+
 
     // flexbox to arrange items according to the space
     implementation 'com.google.android:flexbox:2.0.1'
-
-    //meow bottom navigation library
 
 }

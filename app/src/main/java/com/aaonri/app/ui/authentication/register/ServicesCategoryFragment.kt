@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
@@ -36,6 +37,14 @@ class ServicesCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        /*val nestedNavHostFragment =
+            childFragmentManager.findFragmentById(R.id.onbardingNavHostFragment) as? NavHostFragment
+        val navController = nestedNavHostFragment?.navController
+        val navBackStackEntry = navController?.currentBackStackEntry
+
+        navController?.navigate(R.id.action_onbardingNavHostFragment_to_introFragment)*/
+
         servicesGridItemBinding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()
@@ -62,8 +71,8 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         servicesGridItemBinding?.apply {
-                serviceSubmitBtn.setOnClickListener {
-                    if (isServicesSelected) {
+            serviceSubmitBtn.setOnClickListener {
+                if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text
                     if (aliasName.toString().isNotEmpty()) {
@@ -119,8 +128,7 @@ class ServicesCategoryFragment : Fragment() {
                             ).show()
                         }
                     }
-                }
-                else {
+                } else {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),

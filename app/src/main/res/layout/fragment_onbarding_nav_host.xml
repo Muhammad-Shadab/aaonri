@@ -61,14 +61,32 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp" />
 
-        <com.aceinteract.android.stepper.StepperNavigationView
-            android:id="@+id/stepper"
+        <com.shuhart.stepview.StepView
+            android:id="@+id/step_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:stepperIconSize="@dimen/_20sdp"
-            app:stepperItems="@menu/onboarding_steps_menu"
-            app:stepperType="tab_numbered"
-            app:stepperWidgetColor="@color/blueBtnColor" />
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:padding="8dp"
+            app:sv_animationType="Line"
+            app:sv_doneCircleColor="@color/greenBtnColor"
+            app:sv_doneCircleRadius="12dp"
+            app:sv_doneStepLineColor="@color/greenBtnColor"
+            app:sv_doneStepMarkColor="@color/white"
+            app:sv_doneTextColor="@color/white"
+            app:sv_nextStepCircleColor="#299C9696"
+            app:sv_nextStepCircleEnabled="true"
+            app:sv_nextStepLineColor="#299C9696"
+            app:sv_nextTextColor="#999999"
+            app:sv_selectedCircleColor="@color/blueBtnColor"
+            app:sv_selectedCircleRadius="@dimen/_12sdp"
+            app:sv_selectedStepNumberColor="@color/white"
+            app:sv_selectedTextColor="@color/white"
+            app:sv_stepLineWidth="10dp"
+            app:sv_stepNumberTextSize="12sp"
+            app:sv_stepPadding="0dp"
+            app:sv_stepViewStyle="@style/StepView"
+            app:sv_stepsNumber="4" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/onBoardingNavHost"
