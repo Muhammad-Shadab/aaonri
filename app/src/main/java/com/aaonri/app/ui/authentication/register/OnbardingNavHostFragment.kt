@@ -16,6 +16,8 @@ class OnbardingNavHostFragment : Fragment() {
     ): View? {
         onboardingBinding = FragmentOnbardingNavHostBinding.inflate(inflater, container, false)
 
+
+
         onboardingBinding?.apply {
 
         }
