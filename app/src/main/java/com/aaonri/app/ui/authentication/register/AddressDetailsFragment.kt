@@ -30,7 +30,7 @@ import java.lang.Exception
 class AddressDetailsFragment : Fragment() {
     val commonViewModel: CommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
-
+    var isCountrySelected = false
     var cityName: String = ""
     var stateName: String = ""
     var zipCode: String = ""
@@ -47,14 +47,16 @@ class AddressDetailsFragment : Fragment() {
         addressDetailsBinding?.apply {
             val zipCode = zipCodeAddressDetails.text
 
-            commonViewModel.addSelectedCountry(
-                countryName = "USA",
-                countryFlag = "https://disease.sh/assets/img/flags/us.png",
-                countryCode = "US"
-            )
+
+            if (!isCountrySelected)
+                commonViewModel.addSelectedCountry(
+                    countryName = "USA",
+                    countryFlag = "https://disease.sh/assets/img/flags/us.png",
+                    countryCode = "US"
+                )
 
             commonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
-
+                isCountrySelected = true
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
