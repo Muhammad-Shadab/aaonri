@@ -3,6 +3,7 @@ package com.aaonri.app.data.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
@@ -14,7 +15,6 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
 
     private var data = listOf<ServicesResponseItem>()
 
-
     var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
     var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
 
@@ -24,11 +24,17 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
         return CustomViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-                servicesGridTv.text = data[position].interestDesc
+                if (data[position].id == 24){
+                    servicesGridTv.text = "Jobs"
+                }else{
+                    servicesGridTv.text = data[position].interestDesc
+                }
+
                 if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
                         data[position]
                     )
