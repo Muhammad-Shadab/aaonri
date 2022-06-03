@@ -71,7 +71,7 @@
             app:sv_animationType="Line"
             app:sv_doneCircleColor="@color/greenBtnColor"
             app:sv_doneCircleRadius="12dp"
-            app:sv_doneStepLineColor="@color/greenBtnColor"
+            app:sv_doneStepLineColor="@color/blueBtnColor"
             app:sv_doneStepMarkColor="@color/white"
             app:sv_doneTextColor="@color/white"
             app:sv_nextStepCircleColor="#299C9696"
