@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,7 @@ class ServicesCategoryFragment : Fragment() {
     val commonViewModel: CommonViewModel by activityViewModels()
     var isServicesSelected = false
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,11 +61,21 @@ class ServicesCategoryFragment : Fragment() {
                 }
             } else {
                 isServicesSelected = false
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                //servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }
         }
 
         servicesGridItemBinding?.apply {
+
+            if (isAliasNameCheckBox.isChecked) {
+                Toast.makeText(context, "${isAliasNameCheckBox.isChecked}", Toast.LENGTH_SHORT)
+                    .show()
+
+                aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + commonViewModel.basicDetailsMap["lastName"])
+            } else {
+                aliasNameServices.setText("")
+            }
+
             serviceSubmitBtn.setOnClickListener {
                 if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
