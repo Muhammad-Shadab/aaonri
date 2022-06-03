@@ -67,14 +67,14 @@ class ServicesCategoryFragment : Fragment() {
 
         servicesGridItemBinding?.apply {
 
-            if (isAliasNameCheckBox.isChecked) {
-                Toast.makeText(context, "${isAliasNameCheckBox.isChecked}", Toast.LENGTH_SHORT)
-                    .show()
-
-                aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + commonViewModel.basicDetailsMap["lastName"])
-            } else {
-                aliasNameServices.setText("")
+            isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
+                if (p1) {
+                    aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + " " + commonViewModel.basicDetailsMap["lastName"])
+                } else {
+                    aliasNameServices.setText("")
+                }
             }
+
 
             serviceSubmitBtn.setOnClickListener {
                 if (isServicesSelected) {
