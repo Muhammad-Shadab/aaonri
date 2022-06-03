@@ -145,7 +145,7 @@
                                 android:layout_marginEnd="@dimen/_20sdp"
                                 android:layout_marginBottom="@dimen/_2sdp"
                                 android:fontFamily="@font/sf_pro_regular"
-                                android:text="Invalid email"
+                                android:text="Please enter valid email"
                                 android:textColor="#FF0000"
                                 android:textSize="@dimen/_10sdp"
                                 android:visibility="gone" />
