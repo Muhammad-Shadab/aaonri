@@ -47,7 +47,6 @@ class AddressDetailsFragment : Fragment() {
         addressDetailsBinding?.apply {
             val zipCode = zipCodeAddressDetails.text
 
-
             if (!isCountrySelected)
                 commonViewModel.addSelectedCountry(
                     countryName = "USA",
@@ -68,6 +67,8 @@ class AddressDetailsFragment : Fragment() {
                                         zipCode.toString(),
                                         triple.third
                                     )
+                                } else {
+                                    invalidZipCodeTv.visibility = View.GONE
                                 }
                             }
                         }
@@ -91,9 +92,8 @@ class AddressDetailsFragment : Fragment() {
                 val phoneNumber = phoneNumberAddressDetails.text
                 val userEnteredCity = cityNameAddressDetails.text
 
-                if (phoneNumber.toString()
-                        .isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty()
+                if (cityName.isNotEmpty() && userEnteredCity.toString()
+                        .isNotEmpty() && zipCode.isNotEmpty()
                 ) {
                     commonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
@@ -125,15 +125,30 @@ class AddressDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
+
+
                     try {
-                        cityName = response.data?.result?.get(1)?.district.toString()
+                        cityName = response.data?.result?.get(1)?.province.toString()
                         stateName = response.data?.result?.get(1)?.state.toString()
                         zipCode = addressDetailsBinding?.zipCodeAddressDetails?.text.toString()
                         addressDetailsBinding?.stateNameAddressDetails?.text = stateName
                         addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
+                        if (stateName.isNotEmpty()) {
+                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
+                        } else {
+                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
+                        }
+
                     } catch (e: Exception) {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
+                    if (stateName.isBlank()) {
+                        Toast.makeText(context, stateName, Toast.LENGTH_SHORT).show()
+                        addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
+                    } else {
+                        addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
+                    }
+
                     addressDetailsBinding?.cityNameAddressDetails?.setText(if (commonViewModel.locationDetails["city"]?.isNotEmpty() == true) commonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {

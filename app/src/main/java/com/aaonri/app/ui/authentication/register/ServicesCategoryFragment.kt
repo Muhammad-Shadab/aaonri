@@ -38,13 +38,6 @@ class ServicesCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        /*val nestedNavHostFragment =
-            childFragmentManager.findFragmentById(R.id.onbardingNavHostFragment) as? NavHostFragment
-        val navController = nestedNavHostFragment?.navController
-        val navBackStackEntry = navController?.currentBackStackEntry
-
-        navController?.navigate(R.id.action_onbardingNavHostFragment_to_introFragment)*/
-
         servicesGridItemBinding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()

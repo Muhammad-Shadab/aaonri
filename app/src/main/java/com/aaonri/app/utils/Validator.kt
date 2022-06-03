@@ -9,7 +9,7 @@ class Validator {
         }
 
         fun passwordValidation(password: String): Boolean {
-            val passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+            val passwordRegex = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             return passwordRegex.toRegex().matches(password)
         }
 

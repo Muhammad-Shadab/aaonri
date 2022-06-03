@@ -124,6 +124,20 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
 
+            <TextView
+                android:id="@+id/invalidZipCodeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="invalid zipcode"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
 
             <EditText
                 android:id="@+id/cityNameAddressDetails"

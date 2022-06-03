@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.register
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -99,7 +100,6 @@ class BasicDetailsFragment : Fragment() {
                 val password = passwordBasicDetails.text
 
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
-
                     commonViewModel.addBasicDetails(
                         firstName.toString(),
                         lastName.toString(),
