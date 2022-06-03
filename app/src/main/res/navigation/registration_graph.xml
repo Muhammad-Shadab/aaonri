@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_na_graph"
+    app:startDestination="@id/basicDetailsFragment2">
+
+    <fragment
+        android:id="@+id/basicDetailsFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.BasicDetailsFragment"
+        android:label="fragment_basic_details"
+        tools:layout="@layout/fragment_basic_details" >
+        <action
+            android:id="@+id/action_basicDetailsFragment2_to_addressDetailsFragment2"
+            app:destination="@id/addressDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressDetailsFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.fragment.AddressDetailsFragment"
+        android:label="fragment_address_details"
+        tools:layout="@layout/fragment_address_details" />
+</navigation>

@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() //adding this in order to support meow bottom navigation library
+        maven { url "https://jitpack.io" } // adding this to support stepper progressbar
+    }
+}
+rootProject.name = "Aaonri"
+include ':app'
