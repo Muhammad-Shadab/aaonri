@@ -162,7 +162,7 @@ class ServicesCategoryFragment : Fragment() {
                                 .setPositiveButton(
                                     "OK"
                                 ) { p0, p1 ->
-
+                                    commonViewModel.addNavigateToLoginScreen(true)
                                 }
                                 .show()
                         }

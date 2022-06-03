@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.FragmentOnbardingNavHostBinding
 
 class OnboardingNavHostFragment : Fragment() {
     var onboardingBinding: FragmentOnbardingNavHostBinding? = null
-    var steps = listOf("1", "2", "3", "4")
+    val commonViewModel: CommonViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,20 +24,21 @@ class OnboardingNavHostFragment : Fragment() {
     ): View? {
         onboardingBinding = FragmentOnbardingNavHostBinding.inflate(inflater, container, false)
 
-         //val navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
-        val nestedNavHostFragment =
-            fragmentManager?.findFragmentById(R.id.onbardingNavHostFragment) as? NavHostFragment
-        val navController = nestedNavHostFragment?.navController
-        val navBackStackEntry = navController?.currentBackStackEntry
-
         onboardingBinding?.apply {
 
             stepView.go(2, true)
 
             navigateBack.setOnClickListener {
-               activity?.onBackPressed()
+                activity?.onBackPressed()
             }
         }
+
+        commonViewModel.navigateToLoginScreen?.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigateUp()
+            }
+        }
+
 
         return onboardingBinding?.root
     }
