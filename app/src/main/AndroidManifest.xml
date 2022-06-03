@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aaonri.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.aaonri.app.base.ApplicationClass"
         android:allowBackup="true"
@@ -15,6 +17,7 @@
         android:theme="@style/Theme.Aaonri"
         tools:targetApi="31">
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name="com.aaonri.app.ui.authentication.AuthActivity"
             android:exported="true">
             <intent-filter>
@@ -25,12 +28,13 @@
         </activity>
         <activity
             android:name="com.aaonri.app.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 

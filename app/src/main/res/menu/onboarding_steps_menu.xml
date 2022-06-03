@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/basicDetailsFragment"
-        android:title="Step 1" />
+        android:id="@+id/basicDetailsFragment2"
+        android:title="" />
 
     <item
-        android:id="@+id/addressDetailsFragment"
-        android:title="Step 2" />
+        android:id="@+id/addressDetailsFragment2"
+        android:title="" />
 
     <item
-        android:id="@+id/locationDetailsFragment"
-        android:title="Step 3" />
+        android:id="@+id/locationDetailsFragment2"
+        android:title="" />
 
     <item
-        android:id="@+id/servicesCategoryFragment"
-        android:title="Step 3" />
+        android:id="@+id/servicesCategoryFragment2"
+        android:title="" />
 
 </menu>
