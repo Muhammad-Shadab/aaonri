@@ -172,7 +172,7 @@ class ServicesCategoryFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             context,
-                            response.data?.message.toString(),
+                            response.data?.errorDetails.toString(),
                             Toast.LENGTH_LONG
                         ).show()
                     }
