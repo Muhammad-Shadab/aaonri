@@ -60,9 +60,10 @@ class AddressDetailsFragment : Fragment() {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
                         job = MainScope().launch {
-                            delay(500L)
                             editable?.let {
-                                if (editable.toString().isNotEmpty()) {
+                                if (editable.toString()
+                                        .isNotEmpty() && editable.toString().length >= 5
+                                ) {
                                     commonViewModel.getLocationByZipCode(
                                         zipCode.toString(),
                                         triple.third
@@ -92,7 +93,9 @@ class AddressDetailsFragment : Fragment() {
                 val phoneNumber = phoneNumberAddressDetails.text
                 val userEnteredCity = cityNameAddressDetails.text
 
-                if (stateName.isNotEmpty()) {
+                if (stateName.isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
+                        .isNotEmpty()
+                ) {
                     commonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,
@@ -124,7 +127,6 @@ class AddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
 
-
                     try {
                         cityName = response.data?.result?.get(1)?.province.toString()
                         stateName = response.data?.result?.get(1)?.state.toString()
@@ -141,7 +143,6 @@ class AddressDetailsFragment : Fragment() {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
                     if (stateName.isBlank()) {
-                        Toast.makeText(context, stateName, Toast.LENGTH_SHORT).show()
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
                     } else {
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
