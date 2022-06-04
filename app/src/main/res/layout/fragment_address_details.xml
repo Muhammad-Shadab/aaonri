@@ -57,7 +57,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
             </LinearLayout>
@@ -73,6 +73,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
                 android:hint="@string/address_line_1"
+                android:textSize="16sp"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:maxLines="1"
@@ -87,6 +88,8 @@
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
+
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
@@ -109,6 +112,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="16sp"
+
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
@@ -145,6 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="16sp"
+
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
@@ -157,8 +164,7 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/_14sdp" />
+                android:textColorHint="@color/hintColor" />
 
             <TextView
                 android:id="@+id/stateNameAddressDetails"
@@ -178,7 +184,7 @@
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/phoneNumberAddressDetails"
@@ -198,6 +204,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
+                android:textSize="16sp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
 
@@ -213,9 +220,11 @@
                 android:background="@drawable/green_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
                 android:text="@string/next"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

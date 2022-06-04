@@ -96,8 +96,8 @@ class AddressDetailsFragment : Fragment() {
                 val phoneNumber = phoneNumberAddressDetails.text
                 val userEnteredCity = cityNameAddressDetails.text
 
-                if (stateName.isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty() && zipCode.isNotEmpty() && toString().length >= 5
+                if (stateName.isNotEmpty() && userEnteredCity.toString()
+                        .isNotEmpty() && zipCode.isNotEmpty() && zipCode.length >= 5 || cityName.isNotEmpty()
                 ) {
                     commonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),

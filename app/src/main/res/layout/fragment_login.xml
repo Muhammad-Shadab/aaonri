@@ -45,13 +45,13 @@
             android:id="@+id/loginToExploreTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/login_to_explore"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
             android:paddingBottom="@dimen/_6sdp"
             android:textColor="@color/editTextColor"
             android:textColorHint="@color/hintColor"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -106,7 +106,6 @@
                 android:id="@+id/loginPasswordEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
                 android:hint="@string/password"
@@ -119,7 +118,7 @@
                 android:paddingBottom="@dimen/_2sdp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -150,9 +149,11 @@
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +234,7 @@
                 android:fontFamily="@font/sf_pro_regular"
                 android:text="@string/connect_with"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="@dimen/_100sdp"
