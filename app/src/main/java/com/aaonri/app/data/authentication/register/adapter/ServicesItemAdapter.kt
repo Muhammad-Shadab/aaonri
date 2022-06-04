@@ -10,7 +10,10 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
 
-class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit)) :
+class ServicesItemAdapter(
+    private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit),
+    private var isJobSelected: (value: Boolean) -> Unit
+) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
 
     private var data = listOf<ServicesResponseItem>()
@@ -29,9 +32,9 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-                if (data[position].id == 24){
-                    servicesGridTv.text = "Jobs"
-                }else{
+                if (data[position].id == 24 || data[position].id == 25) {
+
+                } else {
                     servicesGridTv.text = data[position].interestDesc
                 }
 
@@ -82,7 +85,13 @@ class ServicesItemAdapter(private var selectedServices: ((value: List<ServicesRe
                                 R.color.serviceCardLightBlue
                             )
                         )
+                        if (data[position].id == 3) {
+                            isJobSelected(false)
+                        }
                     } else {
+                        if (data[position].id == 3) {
+                            isJobSelected(true)
+                        }
                         selectedCategoriesList.add(data[position])
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(

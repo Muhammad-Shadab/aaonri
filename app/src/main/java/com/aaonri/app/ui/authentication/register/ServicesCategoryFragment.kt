@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
@@ -37,6 +37,7 @@ class ServicesCategoryFragment : Fragment() {
     val registrationViewModel: RegistrationViewModel by viewModels()
     val commonViewModel: CommonViewModel by activityViewModels()
     var isServicesSelected = false
+    var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -50,24 +51,20 @@ class ServicesCategoryFragment : Fragment() {
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()
 
-        adapter = ServicesItemAdapter { selectedCommunity ->
+        adapter = ServicesItemAdapter({ selectedCommunity ->
             commonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
+        }) {
+            isJobSelected = it
+            Toast.makeText(context, "$isJobSelected", Toast.LENGTH_SHORT).show()
         }
+
 
         commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
-            if (serviceResponseItem.size >= 3) {
-                isServicesSelected = true
-                serviceResponseItem.forEach {
-                    if (it.id == 3 || it.interestDesc == "Jobs") {
-                        servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
-                    } else {
-                        servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
-                    }
-                }
+            if (serviceResponseItem.size >= 3 && isJobSelected) {
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
             } else {
-                isServicesSelected = false
-                //servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }
         }
 
