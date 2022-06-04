@@ -34,6 +34,10 @@ class LoginFragment : Fragment() {
 
         introBinding?.apply {
 
+            forgotPassTv.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
+            }
+
             guestUserLogin.setOnClickListener {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)

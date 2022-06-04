@@ -3,32 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_graph"
-    app:startDestination="@id/introFragment">
+    app:startDestination="@id/loginFragment">
 
+    <include app:graph="@navigation/dashboard_nav_graph" />
     <include app:graph="@navigation/registration_graph"/>
 
     <fragment
-        android:id="@+id/introFragment"
-        android:name="com.aaonri.app.ui.authentication.login.LoginFragment"
-        android:label="fragment_intro"
-        tools:layout="@layout/fragment_login">
+    android:id="@+id/loginFragment"
+    android:name="com.aaonri.app.ui.authentication.login.LoginFragment"
+    android:label="fragment_intro"
+    tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_introFragment_to_onbardingNavHostFragment"
-            app:destination="@id/onbardingNavHostFragment" />
+        android:id="@+id/action_introFragment_to_onbardingNavHostFragment"
+        app:destination="@id/onbardingNavHostFragment" />
         <action
-            android:id="@+id/action_introFragment_to_dashboard_nav_graph"
-            app:destination="@id/dashboard_nav_graph" />
+        android:id="@+id/action_introFragment_to_dashboard_nav_graph"
+        app:destination="@id/dashboard_nav_graph" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgot_password_nav"
+            app:destination="@id/forgot_password_nav" />
     </fragment>
     <fragment
-        android:id="@+id/onbardingNavHostFragment"
-        android:name="com.aaonri.app.ui.authentication.register.OnboardingNavHostFragment"
-        android:label="OnbardingNavHostFragment">
+    android:id="@+id/onbardingNavHostFragment"
+    android:name="com.aaonri.app.ui.authentication.register.OnboardingNavHostFragment"
+    android:label="OnbardingNavHostFragment">
         <action
-            android:id="@+id/action_onbardingNavHostFragment_to_registration_na_graph"
-            app:destination="@id/registration_na_graph" />
+        android:id="@+id/action_onbardingNavHostFragment_to_registration_na_graph"
+        app:destination="@id/registration_na_graph" />
         <action
-            android:id="@+id/action_onbardingNavHostFragment_to_introFragment"
-            app:destination="@id/introFragment" />
+        android:id="@+id/action_onbardingNavHostFragment_to_introFragment"
+        app:destination="@id/loginFragment" />
     </fragment>
-    <include app:graph="@navigation/dashboard_nav_graph" />
+    <include app:graph="@navigation/forgot_password_nav" />
 </navigation>

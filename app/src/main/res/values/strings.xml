@@ -40,4 +40,6 @@
     <string name="select_country">Select Country</string>
     <string name="select_your_country">Select your country</string>
     <string name="phone_number">Phone Number</string>
+    <string name="reset_my_password">Reset My Password</string>
+    <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
 </resources>
