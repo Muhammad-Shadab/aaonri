@@ -11,10 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-         <!--Customize your theme here. -->
+        <!--Customize your theme here. -->
 
     </style>
-
 
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
         <item name="behavior_peekHeight">500dp</item>
@@ -28,5 +27,7 @@
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog"/>
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+
 </resources>

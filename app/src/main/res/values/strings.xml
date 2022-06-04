@@ -42,4 +42,5 @@
     <string name="phone_number">Phone Number</string>
     <string name="reset_my_password">Reset My Password</string>
     <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
+    <string name="verification">Verification email sent to your Email Id. \n please comeback to the app and click the \'Continue\' button below once your account verification process is completed</string>
 </resources>

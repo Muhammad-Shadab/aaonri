@@ -1,11 +1,13 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -60,17 +62,27 @@ class ServicesCategoryFragment : Fragment() {
         commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
             if (serviceResponseItem.size >= 3 && isJobSelected) {
+                isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+            } else if (serviceResponseItem.size >= 3) {
+                isServicesSelected = true
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             } else {
+                isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }
         }
+
+        val dialog = Dialog(requireContext())
+
 
         servicesGridItemBinding?.apply {
 
             commonViewModel.addNavigationForStepper(Constant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
+
+
                 if (p1) {
                     aliasNameServices.isEnabled = false
                     aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + " " + commonViewModel.basicDetailsMap["lastName"])
@@ -148,7 +160,24 @@ class ServicesCategoryFragment : Fragment() {
                 is Resource.Success -> {
                     servicesGridItemBinding?.progressBar?.visibility = View.GONE
                     if (response.data?.status.equals("true")) {
-                        context?.let { it1 ->
+
+                        dialog.setContentView(R.layout.success_register_dialog)
+                        dialog.window?.setBackgroundDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.dialog_shape
+                            )
+                        )
+                        dialog.setCancelable(false)
+                        dialog.show()
+                        val continueBtn = dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                        continueBtn.setOnClickListener {
+                            dialog.dismiss()
+                            commonViewModel.addNavigateToLoginScreen(true)
+                            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+                        }
+
+                        /*context?.let { it1 ->
                             MaterialAlertDialogBuilder(it1).setTitle("Registration Success")
                                 .setMessage("Check your email for verification")
                                 .setBackground(
@@ -163,7 +192,7 @@ class ServicesCategoryFragment : Fragment() {
                                     commonViewModel.addNavigateToLoginScreen(true)
                                 }
                                 .show()
-                        }
+                        }*/
                     } else {
                         Toast.makeText(
                             context,
