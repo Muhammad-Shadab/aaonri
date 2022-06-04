@@ -63,6 +63,7 @@ class AddressDetailsFragment : Fragment() {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
                         job = MainScope().launch {
+                            delay(500L)
                             editable?.let {
                                 if (editable.toString()
                                         .isNotEmpty() && editable.toString().length >= 5
@@ -97,7 +98,8 @@ class AddressDetailsFragment : Fragment() {
                 val userEnteredCity = cityNameAddressDetails.text
 
                 if (stateName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty() && zipCode.toString().isNotEmpty() && zipCode.toString().length >= 5
+                        .isNotEmpty() && zipCode.toString()
+                        .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
 
                     commonViewModel.addLocationDetails(

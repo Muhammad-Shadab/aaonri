@@ -174,25 +174,7 @@ class ServicesCategoryFragment : Fragment() {
                         continueBtn.setOnClickListener {
                             dialog.dismiss()
                             commonViewModel.addNavigateToLoginScreen(true)
-                            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
                         }
-
-                        /*context?.let { it1 ->
-                            MaterialAlertDialogBuilder(it1).setTitle("Registration Success")
-                                .setMessage("Check your email for verification")
-                                .setBackground(
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.dialog_shape
-                                    )
-                                )
-                                .setPositiveButton(
-                                    "OK"
-                                ) { p0, p1 ->
-                                    commonViewModel.addNavigateToLoginScreen(true)
-                                }
-                                .show()
-                        }*/
                     } else {
                         Toast.makeText(
                             context,
