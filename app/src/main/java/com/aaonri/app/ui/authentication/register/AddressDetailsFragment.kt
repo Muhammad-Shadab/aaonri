@@ -96,6 +96,8 @@ class AddressDetailsFragment : Fragment() {
                 val address2 = address2.text
                 val phoneNumber = phoneNumberAddressDetails.text
                 val userEnteredCity = cityNameAddressDetails.text
+                val zipCode = zipCodeAddressDetails.text
+
 
                 if (stateName.isNotEmpty() && userEnteredCity.toString()
                         .isNotEmpty() && zipCode.toString()
