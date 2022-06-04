@@ -97,7 +97,7 @@ class AddressDetailsFragment : Fragment() {
                 val userEnteredCity = cityNameAddressDetails.text
 
                 if (stateName.isNotEmpty() && cityName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty() && zipCode.isNotEmpty()
+                        .isNotEmpty() && zipCode.isNotEmpty() && toString().length >= 5
                 ) {
                     commonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
@@ -129,10 +129,9 @@ class AddressDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-
                     try {
-                        cityName = response.data?.result?.get(1)?.province.toString()
-                        stateName = response.data?.result?.get(1)?.state.toString()
+                        cityName = response.data?.result?.get(0)?.province.toString()
+                        stateName = response.data?.result?.get(0)?.state.toString()
                         zipCode = addressDetailsBinding?.zipCodeAddressDetails?.text.toString()
                         addressDetailsBinding?.stateNameAddressDetails?.text = stateName
                         addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
