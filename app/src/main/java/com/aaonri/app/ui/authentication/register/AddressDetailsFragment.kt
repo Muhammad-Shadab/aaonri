@@ -9,23 +9,19 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
 import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @AndroidEntryPoint
 class AddressDetailsFragment : Fragment() {

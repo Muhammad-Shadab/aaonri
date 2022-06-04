@@ -11,6 +11,7 @@ import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
+import com.google.android.material.snackbar.Snackbar
 
 class ServicesItemAdapter(
     private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit),
@@ -126,42 +127,50 @@ class ServicesItemAdapter(
                 }
 
                 itemView.setOnClickListener {
-                    if (selectedCategoriesList.contains(data[position])) {
-                        selectedCategoriesList.remove(data[position])
-                        servicesGridIv.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.blueBtnColor
+                    if (data[position].active) {
+                        if (selectedCategoriesList.contains(data[position])) {
+                            selectedCategoriesList.remove(data[position])
+                            servicesGridIv.setColorFilter(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.blueBtnColor
+                                )
                             )
-                        )
-                        servicesGridIv.setBackgroundColor(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.serviceCardLightBlue
+                            servicesGridIv.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.serviceCardLightBlue
+                                )
                             )
-                        )
-                        if (data[position].id == 3) {
-                            isJobSelected(false)
+                            if (data[position].id == 3) {
+                                isJobSelected(false)
+                            }
+                        } else {
+                            if (data[position].id == 3) {
+                                isJobSelected(true)
+                            }
+                            selectedCategoriesList.add(data[position])
+                            servicesGridIv.setColorFilter(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.white
+                                )
+                            )
+                            servicesGridIv.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.blueBtnColor
+                                )
+                            )
                         }
+                        selectedServices(selectedCategoriesList)
                     } else {
-                        if (data[position].id == 3) {
-                            isJobSelected(true)
-                        }
-                        selectedCategoriesList.add(data[position])
-                        servicesGridIv.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.white
-                            )
-                        )
-                        servicesGridIv.setBackgroundColor(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.blueBtnColor
-                            )
-                        )
+                        Snackbar.make(
+                            itemView,
+                            "This service is currently unavailable",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
-                    selectedServices(selectedCategoriesList)
                 }
             }
         }
