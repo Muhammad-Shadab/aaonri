@@ -60,14 +60,14 @@
                         android:fontFamily="@font/sf_pro_regular"
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
+                        android:textSize="16sp"
                         android:maxLines="1"
                         android:paddingStart="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_6sdp"
-                        android:paddingEnd="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textColorHint="@color/hintColor" />
 
                 </LinearLayout>
 
@@ -88,9 +88,9 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_6sdp"
+                    android:textSize="16sp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textColorHint="@color/hintColor" />
 
                 <TextView
                     android:id="@+id/stateLocationDetails"
@@ -108,9 +108,9 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_6sdp"
+                    android:textSize="16sp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textColorHint="@color/hintColor" />
 
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 <com.google.android.material.card.MaterialCardView

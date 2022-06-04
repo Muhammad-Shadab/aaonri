@@ -27,7 +27,8 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/choose_any_three_or_more_categories"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -96,7 +97,7 @@
                                     android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/as_you_have_selected"
                                     android:textColor="@color/textViewColor"
-                                    android:textSize="@dimen/_12sdp" />
+                                    android:textSize="12sp" />
 
                             </LinearLayout>
 
@@ -114,7 +115,7 @@
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/your_company_s_email"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_10sdp" />
+                                android:textSize="12sp" />
 
                             <EditText
                                 android:id="@+id/companyEmailServices"
@@ -134,7 +135,8 @@
                                 android:paddingEnd="@dimen/_16sdp"
                                 android:paddingBottom="@dimen/_6sdp"
                                 android:textColor="@color/editTextColor"
-                                android:textColorHint="@color/hintColor" />
+                                android:textColorHint="@color/hintColor"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/invalidEmailTv"
@@ -158,7 +160,7 @@
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/choose_an_alias"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_10sdp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -180,7 +182,8 @@
                             android:paddingEnd="@dimen/_16sdp"
                             android:paddingBottom="@dimen/_6sdp"
                             android:textColor="@color/editTextColor"
-                            android:textColorHint="@color/hintColor" />
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="16sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -206,7 +209,7 @@
                                 android:fontFamily="@font/sf_pro_regular"
                                 android:text="@string/just_want_my_full_name_as_my_alias_name"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -239,7 +242,7 @@
                         android:fontFamily="@font/sf_pro_regular"
                         android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
                         android:textColor="@color/textViewColor"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
