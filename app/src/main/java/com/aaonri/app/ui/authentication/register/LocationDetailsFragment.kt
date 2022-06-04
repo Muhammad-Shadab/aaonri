@@ -54,7 +54,7 @@ class LocationDetailsFragment : Fragment() {
                 isCommunitySelected = true
                 selectedCommunityAdapter
                 locationDetailsBinding?.selectedCommunitySizeTv?.text =
-                    "Your selected community ${it.size}"
+                    "Your selected community (${it.size})"
                 locationDetailsBinding?.selectedCardView?.visibility = View.VISIBLE
                 selectedCommunityAdapter!!.setData(it)
                 locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE

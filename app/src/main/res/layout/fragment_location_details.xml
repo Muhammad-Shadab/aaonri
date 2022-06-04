@@ -60,14 +60,14 @@
                         android:fontFamily="@font/sf_pro_regular"
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
-                        android:textSize="16sp"
                         android:maxLines="1"
                         android:paddingStart="@dimen/_12sdp"
                         android:paddingTop="@dimen/_4sdp"
                         android:paddingEnd="@dimen/_16sdp"
                         android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
-                        android:textColorHint="@color/hintColor" />
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -88,9 +88,9 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_6sdp"
-                    android:textSize="16sp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor" />
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/stateLocationDetails"
@@ -108,9 +108,9 @@
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_6sdp"
-                    android:textSize="16sp"
                     android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor" />
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp" />
 
 
                 <TextView
@@ -138,9 +138,9 @@
                     android:id="@+id/selectedCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:visibility="gone"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_12sdp"
@@ -166,6 +166,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/your_selected_community_3"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12sdp" />
