@@ -2,10 +2,12 @@ package com.aaonri.app.data.authentication.register.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
@@ -16,7 +18,7 @@ class ServicesItemAdapter(
 ) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
 
-    private var data = listOf<ServicesResponseItem>()
+    private var data = ArrayList<ServicesResponseItem>()
 
     var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
     var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
@@ -32,10 +34,63 @@ class ServicesItemAdapter(
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-                if (data[position].id == 24 || data[position].id == 25) {
 
-                } else {
-                    servicesGridTv.text = data[position].interestDesc
+                servicesGridTv.text = data[position].interestDesc
+                when (data[position].id) {
+                    1 -> {
+                        servicesGridIv.load(R.drawable.ic_classified)
+                    }
+                    2 -> {
+                        servicesGridIv.load(R.drawable.ic_event)
+                    }
+                    3 -> {
+                        servicesGridIv.load(R.drawable.ic_job)
+                    }
+                    4 -> {
+                        servicesGridIv.load(R.drawable.ic_immigration)
+                    }
+                    5 -> {
+                        servicesGridIv.load(R.drawable.ic_astrology)
+                    }
+                    6 -> {
+                        servicesGridIv.load(R.drawable.ic_sports)
+                    }
+                    8 -> {
+                        servicesGridIv.load(R.drawable.ic_community)
+                    }
+                    9 -> {
+                        servicesGridIv.load(R.drawable.ic_donation)
+                    }
+                    10 -> {
+                        servicesGridIv.load(R.drawable.ic_education)
+                    }
+                    11 -> {
+                        servicesGridIv.load(R.drawable.ic_legal_service)
+                    }
+                    12 -> {
+                        servicesGridIv.load(R.drawable.ic_matrimony)
+                    }
+                    13 -> {
+                        servicesGridIv.load(R.drawable.ic_medical)
+                    }
+                    14 -> {
+                        servicesGridIv.load(R.drawable.ic_real_state)
+                    }
+                    15 -> {
+                        servicesGridIv.load(R.drawable.ic_shop)
+                    }
+                    16 -> {
+                        servicesGridIv.load(R.drawable.ic_travel)
+                    }
+                    17 -> {
+                        servicesGridIv.load(R.drawable.ic_home_need)
+                    }
+                    18 -> {
+                        servicesGridIv.load(R.drawable.ic_business_need)
+                    }
+                    19 -> {
+                        servicesGridIv.load(R.drawable.ic_advertise)
+                    }
                 }
 
                 if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
@@ -116,7 +171,7 @@ class ServicesItemAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<ServicesResponseItem>) {
-        this.data = data
+        this.data = data as ArrayList<ServicesResponseItem>
         notifyDataSetChanged()
     }
 
@@ -124,7 +179,6 @@ class ServicesItemAdapter(
         val binding: ServicesGridItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root)
-
 }
 
 

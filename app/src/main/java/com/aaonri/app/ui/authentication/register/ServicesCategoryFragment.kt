@@ -55,9 +55,7 @@ class ServicesCategoryFragment : Fragment() {
             commonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
         }) {
             isJobSelected = it
-            Toast.makeText(context, "$isJobSelected", Toast.LENGTH_SHORT).show()
         }
-
 
         commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
@@ -249,7 +247,12 @@ class ServicesCategoryFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         servicesGridItemBinding?.progressBar?.visibility = View.GONE
-                        response.data?.let { adapter?.setData(it) }
+                        response.data?.let { servicesResponse ->
+                            servicesResponse.removeAt(7)
+                            servicesResponse.removeAt(0)
+                            //val filterList = servicesResponse.remove(servicesResponse.)
+                            adapter?.setData(servicesResponse)
+                        }
                     }
                     is Resource.Error -> {
                         servicesGridItemBinding?.progressBar?.visibility = View.GONE
