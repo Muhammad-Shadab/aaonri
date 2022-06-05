@@ -64,8 +64,23 @@ class ServicesCategoryFragment : Fragment() {
             isJobSelected = it
         }
 
+
         commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
+
+            if (serviceResponseItem.isNotEmpty() && serviceResponseItem.size >= 3) {
+                serviceResponseItem.forEach {
+                    if (it.id == 3) {
+                        isJobSelected = true
+                        servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+                    } else {
+                        isJobSelected = false
+                        servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                    }
+                }
+            }
+
+
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
