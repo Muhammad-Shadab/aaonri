@@ -16,6 +16,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
+import com.aaonri.app.ui.authentication.register.RegistrationActivity
 import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -35,7 +36,7 @@ class LoginFragment : Fragment() {
         introBinding?.apply {
 
             forgotPassTv.setOnClickListener {
-               // findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
+                // findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
             }
 
             guestUserLogin.setOnClickListener {
@@ -72,7 +73,8 @@ class LoginFragment : Fragment() {
             }
 
             createAccountTv.setOnClickListener {
-                findNavController().navigate(R.id.action_introFragment_to_onbardingNavHostFragment)
+                val intent = Intent(requireContext(), RegistrationActivity::class.java)
+                startActivity(intent)
             }
         }
 

@@ -198,7 +198,7 @@ class ServicesCategoryFragment : Fragment() {
                         val continueBtn = dialog.findViewById<TextView>(R.id.continueRegisterBtn)
                         continueBtn.setOnClickListener {
                             dialog.dismiss()
-                            commonViewModel.addNavigateToLoginScreen(true)
+                            activity?.finish()
                         }
                     } else {
                         Toast.makeText(
