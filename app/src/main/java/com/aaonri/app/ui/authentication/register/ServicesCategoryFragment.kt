@@ -83,6 +83,8 @@ class ServicesCategoryFragment : Fragment() {
 
         servicesGridItemBinding?.apply {
 
+            companyEmailServices.isEnabled = false
+
             commonViewModel.addNavigationForStepper(Constant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
