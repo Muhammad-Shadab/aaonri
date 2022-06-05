@@ -97,6 +97,7 @@ class ServicesCategoryFragment : Fragment() {
 
             isRecruiterCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 isCompanyEmailCheckboxSelected = p1
+                companyEmailServices.isEnabled = p1
             }
 
 
@@ -120,7 +121,7 @@ class ServicesCategoryFragment : Fragment() {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text
                     if (isCompanyEmailCheckboxSelected) {
-                        if (Validator.emailValidation(companyEmail.toString())) {
+                        if (Validator.emailValidation(companyEmail.toString()) && companyEmail.toString().length >= 8) {
                             if (aliasName.toString().isNotEmpty()) {
                                 registerUser(
                                     companyEmail.toString(),
