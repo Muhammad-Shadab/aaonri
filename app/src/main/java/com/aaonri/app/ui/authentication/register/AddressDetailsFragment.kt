@@ -151,7 +151,7 @@ class AddressDetailsFragment : Fragment() {
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     }
 
-                    addressDetailsBinding?.cityNameAddressDetails?.setText(if (commonViewModel.locationDetails["city"]?.isNotEmpty() == true) commonViewModel.locationDetails["city"].toString() else cityName)
+                   addressDetailsBinding?.cityNameAddressDetails?.setText(if (commonViewModel.locationDetails["city"]?.isNotEmpty() == true) commonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
