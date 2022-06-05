@@ -144,7 +144,7 @@ class ServicesCategoryFragment : Fragment() {
                                 activity?.let { it1 ->
                                     Snackbar.make(
                                         it1.findViewById(android.R.id.content),
-                                        "Company email is required", Snackbar.LENGTH_LONG
+                                        "Company email required", Snackbar.LENGTH_LONG
                                     ).show()
                                 }
                             }
