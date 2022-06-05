@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,6 +21,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
@@ -31,6 +33,9 @@ import com.example.newsapp.utils.Resource
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ServicesCategoryFragment : Fragment() {
@@ -81,8 +86,6 @@ class ServicesCategoryFragment : Fragment() {
             commonViewModel.addNavigationForStepper(Constant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
-
-
                 if (p1) {
                     aliasNameServices.isEnabled = false
                     aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + " " + commonViewModel.basicDetailsMap["lastName"])
@@ -97,14 +100,27 @@ class ServicesCategoryFragment : Fragment() {
             }
 
 
+            companyEmailServices.addTextChangedListener { editable ->
+                editable?.let {
+                    if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
+                        if (Validator.emailValidation(editable.toString())) {
+                            invalidEmailTv.visibility = View.GONE
+                        } else {
+                            invalidEmailTv.visibility = View.VISIBLE
+                        }
+                    } else {
+                        invalidEmailTv.visibility = View.GONE
+                    }
+
+                }
+            }
+
             serviceSubmitBtn.setOnClickListener {
                 if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text
-
                     if (isCompanyEmailCheckboxSelected) {
                         if (Validator.emailValidation(companyEmail.toString())) {
-                            invalidEmailTv.visibility = View.GONE
                             if (aliasName.toString().isNotEmpty()) {
                                 registerUser(
                                     companyEmail.toString(),
@@ -122,7 +138,16 @@ class ServicesCategoryFragment : Fragment() {
                                 }
                             }
                         } else {
-                            invalidEmailTv.visibility = View.VISIBLE
+                            if (companyEmail.isNotEmpty()) {
+                                invalidEmailTv.visibility = View.VISIBLE
+                            } else {
+                                activity?.let { it1 ->
+                                    Snackbar.make(
+                                        it1.findViewById(android.R.id.content),
+                                        "Company email is required", Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                         }
                     } else if (aliasName.toString().isNotEmpty()) {
                         registerUser(
