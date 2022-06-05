@@ -68,6 +68,11 @@ class ServicesCategoryFragment : Fragment() {
         commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
 
+            serviceResponseItem.forEach {
+                if (it.id == 3)
+                    isJobSelected = true
+            }
+
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
