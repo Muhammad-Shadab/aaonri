@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,8 +109,13 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-
         return introBinding?.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        introBinding?.loginEmailEt?.setText("")
+        introBinding?.loginPasswordEt?.setText("")
+    }
+
 }
