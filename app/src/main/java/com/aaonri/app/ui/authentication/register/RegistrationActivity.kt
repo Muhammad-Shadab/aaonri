@@ -4,9 +4,12 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
 import com.aaonri.app.databinding.ActivityRegistrationBinding
@@ -28,15 +31,17 @@ class RegistrationActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.onBoardingNavHost) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
 
         registrationBinding?.apply {
 
-            navigateBack.setOnClickListener{
-                findNavController(R.id.onBoardingNavHost).navigateUp()
+            navigateBack.setOnClickListener {
+                onBackPressed()
             }
 
-            commonViewModel.navigationForStepper.observe(this@RegistrationActivity){ route ->
+            commonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->
                 when (route) {
                     Constant.BASIC_DETAILS_SCREEN -> {
                         stepView.go(0, true)
@@ -52,10 +57,6 @@ class RegistrationActivity : AppCompatActivity() {
                     }
                 }
             }
-
-
         }
-
-
     }
 }

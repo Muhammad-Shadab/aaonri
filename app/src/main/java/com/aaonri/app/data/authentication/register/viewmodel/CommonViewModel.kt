@@ -51,13 +51,6 @@ class CommonViewModel @Inject constructor(
 
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
-    var navigateToLoginScreen: MutableLiveData<Boolean>? = MutableLiveData()
-        private set
-
-    fun addNavigateToLoginScreen(value: Boolean) {
-        navigateToLoginScreen?.value = value
-    }
-
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
