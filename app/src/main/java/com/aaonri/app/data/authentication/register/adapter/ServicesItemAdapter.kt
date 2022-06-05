@@ -94,37 +94,48 @@ class ServicesItemAdapter(
                     }
                 }
 
-                if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
-                        data[position]
-                    )
-                ) {
-                    selectedCategoriesList.add(data[position])
-                    servicesGridIv.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.white
+                if (data[position].active) {
+                    if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
+                            data[position]
                         )
-                    )
-                    servicesGridIv.setBackgroundColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.blueBtnColor
+                    ) {
+                        selectedCategoriesList.add(data[position])
+                        servicesGridIv.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.white
+                            )
                         )
-                    )
+                        servicesGridIv.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blueBtnColor
+                            )
+                        )
+                    } else {
+                        servicesGridIv.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blueBtnColor
+                            )
+                        )
+                        servicesGridIv.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.serviceCardLightBlue
+                            )
+                        )
+                    }
                 } else {
-                    servicesGridIv.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.blueBtnColor
-                        )
-                    )
                     servicesGridIv.setBackgroundColor(
                         ContextCompat.getColor(
                             context,
-                            R.color.serviceCardLightBlue
+                            R.color.disableServiceColor
                         )
                     )
                 }
+
+
 
                 itemView.setOnClickListener {
                     if (data[position].active) {
