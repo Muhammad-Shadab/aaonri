@@ -2,11 +2,13 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -96,6 +98,11 @@ class ServicesCategoryFragment : Fragment() {
             }
 
             serviceSubmitBtn.setOnClickListener {
+
+                val imm =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+
                 if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text

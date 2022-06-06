@@ -1,9 +1,11 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -98,6 +100,10 @@ class BasicDetailsFragment : Fragment() {
                 val lastName = lastNameBasicDetails.text
                 val emailAddress = emailAddressBasicDetails.text
                 val password = passwordBasicDetails.text
+
+                val imm =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
 
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
                     authCommonViewModel.addBasicDetails(

@@ -16,6 +16,8 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
 
     private var data = listOf<Community>()
 
+    //private var selectedCommunityList = mutableListOf<Community>()
+
     var selectedCommunityList = mutableListOf<Community>()
     var savedCommunityList = mutableListOf<Community>()
 
@@ -28,6 +30,35 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.communityText.text = data[position].communityName
+
+       /* holder.itemView.setOnClickListener {
+            if (data[position].isSelected) {
+                data[position].isSelected = false
+                holder.binding.communityText.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.white
+                    )
+                )
+                holder.binding.communityText.setTextColor(context.getColor(R.color.white))
+            } else {
+                data[position].isSelected = true
+                holder.binding.communityText.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.white
+                    )
+                )
+                holder.binding.communityText.setTextColor(context.getColor(R.color.textViewColor))
+            }
+            holder.binding.communityText.setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.white
+                )
+            )
+            holder.binding.communityText.setTextColor(context.getColor(R.color.textViewColor))
+        }*/
 
         if (savedCommunityList.contains(data[position]) || selectedCommunityList.contains(data[position])) {
             holder.binding.communityText.setBackgroundColor(
@@ -82,11 +113,11 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         notifyDataSetChanged()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setDataSavedList(savedCommunityList: MutableList<Community>) {
-        this.savedCommunityList = savedCommunityList
-        notifyDataSetChanged()
-    }
+     @SuppressLint("NotifyDataSetChanged")
+     fun setDataSavedList(savedCommunityList: MutableList<Community>) {
+         this.savedCommunityList = savedCommunityList
+         notifyDataSetChanged()
+     }
 
     inner class CustomViewHolder(val binding: CommunityItemBinding) :
         RecyclerView.ViewHolder(binding.root)

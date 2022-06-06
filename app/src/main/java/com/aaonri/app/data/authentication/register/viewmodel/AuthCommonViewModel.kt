@@ -63,6 +63,7 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun addCommunityList(value: MutableList<Community>) {
+
         selectedCommunityList.postValue(value)
     }
 

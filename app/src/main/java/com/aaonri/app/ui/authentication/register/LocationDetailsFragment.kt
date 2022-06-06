@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.adapter.CommunityItemAdapter
 import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -36,7 +39,6 @@ class LocationDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         locationDetailsBinding = FragmentLocationDetailsBinding.inflate(inflater, container, false)
-
         getCommunities()
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
@@ -57,6 +59,9 @@ class LocationDetailsFragment : Fragment() {
             }
 
             locationDetailsNextBtn.setOnClickListener {
+                val imm =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
                 if (stateLocationDetails.text.isNotEmpty() && cityLocationDetails.text.isNotEmpty() && isCommunitySelected) {
                     findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
                 } else {
