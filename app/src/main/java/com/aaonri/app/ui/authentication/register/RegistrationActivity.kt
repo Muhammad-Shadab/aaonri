@@ -8,13 +8,14 @@ import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.aaonri.app.R
+import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.ActivityRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : BaseActivity() {
     var registrationBinding: ActivityRegistrationBinding? = null
     val authCommonViewModel: AuthCommonViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
