@@ -49,6 +49,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
                     "You have selected ${communitiesList.size + selectedCommunitiesSize} communities"
             } else {
+                authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
 
