@@ -47,7 +47,7 @@ class ServicesCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        val dialog = Dialog(requireContext())
         servicesGridItemBinding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
         getServicesInterestList()
@@ -57,30 +57,6 @@ class ServicesCategoryFragment : Fragment() {
         }) {
             isJobSelected = it
         }
-
-
-        authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
-            adapter?.savedCategoriesList = serviceResponseItem
-
-            serviceResponseItem.forEach {
-                if (it.id == 3)
-                    isJobSelected = true
-            }
-
-            if (serviceResponseItem.size >= 3 && isJobSelected) {
-                isServicesSelected = true
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
-            } else if (serviceResponseItem.size >= 3) {
-                isServicesSelected = true
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
-            } else {
-                isServicesSelected = false
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
-            }
-        }
-
-        val dialog = Dialog(requireContext())
-
 
         servicesGridItemBinding?.apply {
 
@@ -181,6 +157,26 @@ class ServicesCategoryFragment : Fragment() {
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         }
 
+        authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
+            adapter?.savedCategoriesList = serviceResponseItem
+
+            serviceResponseItem.forEach {
+                if (it.id == 3)
+                    isJobSelected = true
+            }
+
+            if (serviceResponseItem.size >= 3 && isJobSelected) {
+                isServicesSelected = true
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+            } else if (serviceResponseItem.size >= 3) {
+                isServicesSelected = true
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+            } else {
+                isServicesSelected = false
+                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+            }
+        }
+
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -271,7 +267,7 @@ class ServicesCategoryFragment : Fragment() {
                 picture = "",
                 regdEmailSent = false,
                 registeredBy = "manual",
-                userName = "asjdas sdaksd",
+                userName = aliasName,
                 zipcode = authCommonViewModel.locationDetails["zipCode"]!!
             )
         )
@@ -290,7 +286,6 @@ class ServicesCategoryFragment : Fragment() {
                         response.data?.let { servicesResponse ->
                             servicesResponse.removeAt(7)
                             servicesResponse.removeAt(0)
-                            //val filterList = servicesResponse.remove(servicesResponse.)
                             adapter?.setData(servicesResponse)
                         }
                     }
