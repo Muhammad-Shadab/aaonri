@@ -52,7 +52,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
-
         }
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
