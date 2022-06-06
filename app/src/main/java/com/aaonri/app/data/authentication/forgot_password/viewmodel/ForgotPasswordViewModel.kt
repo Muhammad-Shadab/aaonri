@@ -1,5 +1,4 @@
 package com.aaonri.app.data.authentication.forgot_password.viewmodel
-/*
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,4 +34,4 @@ class ForgotPasswordViewModel
         return Resource.Error(response.message())
     }
 
-}*/
+}

@@ -1,31 +1,30 @@
 package com.aaonri.app.data.authentication.forgot_password.di
 
 import com.aaonri.app.data.authentication.forgot_password.api.ForgotPasswordApi
+import com.aaonri.app.data.authentication.forgot_password.repository.ForgotPasswordRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
-/*
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 object ForgotPasswordModule {
 
     @Provides
-    @ActivityScoped
+    @Singleton
     fun provideForgotPasswordApi(
         retrofit: Retrofit.Builder
     ): ForgotPasswordApi =
         retrofit.build().create(ForgotPasswordApi::class.java)
 
     @Provides
-    @ActivityScoped
+    @Singleton
     fun provideForgotPasswordRepo(forgotPasswordApi: ForgotPasswordApi) =
         ForgotPasswordRepository(forgotPasswordApi)
 
 
-
-}*/
+}

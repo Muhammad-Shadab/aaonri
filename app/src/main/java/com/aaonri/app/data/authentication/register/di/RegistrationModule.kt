@@ -22,25 +22,6 @@ object RegistrationModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(Constant.BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-
-    @Provides
-    @Singleton
     fun providesRegistrationApi(retrofit: Retrofit.Builder): RegistrationApi =
         retrofit.build().create(RegistrationApi::class.java)
 
