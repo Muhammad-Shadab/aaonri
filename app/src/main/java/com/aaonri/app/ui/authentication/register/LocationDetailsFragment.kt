@@ -2,36 +2,29 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
-import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @AndroidEntryPoint
 class LocationDetailsFragment : Fragment() {
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var locationDetailsBinding: FragmentLocationDetailsBinding? = null
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
@@ -48,30 +41,11 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-
-        commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                isCommunitySelected = true
-                selectedCommunityAdapter
-                locationDetailsBinding?.selectedCommunitySizeTv?.text =
-                    "Your selected community (${it.size})"
-                locationDetailsBinding?.selectedCardView?.visibility = View.VISIBLE
-                selectedCommunityAdapter!!.setData(it)
-                locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
-                locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
-            } else {
-                isCommunitySelected = false
-                locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
-                locationDetailsBinding?.selectedCardView?.visibility = View.GONE
-            }
-        }
-
-
         locationDetailsBinding?.apply {
 
-            commonViewModel.addNavigationForStepper(Constant.LOCATION_DETAILS_SCREEN)
+            authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
 
-            commonViewModel.apply {
+            authCommonViewModel.apply {
                 stateLocationDetails.text = locationDetails["state"].toString()
                 cityLocationDetails.setText(locationDetails["city"].toString())
                 selectCountryLocation.text = selectedCountry?.value?.first
@@ -102,14 +76,31 @@ class LocationDetailsFragment : Fragment() {
             rvLocationDetails.adapter = selectedCommunityAdapter
         }
 
+        authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                isCommunitySelected = true
+                selectedCommunityAdapter
+                locationDetailsBinding?.selectedCommunitySizeTv?.text =
+                    "Your selected community (${it.size})"
+                locationDetailsBinding?.selectedCardView?.visibility = View.VISIBLE
+                selectedCommunityAdapter!!.setData(it)
+                locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
+                locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
+            } else {
+                isCommunitySelected = false
+                locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
+                locationDetailsBinding?.selectedCardView?.visibility = View.GONE
+            }
+        }
+
 
         return locationDetailsBinding?.root
     }
 
     private fun getCommunities() {
-        commonViewModel.getCommunities()
+        authCommonViewModel.getCommunities()
 
-        commonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
+        authCommonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 

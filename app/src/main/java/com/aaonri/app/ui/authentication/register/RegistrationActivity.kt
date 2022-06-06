@@ -4,22 +4,19 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.ActivityRegistrationBinding
-import com.aaonri.app.util.Constant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegistrationActivity : AppCompatActivity() {
     var registrationBinding: ActivityRegistrationBinding? = null
-    val commonViewModel: CommonViewModel by viewModels()
+    val authCommonViewModel: AuthCommonViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registrationBinding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -41,18 +38,18 @@ class RegistrationActivity : AppCompatActivity() {
                 onBackPressed()
             }
 
-            commonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->
+            authCommonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->
                 when (route) {
-                    Constant.BASIC_DETAILS_SCREEN -> {
+                    AuthConstant.BASIC_DETAILS_SCREEN -> {
                         stepView.go(0, true)
                     }
-                    Constant.ADDRESS_DETAILS_SCREEN -> {
+                    AuthConstant.ADDRESS_DETAILS_SCREEN -> {
                         stepView.go(1, true)
                     }
-                    Constant.LOCATION_DETAILS_SCREEN -> {
+                    AuthConstant.LOCATION_DETAILS_SCREEN -> {
                         stepView.go(2, true)
                     }
-                    Constant.SERVICE_DETAILS_SCREEN -> {
+                    AuthConstant.SERVICE_DETAILS_SCREEN -> {
                         stepView.go(3, true)
                     }
                 }

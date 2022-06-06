@@ -1,9 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
-import com.aaonri.app.util.Constant
 import com.aaonri.app.utils.Validator
 import com.example.newsapp.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +28,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class BasicDetailsFragment : Fragment() {
     var basicDetailsBinding: FragmentBasicDetailsBinding? = null
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isEmailValid = false
     var isPasswordValid = false
@@ -45,7 +42,7 @@ class BasicDetailsFragment : Fragment() {
 
         basicDetailsBinding?.apply {
 
-            commonViewModel.addNavigationForStepper(Constant.BASIC_DETAILS_SCREEN)
+            authCommonViewModel.addNavigationForStepper(AuthConstant.BASIC_DETAILS_SCREEN)
 
             emailAddressBasicDetails.addTextChangedListener { editable ->
                 job?.cancel()
@@ -103,7 +100,7 @@ class BasicDetailsFragment : Fragment() {
                 val password = passwordBasicDetails.text
 
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
-                    commonViewModel.addBasicDetails(
+                    authCommonViewModel.addBasicDetails(
                         firstName.toString(),
                         lastName.toString(),
                         emailAddress.toString(),

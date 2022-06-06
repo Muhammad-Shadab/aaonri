@@ -136,7 +136,6 @@ class ServicesItemAdapter(
                 }
 
 
-
                 itemView.setOnClickListener {
                     if (data[position].active) {
                         if (selectedCategoriesList.contains(data[position])) {

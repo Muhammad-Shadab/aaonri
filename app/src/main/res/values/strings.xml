@@ -6,6 +6,8 @@
     <string name="register_now">REGISTER NOW</string>
     <string name="guest_user"><u>Guest User</u></string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
+    <string name="back_to_signin"><u>Back to Sign In</u></string>
+    <string name="skip_will_confirm"><u>Skip, I’ll confirm later</u></string>
     <string name="create_account"><u>Create New Account</u></string>
     <string name="registration">Registration</string>
     <string name="address_line_1">Address Line 1</string>
@@ -43,4 +45,8 @@
     <string name="reset_my_password">Reset My Password</string>
     <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
     <string name="verification">Verification email sent to your Email Id. \n please comeback to the app and click the \'Continue\' button below once your account verification process is completed</string>
+    <string name="need_to_reset_your_password_no_problem_just_click_the_button_below_and_you_ll_be_on_your_way_if_you_did_not_make_this_request_please_ignore_this_email">Need to reset your password? No problem! Just click the button below and you’ll be on your way. If you did not make this request, please ignore this email.</string>
+    <string name="_2022_aaonri_all_rights_reserved">© 2022 aaonri \nAll Rights Reserved.</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="congratulations_your_new_password_has_been_reset_successfully_please_click_below_on_login_to_continue">Congratulations \nYour new password has been reset successfully, \nplease click below on login to continue</string>
 </resources>

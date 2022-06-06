@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.CommunityItemAdapter
 import com.aaonri.app.data.authentication.register.model.community.Community
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
 import com.example.newsapp.utils.Resource
@@ -26,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CommunityBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val registrationViewModel: RegistrationViewModel by viewModels()
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     private var communityItemAdapter: CommunityItemAdapter? = null
     var communityBottomBinding: FragmentCommunityBottomBinding? = null
     var communities = mutableListOf<Community>()
@@ -44,7 +43,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
-                commonViewModel.addCommunityList(communitiesList as MutableList<Community>)
+                authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
                     "You have selected ${communitiesList.size + selectedCommunitiesSize} communities"
@@ -54,7 +53,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
         }
 
-        commonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
+        authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
             selectedCommunitiesSize = selectedCommunitiesList.size
             communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
             communityBottomBinding?.numberOfSelectedCommunity?.text =
@@ -84,8 +83,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCommunities() {
-        commonViewModel.getCommunities()
-        commonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
+        authCommonViewModel.getCommunities()
+        authCommonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 

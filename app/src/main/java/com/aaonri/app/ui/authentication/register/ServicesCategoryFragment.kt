@@ -18,31 +18,25 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
-import com.aaonri.app.util.Constant
 import com.aaonri.app.utils.Validator
 import com.example.newsapp.utils.Resource
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ServicesCategoryFragment : Fragment() {
     var servicesGridItemBinding: FragmentServicesCategoryBinding? = null
     private var adapter: ServicesItemAdapter? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var isServicesSelected = false
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
@@ -59,13 +53,13 @@ class ServicesCategoryFragment : Fragment() {
         getServicesInterestList()
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
-            commonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
+            authCommonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
         }) {
             isJobSelected = it
         }
 
 
-        commonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
+        authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
 
             serviceResponseItem.forEach {
@@ -92,12 +86,12 @@ class ServicesCategoryFragment : Fragment() {
 
             companyEmailServices.isEnabled = false
 
-            commonViewModel.addNavigationForStepper(Constant.SERVICE_DETAILS_SCREEN)
+            authCommonViewModel.addNavigationForStepper(AuthConstant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 if (p1) {
                     aliasNameServices.isEnabled = false
-                    aliasNameServices.setText(commonViewModel.basicDetailsMap["firstName"] + " " + commonViewModel.basicDetailsMap["lastName"])
+                    aliasNameServices.setText(authCommonViewModel.basicDetailsMap["firstName"] + " " + authCommonViewModel.basicDetailsMap["lastName"])
                 } else {
                     aliasNameServices.setText("")
                     aliasNameServices.isEnabled = true
@@ -237,11 +231,11 @@ class ServicesCategoryFragment : Fragment() {
         isAliasNameCheckBox: Boolean,
         belongToCricketCheckBox: Boolean
     ) {
-        commonViewModel.addCompanyEmailAliasName(
+        authCommonViewModel.addCompanyEmailAliasName(
             companyEmail,
             aliasName
         )
-        commonViewModel.addCompanyEmailAliasCheckBoxValue(
+        authCommonViewModel.addCompanyEmailAliasCheckBoxValue(
             isRecruiterCheckBox,
             isAliasNameCheckBox,
             belongToCricketCheckBox
@@ -249,36 +243,36 @@ class ServicesCategoryFragment : Fragment() {
         registrationViewModel.registerUser(
             RegisterRequest(
                 activeUser = true,
-                address1 = commonViewModel.addressDetails["address1"]!!,
-                address2 = commonViewModel.addressDetails["address2"]!!,
-                aliasName = if (commonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.second else "",
+                address1 = authCommonViewModel.addressDetails["address1"]!!,
+                address2 = authCommonViewModel.addressDetails["address2"]!!,
+                aliasName = if (authCommonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) authCommonViewModel.companyEmailAliasName!!.value!!.second else "",
                 authorized = true,
-                city = commonViewModel.locationDetails["city"]!!,
+                city = authCommonViewModel.locationDetails["city"]!!,
                 community = listOf(
                     Community(1, "Home Needs"),
                     Community(2, "Foundation & Donations")
                 ),
-                companyEmail = if (commonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) commonViewModel.companyEmailAliasName!!.value!!.first else "",
-                emailId = commonViewModel.basicDetailsMap["emailAddress"]!!,
-                firstName = commonViewModel.basicDetailsMap["firstName"]!!,
+                companyEmail = if (authCommonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) authCommonViewModel.companyEmailAliasName!!.value!!.first else "",
+                emailId = authCommonViewModel.basicDetailsMap["emailAddress"]!!,
+                firstName = authCommonViewModel.basicDetailsMap["firstName"]!!,
                 interests = "1,4,19",
                 isAdmin = 0,
-                isFullNameAsAliasName = commonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
-                isJobRecruiter = commonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,
+                isFullNameAsAliasName = authCommonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
+                isJobRecruiter = authCommonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,
                 isPrimeUser = false,
                 isSurveyCompleted = false,
-                lastName = commonViewModel.basicDetailsMap["lastName"]!!,
+                lastName = authCommonViewModel.basicDetailsMap["lastName"]!!,
                 newsletter = false,
-                originCity = commonViewModel.locationDetails["city"]!!,
-                originCountry = commonViewModel.selectedCountry!!.value!!.first,
-                originState = commonViewModel.locationDetails["state"]!!,
-                password = commonViewModel.basicDetailsMap["password"]!!,
-                phoneNo = commonViewModel.addressDetails["phoneNumber"]!!,
+                originCity = authCommonViewModel.locationDetails["city"]!!,
+                originCountry = authCommonViewModel.selectedCountry!!.value!!.first,
+                originState = authCommonViewModel.locationDetails["state"]!!,
+                password = authCommonViewModel.basicDetailsMap["password"]!!,
+                phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,
                 picture = "",
                 regdEmailSent = false,
                 registeredBy = "manual",
                 userName = "asjdas sdaksd",
-                zipcode = commonViewModel.locationDetails["zipCode"]!!
+                zipcode = authCommonViewModel.locationDetails["zipCode"]!!
             )
         )
     }

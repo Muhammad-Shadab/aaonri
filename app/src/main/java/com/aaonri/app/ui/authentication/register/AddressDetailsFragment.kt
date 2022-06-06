@@ -12,9 +12,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
-import com.aaonri.app.util.Constant
 import com.example.newsapp.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddressDetailsFragment : Fragment() {
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
     var isCountrySelected = false
     var cityName: String = ""
@@ -44,16 +44,16 @@ class AddressDetailsFragment : Fragment() {
         addressDetailsBinding?.apply {
             val zipCode = zipCodeAddressDetails.text
 
-            commonViewModel.addNavigationForStepper(Constant.ADDRESS_DETAILS_SCREEN)
+            authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
 
             if (!isCountrySelected)
-                commonViewModel.addSelectedCountry(
+                authCommonViewModel.addSelectedCountry(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
 
-            commonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
+            authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
                 isCountrySelected = true
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
@@ -64,7 +64,7 @@ class AddressDetailsFragment : Fragment() {
                                 if (editable.toString()
                                         .isNotEmpty() && editable.toString().length >= 5
                                 ) {
-                                    commonViewModel.getLocationByZipCode(
+                                    authCommonViewModel.getLocationByZipCode(
                                         zipCode.toString(),
                                         triple.third
                                     )
@@ -100,12 +100,12 @@ class AddressDetailsFragment : Fragment() {
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
 
-                    commonViewModel.addLocationDetails(
+                    authCommonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,
                         city = userEnteredCity.toString()
                     )
-                    commonViewModel.addAddressDetails(
+                    authCommonViewModel.addAddressDetails(
                         address1.toString(),
                         address2.toString(),
                         phoneNumber.toString()
@@ -122,7 +122,7 @@ class AddressDetailsFragment : Fragment() {
             }
         }
 
-        commonViewModel.zipCodeData.observe(
+        authCommonViewModel.zipCodeData.observe(
             viewLifecycleOwner
         ) { response ->
             when (response) {
@@ -151,7 +151,7 @@ class AddressDetailsFragment : Fragment() {
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     }
 
-                   addressDetailsBinding?.cityNameAddressDetails?.setText(if (commonViewModel.locationDetails["city"]?.isNotEmpty() == true) commonViewModel.locationDetails["city"].toString() else cityName)
+                   addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -166,8 +166,8 @@ class AddressDetailsFragment : Fragment() {
     }
 
     private fun getCountries() {
-        commonViewModel.getCountries()
-        commonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
+        authCommonViewModel.getCountries()
+        authCommonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Error -> {
 

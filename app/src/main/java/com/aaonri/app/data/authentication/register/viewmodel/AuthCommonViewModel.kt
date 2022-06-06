@@ -3,6 +3,7 @@ package com.aaonri.app.data.authentication.register.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
@@ -16,8 +17,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class CommonViewModel @Inject constructor(
-    val registrationRepository: RegistrationRepository
+class AuthCommonViewModel @Inject constructor(
+    private val registrationRepository: RegistrationRepository
 ) : ViewModel() {
 
     var basicDetailsMap: MutableMap<String, String> = mutableMapOf()
@@ -74,10 +75,10 @@ class CommonViewModel @Inject constructor(
         emailAddress: String,
         password: String
     ) {
-        basicDetailsMap["firstName"] = firstName
-        basicDetailsMap["lastName"] = lastName
-        basicDetailsMap["emailAddress"] = emailAddress
-        basicDetailsMap["password"] = password
+        basicDetailsMap[AuthConstant.FIRST_NAME] = firstName
+        basicDetailsMap[AuthConstant.LAST_NAME] = lastName
+        basicDetailsMap[AuthConstant.EMAIL_ADDRESS] = emailAddress
+        basicDetailsMap[AuthConstant.BASIC_DETAILS_PASS] = password
     }
 
     fun addLocationDetails(

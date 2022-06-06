@@ -14,7 +14,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.adapter.CountryAdapter
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
-import com.aaonri.app.data.authentication.register.viewmodel.CommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentSelectCountryBottomBinding
 import com.example.newsapp.utils.Resource
@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    val commonViewModel: CommonViewModel by activityViewModels()
+    val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
     var countryBottomBinding: FragmentSelectCountryBottomBinding? = null
     var countryAdapter: CountryAdapter? = null
@@ -43,7 +43,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         getCountries()
 
         countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
-            commonViewModel.addSelectedCountry(countryName, countryFlag, countryCode)
+            authCommonViewModel.addSelectedCountry(countryName, countryFlag, countryCode)
             findNavController().navigateUp()
         }
 
@@ -60,7 +60,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCountries() {
-        commonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
+        authCommonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Error -> {
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
