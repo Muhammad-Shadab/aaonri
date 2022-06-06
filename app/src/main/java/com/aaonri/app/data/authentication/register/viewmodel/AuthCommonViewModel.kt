@@ -50,10 +50,16 @@ class AuthCommonViewModel @Inject constructor(
 
     val navigationForStepper: MutableLiveData<String> = MutableLiveData()
 
+    val stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
+    }
+
+    fun addStepViewLastTick(value: Boolean) {
+        stepViewLastTick.value = value
     }
 
     fun addCommunityList(value: MutableList<Community>) {

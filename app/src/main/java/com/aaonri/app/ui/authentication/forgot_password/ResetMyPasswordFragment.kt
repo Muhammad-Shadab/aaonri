@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentResetMyPasswordBinding
 import com.aaonri.app.utils.Validator
+import com.example.newsapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ResetMyPasswordFragment : Fragment() {
-    /*val forgotPassViewModel: ForgotPasswordViewModel by viewModels()*/
+    val forgotPassViewModel: ForgotPasswordViewModel by viewModels()
     var resetPasswordBinding: FragmentResetMyPasswordBinding? = null
 
     var isEmailValid = false
@@ -45,16 +49,36 @@ class ResetMyPasswordFragment : Fragment() {
 
             resetPasswordBtn.setOnClickListener {
                 if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid) {
-                    /*forgotPassViewModel.sendForGotPasswordLink(
+                    forgotPassViewModel.sendForgotPasswordLink(
                         emailForgotPasswordEt.text.toString()
-                    )*/
-                    findNavController().navigate(R.id.action_resetPassword_to_checkYourEmailFragment)
+                    )
                 }
             }
+        }
 
+        forgotPassViewModel.forgotPasswordData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    resetPasswordBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    if (response.data?.status?.equals("false") == true){
+
+                    }else{
+                        findNavController().navigate(R.id.action_resetPassword_to_checkYourEmailFragment)
+                    }
+                    resetPasswordBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    resetPasswordBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {}
+            }
         }
 
         return resetPasswordBinding?.root
-
     }
+
 }

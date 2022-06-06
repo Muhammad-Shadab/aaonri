@@ -166,12 +166,15 @@ class ServicesCategoryFragment : Fragment() {
             }
 
             if (serviceResponseItem.size >= 3 && isJobSelected) {
+                authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
+                authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             } else {
+                authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
             }

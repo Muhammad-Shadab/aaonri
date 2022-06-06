@@ -15,10 +15,10 @@ import javax.inject.Inject
 class ForgotPasswordViewModel
 @Inject constructor(private val forgotPasswordRepository: ForgotPasswordRepository) : ViewModel() {
 
-    private val forgotPasswordData: MutableLiveData<Resource<ResetPassLinkResponse>> =
+    val forgotPasswordData: MutableLiveData<Resource<ResetPassLinkResponse>> =
         MutableLiveData()
 
-    fun sendForGotPasswordLink(userEmail: String) = viewModelScope.launch {
+    fun sendForgotPasswordLink(userEmail: String) = viewModelScope.launch {
         forgotPasswordData.postValue(Resource.Loading())
         val response = forgotPasswordRepository.sendResetPasswordLink(userEmail)
         forgotPasswordData.postValue(handleSendForgotPassResponse(response))

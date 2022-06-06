@@ -52,8 +52,12 @@ class RegistrationActivity : BaseActivity() {
                     }
                     AuthConstant.SERVICE_DETAILS_SCREEN -> {
                         stepView.go(3, true)
+
                     }
                 }
+            }
+            authCommonViewModel.stepViewLastTick.observe(this@RegistrationActivity) {
+                stepView.done(it)
             }
         }
     }
