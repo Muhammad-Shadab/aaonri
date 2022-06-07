@@ -25,12 +25,9 @@ class CheckYourEmailFragment : Fragment() {
     ): View? {
         checkYourEmailBinding = FragmentCheckYourEmailBinding.inflate(inflater, container, false)
 
-
         checkYourEmailBinding?.apply {
             skipForNowTv.setOnClickListener {
-                val action =
-                    CheckYourEmailFragmentDirections.actionCheckYourEmailFragmentToLoginFragment()
-                findNavController().navigate(action)
+                findNavController().popBackStack(R.id.loginFragment, true)
             }
             openEmailAppBtn.setOnClickListener {
                 try {
