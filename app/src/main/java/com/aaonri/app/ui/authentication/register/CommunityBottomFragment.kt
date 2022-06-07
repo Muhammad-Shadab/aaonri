@@ -56,10 +56,14 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
             selectedCommunitiesSize = selectedCommunitiesList.size
-            communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
-            communityBottomBinding?.numberOfSelectedCommunity?.text =
-                "You have selected ${selectedCommunitiesList.size} communities"
-            communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
+            if (selectedCommunitiesList.size == 0) {
+                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
+            } else {
+                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+                communityBottomBinding?.numberOfSelectedCommunity?.text =
+                    "You have selected ${selectedCommunitiesList.size} communities"
+                communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
+            }
         }
 
 
