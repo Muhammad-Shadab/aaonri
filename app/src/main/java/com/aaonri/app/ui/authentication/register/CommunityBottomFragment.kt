@@ -60,11 +60,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             communityBottomBinding?.numberOfSelectedCommunity?.text =
                 "You have selected ${selectedCommunitiesList.size} communities"
             communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
-            communityItemAdapter?.savedCommunityList =
-                selectedCommunitiesList as MutableList<Community>
-            communityItemAdapter?.selectedCommunityList =
-                selectedCommunitiesList as MutableList<Community>
-
         }
 
 

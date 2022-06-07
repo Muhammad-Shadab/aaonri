@@ -16,8 +16,7 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
 
     private var data = listOf<Community>()
 
-    var selectedCommunityList = mutableListOf<Community>()
-    var savedCommunityList = mutableListOf<Community>()
+    private var selectedCommunityList = mutableListOf<Community>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,7 +28,7 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         val context = holder.itemView.context
         holder.binding.communityText.text = data[position].communityName
 
-        if (savedCommunityList.contains(data[position]) || selectedCommunityList.contains(data[position])) {
+        if (selectedCommunityList.contains(data[position])) {
             holder.binding.communityText.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
@@ -49,9 +48,8 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
 
         holder.itemView.setOnClickListener {
 
-            if (selectedCommunityList.contains(data[position]) || savedCommunityList.contains(data[position])) {
+            if (selectedCommunityList.contains(data[position])) {
                 selectedCommunityList.remove(data[position])
-                savedCommunityList.remove(data[position])
                 holder.binding.communityText.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
@@ -83,8 +81,8 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
     }
 
      @SuppressLint("NotifyDataSetChanged")
-     fun setDataSavedList(savedCommunityList: MutableList<Community>) {
-         this.savedCommunityList = savedCommunityList
+     fun setDataSavedList(selectedCommunityList: MutableList<Community>) {
+         this.selectedCommunityList = selectedCommunityList
          notifyDataSetChanged()
      }
 
