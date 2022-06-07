@@ -80,11 +80,11 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         notifyDataSetChanged()
     }
 
-     @SuppressLint("NotifyDataSetChanged")
-     fun setDataSavedList(selectedCommunityList: MutableList<Community>) {
-         this.selectedCommunityList = selectedCommunityList
-         notifyDataSetChanged()
-     }
+    @SuppressLint("NotifyDataSetChanged")
+    fun setDataSavedList(selectedCommunityList: MutableList<Community>) {
+        this.selectedCommunityList = selectedCommunityList
+        notifyDataSetChanged()
+    }
 
     inner class CustomViewHolder(val binding: CommunityItemBinding) :
         RecyclerView.ViewHolder(binding.root)

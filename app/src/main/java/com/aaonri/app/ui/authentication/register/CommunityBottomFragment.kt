@@ -91,7 +91,14 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-                    response.data?.community?.let { communityItemAdapter?.setData(it) }
+                    val sortedList = response.data?.community?.sortedBy { it.communityName }
+                    response.data?.community?.let {
+                        sortedList?.let { it1 ->
+                            communityItemAdapter?.setData(
+                                it1
+                            )
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()

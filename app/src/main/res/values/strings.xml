@@ -50,4 +50,5 @@
     <string name="create_new_password">Create New Password</string>
     <string name="congratulations_your_new_password_has_been_reset_successfully_please_click_below_on_login_to_continue">Congratulations \nYour new password has been reset successfully, \nplease click below on login to continue</string>
     <string name="classifieds">Classifieds</string>
+    <string name="you_haven_t_listed_anything_yet">You haven\'t listed anything yet</string>
 </resources>
