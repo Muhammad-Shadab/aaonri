@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreenFragment">
     <include app:graph="@navigation/dashboard_nav_graph" />
 
     <fragment
@@ -70,5 +70,14 @@
         android:name="com.aaonri.app.ui.authentication.forgot_password.PasswordResetSuccessBottom"
         android:label="fragment_password_reset_success_bottom"
         tools:layout="@layout/fragment_password_reset_success_bottom"/>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.aaonri.app.ui.authentication.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>
