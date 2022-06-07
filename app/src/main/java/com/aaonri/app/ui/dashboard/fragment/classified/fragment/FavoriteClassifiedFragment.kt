@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard
+package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.aaonri.app.R
 
-class MoreScreenFragment : Fragment() {
+class FavoriteClassifiedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more_screen, container, false)
+        return inflater.inflate(R.layout.fragment_favorite_classified, container, false)
     }
 }

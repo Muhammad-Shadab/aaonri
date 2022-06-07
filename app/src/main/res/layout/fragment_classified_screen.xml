@@ -8,13 +8,27 @@
     tools:context=".ui.authentication.login.LoginFragment">
 
 
+    <ImageView
+        android:id="@+id/navigateBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:background="@drawable/blue_circle_shape"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/navigate_back"
+        app:layout_constraintBottom_toBottomOf="@id/classifiedText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/classifiedText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp" />
+
     <TextView
-        android:id="@+id/registrationText"
+        android:id="@+id/classifiedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Classified"
+        android:text="@string/classifieds"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +37,8 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,9 +49,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrationText">
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
 
-    </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/classifiedScreenTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/tab_background_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="auto"
+            app:tabPaddingEnd="@dimen/_4sdp"
+            app:tabPaddingStart="@dimen/_4sdp"
+            app:tabRippleColor="@null" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/classifiedScreenViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/classifiedScreenTabLayout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

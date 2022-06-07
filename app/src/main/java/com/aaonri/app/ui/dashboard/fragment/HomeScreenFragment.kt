@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard
+package com.aaonri.app.ui.dashboard.fragment
 
 import android.content.Intent
 import android.os.Bundle

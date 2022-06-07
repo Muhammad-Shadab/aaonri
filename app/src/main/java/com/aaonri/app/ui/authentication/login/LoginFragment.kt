@@ -46,6 +46,10 @@ class LoginFragment : Fragment() {
 
             loginBtn.setOnClickListener {
 
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+
                 val userEmail = loginEmailEt.text
                 val loginPasswordEt = loginPasswordEt.text
 

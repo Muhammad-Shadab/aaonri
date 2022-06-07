@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tab_background_selector"
+    android:gravity="center"
+    android:fontFamily="@font/sf_pro_semi_bold"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_6sdp"
+    android:text="title"
+    android:textColor="@drawable/tab_text_selector"
+    android:textSize="12sp">
+
+</TextView>
