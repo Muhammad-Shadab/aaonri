@@ -1,4 +1,4 @@
-package com.aaonri.app.util
+package com.aaonri.app.utils
 
 object Constant {
 

@@ -15,12 +15,12 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.data.authentication.register.adapter.CommunityItemAdapter
 import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,9 +59,9 @@ class LocationDetailsFragment : Fragment() {
             }
 
             locationDetailsNextBtn.setOnClickListener {
-                val imm =
-                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+
                 if (stateLocationDetails.text.isNotEmpty() && cityLocationDetails.text.isNotEmpty() && isCommunitySelected) {
                     findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
                 } else {

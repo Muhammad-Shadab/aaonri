@@ -10,7 +10,7 @@ import com.aaonri.app.data.authentication.register.model.countries.CountriesResp
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

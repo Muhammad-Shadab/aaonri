@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.forgot_password.model.ResetPassLinkResponse
 import com.aaonri.app.data.authentication.forgot_password.repository.ForgotPasswordRepository
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

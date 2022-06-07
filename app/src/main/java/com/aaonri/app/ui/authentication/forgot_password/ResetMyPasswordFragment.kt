@@ -13,7 +13,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentResetMyPasswordBinding
 import com.aaonri.app.utils.Validator
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +49,7 @@ class ResetMyPasswordFragment : Fragment() {
             }
 
             resetPasswordBtn.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid) {
                     forgotPassViewModel.sendForgotPasswordLink(
                         emailForgotPasswordEt.text.toString()

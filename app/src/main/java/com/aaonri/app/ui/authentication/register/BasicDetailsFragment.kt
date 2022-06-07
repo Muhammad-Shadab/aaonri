@@ -19,7 +19,8 @@ import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.utils.Validator
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -101,9 +102,7 @@ class BasicDetailsFragment : Fragment() {
                 val emailAddress = emailAddressBasicDetails.text
                 val password = passwordBasicDetails.text
 
-                val imm =
-                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
                     authCommonViewModel.addBasicDetails(

@@ -1,7 +1,5 @@
 package com.aaonri.app.ui.authentication.login
 
-import android.app.Activity
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Bundle
@@ -10,16 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
+import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +36,7 @@ class LoginFragment : Fragment() {
         introBinding?.apply {
 
             forgotPassTv.setOnClickListener {
-                //findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
+                findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
             }
 
             guestUserLogin.setOnClickListener {
@@ -50,9 +49,7 @@ class LoginFragment : Fragment() {
                 val userEmail = loginEmailEt.text
                 val loginPasswordEt = loginPasswordEt.text
 
-                val imm =
-                    activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (userEmail?.toString()?.isNotEmpty() == true && loginPasswordEt?.toString()
                         ?.isNotEmpty() == true

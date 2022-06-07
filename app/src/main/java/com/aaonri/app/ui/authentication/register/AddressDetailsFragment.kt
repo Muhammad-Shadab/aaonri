@@ -17,7 +17,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -96,9 +97,7 @@ class AddressDetailsFragment : Fragment() {
                 val userEnteredCity = cityNameAddressDetails.text
                 val zipCode = zipCodeAddressDetails.text
 
-                val imm =
-                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (stateName.isNotEmpty() && userEnteredCity.toString()
                         .isNotEmpty() && zipCode.toString()

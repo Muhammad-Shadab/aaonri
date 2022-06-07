@@ -16,7 +16,7 @@ import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

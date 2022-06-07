@@ -1,6 +1,6 @@
 package com.aaonri.app.di
 
-import com.aaonri.app.util.Constant
+import com.aaonri.app.utils.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

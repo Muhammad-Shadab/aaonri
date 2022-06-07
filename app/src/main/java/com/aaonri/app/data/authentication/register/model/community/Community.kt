@@ -4,5 +4,4 @@ data class Community(
     val communityId: Int,
     val communityName: String,
     val description: String,
-    var isSelected: Boolean
 )
