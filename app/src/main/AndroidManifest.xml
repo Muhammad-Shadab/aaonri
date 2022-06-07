@@ -18,7 +18,8 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.authentication.register.RegistrationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.aaonri.app.ui.authentication.AuthActivity"
             android:exported="true"
@@ -34,13 +35,6 @@
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
     </application>
 
