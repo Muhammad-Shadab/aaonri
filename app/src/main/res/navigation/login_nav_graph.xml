@@ -74,6 +74,12 @@
         android:id="@+id/passwordResetSuccessBottom"
         android:name="com.aaonri.app.ui.authentication.forgot_password.PasswordResetSuccessBottom"
         android:label="fragment_password_reset_success_bottom"
-        tools:layout="@layout/fragment_password_reset_success_bottom" />
+        tools:layout="@layout/fragment_password_reset_success_bottom" >
+        <action
+            android:id="@+id/action_passwordResetSuccessBottom_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 
 </navigation>
