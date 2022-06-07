@@ -3,10 +3,12 @@ package com.aaonri.app.ui.authentication.forgot_password
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
@@ -23,9 +25,11 @@ class CheckYourEmailFragment : Fragment() {
     ): View? {
         checkYourEmailBinding = FragmentCheckYourEmailBinding.inflate(inflater, container, false)
 
+
+
         checkYourEmailBinding?.apply {
             skipForNowTv.setOnClickListener {
-                findNavController().navigate(R.id.action_checkYourEmailFragment_to_resetPasswordInfoFragment)
+
             }
             openEmailAppBtn.setOnClickListener {
                 try {

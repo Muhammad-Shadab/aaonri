@@ -32,6 +32,14 @@ class ResetMyPasswordFragment : Fragment() {
 
         resetPasswordBinding?.apply {
 
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            backToSignInTv.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             emailForgotPasswordEt.addTextChangedListener { editable ->
                 if (editable.toString().trim().isNotEmpty() && editable.toString()
                         .trim().length >= 8
@@ -50,7 +58,6 @@ class ResetMyPasswordFragment : Fragment() {
             }
 
             resetPasswordBtn.setOnClickListener {
-
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 

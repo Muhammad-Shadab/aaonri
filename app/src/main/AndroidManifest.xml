@@ -29,6 +29,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <nav-graph android:value="@navigation/forgot_password_nav"/>
+
+            <!--<intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https" android:host="www.aaonri.com"/>
+            </intent-filter>-->
+
+            <!--<intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="http" android:host="www.aaonri.com"/>
+            </intent-filter>-->
+
         </activity>
         <activity
             android:name="com.aaonri.app.MainActivity"
