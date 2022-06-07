@@ -21,7 +21,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.aaonri.app.ui.authentication.AuthActivity"
+            android:name="com.aaonri.app.ui.authentication.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <nav-graph android:value="@navigation/forgot_password_nav"/>
+            <nav-graph android:value="@navigation/login_nav_graph" />
 
             <!--<intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

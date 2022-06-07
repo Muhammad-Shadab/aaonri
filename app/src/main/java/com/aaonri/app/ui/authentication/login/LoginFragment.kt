@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
         introBinding?.apply {
 
             forgotPassTv.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_forgot_password_nav)
+                findNavController().navigate(R.id.action_loginFragment_to_resetPassword)
             }
 
             guestUserLogin.setOnClickListener {

@@ -24,7 +24,11 @@ class ResetPasswordInfoFragment : Fragment() {
 
         resetPasswordBinding?.apply {
             resetPasswordBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_resetPasswordInfoFragment_to_createNewPasswordFragment)
+                val action =
+                    ResetPasswordInfoFragmentDirections.actionResetPasswordInfoFragmentToCreateNewPasswordFragment(
+                        args.email
+                    )
+                findNavController().navigate(action)
             }
         }
 

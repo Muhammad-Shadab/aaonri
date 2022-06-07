@@ -10,4 +10,9 @@ interface ForgotPasswordApi {
     @GET("/api/v1/user/fp/{emailId}")
     suspend fun sendResetPasswordLink(@Path("emailId") userEmail: String): Response<ResetPassLinkResponse>
 
+    /*@POST("/api/v1/user/password/reset")
+    suspend fun forgotPasswordRequest(
+        @Body newPasswordRequest: NewPasswordRequest
+    ): Response*/
+
 }

@@ -2,16 +2,12 @@ package com.aaonri.app.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.InflateException
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.aaonri.app.MainActivity
-import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
-import com.aaonri.app.ui.authentication.AuthActivity
+import com.aaonri.app.ui.authentication.LoginActivity
 
 
 class HomeScreenFragment : Fragment() {
@@ -24,7 +20,7 @@ class HomeScreenFragment : Fragment() {
 
         homeScreenBinding?.apply {
             logOutBtn.setOnClickListener {
-                val intent = Intent(requireContext(), AuthActivity::class.java)
+                val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             }
