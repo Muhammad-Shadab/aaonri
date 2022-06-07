@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.authentication.forgot_password
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ResetMyPasswordFragment : Fragment() {
     val forgotPassViewModel: ForgotPasswordViewModel by viewModels()
     var resetPasswordBinding: FragmentResetMyPasswordBinding? = null
-
     var isEmailValid = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,11 +50,13 @@ class ResetMyPasswordFragment : Fragment() {
             }
 
             resetPasswordBtn.setOnClickListener {
+
+
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-                if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid) {
-                    forgotPassViewModel.sendForgotPasswordLink(
-                        emailForgotPasswordEt.text.toString()
-                    )
+
+                if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid
+                ) {
+                    forgotPassViewModel.sendForgotPasswordLink(emailForgotPasswordEt.text.toString())
                 }
             }
         }
@@ -64,10 +67,14 @@ class ResetMyPasswordFragment : Fragment() {
                     resetPasswordBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (response.data?.status?.equals("false") == true){
-
-                    }else{
+                    if (response.data?.status?.equals("false") == true) {
+                        isEmailValid = false
+                        resetPasswordBinding?.emailValidationTv?.visibility = View.VISIBLE
+                    } else {
+                        isEmailValid = true
                         findNavController().navigate(R.id.action_resetPassword_to_checkYourEmailFragment)
+                        resetPasswordBinding?.emailValidationTv?.visibility = View.GONE
+                        forgotPassViewModel.forgotPasswordData.value = null
                     }
                     resetPasswordBinding?.progressBar?.visibility = View.GONE
                 }
@@ -82,5 +89,4 @@ class ResetMyPasswordFragment : Fragment() {
 
         return resetPasswordBinding?.root
     }
-
 }

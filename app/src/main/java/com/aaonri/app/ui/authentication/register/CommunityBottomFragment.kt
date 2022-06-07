@@ -28,7 +28,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     private var communityItemAdapter: CommunityItemAdapter? = null
     var communityBottomBinding: FragmentCommunityBottomBinding? = null
-    var communities = mutableListOf<Community>()
     var selectedCommunitiesSize = 0
 
     @SuppressLint("SetTextI18n")
@@ -74,7 +73,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
 
             communitySubmitBtn.setOnClickListener {
-
                 findNavController().navigateUp()
             }
 

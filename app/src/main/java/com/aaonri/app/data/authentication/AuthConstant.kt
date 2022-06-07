@@ -9,11 +9,15 @@ object AuthConstant {
     const val SERVICE_DETAILS_SCREEN = "SERVICE_DETAILS_SCREEN"
 
     // Map Constants
+
     // Basic details screen
     const val FIRST_NAME = "firstName"
     const val LAST_NAME = "lastName"
     const val EMAIL_ADDRESS = "emailAddress"
     const val BASIC_DETAILS_PASS = "password"
 
+    // Address details screen
+    const val ZIP_CODE = "zipCode"
+    const val USER_STATE_NAME = "state"
 
 }
