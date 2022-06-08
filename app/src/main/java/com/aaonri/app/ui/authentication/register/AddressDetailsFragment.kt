@@ -105,18 +105,31 @@ class AddressDetailsFragment : Fragment() {
                         .isNotEmpty() && zipCode.toString()
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
-
                     authCommonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,
                         city = userEnteredCity.toString()
                     )
+                    if (phoneNumber.isNotEmpty()) {
+                        if (phoneNumber.length == 10) {
+                            findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                        } else {
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Please complete phone number", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    } else {
+                        findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                    }
                     authCommonViewModel.addAddressDetails(
                         address1.toString(),
                         address2.toString(),
                         phoneNumber
                     )
-                    findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+
                 } else {
                     activity?.let { it1 ->
                         Snackbar.make(
