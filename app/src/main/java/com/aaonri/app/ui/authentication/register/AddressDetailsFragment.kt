@@ -1,12 +1,13 @@
 package com.aaonri.app.ui.authentication.register
 
-import android.content.Context
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class AddressDetailsFragment : Fragment() {
@@ -93,7 +95,7 @@ class AddressDetailsFragment : Fragment() {
 
                 val address1 = address1.text
                 val address2 = address2.text
-                val phoneNumber = phoneNumberAddressDetails.text
+                val phoneNumber = phoneNumberAddressDetails.text.toString().replace("-", "")
                 val userEnteredCity = cityNameAddressDetails.text
                 val zipCode = zipCodeAddressDetails.text
 
@@ -112,7 +114,7 @@ class AddressDetailsFragment : Fragment() {
                     authCommonViewModel.addAddressDetails(
                         address1.toString(),
                         address2.toString(),
-                        phoneNumber.toString()
+                        phoneNumber
                     )
                     findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                 } else {
@@ -125,6 +127,27 @@ class AddressDetailsFragment : Fragment() {
                 }
             }
         }
+
+        addressDetailsBinding?.phoneNumberAddressDetails?.addTextChangedListener(object :
+            TextWatcher {
+            var length_before = 0
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                length_before = s.length
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (length_before < s.length) {
+                    if (s.length == 3 || s.length == 7) s.append("-")
+                    if (s.length > 3) {
+                        if (Character.isDigit(s[3])) s.insert(3, "-")
+                    }
+                    if (s.length > 7) {
+                        if (Character.isDigit(s[7])) s.insert(7, "-")
+                    }
+                }
+            }
+        })
 
         authCommonViewModel.zipCodeData.observe(
             viewLifecycleOwner
@@ -155,7 +178,7 @@ class AddressDetailsFragment : Fragment() {
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     }
 
-                   addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
+                    addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()

@@ -29,14 +29,14 @@ class PasswordResetSuccessBottom : BottomSheetDialogFragment() {
             }
         }
 
-        requireActivity()
+        /*requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     Toast.makeText(context, "back cliked", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_passwordResetSuccessBottom_to_loginFragment)
                 }
-            })
+            })*/
 
         return passResetBinding?.root
     }
