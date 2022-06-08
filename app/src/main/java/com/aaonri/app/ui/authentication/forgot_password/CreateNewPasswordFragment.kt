@@ -88,7 +88,6 @@ class CreateNewPasswordFragment : Fragment() {
                     forgotPasswordViewModel.newPasswordRequest(
                         NewPasswordRequest("abc@gmail.com", newPasswordEt2.text.toString().trim())
                     )
-                    findNavController().navigate(R.id.action_createNewPasswordFragment_to_passwordResetSuccessBottom)
                 } else {
                     activity?.let { it1 ->
                         Snackbar.make(
@@ -107,7 +106,7 @@ class CreateNewPasswordFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     createNewPasswordBinding?.progressBar?.visibility = View.GONE
-
+                    findNavController().navigate(R.id.action_createNewPasswordFragment_to_passwordResetSuccessBottom)
                 }
                 is Resource.Error -> {
                     createNewPasswordBinding?.progressBar?.visibility = View.GONE
