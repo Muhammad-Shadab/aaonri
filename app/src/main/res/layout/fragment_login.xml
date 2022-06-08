@@ -85,6 +85,20 @@
             app:layout_constraintTop_toBottomOf="@id/loginToExploreTv"
             tools:layout_editor_absoluteY="150dp" />
 
+        <TextView
+            android:id="@+id/emailValidationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_36sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:text="Demo sdfs dsdf "
+            android:textColor="#FF0000"
+            app:layout_constraintBottom_toTopOf="@id/loginPasswordTi"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginEmailEt" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginPasswordTi"
             android:layout_width="match_parent"
@@ -123,6 +137,21 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/passwordValidationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_36sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:text="Demo sdfs dsdf "
+            android:textColor="#FF0000"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/forgotPassTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/forgotPassTv" />
+
 
         <TextView
             android:id="@+id/forgotPassTv"
