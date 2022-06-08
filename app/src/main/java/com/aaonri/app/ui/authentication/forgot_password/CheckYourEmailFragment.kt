@@ -28,7 +28,7 @@ class CheckYourEmailFragment : Fragment() {
 
         checkYourEmailBinding?.apply {
             skipForNowTv.setOnClickListener {
-                findNavController().popBackStack(R.id.loginFragment, true)
+                findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
             }
             openEmailAppBtn.setOnClickListener {
                 try {
@@ -40,7 +40,7 @@ class CheckYourEmailFragment : Fragment() {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Gmail app is not installed", Snackbar.LENGTH_LONG
+                            "Email app is not installed", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -51,7 +51,7 @@ class CheckYourEmailFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().popBackStack(R.id.loginFragment, true)
+                    findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
                 }
             })
 

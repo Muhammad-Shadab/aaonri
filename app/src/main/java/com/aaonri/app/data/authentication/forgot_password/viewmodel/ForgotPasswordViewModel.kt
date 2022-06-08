@@ -20,6 +20,8 @@ class ForgotPasswordViewModel
     val forgotPasswordData: MutableLiveData<Resource<ResetPassLinkResponse>> =
         MutableLiveData()
 
+    val verifyPassword: MutableLiveData<Resource<ResponseBody>> = MutableLiveData()
+
     val newPasswordData: MutableLiveData<Resource<ResponseBody>> = MutableLiveData()
 
     fun sendForgotPasswordLink(userEmail: String) = viewModelScope.launch {
@@ -29,6 +31,21 @@ class ForgotPasswordViewModel
     }
 
     private fun handleSendForgotPassResponse(response: Response<ResetPassLinkResponse>): Resource<ResetPassLinkResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun verifyPassword(code: String, email: String, id: String) = viewModelScope.launch {
+        verifyPassword.postValue(Resource.Loading())
+        val response = forgotPasswordRepository.verifyPassword(code, email, id)
+        verifyPassword.postValue(handleVerifyPasswordResponse(response))
+    }
+
+    private fun handleVerifyPasswordResponse(response: Response<ResponseBody>): Resource<ResponseBody>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

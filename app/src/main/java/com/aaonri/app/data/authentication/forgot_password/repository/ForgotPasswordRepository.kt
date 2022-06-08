@@ -9,6 +9,9 @@ class ForgotPasswordRepository @Inject constructor(private val forgotPasswordApi
     suspend fun sendResetPasswordLink(userEmail: String) =
         forgotPasswordApi.sendResetPasswordLink(userEmail)
 
+    suspend fun verifyPassword(code: String, email: String, id: String) =
+        forgotPasswordApi.verifyResetPassword(code, email, id)
+
     suspend fun newPasswordRequest(newPasswordRequest: NewPasswordRequest) =
         forgotPasswordApi.newPasswordRequest(newPasswordRequest)
 

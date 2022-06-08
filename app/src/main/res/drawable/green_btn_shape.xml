@@ -10,7 +10,12 @@
         android:topRightRadius="30dp" />
 
     <solid android:color="@color/greenBtnColor" />
-
+    <gradient
+        android:angle="270"
+        android:centerColor="@color/greenBtnColor"
+        android:centerY="0.1"
+        android:endColor="@color/greenBtnColor"
+        android:startColor="#29000000" />
     <padding
         android:bottom="0dp"
         android:left="0dp"
