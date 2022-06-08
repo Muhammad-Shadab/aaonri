@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log

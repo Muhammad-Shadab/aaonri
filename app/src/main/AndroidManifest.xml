@@ -23,6 +23,7 @@
         <activity
             android:name="com.aaonri.app.ui.authentication.LoginActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

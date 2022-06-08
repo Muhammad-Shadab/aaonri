@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,7 +48,7 @@ class ResetPasswordInfoFragment : Fragment() {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Successfully verified", Snackbar.LENGTH_LONG
+                            "Verified", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -56,6 +57,14 @@ class ResetPasswordInfoFragment : Fragment() {
                 }
             }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(R.id.action_resetPasswordInfoFragment_to_loginFragment)
+                }
+            })
 
         return resetPasswordBinding?.root
     }

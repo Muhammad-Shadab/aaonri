@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +38,33 @@ class CreateNewPasswordFragment : Fragment() {
     ): View? {
         createNewPasswordBinding =
             FragmentCreateNewPasswordBinding.inflate(inflater, container, false)
+
+        createNewPasswordBinding?.apply {
+
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            createNewPasswordBtn.setOnClickListener {
+
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+
+                if (newPasswordEt1.text.toString().trim() == newPasswordEt2.text.toString()
+                        .trim() && isPasswordValid
+                ) {
+                    forgotPasswordViewModel.newPasswordRequest(
+                        NewPasswordRequest(args.email, newPasswordEt2.text.toString().trim())
+                    )
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please enter valid password", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
 
         createNewPasswordBinding?.newPasswordEt1?.addTextChangedListener { editable ->
             editable?.let {
@@ -77,28 +105,6 @@ class CreateNewPasswordFragment : Fragment() {
             }
         }
 
-        createNewPasswordBinding?.apply {
-            createNewPasswordBtn.setOnClickListener {
-
-                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
-                if (newPasswordEt1.text.toString().trim() == newPasswordEt2.text.toString()
-                        .trim() && isPasswordValid
-                ) {
-                    forgotPasswordViewModel.newPasswordRequest(
-                        NewPasswordRequest("abc@gmail.com", newPasswordEt2.text.toString().trim())
-                    )
-                } else {
-                    activity?.let { it1 ->
-                        Snackbar.make(
-                            it1.findViewById(android.R.id.content),
-                            "Please enter valid password", Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
-        }
-
         forgotPasswordViewModel.newPasswordData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -117,6 +123,14 @@ class CreateNewPasswordFragment : Fragment() {
                 }
             }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+                }
+            })
 
         return createNewPasswordBinding?.root
 

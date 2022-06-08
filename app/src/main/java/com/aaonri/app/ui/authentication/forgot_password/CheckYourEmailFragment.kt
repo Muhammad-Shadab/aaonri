@@ -36,6 +36,7 @@ class CheckYourEmailFragment : Fragment() {
                     intent.addCategory(Intent.CATEGORY_APP_EMAIL)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context?.startActivity(intent)
+                    activity?.finish()
                 } catch (e: Exception) {
                     activity?.let { it1 ->
                         Snackbar.make(
@@ -51,7 +52,7 @@ class CheckYourEmailFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
+                    findNavController().navigateUp()
                 }
             })
 
