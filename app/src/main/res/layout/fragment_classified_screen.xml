@@ -74,13 +74,41 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/classifiedScreenTabLayout" />
+            app:layout_constraintTop_toBottomOf="@id/classifiedScreenTabLayout">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_44sdp"
+            app:cardBackgroundColor="@color/greenBtnColor"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:shapeAppearanceOverlay="@style/circle"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/plus"
+                android:layout_gravity="center"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--<View
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/floating_action_btn_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>-->
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

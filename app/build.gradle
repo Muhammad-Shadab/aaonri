@@ -89,8 +89,10 @@ dependencies {
     // Stepper
     implementation 'com.shuhart.stepview:stepview:1.5.1'
 
-
     // flexbox to arrange items according to the space
     implementation 'com.google.android:flexbox:2.0.1'
+
+    // Custom floating action button
+    implementation 'com.github.JediBurrell:customFloatingActionButton:-SNAPSHOT'
 
 }

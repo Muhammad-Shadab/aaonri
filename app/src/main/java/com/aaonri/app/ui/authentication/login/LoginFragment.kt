@@ -41,8 +41,8 @@ class LoginFragment : Fragment() {
             }
 
             guestUserLogin.setOnClickListener {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)
+                /*val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)*/
             }
 
             loginBtn.setOnClickListener {
