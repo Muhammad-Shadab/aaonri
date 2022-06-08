@@ -267,7 +267,6 @@
                 android:src="@drawable/ic_facebook" />
 
         </LinearLayout>
-        -->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
