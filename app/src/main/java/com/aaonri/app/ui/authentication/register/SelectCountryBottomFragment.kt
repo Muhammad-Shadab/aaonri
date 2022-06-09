@@ -39,10 +39,11 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         isCancelable = false
         countryBottomBinding =
             FragmentSelectCountryBottomBinding.inflate(inflater, container, false)
-        
+
         getCountries()
 
         countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
+            authCommonViewModel.addCountryClicked(true)
             authCommonViewModel.addSelectedCountry(countryName, countryFlag, countryCode)
             findNavController().navigateUp()
         }

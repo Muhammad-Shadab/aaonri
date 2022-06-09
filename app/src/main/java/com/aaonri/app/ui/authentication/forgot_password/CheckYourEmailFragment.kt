@@ -39,7 +39,7 @@ class CheckYourEmailFragment : Fragment() {
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
+                findNavController().navigateUp()
             }
 
 
@@ -54,7 +54,7 @@ class CheckYourEmailFragment : Fragment() {
         }
 
         ss.setSpan(UnderlineSpan(), 58, 78, 0)
-        ss.setSpan(clickableSpan1, 58, 80, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan1, 54, 80, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         checkYourEmailBinding?.didYouReceive?.text = ss
         checkYourEmailBinding?.didYouReceive?.movementMethod = LinkMovementMethod.getInstance()

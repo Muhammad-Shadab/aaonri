@@ -54,6 +54,8 @@ class AuthCommonViewModel @Inject constructor(
 
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
+    val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -165,6 +167,10 @@ class AuthCommonViewModel @Inject constructor(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun addCountryClicked(value: Boolean) {
+        countryClicked.value = value
     }
 
 }

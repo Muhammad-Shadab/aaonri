@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -46,16 +47,28 @@ class AddressDetailsFragment : Fragment() {
         var job: Job? = null
 
         addressDetailsBinding?.apply {
-            val zipCode = zipCodeAddressDetails.text
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
 
-            if (!isCountrySelected)
+            if (!isCountrySelected) {
                 authCommonViewModel.addSelectedCountry(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
+                addressDetailsBinding?.stateNameAddressDetails?.text = ""
+                stateName = ""
+                cityName = ""
+                addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                authCommonViewModel.addLocationDetails(
+                    zipCode = "",
+                    state = "",
+                    city = ""
+                )
+                zipCode = ""
+                addressDetailsBinding?.zipCodeAddressDetails?.setText("")
+
+            }
 
             authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
                 isCountrySelected = true
@@ -69,7 +82,7 @@ class AddressDetailsFragment : Fragment() {
                                         .isNotEmpty() && editable.toString().length >= 5
                                 ) {
                                     authCommonViewModel.getLocationByZipCode(
-                                        zipCode.toString(),
+                                        editable.toString(),
                                         triple.third
                                     )
                                 } else {
@@ -140,6 +153,20 @@ class AddressDetailsFragment : Fragment() {
             }
         }
 
+        authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
+            addressDetailsBinding?.stateNameAddressDetails?.text = ""
+            stateName = ""
+            cityName = ""
+            addressDetailsBinding?.cityNameAddressDetails?.setText("")
+            authCommonViewModel.addLocationDetails(
+                zipCode = "",
+                state = "",
+                city = ""
+            )
+            zipCode = ""
+            addressDetailsBinding?.zipCodeAddressDetails?.setText("")
+        }
+
         addressDetailsBinding?.phoneNumberAddressDetails?.addTextChangedListener(object :
             TextWatcher {
             var length_before = 0
@@ -201,6 +228,7 @@ class AddressDetailsFragment : Fragment() {
             }
         }
 
+
         return addressDetailsBinding?.root
     }
 
@@ -220,10 +248,8 @@ class AddressDetailsFragment : Fragment() {
                     } catch (e: Exception) {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
-
                 }
             }
         }
     }
-
 }
