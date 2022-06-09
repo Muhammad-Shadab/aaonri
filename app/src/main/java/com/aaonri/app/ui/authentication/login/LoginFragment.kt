@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     val registrationViewModel: RegistrationViewModel by viewModels()
+    val authCommonViewModel: AuthCommonViewModel by viewModels()
     var introBinding: FragmentLoginBinding? = null
     var isEmailValid = false
     var isPasswordValid = false

@@ -1,21 +1,26 @@
 package com.aaonri.app.ui.authentication.forgot_password
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.style.CharacterStyle
+import android.text.style.ClickableSpan
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentCheckYourEmailBinding
 import com.google.android.material.snackbar.Snackbar
-import java.lang.Exception
 
 
 class CheckYourEmailFragment : Fragment() {
@@ -26,7 +31,38 @@ class CheckYourEmailFragment : Fragment() {
     ): View? {
         checkYourEmailBinding = FragmentCheckYourEmailBinding.inflate(inflater, container, false)
 
+
+        val text =
+            resources.getString(R.string.spannableText1) + resources.getString(R.string.spannableText2)
+
+        val ss = SpannableString(text)
+
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+            }
+
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        ss.setSpan(UnderlineSpan(), 58, 78, 0)
+        ss.setSpan(clickableSpan1, 58, 80, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        checkYourEmailBinding?.didYouReceive?.text = ss
+        checkYourEmailBinding?.didYouReceive?.movementMethod = LinkMovementMethod.getInstance()
+
+
         checkYourEmailBinding?.apply {
+
+
             skipForNowTv.setOnClickListener {
                 findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
             }
@@ -58,4 +94,5 @@ class CheckYourEmailFragment : Fragment() {
 
         return checkYourEmailBinding?.root
     }
+
 }

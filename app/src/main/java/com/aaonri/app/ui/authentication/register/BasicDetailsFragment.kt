@@ -42,7 +42,7 @@ class BasicDetailsFragment : Fragment() {
         basicDetailsBinding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
         var job: Job? = null
 
-        val blockCharacterSet = "~#^|$%&*!@\""
+        val blockCharacterSet = "1234567890~#^|$%&*!@\""
 
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
             if (source != null && blockCharacterSet.contains("" + source)) {

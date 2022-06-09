@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_24sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="CHECK YOUR EMAIL"
+            android:text="CHECK YOUR MAIL"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"

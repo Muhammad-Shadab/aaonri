@@ -52,4 +52,7 @@
     <string name="classifieds">Classifieds</string>
     <string name="you_haven_t_listed_anything_yet">You haven\'t listed anything yet</string>
     <string name="discover">Discover</string>
+    <string name="spannableText1">Did you not receive the email? Check your spam filter, </string>
+    <string name="try_another_email_address"><u>Try another email address. or </u></string>
+    <string name="spannableText2"><u>Try another email address.</u></string>
 </resources>

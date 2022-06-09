@@ -17,6 +17,7 @@ import com.aaonri.app.databinding.FragmentResetMyPasswordBinding
 import com.aaonri.app.utils.Validator
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,6 +50,7 @@ class ResetMyPasswordFragment : Fragment() {
                         emailValidationTv.visibility = View.GONE
                         isEmailValid = true
                     } else {
+                        resetPasswordBinding?.emailValidationTv?.text = "Please enter valid email"
                         isEmailValid = false
                         emailValidationTv.visibility = View.VISIBLE
                     }
@@ -65,6 +67,13 @@ class ResetMyPasswordFragment : Fragment() {
                 if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid
                 ) {
                     forgotPassViewModel.sendForgotPasswordLink(emailForgotPasswordEt.text.toString())
+                }else{
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please enter your registered mail address", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         }
@@ -78,8 +87,12 @@ class ResetMyPasswordFragment : Fragment() {
                     if (response.data?.status?.equals("false") == true) {
                         isEmailValid = false
                         resetPasswordBinding?.emailValidationTv?.visibility = View.VISIBLE
+                        resetPasswordBinding?.emailValidationTv?.text =
+                            response.data.message.toString()
+                        resetPasswordBinding?.emailValidationTv?.visibility = View.VISIBLE
                     } else {
                         isEmailValid = true
+                        resetPasswordBinding?.emailValidationTv?.visibility = View.GONE
                         findNavController().navigate(R.id.action_resetPassword_to_checkYourEmailFragment)
                         resetPasswordBinding?.emailValidationTv?.visibility = View.GONE
                         forgotPassViewModel.forgotPasswordData.value = null
