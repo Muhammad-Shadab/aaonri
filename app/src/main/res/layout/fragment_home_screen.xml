@@ -36,26 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logOutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:background="@drawable/green_btn_shape"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:minHeight="0dp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:text="LOGOUT"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginGuideLine2" />
+
 
     </LinearLayout>
 

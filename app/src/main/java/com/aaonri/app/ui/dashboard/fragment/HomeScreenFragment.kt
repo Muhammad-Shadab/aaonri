@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
     var homeScreenBinding: FragmentHomeScreenBinding? = null
+    val registrationViewModel: RegistrationViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,20 +27,7 @@ class HomeScreenFragment : Fragment() {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         homeScreenBinding?.apply {
-            logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    val intent = Intent(requireContext(), LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }
-                builder.setNegativeButton("Cancel") { dialog, which ->
 
-                }
-                builder.show()
-            }
         }
 
         return homeScreenBinding?.root
