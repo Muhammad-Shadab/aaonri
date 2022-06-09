@@ -8,8 +8,10 @@
         android:id="@+id/classifiedCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_16sdp"
-        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -90,7 +92,7 @@
                 android:layout_width="@dimen/_160sdp"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="#c9c9c9"
+                android:background="#69C9C9C9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/classifiedPostDateTv" />
 

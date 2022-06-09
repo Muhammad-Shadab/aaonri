@@ -1,14 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.GridSpacingItemDecoration
