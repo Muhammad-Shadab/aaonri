@@ -79,24 +79,25 @@
         </androidx.viewpager2.widget.ViewPager2>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/floatingActionBtnClassified"
             android:layout_width="@dimen/_44sdp"
-            app:cardBackgroundColor="@color/greenBtnColor"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:shapeAppearanceOverlay="@style/circle"
+            app:cardBackgroundColor="@color/greenBtnColor"
             app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/circle"
             app:strokeColor="@color/white"
-            app:strokeWidth="@dimen/_4sdp"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:strokeWidth="@dimen/_4sdp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:padding="@dimen/_6sdp"
-                android:src="@drawable/plus"
-                android:layout_gravity="center"/>
+                android:src="@drawable/plus" />
 
         </com.google.android.material.card.MaterialCardView>
 

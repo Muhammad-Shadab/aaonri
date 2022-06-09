@@ -1,23 +1,21 @@
 package com.aaonri.app.ui.authentication.login
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
@@ -26,9 +24,6 @@ import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -50,8 +45,8 @@ class LoginFragment : Fragment() {
             }
 
             guestUserLogin.setOnClickListener {
-                /*val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)*/
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
             }
 
             loginBtn.setOnClickListener {

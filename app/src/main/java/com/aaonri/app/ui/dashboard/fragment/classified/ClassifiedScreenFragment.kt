@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
 
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
+
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,26 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }
+
+            classifiedScreenTabLayout.addOnTabSelectedListener(object :
+                TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 2) {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                    } else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    return
+                }
+            })
 
         }
 
