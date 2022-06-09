@@ -35,7 +35,6 @@ class AddressDetailsFragment : Fragment() {
     var isCountrySelected = false
     var cityName: String = ""
     var stateName: String = ""
-    var zipCode: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,24 +49,22 @@ class AddressDetailsFragment : Fragment() {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
 
+            if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
+                addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
+               /* Toast.makeText(
+                    context,
+                    "${authCommonViewModel.locationDetails["zipCode"]}",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+            }
+
+
             if (!isCountrySelected) {
                 authCommonViewModel.addSelectedCountry(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
-                addressDetailsBinding?.stateNameAddressDetails?.text = ""
-                stateName = ""
-                cityName = ""
-                addressDetailsBinding?.cityNameAddressDetails?.setText("")
-                authCommonViewModel.addLocationDetails(
-                    zipCode = "",
-                    state = "",
-                    city = ""
-                )
-                zipCode = ""
-                addressDetailsBinding?.zipCodeAddressDetails?.setText("")
-
             }
 
             authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
@@ -163,7 +160,6 @@ class AddressDetailsFragment : Fragment() {
                 state = "",
                 city = ""
             )
-            zipCode = ""
             addressDetailsBinding?.zipCodeAddressDetails?.setText("")
         }
 
@@ -196,25 +192,22 @@ class AddressDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    try {
-                        cityName = response.data?.result?.get(0)?.province.toString()
-                        stateName = response.data?.result?.get(0)?.state.toString()
-                        zipCode = addressDetailsBinding?.zipCodeAddressDetails?.text.toString()
-                        addressDetailsBinding?.stateNameAddressDetails?.text = stateName
-                        addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
-                        if (stateName.isNotEmpty()) {
-                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
-                        } else {
-                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
-                        }
+                    if (response.data?.result?.isNotEmpty() == true){
+                        try {
+                            cityName = response.data.result[0].province
+                            stateName = response.data.result[0].state
 
-                    } catch (e: Exception) {
-                        Log.i("location", "onCreateView: ${e.localizedMessage}")
-                    }
-                    if (stateName.isBlank()) {
+                            addressDetailsBinding?.stateNameAddressDetails?.text = stateName
+                            addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
+                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
+                        } catch (e: Exception) {
+                            Log.i("location", "onCreateView: ${e.localizedMessage}")
+                        }
+                    }else{
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
-                    } else {
-                        addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
+                        addressDetailsBinding?.stateNameAddressDetails?.text = ""
+                        cityName = ""
+                        addressDetailsBinding?.cityNameAddressDetails?.setText("")
                     }
 
                     addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
