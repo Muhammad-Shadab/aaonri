@@ -205,10 +205,10 @@ class AddressDetailsFragment : Fragment() {
                             Log.i("location", "onCreateView: ${e.localizedMessage}")
                         }
                     } else {
+                        addressDetailsBinding?.cityNameAddressDetails?.setText("")
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
                         addressDetailsBinding?.stateNameAddressDetails?.text = ""
                         cityName = ""
-                        addressDetailsBinding?.cityNameAddressDetails?.setText("")
                     }
 
                     addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
