@@ -27,7 +27,7 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-        val fragment = this
+      /*  val fragment = this
 
         classifiedScreenBinding?.apply {
             classifiedScreenViewPager.adapter = ClassifiedPagerAdapter(fragment)
@@ -66,7 +66,7 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             })
 
-        }
+        }*/
 
         return classifiedScreenBinding?.root
     }
