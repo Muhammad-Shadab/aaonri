@@ -1,14 +1,10 @@
-package com.aaonri.app.data.authentication.register.adapter
+package com.aaonri.app.ui.authentication.register.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.community.Community
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.databinding.CountryLayoutItemBinding
 

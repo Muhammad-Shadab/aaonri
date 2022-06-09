@@ -1,4 +1,4 @@
-package com.aaonri.app.data.authentication.register.adapter
+package com.aaonri.app.ui.authentication.register.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

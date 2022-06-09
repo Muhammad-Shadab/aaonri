@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.adapter.CountryAdapter
+import com.aaonri.app.ui.authentication.register.adapter.CountryAdapter
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel

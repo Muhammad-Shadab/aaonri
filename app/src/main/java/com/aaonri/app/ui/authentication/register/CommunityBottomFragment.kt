@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.adapter.CommunityItemAdapter
+import com.aaonri.app.ui.authentication.register.adapter.CommunityItemAdapter
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel

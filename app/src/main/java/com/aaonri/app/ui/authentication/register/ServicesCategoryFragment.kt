@@ -2,13 +2,11 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -21,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.data.authentication.register.adapter.ServicesItemAdapter
+import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem

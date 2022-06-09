@@ -1,12 +1,10 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.data.authentication.register.adapter.SelectedCommunityAdapter
+import com.aaonri.app.ui.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding

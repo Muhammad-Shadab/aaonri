@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.authentication
+package com.aaonri.app.ui.authentication.login
 
 import android.graphics.Color
 import android.net.Uri
