@@ -72,6 +72,17 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/firstNameValidationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/lastNameBasicDetails"
@@ -93,6 +104,19 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/lastNameValidationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="safdfa"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/emailAddressBasicDetails"

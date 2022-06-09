@@ -1,11 +1,10 @@
 package com.aaonri.app.ui.authentication.register
 
-import android.content.Context
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,15 +17,16 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
-import com.aaonri.app.utils.Validator
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class BasicDetailsFragment : Fragment() {
@@ -40,12 +40,22 @@ class BasicDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         basicDetailsBinding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
-
         var job: Job? = null
+
+        val blockCharacterSet = "~#^|$%&*!@\""
+
+        val filter = InputFilter { source, start, end, dest, dstart, dend ->
+            if (source != null && blockCharacterSet.contains("" + source)) {
+                ""
+            } else null
+        }
 
         basicDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.BASIC_DETAILS_SCREEN)
+
+            firstNameBasicDetails.filters = arrayOf(filter)
+            lastNameBasicDetails.filters = arrayOf(filter)
 
             emailAddressBasicDetails.addTextChangedListener { editable ->
                 job?.cancel()
@@ -122,6 +132,7 @@ class BasicDetailsFragment : Fragment() {
                 }
             }
         }
+
 
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
