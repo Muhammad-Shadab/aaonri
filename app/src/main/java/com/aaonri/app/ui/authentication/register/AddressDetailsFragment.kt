@@ -51,13 +51,7 @@ class AddressDetailsFragment : Fragment() {
 
             if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
-               /* Toast.makeText(
-                    context,
-                    "${authCommonViewModel.locationDetails["zipCode"]}",
-                    Toast.LENGTH_SHORT
-                ).show()*/
             }
-
 
             if (!isCountrySelected) {
                 authCommonViewModel.addSelectedCountry(
@@ -73,7 +67,7 @@ class AddressDetailsFragment : Fragment() {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
                         job = MainScope().launch {
-                            delay(500L)
+                            delay(300L)
                             editable?.let {
                                 if (editable.toString()
                                         .isNotEmpty() && editable.toString().length >= 5
@@ -151,16 +145,23 @@ class AddressDetailsFragment : Fragment() {
         }
 
         authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
-            addressDetailsBinding?.stateNameAddressDetails?.text = ""
-            stateName = ""
-            cityName = ""
-            addressDetailsBinding?.cityNameAddressDetails?.setText("")
-            authCommonViewModel.addLocationDetails(
-                zipCode = "",
-                state = "",
-                city = ""
-            )
-            addressDetailsBinding?.zipCodeAddressDetails?.setText("")
+            if (it){
+                addressDetailsBinding?.stateNameAddressDetails?.text = ""
+                stateName = ""
+                cityName = ""
+                addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                authCommonViewModel.addLocationDetails(
+                    zipCode = "",
+                    state = "",
+                    city = ""
+                )
+                addressDetailsBinding?.zipCodeAddressDetails?.setText("")
+                authCommonViewModel.addCountryClicked(false)
+            }else{
+                if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
+                    addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
+                }
+            }
         }
 
         addressDetailsBinding?.phoneNumberAddressDetails?.addTextChangedListener(object :
@@ -192,7 +193,7 @@ class AddressDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    if (response.data?.result?.isNotEmpty() == true){
+                    if (response.data?.result?.isNotEmpty() == true) {
                         try {
                             cityName = response.data.result[0].province
                             stateName = response.data.result[0].state
@@ -203,7 +204,7 @@ class AddressDetailsFragment : Fragment() {
                         } catch (e: Exception) {
                             Log.i("location", "onCreateView: ${e.localizedMessage}")
                         }
-                    }else{
+                    } else {
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
                         addressDetailsBinding?.stateNameAddressDetails?.text = ""
                         cityName = ""
