@@ -50,7 +50,8 @@ class CreateNewPasswordFragment : Fragment() {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (newPasswordEt1.text.toString().trim() == newPasswordEt2.text.toString()
-                        .trim() && isPasswordValid
+                        .trim() && isPasswordValid && newPasswordEt1.text.toString()
+                        .trim().length > 8
                 ) {
                     forgotPasswordViewModel.newPasswordRequest(
                         NewPasswordRequest(args.email, newPasswordEt2.text.toString().trim())
@@ -68,7 +69,7 @@ class CreateNewPasswordFragment : Fragment() {
 
         createNewPasswordBinding?.newPasswordEt1?.addTextChangedListener { editable ->
             editable?.let {
-                if (it.toString().isNotEmpty() && it.toString().length >= 6) {
+                if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
                         isPasswordValid = true
                         createNewPasswordBinding?.passwordValidationTv1?.visibility = View.GONE

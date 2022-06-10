@@ -1,0 +1,8 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+        "namespace": "android_app",
+        "package_name": "com.aaonri.app",
+        "sha256_cert_fingerprints": ["20:A0:9A:45:82:C1:D2:01:F2:AA:5F:42:43:45:F5:44:59:AA:5F:7D:C1:C8:39:DE:8B:3F:00:58:6E:F8:5A:59"]
+    }
+}]

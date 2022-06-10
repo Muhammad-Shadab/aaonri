@@ -40,7 +40,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         getCommunities()
 
 
-
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)

@@ -25,5 +25,11 @@ class LoginActivity : BaseActivity() {
         window.statusBarColor = Color.TRANSPARENT
 
 
+        /*val uri: Uri? = intent.data
+        if (uri != null){
+            val path = uri.toString()
+            Toast.makeText(this, "path = $path", Toast.LENGTH_SHORT).show()
+        }
+*/
     }
 }

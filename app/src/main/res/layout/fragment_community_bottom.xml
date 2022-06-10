@@ -31,9 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:textColor="#333333"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/select_one_or_multiple_communities"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="16sp" />
 
             <ProgressBar
                 android:id="@+id/progressBarCommunityBottom"
@@ -55,9 +56,10 @@
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:fontFamily="@font/sf_pro_regular"
+                android:textColor="#979797"
+                android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/you_have_selected_communities"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="12sp"
                 android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton

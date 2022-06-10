@@ -30,6 +30,7 @@
         android:text="LOGOUT"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/dashboardNavHost"

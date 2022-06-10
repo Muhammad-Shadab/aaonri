@@ -33,6 +33,17 @@
 
             <nav-graph android:value="@navigation/login_nav_graph" />
 
+            <!--<intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="https"
+                    android:host="www.aaonri.com"/>
+
+            </intent-filter>-->
+
+
         </activity>
         <activity
             android:name="com.aaonri.app.MainActivity"
