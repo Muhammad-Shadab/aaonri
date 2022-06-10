@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/classifiedScreenFragment">
 
 
     <fragment
@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_classifiedScreenFragment_to_shopScreenFragment"
             app:destination="@id/shopScreenFragment" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_classifiedDetailsFragment"
+            app:destination="@id/classifiedDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopScreenFragment"
@@ -47,4 +50,9 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.MoreScreenFragment"
         android:label="fragment_more_screen"
         tools:layout="@layout/fragment_more_screen" />
+    <fragment
+        android:id="@+id/classifiedDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment"
+        android:label="fragment_classified_details"
+        tools:layout="@layout/fragment_classified_details" />
 </navigation>

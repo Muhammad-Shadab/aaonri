@@ -16,7 +16,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
-
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
 
     @SuppressLint("InflateParams")
@@ -27,7 +26,8 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-      /*  val fragment = this
+
+        val fragment = this
 
         classifiedScreenBinding?.apply {
             classifiedScreenViewPager.adapter = ClassifiedPagerAdapter(fragment)
@@ -66,8 +66,9 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             })
 
-        }*/
+        }
 
         return classifiedScreenBinding?.root
     }
+
 }

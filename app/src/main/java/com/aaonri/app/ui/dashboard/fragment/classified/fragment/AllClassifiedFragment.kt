@@ -14,6 +14,7 @@ import com.aaonri.app.utils.GridSpacingItemDecoration
 class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +27,7 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding?.apply {
 
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 60, 60))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
             recyclerViewClassified.adapter = allClassifiedAdapter
 
         }

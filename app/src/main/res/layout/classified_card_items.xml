@@ -4,13 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/classifiedCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_2sdp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
-        android:layout_marginBottom="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
             <ImageView
                 android:id="@+id/classifiedItemIv"
@@ -35,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="$29.99"
                 android:textColor="#114591"
@@ -51,7 +53,6 @@
                 android:background="@drawable/blue_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:paddingVertical="@dimen/_2sdp"
                 android:text="Popular"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
@@ -65,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_60sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="7 Ports USB3.0"
@@ -79,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="Posted On: 06-02-2022 "
                 android:textColor="#797979"
@@ -91,7 +92,7 @@
                 android:id="@+id/dividerClassified"
                 android:layout_width="@dimen/_160sdp"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:background="#69C9C9C9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/classifiedPostDateTv" />
@@ -113,8 +114,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="New York-08512"
                 android:textColor="#797979"
@@ -122,6 +123,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/locationIconClassified"
                 app:layout_constraintTop_toBottomOf="@+id/dividerClassified" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/heart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

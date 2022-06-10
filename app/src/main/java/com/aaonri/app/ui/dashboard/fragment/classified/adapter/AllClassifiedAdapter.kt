@@ -1,12 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
-import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 
 class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
 
@@ -21,11 +18,13 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            classifiedPriceTv.text = "29.99"
+            classifiedPriceTv.text = "$29.99"
             classifiedDescTv.text = "7 Ports USB3.0"
             locationClassifiedTv.text = "New York-08512"
         }
-
+        holder.itemView.setOnClickListener {
+            /*navigation?.navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)*/
+        }
     }
 
     override fun getItemCount() = 20
