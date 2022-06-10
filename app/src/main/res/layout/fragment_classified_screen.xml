@@ -15,6 +15,7 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:background="@drawable/blue_circle_shape"
         android:padding="@dimen/_2sdp"
+
         android:src="@drawable/navigate_back"
         app:layout_constraintBottom_toBottomOf="@id/classifiedText"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,7 @@
         android:id="@+id/classifiedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="@string/classifieds"
         android:textColor="@color/white"

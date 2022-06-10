@@ -12,7 +12,7 @@
         android:id="@+id/registrationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Advertise"
         android:textColor="@color/white"
