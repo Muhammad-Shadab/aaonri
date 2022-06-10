@@ -1,12 +1,8 @@
 package com.aaonri.app.ui.authentication.login
 
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.widget.Toast
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityAuthBinding
 
