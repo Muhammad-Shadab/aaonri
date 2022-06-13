@@ -74,6 +74,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
                     response.data?.let { countryAdapter?.setData(response.data) }
                 }
+                is Resource.Empty -> TODO()
             }
         }
     }

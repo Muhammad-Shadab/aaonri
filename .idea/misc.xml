@@ -29,6 +29,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_launcher_background.xml" value="0.218" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_ticked_checkbox.xml" value="0.1485" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/logo_background_shape.xml" value="0.196" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/multiline_textfield_shape.xml" value="0.218" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/plus.xml" value="0.1485" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/plus_icon.xml" value="0.1485" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.218" />
@@ -44,6 +45,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/font/custom_fonts.xml" value="0.362962962962963" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout-v28/activity_registration.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_auth.xml" value="0.25" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_classified_screen.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_registration.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/added_classified_item.xml" value="0.5" />
@@ -52,10 +54,12 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/community_selected_item.xml" value="0.5" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/country_layout_item.xml" value="0.25" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details.xml" value="0.25" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertise_screen.xml" value="0.15625" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_all_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_basic_details.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_check_your_email.xml" value="0.25" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_details.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_screen.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_community_bottom.xml" value="0.33" />
@@ -86,6 +90,9 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1734375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/onboarding_steps_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/registration_steps.xml" value="0.33489583333333334" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1135" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/mipmap-anydpi-v26/ic_launcher_one.xml" value="0.193" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.218" />
       </map>
     </option>
   </component>

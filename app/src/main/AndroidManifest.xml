@@ -21,6 +21,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".ui.dashboard.fragment.classified.ClassifiedScreenActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name="com.aaonri.app.ui.authentication.login.LoginActivity"
             android:exported="true"
             android:launchMode="singleTask"
