@@ -7,27 +7,11 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.login.LoginFragment">
 
-
-    <ImageView
-        android:id="@+id/navigateBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:background="@drawable/blue_circle_shape"
-        android:padding="@dimen/_2sdp"
-
-        android:src="@drawable/navigate_back"
-        app:layout_constraintBottom_toBottomOf="@id/classifiedText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/classifiedText"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="31dp" />
-
     <TextView
         android:id="@+id/classifiedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_28sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="@string/classifieds"
         android:textColor="@color/white"
@@ -38,19 +22,191 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profilePicCv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="@id/classifiedText"
+        app:layout_constraintEnd_toStartOf="@+id/bellIconIv"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_24sdp"
+        app:layout_constraintTop_toTopOf="@id/classifiedText">
+
+        <ImageView
+            android:id="@+id/profilePicIv"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:padding="@dimen/_1sdp"
+            android:src="@drawable/profile_pic_placeholder" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/bellIconIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_1sdp"
+        app:layout_constraintTop_toTopOf="@id/profilePicCv"
+        app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_bell_notification" />
+
+    <EditText
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/edit_text_shape"
+        android:maxLines="1"
+        android:clickable="true"
+        android:drawableRight="@drawable/ic_icon_search"
+        android:focusable="true"
+        android:hint="@string/what_are_you_looking_for"
+        android:paddingVertical="@dimen/_8sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/filterClassified"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText" />
+
+    <LinearLayout
+        android:id="@+id/selectedFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:cardBackgroundColor="#a0eee4"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/communityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:text="Range: $10-$30"
+                android:textColor="@color/textViewColor"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/deleteFilterIv"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:src="@drawable/ic_cross" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:cardBackgroundColor="#a0eee4"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:text="Events"
+                android:textColor="@color/textViewColor"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:src="@drawable/ic_cross" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:cardBackgroundColor="#a0eee4"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:text="Real Estate"
+                android:textColor="@color/textViewColor"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:src="@drawable/ic_cross" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/filterClassified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_icons_filter"
+        app:layout_constraintBottom_toBottomOf="@id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/searchView"
+        app:layout_constraintTop_toTopOf="@id/searchView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
+        app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/classifiedScreenTabLayout"
@@ -101,16 +257,6 @@
                 android:src="@drawable/plus" />
 
         </com.google.android.material.card.MaterialCardView>
-
-        <!--<View
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/floating_action_btn_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

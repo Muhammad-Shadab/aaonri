@@ -165,7 +165,7 @@
                 android:background="@drawable/classified_upload_btn_bg_shape"
                 android:padding="@dimen/_6sdp"
                 android:src="@drawable/ic_add_image_icon"
-                android:translationY="-30dp"
+                android:translationY="-36dp"
                 app:layout_constraintEnd_toEndOf="@+id/uploadImageLinearLayout"
                 app:layout_constraintStart_toStartOf="@+id/uploadImageLinearLayout"
                 app:layout_constraintTop_toBottomOf="@+id/uploadImageLinearLayout" />

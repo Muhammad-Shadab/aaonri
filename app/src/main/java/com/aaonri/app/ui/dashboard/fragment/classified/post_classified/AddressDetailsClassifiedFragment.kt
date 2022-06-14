@@ -5,15 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.viewmodel.ClassifiedCommonViewModel
+import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddressDetailsClassifiedFragment : Fragment() {
-
+    var addressDetailsBinding: FragmentAddressDetailsClassifiedBinding? = null
+    val classifiedCommonViewModel: ClassifiedCommonViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_address_details_classified, container, false)
+        addressDetailsBinding =
+            FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
+
+        classifiedCommonViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
+
+        addressDetailsBinding?.apply {
+            classifiedDetailsNextBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+            }
+        }
+
+        return addressDetailsBinding?.root
     }
 }

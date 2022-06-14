@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
@@ -30,6 +31,10 @@ class ClassifiedScreenFragment : Fragment() {
         val fragment = this
 
         classifiedScreenBinding?.apply {
+
+            filterClassified.setOnClickListener {
+                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
+            }
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)

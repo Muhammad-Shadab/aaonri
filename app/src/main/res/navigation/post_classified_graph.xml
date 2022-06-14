@@ -27,5 +27,14 @@
         android:id="@+id/addressDetailsClassifiedFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.AddressDetailsClassifiedFragment"
         android:label="fragment_address_details_classified"
-        tools:layout="@layout/fragment_address_details_classified" />
+        tools:layout="@layout/fragment_address_details_classified" >
+        <action
+            android:id="@+id/action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom"
+            app:destination="@id/classifiedPostSuccessBottom" />
+    </fragment>
+    <dialog
+        android:id="@+id/classifiedPostSuccessBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.ClassifiedPostSuccessBottom"
+        android:label="fragment_classified_post_success_bottom"
+        tools:layout="@layout/fragment_classified_post_success_bottom" />
 </navigation>
