@@ -209,14 +209,14 @@
                 android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/basicDetailsNextBtn"
+                android:id="@+id/classifiedDetailsNextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@drawable/green_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"

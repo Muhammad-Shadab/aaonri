@@ -45,7 +45,7 @@
     <string name="reset_my_password">Reset My Password</string>
     <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
     <string name="verification">Verification email sent to your Email Id. \n please comeback to the app and click the \'Continue\' button below once your account verification process is completed</string>
-    <string name="need_to_reset_your_password_no_problem_just_click_the_button_below_and_you_ll_be_on_your_way_if_you_did_not_make_this_request_please_ignore_this_email">Need to reset your password? No problem! Just click the button below and you’ll be on your way. If you did not make this request, please ignore this email.</string>
+    <string name="need_to_reset_your_password">Need to reset your password? No problem! Just click the button below and you’ll be on your way. If you did not make this request, please ignore this email.</string>
     <string name="_2022_aaonri_all_rights_reserved">© 2022 aaonri \nAll Rights Reserved.</string>
     <string name="create_new_password">Create New Password</string>
     <string name="congratulations_your_new_password_has_been_reset_successfully_please_click_below_on_login_to_continue">Congratulations \nYour new password has been reset successfully, \nplease click below on login to continue</string>
@@ -59,4 +59,14 @@
     <string name="title_of_your_classified">Title of your Classified</string>
     <string name="is_the_listed_product_new">Is the listed product new?</string>
     <string name="please_describe_what_you_are_selling"><font size="12">Please describe what you are selling?</font></string>
+    <string name="upload_image">Upload Image</string>
+    <string name="image_can_be_upload_upto_max_size_2mb">Image can be upload upto max size 2MB</string>
+    <string name="how_would_you_like_to_be_contacted">How would you like to be Contacted?</string>
+    <string name="submit_a_classified">SUBMIT A CLASSIFIED</string>
+    <string name="your_classified_will">Your Classified will appear in search\n and / or on classifieds section of aaonri\n for 15 days at no charge: If you wish to\n extend your ad after 15 days, please\n email us at adminclassifieds@aaonri.com</string>
+    <string name="your_classified">Your Classified will appear in search\n and / or on classifieds section of aaonri for 15 days at no charge: If you wish to extend your ad after 15 days, please email us at adminclassifieds@aaonri.com</string>
+    <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your\n ad, which will be used for search by other users</string>
+    <string name="if_you_want">If you want your ad to appear in the \"Featured\" section, please contact us at admin Classfieds@aaonri.com</string>
+    <string name="please_review_your_information">Please review your information, you will\n not be able to update the changes once\n the Ad is approved by the aaonri administrator.</string>
+    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms of use and our Privacy Policy</string>
 </resources>

@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
@@ -34,7 +32,7 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding?.apply {
 
             floatingActionBtnClassified.setOnClickListener {
-                val intent = Intent(requireContext(), ClassifiedScreenActivity::class.java)
+                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 startActivity(intent)
             }
 

@@ -21,7 +21,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.fragment.classified.ClassifiedScreenActivity"
+            android:name=".ui.dashboard.fragment.classified.ClassifiedActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
