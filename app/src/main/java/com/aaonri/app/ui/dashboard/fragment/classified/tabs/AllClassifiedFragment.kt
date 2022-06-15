@@ -32,7 +32,8 @@ class AllClassifiedFragment : Fragment() {
         classifiedViewModel.getAllUserAdsClassified("a")
 
         allClassifiedBinding?.apply {
-
+            recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2,40,40))
         }
 
         classifiedViewModel.allUserAdsClassifiedData.observe(viewLifecycleOwner) { response ->
@@ -56,8 +57,7 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-        allClassifiedBinding?.recyclerViewClassified?.layoutManager = GridLayoutManager(context, 2)
-        allClassifiedBinding?.recyclerViewClassified?.addItemDecoration(GridSpacingItemDecoration(2,40,40))
+
 
 
         return allClassifiedBinding?.root

@@ -24,7 +24,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
         val context = holder.itemView.context
         holder.binding.apply {
             classifiedItemIv.load(R.drawable.sofa)
-            classifiedPriceTv.text = "$"+data[position].askingPrice.toString()
+            classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
             classifiedDescTv.text = data[position].adTitle
             locationClassifiedTv.text = data[position].adLocation
             popularTv.visibility = if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
@@ -37,6 +37,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     @JvmName("setData1")
     fun setData(data: List<UserAd>) {
         this.data = data
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = data.size

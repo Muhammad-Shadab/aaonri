@@ -5,10 +5,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
     var mainActivityBinding: ActivityMainBinding? = null
+    val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,30 +38,13 @@ class MainActivity : BaseActivity() {
         val navController = navHostFragment.navController
 
         val guest = intent.getBooleanExtra("guest", false)
+        dashboardCommonViewModel.setGuestUser(guest)
 
         mainActivityBinding?.apply {
             bottomNavigation.setupWithNavController(navController)
 
-            if (guest) {
-                logOutBtn.visibility = View.GONE
-            } else {
-                logOutBtn.visibility = View.VISIBLE
-            }
 
-            logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(this@MainActivity)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                builder.setNegativeButton("Cancel") { dialog, which ->
 
-                }
-                builder.show()
-            }
 
         }
 
