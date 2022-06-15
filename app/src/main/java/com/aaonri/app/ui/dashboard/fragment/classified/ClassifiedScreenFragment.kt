@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -18,6 +18,7 @@ import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ClassifiedScreenFragment : Fragment() {
@@ -85,7 +86,9 @@ class ClassifiedScreenFragment : Fragment() {
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
-                    //removeTab(1)
+                    classifiedScreenTabLayout.visibility = View.GONE
+                    classifiedScreenViewPager.setPadding(0, 80, 0, 0)
+                    classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
 

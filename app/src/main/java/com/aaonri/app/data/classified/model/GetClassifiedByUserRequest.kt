@@ -1,6 +1,6 @@
 package com.aaonri.app.data.classified.model
 
-data class GetClassifiedsByUserRequest(
+data class GetClassifiedByUserRequest(
     val category: String,
     val email: String,
     val fetchCatSubCat: Boolean,
@@ -9,7 +9,7 @@ data class GetClassifiedsByUserRequest(
     val maxPrice: Int,
     val minPrice: Int,
     val myAdsOnly: Boolean,
-    val popularOnAoonri: Any,
+    val popularOnAoonri: Any?,
     val subCategory: String,
     val zipCode: String
 )

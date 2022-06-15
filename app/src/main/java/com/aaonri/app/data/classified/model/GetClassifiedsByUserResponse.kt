@@ -1,3 +1,6 @@
 package com.aaonri.app.data.classified.model
 
-class GetClassifiedsByUserResponse : ArrayList<GetClassifiedsByUserResponseItem>()
+data class GetClassifiedsByUserResponse(
+    val classifiedCategorySubCategoryList: List<ClassifiedCategorySubCategory>,
+    val userAdsList: List<UserAds>
+)

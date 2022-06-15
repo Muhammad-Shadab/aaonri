@@ -1,9 +1,9 @@
 package com.aaonri.app.data.classified.model
 
-data class GetClassifiedsByUserResponseItem(
+data class ClassifiedCategorySubCategory(
     val classifiedSubcategory: List<ClassifiedSubcategory>,
     val count: Int,
-    val id: Int,
+    val id: Any,
     val parentId: Any,
     val title: String
 )

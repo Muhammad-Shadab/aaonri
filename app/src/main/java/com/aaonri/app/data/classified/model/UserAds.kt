@@ -1,15 +1,15 @@
 package com.aaonri.app.data.classified.model
 
-data class UserAd(
+data class UserAds(
     val active: Boolean,
     val adDescription: String,
     val adEmail: String,
     val adExpireDT: String,
-    val adImages: String,
+    val adImages: Any,
     val adKeywords: String,
     val adLocation: String,
     val adPhone: String,
-    val adThumbnails: String,
+    val adThumbnails: Any,
     val adTitle: String,
     val adZip: String,
     val approved: Boolean,
@@ -18,7 +18,7 @@ data class UserAd(
     val contactType: String,
     val createdOn: String,
     val delImages: Any,
-    val deletedOn: String,
+    val deletedOn: Any,
     val favorite: Boolean,
     val id: Int,
     val isNew: Boolean,

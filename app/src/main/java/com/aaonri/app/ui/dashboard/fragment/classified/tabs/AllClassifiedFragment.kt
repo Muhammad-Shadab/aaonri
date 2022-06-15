@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.tabs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -29,21 +29,36 @@ class AllClassifiedFragment : Fragment() {
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter()
 
-        classifiedViewModel.getAllUserAdsClassified("a")
+        classifiedViewModel.getClassifiedByUser(
+            GetClassifiedByUserRequest(
+                category = "",
+                email = "",
+                fetchCatSubCat = true,
+                keywords = "",
+                location = "",
+                maxPrice = 0,
+                minPrice = 0,
+                myAdsOnly = false,
+                popularOnAoonri = null,
+                subCategory = "",
+                zipCode = ""
+            )
+        )
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2,40,40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 60, 40))
+
         }
 
-        classifiedViewModel.allUserAdsClassifiedData.observe(viewLifecycleOwner) { response ->
+        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     allClassifiedBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAds?.let { allClassifiedAdapter!!.setData(it) }
+                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                 }
                 is Resource.Error -> {

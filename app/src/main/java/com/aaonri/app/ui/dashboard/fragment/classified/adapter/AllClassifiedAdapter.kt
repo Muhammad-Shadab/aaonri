@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.AllUserAdsClassifiedResponse
-import com.aaonri.app.data.classified.model.UserAd
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 
 class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
 
-    private var data = listOf<UserAd>()
+    private var data = listOf<UserAds>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,11 +22,14 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            classifiedItemIv.load(R.drawable.sofa)
+            classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}"){
+                placeholder(R.drawable.ic_image_placeholder)
+            }
             classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
             classifiedDescTv.text = data[position].adTitle
-            locationClassifiedTv.text = data[position].adLocation
+            locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
             popularTv.visibility = if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {
             /*navigation?.navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)*/
@@ -35,7 +37,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     }
 
     @JvmName("setData1")
-    fun setData(data: List<UserAd>) {
+    fun setData(data: List<UserAds>) {
         this.data = data
         notifyDataSetChanged()
     }

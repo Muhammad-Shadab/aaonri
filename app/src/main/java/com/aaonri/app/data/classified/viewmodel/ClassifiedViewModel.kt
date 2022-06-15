@@ -3,8 +3,7 @@ package com.aaonri.app.data.classified.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.classified.model.AllUserAdsClassifiedResponse
-import com.aaonri.app.data.classified.model.GetClassifiedsByUserRequest
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
@@ -17,13 +16,13 @@ import javax.inject.Inject
 class ClassifiedViewModel @Inject constructor(private val classifiedRepository: ClassifiedRepository) :
     ViewModel() {
 
-    var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
-        MutableLiveData()
+   /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
+        MutableLiveData()*/
 
     var classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
-    fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
+    /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.getAllUserAdsClassified(email)
         allUserAdsClassifiedData.postValue(handleAllPopularClassifiedResponse(response))
@@ -36,9 +35,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
-    fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedsByUserRequest) =
+    fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
             classifiedByUserData.postValue(Resource.Loading())
             val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
