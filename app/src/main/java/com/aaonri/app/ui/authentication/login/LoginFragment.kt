@@ -19,9 +19,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +35,14 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        if(email?.isNotEmpty() == true){
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
 
         introBinding?.apply {
 
@@ -60,6 +66,9 @@ class LoginFragment : Fragment() {
                 if (userEmail?.toString()?.isNotEmpty() == true && loginPasswordEt?.toString()
                         ?.isNotEmpty() == true && isEmailValid && isPasswordValid
                 ) {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, userEmail.toString())
+
                     registrationViewModel.loginUser(
                         Login(
                             changePass = true,
@@ -139,6 +148,7 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
+
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()

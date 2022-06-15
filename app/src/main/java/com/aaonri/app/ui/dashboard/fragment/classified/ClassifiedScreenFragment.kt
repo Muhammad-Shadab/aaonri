@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,6 +89,7 @@ class ClassifiedScreenFragment : Fragment() {
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
+                    floatingActionBtnClassified.visibility = View.GONE
                     classifiedScreenTabLayout.visibility = View.GONE
                     classifiedScreenViewPager.setPadding(0, 80, 0, 0)
                     classifiedScreenViewPager.isUserInputEnabled = false
@@ -98,32 +102,5 @@ class ClassifiedScreenFragment : Fragment() {
 
         return classifiedScreenBinding?.root
     }
-
-    /*private fun disableTabItemAt(tabLayout: TabLayout?, tabText: String) {
-        (tabLayout?.getChildAt(0) as? ViewGroup)?.children?.iterator()?.forEach {
-            if((it as TabLayout.TabView).tab?.text == tabText) {
-                it.isEnabled = false
-                it.alpha = 0.5f
-            }
-        }
-    }
-
-    fun enableTabItemAt(tabLayout: TabLayout?, tabText: String) {
-        (tabLayout?.getChildAt(0) as? ViewGroup)?.children?.iterator()?.forEach {
-            if((it as TabLayout.TabView).tab?.text == tabText) {
-                it.isEnabled = true
-                it.alpha = 1f
-            }
-        }
-    }*/
-    /*fun removeTab(position: Int) {
-        classifiedScreenBinding?.apply {
-            if (classifiedScreenTabLayout.tabCount >= 1 && position < classifiedScreenTabLayout.tabCount) {
-                classifiedScreenTabLayout.removeTabAt(position)
-                classifiedPagerAdapter.removeTabPage(position, tabTitles)
-            }
-        }
-
-    }*/
 
 }

@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +25,7 @@ class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,21 +34,7 @@ class AllClassifiedFragment : Fragment() {
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter()
 
-        classifiedViewModel.getClassifiedByUser(
-            GetClassifiedByUserRequest(
-                category = "",
-                email = "",
-                fetchCatSubCat = true,
-                keywords = "",
-                location = "",
-                maxPrice = 0,
-                minPrice = 0,
-                myAdsOnly = false,
-                popularOnAoonri = null,
-                subCategory = "",
-                zipCode = ""
-            )
-        )
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
@@ -71,7 +62,42 @@ class AllClassifiedFragment : Fragment() {
                 }
             }
         }
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            if (it) {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
 
+            } else {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            }
+        }
 
 
 

@@ -14,6 +14,8 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +35,8 @@ class HomeScreenFragment : Fragment() {
                 builder.setTitle("Confirm")
                 builder.setMessage("Are you sure you want to Logout")
                 builder.setPositiveButton("OK") { dialog, which ->
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, "")
                     val intent = Intent(context, LoginActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
