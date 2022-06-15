@@ -19,78 +19,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/selectCategoryClassifiedSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:minHeight="0dp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/spinner"
+                android:spinnerMode="dropdown"/>
+
+            <Spinner
+                android:id="@+id/selectSubCategoryClassifiedSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/selectCategoryClassifiedTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:hint="Select Category*"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_3sdp"
-                    android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_3sdp"
-                    android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="16sp"
-                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
-
-            </LinearLayout>
-
-            <!--<TextView
-                android:id="@+id/firstNameValidationTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_36sdp"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:textColor="#FF0000"
-                android:textSize="@dimen/_10sdp"
-                android:visibility="gone" />-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/selectSubCategoryClassifiedTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:hint="Select Sub Category*"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_3sdp"
-                    android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_3sdp"
-                    android:textColor="@color/editTextColor"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="16sp"
-                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
-
-            </LinearLayout>
+                android:background="@drawable/spinner"
+                android:spinnerMode="dropdown"/>
 
             <TextView
                 android:id="@+id/lastNameValidationTv"

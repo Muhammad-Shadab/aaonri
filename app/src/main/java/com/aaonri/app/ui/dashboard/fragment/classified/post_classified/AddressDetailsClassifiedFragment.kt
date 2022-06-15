@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
-import com.aaonri.app.data.classified.viewmodel.ClassifiedCommonViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddressDetailsClassifiedFragment : Fragment() {
     var addressDetailsBinding: FragmentAddressDetailsClassifiedBinding? = null
-    val classifiedCommonViewModel: ClassifiedCommonViewModel by activityViewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +24,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         addressDetailsBinding =
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
-        classifiedCommonViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
+        postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
         addressDetailsBinding?.apply {
             classifiedDetailsNextBtn.setOnClickListener {

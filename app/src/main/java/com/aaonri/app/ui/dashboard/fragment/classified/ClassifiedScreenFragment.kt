@@ -37,10 +37,13 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
         classifiedScreenBinding?.apply {
+
+            classifiedScreenViewPager.isUserInputEnabled = false
 
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)

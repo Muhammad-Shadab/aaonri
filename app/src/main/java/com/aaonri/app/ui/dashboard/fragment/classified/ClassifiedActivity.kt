@@ -6,14 +6,14 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
-import com.aaonri.app.data.classified.viewmodel.ClassifiedCommonViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.ActivityClassifiedScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClassifiedActivity : AppCompatActivity() {
     var classifiedScreenBinding: ActivityClassifiedScreenBinding? = null
-    val classifiedCommonViewModel: ClassifiedCommonViewModel by viewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         classifiedScreenBinding = ActivityClassifiedScreenBinding.inflate(layoutInflater)
@@ -31,7 +31,7 @@ class ClassifiedActivity : AppCompatActivity() {
                 onBackPressed()
             }
 
-            classifiedCommonViewModel.navigationForStepper.observe(this@ClassifiedActivity) { route ->
+            postClassifiedViewModel.navigationForStepper.observe(this@ClassifiedActivity) { route ->
                 when (route) {
                     ClassifiedConstant.BASIC_DETAILS_SCREEN -> {
                         stepView.go(0, true)
@@ -44,7 +44,7 @@ class ClassifiedActivity : AppCompatActivity() {
                     }
                 }
             }
-            classifiedCommonViewModel.stepViewLastTick.observe(this@ClassifiedActivity) {
+            postClassifiedViewModel.stepViewLastTick.observe(this@ClassifiedActivity) {
                 stepView.done(it)
             }
         }

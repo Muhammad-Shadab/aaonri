@@ -39,29 +39,8 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 60, 40))
-
         }
 
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    allClassifiedBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    allClassifiedBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
-                    allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
-                }
-                is Resource.Error -> {
-                    allClassifiedBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-
-                }
-            }
-        }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedViewModel.getClassifiedByUser(
@@ -99,6 +78,26 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
+        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    allClassifiedBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    allClassifiedBinding?.progressBar?.visibility = View.GONE
+                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
+                    allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
+                }
+                is Resource.Error -> {
+                    allClassifiedBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
+        }
 
 
         return allClassifiedBinding?.root

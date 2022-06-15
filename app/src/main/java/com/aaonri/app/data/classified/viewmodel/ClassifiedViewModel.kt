@@ -1,8 +1,10 @@
 package com.aaonri.app.data.classified.viewmodel
 
+import android.content.pm.ResolveInfo
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
@@ -16,8 +18,8 @@ import javax.inject.Inject
 class ClassifiedViewModel @Inject constructor(private val classifiedRepository: ClassifiedRepository) :
     ViewModel() {
 
-   /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
-        MutableLiveData()*/
+    /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
+         MutableLiveData()*/
 
     var classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
@@ -36,6 +38,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         }
         return Resource.Error(response.message())
     }*/
+
 
     fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {

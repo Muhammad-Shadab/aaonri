@@ -24,6 +24,8 @@
                 android:layout_width="@dimen/_160sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:src="@drawable/ic_image_placeholder"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

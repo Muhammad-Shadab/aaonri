@@ -3,6 +3,7 @@ package com.aaonri.app.data.classified.di
 import com.aaonri.app.data.authentication.forgot_password.api.ForgotPasswordApi
 import com.aaonri.app.data.authentication.forgot_password.repository.ForgotPasswordRepository
 import com.aaonri.app.data.classified.api.ClassifiedApi
+import com.aaonri.app.data.classified.api.PostClassifiedApi
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,14 @@ object ClassifiedModule {
 
     @Provides
     @Singleton
-    fun provideClassifiedRepo(classifiedApi: ClassifiedApi) =
-        ClassifiedRepository(classifiedApi)
+    fun providePostClassifiedApi(
+        retrofit: Retrofit.Builder
+    ): PostClassifiedApi =
+        retrofit.build().create(PostClassifiedApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideClassifiedRepo(classifiedApi: ClassifiedApi, postClassifiedApi: PostClassifiedApi) =
+        ClassifiedRepository(classifiedApi, postClassifiedApi)
 
 }
