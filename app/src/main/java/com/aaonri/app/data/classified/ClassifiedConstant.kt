@@ -7,4 +7,11 @@ object ClassifiedConstant {
     const val UPLOAD_PIC_SCREEN = "UPLOAD_PIC_SCREEN"
     const val ADDRESS_DETAILS_SCREEN = "ADDRESS_DETAILS_SCREEN"
 
+    // Classified Address Details Map Constants
+    const val CITY_NAME = "CITY_NAME"
+    const val ZIP_CODE = "ZIP_CODE"
+    const val EMAIL = "EMAIL"
+    const val PHONE = "PHONE"
+    const val DESCRIPTION = "DESCRIPTION"
+
 }

@@ -2,6 +2,8 @@ package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,9 +62,89 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
 
             classifiedDetailsNextBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+
+                val phoneNumber = phoneNumberAddressDetails.text.trim().toString().replace("-", "")
+
+                if (cityNameAddressDetails.text.trim().toString().length > 3
+                ) {
+                    if (zipCodeAddressDetails.text.trim().toString().length >= 5) {
+                        if (emailRadioBtn.isChecked) {
+                            if (isEmailValid && emailAddressBasicDetails.text.trim().toString()
+                                    .isNotEmpty()
+                            ) {
+                                if (classifiedDescEt.text.trim().toString().length > 3) {
+                                    if (agreeCheckboxClassified.isChecked) {
+                                        postClassifiedViewModel.addClassifiedAddressDetails(
+                                            city = cityNameAddressDetails.text.toString(),
+                                            zip = zipCodeAddressDetails.text.toString(),
+                                            email = emailAddressBasicDetails.text.toString(),
+                                            phone = "",
+                                            description = classifiedDescEt.text.toString()
+                                        )
+                                        postClassifiedViewModel.addIsAgreeToAaonri(true)
+                                        findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                                    } else {
+                                        showAlert("Please accept terms & condition")
+                                    }
+                                } else {
+                                    showAlert("Please enter valid classified description")
+                                }
+                            } else {
+                                showAlert("Please enter valid email")
+                            }
+                        } else {
+                            if (phoneNumber.length >= 10) {
+                                if (classifiedDescEt.text.trim().toString().length > 3) {
+                                    if (agreeCheckboxClassified.isChecked) {
+                                        postClassifiedViewModel.addClassifiedAddressDetails(
+                                            city = cityNameAddressDetails.text.toString(),
+                                            zip = zipCodeAddressDetails.text.toString(),
+                                            email = "",
+                                            phone = phoneNumber,
+                                            description = classifiedDescEt.text.toString()
+                                        )
+                                        postClassifiedViewModel.addIsAgreeToAaonri(true)
+                                        findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                                    } else {
+                                        showAlert("Please accept terms & condition")
+                                    }
+                                } else {
+                                    showAlert("Please enter valid classified description")
+                                }
+                            } else {
+                                showAlert("Please enter valid phone number")
+                            }
+                        }
+                    } else {
+                        showAlert("Please enter valid zip code")
+                    }
+                } else {
+                    showAlert("Please enter valid city name")
+                }
             }
         }
+
+        addressDetailsBinding?.phoneNumberAddressDetails?.addTextChangedListener(object :
+            TextWatcher {
+            var length_before = 0
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                length_before = s.length
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (length_before < s.length) {
+                    if (s.length == 3 || s.length == 7) s.append("-")
+                    if (s.length > 3) {
+                        if (Character.isDigit(s[3])) s.insert(3, "-")
+                    }
+                    if (s.length > 7) {
+                        if (Character.isDigit(s[7])) s.insert(7, "-")
+                    }
+                }
+            }
+        })
+
 
         addressDetailsBinding?.emailAddressBasicDetails?.addTextChangedListener { editable ->
             editable?.let {
@@ -82,4 +165,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         return addressDetailsBinding?.root
     }
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
+
 }
