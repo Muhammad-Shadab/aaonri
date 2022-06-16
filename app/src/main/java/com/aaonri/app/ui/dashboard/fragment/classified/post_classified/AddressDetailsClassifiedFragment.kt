@@ -17,10 +17,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +34,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
+/*
+        val title = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE].toString()
+
+        Toast.makeText(
+            context,
+            "title = $title}",
+            Toast.LENGTH_SHORT
+        ).show()*/
 
         addressDetailsBinding?.apply {
 
@@ -80,6 +85,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             adKeywords = classifiedKeywordEt.text.toString(),
                                             adEmail = emailAddressBasicDetails.text.toString(),
                                             adPhone = "",
+                                            cityName = cityNameAddressDetails.text.trim()
+                                                .toString(),
+                                            zipCode = zipCodeAddressDetails.text.trim().toString()
                                         )
                                         postClassifiedViewModel.addClassifiedAddressDetails(
                                             city = cityNameAddressDetails.text.toString(),
@@ -89,7 +97,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             description = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
-                                        findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -107,6 +114,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             adKeywords = classifiedKeywordEt.text.toString(),
                                             adEmail = "",
                                             adPhone = phoneNumber,
+                                            cityName = cityNameAddressDetails.text.trim()
+                                                .toString(),
+                                            zipCode = zipCodeAddressDetails.text.trim().toString()
                                         )
                                         postClassifiedViewModel.addClassifiedAddressDetails(
                                             city = cityNameAddressDetails.text.toString(),
@@ -116,7 +126,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             description = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
-                                        findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -175,30 +184,51 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.postClassifiedData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+
+        }
+
+
         return addressDetailsBinding?.root
     }
 
     private fun postClassifiedRequest(
         adEmail: String,
         adPhone: String,
-        adKeywords: String
+        adKeywords: String,
+        cityName: String,
+        zipCode: String
     ) {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         postClassifiedViewModel.postClassified(
             PostClassifiedRequest(
                 active = true,
-                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION].toString(),
+                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION]!!,
                 adEmail = adEmail,
                 adExpireDT = "2022-02-21T06:57:24.837+0000",
                 adImages = null,
                 adKeywords = adKeywords,
-                adLocation = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.CITY_NAME].toString(),
+                adLocation = cityName,
                 adPhone = adPhone,
                 adThumbnails = null,
-                adTitle = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.TITLE].toString(),
-                adZip = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.ZIP_CODE].toString(),
+                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE]!!,
+                adZip = zipCode,
                 approved = false,
-                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE].toString().toInt(),
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE]!!.toInt(),
                 category = postClassifiedViewModel.classifiedCategory,
                 contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
                 createdOn = "2022-02-06T06:57:24.858+0000",

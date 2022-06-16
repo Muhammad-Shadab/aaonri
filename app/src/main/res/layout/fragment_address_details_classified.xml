@@ -1,365 +1,386 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.fragment.classified.post_classified.AddressDetailsClassifiedFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/cityNameAddressDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:background="@drawable/edit_text_shape"
-            android:fontFamily="@font/sf_pro_regular"
-            android:hint="@string/city"
-            android:inputType="textCapCharacters"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_6sdp"
-            android:textColor="@color/editTextColor"
-            android:textColorHint="@color/hintColor"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/zipCodeAddressDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:background="@drawable/edit_text_shape"
-            android:fontFamily="@font/sf_pro_regular"
-            android:hint="@string/zip_code"
-            android:inputType="number"
-            android:lines="1"
-            android:maxLength="6"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_6sdp"
-            android:textColor="@color/editTextColor"
-            android:textColorHint="@color/hintColor"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="@string/how_would_you_like_to_be_contacted"
-            android:textColor="#333333"
-            android:textSize="14sp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <RadioGroup
+            <EditText
+                android:id="@+id/cityNameAddressDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_24sdp"
-                android:orientation="horizontal">
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="@string/city"
+                android:inputType="textCapCharacters"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
-                <RadioButton
-                    android:id="@+id/emailRadioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/custom_radio_btn"
-                    android:buttonTint="@drawable/custom_radio_btn"
-                    android:checked="true"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
-
-                <TextView
-                    android:id="@+id/emailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Email"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <RadioButton
-                    android:id="@+id/phoneRadioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_32sdp"
-                    android:button="@drawable/custom_radio_btn"
-                    android:buttonTint="@drawable/custom_radio_btn"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
-
-                <TextView
-                    android:id="@+id/phoneTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Phone"
-                    android:textColor="#979797"
-                    android:textSize="14sp" />
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/phoneNumberAddressDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:background="@drawable/edit_text_shape"
-            android:fontFamily="@font/sf_pro_regular"
-            android:hint="@string/phone_number"
-            android:inputType="phone"
-            android:lines="1"
-            android:maxLength="12"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_6sdp"
-            android:textColor="@color/editTextColor"
-            android:textColorHint="@color/hintColor"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/emailAddressBasicDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:background="@drawable/edit_text_shape"
-            android:fontFamily="@font/sf_pro_regular"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_6sdp"
-            android:textColor="@color/editTextColor"
-            android:textColorHint="@color/hintColor"
-            android:textSize="16sp"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/emailValidationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_36sdp"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
-            android:fontFamily="@font/sf_pro_regular"
-            android:text="Please enter valid email"
-            android:textColor="#FF0000"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="@string/please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users"
-            android:textColor="#333333"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/classifiedKeywordEt"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginHorizontal="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/multiline_textfield_shape"
-            android:ems="10"
-            android:gravity="left"
-            android:hint="@string/please_describe_what_you_are_selling"
-            android:inputType="textMultiLine|textCapCharacters"
-            android:maxLength="2000"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:textSize="16sp"
-            tools:ignore="RtlHardcoded" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Few points to note before you post your ad:"
-            android:textColor="#333333"
-            android:textSize="14sp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_28sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
-            app:cardBackgroundColor="#EFEFEF"
-            app:cardCornerRadius="10dp"
-            app:strokeColor="#e1e1e1"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/zipCodeAddressDetails"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/your_classified_will"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/if_you_want"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/please_review_your_information"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_24sdp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/agreeCheckboxClassified"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:button="@drawable/custom_checkbox"
-                android:buttonTint="@drawable/custom_checkbox"
-                android:minWidth="0dp"
-                android:minHeight="0dp" />
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="@string/zip_code"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/how_would_you_like_to_be_contacted"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_24sdp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/emailRadioBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/custom_radio_btn"
+                        android:buttonTint="@drawable/custom_radio_btn"
+                        android:checked="true"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp" />
+
+                    <TextView
+                        android:id="@+id/emailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Email"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/phoneRadioBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:button="@drawable/custom_radio_btn"
+                        android:buttonTint="@drawable/custom_radio_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp" />
+
+                    <TextView
+                        android:id="@+id/phoneTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Phone"
+                        android:textColor="#979797"
+                        android:textSize="14sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/phoneNumberAddressDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
-                android:text="@string/by_posting_an_ad"
-                android:textColor="@color/textViewColor"
-                android:textSize="12sp" />
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:lines="1"
+                android:maxLength="12"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/emailAddressBasicDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="@string/email_address"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/emailValidationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="Please enter valid email"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/classifiedKeywordEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/multiline_textfield_shape"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="@string/please_describe_what_you_are_selling"
+                android:inputType="textMultiLine|textCapCharacters"
+                android:maxLength="2000"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_8sdp"
+                android:textSize="16sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Few points to note before you post your ad:"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginVertical="@dimen/_12sdp"
+                app:cardBackgroundColor="#EFEFEF"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="#e1e1e1"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/your_classified_will"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/if_you_want"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/please_review_your_information"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_24sdp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/agreeCheckboxClassified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:button="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkbox"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:text="@string/by_posting_an_ad"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/classifiedDetailsNextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/green_btn_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/submit_a_classified"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/classifiedDetailsNextBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/green_btn_shape"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:minHeight="0dp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:text="@string/submit_a_classified"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+    </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

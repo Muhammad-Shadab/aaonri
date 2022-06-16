@@ -40,7 +40,6 @@ class UploadClassifiedPicFragment : Fragment() {
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 
-
         uploadClassifiedBinding?.apply {
 
             uploadPicBtn.setOnClickListener {
