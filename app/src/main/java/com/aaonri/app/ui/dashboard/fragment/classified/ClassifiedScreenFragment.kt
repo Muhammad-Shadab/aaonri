@@ -37,9 +37,6 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-        // adding just to navigate to the desired screen
-        val intent = Intent(requireContext(), ClassifiedActivity::class.java)
-        startActivity(intent)
 
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
