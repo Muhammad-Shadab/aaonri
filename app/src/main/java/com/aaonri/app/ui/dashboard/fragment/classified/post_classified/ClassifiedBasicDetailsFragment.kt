@@ -25,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedBasicDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var selectedCategoryIndex = 0
     var classifiedCategory = mutableListOf<ClassifiedCategoryResponseItem>()
     var classifiedSubCategory = mutableListOf<ClassifiedSubcategoryX>()
     override fun onCreateView(
@@ -38,6 +37,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
         postClassifiedViewModel.getClassifiedCategory()
+
 
         classifiedDetailsBinding?.apply {
 
@@ -52,11 +52,11 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             selectCategoryClassifiedSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        //Toast.makeText(context, "${classifiedCategory[p2]}", Toast.LENGTH_SHORT).show()
+                        classifiedSubCategory = classifiedCategory[p2].classifiedSubcategory as MutableList<ClassifiedSubcategoryX>
                         val adapter = context?.let {
                             ClassifiedSubCategoryArrayAdapter(
                                 it,
-                                classifiedCategory[p2].classifiedSubcategory
+                                classifiedSubCategory
                             )
                         }
                         classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.adapter = adapter
@@ -77,6 +77,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 is Resource.Success -> {
 
                     classifiedCategory = response.data!!
+
+                    classifiedSubCategory.add(0, ClassifiedSubcategoryX(0, 0, 0, "Select Sub Category*"))
+                    classifiedCategory.add(0, ClassifiedCategoryResponseItem(classifiedSubCategory, 0, 0, 0, "Select Category*"))
 
                     val adapter = classifiedCategory.let {
                         context?.let { it1 ->

@@ -28,7 +28,7 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/spinner"
                 android:minHeight="0dp"
-                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:spinnerMode="dropdown" />
 
@@ -41,7 +41,7 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/spinner"
                 android:minHeight="0dp"
-                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:spinnerMode="dropdown" />
 
