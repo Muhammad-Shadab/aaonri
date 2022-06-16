@@ -48,8 +48,6 @@ class RegistrationViewModel
     }
 
 
-
-
     fun loginUser(login: Login) = viewModelScope.launch {
         loginData.postValue(Resource.Loading())
         val response = repository.loginUser(login)

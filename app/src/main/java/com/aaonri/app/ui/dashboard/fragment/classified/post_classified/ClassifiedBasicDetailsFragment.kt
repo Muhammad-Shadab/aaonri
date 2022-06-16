@@ -52,24 +52,39 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             selectCategoryClassifiedSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        classifiedSubCategory = classifiedCategory[p2].classifiedSubcategory as MutableList<ClassifiedSubcategoryX>
+
+                        postClassifiedViewModel.addClassifiedCategory(classifiedCategory[p2].title)
+
+                        classifiedSubCategory =
+                            classifiedCategory[p2].classifiedSubcategory as MutableList<ClassifiedSubcategoryX>
                         val adapter = context?.let {
                             ClassifiedSubCategoryArrayAdapter(
                                 it,
                                 classifiedSubCategory
                             )
                         }
-                        classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.adapter = adapter
+                        classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.adapter =
+                            adapter
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
                         TODO("Not yet implemented")
                     }
+                }
 
+            selectSubCategoryClassifiedSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        TODO("Not yet implemented")
+                    }
                 }
         }
 
-        postClassifiedViewModel.classifiedCategory.observe(viewLifecycleOwner) { response ->
+        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
@@ -78,8 +93,20 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                     classifiedCategory = response.data!!
 
-                    classifiedSubCategory.add(0, ClassifiedSubcategoryX(0, 0, 0, "Select Sub Category*"))
-                    classifiedCategory.add(0, ClassifiedCategoryResponseItem(classifiedSubCategory, 0, 0, 0, "Select Category*"))
+                    classifiedSubCategory.add(
+                        0,
+                        ClassifiedSubcategoryX(0, 0, 0, "Select Sub Category*")
+                    )
+                    classifiedCategory.add(
+                        0,
+                        ClassifiedCategoryResponseItem(
+                            classifiedSubCategory,
+                            0,
+                            0,
+                            0,
+                            "Select Category*"
+                        )
+                    )
 
                     val adapter = classifiedCategory.let {
                         context?.let { it1 ->
@@ -89,8 +116,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                             )
                         }
                     }
-
-
 
                     classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.adapter = adapter
 

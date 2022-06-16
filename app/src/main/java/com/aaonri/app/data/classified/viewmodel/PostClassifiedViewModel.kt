@@ -16,12 +16,20 @@ class PostClassifiedViewModel @Inject constructor(
     private val classifiedRepository: ClassifiedRepository
 ) : ViewModel() {
 
-    val navigationForStepper: MutableLiveData<String> = MutableLiveData()
+    var navigationForStepper: MutableLiveData<String> = MutableLiveData()
+        private set
 
-    val stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+    var stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+        private set
 
-    var classifiedCategory: MutableLiveData<Resource<ClassifiedCategoryResponse>> =
+    var classifiedCategoryData: MutableLiveData<Resource<ClassifiedCategoryResponse>> =
         MutableLiveData()
+
+    var classifiedCategory: String = ""
+        private set
+
+    var classifiedSubCategory: String = ""
+        private set
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -33,9 +41,9 @@ class PostClassifiedViewModel @Inject constructor(
 
 
     fun getClassifiedCategory() = viewModelScope.launch {
-        classifiedCategory.postValue(Resource.Loading())
+        classifiedCategoryData.postValue(Resource.Loading())
         val response = classifiedRepository.getClassifiedCategory()
-        classifiedCategory.postValue(handleClassifiedCategoryResponse(response))
+        classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
     }
 
     private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
@@ -45,6 +53,14 @@ class PostClassifiedViewModel @Inject constructor(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun addClassifiedCategory(category: String) {
+        classifiedCategory = category
+    }
+
+    fun addClassifiedSubCategory(subCategory: String) {
+        classifiedSubCategory = subCategory
     }
 
 }
