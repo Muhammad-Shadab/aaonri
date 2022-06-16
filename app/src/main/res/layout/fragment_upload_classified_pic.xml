@@ -32,6 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/selectedImage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_260sdp"
                     android:layout_gravity="center"
@@ -66,6 +67,7 @@
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
+                            android:id="@+id/deleteImage1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|end"
@@ -93,6 +95,7 @@
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
+                            android:id="@+id/deleteImage2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|end"
@@ -113,13 +116,14 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/uploadedImage3"
+                            android:id="@+id/uploadedImage4"
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
+                            android:id="@+id/deleteImage4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|end"
@@ -139,13 +143,14 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/uploadedImage4"
+                            android:id="@+id/uploadedImage3"
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
+                            android:id="@+id/deleteImage3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|end"
