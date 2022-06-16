@@ -25,10 +25,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:minHeight="0dp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/spinner"
-                android:spinnerMode="dropdown"/>
+                android:minHeight="0dp"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:spinnerMode="dropdown" />
 
             <Spinner
                 android:id="@+id/selectSubCategoryClassifiedSpinner"
@@ -38,7 +40,10 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/spinner"
-                android:spinnerMode="dropdown"/>
+                android:minHeight="0dp"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:id="@+id/lastNameValidationTv"
@@ -134,10 +139,10 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/multiline_textfield_shape"
                 android:ems="10"
-                android:maxLength="2000"
                 android:gravity="left"
                 android:hint="@string/please_describe_what_you_are_selling"
                 android:inputType="textMultiLine"
+                android:maxLength="2000"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_8sdp"
                 android:textSize="16sp"
@@ -148,13 +153,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:fontFamily="@font/sf_pro_regular"
                 android:text="0/2000"
                 android:textColor="@color/hintColor"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/classifiedDetailsNextBtn"

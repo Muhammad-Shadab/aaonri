@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
@@ -22,7 +23,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}"){
+            classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                 placeholder(R.drawable.ic_image_placeholder)
             }
             classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
@@ -32,7 +33,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
             //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {
-            /*navigation?.navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)*/
+            //Toast.makeText(context, "clicked on = $position", Toast.LENGTH_SHORT).show()
         }
     }
 
