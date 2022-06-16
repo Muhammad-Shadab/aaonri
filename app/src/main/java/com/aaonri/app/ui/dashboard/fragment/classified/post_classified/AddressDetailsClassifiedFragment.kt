@@ -8,15 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
@@ -72,14 +74,19 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             if (isEmailValid && emailAddressBasicDetails.text.trim().toString()
                                     .isNotEmpty()
                             ) {
-                                if (classifiedDescEt.text.trim().toString().length > 3) {
+                                if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
+                                        postClassifiedRequest(
+                                            adKeywords = classifiedKeywordEt.text.toString(),
+                                            adEmail = emailAddressBasicDetails.text.toString(),
+                                            adPhone = "",
+                                        )
                                         postClassifiedViewModel.addClassifiedAddressDetails(
                                             city = cityNameAddressDetails.text.toString(),
                                             zip = zipCodeAddressDetails.text.toString(),
                                             email = emailAddressBasicDetails.text.toString(),
                                             phone = "",
-                                            description = classifiedDescEt.text.toString()
+                                            description = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
                                         findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
@@ -94,14 +101,19 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             }
                         } else {
                             if (phoneNumber.length >= 10) {
-                                if (classifiedDescEt.text.trim().toString().length > 3) {
+                                if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
+                                        postClassifiedRequest(
+                                            adKeywords = classifiedKeywordEt.text.toString(),
+                                            adEmail = "",
+                                            adPhone = phoneNumber,
+                                        )
                                         postClassifiedViewModel.addClassifiedAddressDetails(
                                             city = cityNameAddressDetails.text.toString(),
                                             zip = zipCodeAddressDetails.text.toString(),
                                             email = "",
                                             phone = phoneNumber,
-                                            description = classifiedDescEt.text.toString()
+                                            description = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
                                         findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
@@ -164,6 +176,48 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
 
         return addressDetailsBinding?.root
+    }
+
+    private fun postClassifiedRequest(
+        adEmail: String,
+        adPhone: String,
+        adKeywords: String
+    ) {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        postClassifiedViewModel.postClassified(
+            PostClassifiedRequest(
+                active = true,
+                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION].toString(),
+                adEmail = adEmail,
+                adExpireDT = "2022-02-21T06:57:24.837+0000",
+                adImages = null,
+                adKeywords = adKeywords,
+                adLocation = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.CITY_NAME].toString(),
+                adPhone = adPhone,
+                adThumbnails = null,
+                adTitle = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.TITLE].toString(),
+                adZip = postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.ZIP_CODE].toString(),
+                approved = false,
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE].toString().toInt(),
+                category = postClassifiedViewModel.classifiedCategory,
+                contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
+                createdOn = "2022-02-06T06:57:24.858+0000",
+                delImages = null,
+                deletedOn = null,
+                favorite = false,
+                id = null,
+                isNew = postClassifiedViewModel.isProductNewCheckBox,
+                isTermsAndConditionAccepted = true,
+                lastUpdated = "2022-02-06T06:57:24.858+0000",
+                popularOnAaonri = false,
+                rejected = false,
+                rejectionReson = null,
+                subCategory = postClassifiedViewModel.classifiedSubCategory,
+                totalFavourite = 0,
+                userAdsImages = listOf(),
+                userId = email.toString()
+            )
+        )
     }
 
     private fun showAlert(text: String) {

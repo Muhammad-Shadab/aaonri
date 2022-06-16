@@ -3,6 +3,7 @@ package com.aaonri.app.data.classified.repository
 import com.aaonri.app.data.classified.api.ClassifiedApi
 import com.aaonri.app.data.classified.api.PostClassifiedApi
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
+import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import javax.inject.Inject
 
 class ClassifiedRepository @Inject constructor(
@@ -16,5 +17,8 @@ class ClassifiedRepository @Inject constructor(
 
     suspend fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         classifiedApi.getClassifiedByUser(getClassifiedsByUserRequest)
+
+    suspend fun postClassified(postClassifiedRequest: PostClassifiedRequest) =
+        postClassifiedApi.postClassified(postClassifiedRequest)
 
 }

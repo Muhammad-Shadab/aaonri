@@ -34,35 +34,6 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             Toast.LENGTH_SHORT
         ).show()
 
-        Toast.makeText(
-            context,
-            "zip code = " + postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.ZIP_CODE],
-            Toast.LENGTH_SHORT
-        ).show()
-
-        Toast.makeText(
-            context,
-            "email = " + postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.EMAIL],
-            Toast.LENGTH_SHORT
-        ).show()
-
-        Toast.makeText(
-            context,
-            "phone = " + postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.PHONE],
-            Toast.LENGTH_SHORT
-        ).show()
-
-        Toast.makeText(
-            context,
-            "DESCRIPTION = " + postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.DESCRIPTION],
-            Toast.LENGTH_SHORT
-        ).show()
-
-        Toast.makeText(
-            context,
-            "agreement = " + postClassifiedViewModel.isAgreeToAaonri,
-            Toast.LENGTH_SHORT
-        ).show()
 
         /* Toast.makeText(
              context,

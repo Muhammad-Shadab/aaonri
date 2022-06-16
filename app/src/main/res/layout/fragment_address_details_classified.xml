@@ -194,7 +194,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/classifiedDescEt"
+            android:id="@+id/classifiedKeywordEt"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginHorizontal="@dimen/_28sdp"

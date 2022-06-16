@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
+import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,13 +27,16 @@ class PostClassifiedViewModel @Inject constructor(
     var classifiedCategoryData: MutableLiveData<Resource<ClassifiedCategoryResponse>> =
         MutableLiveData()
 
+    var isProductNewCheckBox: Boolean = false
+        private set
+
     var classifiedCategory: String = ""
         private set
 
     var classifiedSubCategory: String = ""
         private set
 
-    var isProductNewCheckBox: Boolean = false
+    var classifiedBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
     var classifiedAddressDetailsMap: MutableMap<String, String> = mutableMapOf()
@@ -40,6 +44,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var isAgreeToAaonri: Boolean = false
         private set
+
+    val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -77,6 +83,16 @@ class PostClassifiedViewModel @Inject constructor(
         isProductNewCheckBox = value
     }
 
+    fun addClassifiedBasicDetails(
+        title: String,
+        price: String,
+        adDescription: String
+    ) {
+        classifiedBasicDetailsMap[ClassifiedConstant.TITLE] = title
+        classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE] = price
+        classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION] = adDescription
+    }
+
     fun addClassifiedAddressDetails(
         city: String,
         zip: String,
@@ -93,6 +109,21 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun addIsAgreeToAaonri(value: Boolean) {
         isAgreeToAaonri = value
+    }
+
+    fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
+        postClassifiedData.postValue(Resource.Loading())
+        val response = classifiedRepository.postClassified(postClassifiedRequest)
+        postClassifiedData.postValue(handlePostClassifiedResponse(response))
+    }
+
+    private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

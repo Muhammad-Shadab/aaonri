@@ -52,6 +52,11 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     if (priceClassifiedEt.text.isNotEmpty() && priceClassifiedEt.text.toString() != "0") {
                         if (classifiedDescEt.text.isNotEmpty()) {
                             postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
+                            postClassifiedViewModel.addClassifiedBasicDetails(
+                                title = titleClassifiedEt.text.trim().toString(),
+                                price = priceClassifiedEt.text.trim().toString(),
+                                adDescription = classifiedDescEt.text.trim().toString()
+                            )
                             findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
                         } else {
                             showAlert("Please enter valid classified description")
@@ -138,20 +143,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                     classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.adapter = adapter
 
-                    /* response.data?.forEach { it ->
-                         classifiedCategory.add(it)
-                     }
-                     response.data?.get(selectedCategoryIndex)?.classifiedSubcategory?.forEach {
-                         classifiedSubCategory.add(it)
-                     }
-                     val categoryArrayAdapter =
-                         ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, classifiedCategory)
-                     val subCategoryAdapter =
-                         ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, classifiedSubCategory)
-                     classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.adapter =
-                         categoryArrayAdapter
-                     classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.adapter =
-                         subCategoryAdapter*/
                     classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
 
                 }
