@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,10 +42,26 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.getClassifiedCategory()
 
 
+
         classifiedDetailsBinding?.apply {
 
             classifiedDetailsNextBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
+                        .toString().length >= 3
+                ) {
+                    if (priceClassifiedEt.text.isNotEmpty() && priceClassifiedEt.text.toString() != "0") {
+                        if (classifiedDescEt.text.isNotEmpty()) {
+                            postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
+                            findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                        } else {
+                            showAlert("Please enter valid classified description")
+                        }
+                    } else {
+                        showAlert("Please enter valid classified price")
+                    }
+                } else {
+                    showAlert("Please enter valid classified title")
+                }
             }
 
             classifiedDescEt.addTextChangedListener { editable ->
@@ -75,7 +94,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             selectSubCategoryClassifiedSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
+                        postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -144,5 +163,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         return classifiedDetailsBinding?.root
+    }
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 }

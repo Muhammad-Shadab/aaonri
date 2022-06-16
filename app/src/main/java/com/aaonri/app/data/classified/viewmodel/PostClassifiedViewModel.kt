@@ -31,6 +31,9 @@ class PostClassifiedViewModel @Inject constructor(
     var classifiedSubCategory: String = ""
         private set
 
+    var isProductNewCheckBox: Boolean = false
+        private set
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -61,6 +64,10 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun addClassifiedSubCategory(subCategory: String) {
         classifiedSubCategory = subCategory
+    }
+
+    fun addIsProductNewCheckBox(value: Boolean) {
+        isProductNewCheckBox = value
     }
 
 }

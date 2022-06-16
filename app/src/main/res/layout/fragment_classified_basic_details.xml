@@ -110,7 +110,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/isRecruiterCheckBox"
+                    android:id="@+id/isProductNewCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
