@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_classifiedScreenFragment_to_classifiedFilterFragmentBottom"
             app:destination="@id/classifiedFilterFragmentBottom" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_classifiedDetailsFragment"
+            app:destination="@id/classifiedDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopScreenFragment"
@@ -55,4 +58,9 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottom"
         android:label="fragment_classified_filter"
         tools:layout="@layout/fragment_classified_filter" />
+    <fragment
+        android:id="@+id/classifiedDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment"
+        android:label="fragment_classified_details"
+        tools:layout="@layout/fragment_classified_details" />
 </navigation>

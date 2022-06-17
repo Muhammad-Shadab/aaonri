@@ -50,8 +50,9 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             floatingActionBtnClassified.setOnClickListener {
-                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
-                startActivity(intent)
+                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                /*val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                startActivity(intent)*/
             }
 
             classifiedScreenViewPager.adapter = classifiedPagerAdapter
