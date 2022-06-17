@@ -23,13 +23,18 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
-                placeholder(R.drawable.ic_image_placeholder)
+            try {
+                classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
+                    placeholder(R.drawable.ic_image_placeholder)
+                }
+                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedTitleTv.text = data[position].adTitle
+                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+                popularTv.visibility = if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            }catch (e: Exception){
+
             }
-            classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
-            classifiedDescTv.text = data[position].adTitle
-            locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
-            popularTv.visibility = if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+
             //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {

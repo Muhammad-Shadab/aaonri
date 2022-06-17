@@ -23,7 +23,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-            bottomSheetOuter.peekHeight = 300
+            bottomSheetOuter.peekHeight = 750
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
