@@ -68,7 +68,8 @@ class MyClassifiedFragment : Fragment() {
                     try {
                         if (response.data?.userAdsList?.isNotEmpty() == true) {
                             response.data.userAdsList.let { allClassifiedAdapter!!.setData(it) }
-                            myClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
+                            myClassifiedBinding?.recyclerViewClassified?.adapter =
+                                allClassifiedAdapter
                         } else {
                             myClassifiedBinding?.emptyClassifiedImage?.visibility = View.VISIBLE
                             myClassifiedBinding?.emptyTextVew?.visibility = View.VISIBLE

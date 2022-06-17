@@ -30,8 +30,9 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
-                popularTv.visibility = if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
-            }catch (e: Exception){
+                popularTv.visibility =
+                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            } catch (e: Exception) {
 
             }
 
