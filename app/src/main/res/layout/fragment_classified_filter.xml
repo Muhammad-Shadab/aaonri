@@ -33,10 +33,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Price Range"
-        android:layout_marginHorizontal="@dimen/_16sdp"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -47,37 +47,57 @@
         android:layout_marginTop="@dimen/_4sdp"
         android:orientation="horizontal">
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/capsule_shape_with_shadow"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:paddingHorizontal="@dimen/_18sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="Min:$10"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
 
-        <TextView
+            <TextView
+                android:id="@+id/minPriceRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="Min:$10"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@drawable/capsule_shape_with_shadow"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:paddingHorizontal="@dimen/_18sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="Max $30"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/maxPriceRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="Max $30"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
-        android:layout_marginHorizontal="@dimen/_16sdp"
         android:text="Location"
         android:textColor="@color/black"
         android:textSize="14sp" />
@@ -90,7 +110,7 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/agreeCheckboxClassified"
+            android:id="@+id/myLocationCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -111,17 +131,18 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/zipCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/capsule_shape_with_shadow"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:hint="Enter Zip Code"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:paddingVertical="@dimen/_8sdp"
         android:inputType="number"
-        android:maxLines="1"
         android:maxLength="6"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_8sdp"
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_80sdp"
         android:textColorHint="@color/black"
@@ -130,8 +151,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Change Sort"
         android:textColor="@color/black"
@@ -158,7 +179,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/communityText"
+                    android:id="@+id/datePublished"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -181,6 +202,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/relevance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -203,6 +225,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -232,6 +255,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/priceLowToHigh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -254,13 +278,14 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/priceHighToLow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_6sdp"
-                    android:text="Price: Low to High"
+                    android:text="Price: How to High"
                     android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 
@@ -278,6 +303,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/clearAllBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -293,6 +319,7 @@
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/applyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

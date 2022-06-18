@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
+import com.aaonri.app.data.classified.adapter.FilterAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
@@ -39,6 +41,7 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+        val filterAdapter = FilterAdapter()
 
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
@@ -100,16 +103,19 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
+
+            selectedFilters.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            selectedFilters.adapter = filterAdapter
+
+
         }
 
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                //Toast.makeText(context, "${it.adTitle}", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
-            } else {
-
             }
         }
 
