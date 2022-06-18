@@ -4,9 +4,7 @@ import android.content.pm.ResolveInfo
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
-import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
+import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
          MutableLiveData()*/
 
-    var classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+    val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()
+
+    val likeDislikeClassifiedData: MutableLiveData<Resource<LikeDislikeClassifiedResponse>> =
         MutableLiveData()
 
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
@@ -48,6 +49,22 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         }
 
     private fun handleGetClassifiedUserResponse(response: Response<GetClassifiedsByUserResponse>): Resource<GetClassifiedsByUserResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun likeDislikeClassified(likeDislikeClassifiedRequest: LikeDislikeClassifiedRequest) =
+        viewModelScope.launch {
+            likeDislikeClassifiedData.postValue(Resource.Loading())
+            val response = classifiedRepository.likeDislikeClassified(likeDislikeClassifiedRequest)
+            likeDislikeClassifiedData.postValue(handleLikeDislikeClassifiedResponse(response))
+        }
+
+    private fun handleLikeDislikeClassifiedResponse(response: Response<LikeDislikeClassifiedResponse>): Resource<LikeDislikeClassifiedResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -440,8 +440,8 @@
                         android:id="@+id/emailIcon"
                         android:layout_width="@dimen/_36sdp"
                         android:layout_height="@dimen/_36sdp"
-                        android:src="@drawable/email"
                         android:layout_marginTop="@dimen/_12sdp"
+                        android:src="@drawable/email"
                         app:layout_constraintStart_toStartOf="@+id/locationIcon"
                         app:layout_constraintTop_toBottomOf="@id/locationIcon" />
 
@@ -481,12 +481,13 @@
     </FrameLayout>
 
     <ImageView
+        android:id="@+id/likeDislikeBtn"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
         android:layout_gravity="end"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_12sdp"
-        android:src="@drawable/heart" />
+        android:src="@drawable/heart_grey" />
 
     <ImageView
         android:id="@+id/navigateBack"

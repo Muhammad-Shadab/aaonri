@@ -2,22 +2,34 @@ package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.os.Bundle
 import android.text.Html
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
+import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClassifiedDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    var isClassifiedLike = false
+    var itemId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,9 +63,20 @@ class ClassifiedDetailsFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
+            likeDislikeBtn.setOnClickListener {
+                isClassifiedLike = !isClassifiedLike
+                if (isClassifiedLike) {
+                    likeDislikeBtn.load(R.drawable.heart)
+                    callLikeDislikeApi()
+                } else {
+                    likeDislikeBtn.load(R.drawable.heart_grey)
+                    callLikeDislikeApi()
+                }
+            }
         }
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
             classifiedDetailsBinding?.apply {
+                itemId = userAds.id
                 try {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         when (index) {
@@ -166,7 +189,36 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        classifiedViewModel.likeDislikeClassifiedData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+
         return classifiedDetailsBinding?.root
+    }
+
+    private fun callLikeDislikeApi() {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        classifiedViewModel.likeDislikeClassified(
+            LikeDislikeClassifiedRequest(
+                emailId = email.toString(),
+                favourite = isClassifiedLike,
+                itemId = itemId,
+                service = "Classified"
+            )
+        )
     }
 
     private fun changeCardViewBg(selectedImageIndex: Int) {
@@ -303,7 +355,5 @@ class ClassifiedDetailsFragment : Fragment() {
                 )
             }
         }
-
-
     }
 }
