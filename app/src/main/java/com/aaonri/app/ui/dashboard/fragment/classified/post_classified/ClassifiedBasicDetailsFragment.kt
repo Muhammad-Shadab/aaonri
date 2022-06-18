@@ -1,15 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.content.Context
+import android.graphics.Canvas
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
+import android.widget.EditText
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
@@ -23,6 +25,7 @@ import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ClassifiedBasicDetailsFragment : Fragment() {
@@ -44,6 +47,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
 
         classifiedDetailsBinding?.apply {
+
+            priceClassifiedEt.stickPrefix("$")
 
             classifiedDetailsNextBtn.setOnClickListener {
                 if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
@@ -163,5 +168,15 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    private fun EditText.stickPrefix(prefix: String) {
+        this.addTextChangedListener(afterTextChanged = {
+            if (!it.toString().startsWith(prefix) && it?.isNotEmpty() == true) {
+                this.setText(prefix + this.text)
+                this.setSelection(this.length())
+
+            }
+        })
     }
 }

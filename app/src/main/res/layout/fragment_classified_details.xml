@@ -401,7 +401,6 @@
                         app:layout_constraintStart_toEndOf="@+id/locationIcon"
                         app:layout_constraintTop_toBottomOf="@id/locationTv" />
 
-
                     <TextView
                         android:id="@+id/sellerNameTv"
                         android:layout_width="wrap_content"
@@ -436,7 +435,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/classifiedLocationDetails"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/classifiedLocationDetails" />
-
 
                     <ImageView
                         android:id="@+id/emailIcon"
