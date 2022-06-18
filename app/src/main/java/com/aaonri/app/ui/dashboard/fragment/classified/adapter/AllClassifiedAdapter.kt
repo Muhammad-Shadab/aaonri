@@ -3,14 +3,14 @@ package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 
-class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
+class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
+    RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
 
     private var data = listOf<UserAds>()
 
@@ -39,7 +39,7 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
             //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {
-            //Toast.makeText(context, "clicked on = $position", Toast.LENGTH_SHORT).show()
+            selectedServices(data[position])
         }
     }
 
@@ -55,6 +55,5 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
         RecyclerView.ViewHolder(
             binding.root
         )
-
 
 }

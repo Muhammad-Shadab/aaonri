@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentFavoriteClassifiedBinding
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -26,6 +28,7 @@ class FavoriteClassifiedFragment : Fragment() {
     var favoriteClassifiedBinding: FragmentFavoriteClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +37,9 @@ class FavoriteClassifiedFragment : Fragment() {
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        allClassifiedAdapter = AllClassifiedAdapter()
+        allClassifiedAdapter = AllClassifiedAdapter{
+
+        }
 
         favoriteClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)

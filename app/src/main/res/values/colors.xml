@@ -19,5 +19,6 @@
     <color name="textViewColor">#333333</color>
     <color name="serviceCardLightBlue">#DFE9F6</color>
     <color name="disableServiceColor">#efefef</color>
+    <color name="selectedClassifiedCardViewBorder">#17c8b9</color>
 
 </resources>

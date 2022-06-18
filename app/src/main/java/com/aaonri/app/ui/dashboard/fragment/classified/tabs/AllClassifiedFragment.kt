@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -25,6 +26,7 @@ class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,11 @@ class AllClassifiedFragment : Fragment() {
     ): View? {
         allClassifiedBinding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
-        allClassifiedAdapter = AllClassifiedAdapter()
+        allClassifiedAdapter = AllClassifiedAdapter {
+            //Toast.makeText(context, "${it.adTitle}", Toast.LENGTH_SHORT).show()
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+        }
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 

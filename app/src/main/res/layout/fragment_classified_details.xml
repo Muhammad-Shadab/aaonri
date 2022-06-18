@@ -7,6 +7,7 @@
     tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment">
 
     <ImageView
+        android:id="@+id/addImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_400sdp"
         android:layout_gravity="top|center"
@@ -22,28 +23,31 @@
         app:layout_anchor="@id/classifiedDetailsBottom">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image1CardView"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
             android:layout_marginBottom="@dimen/_60sdp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_5sdp"
+            android:background="@drawable/dialog_shape"
+            app:cardCornerRadius="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/_44sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:padding="@dimen/_12sdp"
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_image_placeholder" />
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image2CardView"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             app:cardBackgroundColor="@color/white"
@@ -54,17 +58,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/_44sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:padding="@dimen/_12sdp"
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_image_placeholder" />
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image3CardView"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             app:cardBackgroundColor="@color/white"
@@ -75,17 +81,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/_44sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:padding="@dimen/_12sdp"
+                android:id="@+id/image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_image_placeholder" />
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image4CardView"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             app:cardBackgroundColor="@color/white"
@@ -96,10 +104,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/servicesGridIv"
-                android:layout_width="@dimen/_44sdp"
-                android:layout_height="@dimen/_44sdp"
-                android:padding="@dimen/_12sdp"
+                android:id="@+id/image4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_image_placeholder" />
 
@@ -114,375 +122,383 @@
         android:background="@drawable/rounded_bottom_sheet_shape"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint1"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bottom_sheet_details_bg_color">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/arrowBottomSheet"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:src="@drawable/up_arrow_bottomshet"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/classifiedPriceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_28sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="$29.99"
-                    android:textColor="#114591"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/classifiedNameLinear"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/classifiedPriceTv">
+                    android:background="@drawable/bottom_sheet_details_bg_color">
+
+                    <ImageView
+                        android:id="@+id/arrowBottomSheet"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:src="@drawable/up_arrow_bottomshet"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/classifiedPriceTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_28sdp"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:text="Lord Ganesha Idol"
+                        android:text="$29.99"
+                        android:textColor="#114591"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/classifiedNameLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classifiedPriceTv">
+
+                        <TextView
+                            android:id="@+id/addTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="Lord Ganesha Idol"
+                            android:textColor="#333333"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/popularTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:background="@drawable/blue_capsule_shape"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            android:text="Hot"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"
+                            app:layout_constraintStart_toEndOf="@+id/classifiedPriceTv"
+                            app:layout_constraintTop_toBottomOf="@+id/classifiedItemIv"
+                            app:layout_constraintTop_toTopOf="@id/classifiedPriceTv" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/classifiedCategoryTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:maxLines="1"
+                        android:text="@string/category_d_cor_sub_category_art_crafts"
                         android:textColor="#333333"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/popularTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:background="@drawable/blue_capsule_shape"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        android:text="Hot"
-                        android:textColor="#ffffff"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"
-                        app:layout_constraintStart_toEndOf="@+id/classifiedPriceTv"
-                        app:layout_constraintTop_toBottomOf="@+id/classifiedItemIv"
-                        app:layout_constraintTop_toTopOf="@id/classifiedPriceTv" />
+                        app:layout_constraintEnd_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/classifiedNameLinear" />
 
-                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/classifiedCategoryTv"
+                    <LinearLayout
+                        android:id="@+id/classifiedLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classifiedCategoryTv">
+
+                        <ImageView
+                            android:id="@+id/locationIconClassified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:src="@drawable/ic_location"
+                            app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
+                            app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+
+                        <TextView
+                            android:id="@+id/locationClassifiedTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:maxLines="1"
+                            android:text="New York"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:maxLines="1"
+                            android:text="08512"
+                            android:textColor="#8d959f"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/classifiedPostDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classifiedLocation">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:src="@drawable/ic_time_watch"
+                            app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
+                            app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:maxLines="1"
+                            android:text="From"
+                            android:textColor="#8d959f"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:maxLines="1"
+                            android:text="05 FEB 2022"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:maxLines="1"
+                            android:text="To"
+                            android:textColor="#8d959f"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:maxLines="1"
+                            android:text="05 FEB 2022"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/classifiedDescTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="classifiedDescTv"
+                        android:textColor="#333333"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classifiedPostDate" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:maxLines="1"
-                    android:text="@string/category_d_cor_sub_category_art_crafts"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toStartOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/classifiedNameLinear" />
+                    android:layout_height="wrap_content">
 
-
-                <LinearLayout
-                    android:id="@+id/classifiedLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/classifiedCategoryTv">
+                    <TextView
+                        android:id="@+id/sellerInfoTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Seller Information"
+                        android:textColor="#333333"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/locationIconClassified"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:src="@drawable/ic_location"
-                        app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
-                        app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+                        android:id="@+id/locationIcon"
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:src="@drawable/location_png"
+                        app:layout_constraintStart_toStartOf="@+id/sellerInfoTv"
+                        app:layout_constraintTop_toBottomOf="@+id/sellerInfoTv" />
 
                     <TextView
-                        android:id="@+id/locationClassifiedTv"
+                        android:id="@+id/locationTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
-                        android:text="New York"
+                        android:text="Location"
                         android:textColor="#333333"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/locationIcon"
+                        app:layout_constraintTop_toTopOf="@id/locationIcon" />
 
                     <TextView
+                        android:id="@+id/classifiedLocationDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:maxLines="1"
-                        android:text="08512"
-                        android:textColor="#8d959f"
-                        android:textSize="12sp" />
+                        android:text="California - 08512"
+                        android:textColor="#333333"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
+                        app:layout_constraintStart_toEndOf="@+id/locationIcon"
+                        app:layout_constraintTop_toBottomOf="@id/locationTv" />
 
-                </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/classifiedPostDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/classifiedLocation">
+                    <TextView
+                        android:id="@+id/sellerNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_36sdp"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Seller Name"
+                        android:textColor="#333333"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/locationTv"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/locationTv" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:src="@drawable/ic_time_watch"
-                        app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
-                        app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+                        android:id="@+id/contactIcon"
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:src="@drawable/contact_png"
+                        app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
+                        app:layout_constraintEnd_toStartOf="@id/sellerNameTv"
+                        app:layout_constraintTop_toTopOf="@id/locationIcon" />
 
                     <TextView
+                        android:id="@+id/sellerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
+                        android:layout_marginEnd="@dimen/_36sdp"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:maxLines="1"
-                        android:text="From"
-                        android:textColor="#8d959f"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
-                        android:text="05 FEB 2022"
+                        android:text="Abhijith M N"
                         android:textColor="#333333"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/classifiedLocationDetails"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/classifiedLocationDetails" />
+
+
+                    <ImageView
+                        android:id="@+id/emailIcon"
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:src="@drawable/email"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/locationIcon"
+                        app:layout_constraintTop_toBottomOf="@id/locationIcon" />
 
                     <TextView
+                        android:id="@+id/emailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Email"
+                        android:textColor="#333333"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/emailIcon"
+                        app:layout_constraintTop_toTopOf="@id/emailIcon" />
+
+                    <TextView
+                        android:id="@+id/classifiedSellerEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:maxLines="1"
-                        android:text="To"
-                        android:textColor="#8d959f"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
-                        android:text="05 FEB 2022"
+                        android:text="California - 08512"
                         android:textColor="#333333"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/emailIcon"
+                        app:layout_constraintStart_toEndOf="@+id/emailIcon"
+                        app:layout_constraintTop_toBottomOf="@id/emailTv" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/classifiedDescTv"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="classifiedDescTv"
-                    android:textColor="#333333"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/classifiedPostDate" />
+                    android:layout_height="@dimen/_16sdp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/sellerInfoTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Seller Information"
-                    android:textColor="#333333"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/locationIcon"
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:src="@drawable/location_png"
-                    app:layout_constraintStart_toStartOf="@+id/sellerInfoTv"
-                    app:layout_constraintTop_toBottomOf="@+id/sellerInfoTv" />
-
-                <TextView
-                    android:id="@+id/locationTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Location"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@+id/locationIcon"
-                    app:layout_constraintTop_toTopOf="@id/locationIcon" />
-
-                <TextView
-                    android:id="@+id/classifiedLocationDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:text="California - 08512"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
-                    app:layout_constraintStart_toEndOf="@+id/locationIcon"
-                    app:layout_constraintTop_toBottomOf="@id/locationTv" />
-
-
-                <TextView
-                    android:id="@+id/sellerNameTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_36sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Seller Name"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/locationTv"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/locationTv" />
-
-                <ImageView
-                    android:id="@+id/contactIcon"
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:src="@drawable/contact_png"
-                    app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
-                    app:layout_constraintEnd_toStartOf="@id/sellerNameTv"
-                    app:layout_constraintTop_toTopOf="@id/locationIcon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_36sdp"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:text="Abhijith M N"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/classifiedLocationDetails"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/classifiedLocationDetails" />
-
-
-                <ImageView
-                    android:id="@+id/emailIcon"
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:src="@drawable/location_png"
-                    app:layout_constraintStart_toStartOf="@+id/locationIcon"
-                    app:layout_constraintTop_toBottomOf="@id/locationIcon" />
-
-                <TextView
-                    android:id="@+id/emailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Location"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@+id/emailIcon"
-                    app:layout_constraintTop_toTopOf="@id/emailIcon" />
-
-                <TextView
-                    android:id="@+id/classifiedSellerEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:text="California - 08512"
-                    android:textColor="#333333"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/emailIcon"
-                    app:layout_constraintStart_toEndOf="@+id/emailIcon"
-                    app:layout_constraintTop_toBottomOf="@id/emailTv" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_16sdp" />
-
-        </LinearLayout>
-
+        </androidx.core.widget.NestedScrollView>
 
     </FrameLayout>
 
     <ImageView
-        android:layout_width="@dimen/_32sdp"
-        android:layout_height="@dimen/_32sdp"
-        android:src="@drawable/heart"
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp"
         android:layout_gravity="end"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_12sdp"/>
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:src="@drawable/heart" />
 
     <ImageView
+        android:id="@+id/navigateBack"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
-        android:src="@drawable/navigate_back"
-        android:padding="@dimen/_2sdp"
-        android:background="@drawable/blue_circle_shape"
         android:layout_gravity="start"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginStart="@dimen/_12sdp"/>
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:background="@drawable/blue_circle_shape"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/navigate_back" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

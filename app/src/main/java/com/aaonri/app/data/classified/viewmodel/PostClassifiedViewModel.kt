@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,6 +44,12 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
     var isAgreeToAaonri: Boolean = false
+        private set
+
+    var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
+        private set
+
+    var navigateToClassifiedDetail = false
         private set
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
@@ -124,6 +131,14 @@ class PostClassifiedViewModel @Inject constructor(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
+        sendDataToClassifiedDetailsScreen.postValue(value)
+    }
+
+    fun setNavigateToClassifiedDetailsScreen(value: Boolean){
+        navigateToClassifiedDetail = value
     }
 
 }

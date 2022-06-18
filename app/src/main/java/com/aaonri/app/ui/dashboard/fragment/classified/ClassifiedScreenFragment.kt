@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
 import com.aaonri.app.utils.Constant
@@ -27,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
 
     @SuppressLint("InflateParams")
@@ -101,6 +103,16 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
+
+        postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
+            if (postClassifiedViewModel.navigateToClassifiedDetail) {
+                //Toast.makeText(context, "${it.adTitle}", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+            } else {
+
+            }
+        }
 
         return classifiedScreenBinding?.root
     }

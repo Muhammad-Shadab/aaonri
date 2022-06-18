@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -23,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyClassifiedFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var myClassifiedBinding: FragmentMyClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     override fun onCreateView(
@@ -34,7 +36,9 @@ class MyClassifiedFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        allClassifiedAdapter = AllClassifiedAdapter()
+        allClassifiedAdapter = AllClassifiedAdapter{
+
+        }
 
         myClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
