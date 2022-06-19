@@ -34,6 +34,7 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
     var filterAdapter: FilterAdapter? = null
+    var deleteElement = ""
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -44,7 +45,8 @@ class ClassifiedScreenFragment : Fragment() {
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
         filterAdapter = FilterAdapter { element ->
-            callObserver(element)
+            deleteElement = element
+            callObserver()
         }
 
         val fragment = this
@@ -125,11 +127,12 @@ class ClassifiedScreenFragment : Fragment() {
         return classifiedScreenBinding?.root
     }
 
-    private fun callObserver(element: String? = null) {
+    private fun callObserver() {
         postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
 
-            if (selectedFilter.contains(element)){
-                selectedFilter.remove(element)
+            if (selectedFilter.contains(deleteElement)){
+                selectedFilter.remove(deleteElement)
+                deleteElement = ""
             }
 
             filterAdapter?.setData(selectedFilter)
