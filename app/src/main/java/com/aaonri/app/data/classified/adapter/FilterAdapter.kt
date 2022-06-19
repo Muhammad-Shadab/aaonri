@@ -3,10 +3,11 @@ package com.aaonri.app.data.classified.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.FilterCardViewItemBinding
-import java.util.logging.Filter
 
-class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
+class FilterAdapter(private var deleteFilter: ((value: String) -> Unit)) :
+    RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
 
     var data = mutableListOf<String>()
 
@@ -18,6 +19,10 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterViewHolder>() {
 
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
         holder.binding.filterText.text = data[position]
+
+        holder.itemView.setOnClickListener {
+            deleteFilter(data[position])
+        }
 
     }
 

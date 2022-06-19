@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -32,6 +33,7 @@ class ClassifiedScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
+    var filterAdapter: FilterAdapter? = null
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -41,7 +43,9 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-        val filterAdapter = FilterAdapter()
+        filterAdapter = FilterAdapter { element ->
+            callObserver(element)
+        }
 
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
@@ -103,18 +107,13 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
-
-
-            //filterAdapter.setData(postClassifiedViewModel.listOfFilter)
             selectedFilters.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             selectedFilters.adapter = filterAdapter
+
         }
 
-        postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-        }
-
+        callObserver()
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
@@ -125,5 +124,24 @@ class ClassifiedScreenFragment : Fragment() {
 
         return classifiedScreenBinding?.root
     }
+
+    private fun callObserver(element: String? = null) {
+        postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
+
+            if (selectedFilter.contains(element)){
+                selectedFilter.remove(element)
+            }
+
+            filterAdapter?.setData(selectedFilter)
+            if (selectedFilter.isNotEmpty()) {
+                classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+                classifiedScreenBinding?.numberOfSelectedFilterTv?.text =
+                    selectedFilter.size.toString()
+            } else {
+                classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            }
+        }
+    }
+
 
 }

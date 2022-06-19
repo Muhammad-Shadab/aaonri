@@ -54,6 +54,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/numberOfSelectedFilterCv"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:translationY="14dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#14aa9a"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@+id/filterClassified"
+        app:layout_constraintEnd_toEndOf="@+id/filterClassified">
+
+        <TextView
+            android:id="@+id/numberOfSelectedFilterTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
     <EditText
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
@@ -78,13 +103,14 @@
         android:id="@+id/selectedFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_2sdp"
         android:orientation="horizontal"
         android:scrollbars="none"
         android:visibility="visible"
-        tools:listitem="@layout/filter_card_view_item"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView" />
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        tools:listitem="@layout/filter_card_view_item" />
 
     <!-- <HorizontalScrollView
          android:id="@+id/selectedFilters"
