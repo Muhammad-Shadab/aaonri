@@ -19,6 +19,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
          MutableLiveData()*/
 
+
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 

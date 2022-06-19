@@ -104,11 +104,15 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             }
 
+
+            //filterAdapter.setData(postClassifiedViewModel.listOfFilter)
             selectedFilters.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             selectedFilters.adapter = filterAdapter
+        }
 
-
+        postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
         }
 
 

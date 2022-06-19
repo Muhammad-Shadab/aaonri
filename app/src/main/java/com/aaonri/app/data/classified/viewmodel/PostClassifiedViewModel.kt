@@ -52,6 +52,8 @@ class PostClassifiedViewModel @Inject constructor(
     var navigateToClassifiedDetail = false
         private set
 
+    var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
+
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
@@ -137,8 +139,12 @@ class PostClassifiedViewModel @Inject constructor(
         sendDataToClassifiedDetailsScreen.postValue(value)
     }
 
-    fun setNavigateToClassifiedDetailsScreen(value: Boolean){
+    fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
         navigateToClassifiedDetail = value
+    }
+
+    fun setFilterData(value: MutableList<String>) {
+        filterSelectedDataList.postValue(value)
     }
 
 }

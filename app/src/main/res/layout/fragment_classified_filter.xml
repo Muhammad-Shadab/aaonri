@@ -84,7 +84,7 @@
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:paddingHorizontal="@dimen/_18sdp"
                 android:paddingVertical="@dimen/_6sdp"
-                android:text="Max $30"
+                android:text="Max:$30"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
