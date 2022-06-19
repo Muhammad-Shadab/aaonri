@@ -43,11 +43,12 @@
                 tools:listitem="@layout/services_grid_item" />
 
             <LinearLayout
+                android:id="@+id/aliasNameCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_32sdp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -270,6 +271,7 @@
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_4sdp"
                 android:text="Get Started"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 

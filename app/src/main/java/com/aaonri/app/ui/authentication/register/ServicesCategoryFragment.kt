@@ -103,6 +103,7 @@ class ServicesCategoryFragment : Fragment() {
                 if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text
+
                     if (isCompanyEmailCheckboxSelected) {
                         if (Validator.emailValidation(companyEmail.toString()) && companyEmail.toString().length >= 8) {
                             if (aliasName.toString().isNotEmpty()) {
@@ -173,14 +174,20 @@ class ServicesCategoryFragment : Fragment() {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.GONE
             }
         }
 
