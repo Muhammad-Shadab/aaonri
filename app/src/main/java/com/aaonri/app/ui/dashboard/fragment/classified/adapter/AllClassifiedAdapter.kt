@@ -37,6 +37,10 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
 
             }
 
+            holder.itemView.setOnClickListener {
+                Toast.makeText(context, "${data[position].adTitle}", Toast.LENGTH_SHORT).show()
+            }
+
             //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {

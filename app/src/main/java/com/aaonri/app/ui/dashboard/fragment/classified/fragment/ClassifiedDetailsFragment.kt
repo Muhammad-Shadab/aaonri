@@ -119,70 +119,90 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                     image1.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}"){
-                            //placeholder(R.drawable.ic_loading)
+                        try {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}"){
+                                //placeholder(R.drawable.ic_loading)
+                            }
+
+                            changeCardViewBg(0)
+
+                            context?.let { it1 ->
+                                ContextCompat.getColor(
+                                    it1,
+                                    R.color.selectedClassifiedCardViewBorder
+                                )
+                            }?.let { it2 ->
+                                image1CardView.setBackgroundColor(
+                                    it2
+                                )
+                            }
+                        }catch (e: Exception){
+
                         }
 
-                        changeCardViewBg(0)
-
-                        context?.let { it1 ->
-                            ContextCompat.getColor(
-                                it1,
-                                R.color.selectedClassifiedCardViewBorder
-                            )
-                        }?.let { it2 ->
-                            image1CardView.setBackgroundColor(
-                                it2
-                            )
-                        }
                     }
                     image2.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}"){
-                            //placeholder(R.drawable.ic_loading)
+                        try {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}"){
+                                //placeholder(R.drawable.ic_loading)
+                            }
+                            changeCardViewBg(1)
+                            context?.let { it1 ->
+                                ContextCompat.getColor(
+                                    it1,
+                                    R.color.selectedClassifiedCardViewBorder
+                                )
+                            }?.let { it2 ->
+                                image2CardView.setBackgroundColor(
+                                    it2
+                                )
+                            }
+                        }catch (e: Exception){
+
                         }
-                        changeCardViewBg(1)
-                        context?.let { it1 ->
-                            ContextCompat.getColor(
-                                it1,
-                                R.color.selectedClassifiedCardViewBorder
-                            )
-                        }?.let { it2 ->
-                            image2CardView.setBackgroundColor(
-                                it2
-                            )
-                        }
+
                     }
                     image3.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}"){
-                            //placeholder(R.drawable.ic_loading)
+                        try {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}"){
+                                //placeholder(R.drawable.ic_loading)
+                            }
+                            changeCardViewBg(2)
+                            context?.let { it1 ->
+                                ContextCompat.getColor(
+                                    it1,
+                                    R.color.selectedClassifiedCardViewBorder
+                                )
+                            }?.let { it2 ->
+                                image3CardView.setBackgroundColor(
+                                    it2
+                                )
+                            }
+                        }catch (e: Exception){
+
                         }
-                        changeCardViewBg(2)
-                        context?.let { it1 ->
-                            ContextCompat.getColor(
-                                it1,
-                                R.color.selectedClassifiedCardViewBorder
-                            )
-                        }?.let { it2 ->
-                            image3CardView.setBackgroundColor(
-                                it2
-                            )
-                        }
+
                     }
                     image4.setOnClickListener {
-                        changeCardViewBg(3)
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}"){
-                            //placeholder(R.drawable.ic_loading)
+                        try {
+                            changeCardViewBg(3)
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}"){
+                                //placeholder(R.drawable.ic_loading)
+                            }
+                            context?.let { it1 ->
+                                ContextCompat.getColor(
+                                    it1,
+                                    R.color.selectedClassifiedCardViewBorder
+                                )
+                            }?.let { it2 ->
+                                image4CardView.setBackgroundColor(
+                                    it2
+                                )
+                            }
+                        }catch (e: Exception){
+
                         }
-                        context?.let { it1 ->
-                            ContextCompat.getColor(
-                                it1,
-                                R.color.selectedClassifiedCardViewBorder
-                            )
-                        }?.let { it2 ->
-                            image4CardView.setBackgroundColor(
-                                it2
-                            )
-                        }
+
                     }
 
                 } catch (e: Exception) {

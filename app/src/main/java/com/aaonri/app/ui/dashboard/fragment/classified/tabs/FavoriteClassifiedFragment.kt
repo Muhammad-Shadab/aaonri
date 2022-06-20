@@ -38,7 +38,8 @@ class FavoriteClassifiedFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         allClassifiedAdapter = AllClassifiedAdapter{
-
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         favoriteClassifiedBinding?.apply {
