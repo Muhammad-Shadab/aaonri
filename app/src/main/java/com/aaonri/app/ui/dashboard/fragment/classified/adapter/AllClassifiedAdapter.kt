@@ -24,18 +24,22 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            try {
+           if (data[position].userAdsImages.isEmpty()){
+               classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+               classifiedTitleTv.text = data[position].adTitle
+               locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+               popularTv.visibility =
+                   if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+           }else{
                 classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
                 }
-                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
-                classifiedTitleTv.text = data[position].adTitle
-                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
-                popularTv.visibility =
-                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
-            } catch (e: Exception) {
-
-            }
+               classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+               classifiedTitleTv.text = data[position].adTitle
+               locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+               popularTv.visibility =
+                   if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+           }
 
             holder.itemView.setOnClickListener {
                 Toast.makeText(context, "${data[position].adTitle}", Toast.LENGTH_SHORT).show()
