@@ -28,13 +28,6 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
 
         postClassifiedViewModel.addStepViewLastTick(true)
 
-        Toast.makeText(
-            context,
-            "city name = " + postClassifiedViewModel.classifiedAddressDetailsMap[ClassifiedConstant.CITY_NAME],
-            Toast.LENGTH_SHORT
-        ).show()
-
-
         /* Toast.makeText(
              context,
              "" + postClassifiedViewModel.isProductNewCheckBox,

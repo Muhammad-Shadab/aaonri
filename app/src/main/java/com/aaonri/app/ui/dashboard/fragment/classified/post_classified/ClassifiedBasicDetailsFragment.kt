@@ -24,6 +24,7 @@ import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
+import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,8 +46,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
         postClassifiedViewModel.getClassifiedCategory()
-
-
 
         classifiedDetailsBinding?.apply {
 
@@ -185,43 +184,3 @@ class ClassifiedBasicDetailsFragment : Fragment() {
     }
 }
 
-class DecimalDigitsInputFilter
-/**
- * Constructor.
- *
- * @param decimalDigits maximum decimal digits
- */(private val decimalDigits: Int) : InputFilter {
-    override fun filter(
-        source: CharSequence,
-        start: Int,
-        end: Int,
-        dest: Spanned,
-        dstart: Int,
-        dend: Int
-    ): CharSequence? {
-        var dotPos = -1
-        val len = dest.length
-        for (i in 0 until len) {
-            val c = dest[i]
-            if (c == '.' || c == ',') {
-                dotPos = i
-                break
-            }
-        }
-        if (dotPos >= 0) {
-
-            // protects against many dots
-            if (source == "." || source == ",") {
-                return ""
-            }
-            // if the text is entered before the dot
-            if (dend <= dotPos) {
-                return null
-            }
-            if (len - dotPos > decimalDigits) {
-                return ""
-            }
-        }
-        return null
-    }
-}

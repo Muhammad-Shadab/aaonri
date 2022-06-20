@@ -13,7 +13,7 @@ data class PostClassifiedRequest(
     val adTitle: String,
     val adZip: String,
     val approved: Boolean,
-    val askingPrice: Int,
+    val askingPrice: Double,
     val category: String,
     val contactType: String,
     val createdOn: String,

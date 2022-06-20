@@ -3,8 +3,6 @@ package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputFilter
-import android.text.Spanned
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -232,7 +230,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE]!!,
                 adZip = zipCode,
                 approved = false,
-                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE]!!.toInt(),
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE]!!.toDouble(),
                 category = postClassifiedViewModel.classifiedCategory,
                 contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
                 createdOn = "2022-02-06T06:57:24.858+0000",
