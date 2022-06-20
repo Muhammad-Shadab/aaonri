@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -14,6 +15,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
@@ -37,7 +40,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
 
-
         classifiedFilterBinding?.apply {
 
             applyBtn.setOnClickListener {
@@ -52,6 +54,15 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             clearAllBtn.setOnClickListener {
                 clearAllData()
             }
+            /*myLocationCheckBox.setOnCheckedChangeListener { p0, p1 ->
+                if (p1) {
+                    zipCode.setText(userZip)
+                    zipCode.isEnabled = false
+                } else {
+                    zipCode.setText("")
+                    zipCode.isEnabled = true
+                }
+            }*/
 
             postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) {
                 selectedFilterList = it

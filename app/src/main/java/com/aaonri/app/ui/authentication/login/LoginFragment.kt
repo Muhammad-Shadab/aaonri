@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        if(email?.isNotEmpty() == true){
+        if (email?.isNotEmpty() == true) {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             activity?.finish()
