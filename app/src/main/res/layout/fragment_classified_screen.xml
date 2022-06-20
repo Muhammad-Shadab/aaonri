@@ -84,12 +84,11 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:background="@drawable/edit_text_shape"
         android:clickable="true"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
-        app:layout_constraintStart_toStartOf="parent"
         android:drawableRight="@drawable/ic_icon_search"
         android:focusable="true"
         android:hint="@string/what_are_you_looking_for"
@@ -98,30 +97,46 @@
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classifiedText" />
 
     <ImageView
         android:id="@+id/filterClassified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_icons_filter"
+        app:layout_constraintBottom_toBottomOf="@id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/searchView"
-        android:src="@drawable/ic_icons_filter"
-        app:layout_constraintTop_toTopOf="@id/searchView"
-        app:layout_constraintBottom_toBottomOf="@id/searchView"/>
+        app:layout_constraintTop_toTopOf="@id/searchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selectedFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:orientation="horizontal"
         android:scrollbars="none"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchView"
         tools:listitem="@layout/filter_card_view_item" />
+
+    <TextView
+        android:id="@+id/moreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="@string/more"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/selectedFilters"
+        app:layout_constraintStart_toEndOf="@id/selectedFilters"
+        app:layout_constraintTop_toTopOf="@id/selectedFilters" />
 
 
     <!-- <HorizontalScrollView

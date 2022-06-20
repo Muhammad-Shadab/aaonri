@@ -20,7 +20,7 @@ class FilterAdapter(private var deleteFilter: ((value: String) -> Unit)) :
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
         holder.binding.filterText.text = data[position]
 
-        holder.itemView.setOnClickListener {
+        holder.binding.deleteFilterIv.setOnClickListener {
             deleteFilter(data[position])
         }
 

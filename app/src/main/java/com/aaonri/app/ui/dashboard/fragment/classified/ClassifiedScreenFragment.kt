@@ -56,6 +56,10 @@ class ClassifiedScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
 
+            moreTextView.setOnClickListener {
+                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
+            }
+
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 startActivity(intent)
@@ -126,17 +130,19 @@ class ClassifiedScreenFragment : Fragment() {
     private fun selectedFilterDataObserver() {
         postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
 
-            if (selectedFilter.contains(deleteElement)){
+            if (selectedFilter.contains(deleteElement)) {
                 selectedFilter.remove(deleteElement)
                 deleteElement = ""
             }
 
             filterAdapter?.setData(selectedFilter)
             if (selectedFilter.isNotEmpty()) {
+                classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
                 classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
                 classifiedScreenBinding?.numberOfSelectedFilterTv?.text =
                     selectedFilter.size.toString()
             } else {
+                classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
             }
         }
