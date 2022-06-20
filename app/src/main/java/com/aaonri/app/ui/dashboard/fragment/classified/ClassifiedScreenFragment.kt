@@ -101,7 +101,7 @@ class ClassifiedScreenFragment : Fragment() {
                 if (it) {
                     floatingActionBtnClassified.visibility = View.GONE
                     classifiedScreenTabLayout.visibility = View.GONE
-                    classifiedScreenViewPager.setPadding(0, 80, 0, 0)
+                    classifiedScreenViewPager.setPadding(0, 40, 0, 0)
                     classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
