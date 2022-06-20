@@ -89,7 +89,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:hint="Asking Price in ($)"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"

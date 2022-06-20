@@ -3,13 +3,15 @@ package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.Spanned
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
@@ -20,6 +22,7 @@ import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class AddressDetailsClassifiedFragment : Fragment() {
@@ -71,6 +74,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
             classifiedDetailsNextBtn.setOnClickListener {
 
                 val phoneNumber = phoneNumberAddressDetails.text.trim().toString().replace("-", "")
+
 
                 if (cityNameAddressDetails.text.trim().toString().length > 3
                 ) {

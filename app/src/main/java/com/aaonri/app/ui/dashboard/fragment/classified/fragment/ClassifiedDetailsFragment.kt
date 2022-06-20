@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import coil.request.ImageRequest
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -36,6 +37,7 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
+
 
         classifiedDetailsBinding?.apply {
 
@@ -82,7 +84,8 @@ class ClassifiedDetailsFragment : Fragment() {
                         when (index) {
                             0 -> {
                                 addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                    placeholder(R.drawable.ic_image_placeholder)
+                                   // placeholder(R.drawable.ic_loading)
+
                                 }
                                 image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                     placeholder(R.drawable.ic_image_placeholder)
@@ -116,7 +119,9 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                     image1.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
+                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}"){
+                            //placeholder(R.drawable.ic_loading)
+                        }
 
                         changeCardViewBg(0)
 
@@ -132,7 +137,9 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                     image2.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}")
+                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}"){
+                            //placeholder(R.drawable.ic_loading)
+                        }
                         changeCardViewBg(1)
                         context?.let { it1 ->
                             ContextCompat.getColor(
@@ -146,7 +153,9 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                     image3.setOnClickListener {
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}")
+                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}"){
+                            //placeholder(R.drawable.ic_loading)
+                        }
                         changeCardViewBg(2)
                         context?.let { it1 ->
                             ContextCompat.getColor(
@@ -161,7 +170,9 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                     image4.setOnClickListener {
                         changeCardViewBg(3)
-                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}")
+                        addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}"){
+                            //placeholder(R.drawable.ic_loading)
+                        }
                         context?.let { it1 ->
                             ContextCompat.getColor(
                                 it1,
