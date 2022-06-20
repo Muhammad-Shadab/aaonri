@@ -43,6 +43,13 @@ class MainActivity : BaseActivity() {
         mainActivityBinding?.apply {
             bottomNavigation.setupWithNavController(navController)
 
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if(destination.id == R.id.classifiedDetailsFragment) {
+                    bottomNavigation.visibility = View.GONE
+                } else {
+                    bottomNavigation.visibility = View.VISIBLE
+                }
+            }
 
 
 
