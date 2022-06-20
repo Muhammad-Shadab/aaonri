@@ -79,25 +79,36 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+
     <EditText
         android:id="@+id/searchView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/edit_text_shape"
         android:clickable="true"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        app:layout_constraintStart_toStartOf="parent"
         android:drawableRight="@drawable/ic_icon_search"
         android:focusable="true"
         android:hint="@string/what_are_you_looking_for"
         android:maxLines="1"
-        android:paddingVertical="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_6sdp"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/filterClassified"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classifiedText" />
 
+    <ImageView
+        android:id="@+id/filterClassified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/searchView"
+        android:src="@drawable/ic_icons_filter"
+        app:layout_constraintTop_toTopOf="@id/searchView"
+        app:layout_constraintBottom_toBottomOf="@id/searchView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selectedFilters"
@@ -111,6 +122,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchView"
         tools:listitem="@layout/filter_card_view_item" />
+
 
     <!-- <HorizontalScrollView
          android:id="@+id/selectedFilters"
@@ -352,16 +364,6 @@
 
      </HorizontalScrollView>-->
 
-
-    <ImageView
-        android:id="@+id/filterClassified"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_icons_filter"
-        app:layout_constraintBottom_toBottomOf="@id/searchView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/searchView"
-        app:layout_constraintTop_toTopOf="@id/searchView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
