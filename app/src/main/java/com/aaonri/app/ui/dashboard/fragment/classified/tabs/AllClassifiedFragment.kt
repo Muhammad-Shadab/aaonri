@@ -35,7 +35,6 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter {
-            //Toast.makeText(context, "${it.adTitle}", Toast.LENGTH_SHORT).show()
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }

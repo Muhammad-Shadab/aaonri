@@ -37,12 +37,11 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
 
-
         classifiedDetailsBinding?.apply {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-            bottomSheetOuter.peekHeight = 750
+            bottomSheetOuter.peekHeight = 450
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -75,8 +74,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
+            itemId = userAds.id
+            callLikeDislikeApi()
             classifiedDetailsBinding?.apply {
-                itemId = userAds.id
                 try {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         when (index) {
@@ -195,7 +195,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-
+                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
@@ -210,6 +210,7 @@ class ClassifiedDetailsFragment : Fragment() {
     }
 
     private fun callLikeDislikeApi() {
+
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         classifiedViewModel.likeDislikeClassified(
             LikeDislikeClassifiedRequest(

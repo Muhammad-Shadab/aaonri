@@ -6,22 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.adapter.FilterAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +42,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         filterAdapter = FilterAdapter { element ->
             deleteElement = element
-            callObserver()
+            selectedFilterDataObserver()
         }
 
         val fragment = this
@@ -115,7 +111,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         }
 
-        callObserver()
+        selectedFilterDataObserver()
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
@@ -127,7 +123,7 @@ class ClassifiedScreenFragment : Fragment() {
         return classifiedScreenBinding?.root
     }
 
-    private fun callObserver() {
+    private fun selectedFilterDataObserver() {
         postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
 
             if (selectedFilter.contains(deleteElement)){
