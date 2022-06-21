@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -20,16 +21,22 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URI
 
 @AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
     var uploadClassifiedBinding: FragmentUploadClassifiedPicBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val listOfImagesUri = mutableListOf<Uri>()
+    var image1Uri = ""
+    var image2Uri = ""
+    var image3Uri = ""
+    var image4Uri = ""
     var image1 = true
     var image2 = true
     var image3 = true
     var image4 = true
+    var selectedBiggerImage = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +49,7 @@ class UploadClassifiedPicFragment : Fragment() {
         uploadClassifiedBinding?.apply {
 
             uploadPicBtn.setOnClickListener {
-                if (listOfImagesUri.size < 4) {
+                if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
                     ImagePicker.with(activity!!)
                         .compress(1024)
                         .maxResultSize(1080, 1080)
@@ -55,62 +62,43 @@ class UploadClassifiedPicFragment : Fragment() {
             }
 
             deleteImage1.setOnClickListener {
-                deleteImage(index = 0)
+                deleteImage(0)
             }
             deleteImage2.setOnClickListener {
-                deleteImage(index = 1)
+                deleteImage(1)
             }
             deleteImage3.setOnClickListener {
-                deleteImage(index = 2)
+                deleteImage(2)
             }
             deleteImage4.setOnClickListener {
-                deleteImage(index = 3)
+                deleteImage(3)
             }
-
-
 
             uploadedImage1.setOnClickListener {
-                listOfImagesUri.forEachIndexed { index, _ ->
-                    if (index == 0) changeCardViewBg(index)
+                if (image1Uri.isNotBlank()){
+                    selectedImage.load(image1Uri)
+                    changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
-                listOfImagesUri.forEachIndexed { index, uri ->
-                    if (index == 1) changeCardViewBg(index)
+                if (image2Uri.isNotBlank()){
+                    selectedImage.load(image2Uri)
+                    changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
-                listOfImagesUri.forEachIndexed { index, uri ->
-                    if (index == 2) changeCardViewBg(index)
+                if (image3Uri.isNotBlank()){
+                    selectedImage.load(image3Uri)
+                    changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
-                listOfImagesUri.forEachIndexed { index, uri ->
-                    if (index == 3) changeCardViewBg(index)
+                if (image4Uri.isNotBlank()){
+                    selectedImage.load(image4Uri)
+                    changeCardViewBg(3)
                 }
             }
 
-
-            /*uploadedImage1.setOnClickListener {
-                if (listOfImagesUri.size == 1){
-                    selectedImage.load(listOfImagesUri[0])
-                }
-            }
-            uploadedImage2.setOnClickListener {
-                if (listOfImagesUri.size == 2){
-                    selectedImage.load(listOfImagesUri[1])
-                }
-            }
-            uploadedImage3.setOnClickListener {
-                if (listOfImagesUri.size == 3){
-                    selectedImage.load(listOfImagesUri[2])
-                }
-            }
-            uploadedImage4.setOnClickListener {
-                if (listOfImagesUri.size == 4){
-                    selectedImage.load(listOfImagesUri[3])
-                }
-            }*/
             classifiedUploadPicNextBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
             }
@@ -127,25 +115,19 @@ class UploadClassifiedPicFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val fileUri = data?.data!!
 
-                uploadClassifiedBinding?.selectedImage?.setImageURI(fileUri)
+                if (image1Uri.isEmpty()) {
+                    image1Uri = fileUri.toString()
+                } else if (image2Uri.isEmpty()) {
+                    image2Uri = fileUri.toString()
+                } else if (image3Uri.isEmpty()) {
+                    image3Uri = fileUri.toString()
+                } else if (image4Uri.isEmpty()) {
+                    image4Uri = fileUri.toString()
+                }
 
                 listOfImagesUri.add(fileUri)
-
                 setImage()
 
-                if (listOfImagesUri.size < 4) {
-                    uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
-                        ContextCompat.getDrawable(
-                            it1, R.drawable.ic_add_image_icon
-                        )
-                    })
-                } else {
-                    uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
-                        ContextCompat.getDrawable(
-                            it1, R.drawable.ic_disabled_add_btn
-                        )
-                    })
-                }
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
@@ -155,67 +137,144 @@ class UploadClassifiedPicFragment : Fragment() {
         }
 
     private fun setImage() {
-        if (image1 && listOfImagesUri[0].toString().isNotEmpty()) {
-            uploadClassifiedBinding?.uploadedImage1?.setImageURI(listOfImagesUri[0])
-            image1 = false
+        if (image1 && image1Uri.isNotEmpty()) {
+            selectedBiggerImage = image1Uri
+            uploadClassifiedBinding?.uploadedImage1?.load(image1Uri)
             uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
-        } else if (image2 && listOfImagesUri[1].toString().isNotEmpty()) {
-            uploadClassifiedBinding?.uploadedImage2?.setImageURI(listOfImagesUri[1])
-            image2 = false
+            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            image1 = false
+            changeCardViewBg(0)
+        } else if (image2 && image2Uri.isNotEmpty()) {
+            selectedBiggerImage = image2Uri
+            uploadClassifiedBinding?.uploadedImage2?.load(image2Uri)
             uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
-        } else if (image3 && listOfImagesUri[2].toString().isNotEmpty()) {
-            uploadClassifiedBinding?.uploadedImage3?.setImageURI(listOfImagesUri[2])
-            image3 = false
+            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            image2 = false
+            changeCardViewBg(1)
+        } else if (image3 && image3Uri.isNotEmpty()) {
+            selectedBiggerImage = image3Uri
+            uploadClassifiedBinding?.uploadedImage3?.load(image3Uri)
             uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
-        } else if (image4 && listOfImagesUri[3].toString().isNotEmpty()) {
-            uploadClassifiedBinding?.uploadedImage4?.setImageURI(listOfImagesUri[3])
-            image4 = false
+            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            image3 = false
+            changeCardViewBg(2)
+        } else if (image4 && image4Uri.isNotEmpty()) {
+            selectedBiggerImage = image4Uri
+            uploadClassifiedBinding?.uploadedImage4?.load(image4Uri)
             uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
+            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            image4 = false
+            changeCardViewBg(3)
         }
 
     }
 
     private fun deleteImage(index: Int) {
-        if (listOfImagesUri[index].toString().isNotEmpty() && index == 0) {
+        if (index == 0) {
             uploadClassifiedBinding?.uploadedImage1?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
-            listOfImagesUri.removeAt(index)
+            removeBorder(0)
+            image1Uri = ""
             image1 = true
-        } else if (listOfImagesUri[index].toString().isNotEmpty() && index == 1) {
+        } else if (index == 1) {
             uploadClassifiedBinding?.uploadedImage2?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
-            listOfImagesUri.removeAt(index)
+            removeBorder(1)
+            image2Uri = ""
             image2 = true
-        } else if (listOfImagesUri[index].toString().isNotEmpty() && index == 2) {
+        } else if (index == 2) {
             uploadClassifiedBinding?.uploadedImage3?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
-            listOfImagesUri.removeAt(index)
+            removeBorder(2)
+            image3Uri = ""
             image3 = true
-        } else if (listOfImagesUri[index].toString().isNotEmpty() && index == 3) {
+        } else if (index == 3) {
             uploadClassifiedBinding?.uploadedImage4?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
-            listOfImagesUri.removeAt(index)
+            removeBorder(3)
+            image4Uri = ""
             image4 = true
         }
 
-        if (listOfImagesUri.size < 4) {
-            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+        if (image1Uri.isEmpty() && image2Uri.isEmpty() && image3Uri.isEmpty() && image4Uri.isEmpty()) {
+            uploadClassifiedBinding?.selectedImage?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
-                    it1, R.drawable.ic_add_image_icon
+                    it1, R.drawable.ic_image_placeholder
                 )
             })
-        } else {
+        }
+
+        if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
             uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_disabled_add_btn
                 )
             })
+        } else {
+            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1, R.drawable.ic_add_image_icon
+                )
+            })
+        }
+    }
+
+    private fun removeBorder(index: Int) {
+        when (index) {
+            0 -> {
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }?.let { it2 ->
+                    uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
+                        it2
+                    )
+                }
+            }
+            1 -> {
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }?.let { it2 ->
+                    uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
+                        it2
+                    )
+                }
+            }
+            2 -> {
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }?.let { it2 ->
+                    uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
+                        it2
+                    )
+                }
+            }
+            3 -> {
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }?.let { it2 ->
+                    uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
+                        it2
+                    )
+                }
+            }
         }
     }
 
     private fun changeCardViewBg(selectedImageIndex: Int) {
 
-        if (selectedImageIndex == 0) {
+        if (selectedImageIndex == 0 && image1Uri.isNotEmpty()) {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
@@ -236,7 +295,6 @@ class UploadClassifiedPicFragment : Fragment() {
                     it2
                 )
             }
-
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
