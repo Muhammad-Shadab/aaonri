@@ -43,7 +43,7 @@ class AllClassifiedFragment : Fragment() {
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
         }
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {

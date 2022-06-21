@@ -34,8 +34,6 @@ class MyClassifiedFragment : Fragment() {
         myClassifiedBinding =
             FragmentMyClassifiedBinding.inflate(inflater, container, false)
 
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
         allClassifiedAdapter = AllClassifiedAdapter{
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
@@ -46,22 +44,14 @@ class MyClassifiedFragment : Fragment() {
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
         }
 
-        classifiedViewModel.getClassifiedByUser(
-            GetClassifiedByUserRequest(
-                category = "",
-                email = if (email?.isNotEmpty() == true) email else "",
-                fetchCatSubCat = true,
-                keywords = "",
-                location = "",
-                maxPrice = 0,
-                minPrice = 0,
-                myAdsOnly = true,
-                popularOnAoonri = null,
-                subCategory = "",
-                zipCode = ""
-            )
-        )
+        callMyClassifiedApi()
 
+        /*postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
+            if (it) {
+                callMyClassifiedApi()
+                postClassifiedViewModel.setNavigateToMyClassified(false)
+            }
+        }*/
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -97,5 +87,26 @@ class MyClassifiedFragment : Fragment() {
 
 
         return myClassifiedBinding?.root
+    }
+
+    private fun callMyClassifiedApi() {
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        classifiedViewModel.getClassifiedByUser(
+            GetClassifiedByUserRequest(
+                category = "",
+                email = if (email?.isNotEmpty() == true) email else "",
+                fetchCatSubCat = true,
+                keywords = "",
+                location = "",
+                maxPrice = 0,
+                minPrice = 0,
+                myAdsOnly = true,
+                popularOnAoonri = null,
+                subCategory = "",
+                zipCode = ""
+            )
+        )
     }
 }

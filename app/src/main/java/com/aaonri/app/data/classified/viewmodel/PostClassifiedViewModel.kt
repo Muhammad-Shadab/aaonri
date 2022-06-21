@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.classified.ClassifiedConstant
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
-import com.aaonri.app.data.classified.model.PostClassifiedRequest
-import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import retrofit2.Response
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,6 +55,8 @@ class PostClassifiedViewModel @Inject constructor(
     var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
+
+    val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -146,5 +148,20 @@ class PostClassifiedViewModel @Inject constructor(
     fun setFilterData(value: MutableList<String>) {
         filterSelectedDataList.postValue(value)
     }
+
+   /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
+        uploadImagesData.postValue(Resource.Loading())
+        val response = classifiedRepository.uploadImages(uploadImagesRequest)
+        uploadImagesData.postValue(handleUploadImagesResponse(response))
+    }
+
+    private fun handleUploadImagesResponse(response: Response<UploadImagesResponse>): Resource<UploadImagesResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }*/
 
 }

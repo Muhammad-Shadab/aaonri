@@ -5,6 +5,10 @@ import com.aaonri.app.data.classified.api.PostClassifiedApi
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
+import com.aaonri.app.data.classified.model.UploadImagesRequest
+import okhttp3.RequestBody
+import retrofit2.http.Field
+import java.io.File
 import javax.inject.Inject
 
 class ClassifiedRepository @Inject constructor(
@@ -24,5 +28,7 @@ class ClassifiedRepository @Inject constructor(
 
     suspend fun likeDislikeClassified(likeDislikeClassifiedRequest: LikeDislikeClassifiedRequest) =
         classifiedApi.likedDislikeClassified(likeDislikeClassifiedRequest)
+
+   // suspend fun uploadImages(uploadImagesRequest: UploadImagesRequest) = postClassifiedApi.uploadImages(uploadImagesRequest)
 
 }

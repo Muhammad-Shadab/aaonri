@@ -15,11 +15,14 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
+import com.aaonri.app.data.classified.model.UploadImagesRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 
 @AndroidEntryPoint
@@ -35,14 +38,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
-/*
-        val title = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE].toString()
-
-        Toast.makeText(
-            context,
-            "title = $title}",
-            Toast.LENGTH_SHORT
-        ).show()*/
 
         addressDetailsBinding?.apply {
 
@@ -192,6 +187,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+
+                    /*response.data?.id?.let {
+                        postClassifiedViewModel.uploadImages(
+                            UploadImagesRequest(arrayListOf(), it)
+                        )
+                    }*/
+
                     findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }

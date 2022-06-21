@@ -28,13 +28,6 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
 
         postClassifiedViewModel.addStepViewLastTick(true)
 
-        /* Toast.makeText(
-             context,
-             "" + postClassifiedViewModel.isProductNewCheckBox,
-             Toast.LENGTH_SHORT
-         ).show()
- */
-
         bottomBinding?.apply {
             viewYourClassifiedBtn.setOnClickListener {
                 activity?.finish()

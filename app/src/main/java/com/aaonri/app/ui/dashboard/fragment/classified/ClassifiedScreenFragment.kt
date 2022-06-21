@@ -50,6 +50,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         classifiedScreenBinding?.apply {
 
+
             classifiedScreenViewPager.isUserInputEnabled = false
 
             filterClassified.setOnClickListener {
@@ -123,6 +124,14 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
+
+       /* postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+            if (it) {
+                classifiedScreenBinding?.classifiedScreenTabLayout?.getTabAt(1)?.select()
+                postClassifiedViewModel.setNavigateToMyClassified(false)
+            }
+        }*/
 
         return classifiedScreenBinding?.root
     }

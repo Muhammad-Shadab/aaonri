@@ -66,9 +66,6 @@ class LoginFragment : Fragment() {
                 if (userEmail?.toString()?.isNotEmpty() == true && loginPasswordEt?.toString()
                         ?.isNotEmpty() == true && isEmailValid && isPasswordValid
                 ) {
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, userEmail.toString())
-
                     registrationViewModel.loginUser(
                         Login(
                             changePass = true,
@@ -148,7 +145,10 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
-
+                        response.data?.emailId?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_EMAIL, it)
+                        }
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
