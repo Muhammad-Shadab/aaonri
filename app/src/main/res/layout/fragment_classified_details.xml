@@ -463,7 +463,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_regular"
                         android:text="California - 08512"
-                        android:textColor="#333333"
+                        android:textColor="#365fa1"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/emailIcon"
                         app:layout_constraintStart_toEndOf="@+id/emailIcon"

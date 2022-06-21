@@ -64,16 +64,20 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
                             android:id="@+id/deleteImage1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="top|end"
-                            android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_marginEnd="@dimen/_4sdp"
-                            android:src="@drawable/ic_cross"/>
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
                     </FrameLayout>
 
 
@@ -92,16 +96,20 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
                             android:id="@+id/deleteImage2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="top|end"
-                            android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_marginEnd="@dimen/_4sdp"
-                            android:src="@drawable/ic_cross"/>
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
                     </FrameLayout>
 
 
@@ -120,16 +128,20 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
                             android:id="@+id/deleteImage4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="top|end"
-                            android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_marginEnd="@dimen/_4sdp"
-                            android:src="@drawable/ic_cross"/>
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -147,16 +159,20 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
                             android:id="@+id/deleteImage3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="top|end"
-                            android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_marginEnd="@dimen/_4sdp"
-                            android:src="@drawable/ic_cross"/>
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
                     </FrameLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -209,7 +225,6 @@
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@drawable/green_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
@@ -219,6 +234,7 @@
                 android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

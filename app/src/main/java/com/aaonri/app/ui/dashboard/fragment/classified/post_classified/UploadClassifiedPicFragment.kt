@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -43,14 +44,39 @@ class UploadClassifiedPicFragment : Fragment() {
         uploadClassifiedBinding?.apply {
 
             uploadPicBtn.setOnClickListener {
-                Toast.makeText(context, "${listOfImagesUri.size}", Toast.LENGTH_SHORT).show()
-                ImagePicker.with(activity!!)
-                    .compress(1024)
-                    .maxResultSize(1080, 1080)
-                    .createIntent { intent ->
-                        startForProfileImageResult.launch(intent)
-                    }
+                if (listOfImagesUri.size < 4) {
+                    ImagePicker.with(activity!!)
+                        .compress(1024)
+                        .maxResultSize(1080, 1080)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                        }
+                } else {
+
+                }
             }
+
+                uploadedImage1.setOnClickListener {
+                    if (listOfImagesUri[0].toString().isNotEmpty()){
+                        selectedImage.load(listOfImagesUri[0])
+                    }
+                }
+                uploadedImage2.setOnClickListener {
+                    if (listOfImagesUri[1].toString().isNotEmpty()){
+                        selectedImage.load(listOfImagesUri[1])
+                    }
+                }
+                uploadedImage3.setOnClickListener {
+                    if (listOfImagesUri[2].toString().isNotEmpty()){
+                        selectedImage.load(listOfImagesUri[2])
+                    }
+                }
+                uploadedImage4.setOnClickListener {
+                    if (listOfImagesUri[3].toString().isNotEmpty()){
+                        selectedImage.load(listOfImagesUri[3])
+                    }
+                }
+
 
             classifiedUploadPicNextBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
@@ -75,47 +101,40 @@ class UploadClassifiedPicFragment : Fragment() {
 
                 setImage(listOfImagesUri)
 
+                if (listOfImagesUri.size < 4) {
+                    uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+                        ContextCompat.getDrawable(
+                            it1, R.drawable.ic_add_image_icon
+                        )
+                    })
+                } else {
+                    uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+                        ContextCompat.getDrawable(
+                            it1, R.drawable.ic_disabled_add_btn
+                        )
+                    })
+                }
+
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "Task Cancelled", Toast.LENGTH_SHORT).show()
+
             }
         }
 
     private fun setImage(listOfImagesUri: MutableList<Uri>) {
-        // mProfileUri = fileUri
-        try {
-            if (image1) {
-                uploadClassifiedBinding?.uploadedImage1?.setImageURI(listOfImagesUri[0])
-                image1 = false
-            } else if (image2) {
-                uploadClassifiedBinding?.uploadedImage2?.setImageURI(listOfImagesUri[1])
-                image2 = false
-            } else if (image3) {
-                uploadClassifiedBinding?.uploadedImage3?.setImageURI(listOfImagesUri[2])
-                image3 = false
-            } else if (image4) {
-                uploadClassifiedBinding?.uploadedImage4?.setImageURI(listOfImagesUri[3])
-                image4 = false
-            }
-        } catch (e: Exception) {
-
+        if (image1 && listOfImagesUri[0].toString().isNotEmpty()) {
+            uploadClassifiedBinding?.uploadedImage1?.setImageURI(listOfImagesUri[0])
+            image1 = false
+        } else if (image2 && listOfImagesUri[1].toString().isNotEmpty()) {
+            uploadClassifiedBinding?.uploadedImage2?.setImageURI(listOfImagesUri[1])
+            image2 = false
+        } else if (image3 && listOfImagesUri[2].toString().isNotEmpty()) {
+            uploadClassifiedBinding?.uploadedImage3?.setImageURI(listOfImagesUri[2])
+            image3 = false
+        } else if (image4 && listOfImagesUri[3].toString().isNotEmpty()) {
+            uploadClassifiedBinding?.uploadedImage4?.setImageURI(listOfImagesUri[3])
+            image4 = false
         }
     }
-
-    /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         super.onActivityResult(requestCode, resultCode, data)
-         if (resultCode == Activity.RESULT_OK) {
-             //Image Uri will not be null for RESULT_OK
-             val uri: Uri = data?.data!!
-
-             // Use Uri object instead of File to avoid storage permissions
-             uploadClassifiedBinding?.uploadedImage1?.load(uri)
-         } else if (resultCode == ImagePicker.RESULT_ERROR) {
-             Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-         } else {
-             Toast.makeText(context, "Task Cancelled", Toast.LENGTH_SHORT).show()
-         }
-     }*/
-
 }
