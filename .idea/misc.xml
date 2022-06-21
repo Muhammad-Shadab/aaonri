@@ -41,6 +41,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_launcher_background.xml" value="0.218" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_loading.xml" value="0.218" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_ticked_checkbox.xml" value="0.1485" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_uplaoded_image.xml" value="0.311" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/image_view_stroke_bg.xml" value="0.218" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/logo_background_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/multiline_textfield_shape.xml" value="0.218" />
@@ -107,7 +108,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_services_category.xml" value="0.22" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_shop_screen.xml" value="0.15625" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.33" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.5" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/services_grid_item.xml" value="0.75" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/spinner_item.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/success_register_dialog.xml" value="0.25" />

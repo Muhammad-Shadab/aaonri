@@ -49,12 +49,13 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <FrameLayout
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/uploadedImageFl1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -64,7 +65,8 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
-                            android:scaleType="centerCrop"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -78,15 +80,16 @@
                             android:translationX="@dimen/_1sdp"
                             android:translationY="-2dp"
                             android:visibility="gone" />
-                    </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
 
-                    <FrameLayout
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/uploadedImageFl2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/uploadedImageFl1"
                         app:layout_constraintTop_toTopOf="parent">
@@ -96,7 +99,8 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
-                            android:scaleType="centerCrop"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -110,15 +114,16 @@
                             android:translationX="@dimen/_1sdp"
                             android:translationY="-2dp"
                             android:visibility="gone" />
-                    </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
 
-                    <FrameLayout
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/uploadedImageFl3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -128,7 +133,8 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
-                            android:scaleType="centerCrop"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -142,14 +148,15 @@
                             android:translationX="@dimen/_1sdp"
                             android:translationY="-2dp"
                             android:visibility="gone" />
-                    </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <FrameLayout
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/uploadedImageFl4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/uploadedImageFl3"
                         app:layout_constraintTop_toTopOf="parent">
@@ -159,7 +166,8 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
-                            android:scaleType="centerCrop"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -173,7 +181,7 @@
                             android:translationX="@dimen/_1sdp"
                             android:translationY="-2dp"
                             android:visibility="gone" />
-                    </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
