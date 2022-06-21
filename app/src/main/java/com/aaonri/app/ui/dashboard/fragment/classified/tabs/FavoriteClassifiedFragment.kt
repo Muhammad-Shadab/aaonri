@@ -43,6 +43,11 @@ class FavoriteClassifiedFragment : Fragment() {
         }
 
         favoriteClassifiedBinding?.apply {
+
+            loginBtn.setOnClickListener {
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+            }
+
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
         }

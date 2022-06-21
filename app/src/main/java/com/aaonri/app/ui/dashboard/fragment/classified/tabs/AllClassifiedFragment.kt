@@ -39,49 +39,9 @@ class AllClassifiedFragment : Fragment() {
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
-        }
-
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-            if (it) {
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
-
-            }
-            else {
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
-            }
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -105,8 +65,48 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-
         return allClassifiedBinding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            if (it) {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            }
+            else {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            }
+        }
     }
 }
 

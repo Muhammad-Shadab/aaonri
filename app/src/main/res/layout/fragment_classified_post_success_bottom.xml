@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:src="@drawable/ic_success_tick" />
 

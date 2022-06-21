@@ -34,7 +34,7 @@ class MyClassifiedFragment : Fragment() {
         myClassifiedBinding =
             FragmentMyClassifiedBinding.inflate(inflater, container, false)
 
-        allClassifiedAdapter = AllClassifiedAdapter{
+        allClassifiedAdapter = AllClassifiedAdapter {
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
@@ -43,15 +43,6 @@ class MyClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
         }
-
-        callMyClassifiedApi()
-
-        /*postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
-            if (it) {
-                callMyClassifiedApi()
-                postClassifiedViewModel.setNavigateToMyClassified(false)
-            }
-        }*/
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -89,10 +80,9 @@ class MyClassifiedFragment : Fragment() {
         return myClassifiedBinding?.root
     }
 
-    private fun callMyClassifiedApi() {
-
+    override fun onResume() {
+        super.onResume()
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
         classifiedViewModel.getClassifiedByUser(
             GetClassifiedByUserRequest(
                 category = "",

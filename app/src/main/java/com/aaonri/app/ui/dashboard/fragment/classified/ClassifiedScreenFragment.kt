@@ -45,15 +45,10 @@ class ClassifiedScreenFragment : Fragment() {
             selectedFilterDataObserver()
         }
 
-        // this code is going to remove
-        val intent = Intent(requireContext(), ClassifiedActivity::class.java)
-        startActivity(intent)
-
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
         classifiedScreenBinding?.apply {
-
 
             classifiedScreenViewPager.isUserInputEnabled = false
 

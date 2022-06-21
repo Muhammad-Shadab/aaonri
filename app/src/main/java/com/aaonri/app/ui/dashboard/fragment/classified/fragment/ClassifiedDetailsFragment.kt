@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
-import coil.request.ImageRequest
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -37,7 +36,6 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-
 
         classifiedDetailsBinding?.apply {
 
@@ -78,135 +76,74 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
             itemId = userAds.id
             callLikeDislikeApi()
+            if (userAds.userAdsImages.isEmpty()) {
+                changeCardViewBorder(9)
+            }else{
+                changeCardViewBorder(0)
+            }
             classifiedDetailsBinding?.apply {
-                try {
+                userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    when (index) {
+                        0 -> {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                // placeholder(R.drawable.ic_loading)
+                            }
+                            image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        1 -> {
+                            image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        2 -> {
+                            image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        3 -> {
+                            image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                    }
+                }
+                image1.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        when (index) {
-                            0 -> {
-                                addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                   // placeholder(R.drawable.ic_loading)
-
-                                }
-                                image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                    placeholder(R.drawable.ic_image_placeholder)
-                                }
-                                context?.let { it1 ->
-                                    ContextCompat.getColor(
-                                        it1,
-                                        R.color.selectedClassifiedCardViewBorder
-                                    )
-                                }?.let { it2 ->
-                                    image1CardView.setBackgroundColor(
-                                        it2
-                                    )
-                                }
+                        if (index == 0) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
                             }
-                            1 -> {
-                                image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                    placeholder(R.drawable.ic_image_placeholder)
-                                }
-                            }
-                            2 -> {
-                                image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                    placeholder(R.drawable.ic_image_placeholder)
-                                }
-                            }
-                            3 -> {
-                                image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                    placeholder(R.drawable.ic_image_placeholder)
-                                }
-                            }
+                            changeCardViewBorder(0)
                         }
                     }
-                    image1.setOnClickListener {
-                        try {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}"){
-                                //placeholder(R.drawable.ic_loading)
+                }
+                image2.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 1) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
                             }
-
-                            changeCardViewBg(0)
-
-                            context?.let { it1 ->
-                                ContextCompat.getColor(
-                                    it1,
-                                    R.color.selectedClassifiedCardViewBorder
-                                )
-                            }?.let { it2 ->
-                                image1CardView.setBackgroundColor(
-                                    it2
-                                )
-                            }
-                        }catch (e: Exception){
-
+                            changeCardViewBorder(1)
                         }
-
                     }
-                    image2.setOnClickListener {
-                        try {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}"){
-                                //placeholder(R.drawable.ic_loading)
+                }
+                image3.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 2) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
                             }
-                            changeCardViewBg(1)
-                            context?.let { it1 ->
-                                ContextCompat.getColor(
-                                    it1,
-                                    R.color.selectedClassifiedCardViewBorder
-                                )
-                            }?.let { it2 ->
-                                image2CardView.setBackgroundColor(
-                                    it2
-                                )
-                            }
-                        }catch (e: Exception){
-
+                            changeCardViewBorder(2)
                         }
-
                     }
-                    image3.setOnClickListener {
-                        try {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}"){
-                                //placeholder(R.drawable.ic_loading)
+                }
+                image4.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 3) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
                             }
-                            changeCardViewBg(2)
-                            context?.let { it1 ->
-                                ContextCompat.getColor(
-                                    it1,
-                                    R.color.selectedClassifiedCardViewBorder
-                                )
-                            }?.let { it2 ->
-                                image3CardView.setBackgroundColor(
-                                    it2
-                                )
-                            }
-                        }catch (e: Exception){
-
+                            changeCardViewBorder(3)
                         }
-
                     }
-                    image4.setOnClickListener {
-                        try {
-                            changeCardViewBg(3)
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}"){
-                                //placeholder(R.drawable.ic_loading)
-                            }
-                            context?.let { it1 ->
-                                ContextCompat.getColor(
-                                    it1,
-                                    R.color.selectedClassifiedCardViewBorder
-                                )
-                            }?.let { it2 ->
-                                image4CardView.setBackgroundColor(
-                                    it2
-                                )
-                            }
-                        }catch (e: Exception){
-
-                        }
-
-                    }
-
-                } catch (e: Exception) {
-
                 }
                 classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
                 addTitle.text = userAds.adTitle
@@ -253,16 +190,26 @@ class ClassifiedDetailsFragment : Fragment() {
         )
     }
 
-    private fun changeCardViewBg(selectedImageIndex: Int) {
+    private fun changeCardViewBorder(selectedImageIndex: Int) {
 
         if (selectedImageIndex == 0) {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
+                    R.color.selectedClassifiedCardViewBorder
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -273,7 +220,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -284,7 +231,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -295,7 +242,17 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.selectedClassifiedCardViewBorder
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -305,7 +262,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -316,7 +273,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -328,7 +285,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -338,7 +295,17 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.selectedClassifiedCardViewBorder
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -349,7 +316,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -361,7 +328,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -371,7 +338,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -382,7 +349,59 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setBackgroundColor(
+                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.selectedClassifiedCardViewBorder
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                    it2
+                )
+            }
+        } else {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }

@@ -82,8 +82,8 @@ class AddressDetailsFragment : Fragment() {
                             }
                         }
                     }
-                    countryFlagIconAddress.load(triple.second)
                     selectCountryOriginAddress.text = triple.first
+                    countryFlagIconAddress.load(triple.second)
                     countryFlagIconAddress.visibility = View.VISIBLE
                 } else {
                     countryFlagIconAddress.visibility = View.GONE

@@ -48,28 +48,31 @@
         android:orientation="horizontal">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/capsule_shape_with_shadow"
             app:cardCornerRadius="@dimen/_20sdp"
             app:strokeColor="@color/lightGrey"
             app:strokeWidth="1dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/minPriceRange"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:paddingHorizontal="@dimen/_18sdp"
+                android:maxLines="1"
+                android:inputType="number"
                 android:paddingVertical="@dimen/_6sdp"
-                android:text="Min:$10"
+                android:hint="Min:$10"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@drawable/capsule_shape_with_shadow"
@@ -77,14 +80,17 @@
             app:strokeColor="@color/lightGrey"
             app:strokeWidth="1dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/maxPriceRange"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:paddingHorizontal="@dimen/_18sdp"
+                android:maxLines="1"
                 android:paddingVertical="@dimen/_6sdp"
-                android:text="Max:$30"
+                android:hint="Max:$30"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_classified_graph"
-    app:startDestination="@id/uploadClassifiedPicFragment">
+    app:startDestination="@id/classifiedBasicDetailsFragment">
 
     <fragment
         android:id="@+id/classifiedBasicDetailsFragment"

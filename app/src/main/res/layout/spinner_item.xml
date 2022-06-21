@@ -10,7 +10,7 @@
         android:layout_marginHorizontal="@dimen/_6sdp"
         android:textSize="16sp"
         android:textColor="@color/editTextColor"
-        android:fontFamily="@font/helvetica_regular"
+        android:fontFamily="@font/sf_pro_regular"
         android:layout_height="wrap_content"/>
 
 

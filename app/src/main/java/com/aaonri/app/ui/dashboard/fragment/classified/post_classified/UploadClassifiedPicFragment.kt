@@ -36,7 +36,7 @@ class UploadClassifiedPicFragment : Fragment() {
     var image2 = true
     var image3 = true
     var image4 = true
-    var selectedBiggerImage = ""
+    var selectPicIndex = -1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,25 +75,25 @@ class UploadClassifiedPicFragment : Fragment() {
             }
 
             uploadedImage1.setOnClickListener {
-                if (image1Uri.isNotBlank()){
+                if (image1Uri.isNotBlank()) {
                     selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
-                if (image2Uri.isNotBlank()){
+                if (image2Uri.isNotBlank()) {
                     selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
-                if (image3Uri.isNotBlank()){
+                if (image3Uri.isNotBlank()) {
                     selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
-                if (image4Uri.isNotBlank()){
+                if (image4Uri.isNotBlank()) {
                     selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
@@ -138,31 +138,31 @@ class UploadClassifiedPicFragment : Fragment() {
 
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
-            selectedBiggerImage = image1Uri
+            selectPicIndex = 0
             uploadClassifiedBinding?.uploadedImage1?.load(image1Uri)
             uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            uploadClassifiedBinding?.selectedImage?.load(image1Uri)
             image1 = false
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
-            selectedBiggerImage = image2Uri
+            selectPicIndex = 1
             uploadClassifiedBinding?.uploadedImage2?.load(image2Uri)
             uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            uploadClassifiedBinding?.selectedImage?.load(image2Uri)
             image2 = false
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
-            selectedBiggerImage = image3Uri
+            selectPicIndex = 2
             uploadClassifiedBinding?.uploadedImage3?.load(image3Uri)
             uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            uploadClassifiedBinding?.selectedImage?.load(image3Uri)
             image3 = false
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
-            selectedBiggerImage = image4Uri
+            selectPicIndex = 3
             uploadClassifiedBinding?.uploadedImage4?.load(image4Uri)
             uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(selectedBiggerImage)
+            uploadClassifiedBinding?.selectedImage?.load(image4Uri)
             image4 = false
             changeCardViewBg(3)
         }
@@ -171,24 +171,28 @@ class UploadClassifiedPicFragment : Fragment() {
 
     private fun deleteImage(index: Int) {
         if (index == 0) {
+            selectPicIndex = 0
             uploadClassifiedBinding?.uploadedImage1?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
             removeBorder(0)
             image1Uri = ""
             image1 = true
         } else if (index == 1) {
+            selectPicIndex = 1
             uploadClassifiedBinding?.uploadedImage2?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
             removeBorder(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
+            selectPicIndex = 2
             uploadClassifiedBinding?.uploadedImage3?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
             removeBorder(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
+            selectPicIndex = 3
             uploadClassifiedBinding?.uploadedImage4?.load(R.drawable.ic_uplaoded_image)
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
             removeBorder(3)
@@ -278,7 +282,7 @@ class UploadClassifiedPicFragment : Fragment() {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
-                    R.color.selectedClassifiedCardViewBorder
+                    R.color.blueBtnColor
                 )
             }?.let { it2 ->
                 uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
@@ -329,7 +333,7 @@ class UploadClassifiedPicFragment : Fragment() {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
-                    R.color.selectedClassifiedCardViewBorder
+                    R.color.blueBtnColor
                 )
             }?.let { it2 ->
                 uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
@@ -382,7 +386,7 @@ class UploadClassifiedPicFragment : Fragment() {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
-                    R.color.selectedClassifiedCardViewBorder
+                    R.color.blueBtnColor
                 )
             }?.let { it2 ->
                 uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
@@ -434,7 +438,7 @@ class UploadClassifiedPicFragment : Fragment() {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
-                    R.color.selectedClassifiedCardViewBorder
+                    R.color.blueBtnColor
                 )
             }?.let { it2 ->
                 uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(

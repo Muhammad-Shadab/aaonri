@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class LocationDetailsFragment : Fragment() {
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isCommunitySelected = false
+    var isCountrySelected = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -41,13 +43,19 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
+        if (!isCountrySelected) {
+            authCommonViewModel.addSelectedCountry(
+                countryName = "USA",
+                countryFlag = "https://disease.sh/assets/img/flags/us.png",
+                countryCode = "US"
+            )
+        }
+
         locationDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
 
             authCommonViewModel.apply {
-                stateLocationDetails.text = locationDetails["state"].toString()
-                cityLocationDetails.setText(locationDetails["city"].toString())
                 selectCountryLocation.text = selectedCountry?.value?.first
                 countryFlagIcon.load(selectedCountry?.value?.second)
             }
@@ -75,8 +83,21 @@ class LocationDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
 
+            selectCountryOrigin.setOnClickListener {
+                findNavController().navigate(R.id.action_locationDetailsFragment_to_selectCountryBottomFragment2)
+            }
+
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
             rvLocationDetails.adapter = selectedCommunityAdapter
+        }
+
+        getCountries()
+
+        authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
+            isCountrySelected = true
+            locationDetailsBinding?.selectCountryLocation?.text = triple.first
+            locationDetailsBinding?.countryFlagIcon?.load(triple.second)
+            locationDetailsBinding?.countryFlagIcon?.visibility = View.VISIBLE
         }
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
@@ -116,6 +137,28 @@ class LocationDetailsFragment : Fragment() {
 
                 }
                 else -> {}
+            }
+        }
+    }
+
+    private fun getCountries() {
+        authCommonViewModel.getCountries()
+        authCommonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Error -> {
+
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    try {
+
+                    } catch (e: Exception) {
+                        Log.i("location", "onCreateView: ${e.localizedMessage}")
+                    }
+                }
+                is Resource.Empty -> TODO()
             }
         }
     }
