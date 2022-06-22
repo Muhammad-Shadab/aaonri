@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,7 +31,6 @@ import kotlinx.coroutines.launch
 class AddressDetailsFragment : Fragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
-    var isCountrySelected = false
     var cityName: String = ""
     var stateName: String = ""
 
@@ -53,16 +51,19 @@ class AddressDetailsFragment : Fragment() {
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
             }
 
-            if (!isCountrySelected) {
-                authCommonViewModel.addSelectedCountry(
+
+            if (!authCommonViewModel.isCountrySelected) {
+                authCommonViewModel.setSelectedCountryAddressScreen(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
             }
 
-            authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
-                isCountrySelected = true
+            authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner) { triple ->
+
+                authCommonViewModel.setIsCountrySelected(true)
+
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
@@ -91,7 +92,11 @@ class AddressDetailsFragment : Fragment() {
             }
 
             selectCountryOriginAddress.setOnClickListener {
-                findNavController().navigate(R.id.action_addressDetailsFragment_to_selectCountryBottomFragment)
+                val action =
+                    AddressDetailsFragmentDirections.actionAddressDetailsFragmentToSelectCountryBottomFragment(
+                        true
+                    )
+                findNavController().navigate(action)
             }
 
             addressDetailsNextBtn.setOnClickListener {
@@ -145,7 +150,7 @@ class AddressDetailsFragment : Fragment() {
         }
 
         authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
-            if (it){
+            if (it) {
                 addressDetailsBinding?.stateNameAddressDetails?.text = ""
                 stateName = ""
                 cityName = ""
@@ -157,7 +162,7 @@ class AddressDetailsFragment : Fragment() {
                 )
                 addressDetailsBinding?.zipCodeAddressDetails?.setText("")
                 authCommonViewModel.addCountryClicked(false)
-            }else{
+            } else {
                 if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                     addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
                 }

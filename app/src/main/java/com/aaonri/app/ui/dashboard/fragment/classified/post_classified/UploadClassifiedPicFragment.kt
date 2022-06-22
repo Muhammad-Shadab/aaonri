@@ -113,6 +113,7 @@ class UploadClassifiedPicFragment : Fragment() {
             val data = result.data
 
             if (resultCode == Activity.RESULT_OK) {
+
                 val fileUri = data?.data!!
 
                 if (image1Uri.isEmpty()) {
@@ -125,8 +126,6 @@ class UploadClassifiedPicFragment : Fragment() {
                     image4Uri = fileUri.toString()
                 }
 
-
-                listOfImagesUri.add(fileUri)
                 setImage()
 
 
@@ -140,30 +139,30 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            uploadClassifiedBinding?.uploadedImage1?.load(image1Uri)
+            uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
             uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(image1Uri)
+            uploadClassifiedBinding?.selectedImage?.setImageURI(image1Uri.toUri())
             image1 = false
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            uploadClassifiedBinding?.uploadedImage2?.load(image2Uri)
+            uploadClassifiedBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
             uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(image2Uri)
+            uploadClassifiedBinding?.selectedImage?.setImageURI(image2Uri.toUri())
             image2 = false
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            uploadClassifiedBinding?.uploadedImage3?.load(image3Uri)
+            uploadClassifiedBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
             uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(image3Uri)
+            uploadClassifiedBinding?.selectedImage?.setImageURI(image3Uri.toUri())
             image3 = false
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            uploadClassifiedBinding?.uploadedImage4?.load(image4Uri)
+            uploadClassifiedBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
             uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.load(image4Uri)
+            uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
             image4 = false
             changeCardViewBg(3)
         }
@@ -187,28 +186,44 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun deleteImage(index: Int) {
         if (index == 0) {
             selectPicIndex = 0
-            uploadClassifiedBinding?.uploadedImage1?.load(R.drawable.ic_uplaoded_image)
+            uploadClassifiedBinding?.uploadedImage1?.setImageDrawable(context?.let {
+                ContextCompat.getDrawable(
+                    it, R.drawable.ic_uplaoded_image
+                )
+            })
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
             removeBorder(0)
             image1Uri = ""
             image1 = true
         } else if (index == 1) {
             selectPicIndex = 1
-            uploadClassifiedBinding?.uploadedImage2?.load(R.drawable.ic_uplaoded_image)
+            uploadClassifiedBinding?.uploadedImage2?.setImageDrawable(context?.let {
+                ContextCompat.getDrawable(
+                    it, R.drawable.ic_uplaoded_image
+                )
+            })
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
             removeBorder(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
             selectPicIndex = 2
-            uploadClassifiedBinding?.uploadedImage3?.load(R.drawable.ic_uplaoded_image)
+            uploadClassifiedBinding?.uploadedImage3?.setImageDrawable(context?.let {
+                ContextCompat.getDrawable(
+                    it, R.drawable.ic_uplaoded_image
+                )
+            })
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
             removeBorder(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
             selectPicIndex = 3
-            uploadClassifiedBinding?.uploadedImage4?.load(R.drawable.ic_uplaoded_image)
+            uploadClassifiedBinding?.uploadedImage4?.setImageDrawable(context?.let {
+                ContextCompat.getDrawable(
+                    it, R.drawable.ic_uplaoded_image
+                )
+            })
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
             removeBorder(3)
             image4Uri = ""

@@ -272,7 +272,7 @@ class ServicesCategoryFragment : Fragment() {
                 lastName = authCommonViewModel.basicDetailsMap["lastName"]!!,
                 newsletter = false,
                 originCity = authCommonViewModel.locationDetails["city"]!!,
-                originCountry = authCommonViewModel.selectedCountry!!.value!!.first,
+                originCountry = authCommonViewModel.selectedCountryAddressScreen!!.value!!.first,
                 originState = authCommonViewModel.locationDetails["state"]!!,
                 password = authCommonViewModel.basicDetailsMap["password"]!!,
                 phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,

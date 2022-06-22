@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_na_graph"
-    app:startDestination="@id/basicDetailsFragment">
+    app:startDestination="@id/addressDetailsFragment">
 
     <fragment
         android:id="@+id/basicDetailsFragment"
@@ -62,5 +62,8 @@
         android:label="fragment_select_country_bottom"
         tools:layout="@layout/fragment_select_country_bottom">
 
+        <argument
+            android:name="isAddressScreen"
+            app:argType="boolean" />
     </dialog>
 </navigation>

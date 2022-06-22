@@ -43,8 +43,14 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
+        Toast.makeText(
+            context,
+            "value of is country selected: ${authCommonViewModel.isCountrySelected}",
+            Toast.LENGTH_SHORT
+        ).show()
+
         if (!isCountrySelected) {
-            authCommonViewModel.addSelectedCountry(
+            authCommonViewModel.setSelectedCountryLocationScreen(
                 countryName = "USA",
                 countryFlag = "https://disease.sh/assets/img/flags/us.png",
                 countryCode = "US"
@@ -56,8 +62,8 @@ class LocationDetailsFragment : Fragment() {
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
 
             authCommonViewModel.apply {
-                selectCountryLocation.text = selectedCountry?.value?.first
-                countryFlagIcon.load(selectedCountry?.value?.second)
+                selectCountryLocation.text = selectedCountryAddressScreen?.value?.first
+                countryFlagIcon.load(selectedCountryAddressScreen?.value?.second)
             }
 
             selectMoreCommunityIv.setOnClickListener {
@@ -84,7 +90,11 @@ class LocationDetailsFragment : Fragment() {
             }
 
             selectCountryOrigin.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment_to_selectCountryBottomFragment2)
+                val action =
+                    LocationDetailsFragmentDirections.actionLocationDetailsFragmentToSelectCountryBottomFragment(
+                        false
+                    )
+                findNavController().navigate(action)
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
@@ -93,7 +103,7 @@ class LocationDetailsFragment : Fragment() {
 
         getCountries()
 
-        authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
+        authCommonViewModel.selectedCountryLocationScreen?.observe(viewLifecycleOwner) { triple ->
             isCountrySelected = true
             locationDetailsBinding?.selectCountryLocation?.text = triple.first
             locationDetailsBinding?.countryFlagIcon?.load(triple.second)
