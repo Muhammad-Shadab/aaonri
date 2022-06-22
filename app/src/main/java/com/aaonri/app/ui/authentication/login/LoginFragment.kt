@@ -36,6 +36,9 @@ class LoginFragment : Fragment() {
     ): View? {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
 
+
+
+        // this code is going to remove
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         if (email?.isNotEmpty() == true) {

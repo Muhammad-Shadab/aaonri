@@ -125,6 +125,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     image4Uri = fileUri.toString()
                 }
 
+
                 listOfImagesUri.add(fileUri)
                 setImage()
 
@@ -165,6 +166,20 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadClassifiedBinding?.selectedImage?.load(image4Uri)
             image4 = false
             changeCardViewBg(3)
+        }
+
+        if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
+            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1, R.drawable.ic_disabled_add_btn
+                )
+            })
+        } else {
+            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1, R.drawable.ic_add_image_icon
+                )
+            })
         }
 
     }

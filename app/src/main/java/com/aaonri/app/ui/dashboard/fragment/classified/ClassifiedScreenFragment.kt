@@ -45,6 +45,9 @@ class ClassifiedScreenFragment : Fragment() {
             selectedFilterDataObserver()
         }
 
+        val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+        startActivity(intent)
+
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
