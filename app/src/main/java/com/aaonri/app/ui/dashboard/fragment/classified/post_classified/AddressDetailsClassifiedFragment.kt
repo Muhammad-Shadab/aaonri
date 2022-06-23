@@ -43,6 +43,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         addressDetailsBinding?.apply {
 
+            if (emailRadioBtn.isChecked){
+                emailAddressBasicDetails.setText(email)
+            }
+
             phoneRadioBtn.setOnCheckedChangeListener { p0, p1 ->
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {

@@ -182,7 +182,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             if (!it.toString().startsWith(prefix) && it?.isNotEmpty() == true) {
                 this.setText(prefix + this.text)
                 this.setSelection(this.length())
-
             }
         })
     }
