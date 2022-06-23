@@ -67,9 +67,17 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             postClassifiedViewModel.setMinMaxPriceRangeZipCode(
                                 minValue,
                                 maxValue,
-                                ""
+                                zipCode.text.toString()
                             )
                             findNavController().navigateUp()
+                        }
+                    } else {
+                        dialog?.window?.decorView?.let {
+                            Snackbar.make(
+                                it,
+                                "Please enter valid price range",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } else if (minValue.isNotEmpty()) {
@@ -92,8 +100,20 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 }
                             }
                         } else {
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, "", "")
+                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                minValue,
+                                "",
+                                zipCode.text.toString()
+                            )
                             findNavController().navigateUp()
+                        }
+                    } else {
+                        dialog?.window?.decorView?.let {
+                            Snackbar.make(
+                                it,
+                                "Please enter valid price range",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } else if (maxValue.isNotEmpty()) {
@@ -116,10 +136,42 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 }
                             }
                         } else {
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, "")
+                            postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, zipCode.text.toString())
                             findNavController().navigateUp()
                         }
+                    } else {
+                        dialog?.window?.decorView?.let {
+                            Snackbar.make(
+                                it,
+                                "Please enter valid price range",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
                     }
+                } else if (myLocationCheckBox.isChecked) {
+                    if (zipCode.text.toString().isNotEmpty()) {
+                        postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                            "",
+                            "",
+                            zipCode.text.toString()
+                        )
+                        findNavController().navigateUp()
+                    } else {
+                        dialog?.window?.decorView?.let {
+                            Snackbar.make(
+                                it,
+                                "Please enter valid ZipCode",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else if (zipCode.text.toString().isNotEmpty()) {
+                    postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                        "",
+                        "",
+                        zipCode.text.toString()
+                    )
+                    findNavController().navigateUp()
                 } else {
                     dialog?.window?.decorView?.let {
                         Snackbar.make(
@@ -130,7 +182,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     }
                 }
 
-                // findNavController().navigateUp()
+                postClassifiedViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
+
             }
 
             closeClassifiedBtn.setOnClickListener {
@@ -422,11 +475,24 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }*/
         }
 
+        postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
+            classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
+        }
+
+        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) {
+            if (it.first.isNotEmpty() || it.second.isNotEmpty() || it.third.isNotEmpty()) {
+                classifiedFilterBinding?.minPriceRange?.setText(it.first)
+                classifiedFilterBinding?.maxPriceRange?.setText(it.second)
+                classifiedFilterBinding?.zipCode?.setText(it.third)
+            }
+        }
+
 
         return classifiedFilterBinding?.root
 
 
     }
+
     private fun clearAllData() {
 
         /*selectedFilterList.clear()
@@ -542,7 +608,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             ).show()
         }*/
     }
-
 
 
 }

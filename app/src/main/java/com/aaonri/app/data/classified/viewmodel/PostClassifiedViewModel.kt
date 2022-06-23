@@ -61,6 +61,9 @@ class PostClassifiedViewModel @Inject constructor(
     var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set
 
+    var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -168,7 +171,11 @@ class PostClassifiedViewModel @Inject constructor(
      }*/
 
     fun setMinMaxPriceRangeZipCode(minValue: String, maxValue: String, zipCode: String) {
-        minMaxPriceRangeZipCode?.value = Triple(first = minValue, second = maxValue, third = zipCode)
+        minMaxPriceRangeZipCode.value = Triple(first = minValue, second = maxValue, third = zipCode)
+    }
+
+    fun setIsMyLocationChecked(value: Boolean) {
+        isMyLocationCheckedInFilterScreen.postValue(value)
     }
 
 }

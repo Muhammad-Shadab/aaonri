@@ -112,9 +112,8 @@ class ClassifiedScreenFragment : Fragment() {
         }
 
         postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner){
-            Toast.makeText(context, it.first, Toast.LENGTH_SHORT).show()
-            Toast.makeText(context, it.second, Toast.LENGTH_SHORT).show()
-            Toast.makeText(context, it.third, Toast.LENGTH_SHORT).show()
+
+
         }
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
