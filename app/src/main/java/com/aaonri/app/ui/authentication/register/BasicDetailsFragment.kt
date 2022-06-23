@@ -129,20 +129,29 @@ class BasicDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
-                    authCommonViewModel.addBasicDetails(
-                        firstName.toString(),
-                        lastName.toString(),
-                        emailAddress.toString(),
-                        password.toString()
-                    )
-                    authCommonViewModel.addCountryClicked(true)
-                    findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
+                    if (isEmailValid && isPasswordValid){
+                        authCommonViewModel.addBasicDetails(
+                            firstName.toString(),
+                            lastName.toString(),
+                            emailAddress.toString(),
+                            password.toString()
+                        )
+                        authCommonViewModel.addCountryClicked(true)
+                        findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                    }else{
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Please complete all details", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 } else {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Please complete all details", Snackbar.LENGTH_LONG
+                            "Please enter valid name", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }

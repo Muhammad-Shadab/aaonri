@@ -38,8 +38,8 @@ class FavoriteClassifiedFragment : Fragment() {
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
 
         favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
-             postClassifiedViewModel.setSendFavoriteDataToClassifiedDetails(it)
-             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+            postClassifiedViewModel.setSendFavoriteDataToClassifiedDetails(it)
+            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         favoriteClassifiedBinding?.apply {
@@ -61,7 +61,12 @@ class FavoriteClassifiedFragment : Fragment() {
                 is Resource.Success -> {
                     favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
 
-                    response.data?.classifieds?.let { favoriteClassifiedAdapter!!.setData(it) }
+                    if (response.data?.classifieds?.isEmpty() == true) {
+                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
+                    } else {
+                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
+                        response.data?.classifieds?.let { favoriteClassifiedAdapter!!.setData(it) }
+                    }
 
                     favoriteClassifiedBinding?.recyclerViewClassified?.adapter =
                         favoriteClassifiedAdapter

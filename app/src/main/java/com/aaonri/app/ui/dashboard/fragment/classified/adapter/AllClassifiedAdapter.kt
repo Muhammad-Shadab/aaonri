@@ -10,6 +10,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
+import com.squareup.picasso.Picasso
 
 class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
     RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
@@ -32,18 +33,15 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
+                Picasso.get().load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
-                }
+                }*/
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
-            }
-
-            holder.itemView.setOnClickListener {
-                Toast.makeText(context, "${data[position].adTitle}", Toast.LENGTH_SHORT).show()
             }
 
             //classifiedPostDateTv.text = data[position].createdOn
@@ -89,9 +87,8 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
-                    placeholder(R.drawable.ic_image_placeholder)
-                }
+                Picasso.get()
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip

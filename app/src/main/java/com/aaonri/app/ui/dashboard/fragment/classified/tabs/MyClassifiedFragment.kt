@@ -53,6 +53,8 @@ class MyClassifiedFragment : Fragment() {
                     myClassifiedBinding?.progressBar?.visibility = View.GONE
                     try {
                         if (response.data?.userAdsList?.isNotEmpty() == true) {
+                            myClassifiedBinding?.emptyClassifiedImage?.visibility = View.GONE
+                            myClassifiedBinding?.emptyTextVew?.visibility = View.GONE
                             response.data.userAdsList.let { allClassifiedAdapter!!.setData(it) }
                             myClassifiedBinding?.recyclerViewClassified?.adapter =
                                 allClassifiedAdapter

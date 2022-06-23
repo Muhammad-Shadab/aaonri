@@ -26,7 +26,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/choose_any_three_or_more_categories"
+                android:textAlignment="center"
+                android:text="What modules would you like to explore on aaonri?\n  Choose any three or more"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

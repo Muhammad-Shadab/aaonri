@@ -21,6 +21,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -169,35 +170,54 @@ class ClassifiedDetailsFragment : Fragment() {
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                            Picasso.get()
+                                .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(addImage)
+                            Picasso.get()
+                                .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(image1)
+                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                 // placeholder(R.drawable.ic_loading)
                             }
                             image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                 placeholder(R.drawable.ic_image_placeholder)
-                            }
+                            }*/
                         }
                         1 -> {
-                            image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                            Picasso.get()
+                                .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(image2)
+                            /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                 placeholder(R.drawable.ic_image_placeholder)
-                            }
+                            }*/
                         }
                         2 -> {
-                            image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .into(image3)
+                            /*image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                 placeholder(R.drawable.ic_image_placeholder)
-                            }
+                            }*/
                         }
                         3 -> {
-                            image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .into(image4)
+
+                            /*image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
                                 placeholder(R.drawable.ic_image_placeholder)
-                            }
+                            }*/
                         }
                     }
                 }
                 image1.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 0) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
-                            }
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
+                                    .into(addImage)
+                            /* addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
+                             }*/
                             changeCardViewBorder(0)
                         }
                     }
@@ -205,8 +225,11 @@ class ClassifiedDetailsFragment : Fragment() {
                 image2.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 1) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
-                            }
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}")
+                                    .into(addImage)
+                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
+                            }*/
                             changeCardViewBorder(1)
                         }
                     }
@@ -214,8 +237,11 @@ class ClassifiedDetailsFragment : Fragment() {
                 image3.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 2) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
-                            }
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}")
+                                    .into(addImage)
+                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
+                            }*/
                             changeCardViewBorder(2)
                         }
                     }
@@ -223,8 +249,11 @@ class ClassifiedDetailsFragment : Fragment() {
                 image4.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 3) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
-                            }
+                                Picasso.get()
+                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}")
+                                    .into(addImage)
+                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
+                            }*/
                             changeCardViewBorder(3)
                         }
                     }
