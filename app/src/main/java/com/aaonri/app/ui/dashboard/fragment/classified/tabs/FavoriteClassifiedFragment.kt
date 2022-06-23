@@ -61,11 +61,12 @@ class FavoriteClassifiedFragment : Fragment() {
                 is Resource.Success -> {
                     favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
 
-                    if (response.data?.classifieds?.isEmpty() == true) {
+                    if (response.data?.classifieds?.isNotEmpty() == true) {
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
+                        /*favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
+                        response.data?.classifieds?.let { favoriteClassifiedAdapter!!.setData(it) }*/
                     } else {
-                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
-                        response.data?.classifieds?.let { favoriteClassifiedAdapter!!.setData(it) }
+                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 
                     favoriteClassifiedBinding?.recyclerViewClassified?.adapter =

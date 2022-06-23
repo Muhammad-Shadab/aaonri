@@ -10,7 +10,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 
 class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
     RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
@@ -33,7 +33,7 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                Picasso.get().load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                Glide.with(context).load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
                 }*/
@@ -79,6 +79,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
     }
 
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
+        val context = holder.itemView.context
         holder.binding.apply {
             if (data[position].userAdsImages.isEmpty()) {
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
@@ -87,7 +88,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                Picasso.get()
+                Glide.with(context)
                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle

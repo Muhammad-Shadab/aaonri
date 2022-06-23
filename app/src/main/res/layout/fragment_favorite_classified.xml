@@ -10,13 +10,13 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -27,6 +27,7 @@
                 android:layout_height="@dimen/_200sdp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/_500sdp"
+                android:layout_gravity="center_horizontal"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
+                android:layout_gravity="center_horizontal"
                 android:text="You haven't liked anything yet"
                 android:textAlignment="center"
                 android:textColor="#333333"
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
+                android:layout_gravity="center_horizontal"
                 android:text="Collect all the things you like in one place"
                 android:textAlignment="center"
                 android:textColor="#797979"
@@ -94,16 +97,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewClassified"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/classified_card_items" />
 

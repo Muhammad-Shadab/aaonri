@@ -62,12 +62,12 @@ class BasicDetailsFragment : Fragment() {
             lastNameBasicDetails.filters = arrayOf(filter)
 
             addProfileIv.setOnClickListener {
-                ImagePicker.with(activity!!)
+                /*ImagePicker.with(activity!!)
                     .compress(1024)
                     .maxResultSize(1080, 1080)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
-                    }
+                    }*/
             }
 
             emailAddressBasicDetails.addTextChangedListener { editable ->

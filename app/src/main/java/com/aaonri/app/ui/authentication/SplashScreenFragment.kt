@@ -29,16 +29,17 @@ class SplashScreenFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        if (email?.isNotEmpty() == true) {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-        }
 
         var job: Job? = null
         job = MainScope().launch {
             delay(2000L)
-            findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
+            if (email?.isNotEmpty() == true) {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }else{
+                findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
+            }
         }
 
         return splashScreenBinding?.root
