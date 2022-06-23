@@ -52,6 +52,18 @@ class ClassifiedScreenFragment : Fragment() {
 
             classifiedScreenViewPager.isUserInputEnabled = false
 
+            deleteFilterIv1.setOnClickListener {
+
+            }
+
+            deleteFilterIv2.setOnClickListener {
+
+            }
+
+            deleteFilterIv3.setOnClickListener {
+
+            }
+
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
@@ -111,7 +123,44 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner){
+        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) { triple ->
+            if (triple.first.isNotEmpty() || triple.second.isNotEmpty() || triple.third.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+
+                if (triple.first.isNotEmpty() && triple.second.isNotEmpty()) {
+                    classifiedScreenBinding?.filterText1?.text =
+                        "Range: \$${triple.first}-\$${triple.second}"
+                    classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                } else {
+                    classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                }
+                if (triple.first.isNotEmpty() && triple.second.isEmpty()) {
+                    classifiedScreenBinding?.filterText2?.text =
+                        "Min: \$${triple.first}"
+                    classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                } else {
+                    classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                }
+
+                if (triple.second.isNotEmpty() && triple.first.isEmpty()) {
+                    classifiedScreenBinding?.filterText3?.text =
+                        "Max: \$${triple.second}"
+                    classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                } else {
+                    classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                }
+
+                if (triple.third.isNotEmpty()) {
+                    classifiedScreenBinding?.filterText4?.text =
+                        "ZipCode: ${triple.third}"
+                    classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
+                } else {
+                    classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+                }
+
+            } else {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+            }
 
 
         }
@@ -123,13 +172,13 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
-       /* postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-            if (it) {
-                classifiedScreenBinding?.classifiedScreenTabLayout?.getTabAt(1)?.select()
-                postClassifiedViewModel.setNavigateToMyClassified(false)
-            }
-        }*/
+        /* postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
+             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+             if (it) {
+                 classifiedScreenBinding?.classifiedScreenTabLayout?.getTabAt(1)?.select()
+                 postClassifiedViewModel.setNavigateToMyClassified(false)
+             }
+         }*/
 
         return classifiedScreenBinding?.root
     }
