@@ -36,6 +36,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
 
+
         classifiedFilterBinding?.apply {
 
             applyBtn.setOnClickListener {
@@ -43,67 +44,91 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                 val minValue = minPriceRange.text.toString()
                 val maxValue = maxPriceRange.text.toString()
 
-                if (minValue.isNotEmpty() && maxValue.isNotEmpty()){
-                    if (minValue.toInt() in 10..30 && maxValue.toInt() in 10..30){
-                        if (myLocationCheckBox.isChecked){
-                            if (zipCode.text.toString().isNotEmpty()){
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, maxValue, zipCode.text.toString())
+                if (minValue.isNotEmpty() && maxValue.isNotEmpty()) {
+                    if (minValue.toInt() in 10..30 && maxValue.toInt() in 10..30) {
+                        if (myLocationCheckBox.isChecked) {
+                            if (zipCode.text.toString().isNotEmpty()) {
+                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                    minValue,
+                                    maxValue,
+                                    zipCode.text.toString()
+                                )
                                 findNavController().navigateUp()
-                            }else{
-                                Toast.makeText(
-                                    context,
-                                    "Please enter valid ZipCode",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                            } else {
+                                dialog?.window?.decorView?.let {
+                                    Snackbar.make(
+                                        it,
+                                        "Please enter valid ZipCode",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
-                        }else{
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, maxValue, "")
+                        } else {
+                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                minValue,
+                                maxValue,
+                                ""
+                            )
                             findNavController().navigateUp()
                         }
                     }
-                } else if (minValue.isNotEmpty()){
-                        if (minValue.toInt() in 10..30){
-                            if (myLocationCheckBox.isChecked){
-                                if (zipCode.text.toString().isNotEmpty()){
-                                    postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, "", zipCode.text.toString())
-                                    findNavController().navigateUp()
-                                }else{
-                                    Toast.makeText(
-                                        context,
-                                        "Please enter valid Zipcode",
-                                        Toast.LENGTH_SHORT
+                } else if (minValue.isNotEmpty()) {
+                    if (minValue.toInt() in 10..30) {
+                        if (myLocationCheckBox.isChecked) {
+                            if (zipCode.text.toString().isNotEmpty()) {
+                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                    minValue,
+                                    "",
+                                    zipCode.text.toString()
+                                )
+                                findNavController().navigateUp()
+                            } else {
+                                dialog?.window?.decorView?.let {
+                                    Snackbar.make(
+                                        it,
+                                        "Please enter valid ZipCode",
+                                        Snackbar.LENGTH_SHORT
                                     ).show()
                                 }
-                            }else{
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, "", "")
-                                findNavController().navigateUp()
                             }
+                        } else {
+                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(minValue, "", "")
+                            findNavController().navigateUp()
                         }
-                    } else if (maxValue.isNotEmpty()){
-                        if (maxValue.toInt() in 10..30){
-                            if (myLocationCheckBox.isChecked){
-                                if (zipCode.text.toString().isNotEmpty()){
-                                    postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, zipCode.text.toString())
-                                    findNavController().navigateUp()
-                                }else{
-                                    Toast.makeText(
-                                        context,
-                                        "Please enter valid Zipcode",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }else{
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, "")
-                                findNavController().navigateUp()
-                            }
-                        }
-                    }else{
-                    Toast.makeText(
-                        context,
-                        "Please enter valid price range",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     }
+                } else if (maxValue.isNotEmpty()) {
+                    if (maxValue.toInt() in 10..30) {
+                        if (myLocationCheckBox.isChecked) {
+                            if (zipCode.text.toString().isNotEmpty()) {
+                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                    "",
+                                    maxValue,
+                                    zipCode.text.toString()
+                                )
+                                findNavController().navigateUp()
+                            } else {
+                                dialog?.window?.decorView?.let {
+                                    Snackbar.make(
+                                        it,
+                                        "Please enter valid ZipCode",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        } else {
+                            postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, "")
+                            findNavController().navigateUp()
+                        }
+                    }
+                } else {
+                    dialog?.window?.decorView?.let {
+                        Snackbar.make(
+                            it,
+                            "Please enter valid price range",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
 
                 // findNavController().navigateUp()
             }
@@ -399,14 +424,10 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
 
         return classifiedFilterBinding?.root
-    }
 
-    private fun addData(priceRange: Int? = null, isMinValue: Boolean? = null) {
 
     }
-
     private fun clearAllData() {
-
 
         /*selectedFilterList.clear()
 
@@ -522,13 +543,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         }*/
     }
 
-    private fun showAlert(text: String) {
-        activity?.let { it1 ->
-            Snackbar.make(
-                it1.findViewById(android.R.id.content),
-                text, Snackbar.LENGTH_LONG
-            ).show()
-        }
-    }
+
 
 }
