@@ -37,6 +37,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
         addressDetailsBinding =
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
         addressDetailsBinding?.apply {
@@ -56,6 +58,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
                     emailTv.setTextColor(Color.parseColor("#333333"))
+                    emailAddressBasicDetails.setText(email)
                     emailAddressBasicDetails.visibility = View.VISIBLE
                 } else {
                     emailAddressBasicDetails.setText("")

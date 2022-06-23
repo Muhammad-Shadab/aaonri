@@ -211,6 +211,7 @@ class AddressDetailsFragment : Fragment() {
                         )
 
                         addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
+                        addressDetailsBinding?.stateNameAddressDetails?.text = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
 
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
@@ -236,7 +237,6 @@ class AddressDetailsFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     authCommonViewModel.setIsCountrySelected(false)
                     authCommonViewModel.addLocationDetails("", "", "")
-                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
                     authCommonViewModel.zipCodeData.value = null
                     findNavController().navigateUp()
                 }

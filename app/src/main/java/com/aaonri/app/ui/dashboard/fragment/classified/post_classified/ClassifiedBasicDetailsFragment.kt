@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -58,7 +59,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
                         .toString().length >= 3
                 ) {
-                    if (priceClassifiedEt.text.isNotEmpty() && priceClassifiedEt.text.toString() != "0") {
+                    if (priceClassifiedEt.text.toString().replace("$", "").toInt() > 0
+                    ) {
+
                         if (classifiedDescEt.text.isNotEmpty()) {
                             postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
                             postClassifiedViewModel.addClassifiedBasicDetails(

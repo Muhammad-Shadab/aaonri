@@ -39,10 +39,6 @@ class LoginFragment : Fragment() {
 
         // this code is going to remove
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
-        val intent = Intent(requireContext(), RegistrationActivity::class.java)
-        startActivity(intent)
-
         if (email?.isNotEmpty() == true) {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)

@@ -122,7 +122,6 @@ class BasicDetailsFragment : Fragment() {
 
             basicDetailsNextBtn.setOnClickListener {
 
-                findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
                 val firstName = firstNameBasicDetails.text
                 val lastName = lastNameBasicDetails.text
                 val emailAddress = emailAddressBasicDetails.text
