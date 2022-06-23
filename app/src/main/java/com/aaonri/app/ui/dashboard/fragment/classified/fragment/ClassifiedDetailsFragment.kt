@@ -78,7 +78,91 @@ class ClassifiedDetailsFragment : Fragment() {
             callLikeDislikeApi()
             if (userAds.userAdsImages.isEmpty()) {
                 changeCardViewBorder(9)
-            }else{
+            } else {
+                changeCardViewBorder(0)
+            }
+            classifiedDetailsBinding?.apply {
+                userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    when (index) {
+                        0 -> {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                // placeholder(R.drawable.ic_loading)
+                            }
+                            image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        1 -> {
+                            image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        2 -> {
+                            image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                        3 -> {
+                            image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
+                                placeholder(R.drawable.ic_image_placeholder)
+                            }
+                        }
+                    }
+                }
+                image1.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 0) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
+                            }
+                            changeCardViewBorder(0)
+                        }
+                    }
+                }
+                image2.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 1) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
+                            }
+                            changeCardViewBorder(1)
+                        }
+                    }
+                }
+                image3.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 2) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
+                            }
+                            changeCardViewBorder(2)
+                        }
+                    }
+                }
+                image4.setOnClickListener {
+                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                        if (index == 3) {
+                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
+                            }
+                            changeCardViewBorder(3)
+                        }
+                    }
+                }
+                classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
+                addTitle.text = userAds.adTitle
+                classifiedCategoryTv.text =
+                    "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
+                classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
+                classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
+                //sellerName.text = userAds.
+                classifiedSellerEmail.text = userAds.adEmail
+
+            }
+        }
+
+        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+            itemId = userAds.id
+            callLikeDislikeApi()
+            if (userAds.userAdsImages.isEmpty()) {
+                changeCardViewBorder(9)
+            } else {
                 changeCardViewBorder(0)
             }
             classifiedDetailsBinding?.apply {

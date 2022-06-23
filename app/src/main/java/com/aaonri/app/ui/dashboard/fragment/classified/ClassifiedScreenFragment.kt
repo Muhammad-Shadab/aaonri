@@ -190,6 +190,13 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
+            if (postClassifiedViewModel.navigateToClassifiedDetail) {
+                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+            }
+        }
+
         /* postClassifiedViewModel.navigateToMyClassified.observe(viewLifecycleOwner) {
              Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
              if (it) {

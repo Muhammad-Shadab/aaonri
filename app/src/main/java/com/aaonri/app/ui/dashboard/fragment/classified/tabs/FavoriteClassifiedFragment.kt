@@ -38,8 +38,8 @@ class FavoriteClassifiedFragment : Fragment() {
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
 
         favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
-            // postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
-            // postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+             postClassifiedViewModel.setSendFavoriteDataToClassifiedDetails(it)
+             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         favoriteClassifiedBinding?.apply {
