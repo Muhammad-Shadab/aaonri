@@ -58,6 +58,9 @@ class PostClassifiedViewModel @Inject constructor(
 
     val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
 
+    var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
+        private set
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -149,19 +152,23 @@ class PostClassifiedViewModel @Inject constructor(
         filterSelectedDataList.postValue(value)
     }
 
-   /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
-        uploadImagesData.postValue(Resource.Loading())
-        val response = classifiedRepository.uploadImages(uploadImagesRequest)
-        uploadImagesData.postValue(handleUploadImagesResponse(response))
-    }
+    /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
+         uploadImagesData.postValue(Resource.Loading())
+         val response = classifiedRepository.uploadImages(uploadImagesRequest)
+         uploadImagesData.postValue(handleUploadImagesResponse(response))
+     }
 
-    private fun handleUploadImagesResponse(response: Response<UploadImagesResponse>): Resource<UploadImagesResponse>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }*/
+     private fun handleUploadImagesResponse(response: Response<UploadImagesResponse>): Resource<UploadImagesResponse>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }*/
+
+    fun setMinMaxPriceRangeZipCode(minValue: String, maxValue: String, zipCode: String) {
+        minMaxPriceRangeZipCode?.value = Triple(first = minValue, second = maxValue, third = zipCode)
+    }
 
 }

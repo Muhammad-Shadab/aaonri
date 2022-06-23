@@ -42,7 +42,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         filterAdapter = FilterAdapter { element ->
             deleteElement = element
-            selectedFilterDataObserver()
+            //selectedFilterDataObserver()
         }
 
         val fragment = this
@@ -109,13 +109,13 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
-            selectedFilters.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            selectedFilters.adapter = filterAdapter
-
         }
 
-        selectedFilterDataObserver()
+        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner){
+            Toast.makeText(context, it.first, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it.second, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it.third, Toast.LENGTH_SHORT).show()
+        }
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
@@ -135,7 +135,7 @@ class ClassifiedScreenFragment : Fragment() {
         return classifiedScreenBinding?.root
     }
 
-    private fun selectedFilterDataObserver() {
+    /*private fun selectedFilterDataObserver() {
         postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
 
             if (selectedFilter.contains(deleteElement)) {
@@ -154,7 +154,7 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
             }
         }
-    }
+    }*/
 
 
 }

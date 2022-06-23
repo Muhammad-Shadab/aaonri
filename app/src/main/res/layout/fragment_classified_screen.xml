@@ -110,7 +110,7 @@
         app:layout_constraintStart_toEndOf="@id/searchView"
         app:layout_constraintTop_toTopOf="@id/searchView" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:id="@+id/selectedFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,8 +121,85 @@
         android:scrollbars="none"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
-        tools:listitem="@layout/filter_card_view_item" />
+        app:layout_constraintTop_toBottomOf="@id/searchView">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:cardBackgroundColor="#a0eee4"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/filterText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:text="Range: $10-$30"
+                android:textColor="@color/textViewColor"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/deleteFilterIv1"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:src="@drawable/ic_cross" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:cardBackgroundColor="#a0eee4"
+            app:cardCornerRadius="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/lightGrey"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/filterText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:text="Range: $10-$30"
+                android:textColor="@color/textViewColor"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/deleteFilterIv2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:src="@drawable/ic_cross" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/moreTextView"
