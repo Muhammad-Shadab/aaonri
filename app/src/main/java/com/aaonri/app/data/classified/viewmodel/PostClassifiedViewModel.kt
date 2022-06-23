@@ -58,7 +58,19 @@ class PostClassifiedViewModel @Inject constructor(
 
     val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
 
-    var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
+    /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
+        private set*/
+
+    var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var minValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var maxValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var zipCodeInFilterScreen: MutableLiveData<String> = MutableLiveData()
         private set
 
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
@@ -170,8 +182,20 @@ class PostClassifiedViewModel @Inject constructor(
          return Resource.Error(response.message())
      }*/
 
-    fun setMinMaxPriceRangeZipCode(minValue: String, maxValue: String, zipCode: String) {
-        minMaxPriceRangeZipCode.value = Triple(first = minValue, second = maxValue, third = zipCode)
+    fun setMinValue(value: String) {
+        minValueInFilterScreen.postValue(value)
+    }
+
+    fun setMaxValue(value: String) {
+        maxValueInFilterScreen.postValue(value)
+    }
+
+    fun setZipCodeInFilterScreen(value: String) {
+        zipCodeInFilterScreen.postValue(value)
+    }
+
+    fun setMinMaxValue(value1: String, value2: String) {
+        minMaxValueInFilter.postValue("Range: \$$value1-\$$value2")
     }
 
     fun setIsMyLocationChecked(value: Boolean) {

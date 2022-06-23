@@ -19,6 +19,8 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
          MutableLiveData()*/
 
+    val favoriteClassifiedData: MutableLiveData<Resource<FavoriteClassifiedResponse>> =
+        MutableLiveData()
 
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
@@ -40,6 +42,21 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         }
         return Resource.Error(response.message())
     }*/
+
+    fun getFavoriteClassified(userEmail: String) = viewModelScope.launch {
+        favoriteClassifiedData.postValue(Resource.Loading())
+        val response = classifiedRepository.getFavoriteClassified(userEmail)
+        favoriteClassifiedData.postValue(handleFavoriteClassifiedResponse(response))
+    }
+
+    private fun handleFavoriteClassifiedResponse(response: Response<FavoriteClassifiedResponse>): Resource<FavoriteClassifiedResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
 
     fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =

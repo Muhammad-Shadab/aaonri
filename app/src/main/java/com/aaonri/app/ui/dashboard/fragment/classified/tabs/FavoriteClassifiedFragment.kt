@@ -17,6 +17,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentFavoriteClassifiedBinding
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.FavoriteClassifiedAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
@@ -26,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteClassifiedFragment : Fragment() {
     var favoriteClassifiedBinding: FragmentFavoriteClassifiedBinding? = null
-    var allClassifiedAdapter: AllClassifiedAdapter? = null
+    var favoriteClassifiedAdapter: FavoriteClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     override fun onCreateView(
@@ -36,9 +37,9 @@ class FavoriteClassifiedFragment : Fragment() {
         favoriteClassifiedBinding =
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
 
-        allClassifiedAdapter = AllClassifiedAdapter{
-            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
-            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+        favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
+            // postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            // postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         favoriteClassifiedBinding?.apply {
@@ -52,27 +53,18 @@ class FavoriteClassifiedFragment : Fragment() {
         }
 
 
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        classifiedViewModel.favoriteClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     favoriteClassifiedBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
-                    val filteredList = mutableListOf<UserAds>()
-                    response.data?.userAdsList?.forEach {
-                        if (it.favorite) {
-                            filteredList.add(it)
-                        }
-                    }
-                    if (filteredList.isEmpty()) {
-                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
-                    } else {
-                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
-                    }
-                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(filteredList) }
+
+                    response.data?.classifieds?.let { favoriteClassifiedAdapter!!.setData(it) }
+
                     favoriteClassifiedBinding?.recyclerViewClassified?.adapter =
-                        allClassifiedAdapter
+                        favoriteClassifiedAdapter
                 }
                 is Resource.Error -> {
                     favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
@@ -91,20 +83,8 @@ class FavoriteClassifiedFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        classifiedViewModel.getClassifiedByUser(
-            GetClassifiedByUserRequest(
-                category = "",
-                email = if (email?.isNotEmpty() == true) email else "",
-                fetchCatSubCat = true,
-                keywords = "",
-                location = "",
-                maxPrice = 0,
-                minPrice = 0,
-                myAdsOnly = false,
-                popularOnAoonri = null,
-                subCategory = "",
-                zipCode = ""
-            )
-        )
+        if (email != null) {
+            classifiedViewModel.getFavoriteClassified(email)
+        }
     }
 }

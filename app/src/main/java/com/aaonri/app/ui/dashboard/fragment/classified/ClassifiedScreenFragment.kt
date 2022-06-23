@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -29,7 +30,10 @@ class ClassifiedScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles = arrayListOf("All Classified", "My Classified", "Favorite Classified")
-    var filterAdapter: FilterAdapter? = null
+    var text1 = ""
+    var text2 = ""
+    var text3 = ""
+    var text4 = ""
     var deleteElement = ""
 
     @SuppressLint("InflateParams")
@@ -40,11 +44,6 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-        filterAdapter = FilterAdapter { element ->
-            deleteElement = element
-            //selectedFilterDataObserver()
-        }
-
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
@@ -53,14 +52,17 @@ class ClassifiedScreenFragment : Fragment() {
             classifiedScreenViewPager.isUserInputEnabled = false
 
             deleteFilterIv1.setOnClickListener {
-
+                postClassifiedViewModel.setMinMaxValue("", "")
             }
 
             deleteFilterIv2.setOnClickListener {
-
+                postClassifiedViewModel.setMinValue("")
             }
 
             deleteFilterIv3.setOnClickListener {
+
+            }
+            deleteFilterIv4.setOnClickListener {
 
             }
 
@@ -122,48 +124,64 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             }
         }
-
-        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) { triple ->
-            if (triple.first.isNotEmpty() || triple.second.isNotEmpty() || triple.third.isNotEmpty()) {
+        postClassifiedViewModel.minMaxValueInFilter.observe(viewLifecycleOwner) {
+            text1 = it
+            if (it.equals("Range: \$-\$")) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+            } else {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText1?.text = it
+            }
+        }
 
-                if (triple.first.isNotEmpty() && triple.second.isNotEmpty()) {
-                    classifiedScreenBinding?.filterText1?.text =
-                        "Range: \$${triple.first}-\$${triple.second}"
-                    classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                } else {
-                    classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                }
-                if (triple.first.isNotEmpty() && triple.second.isEmpty()) {
-                    classifiedScreenBinding?.filterText2?.text =
-                        "Min: \$${triple.first}"
-                    classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                } else {
-                    classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                }
-
-                if (triple.second.isNotEmpty() && triple.first.isEmpty()) {
-                    classifiedScreenBinding?.filterText3?.text =
-                        "Max: \$${triple.second}"
-                    classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                } else {
-                    classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                }
-
-                if (triple.third.isNotEmpty()) {
-                    classifiedScreenBinding?.filterText4?.text =
-                        "ZipCode: ${triple.third}"
-                    classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
-                } else {
-                    classifiedScreenBinding?.filterCv4?.visibility = View.GONE
-                }
+        postClassifiedViewModel.minValueInFilterScreen.observe(viewLifecycleOwner) {
+            text2 = it
+            if (it.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText2?.text = it
 
             } else {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
             }
-
-
         }
+
+        postClassifiedViewModel.maxValueInFilterScreen.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText3?.text = it
+            }
+        }
+
+        postClassifiedViewModel.zipCodeInFilterScreen.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText4?.text = it
+            } else {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+            }
+        }
+
+
+        /*postClassifiedViewModel.zipCodeInFilterScreen.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText3?.text = it
+
+            } else {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+            }
+        }*/
+
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {

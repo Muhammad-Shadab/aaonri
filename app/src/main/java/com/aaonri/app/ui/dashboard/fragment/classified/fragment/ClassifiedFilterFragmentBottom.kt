@@ -48,11 +48,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     if (minValue.toInt() in 10..30 && maxValue.toInt() in 10..30) {
                         if (myLocationCheckBox.isChecked) {
                             if (zipCode.text.toString().isNotEmpty()) {
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
-                                    minValue,
-                                    maxValue,
-                                    zipCode.text.toString()
-                                )
+                                postClassifiedViewModel.setMinMaxValue(minValue, maxValue)
+                                postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
                                 findNavController().navigateUp()
                             } else {
                                 dialog?.window?.decorView?.let {
@@ -64,11 +61,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 }
                             }
                         } else {
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(
-                                minValue,
-                                maxValue,
-                                zipCode.text.toString()
-                            )
+                            postClassifiedViewModel.setMinMaxValue(minValue, maxValue)
+                            postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
                             findNavController().navigateUp()
                         }
                     } else {
@@ -84,11 +78,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     if (minValue.toInt() in 10..30) {
                         if (myLocationCheckBox.isChecked) {
                             if (zipCode.text.toString().isNotEmpty()) {
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
-                                    minValue,
-                                    "",
-                                    zipCode.text.toString()
-                                )
+                                postClassifiedViewModel.setMinValue(minValue)
+                                postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                                /* postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                     minValue,
+                                     "",
+                                     zipCode.text.toString()
+                                 )*/
                                 findNavController().navigateUp()
                             } else {
                                 dialog?.window?.decorView?.let {
@@ -100,11 +96,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 }
                             }
                         } else {
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                            postClassifiedViewModel.setMinValue(minValue)
+                            postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                            /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
                                 minValue,
                                 "",
                                 zipCode.text.toString()
-                            )
+                            )*/
                             findNavController().navigateUp()
                         }
                     } else {
@@ -120,11 +118,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     if (maxValue.toInt() in 10..30) {
                         if (myLocationCheckBox.isChecked) {
                             if (zipCode.text.toString().isNotEmpty()) {
-                                postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                postClassifiedViewModel.setMaxValue(maxValue)
+                                postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                                /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
                                     "",
                                     maxValue,
                                     zipCode.text.toString()
-                                )
+                                )*/
                                 findNavController().navigateUp()
                             } else {
                                 dialog?.window?.decorView?.let {
@@ -136,7 +136,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 }
                             }
                         } else {
-                            postClassifiedViewModel.setMinMaxPriceRangeZipCode("", maxValue, zipCode.text.toString())
+                            postClassifiedViewModel.setMaxValue(maxValue)
+                            postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                            /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                                "",
+                                maxValue,
+                                zipCode.text.toString()
+                            )*/
                             findNavController().navigateUp()
                         }
                     } else {
@@ -150,11 +156,12 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     }
                 } else if (myLocationCheckBox.isChecked) {
                     if (zipCode.text.toString().isNotEmpty()) {
-                        postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                        postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                        /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
                             "",
                             "",
                             zipCode.text.toString()
-                        )
+                        )*/
                         findNavController().navigateUp()
                     } else {
                         dialog?.window?.decorView?.let {
@@ -166,17 +173,18 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         }
                     }
                 } else if (zipCode.text.toString().isNotEmpty()) {
-                    postClassifiedViewModel.setMinMaxPriceRangeZipCode(
+                    postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())
+                    /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
                         "",
                         "",
                         zipCode.text.toString()
-                    )
+                    )*/
                     findNavController().navigateUp()
                 } else {
                     dialog?.window?.decorView?.let {
                         Snackbar.make(
                             it,
-                            "Please enter valid price range",
+                            "Please enter valid details",
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
@@ -479,13 +487,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
         }
 
-        postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) {
+        /*postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) {
             if (it.first.isNotEmpty() || it.second.isNotEmpty() || it.third.isNotEmpty()) {
                 classifiedFilterBinding?.minPriceRange?.setText(it.first)
                 classifiedFilterBinding?.maxPriceRange?.setText(it.second)
                 classifiedFilterBinding?.zipCode?.setText(it.third)
             }
-        }
+        }*/
 
 
         return classifiedFilterBinding?.root
