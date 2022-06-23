@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -42,6 +43,7 @@ class AddressDetailsFragment : Fragment() {
         getCountries()
 
         var job: Job? = null
+
 
         addressDetailsBinding?.apply {
 
@@ -199,16 +201,18 @@ class AddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
-                        try {
-                            cityName = response.data.result[0].province
-                            stateName = response.data.result[0].state
+                        cityName = response.data.result.getOrNull(0)?.province.toString()
+                        stateName = response.data.result.getOrNull(0)?.state.toString()
 
-                            addressDetailsBinding?.stateNameAddressDetails?.text = stateName
-                            addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
-                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
-                        } catch (e: Exception) {
-                            Log.i("location", "onCreateView: ${e.localizedMessage}")
-                        }
+                        authCommonViewModel.addLocationDetails(
+                            addressDetailsBinding?.zipCodeAddressDetails?.text.toString(),
+                            stateName,
+                            cityName
+                        )
+
+                        addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
+
+                        addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
                         addressDetailsBinding?.cityNameAddressDetails?.setText("")
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
@@ -216,7 +220,6 @@ class AddressDetailsFragment : Fragment() {
                         cityName = ""
                     }
 
-                    addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -226,6 +229,18 @@ class AddressDetailsFragment : Fragment() {
                 }
             }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    authCommonViewModel.setIsCountrySelected(false)
+                    authCommonViewModel.addLocationDetails("", "", "")
+                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                    authCommonViewModel.zipCodeData.value = null
+                    findNavController().navigateUp()
+                }
+            })
 
 
         return addressDetailsBinding?.root

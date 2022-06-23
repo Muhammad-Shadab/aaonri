@@ -1,11 +1,14 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,6 +23,7 @@ import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -57,6 +61,15 @@ class BasicDetailsFragment : Fragment() {
             firstNameBasicDetails.filters = arrayOf(filter)
             lastNameBasicDetails.filters = arrayOf(filter)
 
+            addProfileIv.setOnClickListener {
+                ImagePicker.with(activity!!)
+                    .compress(1024)
+                    .maxResultSize(1080, 1080)
+                    .createIntent { intent ->
+                        startForProfileImageResult.launch(intent)
+                    }
+            }
+
             emailAddressBasicDetails.addTextChangedListener { editable ->
                 job?.cancel()
                 job = MainScope().launch {
@@ -85,6 +98,8 @@ class BasicDetailsFragment : Fragment() {
             }
 
 
+
+
             passwordBasicDetails.addTextChangedListener { editable ->
                 editable?.let {
                     if (it.toString().isNotEmpty() && it.toString().length >= 6) {
@@ -107,6 +122,7 @@ class BasicDetailsFragment : Fragment() {
 
             basicDetailsNextBtn.setOnClickListener {
 
+                findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
                 val firstName = firstNameBasicDetails.text
                 val lastName = lastNameBasicDetails.text
                 val emailAddress = emailAddressBasicDetails.text
@@ -164,5 +180,24 @@ class BasicDetailsFragment : Fragment() {
 
         return basicDetailsBinding?.root
     }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                val fileUri = data?.data!!
+
+                basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
+                basicDetailsBinding?.addProfileBtn?.visibility = View.INVISIBLE
+
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+
+            }
+        }
 
 }

@@ -62,7 +62,6 @@ class CheckYourEmailFragment : Fragment() {
 
         checkYourEmailBinding?.apply {
 
-
             skipForNowTv.setOnClickListener {
                 findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
             }

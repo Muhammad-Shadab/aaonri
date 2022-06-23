@@ -27,6 +27,7 @@ class AuthCommonViewModel @Inject constructor(
     var locationDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
+
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 

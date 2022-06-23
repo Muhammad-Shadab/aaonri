@@ -21,7 +21,6 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
-import java.net.URI
 
 @AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
@@ -54,7 +53,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         .compress(1024)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
-                            startForProfileImageResult.launch(intent)
+                            startForClassifiedImageResult.launch(intent)
                         }
                 } else {
 
@@ -107,7 +106,7 @@ class UploadClassifiedPicFragment : Fragment() {
         return uploadClassifiedBinding?.root
     }
 
-    private val startForProfileImageResult =
+    private val startForClassifiedImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
             val data = result.data
