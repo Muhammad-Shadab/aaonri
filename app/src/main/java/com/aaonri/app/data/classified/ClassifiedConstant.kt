@@ -24,5 +24,6 @@ object ClassifiedConstant {
     const val MAX_VALUE_FILTER = "MAX_VALUE"
     const val ZIPCODE_FILTER = "ZIPCODE"
     const val MY_LOCATION_CHECKBOX = "MY_LOCATION_CHECKBOX"
+    const val SEARCH_KEYWORD_FILTER = "SEARCH_KEYWORD_FILTER"
 
 }

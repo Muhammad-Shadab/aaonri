@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -85,20 +86,57 @@ class MyClassifiedFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        classifiedViewModel.getClassifiedByUser(
-            GetClassifiedByUserRequest(
-                category = "",
-                email = if (email?.isNotEmpty() == true) email else "",
-                fetchCatSubCat = true,
-                keywords = "",
-                location = "",
-                maxPrice = 0,
-                minPrice = 0,
-                myAdsOnly = true,
-                popularOnAoonri = null,
-                subCategory = "",
-                zipCode = ""
-            )
-        )
+
+        arguments?.let { bundle ->
+            val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+            if (bundle.getBoolean("filterEnabled")) {
+                var minValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
+                var maxValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
+                val zipCodeFilter = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+
+                if(minValue?.isEmpty() ==true){
+                    minValue ="0"
+                }
+
+                if(maxValue?.isEmpty() ==true){
+                    maxValue ="0"
+                }
+
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = maxValue?.toInt(),
+                        minPrice = minValue?.toInt(),
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = zipCodeFilter
+                    )
+                )
+            }else{
+
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            }
+        }
+
+
     }
 }

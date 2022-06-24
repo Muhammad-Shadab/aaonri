@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
 import com.aaonri.app.utils.Constant
@@ -60,7 +61,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                } else {
+                }
+                else {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.MIN_VALUE_FILTER,
@@ -90,7 +92,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                } else {
+                }
+                else {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.MAX_VALUE_FILTER,
@@ -144,7 +147,10 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     ?.set(
                         ClassifiedConstant.MY_LOCATION_CHECKBOX,
                         myLocationCheckBox.isChecked
+<<<<<<< HEAD
                     )*/
+
+
             }
 
             closeClassifiedBtn.setOnClickListener {
@@ -503,6 +509,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                 ClassifiedConstant.ZIPCODE_FILTER,
                 ""
             )
+        postClassifiedViewModel.setClickedOnFilter(false)
 
 
         /*selectedFilterList.clear()
