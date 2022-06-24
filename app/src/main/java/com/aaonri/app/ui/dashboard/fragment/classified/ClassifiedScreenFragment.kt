@@ -220,7 +220,6 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                 classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
-
         }
 
 
