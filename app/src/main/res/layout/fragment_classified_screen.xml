@@ -81,6 +81,7 @@
 
 
     <EditText
+        android:inputType="text"
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,6 +92,7 @@
         android:clickable="true"
         android:drawableRight="@drawable/ic_icon_search"
         android:focusable="true"
+        android:imeOptions="actionDone"
         android:hint="@string/what_are_you_looking_for"
         android:maxLines="1"
         android:paddingVertical="@dimen/_6sdp"

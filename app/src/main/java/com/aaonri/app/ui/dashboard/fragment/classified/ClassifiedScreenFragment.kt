@@ -1,28 +1,28 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.core.view.size
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
-import com.aaonri.app.data.classified.adapter.FilterAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
-import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -45,8 +45,6 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-        val fragment = this
-        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
@@ -69,9 +67,6 @@ class ClassifiedScreenFragment : Fragment() {
             )
 
         classifiedScreenBinding?.apply {
-
-            classifiedScreenViewPager.isUserInputEnabled = false
-
             deleteFilterIv1.setOnClickListener {
                 classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -81,6 +76,33 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.setClickedOnFilter(false)
             }
 
+
+            searchView.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, textView.text.toString()
+                        )
+                    setClassifiedViewPager(true)
+                }
+                false
+            }
+
+            searchView.addTextChangedListener(object :TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if(keyword.toString().isEmpty()){
+                        setClassifiedViewPager(false)
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                }
+
+            })
             deleteFilterIv2.setOnClickListener {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -100,7 +122,6 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.setClickedOnFilter(false)
             }
 
-
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
@@ -113,42 +134,6 @@ class ClassifiedScreenFragment : Fragment() {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 startActivity(intent)
             }
-
-            classifiedScreenViewPager.adapter = classifiedPagerAdapter
-            TabLayoutMediator(
-                classifiedScreenTabLayout,
-                classifiedScreenViewPager
-            ) { tab, position ->
-                tab.text = tabTitles[position]
-            }.attach()
-
-            for (i in 0..3) {
-                val textView =
-                    LayoutInflater.from(requireContext())
-                        .inflate(R.layout.tab_title_text, null) as TextView
-                classifiedScreenTabLayout.getTabAt(i)?.customView =
-                    textView
-            }
-
-            classifiedScreenTabLayout.addOnTabSelectedListener(object :
-                TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    if (tab?.position == 2) {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
-                    } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
-                            View.VISIBLE
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    return
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    return
-                }
-            })
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
@@ -168,6 +153,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         }
 
+        setClassifiedViewPager(false)
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
 
             /*val minMaxValue =
@@ -211,11 +197,11 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 }
             }
-            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true){
+            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                 classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
-
+            setClassifiedViewPager(true)
         }
 
 
@@ -235,6 +221,57 @@ class ClassifiedScreenFragment : Fragment() {
         }
 
         return classifiedScreenBinding?.root
+    }
+
+
+    private fun setClassifiedViewPager(isFilterEnabled: Boolean) {
+        val fragment = this
+        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment,isFilterEnabled)
+
+        classifiedScreenBinding?.apply {
+
+            classifiedScreenViewPager.isUserInputEnabled = false
+
+            classifiedScreenViewPager.adapter = classifiedPagerAdapter
+            TabLayoutMediator(
+                classifiedScreenTabLayout,
+                classifiedScreenViewPager
+            ) { tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
+
+            for (i in 0..3) {
+                val textView =
+                    LayoutInflater.from(requireContext())
+                        .inflate(R.layout.tab_title_text, null) as TextView
+                classifiedScreenTabLayout.getTabAt(i)?.customView =
+                    textView
+            }
+
+            classifiedScreenTabLayout.addOnTabSelectedListener(object :
+                TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 2) {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                    } else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    return
+                }
+            })
+
+
+
+        }
+
     }
 
     /*private fun selectedFilterDataObserver() {

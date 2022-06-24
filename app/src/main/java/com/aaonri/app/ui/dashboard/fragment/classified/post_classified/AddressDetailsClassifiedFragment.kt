@@ -244,7 +244,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if(postClassifiedViewModel.listOfImagesUri.isNotEmpty()){
                             postClassifiedViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                                callUploadClassifiedPicApi(it, response.data?.id, "")
                             }
                         }else{
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
@@ -290,12 +290,12 @@ class AddressDetailsClassifiedFragment : Fragment() {
         return addressDetailsBinding?.root
     }
 
-    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: String) {
 
         val file = File(uri.toString().replace("file:", ""))
 
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = id1.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = id1.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
