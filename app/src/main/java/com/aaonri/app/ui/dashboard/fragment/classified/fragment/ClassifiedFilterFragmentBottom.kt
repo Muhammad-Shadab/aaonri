@@ -44,49 +44,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
                 if (minValue.isNotEmpty()) {
                     if (minValue.toInt() in 10..30) {
-                        if (myLocationCheckBox.isChecked) {
-                            if (zipCode.text.toString().isNotEmpty() && zipCode.text.toString().length >= 5) {
-                                context?.let { it1 -> PreferenceManager<String>(it1) }
-                                    ?.set(
-                                        ClassifiedConstant.MIN_VALUE_FILTER,
-                                        "Range: \$$minValue"
-                                    )
-                                context?.let { it1 -> PreferenceManager<String>(it1) }
-                                    ?.set(
-                                        ClassifiedConstant.ZIPCODE_FILTER,
-                                        "${zipCode.text}"
-                                    )
-                                postClassifiedViewModel.setClickedOnFilter(true)
-                            } else {
-                                dialog?.window?.decorView?.let {
-                                    Snackbar.make(
-                                        it,
-                                        "Please enter valid ZipCode",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        } else {
-
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.MIN_VALUE_FILTER,
-                                    "Range: \$$minValue"
-                                )
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.ZIPCODE_FILTER,
-                                    "${zipCode.text}"
-                                )
-                            postClassifiedViewModel.setClickedOnFilter(true)
-                            /*postClassifiedViewModel.setMinValue(minValue)
-                            postClassifiedViewModel.setZipCodeInFilterScreen(zipCode.text.toString())*/
-                            /*postClassifiedViewModel.setMinMaxPriceRangeZipCode(
-                                minValue,
-                                "",
-                                zipCode.text.toString()
-                            )*/
-                        }
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                ClassifiedConstant.MIN_VALUE_FILTER,
+                                "$minValue"
+                            )
+                        findNavController().navigateUp()
+                        postClassifiedViewModel.setClickedOnFilter(true)
                     } else {
                         dialog?.window?.decorView?.let {
                             Snackbar.make(
@@ -105,44 +69,18 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                 }
                 if (maxValue.isNotEmpty()) {
                     if (maxValue.toInt() in 10..30) {
-                        if (myLocationCheckBox.isChecked) {
-                            if (zipCode.text.toString().isNotEmpty() && zipCode.text.toString().length >= 5) {
-
-                                context?.let { it1 -> PreferenceManager<String>(it1) }
-                                    ?.set(
-                                        ClassifiedConstant.MAX_VALUE_FILTER,
-                                        "Range: \$$maxValue"
-                                    )
-                                context?.let { it1 -> PreferenceManager<String>(it1) }
-                                    ?.set(
-                                        ClassifiedConstant.ZIPCODE_FILTER,
-                                        "${zipCode.text}"
-                                    )
-                                postClassifiedViewModel.setClickedOnFilter(true)
-                            } else {
-                                dialog?.window?.decorView?.let {
-                                    Snackbar.make(
-                                        it,
-                                        "Please enter valid ZipCode",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        } else {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.MAX_VALUE_FILTER,
-                                    "Range: \$$maxValue"
-                                )
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.ZIPCODE_FILTER,
-                                    "${zipCode.text}"
-                                )
-                            postClassifiedViewModel.setClickedOnFilter(true)
-
-                            findNavController().navigateUp()
-                        }
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                ClassifiedConstant.MAX_VALUE_FILTER,
+                                "$maxValue"
+                            )
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                ClassifiedConstant.ZIPCODE_FILTER,
+                                "${zipCode.text}"
+                            )
+                        findNavController().navigateUp()
+                        postClassifiedViewModel.setClickedOnFilter(true)
                     } else {
                         dialog?.window?.decorView?.let {
                             Snackbar.make(
@@ -159,14 +97,18 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ""
                         )
                 }
+
                 if (myLocationCheckBox.isChecked) {
-                    if (zipCode.text.toString().isNotEmpty() && zipCode.text.toString().length >= 5) {
+                    if (zipCode.text.toString()
+                            .isNotEmpty() && zipCode.text.toString().length >= 5
+                    ) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.ZIPCODE_FILTER,
                                 "${zipCode.text}"
                             )
                         postClassifiedViewModel.setClickedOnFilter(true)
+                        findNavController().navigateUp()
                     } else {
                         dialog?.window?.decorView?.let {
                             Snackbar.make(
@@ -176,20 +118,22 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                } else {
-                    if (zipCode.text.toString().isNotEmpty() && zipCode.text.toString().length >= 5) {
+                }
+
+                if (zipCode.text.toString().isNotEmpty()) {
+                    if (zipCode.text.toString().length >= 5) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.ZIPCODE_FILTER,
                                 "${zipCode.text}"
                             )
+                        findNavController().navigateUp()
                         postClassifiedViewModel.setClickedOnFilter(true)
-
                     } else {
                         dialog?.window?.decorView?.let {
                             Snackbar.make(
                                 it,
-                                "Please enter valid zipcode",
+                                "Please enter valid ZipCode",
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         }
@@ -201,22 +145,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         ClassifiedConstant.MY_LOCATION_CHECKBOX,
                         myLocationCheckBox.isChecked
                     )
-
-                if (minValue.isNotEmpty() || maxValue.isNotEmpty() || zipCode.text.toString().length >= 5
-                ) {
-                    findNavController().navigateUp()
-                } else {
-                    dialog?.window?.decorView?.let {
-                        Snackbar.make(
-                            it,
-                            "Please enter valid details",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                //postClassifiedViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
-
             }
 
             closeClassifiedBtn.setOnClickListener {
@@ -682,16 +610,19 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         }
     }
 
+    */
+
+    }
+
     private fun showAlert(text: String) {
         activity?.let { it1 ->
             Snackbar.make(
                 it1.findViewById(android.R.id.content),
                 text, Snackbar.LENGTH_LONG
             ).show()
-        }*/
+        }
+
     }
-
-
 }
 
 

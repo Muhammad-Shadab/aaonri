@@ -48,9 +48,9 @@ class ClassifiedScreenFragment : Fragment() {
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
-        context?.let { it1 -> PreferenceManager<String>(it1) }
+        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
-                ClassifiedConstant.MIN_MAX_FILTER, ""
+                ClassifiedConstant.MY_LOCATION_CHECKBOX, false
             )
         context?.let { it1 -> PreferenceManager<String>(it1) }
             ?.set(
@@ -73,19 +73,33 @@ class ClassifiedScreenFragment : Fragment() {
             classifiedScreenViewPager.isUserInputEnabled = false
 
             deleteFilterIv1.setOnClickListener {
-                postClassifiedViewModel.setMinMaxValue("", "")
+                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MIN_VALUE_FILTER, ""
+                    )
+                postClassifiedViewModel.setClickedOnFilter(false)
             }
 
             deleteFilterIv2.setOnClickListener {
-
+                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MAX_VALUE_FILTER, ""
+                    )
+                postClassifiedViewModel.setClickedOnFilter(false)
             }
 
             deleteFilterIv3.setOnClickListener {
-
+                classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.ZIPCODE_FILTER,
+                        ""
+                    )
+                postClassifiedViewModel.setClickedOnFilter(false)
             }
-            deleteFilterIv4.setOnClickListener {
 
-            }
 
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
@@ -155,52 +169,51 @@ class ClassifiedScreenFragment : Fragment() {
         }
 
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
-            if (isFilerBtnClicked) {
-                /*val minMaxValue =
-                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_MAX_FILTER, ""] }*/
-                val minValue =
-                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, ""] }
-                val maxValue =
-                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, ""] }
-                val zipCodeValue =
-                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
 
+            /*val minMaxValue =
+                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_MAX_FILTER, ""] }*/
+            val minValue =
+                context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, ""] }
+            val maxValue =
+                context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, ""] }
+            val zipCodeValue =
+                context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+
+            if (isFilerBtnClicked) {
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                     classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
 
-
                     if (minValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text = minValue.toString()
+                        classifiedScreenBinding?.filterText1?.text = "Range: \$$minValue"
                     } else {
                         classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                     }
 
                     if (maxValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText2?.text = maxValue.toString()
+                        classifiedScreenBinding?.filterText2?.text = "Range: \$$maxValue"
                     } else {
                         classifiedScreenBinding?.filterCv2?.visibility = View.GONE
                     }
 
-                        if (zipCodeValue?.isNotEmpty() == true) {
-                            classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                            classifiedScreenBinding?.filterText3?.text =
-                                "ZipCode: $zipCodeValue"
-                        } else {
-                            classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                        }
+                    if (zipCodeValue?.isNotEmpty() == true) {
+                        classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterText3?.text =
+                            "ZipCode: $zipCodeValue"
+                    } else {
+                        classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                    }
 
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                     classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 }
-
-                //Log.i("filter", "minMaxValue $minMaxValue")
-                Log.i("filter", "minValue $minValue")
-                Log.i("filter", "maxValue $maxValue")
-                Log.i("filter", "zipCodeValue $zipCodeValue")
+            }
+            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true){
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
 
         }
