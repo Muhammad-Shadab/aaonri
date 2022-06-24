@@ -55,6 +55,9 @@ class PostClassifiedViewModel @Inject constructor(
     var navigateToClassifiedDetail = false
         private set
 
+    var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
@@ -168,6 +171,10 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
         navigateToClassifiedDetail = value
+    }
+
+    fun setNavigateToAllClassified(value: Boolean) {
+        navigateToAllClassified.postValue(value)
     }
 
     fun setFilterData(value: MutableList<String>) {

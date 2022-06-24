@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -123,6 +124,14 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenViewPager.isUserInputEnabled = false
                 }
             }
+
+            postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner){
+                if (it) {
+                    classifiedScreenTabLayout.getTabAt(0)?.select()
+                    postClassifiedViewModel.setNavigateToAllClassified(false)
+                }
+            }
+
         }
         postClassifiedViewModel.minMaxValueInFilter.observe(viewLifecycleOwner) {
             text1 = it
@@ -181,6 +190,7 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.filterCv3?.visibility = View.GONE
             }
         }*/
+
 
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {

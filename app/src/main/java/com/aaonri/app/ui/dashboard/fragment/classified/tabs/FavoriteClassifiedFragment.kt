@@ -45,7 +45,7 @@ class FavoriteClassifiedFragment : Fragment() {
         favoriteClassifiedBinding?.apply {
 
             loginBtn.setOnClickListener {
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+                postClassifiedViewModel.setNavigateToAllClassified(true)
             }
 
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)

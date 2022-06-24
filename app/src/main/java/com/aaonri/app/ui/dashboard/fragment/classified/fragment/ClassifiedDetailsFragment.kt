@@ -185,7 +185,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
             itemId = userAds.id
-            callLikeDislikeApi()
+
             if (userAds.userAdsImages.isEmpty()) {
                 changeCardViewBorder(9)
             } else {
