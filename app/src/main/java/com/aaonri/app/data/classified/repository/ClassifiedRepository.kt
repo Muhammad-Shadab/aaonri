@@ -6,6 +6,7 @@ import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import com.aaonri.app.data.classified.model.UploadImagesRequest
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
 import java.io.File
@@ -23,7 +24,8 @@ class ClassifiedRepository @Inject constructor(
 
     suspend fun getClassifiedCategory() = postClassifiedApi.getClassifiedCategory()
 
-    //suspend fun uploadClassifiedPics(files: File, addId: Int) = postClassifiedApi.uploadClassifiedPics()
+    suspend fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
+        postClassifiedApi.uploadClassifiedPics(files, addId, dellId)
 
     suspend fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         classifiedApi.getClassifiedByUser(getClassifiedsByUserRequest)

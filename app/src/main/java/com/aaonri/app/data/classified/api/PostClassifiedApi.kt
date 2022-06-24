@@ -12,11 +12,12 @@ interface PostClassifiedApi {
     @GET("/api/v1/category/getCategorySubCategoryMapping")
     suspend fun getClassifiedCategory(): Response<ClassifiedCategoryResponse>
 
-    @POST("/api/v1/asd/add")
+    @Multipart
+    @POST("/api/v1/asd/uploadImages")
     suspend fun uploadClassifiedPics(
-        @Part files: File,
-        @Part("adId") adId: Int,
-        @Part("delImageIds") delImageIds: String = ""
+        @Part files: MultipartBody.Part,
+        @Part("adId") adId: RequestBody,
+        @Part("delImageIds") delImageIds: RequestBody
     ): Response<ClassifiedUploadPicResponse>
 
     @Headers("Content-Type:application/json")

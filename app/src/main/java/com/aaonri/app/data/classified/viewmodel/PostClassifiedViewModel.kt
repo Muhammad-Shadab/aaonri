@@ -10,6 +10,7 @@ import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
@@ -70,6 +71,9 @@ class PostClassifiedViewModel @Inject constructor(
 
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
+
+    var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
+        MutableLiveData()
 
     var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
         private set
@@ -222,6 +226,22 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
         listOfImagesUri.addAll(uploadedImagesList)
+    }
+
+    fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
+        viewModelScope.launch {
+            uploadClassifiedPics.postValue(Resource.Loading())
+            val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
+            uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
+        }
+
+    private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

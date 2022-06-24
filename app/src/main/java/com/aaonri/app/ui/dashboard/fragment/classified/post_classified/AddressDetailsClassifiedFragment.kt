@@ -21,14 +21,19 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
-import com.aaonri.app.data.classified.model.UploadImagesRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.create
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -119,7 +124,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 ) {
                     if (zipCodeAddressDetails.text.trim().toString().length >= 5) {
                         if (emailRadioBtn.isChecked) {
-                            if (Validator.emailValidation(emailAddressBasicDetails.text.trim().toString())
+                            if (Validator.emailValidation(
+                                    emailAddressBasicDetails.text.trim().toString()
+                                )
                             ) {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
@@ -236,9 +243,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
                     if (response.data?.id.toString().isNotEmpty()) {
                         postClassifiedViewModel.listOfImagesUri.forEach {
-
+                            callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                         }
-
                     }
 
                     /*response.data?.id?.let {
@@ -247,7 +253,31 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         )
                     }*/
 
-                    findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                    //findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+
+        }
+
+        postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+
+                    Toast.makeText(
+                        context,
+                        "${response.data?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
@@ -261,6 +291,20 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
 
         return addressDetailsBinding?.root
+    }
+
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
+
+        val file = File(uri.toString().replace("file:", ""))
+
+        val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = id1.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
+
+        postClassifiedViewModel.uploadClassifiedPics(requestImage, addId, delId)
     }
 
     private fun postClassifiedRequest(
