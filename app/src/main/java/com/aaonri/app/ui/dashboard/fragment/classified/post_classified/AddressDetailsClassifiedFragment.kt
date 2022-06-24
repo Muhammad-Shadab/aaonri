@@ -242,18 +242,15 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 is Resource.Success -> {
 
                     if (response.data?.id.toString().isNotEmpty()) {
-                        postClassifiedViewModel.listOfImagesUri.forEach {
-                            callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                        if(postClassifiedViewModel.listOfImagesUri.isNotEmpty()){
+                            postClassifiedViewModel.listOfImagesUri.forEach {
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            }
+                        }else{
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
                     }
 
-                    /*response.data?.id?.let {
-                        postClassifiedViewModel.uploadImages(
-                            UploadImagesRequest(arrayListOf(), it)
-                        )
-                    }*/
-
-                    //findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {

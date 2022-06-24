@@ -26,20 +26,5 @@ interface PostClassifiedApi {
         @Body postClassifiedRequest: PostClassifiedRequest
     ): Response<PostClassifiedRequest>
 
-    /*@FormUrlEncoded
-    @Headers("Content-Type:application/json")
-    @POST("/api/v1/asd/uploadImages")
-    suspend fun uploadImages(
-        @Field("files[]") arrayOfImages: List<Any>,
-        @Field("adId") addId: Int,
-        @Field("delImageIds") delImageIds: String? = null,
-    ): Response<UploadImagesResponse>*/
-
-    /*@Headers("Content-Type:application/json")
-    @POST("/api/v1/asd/uploadImages")
-    suspend fun uploadImages(
-        @Body uploadImagesRequest: UploadImagesRequest
-    ): Response<UploadImagesResponse>*/
-
 
 }

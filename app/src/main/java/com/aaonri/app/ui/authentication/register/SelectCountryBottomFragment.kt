@@ -45,7 +45,6 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
 
         getCountries()
 
-
         countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
             if (args.isAddressScreen) {
                 authCommonViewModel.addCountryClicked(true)
@@ -86,11 +85,30 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    val southAsiaCountry = mutableListOf<CountriesResponseItem>()
                     searchCountry(response.data)
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                    response.data?.let { countryAdapter?.setData(response.data) }
+                    if (args.isAddressScreen) {
+                        response.data?.let { countryAdapter?.setData(response.data) }
+                    } else {
+                        response.data?.forEach {
+                            when(it.country){
+                                "Afghanistan" -> {southAsiaCountry.add(it)}
+                                "Bangladesh" -> {southAsiaCountry.add(it)}
+                                "Bhutan" -> {southAsiaCountry.add(it)}
+                                "India" -> {southAsiaCountry.add(it)}
+                                "Maldives" -> {southAsiaCountry.add(it)}
+                                "Nepal" -> {southAsiaCountry.add(it)}
+                                "Pakistan" -> {southAsiaCountry.add(it)}
+                                "Sri Lanka" -> {southAsiaCountry.add(it)}
+                            }
+                        }
+                        response.data?.let { countryAdapter?.setData(southAsiaCountry) }
+                    }
                 }
-                is Resource.Empty -> TODO()
+                is Resource.Empty -> {
+                    TODO()
+                }
             }
         }
     }
