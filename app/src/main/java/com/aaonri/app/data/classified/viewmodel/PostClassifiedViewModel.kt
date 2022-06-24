@@ -69,6 +69,8 @@ class PostClassifiedViewModel @Inject constructor(
     var listOfImagesUri = mutableListOf<Uri>()
         private set
 
+    var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
+
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
 
@@ -242,6 +244,10 @@ class PostClassifiedViewModel @Inject constructor(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun setClickedOnFilter(value: Boolean) {
+        clickedOnFilter.postValue(value)
     }
 
 }

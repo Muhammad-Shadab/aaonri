@@ -61,13 +61,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:textColorHint="@color/black"
-                android:paddingHorizontal="@dimen/_18sdp"
-                android:maxLines="1"
-                android:inputType="number"
-                android:paddingVertical="@dimen/_6sdp"
                 android:hint="Min:$10"
+                android:maxLength="2"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
                 android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
                 android:textSize="12sp" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -87,13 +88,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:paddingHorizontal="@dimen/_18sdp"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/_6sdp"
                 android:hint="Max:$30"
+                android:maxLength="2"
                 android:inputType="number"
-                android:textColorHint="@color/black"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_18sdp"
+                android:paddingVertical="@dimen/_6sdp"
                 android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
                 android:textSize="12sp" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -153,7 +155,7 @@
         android:paddingVertical="@dimen/_8sdp"
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_80sdp"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/hintColor"
         android:textSize="12sp" />
 
     <!--<TextView
@@ -307,7 +309,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginVertical="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_24sdp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -316,6 +318,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@drawable/blue_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
@@ -332,6 +335,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"

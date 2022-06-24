@@ -63,7 +63,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     price = priceClassifiedEt.text.toString().replace("$", "")
                 }
 
-
                 if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
                         .toString().length >= 3
                 ) {
@@ -130,6 +129,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         TODO("Not yet implemented")
                     }
                 }
+
         }
 
 

@@ -43,12 +43,6 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-        Toast.makeText(
-            context,
-            "value of is country selected: ${authCommonViewModel.isCountrySelected}",
-            Toast.LENGTH_SHORT
-        ).show()
-
         if (!isCountrySelected) {
             authCommonViewModel.setSelectedCountryLocationScreen(
                 countryName = "USA",
