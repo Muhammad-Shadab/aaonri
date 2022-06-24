@@ -43,22 +43,17 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-        if (!isCountrySelected) {
+        /*if (!isCountrySelected) {
             authCommonViewModel.setSelectedCountryLocationScreen(
                 countryName = "USA",
                 countryFlag = "https://disease.sh/assets/img/flags/us.png",
                 countryCode = "US"
             )
-        }
+        }*/
 
         locationDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
-
-            authCommonViewModel.apply {
-                selectCountryLocation.text = selectedCountryAddressScreen?.value?.first
-                countryFlagIcon.load(selectedCountryAddressScreen?.value?.second)
-            }
 
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)

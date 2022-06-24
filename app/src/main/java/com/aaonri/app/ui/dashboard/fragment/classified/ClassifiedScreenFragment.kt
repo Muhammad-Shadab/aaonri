@@ -34,7 +34,8 @@ class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    private val tabTitles = arrayListOf("All Classifieds", "My Classifieds", "Favorite Classifieds")
+    private val tabTitles =
+        arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -137,12 +138,15 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.searchView?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                        classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+
                     } else {
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
+                        classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
                     }
                 }
 
@@ -170,7 +174,6 @@ class ClassifiedScreenFragment : Fragment() {
                     postClassifiedViewModel.setNavigateToAllClassified(false)
                 }
             }
-
         }
 
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->

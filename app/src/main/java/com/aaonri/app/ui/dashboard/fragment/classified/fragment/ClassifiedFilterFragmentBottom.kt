@@ -98,7 +98,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         )
                 }
 
-                if (myLocationCheckBox.isChecked) {
+               /* if (myLocationCheckBox.isChecked) {
                     if (zipCode.text.toString()
                             .isNotEmpty() && zipCode.text.toString().length >= 5
                     ) {
@@ -118,7 +118,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                }
+                }*/
 
                 if (zipCode.text.toString().isNotEmpty()) {
                     if (zipCode.text.toString().length >= 5) {
@@ -140,11 +140,11 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     }
                 }
 
-                context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+               /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                     ?.set(
                         ClassifiedConstant.MY_LOCATION_CHECKBOX,
                         myLocationCheckBox.isChecked
-                    )
+                    )*/
             }
 
             closeClassifiedBtn.setOnClickListener {
@@ -472,9 +472,9 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         classifiedFilterBinding?.minPriceRange?.setText(minValue?.replace("Range: $", ""))
         classifiedFilterBinding?.maxPriceRange?.setText(maxValue?.replace("Range: $", ""))
         classifiedFilterBinding?.zipCode?.setText(zipCodeValue)
-        if (myLocationCheckBox != null) {
+        /*if (myLocationCheckBox != null) {
             classifiedFilterBinding?.myLocationCheckBox?.isChecked = myLocationCheckBox
-        }
+        }*/
 
     }
 
@@ -484,7 +484,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
         classifiedFilterBinding?.zipCode?.setText("")
-        classifiedFilterBinding?.myLocationCheckBox?.isChecked = false
+        /*classifiedFilterBinding?.myLocationCheckBox?.isChecked = false*/
 
         context?.let { it1 -> PreferenceManager<String>(it1) }
             ?.set(

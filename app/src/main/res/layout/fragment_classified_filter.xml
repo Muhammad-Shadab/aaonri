@@ -112,7 +112,7 @@
         android:textColor="@color/black"
         android:textSize="14sp" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -138,7 +138,7 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <EditText
         android:id="@+id/zipCode"

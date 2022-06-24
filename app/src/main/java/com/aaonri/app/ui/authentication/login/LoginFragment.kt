@@ -141,6 +141,14 @@ class LoginFragment : Fragment() {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_EMAIL, it)
                         }
+                        if (response.data?.user?.city?.isNotEmpty() == true) {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_CITY, response.data.user.city)
+                        }
+                        if (response.data?.user?.state?.isNotEmpty() == true) {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_STATE, response.data.user.state)
+                        }
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
@@ -152,6 +160,7 @@ class LoginFragment : Fragment() {
                         .show()
                 }
                 else -> {
+
                 }
             }
         }
