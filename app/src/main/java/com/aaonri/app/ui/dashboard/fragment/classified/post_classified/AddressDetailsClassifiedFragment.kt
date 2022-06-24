@@ -68,7 +68,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = true
-                ds.underlineColor = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
@@ -81,7 +82,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
 
-            if (emailRadioBtn.isChecked){
+            if (emailRadioBtn.isChecked) {
                 emailAddressBasicDetails.setText(email)
             }
 
@@ -234,11 +235,18 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
 
+                    if (response.data?.id.toString().isNotEmpty()){
+                        Toast.makeText(context, "NOte empty id", Toast.LENGTH_SHORT).show()
+
+                    }
+
                     /*response.data?.id?.let {
                         postClassifiedViewModel.uploadImages(
                             UploadImagesRequest(arrayListOf(), it)
                         )
                     }*/
+
+
 
                     findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                     addressDetailsBinding?.progressBar?.visibility = View.GONE

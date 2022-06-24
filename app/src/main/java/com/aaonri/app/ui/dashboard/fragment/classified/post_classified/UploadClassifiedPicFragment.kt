@@ -99,8 +99,33 @@ class UploadClassifiedPicFragment : Fragment() {
             }
 
             classifiedUploadPicNextBtn.setOnClickListener {
+
+                if (image1Uri.isNotEmpty()) {
+                    if (!listOfImagesUri.contains(image1Uri.toUri())) {
+                        listOfImagesUri.add(image1Uri.toUri())
+                    }
+                }
+                if (image2Uri.isNotEmpty()) {
+                    if (!listOfImagesUri.contains(image2Uri.toUri())) {
+                        listOfImagesUri.add(image2Uri.toUri())
+                    }
+                }
+                if (image3Uri.isNotEmpty()) {
+                    if (!listOfImagesUri.contains(image3Uri.toUri())) {
+                        listOfImagesUri.add(image3Uri.toUri())
+                    }
+                }
+                if (image4Uri.isNotEmpty()) {
+                    if (!listOfImagesUri.contains(image4Uri.toUri())) {
+                        listOfImagesUri.add(image4Uri.toUri())
+                    }
+                }
+
+                postClassifiedViewModel.setListOfUploadImagesUri(listOfImagesUri)
                 findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
             }
+
+
         }
 
         return uploadClassifiedBinding?.root
@@ -192,6 +217,9 @@ class UploadClassifiedPicFragment : Fragment() {
             })
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
             removeBorder(0)
+            if (listOfImagesUri.contains(image1Uri.toUri())) {
+                listOfImagesUri.remove(image1Uri.toUri())
+            }
             image1Uri = ""
             image1 = true
         } else if (index == 1) {
@@ -201,6 +229,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
+            if (listOfImagesUri.contains(image2Uri.toUri())) {
+                listOfImagesUri.remove(image2Uri.toUri())
+            }
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
             removeBorder(1)
             image2Uri = ""
@@ -212,6 +243,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
+            if (listOfImagesUri.contains(image3Uri.toUri())) {
+                listOfImagesUri.remove(image3Uri.toUri())
+            }
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
             removeBorder(2)
             image3Uri = ""
@@ -223,6 +257,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
+            if (listOfImagesUri.contains(image4Uri.toUri())) {
+                listOfImagesUri.remove(image4Uri.toUri())
+            }
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
             removeBorder(3)
             image4Uri = ""

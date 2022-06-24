@@ -1,5 +1,6 @@
 package com.aaonri.app.data.classified.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -63,6 +64,9 @@ class PostClassifiedViewModel @Inject constructor(
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
     val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
+
+    var listOfImagesUri = mutableListOf<Uri>()
+        private set
 
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
@@ -214,6 +218,10 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setIsMyLocationChecked(value: Boolean) {
         isMyLocationCheckedInFilterScreen.postValue(value)
+    }
+
+    fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
+        listOfImagesUri.addAll(uploadedImagesList)
     }
 
 }
