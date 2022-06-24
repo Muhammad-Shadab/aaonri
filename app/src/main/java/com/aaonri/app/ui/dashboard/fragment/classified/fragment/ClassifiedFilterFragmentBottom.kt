@@ -44,7 +44,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
 
                 if (minValue.isNotEmpty()) {
-                    if (minValue.toInt() in 10..30) {
+                    if (minValue.toDouble() in 10.0..30.0) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.MIN_VALUE_FILTER,
@@ -61,8 +61,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                }
-                else {
+                } else {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.MIN_VALUE_FILTER,
@@ -70,7 +69,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         )
                 }
                 if (maxValue.isNotEmpty()) {
-                    if (maxValue.toInt() in 10..30) {
+                    if (maxValue.toDouble() in 10.0..30.0) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.MAX_VALUE_FILTER,
@@ -92,8 +91,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
-                }
-                else {
+                } else {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.MAX_VALUE_FILTER,
@@ -101,27 +99,27 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         )
                 }
 
-               /* if (myLocationCheckBox.isChecked) {
-                    if (zipCode.text.toString()
-                            .isNotEmpty() && zipCode.text.toString().length >= 5
-                    ) {
-                        context?.let { it1 -> PreferenceManager<String>(it1) }
-                            ?.set(
-                                ClassifiedConstant.ZIPCODE_FILTER,
-                                "${zipCode.text}"
-                            )
-                        postClassifiedViewModel.setClickedOnFilter(true)
-                        findNavController().navigateUp()
-                    } else {
-                        dialog?.window?.decorView?.let {
-                            Snackbar.make(
-                                it,
-                                "Please enter valid ZipCode",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }*/
+                /* if (myLocationCheckBox.isChecked) {
+                     if (zipCode.text.toString()
+                             .isNotEmpty() && zipCode.text.toString().length >= 5
+                     ) {
+                         context?.let { it1 -> PreferenceManager<String>(it1) }
+                             ?.set(
+                                 ClassifiedConstant.ZIPCODE_FILTER,
+                                 "${zipCode.text}"
+                             )
+                         postClassifiedViewModel.setClickedOnFilter(true)
+                         findNavController().navigateUp()
+                     } else {
+                         dialog?.window?.decorView?.let {
+                             Snackbar.make(
+                                 it,
+                                 "Please enter valid ZipCode",
+                                 Snackbar.LENGTH_SHORT
+                             ).show()
+                         }
+                     }
+                 }*/
 
                 if (zipCode.text.toString().isNotEmpty()) {
                     if (zipCode.text.toString().length >= 5) {
@@ -143,12 +141,12 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                     }
                 }
 
-               /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MY_LOCATION_CHECKBOX,
-                        myLocationCheckBox.isChecked
-<<<<<<< HEAD
-                    )*/
+                /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                     ?.set(
+                         ClassifiedConstant.MY_LOCATION_CHECKBOX,
+                         myLocationCheckBox.isChecked
+ <<<<<<< HEAD
+                     )*/
 
 
             }
