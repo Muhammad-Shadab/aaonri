@@ -29,11 +29,6 @@ class SplashScreenFragment : Fragment() {
             FragmentSplashScreenBinding.inflate(inflater, container, false)
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-       /* val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
-        val state = context?.let { PreferenceManager<String>(it)[Constant.USER_STATE, ""] }*/
-
-        /*Toast.makeText(context, "$city", Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "$state", Toast.LENGTH_SHORT).show()*/
 
         var job: Job? = null
         job = MainScope().launch {

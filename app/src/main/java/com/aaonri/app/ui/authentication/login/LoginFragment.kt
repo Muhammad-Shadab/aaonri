@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -145,9 +146,9 @@ class LoginFragment : Fragment() {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_CITY, response.data.user.city)
                         }
-                        if (response.data?.user?.state?.isNotEmpty() == true) {
+                        if (response.data?.user?.zipcode?.isNotEmpty() == true) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(Constant.USER_STATE, response.data.user.state)
+                                ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)

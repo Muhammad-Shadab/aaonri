@@ -49,6 +49,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
+        val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
@@ -86,6 +88,12 @@ class AddressDetailsClassifiedFragment : Fragment() {
             textDesc1.text = ss
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
+            if (city?.isNotEmpty() == true) {
+                cityNameAddressDetails.setText(city)
+            }
+            if (zipCode?.isNotEmpty() == true) {
+                zipCodeAddressDetails.setText(zipCode)
+            }
 
             if (emailRadioBtn.isChecked) {
                 emailAddressBasicDetails.setText(email)
@@ -242,12 +250,12 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 is Resource.Success -> {
 
                     if (response.data?.id.toString().isNotEmpty()) {
-                        if(postClassifiedViewModel.listOfImagesUri.isNotEmpty()){
+                        if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
-                        }else{
+                        } else {
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
                     }
