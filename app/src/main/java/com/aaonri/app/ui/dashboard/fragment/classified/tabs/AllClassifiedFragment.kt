@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -28,6 +29,7 @@ class AllClassifiedFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +40,8 @@ class AllClassifiedFragment : Fragment() {
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
+
+
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
@@ -71,6 +75,14 @@ class AllClassifiedFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val minValue =
+            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, ""] }
+        val maxValue =
+            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, ""] }
+        val zipCodeValue =
+            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedViewModel.getClassifiedByUser(
@@ -80,16 +92,15 @@ class AllClassifiedFragment : Fragment() {
                         fetchCatSubCat = true,
                         keywords = "",
                         location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
+                        maxPrice = if (minValue?.isNotEmpty() == true) minValue.toInt() else 0,
+                        minPrice = if (minValue?.isNotEmpty() == true) minValue.toInt() else 0,
                         myAdsOnly = false,
                         popularOnAoonri = null,
                         subCategory = "",
                         zipCode = ""
                     )
                 )
-            }
-            else {
+            } else {
                 classifiedViewModel.getClassifiedByUser(
                     GetClassifiedByUserRequest(
                         category = "",

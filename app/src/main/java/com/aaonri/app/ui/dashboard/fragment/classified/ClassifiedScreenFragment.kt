@@ -36,7 +36,6 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles = arrayListOf("All Classifieds", "My Classifieds", "Favorite Classifieds")
 
-
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +47,7 @@ class ClassifiedScreenFragment : Fragment() {
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
-        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+        /*context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
                 ClassifiedConstant.MY_LOCATION_CHECKBOX, false
             )
@@ -66,7 +65,7 @@ class ClassifiedScreenFragment : Fragment() {
             ?.set(
                 ClassifiedConstant.ZIPCODE_FILTER,
                 ""
-            )
+            )*/
 
         classifiedScreenBinding?.apply {
 
@@ -135,7 +134,13 @@ class ClassifiedScreenFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.searchView?.visibility = View.GONE
+                        classifiedScreenBinding?.filterClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                     } else {
+                        classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                     }
@@ -211,7 +216,7 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 }
             }
-            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true){
+            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                 classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }

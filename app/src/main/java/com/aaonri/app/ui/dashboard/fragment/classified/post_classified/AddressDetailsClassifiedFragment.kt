@@ -246,6 +246,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }else{
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
@@ -268,13 +269,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-
-                    Toast.makeText(
-                        context,
-                        "${response.data?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
@@ -295,7 +289,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val file = File(uri.toString().replace("file:", ""))
 
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = id1.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
