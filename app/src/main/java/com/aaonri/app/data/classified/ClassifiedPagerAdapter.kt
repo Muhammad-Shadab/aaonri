@@ -22,7 +22,7 @@ class ClassifiedPagerAdapter(fragment: Fragment, val isFilterEnabled: Boolean) :
         val allClassifiedFragment = AllClassifiedFragment()
         allClassifiedFragment.arguments = bundle
         val myClassifiedFragment = MyClassifiedFragment()
-        allClassifiedFragment.arguments = bundle
+        myClassifiedFragment.arguments = bundle
         return when (position) {
             0 -> allClassifiedFragment
             1 -> myClassifiedFragment
