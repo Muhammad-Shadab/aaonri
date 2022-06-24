@@ -50,7 +50,7 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadPicBtn.setOnClickListener {
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
                     ImagePicker.with(activity!!)
-                        .compress(1024)
+                        .compress(800)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
@@ -151,7 +151,6 @@ class UploadClassifiedPicFragment : Fragment() {
                 }
 
                 setImage()
-
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()

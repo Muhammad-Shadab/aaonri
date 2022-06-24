@@ -68,7 +68,7 @@ class LocationDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (stateLocationDetails.text.isNotEmpty() && cityLocationDetails.text.isNotEmpty() && isCommunitySelected) {
+                if (isCommunitySelected) {
                     findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
                 } else {
                     activity?.let { it1 ->
