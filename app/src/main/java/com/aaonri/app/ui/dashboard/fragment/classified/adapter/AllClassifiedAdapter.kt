@@ -3,14 +3,14 @@ package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
     RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
@@ -44,7 +44,6 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
 
-            //classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
@@ -96,7 +95,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
-            //classifiedPostDateTv.text = data[position].createdOn
+            classifiedPostDateTv.text = data[position].createdOn
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])

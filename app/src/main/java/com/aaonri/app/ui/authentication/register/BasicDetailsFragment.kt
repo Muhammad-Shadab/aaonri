@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -20,9 +22,9 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.ui.authentication.login.LoginActivity
+import com.aaonri.app.utils.*
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +41,7 @@ class BasicDetailsFragment : Fragment() {
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isEmailValid = false
     var isPasswordValid = false
+    var profile = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,13 +64,33 @@ class BasicDetailsFragment : Fragment() {
             firstNameBasicDetails.filters = arrayOf(filter)
             lastNameBasicDetails.filters = arrayOf(filter)
 
-            addProfileIv.setOnClickListener {
-                /*ImagePicker.with(activity!!)
-                    .compress(1024)
-                    .maxResultSize(1080, 1080)
-                    .createIntent { intent ->
-                        startForProfileImageResult.launch(intent)
-                    }*/
+            profilePicPlaceholder.setOnClickListener {
+                if (profile.isEmpty()){
+                    ImagePicker.with(activity!!)
+                        .compress(1024)
+                        .maxResultSize(1080, 1080)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                        }
+                }else{
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Select")
+                    builder.setMessage("Change profile photo")
+                    builder.setPositiveButton("Change") { dialog, which ->
+                        ImagePicker.with(activity!!)
+                            .compress(1024)
+                            .maxResultSize(1080, 1080)
+                            .createIntent { intent ->
+                                startForProfileImageResult.launch(intent)
+                            }
+                    }
+                    builder.setNegativeButton("Remove") { dialog, which ->
+                        profile = ""
+                        setImage()
+                        addProfileBtn.visibility = View.VISIBLE
+                    }
+                    builder.show()
+                }
             }
 
             emailAddressBasicDetails.addTextChangedListener { editable ->
@@ -198,8 +221,11 @@ class BasicDetailsFragment : Fragment() {
 
                 val fileUri = data?.data!!
 
-                basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
-                basicDetailsBinding?.addProfileBtn?.visibility = View.INVISIBLE
+                profile = fileUri.toString()
+
+                setImage()
+                //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
+                basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
@@ -207,5 +233,27 @@ class BasicDetailsFragment : Fragment() {
 
             }
         }
+
+    private fun setImage() {
+        if (profile.isNotEmpty()){
+            basicDetailsBinding?.addProfileIv?.let {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load(profile)
+                        .circleCrop()
+                        .into(it)
+                }
+            }
+        }else{
+            basicDetailsBinding?.addProfileIv?.let {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load(R.drawable.profile_pic_placeholder)
+                        .circleCrop()
+                        .into(it)
+                }
+            }
+        }
+    }
 
 }
