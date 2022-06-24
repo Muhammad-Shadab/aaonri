@@ -115,12 +115,11 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 val phoneNumber = phoneNumberAddressDetails.text.trim().toString().replace("-", "")
 
 
-                if (cityNameAddressDetails.text.trim().toString().length > 3
+                if (cityNameAddressDetails.text.trim().toString().length >= 3
                 ) {
                     if (zipCodeAddressDetails.text.trim().toString().length >= 5) {
                         if (emailRadioBtn.isChecked) {
-                            if (isEmailValid && emailAddressBasicDetails.text.trim().toString()
-                                    .isNotEmpty()
+                            if (Validator.emailValidation(emailAddressBasicDetails.text.trim().toString())
                             ) {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
@@ -235,8 +234,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
 
-                    if (response.data?.id.toString().isNotEmpty()){
-                        Toast.makeText(context, "NOte empty id", Toast.LENGTH_SHORT).show()
+                    if (response.data?.id.toString().isNotEmpty()) {
+                        postClassifiedViewModel.listOfImagesUri.forEach {
+
+                        }
 
                     }
 
@@ -245,8 +246,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             UploadImagesRequest(arrayListOf(), it)
                         )
                     }*/
-
-
 
                     findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                     addressDetailsBinding?.progressBar?.visibility = View.GONE

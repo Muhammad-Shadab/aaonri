@@ -23,6 +23,8 @@ class ClassifiedRepository @Inject constructor(
 
     suspend fun getClassifiedCategory() = postClassifiedApi.getClassifiedCategory()
 
+    //suspend fun uploadClassifiedPics(files: File, addId: Int) = postClassifiedApi.uploadClassifiedPics()
+
     suspend fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         classifiedApi.getClassifiedByUser(getClassifiedsByUserRequest)
 

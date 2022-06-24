@@ -51,31 +51,43 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
         classifiedDetailsBinding?.apply {
 
-            priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2));
-
             priceClassifiedEt.stickPrefix("$")
 
+            priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2));
+
             classifiedDetailsNextBtn.setOnClickListener {
+
+                var price = ""
+
+                if (priceClassifiedEt.text.toString().contains("$")) {
+                    price = priceClassifiedEt.text.toString().replace("$", "")
+                }
+
+
                 if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
                         .toString().length >= 3
                 ) {
-                    if (priceClassifiedEt.text.toString().replace("$", "").toInt() > 0
-                    ) {
-
-                        if (classifiedDescEt.text.isNotEmpty()) {
-                            postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
-                            postClassifiedViewModel.addClassifiedBasicDetails(
-                                title = titleClassifiedEt.text.trim().toString(),
-                                price = priceClassifiedEt.text.trim().toString().replace("$", ""),
-                                adDescription = classifiedDescEt.text.trim().toString()
-                            )
-                            findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                    if (price.isNotEmpty()){
+                        if (price.toInt() > 0)
+                        {
+                            if (classifiedDescEt.text.isNotEmpty()) {
+                                postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
+                                postClassifiedViewModel.addClassifiedBasicDetails(
+                                    title = titleClassifiedEt.text.trim().toString(),
+                                    price = priceClassifiedEt.text.trim().toString().replace("$", ""),
+                                    adDescription = classifiedDescEt.text.trim().toString()
+                                )
+                                findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                            } else {
+                                showAlert("Please enter valid classified description")
+                            }
                         } else {
-                            showAlert("Please enter valid classified description")
+                            showAlert("Please enter valid classified price")
                         }
-                    } else {
+                    }else{
                         showAlert("Please enter valid classified price")
                     }
+
                 } else {
                     showAlert("Please enter valid classified title")
                 }
@@ -119,6 +131,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     }
                 }
         }
+
+
 
         postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
             when (response) {
