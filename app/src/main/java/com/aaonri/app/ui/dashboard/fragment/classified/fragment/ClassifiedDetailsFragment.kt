@@ -1,5 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -24,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class ClassifiedDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedDetailsBinding? = null
@@ -31,6 +34,8 @@ class ClassifiedDetailsFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     var isClassifiedLike = false
     var itemId = 0
+    var isEmailAvailable = ""
+    var isPhoneAvailable = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,7 +78,25 @@ class ClassifiedDetailsFragment : Fragment() {
                     callLikeDislikeApi()
                 }
             }
+
+            classifiedSellerEmail.setOnClickListener {
+                if (isEmailAvailable.isNotEmpty()) {
+                    val emailIntent = Intent(
+                        Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto", isEmailAvailable, null
+                        )
+                    )
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                    startActivity(Intent.createChooser(emailIntent, "Send email..."))
+                } else {
+                    val intent = Intent(Intent.ACTION_DIAL)
+                    intent.data = Uri.parse("tel:<$isPhoneAvailable>")
+                    startActivity(intent)
+                }
+            }
         }
+
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
             itemId = userAds.id
             callLikeDislikeApi()
@@ -83,6 +106,19 @@ class ClassifiedDetailsFragment : Fragment() {
                 changeCardViewBorder(0)
             }
             classifiedDetailsBinding?.apply {
+
+                if (userAds.adEmail.isNotEmpty()) {
+                    isEmailAvailable = userAds.adEmail
+                    isPhoneAvailable = userAds.adPhone
+                    emailTv.text = "Email"
+                    classifiedSellerEmail.text = userAds.adEmail
+                } else {
+                    isEmailAvailable = userAds.adEmail
+                    isPhoneAvailable = userAds.adPhone
+                    emailTv.text = "Phone"
+                    classifiedSellerEmail.text = userAds.adPhone
+                }
+
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
@@ -178,13 +214,14 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
                 classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
                 //sellerName.text = userAds.
-                classifiedSellerEmail.text = userAds.adEmail
 
             }
         }
 
+
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
             itemId = userAds.id
+            Toast.makeText(context, userAds.adPhone, Toast.LENGTH_SHORT).show()
 
             if (userAds.userAdsImages.isEmpty()) {
                 changeCardViewBorder(9)
@@ -192,6 +229,22 @@ class ClassifiedDetailsFragment : Fragment() {
                 changeCardViewBorder(0)
             }
             classifiedDetailsBinding?.apply {
+
+                if (userAds.adEmail.isNotEmpty()) {
+                    isEmailAvailable = userAds.adEmail
+                    isPhoneAvailable = userAds.adPhone
+                    emailTv.text = "Email"
+                    classifiedSellerEmail.text = userAds.adEmail
+                } else {
+                    isEmailAvailable = userAds.adEmail
+                    isPhoneAvailable = userAds.adPhone
+                    emailTv.text = "Phone"
+                    classifiedSellerEmail.text = userAds.adPhone
+                }
+
+
+
+
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
@@ -308,7 +361,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
                 classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
                 //sellerName.text = userAds.
-                classifiedSellerEmail.text = userAds.adEmail
 
             }
         }

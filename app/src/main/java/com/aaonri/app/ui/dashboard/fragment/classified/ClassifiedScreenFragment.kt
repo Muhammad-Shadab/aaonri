@@ -195,6 +195,7 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
+
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
