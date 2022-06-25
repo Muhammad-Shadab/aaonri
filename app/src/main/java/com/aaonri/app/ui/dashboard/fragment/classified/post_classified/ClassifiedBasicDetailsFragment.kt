@@ -62,33 +62,42 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     price = priceClassifiedEt.text.toString().replace("$", "")
                 }
 
-                if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
-                        .toString().length >= 3
-                ) {
-                    if (price.isNotEmpty() && price.length < 9) {
-                        if (price.toDouble() < 999999999) {
-                            if (classifiedDescEt.text.isNotEmpty()) {
-                                postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
-                                postClassifiedViewModel.addClassifiedBasicDetails(
-                                    title = titleClassifiedEt.text.trim().toString(),
-                                    price = priceClassifiedEt.text.trim().toString()
-                                        .replace("$", ""),
-                                    adDescription = classifiedDescEt.text.trim().toString()
-                                )
-                                findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                if (selectCategoryClassifiedSpinner.text.toString().isNotEmpty()){
+                    if (selectSubCategoryClassifiedSpinner.text.toString().isNotEmpty()){
+                        if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
+                                .toString().length >= 3
+                        ) {
+                            if (price.isNotEmpty() && price.length < 9) {
+                                if (price.toDouble() < 999999999) {
+                                    if (classifiedDescEt.text.isNotEmpty()) {
+                                        postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
+                                        postClassifiedViewModel.addClassifiedBasicDetails(
+                                            title = titleClassifiedEt.text.trim().toString(),
+                                            price = priceClassifiedEt.text.trim().toString()
+                                                .replace("$", ""),
+                                            adDescription = classifiedDescEt.text.trim().toString()
+                                        )
+                                        findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
+                                    } else {
+                                        showAlert("Please enter valid classified description")
+                                    }
+                                } else {
+                                    showAlert("Please enter valid classified price")
+                                }
                             } else {
-                                showAlert("Please enter valid classified description")
+                                showAlert("Please enter valid classified price")
                             }
-                        } else {
-                            showAlert("Please enter valid classified price")
-                        }
-                    } else {
-                        showAlert("Please enter valid classified price")
-                    }
 
-                } else {
-                    showAlert("Please enter valid classified title")
+                        } else {
+                            showAlert("Please enter valid classified title")
+                        }
+                    }else{
+                        showAlert("Please select valid sub category")
+                    }
+                }else{
+                    showAlert("Please select valid category")
                 }
+
             }
 
             classifiedDescEt.addTextChangedListener { editable ->
@@ -105,40 +114,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     ClassifiedBasicDetailsFragmentDirections.actionClassifiedBasicDetailsFragmentToSelectClassifiedSubCategoryBottom()
                 findNavController().navigate(action)
             }
-
-            /*selectCategoryClassifiedSpinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-                        postClassifiedViewModel.addClassifiedCategory(classifiedCategory[p2].title)
-
-                        classifiedSubCategory =
-                            classifiedCategory[p2].classifiedSubcategory as MutableList<ClassifiedSubcategoryX>
-                        val adapter = context?.let {
-                            ClassifiedSubCategoryArrayAdapter(
-                                it,
-                                classifiedSubCategory
-                            )
-                        }
-                        classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.adapter =
-                            adapter
-                    }
-
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
-                    }
-                }*/
-
-            /* selectSubCategoryClassifiedSpinner.onItemSelectedListener =
-                 object : AdapterView.OnItemSelectedListener {
-                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                         postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
-                     }
-
-                     override fun onNothingSelected(p0: AdapterView<*>?) {
-                         TODO("Not yet implemented")
-                     }
-                 }*/
 
         }
 
