@@ -19,31 +19,47 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Spinner
+            <TextView
                 android:id="@+id/selectCategoryClassifiedSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/spinner"
-                android:minHeight="0dp"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:spinnerMode="dropdown" />
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="Select Category"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/selectSubCategoryClassifiedSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/spinner"
-                android:minHeight="0dp"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:spinnerMode="dropdown" />
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="Select Sub Category"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
             <TextView
                 android:id="@+id/lastNameValidationTv"

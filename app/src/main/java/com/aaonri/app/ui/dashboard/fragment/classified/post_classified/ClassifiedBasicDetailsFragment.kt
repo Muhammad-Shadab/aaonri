@@ -36,8 +36,7 @@ import java.io.File
 class ClassifiedBasicDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var classifiedCategory = mutableListOf<ClassifiedCategoryResponseItem>()
-    var classifiedSubCategory = mutableListOf<ClassifiedSubcategoryX>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,9 +44,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         classifiedDetailsBinding =
             FragmentClassifiedBasicDetailsBinding.inflate(inflater, container, false)
 
-        postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
-
         postClassifiedViewModel.getClassifiedCategory()
+
+        postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
         classifiedDetailsBinding?.apply {
 
@@ -66,14 +65,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 if (titleClassifiedEt.text.isNotEmpty() && titleClassifiedEt.text.trim()
                         .toString().length >= 3
                 ) {
-                    if (price.isNotEmpty() && price.length < 9){
-                        if (price.toDouble() < 999999999)
-                        {
+                    if (price.isNotEmpty() && price.length < 9) {
+                        if (price.toDouble() < 999999999) {
                             if (classifiedDescEt.text.isNotEmpty()) {
                                 postClassifiedViewModel.addIsProductNewCheckBox(isProductNewCheckBox.isChecked)
                                 postClassifiedViewModel.addClassifiedBasicDetails(
                                     title = titleClassifiedEt.text.trim().toString(),
-                                    price = priceClassifiedEt.text.trim().toString().replace("$", ""),
+                                    price = priceClassifiedEt.text.trim().toString()
+                                        .replace("$", ""),
                                     adDescription = classifiedDescEt.text.trim().toString()
                                 )
                                 findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
@@ -83,7 +82,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         } else {
                             showAlert("Please enter valid classified price")
                         }
-                    }else{
+                    } else {
                         showAlert("Please enter valid classified price")
                     }
 
@@ -95,8 +94,19 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDescEt.addTextChangedListener { editable ->
                 descLength.text = "${editable.toString().length}/2000"
             }
+            selectCategoryClassifiedSpinner.setOnClickListener {
+                val action =
+                    ClassifiedBasicDetailsFragmentDirections.actionClassifiedBasicDetailsFragmentToSelectClassifiedCategoryBottom()
+                findNavController().navigate(action)
+            }
 
-            selectCategoryClassifiedSpinner.onItemSelectedListener =
+            selectSubCategoryClassifiedSpinner.setOnClickListener {
+                val action =
+                    ClassifiedBasicDetailsFragmentDirections.actionClassifiedBasicDetailsFragmentToSelectClassifiedSubCategoryBottom()
+                findNavController().navigate(action)
+            }
+
+            /*selectCategoryClassifiedSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
@@ -117,66 +127,29 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     override fun onNothingSelected(p0: AdapterView<*>?) {
                         TODO("Not yet implemented")
                     }
-                }
+                }*/
 
-            selectSubCategoryClassifiedSpinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
-                    }
+            /* selectSubCategoryClassifiedSpinner.onItemSelectedListener =
+                 object : AdapterView.OnItemSelectedListener {
+                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                         postClassifiedViewModel.addClassifiedSubCategory(classifiedSubCategory[p2].title)
+                     }
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
-                    }
-                }
+                     override fun onNothingSelected(p0: AdapterView<*>?) {
+                         TODO("Not yet implemented")
+                     }
+                 }*/
 
         }
 
+        postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
+            classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text = it.title
+            classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = ""
 
+        }
 
-        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-
-                    classifiedCategory = response.data!!
-
-                    classifiedSubCategory.add(
-                        0,
-                        ClassifiedSubcategoryX(0, 0, 0, "Select Sub Category*")
-                    )
-                    classifiedCategory.add(
-                        0,
-                        ClassifiedCategoryResponseItem(
-                            classifiedSubCategory,
-                            0,
-                            0,
-                            0,
-                            "Select Category*"
-                        )
-                    )
-
-                    val adapter = classifiedCategory.let {
-                        context?.let { it1 ->
-                            ClassifiedCategoryArrayAdapter(
-                                it1,
-                                it
-                            )
-                        }
-                    }
-
-                    classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.adapter = adapter
-
-                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-
-                }
-                is Resource.Error -> {
-                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
-                }
-                else -> {}
-            }
+        postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
+            classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
         return classifiedDetailsBinding?.root

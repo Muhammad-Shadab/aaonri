@@ -60,6 +60,14 @@ class PostClassifiedViewModel @Inject constructor(
     var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var selectedClassifiedCategory: MutableLiveData<ClassifiedCategoryResponseItem> =
+        MutableLiveData()
+        private set
+
+    var selectedSubClassifiedCategory: MutableLiveData<ClassifiedSubcategoryX> =
+        MutableLiveData()
+        private set
+
     var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
@@ -248,6 +256,14 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setClickedOnFilter(value: Boolean) {
         clickedOnFilter.postValue(value)
+    }
+
+    fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
+        selectedClassifiedCategory.postValue(value)
+    }
+
+    fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
+        selectedSubClassifiedCategory.postValue(value)
     }
 
 }

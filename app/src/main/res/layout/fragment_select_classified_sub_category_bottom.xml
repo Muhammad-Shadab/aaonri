@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.dashboard.fragment.classified.post_classified.SelectClassifiedCategoryBottom">
+    tools:context=".ui.dashboard.fragment.classified.fragment.SelectClassifiedSubCategoryBottom">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Select Category"
+            android:text="Select Sub Category"
             android:textColor="@color/textViewColor"
             android:textSize="@dimen/_14sdp" />
 
@@ -51,8 +51,8 @@
             android:layout_height="@dimen/_260sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp" />
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp" />
 
     </LinearLayout>
 
