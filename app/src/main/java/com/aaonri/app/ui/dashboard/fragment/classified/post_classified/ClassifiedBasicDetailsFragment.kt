@@ -145,7 +145,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
             classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text = it.title
             classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = ""
-
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
