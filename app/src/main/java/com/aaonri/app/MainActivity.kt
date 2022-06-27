@@ -1,19 +1,13 @@
 package com.aaonri.app
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
-import com.aaonri.app.ui.authentication.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,19 +35,27 @@ class MainActivity : BaseActivity() {
         dashboardCommonViewModel.setGuestUser(guest)
 
         mainActivityBinding?.apply {
-            bottomNavigation.setupWithNavController(navController)
 
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                if(destination.id == R.id.classifiedDetailsFragment) {
+
+            /*bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_home_1))
+            bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_classified))
+            bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_shop))
+            bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_advertise))
+            bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_more))*/
+
+
+
+            //bottomNavigation.setupWithNavController(navController)
+
+            /*navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.classifiedDetailsFragment) {
                     bottomNavigation.visibility = View.GONE
                 } else {
                     bottomNavigation.visibility = View.VISIBLE
                 }
-            }
-
-
-
+            }*/
         }
 
     }
+
 }

@@ -1,20 +1,16 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.adapter.ClassifiedSubCategoryAdapter
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
-import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
 import com.aaonri.app.databinding.FragmentSelectClassifiedSubCategoryBottomBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

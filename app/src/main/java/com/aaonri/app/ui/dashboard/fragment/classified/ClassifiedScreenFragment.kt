@@ -46,7 +46,6 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
-
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
                 ClassifiedConstant.MY_LOCATION_CHECKBOX, false
@@ -207,7 +206,6 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
@@ -268,31 +266,7 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             })
 
-
-
         }
-
     }
-
-    /*private fun selectedFilterDataObserver() {
-        postClassifiedViewModel.filterSelectedDataList.observe(viewLifecycleOwner) { selectedFilter ->
-
-            if (selectedFilter.contains(deleteElement)) {
-                selectedFilter.remove(deleteElement)
-                deleteElement = ""
-            }
-
-            filterAdapter?.setData(selectedFilter)
-            if (selectedFilter.isNotEmpty()) {
-                classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
-                classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-                classifiedScreenBinding?.numberOfSelectedFilterTv?.text =
-                    selectedFilter.size.toString()
-            } else {
-                classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-                classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
-            }
-        }
-    }*/
 
 }

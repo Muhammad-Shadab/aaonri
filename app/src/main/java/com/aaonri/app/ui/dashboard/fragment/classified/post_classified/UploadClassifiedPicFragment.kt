@@ -288,6 +288,16 @@ class UploadClassifiedPicFragment : Fragment() {
         }
     }
 
+    /*private fun setImageAfterDelete() {
+        listOfImagesUri.forEach {
+            if (image4Uri.isEmpty()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            }else if (image3Uri.isEmpty()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            }
+        }
+    }*/
+
     private fun removeBorder(index: Int) {
         when (index) {
             0 -> {
