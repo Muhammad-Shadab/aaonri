@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -30,7 +32,11 @@ class HomeScreenFragment : Fragment() {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         homeScreenBinding?.apply {
-            logOutBtn.setOnClickListener {
+
+            homeTv.setOnClickListener {
+                findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
+            }
+            /*logOutBtn.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
                 builder.setMessage("Are you sure you want to Logout")
@@ -45,16 +51,16 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 builder.show()
-            }
+            }*/
         }
 
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
-            if (it) {
-                homeScreenBinding?.logOutBtn?.visibility = View.GONE
-            } else {
-                homeScreenBinding?.logOutBtn?.visibility = View.VISIBLE
-            }
-        }
+        /* dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+             if (it) {
+                 homeScreenBinding?.logOutBtn?.visibility = View.GONE
+             } else {
+                 homeScreenBinding?.logOutBtn?.visibility = View.VISIBLE
+             }
+         }*/
 
         return homeScreenBinding?.root
     }

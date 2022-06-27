@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
@@ -43,17 +44,15 @@ class MainActivity : BaseActivity() {
             bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_advertise))
             bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_more))*/
 
+            bottomNavigation.setupWithNavController(navController)
 
-
-            //bottomNavigation.setupWithNavController(navController)
-
-            /*navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.classifiedDetailsFragment) {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.classifiedDetailsFragment || destination.id == R.id.eventScreenFragment) {
                     bottomNavigation.visibility = View.GONE
                 } else {
                     bottomNavigation.visibility = View.VISIBLE
                 }
-            }*/
+            }
         }
 
     }
