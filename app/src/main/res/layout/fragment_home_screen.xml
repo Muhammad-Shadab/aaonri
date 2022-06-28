@@ -7,23 +7,6 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.login.LoginFragment">
 
-
-    <!--<TextView
-        android:id="@+id/registrationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Home"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="31dp" />-->
-
-
     <TextView
         android:id="@+id/homeTv"
         android:layout_width="wrap_content"
@@ -132,8 +115,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/aaonriFeatureLinearLayout"
@@ -143,6 +126,7 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:orientation="horizontal"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -264,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="#c9c9c9"/>
+                android:background="#c9c9c9" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -280,8 +264,8 @@
                     android:text="Classifieds"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/seeAllClassified"
@@ -310,7 +294,7 @@
                     android:id="@+id/classifiedRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/classifiedTv" />
@@ -321,6 +305,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:scrollbars="none"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/classifiedRv">
@@ -331,43 +316,43 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/tab_background"
-                            android:paddingHorizontal="@dimen/_12sdp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:text="Events" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:background="@drawable/tab_background_shape"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="Events" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_6sdp"
-                            android:background="@drawable/tab_background"
-                            android:paddingHorizontal="@dimen/_12sdp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:text="Jobs" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:background="@drawable/tab_background"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="Jobs" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_6sdp"
-                            android:background="@drawable/tab_background"
-                            android:paddingHorizontal="@dimen/_12sdp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:text="Astrology" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:background="@drawable/tab_background"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="Astrology" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_6sdp"
-                            android:background="@drawable/tab_background"
-                            android:paddingHorizontal="@dimen/_12sdp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:text="Services" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:background="@drawable/tab_background"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="Services" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
 
                 </HorizontalScrollView>
 
@@ -411,9 +396,9 @@
                     android:id="@+id/eventHorizontalLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
                     android:scrollbars="none"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventTv">
@@ -488,24 +473,31 @@
                 </HorizontalScrollView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/myEventsCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:elevation="@dimen/_6sdp"
+                    android:visibility="visible"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/eventHorizontalLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/eventHorizontalLayout"
+                    app:strokeColor="#e7e7e7"
+                    app:strokeWidth="@dimen/_1sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_8sdp"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="@dimen/_12sdp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -547,7 +539,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -559,6 +551,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/three_generations_of_the_world"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -572,14 +565,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_time_watch"/>
+                                        android:src="@drawable/ic_time_watch" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
                                         android:layout_marginStart="@dimen/_8sdp"
-                                        android:text="Sun, Mar 27  8:00 AM(IST)"/>
+                                        android:text="Sun, Mar 27  8:00 AM(IST)"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
 
@@ -588,15 +581,23 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/arrow_forward"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/arrow_forward"
                                 app:tint="@color/hintColor" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:background="#e7e7e7" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -608,6 +609,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/three_generations_of_the_world"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -621,14 +623,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_time_watch"/>
+                                        android:src="@drawable/ic_time_watch" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
                                         android:layout_marginStart="@dimen/_8sdp"
-                                        android:text="Sun, Mar 27  8:00 AM(IST)"/>
+                                        android:text="Sun, Mar 27  8:00 AM(IST)"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
 
@@ -637,15 +639,23 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/arrow_forward"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/arrow_forward"
                                 app:tint="@color/hintColor" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:background="#e7e7e7" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -657,6 +667,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/three_generations_of_the_world"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -670,14 +681,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_time_watch"/>
+                                        android:src="@drawable/ic_time_watch" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
                                         android:layout_marginStart="@dimen/_8sdp"
-                                        android:text="Sun, Mar 27  8:00 AM(IST)"/>
+                                        android:text="Sun, Mar 27  8:00 AM(IST)"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
 
@@ -686,15 +697,23 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/arrow_forward"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/arrow_forward"
                                 app:tint="@color/hintColor" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:background="#e7e7e7" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -706,6 +725,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/three_generations_of_the_world"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -719,14 +739,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_time_watch"/>
+                                        android:src="@drawable/ic_time_watch" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
                                         android:layout_marginStart="@dimen/_8sdp"
-                                        android:text="Sun, Mar 27  8:00 AM(IST)"/>
+                                        android:text="Sun, Mar 27  8:00 AM(IST)"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
 
@@ -735,15 +755,23 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/arrow_forward"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/arrow_forward"
                                 app:tint="@color/hintColor" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:background="#e7e7e7" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -755,6 +783,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/three_generations_of_the_world"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -762,20 +791,20 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:layout_marginVertical="@dimen/_8sdp"
                                     android:orientation="horizontal">
 
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_time_watch"/>
+                                        android:src="@drawable/ic_time_watch" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
                                         android:layout_marginStart="@dimen/_8sdp"
-                                        android:text="Sun, Mar 27  8:00 AM(IST)"/>
+                                        android:text="Sun, Mar 27  8:00 AM(IST)"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
 
@@ -784,9 +813,9 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/arrow_forward"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="@dimen/_6sdp"
+                                android:src="@drawable/arrow_forward"
                                 app:tint="@color/hintColor" />
                         </LinearLayout>
 
@@ -795,47 +824,301 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <TextView
+                    android:id="@+id/immigration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:text="Immigration"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/myEventsCardView" />
+
+                <TextView
+                    android:id="@+id/seeAllImmigration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_38sdp"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:text="@string/see_all"
+                    android:textColor="@color/blueBtnColor"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/immigration"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/immigration" />
+
+                <ImageView
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:src="@drawable/arrow_forward"
+                    app:layout_constraintBottom_toBottomOf="@id/seeAllImmigration"
+                    app:layout_constraintStart_toEndOf="@id/seeAllImmigration"
+                    app:layout_constraintTop_toTopOf="@id/seeAllImmigration"
+                    app:tint="@color/blueBtnColor" />
+
+                <HorizontalScrollView
+                    android:id="@+id/immigrantsHorizontalTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:scrollbars="none"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/immigration">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/tab_background"
+                            android:paddingHorizontal="@dimen/_12sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="Nonimmigrant Visa" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:background="@drawable/tab_background"
+                            android:paddingHorizontal="@dimen/_12sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="Immigrant Visa" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:background="@drawable/tab_background"
+                            android:paddingHorizontal="@dimen/_12sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="Immigration Litigation" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:id="@+id/immigrationHorizontalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:scrollbars="none"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/immigrantsHorizontalTab">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="@dimen/_280sdp"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="#0fc7a9"
+                            app:cardCornerRadius="@dimen/_10sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Nonimmigrant Visa"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_6sdp"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:text="B-1, B-2, E-1, E-2, E-3, H-1B, H-1B1, H-3, J-1, L-1, O  TN Visas"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="@dimen/_280sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:cardBackgroundColor="#01879b"
+                            app:cardCornerRadius="@dimen/_10sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Nonimmigrant Visa"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_6sdp"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:text="B-1, B-2, E-1, E-2, E-3, H-1B, H-1B1, H-3, J-1, L-1, O  TN Visas"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="@dimen/_280sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            app:cardBackgroundColor="#01879b"
+                            app:cardCornerRadius="@dimen/_10sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Nonimmigrant Visa"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_6sdp"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:text="B-1, B-2, E-1, E-2, E-3, H-1B, H-1B1, H-3, J-1, L-1, O  TN Visas"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/immigrationHorizontalLayout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/popularItemsTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="Popular Items you may like"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/seeAllPopularItems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="@string/see_all"
+                            android:textColor="@color/blueBtnColor"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:src="@drawable/arrow_forward"
+                            app:tint="@color/blueBtnColor" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/popularItemsRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-   <!-- <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/top_rounded_corner_shape"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+    <!-- <androidx.constraintlayout.widget.ConstraintLayout
+         android:id="@+id/linearLayout"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_marginTop="@dimen/_12sdp"
+         android:background="@drawable/top_rounded_corner_shape"
+         android:orientation="vertical"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/searchView">
 
 
 
 
-        &lt;!&ndash;<androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logOutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/green_btn_shape"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:minHeight="0dp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:text="LOGOUT"
-            android:textColor="@color/white"
-            android:textSize="16sp" />&ndash;&gt;
+         &lt;!&ndash;<androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/logOutBtn"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginStart="@dimen/_28sdp"
+             android:layout_marginEnd="@dimen/_28sdp"
+             android:layout_marginTop="@dimen/_16sdp"
+             android:background="@drawable/green_btn_shape"
+             android:fontFamily="@font/sf_pro_semi_bold"
+             android:minHeight="0dp"
+             android:paddingTop="@dimen/_4sdp"
+             android:paddingBottom="@dimen/_4sdp"
+             android:text="LOGOUT"
+             android:textColor="@color/white"
+             android:textSize="16sp" />&ndash;&gt;
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
+     </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
