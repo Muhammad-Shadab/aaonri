@@ -4,24 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
+import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
     var homeScreenBinding: FragmentHomeScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
-    val registrationViewModel: RegistrationViewModel by viewModels()
+    val homeViewModel: HomeViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
 
     override fun onCreateView(
@@ -30,42 +35,96 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
+        allClassifiedAdapter = AllClassifiedAdapter {
+            homeViewModel.setSendDataToClassifiedDetailsScreen(it)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+        }
+
         homeScreenBinding?.apply {
 
             homeTv.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             }
 
+            seeAllClassified.setOnClickListener {
+                findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedScreenFragment)
+            }
+
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
-
-
-            /*logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, "")
-                    val intent = Intent(context, LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }
-                builder.setNegativeButton("Cancel") { dialog, which ->
-
-                }
-                builder.show()
-            }*/
         }
 
-        /* dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
-             if (it) {
-                 homeScreenBinding?.logOutBtn?.visibility = View.GONE
-             } else {
-                 homeScreenBinding?.logOutBtn?.visibility = View.VISIBLE
-             }
-         }*/
+        homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    response.data?.userAdsList?.let {
+                        allClassifiedAdapter!!.setData(
+                            it.subList(
+                                0,
+                                4
+                            )
+                        )
+                    }
+                    homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
+                }
+                is Resource.Error -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
+        }
+
 
         return homeScreenBinding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) { isGuestUser ->
+            if (isGuestUser) {
+                homeViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            } else {
+                homeViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            }
+        }
     }
 }
