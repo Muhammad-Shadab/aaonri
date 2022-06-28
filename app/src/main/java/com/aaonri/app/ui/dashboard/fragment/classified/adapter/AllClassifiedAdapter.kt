@@ -33,7 +33,9 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                Glide.with(context).load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                Glide.with(context)
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
                 }*/
@@ -51,6 +53,12 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
 
     @JvmName("setData1")
     fun setData(data: List<UserAds>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    @JvmName("setData2")
+    fun setClassifiedHotData(data: List<UserAds>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -87,7 +95,8 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
                 Glide.with(context)
-                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .into(classifiedItemIv)
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -27,6 +28,7 @@ class HomeScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
+    var popularClassifiedAdapter: AllClassifiedAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,11 @@ class HomeScreenFragment : Fragment() {
 
         allClassifiedAdapter = AllClassifiedAdapter {
             homeViewModel.setSendDataToClassifiedDetailsScreen(it)
-            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+            //findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+        }
+        popularClassifiedAdapter = AllClassifiedAdapter {
+            //homeViewModel.setSendDataToClassifiedDetailsScreen(it)
+            //findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
         }
 
         homeScreenBinding?.apply {
@@ -51,6 +57,9 @@ class HomeScreenFragment : Fragment() {
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
+
+            popularItemsRv.layoutManager = GridLayoutManager(context, 2)
+            popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
         }
 
         homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -60,15 +69,25 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let {
-                        allClassifiedAdapter!!.setData(
-                            it.subList(
+                    val poplarClassified = mutableListOf<UserAds>()
+                    val homeClassified = mutableListOf<UserAds>()
+                    homeClassified.addAll(response.data?.userAdsList?.subList(0, 4)!!)
+                    response.data.userAdsList.forEach {
+                        if (it.popularOnAaonri) {
+                            poplarClassified.add(it)
+                        }
+                    }
+                    response.data.userAdsList.let {
+                        allClassifiedAdapter?.setData(homeClassified)
+                        popularClassifiedAdapter?.setClassifiedHotData(
+                            poplarClassified.subList(
                                 0,
                                 4
                             )
                         )
                     }
                     homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
+                    homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
@@ -88,8 +107,7 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "${response.data}", Toast.LENGTH_SHORT)
-                        .show()
+
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
@@ -148,6 +166,6 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        homeViewModel.getHomeEvent()
+        //homeViewModel.getHomeEvent()
     }
 }
