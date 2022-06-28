@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_16sdp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_image_placeholder" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_margin="@dimen/_12sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_btn"
+                    android:drawableLeft="@drawable/user_icon"
+                    android:drawablePadding="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="297"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/gray_btn"
+                    android:drawableLeft="@drawable/star_icon"
+                    android:drawablePadding="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="297"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/event_item_gradiant1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingLeft="@dimen/_16sdp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:textColor="@color/black"
+                        android:text="Bay Area Craft Beer…"
+                        android:textStyle="normal"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        />
+                    <TextView
+                        android:textSize="10sp"
+                        android:textStyle="normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Start from Mar 25, 10 am EST"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+
+                        />
+                </LinearLayout>
+                <TextView
+                    android:paddingTop="@dimen/_4sdp"
+                    android:gravity="top"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:text="NY-08512"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+
+                    />
+                <LinearLayout
+                    android:paddingTop="@dimen/_2sdp"
+                    android:paddingLeft="@dimen/_16sdp"
+                    android:paddingRight="@dimen/_16sdp"
+                    android:background="@drawable/event_entryfee_bg1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:textColor="@color/white"
+                        android:text="Entry Fee"
+                        android:textStyle="italic"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+
+                        />
+                    <TextView
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="$45.99"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

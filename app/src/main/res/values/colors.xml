@@ -20,5 +20,8 @@
     <color name="serviceCardLightBlue">#DFE9F6</color>
     <color name="disableServiceColor">#efefef</color>
     <color name="selectedClassifiedCardViewBorder">#17c8b9</color>
+    <color name="graycolor">#e7e7e7</color>
+    <color name="darkGrayColor">#707070</color>
+    <color name="graytxtcolor">#797979</color>
 
 </resources>

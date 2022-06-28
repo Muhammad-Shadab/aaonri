@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.fragment.event.post_event.UploadEventPicFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/uploadImageLinearLayout"
+                android:layout_width="@dimen/_260sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:background="@drawable/pic_upload_bg_shape1"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/selectedImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_260sdp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_image_placeholder" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e2e2e2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/uploadedImageFl1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/uploadedImage1"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_uplaoded_image" />
+
+                        <ImageView
+                            android:id="@+id/deleteImage1"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="top|end"
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/uploadedImageFl2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/uploadedImageFl1"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/uploadedImage2"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_uplaoded_image" />
+
+                        <ImageView
+                            android:id="@+id/deleteImage2"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="top|end"
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/uploadedImageFl3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/uploadedImage4"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_uplaoded_image" />
+
+                        <ImageView
+                            android:id="@+id/deleteImage4"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="top|end"
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/uploadedImageFl4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_marginVertical="@dimen/_6sdp"
+                        app:cardCornerRadius="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/uploadedImageFl3"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/uploadedImage3"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/_1sdp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_uplaoded_image" />
+
+                        <ImageView
+                            android:id="@+id/deleteImage3"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="top|end"
+                            android:background="@drawable/white_circle_shape"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_cross"
+                            android:translationX="@dimen/_1sdp"
+                            android:translationY="-2dp"
+                            android:visibility="gone" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/uploadPicBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/classified_upload_btn_bg_shape"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/ic_add_image_icon"
+                android:translationY="-36dp"
+                app:layout_constraintEnd_toEndOf="@+id/uploadImageLinearLayout"
+                app:layout_constraintStart_toStartOf="@+id/uploadImageLinearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/uploadImageLinearLayout" />
+
+            <TextView
+                android:id="@+id/uploadImageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/upload_image"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/uploadPicBtn"
+                app:layout_constraintStart_toStartOf="@id/uploadPicBtn"
+                app:layout_constraintTop_toBottomOf="@+id/uploadImageLinearLayout" />
+
+            <TextView
+                android:id="@+id/uploadImageDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="Upload up to 4 Images for your event \n Image can be uploaded up to max size of 2MB"
+                android:textColor="#979797"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:lineSpacingExtra="@dimen/_6sdp"
+                app:layout_constraintEnd_toEndOf="@id/choose1img"
+                app:layout_constraintStart_toStartOf="@id/choose1img"
+                app:layout_constraintTop_toBottomOf="@id/uploadImageTv" />
+            <TextView
+                android:id="@+id/choose1img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/choose_1st_image_for_cover_photo"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/uploadPicBtn"
+                app:layout_constraintStart_toStartOf="@id/uploadPicBtn"
+                app:layout_constraintTop_toBottomOf="@+id/uploadImageDes" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/EventUploadPicNextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/green_btn_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose1img" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
