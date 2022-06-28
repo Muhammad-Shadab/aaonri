@@ -91,7 +91,6 @@ class AllClassifiedFragment : Fragment() {
                     }
 
                     if (it) {
-
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
