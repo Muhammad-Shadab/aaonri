@@ -81,6 +81,28 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
+        homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.data}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                is Resource.Error -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
+
+        }
+
 
         return homeScreenBinding?.root
     }
@@ -125,5 +147,7 @@ class HomeScreenFragment : Fragment() {
                 )
             }
         }
+
+        homeViewModel.getHomeEvent()
     }
 }

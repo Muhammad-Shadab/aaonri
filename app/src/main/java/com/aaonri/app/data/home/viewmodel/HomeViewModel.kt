@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.event.model.EventResponse
 import com.aaonri.app.data.home.repository.HomeRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +18,29 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) :
     ViewModel() {
 
+    var homeEventData: MutableLiveData<Resource<EventResponse>> = MutableLiveData()
+        private set
+
     var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
         private set
 
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
+
+    fun getHomeEvent() = viewModelScope.launch {
+        homeEventData.postValue(Resource.Loading())
+        val response = homeRepository.getHomeEvents()
+        homeEventData.postValue(handleHomeEventResponse(response))
+    }
+
+    private fun handleHomeEventResponse(response: Response<EventResponse>): Resource<EventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
