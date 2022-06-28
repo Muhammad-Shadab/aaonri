@@ -77,4 +77,27 @@
     <string name="clear_all">CLEAR ALL</string>
     <string name="category_d_cor_sub_category_art_crafts"><![CDATA[Category: Décor  |  Sub Category: Art & Crafts]]></string>
     <string name="more"><u>More+</u></string>
+    <string name="events">Events</string>
+    <string name="post_your_event">Post your Event</string>
+    <string name="offline_event">Offline Event</string>
+    <string name="online_evnet">Online Evnet</string>
+    <string name="title_of_your_event">Title of your Event</string>
+    <string name="select_category">Select Category*</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_date">End Date</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_time">End Time</string>
+    <string name="asking_fee_in">Asking Fee in ($)</string>
+    <string name="please_describe_about_the_event">Please describe about the event</string>
+    <string name="choose_1st_image_for_cover_photo">Choose 1st image for Cover photo</string>
+    <string name="land_mark">Land Mark</string>
+    <string name="social_media_link">Social Media Link</string>
+    <string name="your_event_will">Your event will appear in the search and/or on the events section of AAONRI for 15 days at no char</string>
+    <string name="if_you_want_event">If you want your event to appear in the “Featured” section, please contact us at events@aaonri.com</string>
+    <string name="submit_event">Submit Event</string>
+    <string name="view_your_event">VIEW YOUR EVENT</string>
+    <string name="congratulations_you_have_successfully">You have successfully posted your Event</string>
+    <string name="category_food_amp_drink"><![CDATA[Category: Food & Drink]]></string>
+    <string name="going">Going</string>
+    <string name="interested">Interested</string>
 </resources>
