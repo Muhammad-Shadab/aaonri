@@ -1,21 +1,21 @@
 package com.aaonri.app
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
-import com.aaonri.app.ui.authentication.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
     var mainActivityBinding: ActivityMainBinding? = null
+    val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,32 +33,28 @@ class MainActivity : BaseActivity() {
         val navController = navHostFragment.navController
 
         val guest = intent.getBooleanExtra("guest", false)
+        dashboardCommonViewModel.setGuestUser(guest)
 
         mainActivityBinding?.apply {
+
+
+            /*bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_home_1))
+            bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_classified))
+            bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_shop))
+            bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_advertise))
+            bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_more))*/
+
             bottomNavigation.setupWithNavController(navController)
 
-            if (guest) {
-                logOutBtn.visibility = View.GONE
-            } else {
-                logOutBtn.visibility = View.VISIBLE
-            }
-
-            logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(this@MainActivity)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.classifiedDetailsFragment || destination.id == R.id.eventScreenFragment) {
+                    bottomNavigation.visibility = View.GONE
+                } else {
+                    bottomNavigation.visibility = View.VISIBLE
                 }
-                builder.setNegativeButton("Cancel") { dialog, which ->
-
-                }
-                builder.show()
             }
-
         }
 
     }
+
 }

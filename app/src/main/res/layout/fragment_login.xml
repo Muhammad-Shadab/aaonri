@@ -45,8 +45,6 @@
             android:id="@+id/loginToExploreTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_50sdp"
-            android:layout_marginEnd="@dimen/_50sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/login_to_explore"
             android:textAlignment="center"
@@ -93,9 +91,9 @@
             android:fontFamily="@font/sf_pro_regular"
             android:text="Demo sdfs dsdf "
             android:textColor="#FF0000"
-            app:layout_constraintBottom_toTopOf="@id/loginPasswordTi"
             android:textSize="@dimen/_10sdp"
             android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/loginPasswordTi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loginEmailEt" />
 
@@ -297,8 +295,19 @@
 
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version: 1.0(2)"
+        app:layout_constraintBottom_toTopOf="@id/imageView"
+        android:translationY="@dimen/_75sdp"
+        android:textSize="10sp"
+        android:textColor="@color/hintColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

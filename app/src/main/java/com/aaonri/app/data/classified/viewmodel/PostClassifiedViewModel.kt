@@ -1,0 +1,269 @@
+package com.aaonri.app.data.classified.viewmodel
+
+import android.net.Uri
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.model.*
+import com.aaonri.app.data.classified.repository.ClassifiedRepository
+import com.aaonri.app.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Response
+import java.io.File
+import javax.inject.Inject
+
+@HiltViewModel
+class PostClassifiedViewModel @Inject constructor(
+    private val classifiedRepository: ClassifiedRepository
+) : ViewModel() {
+
+    var navigationForStepper: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
+    var classifiedCategoryData: MutableLiveData<Resource<ClassifiedCategoryResponse>> =
+        MutableLiveData()
+
+    var isProductNewCheckBox: Boolean = false
+        private set
+
+    var classifiedCategory: String = ""
+        private set
+
+    var classifiedSubCategory: String = ""
+        private set
+
+    var classifiedBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
+        private set
+
+    var classifiedAddressDetailsMap: MutableMap<String, String> = mutableMapOf()
+        private set
+
+    var isAgreeToAaonri: Boolean = false
+        private set
+
+    var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
+        private set
+
+    var sendFavoriteDataToClassifiedDetails: MutableLiveData<Classified> = MutableLiveData()
+        private set
+
+    var navigateToClassifiedDetail = false
+        private set
+
+    var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
+    var selectedClassifiedCategory: MutableLiveData<ClassifiedCategoryResponseItem> =
+        MutableLiveData()
+        private set
+
+    var selectedSubClassifiedCategory: MutableLiveData<ClassifiedSubcategoryX> =
+        MutableLiveData()
+        private set
+
+    var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
+
+    val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
+
+    val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
+
+    var listOfImagesUri = mutableListOf<Uri>()
+        private set
+
+    var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
+
+    /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
+        private set*/
+
+    var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
+        MutableLiveData()
+
+    var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var minValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var maxValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var zipCodeInFilterScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
+    fun addNavigationForStepper(value: String) {
+        navigationForStepper.value = value
+    }
+
+    fun addStepViewLastTick(value: Boolean) {
+        stepViewLastTick.value = value
+    }
+
+
+    fun getClassifiedCategory() = viewModelScope.launch {
+        classifiedCategoryData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedCategory()
+        classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
+    }
+
+    private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun addClassifiedCategory(category: String) {
+        classifiedCategory = category
+    }
+
+    fun addClassifiedSubCategory(subCategory: String) {
+        classifiedSubCategory = subCategory
+    }
+
+    fun addIsProductNewCheckBox(value: Boolean) {
+        isProductNewCheckBox = value
+    }
+
+    fun addClassifiedBasicDetails(
+        title: String,
+        price: String,
+        adDescription: String
+    ) {
+        classifiedBasicDetailsMap[ClassifiedConstant.TITLE] = title
+        classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE] = price
+        classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION] = adDescription
+    }
+
+    fun addClassifiedAddressDetails(
+        city: String,
+        zip: String,
+        email: String,
+        phone: String,
+        description: String,
+    ) {
+        classifiedAddressDetailsMap[ClassifiedConstant.CITY_NAME] = city
+        classifiedAddressDetailsMap[ClassifiedConstant.ZIP_CODE] = zip
+        classifiedAddressDetailsMap[ClassifiedConstant.EMAIL] = email
+        classifiedAddressDetailsMap[ClassifiedConstant.PHONE] = phone
+        classifiedAddressDetailsMap[ClassifiedConstant.DESCRIPTION] = description
+    }
+
+    fun addIsAgreeToAaonri(value: Boolean) {
+        isAgreeToAaonri = value
+    }
+
+    fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
+        postClassifiedData.postValue(Resource.Loading())
+        val response = classifiedRepository.postClassified(postClassifiedRequest)
+        postClassifiedData.postValue(handlePostClassifiedResponse(response))
+    }
+
+    private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
+        sendDataToClassifiedDetailsScreen.postValue(value)
+    }
+
+    fun setSendFavoriteDataToClassifiedDetails(value: Classified) {
+        sendFavoriteDataToClassifiedDetails.postValue(value)
+    }
+
+    fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
+        navigateToClassifiedDetail = value
+    }
+
+    fun setNavigateToAllClassified(value: Boolean) {
+        navigateToAllClassified.postValue(value)
+    }
+
+    fun setFilterData(value: MutableList<String>) {
+        filterSelectedDataList.postValue(value)
+    }
+
+    /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
+         uploadImagesData.postValue(Resource.Loading())
+         val response = classifiedRepository.uploadImages(uploadImagesRequest)
+         uploadImagesData.postValue(handleUploadImagesResponse(response))
+     }
+
+     private fun handleUploadImagesResponse(response: Response<UploadImagesResponse>): Resource<UploadImagesResponse>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }*/
+
+    fun setMinValue(value: String) {
+        minValueInFilterScreen.postValue(value)
+    }
+
+    fun setMaxValue(value: String) {
+        maxValueInFilterScreen.postValue(value)
+    }
+
+    fun setZipCodeInFilterScreen(value: String) {
+        zipCodeInFilterScreen.postValue(value)
+    }
+
+    fun setMinMaxValue(value1: String, value2: String) {
+        minMaxValueInFilter.postValue("Range: \$$value1-\$$value2")
+    }
+
+    fun setIsMyLocationChecked(value: Boolean) {
+        isMyLocationCheckedInFilterScreen.postValue(value)
+    }
+
+    fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
+        listOfImagesUri.addAll(uploadedImagesList)
+    }
+
+    fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
+        viewModelScope.launch {
+            uploadClassifiedPics.postValue(Resource.Loading())
+            val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
+            uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
+        }
+
+    private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setClickedOnFilter(value: Boolean) {
+        clickedOnFilter.postValue(value)
+    }
+
+    fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
+        selectedClassifiedCategory.postValue(value)
+    }
+
+    fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
+        selectedSubClassifiedCategory.postValue(value)
+    }
+
+}

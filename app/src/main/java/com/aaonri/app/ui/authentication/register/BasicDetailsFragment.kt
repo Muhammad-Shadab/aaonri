@@ -1,11 +1,17 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,9 +23,10 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.ui.authentication.login.LoginActivity
+import com.aaonri.app.utils.*
+import com.bumptech.glide.Glide
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -35,6 +42,7 @@ class BasicDetailsFragment : Fragment() {
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isEmailValid = false
     var isPasswordValid = false
+    var profile = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +65,35 @@ class BasicDetailsFragment : Fragment() {
             firstNameBasicDetails.filters = arrayOf(filter)
             lastNameBasicDetails.filters = arrayOf(filter)
 
+            profilePicPlaceholder.setOnClickListener {
+                if (profile.isEmpty()){
+                    ImagePicker.with(activity!!)
+                        .compress(1024)
+                        .maxResultSize(1080, 1080)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                        }
+                }else{
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Select")
+                    builder.setMessage("Change profile photo")
+                    builder.setPositiveButton("Change") { dialog, which ->
+                        ImagePicker.with(activity!!)
+                            .compress(1024)
+                            .maxResultSize(1080, 1080)
+                            .createIntent { intent ->
+                                startForProfileImageResult.launch(intent)
+                            }
+                    }
+                    builder.setNegativeButton("Remove") { dialog, which ->
+                        profile = ""
+                        setImage()
+                        addProfileBtn.visibility = View.VISIBLE
+                    }
+                    builder.show()
+                }
+            }
+
             emailAddressBasicDetails.addTextChangedListener { editable ->
                 job?.cancel()
                 job = MainScope().launch {
@@ -64,6 +101,7 @@ class BasicDetailsFragment : Fragment() {
                     editable?.let {
                         if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
                             if (Validator.emailValidation(editable.toString())) {
+                                isEmailValid = true
                                 basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
                                 registrationViewModel.isEmailAlreadyRegister(
                                     EmailVerifyRequest(
@@ -83,6 +121,8 @@ class BasicDetailsFragment : Fragment() {
                     }
                 }
             }
+
+
 
 
             passwordBasicDetails.addTextChangedListener { editable ->
@@ -114,20 +154,29 @@ class BasicDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (firstName?.isNotEmpty() == true && lastName?.isNotEmpty() == true && isEmailValid && isPasswordValid) {
-                    authCommonViewModel.addBasicDetails(
-                        firstName.toString(),
-                        lastName.toString(),
-                        emailAddress.toString(),
-                        password.toString()
-                    )
-                    authCommonViewModel.addCountryClicked(true)
-                    findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
+                    if (isEmailValid && isPasswordValid){
+                        authCommonViewModel.addBasicDetails(
+                            firstName.toString(),
+                            lastName.toString(),
+                            emailAddress.toString(),
+                            password.toString()
+                        )
+                        authCommonViewModel.addCountryClicked(true)
+                        findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                    }else{
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Please complete all details", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 } else {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Please complete all details", Snackbar.LENGTH_LONG
+                            "Please enter valid name", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -161,8 +210,59 @@ class BasicDetailsFragment : Fragment() {
             }
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            })
 
         return basicDetailsBinding?.root
+    }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                val fileUri = data?.data!!
+
+                profile = fileUri.toString()
+
+                setImage()
+                //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
+                basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
+
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+
+            }
+        }
+
+    private fun setImage() {
+        if (profile.isNotEmpty()){
+            basicDetailsBinding?.addProfileIv?.let {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load(profile)
+                        .circleCrop()
+                        .into(it)
+                }
+            }
+        }else{
+            basicDetailsBinding?.addProfileIv?.let {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load(R.drawable.profile_pic_placeholder)
+                        .circleCrop()
+                        .into(it)
+                }
+            }
+        }
     }
 
 }

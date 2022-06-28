@@ -27,6 +27,7 @@ class AuthCommonViewModel @Inject constructor(
     var locationDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
+
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
@@ -35,7 +36,12 @@ class AuthCommonViewModel @Inject constructor(
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
 
-    var selectedCountry: MutableLiveData<Triple<String, String, String>>? = MutableLiveData()
+    var selectedCountryAddressScreen: MutableLiveData<Triple<String, String, String>>? =
+        MutableLiveData()
+        private set
+
+    var selectedCountryLocationScreen: MutableLiveData<Triple<String, String, String>>? =
+        MutableLiveData()
         private set
 
     var companyEmailAliasName: MutableLiveData<Pair<String, String>>? = MutableLiveData()
@@ -56,6 +62,9 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    var isCountrySelected = false
+        private set
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -73,8 +82,21 @@ class AuthCommonViewModel @Inject constructor(
         selectedServicesList.value = value
     }
 
-    fun addSelectedCountry(countryName: String, countryFlag: String, countryCode: String) {
-        selectedCountry?.value =
+    fun setSelectedCountryAddressScreen(
+        countryName: String,
+        countryFlag: String,
+        countryCode: String
+    ) {
+        selectedCountryAddressScreen?.value =
+            Triple(first = countryName, second = countryFlag, third = countryCode)
+    }
+
+    fun setSelectedCountryLocationScreen(
+        countryName: String,
+        countryFlag: String,
+        countryCode: String
+    ) {
+        selectedCountryLocationScreen?.value =
             Triple(first = countryName, second = countryFlag, third = countryCode)
     }
 
@@ -171,6 +193,10 @@ class AuthCommonViewModel @Inject constructor(
 
     fun addCountryClicked(value: Boolean) {
         countryClicked.value = value
+    }
+
+    fun setIsCountrySelected(value: Boolean) {
+        isCountrySelected = value
     }
 
 }

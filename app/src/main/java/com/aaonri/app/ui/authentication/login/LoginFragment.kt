@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +20,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -139,6 +138,18 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
+                        response.data?.emailId?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_EMAIL, it)
+                        }
+                        if (response.data?.user?.city?.isNotEmpty() == true) {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_CITY, response.data.user.city)
+                        }
+                        if (response.data?.user?.zipcode?.isNotEmpty() == true) {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
+                        }
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
@@ -150,6 +161,7 @@ class LoginFragment : Fragment() {
                         .show()
                 }
                 else -> {
+
                 }
             }
         }

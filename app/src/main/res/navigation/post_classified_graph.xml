@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_classified_graph"
+    app:startDestination="@id/classifiedBasicDetailsFragment">
+
+    <fragment
+        android:id="@+id/classifiedBasicDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.ClassifiedBasicDetailsFragment"
+        android:label="fragment_classified_basic_details"
+        tools:layout="@layout/fragment_classified_basic_details">
+        <action
+            android:id="@+id/action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment"
+            app:destination="@id/uploadClassifiedPicFragment" />
+        <action
+            android:id="@+id/action_classifiedBasicDetailsFragment_to_selectClassifiedCategoryBottom"
+            app:destination="@id/selectClassifiedCategoryBottom" />
+        <action
+            android:id="@+id/action_classifiedBasicDetailsFragment_to_selectClassifiedSubCategoryBottom"
+            app:destination="@id/selectClassifiedSubCategoryBottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadClassifiedPicFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.UploadClassifiedPicFragment"
+        android:label="fragment_upload_classified_pic"
+        tools:layout="@layout/fragment_upload_classified_pic">
+        <action
+            android:id="@+id/action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment"
+            app:destination="@id/addressDetailsClassifiedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressDetailsClassifiedFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.AddressDetailsClassifiedFragment"
+        android:label="fragment_address_details_classified"
+        tools:layout="@layout/fragment_address_details_classified" >
+        <action
+            android:id="@+id/action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom"
+            app:destination="@id/classifiedPostSuccessBottom" />
+    </fragment>
+    <dialog
+        android:id="@+id/classifiedPostSuccessBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.ClassifiedPostSuccessBottom"
+        android:label="fragment_classified_post_success_bottom"
+        tools:layout="@layout/fragment_classified_post_success_bottom" />
+    <dialog
+        android:id="@+id/selectClassifiedCategoryBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.SelectClassifiedCategoryBottom"
+        android:label="fragment_select_classified_category_bottom"
+        tools:layout="@layout/fragment_select_classified_category_bottom" >
+    </dialog>
+    <dialog
+        android:id="@+id/selectClassifiedSubCategoryBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.SelectClassifiedSubCategoryBottom"
+        android:label="fragment_select_classified_sub_category_bottom"
+        tools:layout="@layout/fragment_select_classified_sub_category_bottom" />
+</navigation>

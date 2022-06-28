@@ -26,9 +26,7 @@ import com.aaonri.app.data.authentication.register.model.services.ServicesRespon
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
-import com.aaonri.app.utils.Validator
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -103,6 +101,7 @@ class ServicesCategoryFragment : Fragment() {
                 if (isServicesSelected) {
                     val companyEmail = companyEmailServices.text
                     val aliasName = aliasNameServices.text
+
                     if (isCompanyEmailCheckboxSelected) {
                         if (Validator.emailValidation(companyEmail.toString()) && companyEmail.toString().length >= 8) {
                             if (aliasName.toString().isNotEmpty()) {
@@ -173,14 +172,20 @@ class ServicesCategoryFragment : Fragment() {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
+                servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
+                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.GONE
             }
         }
 
@@ -267,7 +272,7 @@ class ServicesCategoryFragment : Fragment() {
                 lastName = authCommonViewModel.basicDetailsMap["lastName"]!!,
                 newsletter = false,
                 originCity = authCommonViewModel.locationDetails["city"]!!,
-                originCountry = authCommonViewModel.selectedCountry!!.value!!.first,
+                originCountry = authCommonViewModel.selectedCountryAddressScreen!!.value!!.first,
                 originState = authCommonViewModel.locationDetails["state"]!!,
                 password = authCommonViewModel.basicDetailsMap["password"]!!,
                 phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,

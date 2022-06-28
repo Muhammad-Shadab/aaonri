@@ -15,28 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/logOutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="@dimen/_28sdp"
-        android:layout_marginEnd="@dimen/_28sdp"
-        android:background="@drawable/green_btn_shape"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:minHeight="0dp"
-        android:paddingTop="@dimen/_4sdp"
-        android:paddingBottom="@dimen/_4sdp"
-        android:text="LOGOUT"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dashboardNavHost"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dashboardNavHost"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/dashboardNavHost"

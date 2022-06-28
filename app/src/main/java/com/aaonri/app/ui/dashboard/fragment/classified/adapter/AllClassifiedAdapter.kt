@@ -1,16 +1,21 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.data.classified.model.Classified
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
-import com.aaonri.app.databinding.FragmentAllClassifiedBinding
+import com.bumptech.glide.Glide
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
+class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
+    RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
 
-    var data = mutableListOf("")
+    private var data = listOf<UserAds>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,19 +26,91 @@ class AllClassifiedAdapter : RecyclerView.Adapter<AllClassifiedAdapter.Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            classifiedPriceTv.text = "29.99"
-            classifiedDescTv.text = "7 Ports USB3.0"
-            locationClassifiedTv.text = "New York-08512"
-        }
+            if (data[position].userAdsImages.isEmpty()) {
+                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedTitleTv.text = data[position].adTitle
+                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+                popularTv.visibility =
+                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            } else {
+                Glide.with(context).load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
+                    placeholder(R.drawable.ic_image_placeholder)
+                }*/
+                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedTitleTv.text = data[position].adTitle
+                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+                popularTv.visibility =
+                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            }
 
+        }
+        holder.itemView.setOnClickListener {
+            selectedServices(data[position])
+        }
     }
 
-    override fun getItemCount() = 20
+    @JvmName("setData1")
+    fun setData(data: List<UserAds>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = data.size
 
     inner class ClassifiedViewHolder(val binding: ClassifiedCardItemsBinding) :
         RecyclerView.ViewHolder(
             binding.root
         )
 
+}
+
+
+class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classified) -> Unit)) :
+    RecyclerView.Adapter<FavoriteClassifiedAdapter.ClassifiedViewHolder>() {
+
+    private var data = listOf<Classified>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ClassifiedCardItemsBinding.inflate(inflater, parent, false)
+        return ClassifiedViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
+        val context = holder.itemView.context
+        holder.binding.apply {
+            if (data[position].userAdsImages.isEmpty()) {
+                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedTitleTv.text = data[position].adTitle
+                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+                popularTv.visibility =
+                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            } else {
+                Glide.with(context)
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedTitleTv.text = data[position].adTitle
+                locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
+                popularTv.visibility =
+                    if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
+            }
+            classifiedPostDateTv.text = data[position].createdOn
+        }
+        holder.itemView.setOnClickListener {
+            selectedServices(data[position])
+        }
+    }
+
+    override fun getItemCount() = data.size
+
+    @JvmName("setData1")
+    fun setData(data: List<Classified>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    inner class ClassifiedViewHolder(val binding: ClassifiedCardItemsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

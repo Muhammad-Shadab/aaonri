@@ -42,7 +42,6 @@ class CheckYourEmailFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -61,7 +60,6 @@ class CheckYourEmailFragment : Fragment() {
 
 
         checkYourEmailBinding?.apply {
-
 
             skipForNowTv.setOnClickListener {
                 findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)

@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.authentication.register.LocationDetailsFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/person"
-        android:translationY="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -31,10 +22,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/selectCountryOrigin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -46,6 +38,7 @@
 
                     <ImageView
                         android:id="@+id/countryFlagIcon"
+                        android:visibility="gone"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
@@ -63,11 +56,12 @@
                         android:maxLines="1"
                         android:paddingStart="@dimen/_12sdp"
                         android:paddingTop="@dimen/_4sdp"
-                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_8sdp"
                         android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 </LinearLayout>
 
@@ -80,7 +74,7 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/city"
+                    android:hint="Origin of City"
                     android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
@@ -92,7 +86,7 @@
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/stateLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +95,8 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/state"
+                    android:hint="Origin of State"
+                    android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -216,6 +211,13 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/person"
+                android:translationY="90dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

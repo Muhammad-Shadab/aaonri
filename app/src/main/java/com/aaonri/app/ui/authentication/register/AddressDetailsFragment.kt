@@ -32,7 +32,6 @@ import kotlinx.coroutines.launch
 class AddressDetailsFragment : Fragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
-    var isCountrySelected = false
     var cityName: String = ""
     var stateName: String = ""
 
@@ -45,6 +44,7 @@ class AddressDetailsFragment : Fragment() {
 
         var job: Job? = null
 
+
         addressDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
@@ -53,16 +53,19 @@ class AddressDetailsFragment : Fragment() {
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
             }
 
-            if (!isCountrySelected) {
-                authCommonViewModel.addSelectedCountry(
+
+            if (!authCommonViewModel.isCountrySelected) {
+                authCommonViewModel.setSelectedCountryAddressScreen(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
             }
 
-            authCommonViewModel.selectedCountry?.observe(viewLifecycleOwner) { triple ->
-                isCountrySelected = true
+            authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner) { triple ->
+
+                authCommonViewModel.setIsCountrySelected(true)
+
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
                         job?.cancel()
@@ -82,8 +85,8 @@ class AddressDetailsFragment : Fragment() {
                             }
                         }
                     }
-                    countryFlagIconAddress.load(triple.second)
                     selectCountryOriginAddress.text = triple.first
+                    countryFlagIconAddress.load(triple.second)
                     countryFlagIconAddress.visibility = View.VISIBLE
                 } else {
                     countryFlagIconAddress.visibility = View.GONE
@@ -91,7 +94,11 @@ class AddressDetailsFragment : Fragment() {
             }
 
             selectCountryOriginAddress.setOnClickListener {
-                findNavController().navigate(R.id.action_addressDetailsFragment_to_selectCountryBottomFragment)
+                val action =
+                    AddressDetailsFragmentDirections.actionAddressDetailsFragmentToSelectCountryBottomFragment(
+                        true
+                    )
+                findNavController().navigate(action)
             }
 
             addressDetailsNextBtn.setOnClickListener {
@@ -145,7 +152,7 @@ class AddressDetailsFragment : Fragment() {
         }
 
         authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
-            if (it){
+            if (it) {
                 addressDetailsBinding?.stateNameAddressDetails?.text = ""
                 stateName = ""
                 cityName = ""
@@ -157,7 +164,7 @@ class AddressDetailsFragment : Fragment() {
                 )
                 addressDetailsBinding?.zipCodeAddressDetails?.setText("")
                 authCommonViewModel.addCountryClicked(false)
-            }else{
+            } else {
                 if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                     addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
                 }
@@ -194,16 +201,19 @@ class AddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
-                        try {
-                            cityName = response.data.result[0].province
-                            stateName = response.data.result[0].state
+                        cityName = response.data.result.getOrNull(0)?.province.toString()
+                        stateName = response.data.result.getOrNull(0)?.state.toString()
 
-                            addressDetailsBinding?.stateNameAddressDetails?.text = stateName
-                            addressDetailsBinding?.cityNameAddressDetails?.setText(cityName)
-                            addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
-                        } catch (e: Exception) {
-                            Log.i("location", "onCreateView: ${e.localizedMessage}")
-                        }
+                        authCommonViewModel.addLocationDetails(
+                            addressDetailsBinding?.zipCodeAddressDetails?.text.toString(),
+                            stateName,
+                            cityName
+                        )
+
+                        addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
+                        addressDetailsBinding?.stateNameAddressDetails?.text = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+
+                        addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
                         addressDetailsBinding?.cityNameAddressDetails?.setText("")
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.VISIBLE
@@ -211,7 +221,6 @@ class AddressDetailsFragment : Fragment() {
                         cityName = ""
                     }
 
-                    addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -221,6 +230,17 @@ class AddressDetailsFragment : Fragment() {
                 }
             }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    authCommonViewModel.setIsCountrySelected(false)
+                    authCommonViewModel.addLocationDetails("", "", "")
+                    authCommonViewModel.zipCodeData.value = null
+                    findNavController().navigateUp()
+                }
+            })
 
 
         return addressDetailsBinding?.root
@@ -243,6 +263,7 @@ class AddressDetailsFragment : Fragment() {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
                 }
+                is Resource.Empty -> TODO()
             }
         }
     }

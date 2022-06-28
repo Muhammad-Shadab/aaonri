@@ -52,7 +52,6 @@ class RegistrationActivity : BaseActivity() {
                     }
                     AuthConstant.SERVICE_DETAILS_SCREEN -> {
                         stepView.go(3, true)
-
                     }
                 }
             }

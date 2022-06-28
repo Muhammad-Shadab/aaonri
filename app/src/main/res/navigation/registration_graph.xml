@@ -18,7 +18,7 @@
         android:id="@+id/addressDetailsFragment"
         android:name="com.aaonri.app.ui.authentication.register.AddressDetailsFragment"
         android:label="fragment_address_details"
-        tools:layout="@layout/fragment_address_details">
+        tools:layout="@layout/fragment_location_details">
         <action
             android:id="@+id/action_addressDetailsFragment_to_locationDetailsFragment"
             app:destination="@id/locationDetailsFragment" />
@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_locationDetailsFragment_to_servicesCategoryFragment"
             app:destination="@id/servicesCategoryFragment" />
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_selectCountryBottomFragment2"
+            app:destination="@id/selectCountryBottomFragment" />
     </fragment>
     <fragment
         android:id="@+id/servicesCategoryFragment"
@@ -59,5 +62,8 @@
         android:label="fragment_select_country_bottom"
         tools:layout="@layout/fragment_select_country_bottom">
 
+        <argument
+            android:name="isAddressScreen"
+            app:argType="boolean" />
     </dialog>
 </navigation>

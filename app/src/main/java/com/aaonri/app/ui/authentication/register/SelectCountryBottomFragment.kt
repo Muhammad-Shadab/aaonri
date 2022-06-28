@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.ui.authentication.register.adapter.CountryAdapter
@@ -31,6 +33,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     var countryBottomBinding: FragmentSelectCountryBottomBinding? = null
     var countryAdapter: CountryAdapter? = null
     var tempArrayList = ArrayList<CountriesResponseItem>()
+    val args: SelectCountryBottomFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +46,20 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         getCountries()
 
         countryAdapter = CountryAdapter { countryName, countryFlag, countryCode ->
-            authCommonViewModel.addCountryClicked(true)
-            authCommonViewModel.addSelectedCountry(countryName, countryFlag, countryCode)
+            if (args.isAddressScreen) {
+                authCommonViewModel.addCountryClicked(true)
+                authCommonViewModel.setSelectedCountryAddressScreen(
+                    countryName,
+                    countryFlag,
+                    countryCode
+                )
+            } else {
+                authCommonViewModel.setSelectedCountryLocationScreen(
+                    countryName,
+                    countryFlag,
+                    countryCode
+                )
+            }
             findNavController().navigateUp()
         }
 
@@ -70,9 +85,29 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    val southAsiaCountry = mutableListOf<CountriesResponseItem>()
                     searchCountry(response.data)
                     countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                    response.data?.let { countryAdapter?.setData(response.data) }
+                    if (args.isAddressScreen) {
+                        response.data?.let { countryAdapter?.setData(response.data) }
+                    } else {
+                        response.data?.forEach {
+                            when(it.country){
+                                "Afghanistan" -> {southAsiaCountry.add(it)}
+                                "Bangladesh" -> {southAsiaCountry.add(it)}
+                                "Bhutan" -> {southAsiaCountry.add(it)}
+                                "India" -> {southAsiaCountry.add(it)}
+                                "Maldives" -> {southAsiaCountry.add(it)}
+                                "Nepal" -> {southAsiaCountry.add(it)}
+                                "Pakistan" -> {southAsiaCountry.add(it)}
+                                "Sri Lanka" -> {southAsiaCountry.add(it)}
+                            }
+                        }
+                        response.data?.let { countryAdapter?.setData(southAsiaCountry) }
+                    }
+                }
+                is Resource.Empty -> {
+                    TODO()
                 }
             }
         }
