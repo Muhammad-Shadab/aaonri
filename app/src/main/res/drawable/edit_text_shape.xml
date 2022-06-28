@@ -7,11 +7,7 @@
         android:color="@color/lightGrey" />
 
     <corners
-        android:bottomLeftRadius="@dimen/_40sdp"
-        android:bottomRightRadius="@dimen/_40sdp"
-        android:radius="60dp"
-        android:topLeftRadius="@dimen/_40sdp"
-        android:topRightRadius="@dimen/_40sdp" />
+        android:radius="60dp"/>
 
     <solid android:color="@color/white" />
 

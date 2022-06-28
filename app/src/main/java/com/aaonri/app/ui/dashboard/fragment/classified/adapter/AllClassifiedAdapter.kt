@@ -43,7 +43,6 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
-
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
