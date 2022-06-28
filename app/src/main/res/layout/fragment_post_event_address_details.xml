@@ -16,7 +16,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/eventaddress1"
+                android:id="@+id/eventAddressEt1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -37,7 +37,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/eventaddress2"
+                android:id="@+id/eventAddressEt2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -101,7 +101,7 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
             <EditText
-                android:id="@+id/landmark"
+                android:id="@+id/landmarkEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -121,7 +121,7 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
             <EditText
-                android:id="@+id/state"
+                android:id="@+id/stateEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -141,7 +141,7 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
             <EditText
-                android:id="@+id/socialmedialink"
+                android:id="@+id/socialMediaLinkEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"

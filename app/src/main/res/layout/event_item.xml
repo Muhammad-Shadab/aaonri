@@ -31,7 +31,6 @@
                     android:drawableLeft="@drawable/user_icon"
                     android:drawablePadding="@dimen/_6sdp"
                     android:gravity="center_vertical"
-                    android:inputType="number"
                     android:padding="@dimen/_8sdp"
                     android:text="297"
                     android:textSize="12sp" />
@@ -44,7 +43,6 @@
                     android:drawableLeft="@drawable/star_icon"
                     android:drawablePadding="@dimen/_6sdp"
                     android:gravity="center_vertical"
-                    android:inputType="number"
                     android:padding="@dimen/_8sdp"
                     android:text="297"
                     android:textSize="12sp" />

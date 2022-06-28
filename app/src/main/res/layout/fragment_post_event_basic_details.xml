@@ -20,7 +20,7 @@
 <com.google.android.material.card.MaterialCardView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/graycolor"
+    app:cardBackgroundColor="@color/graycolor"
     app:cardCornerRadius="4dp"
     android:layout_margin="6dp"
     app:cardElevation="@dimen/_2sdp"
@@ -33,7 +33,7 @@
         android:paddingVertical="@dimen/_12sdp"
         >
         <RadioButton
-            android:id="@+id/offlineradioBtn"
+            android:id="@+id/offlineRadioBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/custom_radio_btn"
@@ -57,7 +57,7 @@
             android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/graycolor"
+            app:cardBackgroundColor="@color/graycolor"
             app:cardCornerRadius="4dp"
             android:layout_margin="6dp"
             app:cardElevation="@dimen/_2sdp"
@@ -70,7 +70,7 @@
                 android:paddingVertical="@dimen/_12sdp"
                 >
                 <RadioButton
-                    android:id="@+id/onlinerdaioBtn"
+                    android:id="@+id/onlineRdaioBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/custom_radio_btn"
@@ -331,7 +331,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_regular"
                     android:text="Free Entry"
-                    android:textColor="@color/Darkgraycolor"
+                    android:textColor="@color/darkGrayColor"
                     android:textSize="15sp" />
 
             </LinearLayout>
