@@ -1,14 +1,22 @@
 package com.aaonri.app.ui.dashboard.fragment.event
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import com.aaonri.app.R
-import dagger.hilt.android.AndroidEntryPoint
+import android.view.View
+import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.databinding.ActivityEventScreenBinding
 
-@AndroidEntryPoint
-class EventScreenActivity : AppCompatActivity() {
+class EventScreenActivity : BaseActivity() {
+    var eventActivityBinding: ActivityEventScreenBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_screen)
+        eventActivityBinding = ActivityEventScreenBinding.inflate(layoutInflater)
+        setContentView(eventActivityBinding?.root)
+
+        // hiding the status bar and making it transparent
+        supportActionBar?.hide()
+        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        window.statusBarColor = Color.TRANSPARENT
     }
 }
