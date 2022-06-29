@@ -61,7 +61,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             seeAllClassified.setOnClickListener {
-                findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedScreenFragment)
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
             }
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
@@ -250,7 +250,6 @@ class HomeScreenFragment : Fragment() {
                 )
             }
         }
-
         homeViewModel.getHomeEvent()
     }
 
