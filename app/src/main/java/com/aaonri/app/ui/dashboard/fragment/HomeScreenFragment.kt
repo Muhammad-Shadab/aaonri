@@ -132,7 +132,7 @@ class HomeScreenFragment : Fragment() {
                                     homeScreenBinding?.eventImage1?.let { it2 ->
                                         Glide.with(it1)
                                             .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
                                 }
@@ -143,7 +143,7 @@ class HomeScreenFragment : Fragment() {
                                     homeScreenBinding?.eventImage2?.let { it2 ->
                                         Glide.with(it1)
                                             .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
                                 }
@@ -154,13 +154,14 @@ class HomeScreenFragment : Fragment() {
                                     homeScreenBinding?.eventImage3?.let { it2 ->
                                         Glide.with(it1)
                                             .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
                                 }
                             }
                             3 -> {
-                                /*context?.let { it1 ->
+                                context?.let { it1 ->
+                                    homeScreenBinding?.eventImage4?.visibility = View.VISIBLE
                                     homeScreenBinding?.eventImage4?.let { it2 ->
                                         Glide.with(it1)
                                             .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
@@ -168,7 +169,7 @@ class HomeScreenFragment : Fragment() {
                                                 it2
                                             )
                                     }
-                                }*/
+                                }
                             }
                         }
                     }
