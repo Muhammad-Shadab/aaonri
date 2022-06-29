@@ -422,6 +422,7 @@
                             android:id="@+id/eventImage1"
                             android:layout_width="@dimen/_280sdp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
                             android:scaleType="fitXY"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
@@ -432,6 +433,7 @@
                             android:layout_width="@dimen/_280sdp"
                             android:layout_height="wrap_content"
                             android:scaleType="fitXY"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
 
@@ -440,6 +442,7 @@
                             android:layout_width="@dimen/_280sdp"
                             android:layout_height="wrap_content"
                             android:scaleType="fitXY"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
 
