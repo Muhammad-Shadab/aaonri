@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,6 +108,14 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
+                    response.data?.userEvent?.forEach {
+                        Toast.makeText(
+                            context,
+                            "${it.images}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.i("event_response", "$it")
+                    }
 
                 }
                 is Resource.Error -> {
@@ -166,6 +175,6 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        //homeViewModel.getHomeEvent()
+        homeViewModel.getHomeEvent()
     }
 }
