@@ -28,16 +28,17 @@ class PostEventBasicDetailsFragment : Fragment() {
              }*/
             addressDetailsNextBtn.setOnClickListener {
 
-                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
-
                 if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
                         .toString().length >= 3
                 ) {
-
                     if (selectCategoryEvent.text.toString().isNotEmpty()) {
+
                         if (selectstartDate.text.toString().isNotEmpty()) {
+
                             if (selectStartTime.text.toString().isNotEmpty()) {
+
                                 if (selectEndDate.text.toString().isNotEmpty()) {
+
                                     if (selectEndTime.text.toString().isNotEmpty()) {
 
                                         if (askingFee.text.toString()
@@ -45,7 +46,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                 .toDouble() > 0
                                         ) {
                                             if (eventDescEt.text.isNotEmpty()) {
-
+                                                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
                                             } else {
                                                 showAlert("Please enter valid event description")
                                             }
