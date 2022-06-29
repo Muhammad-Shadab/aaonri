@@ -47,11 +47,11 @@ class HomeScreenFragment : Fragment() {
 
         allClassifiedAdapter = AllClassifiedAdapter {
             homeViewModel.setSendDataToClassifiedDetailsScreen(it)
-            //findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
         }
         popularClassifiedAdapter = AllClassifiedAdapter {
-            //homeViewModel.setSendDataToClassifiedDetailsScreen(it)
-            //findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+            homeViewModel.setSendDataToClassifiedDetailsScreen(it)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
         }
 
         homeScreenBinding?.apply {
@@ -88,12 +88,11 @@ class HomeScreenFragment : Fragment() {
                     }
                     response.data.userAdsList.let {
                         allClassifiedAdapter?.setData(homeClassified)
-                        popularClassifiedAdapter?.setClassifiedHotData(
-                            poplarClassified.subList(
-                                0,
-                                4
-                            )
-                        )
+                        if (poplarClassified.size >= 4){
+                            popularClassifiedAdapter?.setClassifiedHotData(poplarClassified.subList(0, 4))
+                        }else{
+                            popularClassifiedAdapter?.setClassifiedHotData(poplarClassified)
+                        }
                     }
                     homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
                     homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
