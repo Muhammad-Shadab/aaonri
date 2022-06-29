@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
+import com.google.android.material.snackbar.Snackbar
 
 
 class PostEventAddressDetailsFragment : Fragment() {
@@ -21,11 +22,43 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         postEventAddressBinding?.apply {
             classifiedDetailsNextBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+
+             if(cityNameEt.text.toString().isNotEmpty() && cityNameEt.text.toString().length < 3) {
+                 showAlert("Please enter valid city name")
+             }
+             else{
+                 if(zipCodeEt.text.toString().isNotEmpty() && zipCodeEt.text.toString().length >= 5)
+                 {
+                         if(landmarkEt.text.toString().isNotEmpty() && landmarkEt.text.toString().length <3 )
+                         {
+                             showAlert("Please enter valid landmark")
+                         }
+                     else{
+                         if(stateEt.text.toString().isNotEmpty() && stateEt.text.toString().length < 3)
+                         {
+                             showAlert("Please enter valid state ")
+                         }
+                             else{
+                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                             }
+                     }
+                 }
+                 else{
+                     showAlert("Please enter valid zip code")
+                 }
+             }
+
             }
         }
-
         return postEventAddressBinding?.root
     }
 
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
 }
