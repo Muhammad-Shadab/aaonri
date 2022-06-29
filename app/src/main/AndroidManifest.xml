@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Aaonri"
         tools:targetApi="31">
         <activity
+            android:name="com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.authentication.register.RegistrationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
@@ -60,3 +63,4 @@
     </application>
 
 </manifest>
+

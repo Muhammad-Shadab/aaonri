@@ -70,7 +70,7 @@
         tools:layout="@layout/fragment_classified_details"></fragment>
     <fragment
         android:id="@+id/eventScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.EventScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.EventScreenFragment"
         android:label="fragment_event_screen"
         tools:layout="@layout/fragment_event_screen" />
 </navigation>
