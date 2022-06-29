@@ -11,7 +11,7 @@ import retrofit2.http.POST
 
 interface HomeApi {
 
-    @GET("/api/v1/event/allEvents")
+    @GET("/api/v1/home/event/details")
     suspend fun getAllEvent(): Response<EventResponse>
 
     @Headers("Content-Type:application/json")

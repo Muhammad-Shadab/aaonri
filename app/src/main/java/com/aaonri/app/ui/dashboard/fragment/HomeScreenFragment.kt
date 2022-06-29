@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
-import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.classified.model.UserEvent
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.event.model.Image
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -21,6 +21,10 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,7 +67,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
         }
 
-        homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        /*homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
@@ -99,7 +103,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -108,14 +112,67 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userEvent?.forEach {
-                        Toast.makeText(
-                            context,
-                            "${it.images}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.i("event_response", "$it")
+                    val images = mutableListOf<Image>()
+
+                    response.data?.userEvent?.forEach { userEvent ->
+                        userEvent.images.forEach { image ->
+                            if (images.contains(image)) {
+                                images.remove(image)
+                            } else {
+                                images.add(image)
+                            }
+                        }
                     }
+
+                    images.forEachIndexed { index, image ->
+                        when (index) {
+                            0 -> {
+                                homeScreenBinding?.eventImage1?.visibility = View.VISIBLE
+                                context?.let { it1 ->
+                                    homeScreenBinding?.eventImage1?.let { it2 ->
+                                        Glide.with(it1)
+                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .into(it2)
+                                    }
+                                }
+                            }
+                            1 -> {
+                                homeScreenBinding?.eventImage2?.visibility = View.VISIBLE
+                                context?.let { it1 ->
+                                    homeScreenBinding?.eventImage2?.let { it2 ->
+                                        Glide.with(it1)
+                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .into(it2)
+                                    }
+                                }
+                            }
+                            2 -> {
+                                homeScreenBinding?.eventImage3?.visibility = View.VISIBLE
+                                context?.let { it1 ->
+                                    homeScreenBinding?.eventImage3?.let { it2 ->
+                                        Glide.with(it1)
+                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .transform(CenterInside(),RoundedCorners(24))
+                                            .into(it2)
+                                    }
+                                }
+                            }
+                            3 -> {
+                                /*context?.let { it1 ->
+                                    homeScreenBinding?.eventImage4?.let { it2 ->
+                                        Glide.with(it1)
+                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .into(
+                                                it2
+                                            )
+                                    }
+                                }*/
+                            }
+                        }
+                    }
+
 
                 }
                 is Resource.Error -> {
