@@ -75,9 +75,10 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/custom_radio_btn"
                     android:buttonTint="@drawable/custom_radio_btn"
-                    android:checked="true"
+                    android:checked="false"
                     android:minWidth="0dp"
-                    android:minHeight="0dp" />
+                    android:minHeight="0dp"
+                    />
 
                 <TextView
                     android:id="@+id/emailTv"

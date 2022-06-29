@@ -26,58 +26,60 @@ class PostEventBasicDetailsFragment : Fragment() {
            /* isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 Toast.makeText(c, "", Toast.LENGTH_SHORT).show()
             }*/
+         addressDetailsNextBtn.setOnClickListener{
 
-                    if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
-                            .toString().length >= 3
-                    ) {
+             if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
+                     .toString().length >= 3
+             ) {
 
-                         if(selectCategoryEvent.text.toString().isNotEmpty())
+                 if(selectCategoryEvent.text.toString().isNotEmpty())
+                 {
+                     if(selectstartDate.text.toString().isNotEmpty())
+                     {
+                         if(selectStartTime.text.toString().isNotEmpty())
                          {
-                             if(selectstartDate.text.toString().isNotEmpty())
+                             if(selectEndDate.text.toString().isNotEmpty())
                              {
-                                 if(selectStartTime.text.toString().isNotEmpty())
+                                 if(selectEndTime.text.toString().isNotEmpty())
                                  {
-                                     if(selectEndDate.text.toString().isNotEmpty())
+
+                                     if(askingFee.text.toString().isNotEmpty()&&askingFee.text.toString().trim().toDouble()>0)
                                      {
-                                         if(selectEndTime.text.toString().isNotEmpty())
-                                         {
+                                         if (eventDescEt.text.isNotEmpty()) {
 
-                                             if(askingFee.text.toString().isNotEmpty()&&askingFee.text.toString().trim().toDouble()>0)
-                                             {
-                                                 if (eventDescEt.text.isNotEmpty()) {
-
-                                                 }
-                                                 else {
-                                                     showAlert("Please enter valid event description")
-                                                 }
-                                             }
-                                             else{
-                                                 showAlert("Please enter valid fee")
-                                             }
                                          }
-                                         else{
-                                             showAlert("Please enter valid end time")
+                                         else {
+                                             showAlert("Please enter valid event description")
                                          }
                                      }
                                      else{
-                                         showAlert("Please enter valid end date")
+                                         showAlert("Please enter valid fee")
                                      }
                                  }
                                  else{
-                                     showAlert("Please enter valid start time")
+                                     showAlert("Please enter valid end time")
                                  }
                              }
                              else{
-                                 showAlert("Please enter valid start date")
+                                 showAlert("Please enter valid end date")
                              }
                          }
-                        else{
-                             showAlert("Please select valid category")
-                        }
+                         else{
+                             showAlert("Please enter valid start time")
+                         }
+                     }
+                     else{
+                         showAlert("Please enter valid start date")
+                     }
+                 }
+                 else{
+                     showAlert("Please select valid category")
+                 }
 
-                    } else {
-                        showAlert("Please enter valid event title")
-                    }
+             } else {
+                 showAlert("Please enter valid event title")
+             }
+         }
         }
 
         return postEventBinding?.root
