@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -11,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
-import com.aaonri.app.data.classified.model.UserEvent
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
@@ -24,8 +26,8 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
@@ -67,7 +69,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
         }
 
-        /*homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
@@ -103,7 +105,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
             }
-        }*/
+        }
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -121,6 +123,21 @@ class HomeScreenFragment : Fragment() {
                             } else {
                                 images.add(image)
                             }
+                        }
+                    }
+
+                    when (images.size) {
+                        1 -> {
+
+                        }
+                        2 -> {
+
+                        }
+                        3 -> {
+
+                        }
+                        4 -> {
+
                         }
                     }
 
