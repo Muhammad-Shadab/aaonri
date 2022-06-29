@@ -1,36 +1,23 @@
 package com.aaonri.app.ui.dashboard.fragment.event.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.databinding.EventsPagerItemBinding
-import com.bumptech.glide.Glide
+import android.content.res.Resources
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.aaonri.app.ui.dashboard.fragment.event.fragment.AllEventFragment
+import com.aaonri.app.ui.dashboard.fragment.event.fragment.MyEventFragment
+import com.aaonri.app.ui.dashboard.fragment.event.fragment.RecentEventFragment
 
-/*
-class EventPagerAdapter :
-    RecyclerView.Adapter<EventPagerAdapter.ViewPagerViewHolder>() {
+class EventPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    var listOfImages = mutableListOf<Int>()
+    override fun getItemCount(): Int = 3
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = EventsPagerItemBinding.inflate(inflater, parent, false)
-        return ViewPagerViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
-        val context = holder.itemView.context
-        holder.binding.apply {
-            Glide.with(context).load(listOfImages[position]).into(eventImage)
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> AllEventFragment()
+            1 -> MyEventFragment()
+            2 ->  RecentEventFragment()
+            else -> { throw Resources.NotFoundException("Position not found")}
         }
     }
 
-    fun setData(listOfImage: MutableList<Int>) {
-        this.listOfImages = listOfImage
-    }
-
-    override fun getItemCount() = listOfImages.size
-
-    inner class ViewPagerViewHolder(val binding: EventsPagerItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
-}*/
+}

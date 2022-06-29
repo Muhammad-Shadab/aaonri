@@ -37,49 +37,47 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteY="31dp" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/top_rounded_corner_shape"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationText">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/eventsScreenTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/tab_background_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="auto"
+            app:tabPaddingEnd="@dimen/_4sdp"
+            app:tabPaddingStart="@dimen/_4sdp"
+            app:tabRippleColor="@null" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/eventsScreenViewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:background="@drawable/top_rounded_corner_shape"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registrationText">
+            app:layout_constraintTop_toBottomOf="@id/eventsScreenTabLayout">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/eventsScreenTabLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/tab_background_shape"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabGravity="fill"
-                app:tabIndicatorHeight="0dp"
-                app:tabMode="auto"
-                app:tabPaddingEnd="@dimen/_4sdp"
-                app:tabPaddingStart="@dimen/_4sdp"
-                app:tabRippleColor="@null" />
+        </androidx.viewpager2.widget.ViewPager2>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/eventsScreenViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/classifiedScreenTabLayout">
-
-            </androidx.viewpager2.widget.ViewPager2>
-
-
-
-        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/floatingActionBtnEvents"
