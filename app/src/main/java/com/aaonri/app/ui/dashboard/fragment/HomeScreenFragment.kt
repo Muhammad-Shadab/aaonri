@@ -41,7 +41,7 @@ class HomeScreenFragment : Fragment() {
 
         homeScreenBinding?.apply {
 
-            homeTv.setOnClickListener {
+            eventLinearLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             }
 
