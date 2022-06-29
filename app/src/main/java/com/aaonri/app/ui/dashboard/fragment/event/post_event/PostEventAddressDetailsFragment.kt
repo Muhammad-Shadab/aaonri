@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
@@ -16,11 +17,14 @@ class PostEventAddressDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         postEventAddressBinding = FragmentPostEventAddressDetailsBinding.inflate(inflater, container, false)
-        postEventAddressBinding.apply {
 
+        postEventAddressBinding?.apply {
+            classifiedDetailsNextBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+            }
         }
+
         return postEventAddressBinding?.root
     }
 
