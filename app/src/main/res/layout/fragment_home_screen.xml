@@ -6,7 +6,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.login.LoginFragment">
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+       >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/homeTv"
         android:layout_width="wrap_content"
@@ -100,24 +111,15 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeTv" />
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:background="@drawable/top_rounded_corner_shape"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            android:background="@drawable/top_rounded_corner_shape"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingTop="@dimen/_8sdp"
+            >
 
             <LinearLayout
                 android:id="@+id/aaonriFeatureLinearLayout"
@@ -320,7 +322,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/_12sdp"
-                        android:background="@drawable/tab_background_shape"
+                        android:textColor="@color/white"
+                        android:background="@drawable/selected_home_tab_background"
                         android:paddingVertical="@dimen/_4sdp"
                         android:text="Events" />
 
@@ -328,7 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
-                        android:background="@drawable/tab_background"
+                        android:background="@drawable/unselected_home_tab_background"
                         android:paddingHorizontal="@dimen/_12sdp"
                         android:paddingVertical="@dimen/_4sdp"
                         android:text="Jobs" />
@@ -337,7 +340,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
-                        android:background="@drawable/tab_background"
+                        android:background="@drawable/unselected_home_tab_background"
                         android:paddingHorizontal="@dimen/_12sdp"
                         android:paddingVertical="@dimen/_4sdp"
                         android:text="Astrology" />
@@ -346,12 +349,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
-                        android:background="@drawable/tab_background"
+                        android:background="@drawable/unselected_home_tab_background"
                         android:paddingHorizontal="@dimen/_12sdp"
                         android:paddingVertical="@dimen/_4sdp"
                         android:text="Services" />
-
-
                         </LinearLayout>
 
                 </HorizontalScrollView>
@@ -876,23 +877,26 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/tab_background"
-                            android:paddingHorizontal="@dimen/_12sdp"
-                            android:paddingVertical="@dimen/_4sdp"
+                            android:background="@drawable/selected_home_tab_background"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:textColor="@color/white"
+                            android:paddingVertical="@dimen/_6sdp"
                             android:text="Nonimmigrant Visa" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_6sdp"
-                            android:background="@drawable/tab_background"
+                            android:background="@drawable/unselected_home_tab_background"
                             android:paddingHorizontal="@dimen/_12sdp"
+                            android:textColor="@color/graytxtcolor"
                             android:paddingVertical="@dimen/_4sdp"
                             android:text="Immigrant Visa" />
 
@@ -900,21 +904,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_6sdp"
-                            android:background="@drawable/tab_background"
+                            android:background="@drawable/unselected_home_tab_background"
                             android:paddingHorizontal="@dimen/_12sdp"
                             android:layout_marginEnd="@dimen/_28sdp"
                             android:paddingVertical="@dimen/_4sdp"
+                            android:textColor="@color/graytxtcolor"
                             android:text="Immigration Litigation" />
 
                     </LinearLayout>
 
                 </HorizontalScrollView>
-
                 <HorizontalScrollView
                     android:id="@+id/immigrationHorizontalLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:scrollbars="none"
                     android:visibility="visible"
@@ -931,6 +934,7 @@
                             android:layout_width="@dimen/_280sdp"
                             android:layout_height="wrap_content"
                             app:cardBackgroundColor="#0fc7a9"
+                            android:layout_marginStart="@dimen/_8sdp"
                             app:cardCornerRadius="@dimen/_10sdp">
 
                             <LinearLayout
@@ -1085,7 +1089,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
