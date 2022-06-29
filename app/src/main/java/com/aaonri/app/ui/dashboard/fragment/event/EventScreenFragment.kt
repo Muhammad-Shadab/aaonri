@@ -39,51 +39,51 @@ class EventScreenFragment : Fragment() {
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
                 startActivity(intent)
-
-                eventsScreenViewPager.adapter = pagerAdapter
-
-                TabLayoutMediator(eventsScreenTabLayout, eventsScreenViewPager) { tab, position ->
-                    tab.text = tabTitles[position]
-                }.attach()
-
-                for (i in 0..3) {
-                    val textView =
-                        LayoutInflater.from(requireContext())
-                            .inflate(R.layout.tab_title_text, null) as TextView
-                    eventsScreenTabLayout.getTabAt(i)?.customView =
-                        textView
-                }
-
-                eventsScreenTabLayout.addOnTabSelectedListener(object :
-                    TabLayout.OnTabSelectedListener {
-                    override fun onTabSelected(tab: TabLayout.Tab?) {
-                        if (tab?.position == 2) {
-                            floatingActionBtnEvents.visibility = View.GONE
-                        } else {
-                            floatingActionBtnEvents.visibility = View.VISIBLE
-                        }
-                    }
-
-                    override fun onTabUnselected(tab: TabLayout.Tab?) {
-                        return
-                    }
-
-                    override fun onTabReselected(tab: TabLayout.Tab?) {
-                        return
-                    }
-                })
-
             }
 
 
-            /*dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            eventsScreenViewPager.adapter = pagerAdapter
+
+            TabLayoutMediator(eventsScreenTabLayout, eventsScreenViewPager) { tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
+
+            for (i in 0..3) {
+                val textView =
+                    LayoutInflater.from(requireContext())
+                        .inflate(R.layout.tab_title_text, null) as TextView
+                eventsScreenTabLayout.getTabAt(i)?.customView =
+                    textView
+            }
+
+            eventsScreenTabLayout.addOnTabSelectedListener(object :
+                TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 2) {
+                        floatingActionBtnEvents.visibility = View.GONE
+                    } else {
+                        floatingActionBtnEvents.visibility = View.VISIBLE
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    return
+                }
+            })
+
+
+            dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
                     floatingActionBtnEvents.visibility = View.GONE
                     eventsScreenTabLayout.visibility = View.GONE
                     eventsScreenViewPager.setPadding(0, 40, 0, 0)
                     eventsScreenViewPager.isUserInputEnabled = false
                 }
-            }*/
+            }
 
         }
 
