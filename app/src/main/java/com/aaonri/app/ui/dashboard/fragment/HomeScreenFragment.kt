@@ -188,7 +188,6 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-
         return homeScreenBinding?.root
     }
 
