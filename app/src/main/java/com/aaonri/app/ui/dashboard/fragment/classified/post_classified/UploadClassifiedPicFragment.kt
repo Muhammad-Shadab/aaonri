@@ -49,7 +49,7 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadPicBtn.setOnClickListener {
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
-                    ImagePicker.with(activity!!)
+                    ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->

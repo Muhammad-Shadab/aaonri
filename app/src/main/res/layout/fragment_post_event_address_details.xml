@@ -35,7 +35,6 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
-
             <EditText
                 android:id="@+id/eventAddressEt2"
                 android:layout_width="match_parent"
@@ -59,7 +58,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/cityNameAddressDetails"
+                android:id="@+id/cityNameEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -80,7 +79,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/zipCodeAddressDetails"
+                android:id="@+id/zipCodeEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
