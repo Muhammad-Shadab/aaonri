@@ -286,7 +286,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Askingfee"
+                    android:id="@+id/askingFee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
@@ -302,6 +302,7 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
+                    android:inputType="number"
                     app:drawableLeftCompat="@drawable/dollor"
                     android:drawablePadding="@dimen/_4sdp"
                     />
@@ -336,7 +337,7 @@
 
             </LinearLayout>
             <EditText
-                android:id="@+id/EventDescEt"
+                android:id="@+id/eventDescEt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginHorizontal="@dimen/_28sdp"

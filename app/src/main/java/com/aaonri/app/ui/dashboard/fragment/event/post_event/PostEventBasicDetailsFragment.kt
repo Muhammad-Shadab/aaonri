@@ -5,56 +5,90 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
+import com.google.android.material.snackbar.Snackbar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PostEventBasicDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PostEventBasicDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_event_basic_details, container, false)
+        postEventBinding = FragmentPostEventBasicDetailsBinding.inflate(inflater, container, false)
+
+        postEventBinding?.apply {
+
+
+           /* isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+                Toast.makeText(c, "", Toast.LENGTH_SHORT).show()
+            }*/
+
+                    if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
+                            .toString().length >= 3
+                    ) {
+
+                         if(selectCategoryEvent.text.toString().isNotEmpty())
+                         {
+                             if(selectstartDate.text.toString().isNotEmpty())
+                             {
+                                 if(selectStartTime.text.toString().isNotEmpty())
+                                 {
+                                     if(selectEndDate.text.toString().isNotEmpty())
+                                     {
+                                         if(selectEndTime.text.toString().isNotEmpty())
+                                         {
+
+                                             if(askingFee.text.toString().isNotEmpty()&&askingFee.text.toString().trim().toDouble()>0)
+                                             {
+                                                 if (eventDescEt.text.isNotEmpty()) {
+
+                                                 }
+                                                 else {
+                                                     showAlert("Please enter valid event description")
+                                                 }
+                                             }
+                                             else{
+                                                 showAlert("Please enter valid fee")
+                                             }
+                                         }
+                                         else{
+                                             showAlert("Please enter valid end time")
+                                         }
+                                     }
+                                     else{
+                                         showAlert("Please enter valid end date")
+                                     }
+                                 }
+                                 else{
+                                     showAlert("Please enter valid start time")
+                                 }
+                             }
+                             else{
+                                 showAlert("Please enter valid start date")
+                             }
+                         }
+                        else{
+                             showAlert("Please select valid category")
+                        }
+
+                    } else {
+                        showAlert("Please enter valid event title")
+                    }
+        }
+
+        return postEventBinding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PostEventBasicDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PostEventBasicDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 }
