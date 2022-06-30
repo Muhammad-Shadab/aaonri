@@ -60,7 +60,6 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp" />
-
         <com.shuhart.stepview.StepView
             android:id="@+id/step_view"
             android:layout_width="match_parent"
