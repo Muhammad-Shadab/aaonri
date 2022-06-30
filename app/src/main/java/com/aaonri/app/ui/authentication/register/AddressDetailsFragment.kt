@@ -120,6 +120,7 @@ class AddressDetailsFragment : Fragment() {
                         city = userEnteredCity.toString()
                     )
                     if (phoneNumber.isNotEmpty()) {
+                        
                         if (phoneNumber.length == 10) {
                             findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                         } else {
