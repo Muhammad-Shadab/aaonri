@@ -123,8 +123,6 @@ class BasicDetailsFragment : Fragment() {
             }
 
 
-
-
             passwordBasicDetails.addTextChangedListener { editable ->
                 editable?.let {
                     if (it.toString().isNotEmpty() && it.toString().length >= 8) {
