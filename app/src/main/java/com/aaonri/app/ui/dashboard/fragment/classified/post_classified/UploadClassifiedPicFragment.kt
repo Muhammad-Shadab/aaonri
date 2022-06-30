@@ -33,6 +33,7 @@ class UploadClassifiedPicFragment : Fragment() {
     var uploadClassifiedBinding: FragmentUploadClassifiedPicBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val listOfImagesUri = mutableListOf<Uri>()
+    val showingImagesList = mutableListOf<Uri>()
     var image1Uri = ""
     var image2Uri = ""
     var image3Uri = ""
@@ -107,28 +108,24 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
-//                    context?.let { it1 -> Glide.with(it1).load(image1Uri).centerCrop().into(selectedImage) }
                     selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
-//                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
                     selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
-                    //context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
                     selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
-//                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
                     selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
@@ -179,15 +176,21 @@ class UploadClassifiedPicFragment : Fragment() {
 
                 if (image1Uri.isEmpty()) {
                     image1Uri = fileUri.toString()
+                    setImage()
+                    showingImagesList.add(image1Uri.toUri())
                 } else if (image2Uri.isEmpty()) {
                     image2Uri = fileUri.toString()
+                    setImage()
+                    showingImagesList.add(image1Uri.toUri())
                 } else if (image3Uri.isEmpty()) {
                     image3Uri = fileUri.toString()
+                    setImage()
                 } else if (image4Uri.isEmpty()) {
                     image4Uri = fileUri.toString()
+                    setImage()
                 }
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
-                setImage()
+                //setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
