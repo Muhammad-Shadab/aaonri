@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -23,9 +22,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
-import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.github.dhaval2404.imagepicker.listener.DismissListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -101,9 +98,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         )
                     }
                 }
-
                 selectedImage.clipToOutline = true
-
             }
 
             uploadedImage1.setOnClickListener {
@@ -186,7 +181,6 @@ class UploadClassifiedPicFragment : Fragment() {
 
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
 
-
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
                 //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
@@ -237,10 +231,10 @@ class UploadClassifiedPicFragment : Fragment() {
             image4 = false
             changeCardViewBg(3)
         }
-        disableUploadBtn()
+        disableUploadBtnColor()
     }
 
-    private fun disableUploadBtn() {
+    private fun disableUploadBtnColor() {
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
             uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
@@ -256,7 +250,7 @@ class UploadClassifiedPicFragment : Fragment() {
         }
     }
 
-    private fun setImageOnNavigatingBack(){
+    private fun setImageOnNavigatingBack() {
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
             uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
@@ -301,7 +295,7 @@ class UploadClassifiedPicFragment : Fragment() {
             image4 = false
             changeCardViewBg(3)
         }
-        disableUploadBtn()
+        disableUploadBtnColor()
     }
 
     private fun deleteImage(index: Int) {
