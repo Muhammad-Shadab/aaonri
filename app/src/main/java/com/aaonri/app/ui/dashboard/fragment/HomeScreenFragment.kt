@@ -36,22 +36,7 @@ class HomeScreenFragment : Fragment() {
             homeTv.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             }
-            /*logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, "")
-                    val intent = Intent(context, LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }
-                builder.setNegativeButton("Cancel") { dialog, which ->
 
-                }
-                builder.show()
-            }*/
         }
 
         /* dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
