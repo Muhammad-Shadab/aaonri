@@ -111,8 +111,7 @@ class AddressDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (stateName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty() && zipCode.toString()
+                if (stateName.isNotEmpty() && userEnteredCity.toString().length >= 2 && zipCode.toString()
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
                     authCommonViewModel.addLocationDetails(

@@ -1,12 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,9 +12,6 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
-import com.aaonri.app.ui.authentication.login.LoginActivity
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
