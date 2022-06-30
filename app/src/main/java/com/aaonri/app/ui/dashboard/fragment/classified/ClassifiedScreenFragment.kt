@@ -46,6 +46,9 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+        val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+        startActivity(intent)
+
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
                 ClassifiedConstant.MY_LOCATION_CHECKBOX, false

@@ -177,11 +177,9 @@ class UploadClassifiedPicFragment : Fragment() {
                 if (image1Uri.isEmpty()) {
                     image1Uri = fileUri.toString()
                     setImage()
-                    showingImagesList.add(image1Uri.toUri())
                 } else if (image2Uri.isEmpty()) {
                     image2Uri = fileUri.toString()
                     setImage()
-                    showingImagesList.add(image1Uri.toUri())
                 } else if (image3Uri.isEmpty()) {
                     image3Uri = fileUri.toString()
                     setImage()
@@ -189,8 +187,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     image4Uri = fileUri.toString()
                     setImage()
                 }
+
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
-                //setImage()
+
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
@@ -207,6 +206,9 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
             uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
             uploadClassifiedBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            if (!showingImagesList.contains(image1Uri.toUri())) {
+                showingImagesList.add(image1Uri.toUri())
+            }
             image1 = false
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
@@ -214,6 +216,9 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadClassifiedBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
             uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
             uploadClassifiedBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            if (!showingImagesList.contains(image2Uri.toUri())) {
+                showingImagesList.add(image2Uri.toUri())
+            }
             image2 = false
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
@@ -221,6 +226,9 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadClassifiedBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
             uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
             uploadClassifiedBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            if (!showingImagesList.contains(image3Uri.toUri())) {
+                showingImagesList.add(image3Uri.toUri())
+            }
             image3 = false
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
@@ -228,6 +236,9 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadClassifiedBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
             uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
             uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            if (!showingImagesList.contains(image4Uri.toUri())) {
+                showingImagesList.add(image4Uri.toUri())
+            }
             image4 = false
             changeCardViewBg(3)
         }
@@ -245,7 +256,6 @@ class UploadClassifiedPicFragment : Fragment() {
                 )
             })
         }
-
     }
 
     private fun deleteImage(index: Int) {
@@ -258,8 +268,8 @@ class UploadClassifiedPicFragment : Fragment() {
             })
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
             removeBorder(0)
-            if (listOfImagesUri.contains(image1Uri.toUri())) {
-                listOfImagesUri.remove(image1Uri.toUri())
+            if (showingImagesList.contains(image1Uri.toUri())) {
+                showingImagesList.remove(image1Uri.toUri())
             }
             image1Uri = ""
             image1 = true
@@ -270,8 +280,8 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image2Uri.toUri())) {
-                listOfImagesUri.remove(image2Uri.toUri())
+            if (showingImagesList.contains(image2Uri.toUri())) {
+                showingImagesList.remove(image2Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
             removeBorder(1)
@@ -284,8 +294,8 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image3Uri.toUri())) {
-                listOfImagesUri.remove(image3Uri.toUri())
+            if (showingImagesList.contains(image3Uri.toUri())) {
+                showingImagesList.remove(image3Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
             removeBorder(2)
@@ -298,8 +308,8 @@ class UploadClassifiedPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image4Uri.toUri())) {
-                listOfImagesUri.remove(image4Uri.toUri())
+            if (showingImagesList.contains(image4Uri.toUri())) {
+                showingImagesList.remove(image4Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
             removeBorder(3)
@@ -328,17 +338,28 @@ class UploadClassifiedPicFragment : Fragment() {
                 )
             })
         }
+        setImageAfterDelete()
     }
 
-    /*private fun setImageAfterDelete() {
-        listOfImagesUri.forEach {
-            if (image4Uri.isEmpty()){
-                uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
-            }else if (image3Uri.isEmpty()){
-                uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+    private fun setImageAfterDelete() {
+        if (showingImagesList.size != 0) {
+            if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(3)
+            }else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(2)
+            } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(1)
+            } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()){
+                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(0)
             }
+
+
         }
-    }*/
+    }
 
     private fun removeBorder(index: Int) {
         when (index) {

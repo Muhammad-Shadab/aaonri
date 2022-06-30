@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
@@ -265,5 +266,4 @@ class PostClassifiedViewModel @Inject constructor(
     fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
         selectedSubClassifiedCategory.postValue(value)
     }
-
 }
