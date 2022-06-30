@@ -1,15 +1,19 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.app.Activity
+import android.graphics.Outline
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -21,6 +25,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.github.dhaval2404.imagepicker.listener.DismissListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,12 +54,15 @@ class UploadClassifiedPicFragment : Fragment() {
         uploadClassifiedBinding?.apply {
 
             uploadPicBtn.setOnClickListener {
+
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
                     ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
+                            progressBarPicUpload.visibility = View.VISIBLE
+
                         }
                 } else {
 
@@ -74,31 +82,54 @@ class UploadClassifiedPicFragment : Fragment() {
                 deleteImage(3)
             }
 
+
+            val curveRadius = 10F
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                selectedImage.outlineProvider = object : ViewOutlineProvider() {
+
+                    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+                    override fun getOutline(view: View?, outline: Outline?) {
+                        outline?.setRoundRect(
+                            0,
+                            0,
+                            view!!.width,
+                            (view.height + curveRadius).toInt(),
+                            curveRadius
+                        )
+                    }
+                }
+
+                selectedImage.clipToOutline = true
+
+            }
+
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
-                    context?.let { it1 -> Glide.with(it1).load(image1Uri).centerCrop().into(selectedImage) }
-                    //selectedImage.load(image1Uri)
+//                    context?.let { it1 -> Glide.with(it1).load(image1Uri).centerCrop().into(selectedImage) }
+                    selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
-                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
-//                    selectedImage.load(image2Uri)
+//                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
+                    selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
-                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
-//                    selectedImage.load(image3Uri)
+                    //context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
+                    selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
-                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
-//                    selectedImage.load(image4Uri)
+//                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
+                    selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
             }
@@ -138,6 +169,7 @@ class UploadClassifiedPicFragment : Fragment() {
 
     private val startForClassifiedImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+
             val resultCode = result.resultCode
             val data = result.data
 
@@ -154,17 +186,19 @@ class UploadClassifiedPicFragment : Fragment() {
                 } else if (image4Uri.isEmpty()) {
                     image4Uri = fileUri.toString()
                 }
-
+                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
                 setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
+                //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-
+                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
             }
         }
 
     private fun setImage() {
+
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
             uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
