@@ -19,6 +19,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,7 +50,7 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadPicBtn.setOnClickListener {
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
-                    ImagePicker.with(activity!!)
+                    ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
@@ -75,25 +76,29 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
-                    selectedImage.load(image1Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image1Uri).centerCrop().into(selectedImage) }
+                    //selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
-                    selectedImage.load(image2Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
+//                    selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
-                    selectedImage.load(image3Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
+//                    selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
-                    selectedImage.load(image4Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
+//                    selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
             }
