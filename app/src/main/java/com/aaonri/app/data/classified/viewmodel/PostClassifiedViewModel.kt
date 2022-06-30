@@ -236,7 +236,7 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
-        listOfImagesUri.addAll(uploadedImagesList)
+        listOfImagesUri = uploadedImagesList
     }
 
     fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
