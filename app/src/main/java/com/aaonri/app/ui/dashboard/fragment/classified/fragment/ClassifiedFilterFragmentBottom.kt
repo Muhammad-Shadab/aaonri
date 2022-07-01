@@ -154,7 +154,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                      ?.set(
                          ClassifiedConstant.MY_LOCATION_CHECKBOX,
                          myLocationCheckBox.isChecked
- <<<<<<< HEAD
                      )*/
 
 

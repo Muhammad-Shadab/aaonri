@@ -60,6 +60,11 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
+            val date = data[position].createdOn.subSequence(0,10)
+            val year = date.subSequence(0,4)
+            val month = date.subSequence(5,7)
+            val day = date.subSequence(8,10)
+            classifiedPostDateTv.text = "Posted On: $day-$month-$year"
 
 
         }
@@ -114,7 +119,11 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
-            classifiedPostDateTv.text = data[position].createdOn
+            val date = data[position].createdOn.subSequence(0,10)
+            val year = date.subSequence(0,4)
+            val month = date.subSequence(5,7)
+            val day = date.subSequence(8,10)
+            classifiedPostDateTv.text = "Posted On: $day-$month-$year"
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
