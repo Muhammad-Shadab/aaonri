@@ -32,7 +32,7 @@ class SplashScreenFragment : Fragment() {
 
         var job: Job? = null
         job = MainScope().launch {
-            //delay(2000L)
+            delay(2000L)
             if (email?.isNotEmpty() == true) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)

@@ -25,6 +25,8 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 @AndroidEntryPoint
@@ -98,7 +100,11 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
+
+            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+
             itemId = userAds.id
+
             if (userAds.userAdsImages.isEmpty()) {
                 changeCardViewBorder(9)
             } else {
@@ -206,7 +212,13 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                 }
-                classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
+                val random = userAds.askingPrice
+
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
+                classifiedPriceTv.text = "$$roundoff"
                 addTitle.text = userAds.adTitle
                 classifiedCategoryTv.text =
                     "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
@@ -219,8 +231,10 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+
+            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+
             itemId = userAds.id
-            Toast.makeText(context, userAds.adPhone, Toast.LENGTH_SHORT).show()
 
             if (userAds.userAdsImages.isEmpty()) {
                 changeCardViewBorder(9)
@@ -371,6 +385,24 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+
+        classifiedViewModel.classifiedSellerNameData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    classifiedDetailsBinding?.sellerName?.text =
+                        response.data?.firstName + " " + response.data?.lastName
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)

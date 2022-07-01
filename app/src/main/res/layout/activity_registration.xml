@@ -50,16 +50,19 @@
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
         <TextView
+            android:id="@+id/introSubText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_32sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="@string/register_to_explore_all_services_offering_by_aaonri"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp" />
+
         <com.shuhart.stepview.StepView
             android:id="@+id/step_view"
             android:layout_width="match_parent"

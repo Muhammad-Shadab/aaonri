@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
@@ -99,6 +100,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
+
+
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -241,7 +244,7 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
-        listOfImagesUri.addAll(uploadedImagesList)
+        listOfImagesUri = uploadedImagesList
     }
 
     fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
@@ -271,5 +274,4 @@ class PostClassifiedViewModel @Inject constructor(
     fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
         selectedSubClassifiedCategory.postValue(value)
     }
-
 }

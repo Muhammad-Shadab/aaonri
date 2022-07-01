@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -33,9 +35,17 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         classifiedFilterBinding =
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
-
+        val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         classifiedFilterBinding?.apply {
+
+            myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    zipCodeEt.setText(zipCode)
+                } else {
+                    zipCodeEt.setText("")
+                }
+            }
 
             applyBtn.setOnClickListener {
 
@@ -77,7 +87,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.ZIPCODE_FILTER,
-                                "${zipCode.text}"
+                                "${zipCodeEt.text}"
                             )
                         dismiss()
                         postClassifiedViewModel.setClickedOnFilter(true)
@@ -98,17 +108,17 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         )
                 }
 
-                /* if (myLocationCheckBox.isChecked) {
-                     if (zipCode.text.toString()
-                             .isNotEmpty() && zipCode.text.toString().length >= 5
+                 /*if (myLocationCheckBox.isChecked) {
+                     if (zipCodeEt.text.toString()
+                             .isNotEmpty() && zipCodeEt.text.toString().length >= 5
                      ) {
                          context?.let { it1 -> PreferenceManager<String>(it1) }
                              ?.set(
                                  ClassifiedConstant.ZIPCODE_FILTER,
-                                 "${zipCode.text}"
+                                 "${zipCodeEt.text}"
                              )
                          postClassifiedViewModel.setClickedOnFilter(true)
-                         findNavController().navigateUp()
+                         dismiss()
                      } else {
                          dialog?.window?.decorView?.let {
                              Snackbar.make(
@@ -120,12 +130,12 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                      }
                  }*/
 
-                if (zipCode.text.toString().isNotEmpty()) {
-                    if (zipCode.text.toString().length >= 5) {
+                if (zipCodeEt.text.toString().isNotEmpty()) {
+                    if (zipCodeEt.text.toString().length >= 5) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.ZIPCODE_FILTER,
-                                "${zipCode.text}"
+                                "${zipCodeEt.text}"
                             )
                         dismiss()
                         postClassifiedViewModel.setClickedOnFilter(true)
@@ -144,7 +154,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                      ?.set(
                          ClassifiedConstant.MY_LOCATION_CHECKBOX,
                          myLocationCheckBox.isChecked
- <<<<<<< HEAD
                      )*/
 
 
@@ -155,6 +164,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }
 
             clearAllBtn.setOnClickListener {
+                dismiss()
                 clearAllData()
             }
 
@@ -474,19 +484,18 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
         classifiedFilterBinding?.minPriceRange?.setText(minValue?.replace("Range: $", ""))
         classifiedFilterBinding?.maxPriceRange?.setText(maxValue?.replace("Range: $", ""))
-        classifiedFilterBinding?.zipCode?.setText(zipCodeValue)
+        classifiedFilterBinding?.zipCodeEt?.setText(zipCodeValue)
         /*if (myLocationCheckBox != null) {
             classifiedFilterBinding?.myLocationCheckBox?.isChecked = myLocationCheckBox
         }*/
     }
 
 
-
     private fun clearAllData() {
 
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
-        classifiedFilterBinding?.zipCode?.setText("")
+        classifiedFilterBinding?.zipCodeEt?.setText("")
         /*classifiedFilterBinding?.myLocationCheckBox?.isChecked = false*/
 
         context?.let { it1 -> PreferenceManager<String>(it1) }

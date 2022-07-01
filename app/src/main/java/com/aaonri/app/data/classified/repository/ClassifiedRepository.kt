@@ -24,8 +24,15 @@ class ClassifiedRepository @Inject constructor(
 
     suspend fun getClassifiedCategory() = postClassifiedApi.getClassifiedCategory()
 
-    suspend fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
+    suspend fun uploadClassifiedPics(
+        files: MultipartBody.Part,
+        addId: RequestBody,
+        dellId: RequestBody
+    ) =
         postClassifiedApi.uploadClassifiedPics(files, addId, dellId)
+
+    suspend fun getClassifiedSellerName(email: String) =
+        classifiedApi.getClassifiedSellerInfo(email)
 
     suspend fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         classifiedApi.getClassifiedByUser(getClassifiedsByUserRequest)
