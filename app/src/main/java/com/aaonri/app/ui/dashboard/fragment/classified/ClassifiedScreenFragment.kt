@@ -125,9 +125,9 @@ class ClassifiedScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
 
-            moreTextView.setOnClickListener {
+            /*moreTextView.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
-            }
+            }*/
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
@@ -166,21 +166,22 @@ class ClassifiedScreenFragment : Fragment() {
             if (isFilerBtnClicked) {
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                    classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
+                   // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
 
                     if (minValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text = "Range: \$$minValue"
+                        classifiedScreenBinding?.filterText1?.text =
+                            "Range: \$$minValue-\$$maxValue"
                     } else {
                         classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                     }
 
-                    if (maxValue?.isNotEmpty() == true) {
+                    /*if (maxValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterText2?.text = "Range: \$$maxValue"
                     } else {
                         classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                    }
+                    }*/
 
                     if (zipCodeValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
@@ -192,12 +193,12 @@ class ClassifiedScreenFragment : Fragment() {
 
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                    classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 }
             }
             if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
             setClassifiedViewPager(true)
         }
