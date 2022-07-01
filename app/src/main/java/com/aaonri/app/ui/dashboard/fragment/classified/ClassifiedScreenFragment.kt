@@ -73,6 +73,10 @@ class ClassifiedScreenFragment : Fragment() {
                     ?.set(
                         ClassifiedConstant.MIN_VALUE_FILTER, ""
                     )
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MAX_VALUE_FILTER, ""
+                    )
                 postClassifiedViewModel.setClickedOnFilter(false)
             }
 
@@ -166,7 +170,7 @@ class ClassifiedScreenFragment : Fragment() {
             if (isFilerBtnClicked) {
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                   // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
+                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
 
                     if (minValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
