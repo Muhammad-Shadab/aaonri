@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:textAlignment="center"
-                android:text="What modules would you like to explore on aaonri?\n  Choose any three or more"
+                android:text="Choose any three or more"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -96,6 +96,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/_4sdp"
+                                    android:layout_marginEnd="@dimen/_12sdp"
                                     android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/as_you_have_selected"
                                     android:textColor="@color/textViewColor"

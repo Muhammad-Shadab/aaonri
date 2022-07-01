@@ -9,7 +9,7 @@
     <string name="back_to_signin"><u>Back to Sign In</u></string>
     <string name="skip_will_confirm"><u>Skip, I’ll confirm later</u></string>
     <string name="create_account"><u>Create New Account</u></string>
-    <string name="registration">Registration</string>
+    <string name="registration">Get Started</string>
     <string name="address_line_1">Address Line 1</string>
     <string name="address_line_2">Address Line 2</string>
     <string name="city">City*</string>

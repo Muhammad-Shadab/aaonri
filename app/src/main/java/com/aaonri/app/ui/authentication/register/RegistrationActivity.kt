@@ -42,15 +42,19 @@ class RegistrationActivity : BaseActivity() {
             authCommonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->
                 when (route) {
                     AuthConstant.BASIC_DETAILS_SCREEN -> {
+                        introSubText.text = "Please register to get started & explore more.."
                         stepView.go(0, true)
                     }
                     AuthConstant.ADDRESS_DETAILS_SCREEN -> {
+                        introSubText.text = "We need few more details"
                         stepView.go(1, true)
                     }
                     AuthConstant.LOCATION_DETAILS_SCREEN -> {
+                        introSubText.text = "Please tell us about your place of origin.."
                         stepView.go(2, true)
                     }
                     AuthConstant.SERVICE_DETAILS_SCREEN -> {
+                        introSubText.text = "What modules would you like to explore on aaonri ?"
                         stepView.go(3, true)
                     }
                 }
