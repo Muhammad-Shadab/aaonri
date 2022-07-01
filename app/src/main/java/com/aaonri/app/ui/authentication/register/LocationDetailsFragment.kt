@@ -1,28 +1,32 @@
 package com.aaonri.app.ui.authentication.register
 
+import com.aaonri.app.R
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.ui.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
+import com.aaonri.app.ui.authentication.register.adapter.SelectedCommunityAdapter
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class LocationDetailsFragment : Fragment() {
@@ -32,6 +36,14 @@ class LocationDetailsFragment : Fragment() {
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isCommunitySelected = false
     var isCountrySelected = false
+
+
+    lateinit var adapter: ArrayAdapter<String>
+    lateinit var listView: ListView
+    lateinit var alertDialog: AlertDialog.Builder
+    lateinit var dialog: AlertDialog
+
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -50,7 +62,6 @@ class LocationDetailsFragment : Fragment() {
                 countryCode = "US"
             )
         }*/
-
         locationDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
@@ -161,5 +172,7 @@ class LocationDetailsFragment : Fragment() {
             }
         }
     }
+
+
 
 }

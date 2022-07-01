@@ -16,6 +16,7 @@ import com.aaonri.app.R
 import com.aaonri.app.ui.authentication.register.adapter.CountryAdapter
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
+import com.aaonri.app.data.authentication.register.model.countries.CountryInfo
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentSelectCountryBottomBinding
@@ -68,6 +69,18 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             closeCountryBtn.setOnClickListener {
                 dismiss()
             }
+
+            val southAsiaCountry = mutableListOf<CountriesResponseItem>()
+            southAsiaCountry.add(CountriesResponseItem("Afghanistan", CountryInfo("https://disease.sh/assets/img/flags/af.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Bangladesh", CountryInfo("https://disease.sh/assets/img/flags/bd.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Bhutan", CountryInfo("https://disease.sh/assets/img/flags/bt.png","")))
+            southAsiaCountry.add(CountriesResponseItem("India", CountryInfo("https://disease.sh/assets/img/flags/in.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Maldives", CountryInfo("https://disease.sh/assets/img/flags/mv.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Nepal", CountryInfo("https://disease.sh/assets/img/flags/np.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Pakistan", CountryInfo("https://disease.sh/assets/img/flags/pk.png","")))
+            southAsiaCountry.add(CountriesResponseItem("Sri Lanka", CountryInfo("https://disease.sh/assets/img/flags/lk.png","")))
+
+            countryAdapter?.setData(southAsiaCountry)
             countriesRv.layoutManager = LinearLayoutManager(context)
             countriesRv.adapter = countryAdapter
         }
@@ -76,41 +89,41 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCountries() {
-        authCommonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Error -> {
-                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                }
-                is Resource.Loading -> {
-                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    val southAsiaCountry = mutableListOf<CountriesResponseItem>()
-                    searchCountry(response.data)
-                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
-                    if (args.isAddressScreen) {
-                        response.data?.let { countryAdapter?.setData(response.data) }
-                    } else {
-                        response.data?.forEach {
-                            when(it.country){
-                                "Afghanistan" -> {southAsiaCountry.add(it)}
-                                "Bangladesh" -> {southAsiaCountry.add(it)}
-                                "Bhutan" -> {southAsiaCountry.add(it)}
-                                "India" -> {southAsiaCountry.add(it)}
-                                "Maldives" -> {southAsiaCountry.add(it)}
-                                "Nepal" -> {southAsiaCountry.add(it)}
-                                "Pakistan" -> {southAsiaCountry.add(it)}
-                                "Sri Lanka" -> {southAsiaCountry.add(it)}
-                            }
-                        }
-                        response.data?.let { countryAdapter?.setData(southAsiaCountry) }
-                    }
-                }
-                is Resource.Empty -> {
-                    TODO()
-                }
-            }
-        }
+//        authCommonViewModel.countriesData.observe(viewLifecycleOwner) { response ->
+//            when (response) {
+//                is Resource.Error -> {
+//                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
+//                }
+//                is Resource.Loading -> {
+//                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+//                }
+//                is Resource.Success -> {
+//                    val southAsiaCountry = mutableListOf<CountriesResponseItem>()
+//                    searchCountry(response.data)
+//                    countryBottomBinding?.progressBarCommunityBottom?.visibility = View.GONE
+//                    if (args.isAddressScreen) {
+//                        response.data?.let { countryAdapter?.setData(response.data) }
+//                    } else {
+//                      /*  response.data?.forEach {
+//                            when(it.country){
+//                                "Afghanistan" -> {southAsiaCountry.add(it)}
+//                                "Bangladesh" -> {southAsiaCountry.add(it)}
+//                                "Bhutan" -> {southAsiaCountry.add(it)}
+//                                "India" -> {southAsiaCountry.add(it)}
+//                                "Maldives" -> {southAsiaCountry.add(it)}
+//                                "Nepal" -> {southAsiaCountry.add(it)}
+//                                "Pakistan" -> {southAsiaCountry.add(it)}
+//                                "Sri Lanka" -> {southAsiaCountry.add(it)}
+//                            }
+//                        }*/
+//                        response.data?.let { countryAdapter?.setData(southAsiaCountry) }
+//                    }
+//                }
+//                is Resource.Empty -> {
+//                    TODO()
+//                }
+//            }
+//        }
     }
 
     private fun searchCountry(data: CountriesResponse?) {

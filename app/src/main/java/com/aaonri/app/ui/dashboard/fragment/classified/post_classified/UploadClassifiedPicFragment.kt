@@ -1,21 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
-
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.Outline
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -23,10 +22,9 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
-import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.github.dhaval2404.imagepicker.listener.DismissListener
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
@@ -43,6 +41,7 @@ class UploadClassifiedPicFragment : Fragment() {
     var image3 = true
     var image4 = true
     var selectPicIndex = -1
+    var rotatedBitmap: Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +59,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
+                        .crop()
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
                             progressBarPicUpload.visibility = View.VISIBLE
@@ -173,7 +173,6 @@ class UploadClassifiedPicFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
 
                 val fileUri = data?.data!!
-
                 if (image1Uri.isEmpty()) {
                     image1Uri = fileUri.toString()
                     setImage()
@@ -201,7 +200,6 @@ class UploadClassifiedPicFragment : Fragment() {
         }
 
     private fun setImage() {
-
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
             uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())

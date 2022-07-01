@@ -57,7 +57,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -93,8 +93,51 @@
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-            </LinearLayout>
+            </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:orientation="horizontal">
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryCodePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:ccp_defaultNameCode="US"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    app:ccpDialog_searchEditTextTint="@color/black"
+                    app:ccp_hintExampleNumber="true"
+                    app:ccp_showArrow="false"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="false" />
 
+                <TextView
+                    android:id="@+id/selectedCountryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:hint="@string/select_country_of_origin"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp"
+                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
+
+            </LinearLayout>
             <EditText
                 android:id="@+id/zipCodeAddressDetails"
                 android:layout_width="match_parent"
