@@ -62,8 +62,8 @@
                 android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Min:$10"
-                android:maxLength="2"
                 android:inputType="number"
+                android:maxLength="2"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_18sdp"
                 android:paddingVertical="@dimen/_6sdp"
@@ -89,8 +89,8 @@
                 android:background="@drawable/capsule_shape_with_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Max:$30"
-                android:maxLength="2"
                 android:inputType="number"
+                android:maxLength="2"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_18sdp"
                 android:paddingVertical="@dimen/_6sdp"
@@ -112,7 +112,7 @@
         android:textColor="@color/black"
         android:textSize="14sp" />
 
-    <!--<LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -138,10 +138,10 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
-    </LinearLayout>-->
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/zipCode"
+        android:id="@+id/zipCodeEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"

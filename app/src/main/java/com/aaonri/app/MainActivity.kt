@@ -37,13 +37,6 @@ class MainActivity : BaseActivity() {
 
         mainActivityBinding?.apply {
 
-
-            /*bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_home_1))
-            bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_classified))
-            bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_shop))
-            bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_advertise))
-            bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_more))*/
-
             bottomNavigation.setupWithNavController(navController)
 
             navController.addOnDestinationChangedListener { _, destination, _ ->
