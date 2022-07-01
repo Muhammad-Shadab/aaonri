@@ -8,5 +8,6 @@ object Constant {
     const val USER_ZIP_CODE = "USER_ZIP_CODE"
     const val USER_CITY = "USER_CITY"
     const val USER_STATE = "USER_STATE"
+    const val ORIGIN_COUNTRY = "ORIGIN_COUNTRY"
 
 }

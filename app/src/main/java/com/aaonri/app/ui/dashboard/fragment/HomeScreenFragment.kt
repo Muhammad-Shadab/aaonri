@@ -28,7 +28,18 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
+        val origin = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
+
         homeScreenBinding?.apply {
+
+            if (origin?.isNotEmpty() == true) {
+                locationTv.text = origin
+                locationTv.visibility = View.VISIBLE
+                locationIcon.visibility = View.VISIBLE
+            } else {
+                locationTv.visibility = View.GONE
+                locationIcon.visibility = View.GONE
+            }
 
             homeTv.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)

@@ -37,14 +37,6 @@ class LocationDetailsFragment : Fragment() {
     var isCommunitySelected = false
     var isCountrySelected = false
 
-
-    lateinit var adapter: ArrayAdapter<String>
-    lateinit var listView: ListView
-    lateinit var alertDialog: AlertDialog.Builder
-    lateinit var dialog: AlertDialog
-
-
-
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +46,14 @@ class LocationDetailsFragment : Fragment() {
         getCommunities()
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
+
+        Toast.makeText(
+            context,
+            "${authCommonViewModel.locationDetails["state"]}",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        /*authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner)*/
 
         /*if (!isCountrySelected) {
             authCommonViewModel.setSelectedCountryLocationScreen(

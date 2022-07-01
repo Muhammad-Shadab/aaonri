@@ -30,13 +30,13 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeListener{
+class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeListener {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
     var cityName: String = ""
     var stateName: String = ""
-    private var countryCode:String ?= null
-    private var countryName:String ?= null
+    private var countryCode: String? = null
+    private var countryName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +48,11 @@ class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeList
         var job: Job? = null
 
 
+
         addressDetailsBinding?.apply {
 
             countryCodePicker.setOnCountryChangeListener(this@AddressDetailsFragment)
-            selectedCountryName.setOnClickListener{
+            selectedCountryName.setOnClickListener {
                 countryCodePicker.launchCountrySelectionDialog()
             }
 
@@ -101,7 +102,8 @@ class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeList
                             }
                         }
                     }
-                    /*selectCountryOriginAddress.text = triple.first
+                    selectedCountryName.text = triple.first
+                    /*
                     countryFlagIconAddress.load(triple.second)
                     countryFlagIconAddress.visibility = View.VISIBLE*/
                 } else {
@@ -136,7 +138,7 @@ class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeList
                         city = userEnteredCity.toString()
                     )
                     if (phoneNumber.isNotEmpty()) {
-                        
+
                         if (phoneNumber.length == 10) {
                             findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                         } else {
@@ -227,7 +229,8 @@ class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeList
                         )
 
                         addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
-                        addressDetailsBinding?.stateNameAddressDetails?.text = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+                        addressDetailsBinding?.stateNameAddressDetails?.text =
+                            if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
 
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
@@ -283,12 +286,14 @@ class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeList
             }
         }
     }
+
     override fun onCountrySelected() {
-        countryCode= addressDetailsBinding?.countryCodePicker?.selectedCountryCode
-        countryName= addressDetailsBinding?.countryCodePicker?.selectedCountryName
-       addressDetailsBinding?.selectedCountryName?.text = countryName
+        countryCode = addressDetailsBinding?.countryCodePicker?.selectedCountryCode
+        countryName = addressDetailsBinding?.countryCodePicker?.selectedCountryName
+        addressDetailsBinding?.selectedCountryName?.text = countryName
 
         authCommonViewModel.addCountryClicked(true)
+
         addressDetailsBinding?.countryCodePicker?.selectedCountryNameCode?.let {
             addressDetailsBinding?.countryCodePicker?.selectedCountryName?.let { it1 ->
                 authCommonViewModel.setSelectedCountryAddressScreen(
