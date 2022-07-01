@@ -101,6 +101,8 @@ class PostClassifiedViewModel @Inject constructor(
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }

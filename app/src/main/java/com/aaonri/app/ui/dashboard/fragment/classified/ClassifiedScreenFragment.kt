@@ -87,13 +87,13 @@ class ClassifiedScreenFragment : Fragment() {
                 false
             }
 
-            searchView.addTextChangedListener(object :TextWatcher{
+            searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if(keyword.toString().isEmpty()){
+                    if (keyword.toString().isEmpty()) {
                         setClassifiedViewPager(false)
                     }
                 }
@@ -223,7 +223,7 @@ class ClassifiedScreenFragment : Fragment() {
 
     private fun setClassifiedViewPager(isFilterEnabled: Boolean) {
         val fragment = this
-        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment,isFilterEnabled)
+        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment, isFilterEnabled)
 
         classifiedScreenBinding?.apply {
 
@@ -250,9 +250,13 @@ class ClassifiedScreenFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.searchView?.visibility = View.GONE
+                        classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                     } else {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
+                        classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
                     }
                 }
 

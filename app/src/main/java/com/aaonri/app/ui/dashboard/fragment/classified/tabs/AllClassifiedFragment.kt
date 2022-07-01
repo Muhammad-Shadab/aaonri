@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
-    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     override fun onCreateView(
@@ -66,8 +66,6 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-
-
         return allClassifiedBinding?.root
     }
 
@@ -78,16 +76,20 @@ class AllClassifiedFragment : Fragment() {
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (bundle.getBoolean("filterEnabled")) {
-                    var minValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
-                    var maxValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
-                    val zipCodeFilter = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
-                    val keyword = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
-                    if(minValue?.isEmpty() ==true){
-                        minValue ="0"
+                    var minValue =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
+                    var maxValue =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
+                    val zipCodeFilter =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+                    val keyword =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
+                    if (minValue?.isEmpty() == true) {
+                        minValue = "0"
                     }
 
-                    if(maxValue?.isEmpty() ==true){
-                        maxValue ="0"
+                    if (maxValue?.isEmpty() == true) {
+                        maxValue = "0"
                     }
 
                     if (it) {
@@ -107,8 +109,7 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = zipCodeFilter
                             )
                         )
-                    }
-                    else {
+                    } else {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -125,7 +126,7 @@ class AllClassifiedFragment : Fragment() {
                             )
                         )
                     }
-                }else{
+                } else {
                     if (it) {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
@@ -142,8 +143,7 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = ""
                             )
                         )
-                    }
-                    else {
+                    } else {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -162,9 +162,7 @@ class AllClassifiedFragment : Fragment() {
                     }
                 }
             }
-
         }
-
     }
 }
 
