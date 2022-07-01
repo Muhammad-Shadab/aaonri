@@ -52,7 +52,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
             priceClassifiedEt.stickPrefix("$")
 
-            priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2));
+            priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 
             classifiedDetailsNextBtn.setOnClickListener {
 

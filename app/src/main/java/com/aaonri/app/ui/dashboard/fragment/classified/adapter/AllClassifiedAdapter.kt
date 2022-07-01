@@ -1,16 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
+import android.R.attr.x
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import kotlin.math.roundToInt
+
 
 class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
     RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
@@ -27,22 +31,40 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
         val context = holder.itemView.context
         holder.binding.apply {
             if (data[position].userAdsImages.isEmpty()) {
-                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+
+                val random = data[position].askingPrice
+
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
+                classifiedPriceTv.text = "$$roundoff"
+
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-                Glide.with(context).load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+
+                val random = data[position].askingPrice
+
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
+                Glide.with(context)
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
                 }*/
-                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedPriceTv.text = "$$roundoff"
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
+
 
         }
         holder.itemView.setOnClickListener {
@@ -88,7 +110,8 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
                 Glide.with(context)
-                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}").into(classifiedItemIv)
+                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .into(classifiedItemIv)
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip

@@ -155,6 +155,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }
 
             clearAllBtn.setOnClickListener {
+                dismiss()
                 clearAllData()
             }
 
@@ -479,7 +480,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             classifiedFilterBinding?.myLocationCheckBox?.isChecked = myLocationCheckBox
         }*/
     }
-
 
 
     private fun clearAllData() {

@@ -25,6 +25,8 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 @AndroidEntryPoint
@@ -206,7 +208,13 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                 }
-                classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
+                val random = userAds.askingPrice
+
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
+                classifiedPriceTv.text = "$$roundoff"
                 addTitle.text = userAds.adTitle
                 classifiedCategoryTv.text =
                     "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
