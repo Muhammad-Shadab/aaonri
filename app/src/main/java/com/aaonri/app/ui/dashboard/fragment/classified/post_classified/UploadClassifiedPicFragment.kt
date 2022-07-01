@@ -60,6 +60,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
+                        .crop()
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
                             progressBarPicUpload.visibility = View.VISIBLE
