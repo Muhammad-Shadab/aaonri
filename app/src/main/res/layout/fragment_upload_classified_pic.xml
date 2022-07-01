@@ -36,7 +36,6 @@
                     android:layout_height="@dimen/_260sdp"
                     android:layout_gravity="center"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_image_placeholder"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

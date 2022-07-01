@@ -9,6 +9,11 @@ interface ClassifiedApi {
     /* @GET("/api/v1/asd/allUserAds/{emailId}")
      suspend fun allUserAdsClassified(@Path("emailId") email: String): Response<AllUserAdsClassifiedResponse>*/
 
+    @GET("/api/v1/user/findByEmail")
+    suspend fun getClassifiedSellerInfo(
+        @Query("email") userEmail: String
+    ): Response<GetClassifiedSellerResponse>
+
     @GET("/api/v1/favourite/findFavouriteByEmailAndService")
     suspend fun getFavoriteClassified(
         @Query("emailId") userEmail: String,
