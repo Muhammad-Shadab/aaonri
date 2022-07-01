@@ -1,10 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
-import android.R.attr.x
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
@@ -12,8 +10,6 @@ import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.text.NumberFormat
-import kotlin.math.roundToInt
 
 
 class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
