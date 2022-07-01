@@ -202,6 +202,12 @@ class PostClassifiedViewModel @Inject constructor(
         filterSelectedDataList.postValue(value)
     }
 
+
+
+
+
+
+
     /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
          uploadImagesData.postValue(Resource.Loading())
          val response = classifiedRepository.uploadImages(uploadImagesRequest)

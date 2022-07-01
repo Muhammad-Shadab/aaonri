@@ -107,6 +107,7 @@
                 android:hint="Asking Price in ($)"
                 android:inputType="numberDecimal"
                 android:lines="1"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingTop="@dimen/_6sdp"

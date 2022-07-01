@@ -67,21 +67,25 @@ class BasicDetailsFragment : Fragment() {
 
             profilePicPlaceholder.setOnClickListener {
                 if (profile.isEmpty()){
-                    ImagePicker.with(activity!!)
+                    ImagePicker.with(requireActivity())
                         .compress(1024)
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
+                            progressBarBasicDetails.visibility=View.VISIBLE
+
+
                         }
                 }else{
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Select")
                     builder.setMessage("Change profile photo")
                     builder.setPositiveButton("Change") { dialog, which ->
-                        ImagePicker.with(activity!!)
+                        ImagePicker.with(requireActivity())
                             .compress(1024)
                             .maxResultSize(1080, 1080)
                             .createIntent { intent ->
+                                progressBarBasicDetails.visibility=View.VISIBLE
                                 startForProfileImageResult.launch(intent)
                             }
                     }
@@ -229,7 +233,7 @@ class BasicDetailsFragment : Fragment() {
                 val fileUri = data?.data!!
 
                 profile = fileUri.toString()
-
+                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
                 setImage()
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
                 basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
@@ -237,7 +241,7 @@ class BasicDetailsFragment : Fragment() {
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-
+                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
             }
         }
 
@@ -260,6 +264,7 @@ class BasicDetailsFragment : Fragment() {
                         .into(it)
                 }
             }
+
         }
     }
 

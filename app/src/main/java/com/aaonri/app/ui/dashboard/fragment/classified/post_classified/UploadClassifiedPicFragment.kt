@@ -1,11 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
-
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.Outline
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -24,6 +24,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
@@ -39,6 +40,7 @@ class UploadClassifiedPicFragment : Fragment() {
     var image3 = true
     var image4 = true
     var selectPicIndex = -1
+    var rotatedBitmap: Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -165,7 +167,6 @@ class UploadClassifiedPicFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
 
                 val fileUri = data?.data!!
-
                 if (image1Uri.isEmpty()) {
                     image1Uri = fileUri.toString()
                     setImage()

@@ -21,6 +21,7 @@ import com.aaonri.app.databinding.FragmentAddressDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
+import com.hbb20.CountryCodePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -29,11 +30,13 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AddressDetailsFragment : Fragment() {
+class AddressDetailsFragment : Fragment() ,CountryCodePicker.OnCountryChangeListener{
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
     var cityName: String = ""
     var stateName: String = ""
+    private var countryCode:String ?= null
+    private var countryName:String ?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,20 +50,33 @@ class AddressDetailsFragment : Fragment() {
 
         addressDetailsBinding?.apply {
 
+            countryCodePicker.setOnCountryChangeListener(this@AddressDetailsFragment)
+            selectedCountryName.setOnClickListener{
+                countryCodePicker.launchCountrySelectionDialog()
+            }
+
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
 
             if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
             }
 
-
             if (!authCommonViewModel.isCountrySelected) {
+                addressDetailsBinding?.selectedCountryName?.text = "United States"
+                authCommonViewModel.setSelectedCountryAddressScreen(
+                    countryName = "USA",
+                    countryFlag = "",
+                    countryCode = "US"
+                )
+            }
+
+            /*if (!authCommonViewModel.isCountrySelected) {
                 authCommonViewModel.setSelectedCountryAddressScreen(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
-            }
+            }*/
 
             authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner) { triple ->
 
@@ -85,22 +101,22 @@ class AddressDetailsFragment : Fragment() {
                             }
                         }
                     }
-                    selectCountryOriginAddress.text = triple.first
+                    /*selectCountryOriginAddress.text = triple.first
                     countryFlagIconAddress.load(triple.second)
-                    countryFlagIconAddress.visibility = View.VISIBLE
+                    countryFlagIconAddress.visibility = View.VISIBLE*/
                 } else {
-                    countryFlagIconAddress.visibility = View.GONE
+                    /*countryFlagIconAddress.visibility = View.GONE*/
                 }
             }
 
-            selectCountryOriginAddress.setOnClickListener {
+            /*selectCountryOriginAddress.setOnClickListener {
                 val action =
                     AddressDetailsFragmentDirections.actionAddressDetailsFragmentToSelectCountryBottomFragment(
                         true
                     )
                 findNavController().navigate(action)
             }
-
+*/
             addressDetailsNextBtn.setOnClickListener {
 
                 val address1 = address1.text
@@ -266,5 +282,21 @@ class AddressDetailsFragment : Fragment() {
                 is Resource.Empty -> TODO()
             }
         }
+    }
+    override fun onCountrySelected() {
+        countryCode= addressDetailsBinding?.countryCodePicker?.selectedCountryCode
+        countryName= addressDetailsBinding?.countryCodePicker?.selectedCountryName
+       addressDetailsBinding?.selectedCountryName?.text = countryName
+
+        authCommonViewModel.addCountryClicked(true)
+        addressDetailsBinding?.countryCodePicker?.selectedCountryNameCode?.let {
+            addressDetailsBinding?.countryCodePicker?.selectedCountryName?.let { it1 ->
+                authCommonViewModel.setSelectedCountryAddressScreen(
+                    it1, "",
+                    it
+                )
+            }
+        }
+
     }
 }
