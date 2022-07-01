@@ -20,6 +20,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,6 +53,14 @@ class AllClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
+                    if (response.data?.userAdsList?.isEmpty() == true) {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "No result found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                     response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                 }
