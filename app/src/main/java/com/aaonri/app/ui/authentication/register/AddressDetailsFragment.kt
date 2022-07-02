@@ -48,7 +48,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         var job: Job? = null
 
 
-
         addressDetailsBinding?.apply {
 
             countryCodePicker.setOnCountryChangeListener(this@AddressDetailsFragment)
@@ -62,13 +61,17 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
             }
 
-            if (!authCommonViewModel.isCountrySelected) {
+            stateNameAddressDetails.text = stateName
+
+            if (stateName.isEmpty()) {
                 addressDetailsBinding?.selectedCountryName?.text = "United States"
                 authCommonViewModel.setSelectedCountryAddressScreen(
                     countryName = "USA",
                     countryFlag = "",
                     countryCode = "US"
                 )
+            } else {
+
             }
 
             /*if (!authCommonViewModel.isCountrySelected) {

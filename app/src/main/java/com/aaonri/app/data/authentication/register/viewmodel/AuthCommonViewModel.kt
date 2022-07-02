@@ -66,7 +66,7 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
-    var isCountrySelected = false
+    var isCountrySelected: Boolean = false
         private set
 
     fun addNavigationForStepper(value: String) {
