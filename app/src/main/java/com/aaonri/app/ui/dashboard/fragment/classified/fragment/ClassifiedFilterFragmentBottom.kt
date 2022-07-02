@@ -49,8 +49,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                 val minValue = minPriceRange.text.toString()
                 val maxValue = maxPriceRange.text.toString()
 
-                if (minValue.length < 9) {
-                    if (maxValue.length < 9) {
+                if (minValue.isNotEmpty() && minValue.length < 9) {
+                    if (maxValue.isNotEmpty() && maxValue.length < 9) {
                         if (minValue.toDouble() > 0 && minValue.toDouble() < maxValue.toDouble() && maxValue.toDouble() != minValue.toDouble()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(
@@ -106,8 +106,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ""
                         )*/
                 }
-                if (maxValue.length < 9) {
-                    if (minValue.length < 9) {
+                if (minValue.isNotEmpty() && minValue.length < 9) {
+                    if (maxValue.isNotEmpty() && maxValue.length < 9) {
                         if (maxValue.toDouble() > minValue.toDouble() && minValue.toDouble() > 0 && maxValue.toDouble() != minValue.toDouble()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(
