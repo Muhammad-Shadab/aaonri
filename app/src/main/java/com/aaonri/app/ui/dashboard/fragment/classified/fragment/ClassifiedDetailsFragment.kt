@@ -18,6 +18,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -34,6 +35,7 @@ import java.time.format.DateTimeFormatter
 @AndroidEntryPoint
 class ClassifiedDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedDetailsBinding? = null
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     var isClassifiedLike = false
@@ -46,6 +48,7 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
+
 
         classifiedDetailsBinding?.apply {
 
@@ -101,6 +104,16 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            if (it) {
+                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
+                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+            } else {
+                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
+                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
+            }
+        }
+
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
@@ -139,6 +152,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
+                            image1CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -157,6 +171,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         1 -> {
+                            image2CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -167,6 +182,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         2 -> {
+                            image3CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -177,6 +193,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         3 -> {
+                            image4CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
