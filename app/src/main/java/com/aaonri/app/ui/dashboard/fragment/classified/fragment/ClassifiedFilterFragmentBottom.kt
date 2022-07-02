@@ -10,6 +10,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -30,6 +31,10 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         classifiedFilterBinding?.apply {
+
+            minPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
+            maxPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
+
 
             myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
@@ -59,8 +64,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 )
                             dismiss()
                             postClassifiedViewModel.setClickedOnFilter(true)
-                        }
-                        else{
+                        } else {
                             dialog?.window?.decorView?.let {
                                 Snackbar.make(
                                     it,
@@ -103,8 +107,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         )*/
                 }
                 if (maxValue.isNotEmpty()) {
-                    if (minValue.isNotEmpty()){
-                        if (maxValue.toDouble() > minValue.toDouble() && minValue.toDouble() > 0 && maxValue.toDouble() != minValue.toDouble()){
+                    if (minValue.isNotEmpty()) {
+                        if (maxValue.toDouble() > minValue.toDouble() && minValue.toDouble() > 0 && maxValue.toDouble() != minValue.toDouble()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(
                                     ClassifiedConstant.MIN_VALUE_FILTER,
@@ -117,7 +121,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 )
                             dismiss()
                             postClassifiedViewModel.setClickedOnFilter(true)
-                        }else{
+                        } else {
                             dialog?.window?.decorView?.let {
                                 Snackbar.make(
                                     it,
@@ -141,15 +145,15 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         dismiss()
                         postClassifiedViewModel.setClickedOnFilter(true)
                     }*/
-                /*else {
-                        dialog?.window?.decorView?.let {
-                            Snackbar.make(
-                                it,
-                                "Please enter valid price range",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                    }*/
+                    /*else {
+                            dialog?.window?.decorView?.let {
+                                Snackbar.make(
+                                    it,
+                                    "Please enter valid price range",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+                        }*/
                 } else {
                     /*context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(

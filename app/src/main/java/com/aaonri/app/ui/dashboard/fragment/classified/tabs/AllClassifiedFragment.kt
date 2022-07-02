@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
@@ -109,8 +108,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = keyword,
                                 location = "",
-                                maxPrice = maxValue?.toInt(),
-                                minPrice = minValue?.toInt(),
+                                maxPrice = maxValue?.toDouble(),
+                                minPrice = minValue?.toDouble(),
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -125,8 +124,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = keyword,
                                 location = "",
-                                maxPrice = maxValue?.toInt(),
-                                minPrice = minValue?.toInt(),
+                                maxPrice = maxValue?.toDouble(),
+                                minPrice = minValue?.toDouble(),
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -143,8 +142,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = "",
                                 location = "",
-                                maxPrice = 0,
-                                minPrice = 0,
+                                maxPrice = 0.0,
+                                minPrice = 0.0,
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -159,8 +158,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = "",
                                 location = "",
-                                maxPrice = 0,
-                                minPrice = 0,
+                                maxPrice = 0.0,
+                                minPrice = 0.0,
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",

@@ -101,6 +101,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
 
+            if (userAds.popularOnAaonri) {
+                classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
+            } else {
+                classifiedDetailsBinding?.popularTv?.visibility = View.GONE
+            }
+
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
             itemId = userAds.id
@@ -231,6 +237,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+
+            if (userAds.popularOnAaonri) {
+                classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
+            } else {
+                classifiedDetailsBinding?.popularTv?.visibility = View.GONE
+            }
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 

@@ -23,6 +23,7 @@ import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -46,6 +47,7 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
                 ClassifiedConstant.MY_LOCATION_CHECKBOX, false
@@ -67,6 +69,7 @@ class ClassifiedScreenFragment : Fragment() {
             )
 
         classifiedScreenBinding?.apply {
+
             deleteFilterIv1.setOnClickListener {
                 classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -175,7 +178,7 @@ class ClassifiedScreenFragment : Fragment() {
                     if (minValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterText1?.text =
-                            "Range: \$$minValue-\$$maxValue"
+                            "Range: \$$minValue - \$$maxValue"
                     } else {
                         classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                     }

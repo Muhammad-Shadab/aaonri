@@ -13,7 +13,6 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
-import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.Constant
@@ -109,8 +108,8 @@ class MyClassifiedFragment : Fragment() {
                         fetchCatSubCat = true,
                         keywords = "",
                         location = "",
-                        maxPrice = maxValue?.toInt(),
-                        minPrice = minValue?.toInt(),
+                        maxPrice = maxValue?.toDouble(),
+                        minPrice = minValue?.toDouble(),
                         myAdsOnly = true,
                         popularOnAoonri = null,
                         subCategory = "",
@@ -126,8 +125,8 @@ class MyClassifiedFragment : Fragment() {
                         fetchCatSubCat = true,
                         keywords = "",
                         location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
+                        maxPrice = 0.0,
+                        minPrice = 0.0,
                         myAdsOnly = true,
                         popularOnAoonri = null,
                         subCategory = "",

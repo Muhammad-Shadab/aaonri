@@ -47,11 +47,6 @@ class LocationDetailsFragment : Fragment() {
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
-        Toast.makeText(
-            context,
-            "${authCommonViewModel.locationDetails["state"]}",
-            Toast.LENGTH_SHORT
-        ).show()
 
         /*authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner)*/
 

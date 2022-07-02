@@ -216,7 +216,7 @@
                             android:background="@drawable/blue_capsule_shape"
                             android:fontFamily="@font/sf_pro_semi_bold"
                             android:paddingHorizontal="@dimen/_8sdp"
-                            android:text="Hot"
+                            android:text="Popular"
                             android:textColor="#ffffff"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"

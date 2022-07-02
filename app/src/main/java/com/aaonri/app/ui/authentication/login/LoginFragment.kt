@@ -103,7 +103,7 @@ class LoginFragment : Fragment() {
 
         introBinding?.loginPasswordEt?.addTextChangedListener { editable ->
             editable?.let {
-                if (it.toString().isNotEmpty() && it.toString().length >= 6) {
+                if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
                         isPasswordValid = true
                         introBinding?.passwordValidationTv?.visibility = View.GONE

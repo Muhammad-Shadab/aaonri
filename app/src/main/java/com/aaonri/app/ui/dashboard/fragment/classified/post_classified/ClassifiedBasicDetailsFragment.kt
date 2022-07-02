@@ -97,7 +97,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 }else{
                     showAlert("Please select valid category")
                 }
-
             }
 
             classifiedDescEt.addTextChangedListener { editable ->
