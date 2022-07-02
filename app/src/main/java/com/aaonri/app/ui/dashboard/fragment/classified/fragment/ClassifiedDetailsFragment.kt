@@ -300,6 +300,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
+                            image1CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -318,6 +319,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         1 -> {
+                            image2CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -328,6 +330,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         2 -> {
+                            image3CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
@@ -338,6 +341,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             }*/
                         }
                         3 -> {
+                            image4CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
                                     .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
