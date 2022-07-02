@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentMoreScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 
 class MoreScreenFragment : Fragment() {
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     var moreScreenBinding: FragmentMoreScreenBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +26,15 @@ class MoreScreenFragment : Fragment() {
         moreScreenBinding = FragmentMoreScreenBinding.inflate(inflater, container, false)
 
         moreScreenBinding?.apply {
+
+             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+             if (it) {
+                 moreScreenBinding?.logOutBtn?.visibility = View.GONE
+             } else {
+                 moreScreenBinding?.logOutBtn?.visibility = View.VISIBLE
+             }
+         }
+
             logOutBtn.setOnClickListener {
               val builder = AlertDialog.Builder(context)
               builder.setTitle("Confirm")

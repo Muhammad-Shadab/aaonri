@@ -27,6 +27,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @AndroidEntryPoint
@@ -101,12 +103,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
 
-            if (userAds.popularOnAaonri) {
-                classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
-            } else {
-                classifiedDetailsBinding?.popularTv?.visibility = View.GONE
-            }
-
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
             itemId = userAds.id
@@ -117,6 +113,16 @@ class ClassifiedDetailsFragment : Fragment() {
                 changeCardViewBorder(0)
             }
             classifiedDetailsBinding?.apply {
+
+                if (userAds.popularOnAaonri) {
+                    popularTv.visibility = View.VISIBLE
+                } else {
+                    popularTv.visibility = View.GONE
+                }
+
+                locationClassifiedTv.text = userAds.adLocation
+                adZipCode.text = userAds.adZip
+
 
                 if (userAds.adEmail.isNotEmpty()) {
                     isEmailAvailable = userAds.adEmail
@@ -238,12 +244,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
 
-            if (userAds.popularOnAaonri) {
-                classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
-            } else {
-                classifiedDetailsBinding?.popularTv?.visibility = View.GONE
-            }
-
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
             itemId = userAds.id
@@ -253,7 +253,17 @@ class ClassifiedDetailsFragment : Fragment() {
             } else {
                 changeCardViewBorder(0)
             }
+
             classifiedDetailsBinding?.apply {
+
+                if (userAds.popularOnAaonri) {
+                    popularTv.visibility = View.VISIBLE
+                } else {
+                    popularTv.visibility = View.GONE
+                }
+
+                locationClassifiedTv.text = userAds.adLocation
+                adZipCode.text = userAds.adZip
 
                 if (userAds.adEmail.isNotEmpty()) {
                     isEmailAvailable = userAds.adEmail

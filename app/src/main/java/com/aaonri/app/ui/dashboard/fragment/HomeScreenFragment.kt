@@ -47,13 +47,7 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        /* dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
-             if (it) {
-                 homeScreenBinding?.logOutBtn?.visibility = View.GONE
-             } else {
-                 homeScreenBinding?.logOutBtn?.visibility = View.VISIBLE
-             }
-         }*/
+
 
         return homeScreenBinding?.root
     }

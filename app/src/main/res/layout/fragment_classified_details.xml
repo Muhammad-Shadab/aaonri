@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:translationY="-36dp"
         android:orientation="horizontal"
+        android:translationY="-36dp"
         app:layout_anchor="@id/classifiedDetailsBottom">
 
         <com.google.android.material.card.MaterialCardView
@@ -29,38 +29,38 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            app:cardCornerRadius="@dimen/_6sdp"
-            app:strokeWidth="@dimen/_1sdp"
-            android:layout_marginBottom="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_60sdp"
+            app:cardCornerRadius="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/_1sdp">
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:padding="@dimen/_1sdp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_image_placeholder" />
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_1sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_image_placeholder" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/image2CardView"
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            app:cardCornerRadius="@dimen/_6sdp"
-            app:strokeWidth="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
+            app:cardCornerRadius="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/_1sdp">
 
             <ImageView
                 android:id="@+id/image2"
@@ -76,15 +76,15 @@
             android:id="@+id/image3CardView"
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            app:cardCornerRadius="@dimen/_6sdp"
-            app:strokeWidth="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
+            app:cardCornerRadius="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/_1sdp">
 
             <ImageView
                 android:id="@+id/image3"
@@ -100,14 +100,14 @@
             android:id="@+id/image4CardView"
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginVertical="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             app:cardCornerRadius="@dimen/_6sdp"
-            app:strokeWidth="@dimen/_1sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/_1sdp">
 
             <ImageView
                 android:id="@+id/image4"
@@ -119,26 +119,26 @@
                 android:src="@drawable/ic_image_placeholder" />
         </com.google.android.material.card.MaterialCardView>
 
-       <!-- <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_60sdp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_5sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <!-- <androidx.cardview.widget.CardView
+             android:layout_width="@dimen/_44sdp"
+             android:layout_height="@dimen/_44sdp"
+             android:layout_marginStart="@dimen/_8sdp"
+             android:layout_marginBottom="@dimen/_60sdp"
+             app:cardBackgroundColor="@color/white"
+             app:cardCornerRadius="@dimen/_5sdp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.5"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_2sdp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_image_placeholder" />
+             <ImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:padding="@dimen/_2sdp"
+                 android:scaleType="fitCenter"
+                 android:src="@drawable/ic_image_placeholder" />
 
-        </androidx.cardview.widget.CardView>-->
+         </androidx.cardview.widget.CardView>-->
 
     </LinearLayout>
 
@@ -280,6 +280,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/adZipCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4sdp"
@@ -326,6 +327,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/postedDate1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4sdp"
@@ -348,6 +350,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/postedDate2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4sdp"
