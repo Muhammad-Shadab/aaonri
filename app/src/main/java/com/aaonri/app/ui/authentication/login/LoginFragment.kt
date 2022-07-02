@@ -148,9 +148,18 @@ class LoginFragment : Fragment() {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
+                        if (response.data?.massage?.isBlank() == true) {
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
                 }
                 is Resource.Error -> {

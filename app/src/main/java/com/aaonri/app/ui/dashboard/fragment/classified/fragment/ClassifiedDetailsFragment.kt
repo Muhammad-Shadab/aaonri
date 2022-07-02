@@ -108,6 +108,7 @@ class ClassifiedDetailsFragment : Fragment() {
             if (it) {
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+
             } else {
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
