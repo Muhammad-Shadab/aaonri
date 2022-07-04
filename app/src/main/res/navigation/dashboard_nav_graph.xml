@@ -76,5 +76,13 @@
         <action
             android:id="@+id/action_eventScreenFragment_to_classifiedFilterFragmentBottom"
             app:destination="@id/classifiedFilterFragmentBottom" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/eventDetailsScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventDetailsScreenFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/fragment_event_details" />
 </navigation>

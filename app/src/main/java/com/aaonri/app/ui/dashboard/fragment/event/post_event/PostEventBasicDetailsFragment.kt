@@ -11,14 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
+import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class PostEventBasicDetailsFragment : Fragment() {
     var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
-    val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    val months =
+        arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
-    var date:String = ""
+    var date: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,18 +29,12 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         postEventBinding?.apply {
 
-
+            askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
 
             selectCategoryEvent.text = "categories"
-            eventTimezone.text="EST"
+            eventTimezone.text = "EST"
 
-
-
-            /* isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
-                 Toast.makeText(c, "", Toast.LENGTH_SHORT).show()
-             }*/
             addressDetailsNextBtn.setOnClickListener {
-
 
                 if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
                         .toString().length >= 3
@@ -53,35 +49,30 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                                     if (selectEndTime.text.toString().isNotEmpty()) {
 
-                                        if(eventTimezone.text.toString().isNotEmpty())
-                                        {
-                                        if (askingFee.text.toString()
-                                                .isNotEmpty() && askingFee.text.toString().trim().length > 0
-                                        ) {
+                                        if (eventTimezone.text.toString().isNotEmpty()) {
                                             if (askingFee.text.toString()
-                                                    .toDouble() < 999999999 && askingFee.text.toString()
-                                                    .toDouble() > 0
+                                                    .isNotEmpty() && askingFee.text.toString()
+                                                    .trim().length > 0
                                             ) {
-                                                if (eventDescEt.text.isNotEmpty()) {
-                                                    findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
+                                                if (askingFee.text.toString()
+                                                        .toDouble() < 999999999 && askingFee.text.toString()
+                                                        .toDouble() > 0
+                                                ) {
+                                                    if (eventDescEt.text.isNotEmpty()) {
+                                                        findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
+                                                    } else {
+                                                        showAlert("Please enter valid event description")
+                                                    }
                                                 } else {
-                                                    showAlert("Please enter valid event description")
+                                                    showAlert("Please enter valid fee")
                                                 }
-                                            }
-                                            else{
+                                            } else {
                                                 showAlert("Please enter valid fee")
                                             }
-                                        }
-                                        else {
-                                            showAlert("Please enter valid fee")
-                                        }
-                                    }
-
-                                    else{
+                                        } else {
                                             showAlert("Please enter valid timezone")
-                                    }
-                                    }
-                                    else {
+                                        }
+                                    } else {
                                         showAlert("Please enter valid end time")
                                     }
                                 } else {
@@ -103,16 +94,16 @@ class PostEventBasicDetailsFragment : Fragment() {
             }
             selectstartDate.setOnClickListener {
 
-              getSelectedDate(selectstartDate)
+                getSelectedDate(selectstartDate)
             }
             selectEndDate.setOnClickListener {
-               getSelectedDate(selectEndDate)
+                getSelectedDate(selectEndDate)
             }
             selectStartTime.setOnClickListener {
                 getSelectedTime(selectStartTime)
             }
             selectEndTime.setOnClickListener {
-             getSelectedTime(selectEndTime)
+                getSelectedTime(selectEndTime)
             }
         }
 
@@ -127,29 +118,31 @@ class PostEventBasicDetailsFragment : Fragment() {
             ).show()
         }
     }
-    private fun getSelectedDate(selectstartDate: TextView? = null){
+
+    private fun getSelectedDate(selectstartDate: TextView? = null) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-         val datepicker = context?.let { it1 ->
-             DatePickerDialog(
-                 it1,
-                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                     // Display Selected date in textbox
-                     selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
-                 },
-                 year,
-                 month,
-                 day
-             )
-         }
-         datepicker?.show()
+        val datepicker = context?.let { it1 ->
+            DatePickerDialog(
+                it1,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in textbox
+                    selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
+                },
+                year,
+                month,
+                day
+            )
+        }
+        datepicker?.show()
     }
+
     private fun getSelectedTime(selectStartTime: TextView) {
         var ampm = ""
-        var hoursOfTheDay:Int
+        var hoursOfTheDay: Int
         var mTimePicker: TimePickerDialog
         var mcurrentTime = Calendar.getInstance()
         var hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
@@ -157,7 +150,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         mTimePicker = TimePickerDialog(context,
             { view, hourOfDay, minute ->
-                  hoursOfTheDay=hourOfDay
+                hoursOfTheDay = hourOfDay
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -171,8 +164,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                selectStartTime?.text="$hoursOfTheDay:$minute $ampm"
-            }, hour, minute, false)
+                selectStartTime?.text = "$hoursOfTheDay:$minute $ampm"
+            }, hour, minute, false
+        )
         mTimePicker.show()
 
     }

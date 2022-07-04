@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="@dimen/_16sdp"
         app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/eventImageView"
@@ -48,10 +50,10 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/gray_btn"
                 android:drawableLeft="@drawable/star_icon"
-                android:paddingVertical="@dimen/_4sdp"
-                android:paddingHorizontal="@dimen/_6sdp"
                 android:drawablePadding="@dimen/_4sdp"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_4sdp"
                 android:text="297"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -69,7 +71,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_16sdp"
+                android:paddingLeft="@dimen/_8sdp"
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_4sdp">
 
@@ -82,8 +84,7 @@
                     android:gravity="center_vertical"
                     android:text="Bay Area Craft Beer…"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/eventTiming"
@@ -92,10 +93,7 @@
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="Start from Mar 25, 10 am EST"
                     android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:textStyle="normal"
-
-                    />
+                    android:textSize="10sp"/>
             </LinearLayout>
 
             <TextView
@@ -106,14 +104,11 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:gravity="top"
-                android:paddingLeft="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_4sdp"
                 android:paddingTop="@dimen/_4sdp"
                 android:text="NY-08512"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="normal"
-
-                />
+                android:textSize="14sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
