@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.DecimalDigitsInputFilter
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedFilterBinding: FragmentClassifiedFilterBinding? = null
 
@@ -505,6 +507,17 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }*/
         }
 
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+            if (it) {
+                classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
+                classifiedFilterBinding?.locationTv?.visibility = View.GONE
+                classifiedFilterBinding?.zipCodeEt?.visibility = View.GONE
+            } else {
+                classifiedFilterBinding?.myLocationLinear?.visibility = View.VISIBLE
+                classifiedFilterBinding?.zipCodeEt?.visibility = View.VISIBLE
+                classifiedFilterBinding?.locationTv?.visibility = View.VISIBLE
+            }
+        }
 
         /* postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
              classifiedFilterBinding?.myLocationCheckBox?.isChecked = it

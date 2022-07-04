@@ -64,10 +64,19 @@
         android:id="@+id/classifiedDetailsFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment"
         android:label="fragment_classified_details"
-        tools:layout="@layout/fragment_classified_details"></fragment>
+        tools:layout="@layout/fragment_classified_details">
+        <action
+            android:id="@+id/action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom"
+            app:destination="@id/updateDeleteClassifiedBottom" />
+    </fragment>
     <fragment
         android:id="@+id/eventScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.EventScreenFragment"
         android:label="fragment_event_screen"
         tools:layout="@layout/fragment_event_screen" />
+    <dialog
+        android:id="@+id/updateDeleteClassifiedBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"
+        android:label="fragment_update_delete_classified_bottom"
+        tools:layout="@layout/fragment_update_delete_classified_bottom" />
 </navigation>

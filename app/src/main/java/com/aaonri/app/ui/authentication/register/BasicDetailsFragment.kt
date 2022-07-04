@@ -69,6 +69,7 @@ class BasicDetailsFragment : Fragment() {
                 if (profile.isEmpty()){
                     ImagePicker.with(requireActivity())
                         .compress(1024)
+                        .crop()
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
@@ -84,6 +85,7 @@ class BasicDetailsFragment : Fragment() {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
                             .maxResultSize(1080, 1080)
+                            .crop()
                             .createIntent { intent ->
                                 progressBarBasicDetails.visibility=View.VISIBLE
                                 startForProfileImageResult.launch(intent)

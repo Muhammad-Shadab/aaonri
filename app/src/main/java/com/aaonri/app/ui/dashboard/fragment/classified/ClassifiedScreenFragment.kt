@@ -68,6 +68,13 @@ class ClassifiedScreenFragment : Fragment() {
                 ""
             )
 
+        context?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(
+                ClassifiedConstant.SEARCH_KEYWORD_FILTER,
+                ""
+            )
+
+
         classifiedScreenBinding?.apply {
 
             deleteFilterIv1.setOnClickListener {
@@ -260,11 +267,13 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
                         classifiedScreenBinding?.searchView?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
-                    } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
-                            View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
+                    }
+                    else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
                     }
                 }
 

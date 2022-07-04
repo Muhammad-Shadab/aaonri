@@ -1,5 +1,6 @@
 package com.aaonri.app.data.authentication.register.viewmodel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -67,6 +68,10 @@ class AuthCommonViewModel @Inject constructor(
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
     var isCountrySelected: Boolean = false
+        private set
+
+
+    var countryFlagBmp:Bitmap?=null
         private set
 
     fun addNavigationForStepper(value: String) {
@@ -203,4 +208,9 @@ class AuthCommonViewModel @Inject constructor(
         isCountrySelected = value
     }
 
+
+    fun countryFlagBmp(value: Bitmap?)
+    {
+        countryFlagBmp=value
+    }
 }

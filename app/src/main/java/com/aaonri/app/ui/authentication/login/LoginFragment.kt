@@ -87,16 +87,16 @@ class LoginFragment : Fragment() {
                 if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
                     if (Validator.emailValidation(editable.toString())) {
                         isEmailValid = true
-                        introBinding?.emailValidationTv?.visibility = View.GONE
+                        //introBinding?.emailValidationTv?.visibility = View.GONE
                     } else {
                         isEmailValid = false
-                        introBinding?.emailValidationTv?.visibility = View.VISIBLE
+                        //introBinding?.emailValidationTv?.visibility = View.VISIBLE
                         introBinding?.emailValidationTv?.text =
                             "Please enter valid email"
                     }
                 } else {
                     isEmailValid = false
-                    introBinding?.emailValidationTv?.visibility = View.GONE
+                    //introBinding?.emailValidationTv?.visibility = View.GONE
                 }
             }
         }
@@ -106,16 +106,16 @@ class LoginFragment : Fragment() {
                 if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
                         isPasswordValid = true
-                        introBinding?.passwordValidationTv?.visibility = View.GONE
+                        //introBinding?.passwordValidationTv?.visibility = View.GONE
                     } else {
                         isPasswordValid = false
                         introBinding?.passwordValidationTv?.text =
                             "Please enter valid password"
-                        introBinding?.passwordValidationTv?.visibility = View.VISIBLE
+                        //introBinding?.passwordValidationTv?.visibility = View.VISIBLE
                     }
                 } else {
                     isPasswordValid = false
-                    introBinding?.passwordValidationTv?.visibility = View.GONE
+                    //introBinding?.passwordValidationTv?.visibility = View.GONE
                 }
             }
         }
