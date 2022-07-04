@@ -22,10 +22,23 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
         val context = holder.itemView.context
         holder.binding.apply {
             if (data[position].images.isNotEmpty()) {
-                Glide.with(context).load(data[position].images[0].imagePath)
+                val image =
+                    "https://www.aaonri.com/api/v1/common/eventFile/${data[position].images[0].imagePath}"
+                Glide.with(context).load(image)
+                    .into(eventImageView)
                 eventName.text = data[position].title
+                totalVisiting.text = data[position].totalVisiting.toString()
+                totalFavourite.text = data[position].totalFavourite.toString()
+                eventLocationZip.text = data[position].city + "-" + data[position].zipCode
+                eventFee.text = data[position].fee.toString()
+
             } else {
 
+                eventName.text = data[position].title
+                totalVisiting.text = data[position].totalVisiting.toString()
+                totalFavourite.text = data[position].totalFavourite.toString()
+                eventLocationZip.text = data[position].city + "-" + data[position].zipCode
+                eventFee.text = data[position].fee.toString()
             }
         }
         holder.itemView.setOnClickListener {

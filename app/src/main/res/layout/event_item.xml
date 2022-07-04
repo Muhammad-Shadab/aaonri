@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_160sdp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/_16sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/eventImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_image_placeholder" />
 
         <LinearLayout
@@ -27,25 +29,29 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/totalVisiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/gray_btn"
                 android:drawableLeft="@drawable/user_icon"
-                android:drawablePadding="@dimen/_6sdp"
+                android:drawablePadding="@dimen/_2sdp"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_8sdp"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_4sdp"
                 android:text="297"
                 android:textSize="12sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/totalFavourite"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/gray_btn"
                 android:drawableLeft="@drawable/star_icon"
-                android:drawablePadding="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:drawablePadding="@dimen/_4sdp"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_8sdp"
                 android:text="297"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -126,7 +132,7 @@
                     android:text="Entry Fee"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/eventFee"
@@ -136,9 +142,7 @@
                     android:text="$45.99"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:textStyle="normal"
-
-                    />
+                    android:textStyle="normal" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

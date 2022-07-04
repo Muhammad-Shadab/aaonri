@@ -17,11 +17,18 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     ViewModel() {
 
     val allEventData: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
+    val recentEventData: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
 
     fun getAllEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         allEventData.postValue(Resource.Loading())
         val response = eventRepository.getAllEvent(allEventRequest)
         allEventData.postValue(handleAllEventResponse(response))
+    }
+
+    fun getRecentEvent(userEmail: String) = viewModelScope.launch {
+        recentEventData.postValue(Resource.Loading())
+        val response = eventRepository.getRecentEvent(userEmail)
+        recentEventData.postValue(handleAllEventResponse(response))
     }
 
     private fun handleAllEventResponse(response: Response<AllEventResponse>): Resource<AllEventResponse>? {

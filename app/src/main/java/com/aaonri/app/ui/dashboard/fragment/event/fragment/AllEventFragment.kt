@@ -30,21 +30,6 @@ class AllEventFragment : Fragment() {
 
         }
 
-        eventViewModel.getAllEvent(
-            AllEventRequest(
-                category = "",
-                city = "",
-                from = "",
-                isPaid = "",
-                keyword = "",
-                maxEntryFee = 0,
-                minEntryFee = 0,
-                myEventsOnly = false,
-                userId = "",
-                zip = ""
-            )
-        )
-
         allEventBinding?.apply {
 
             recyclerViewEvent.layoutManager = LinearLayoutManager(context)
@@ -70,6 +55,25 @@ class AllEventFragment : Fragment() {
         }
 
         return allEventBinding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        eventViewModel.getAllEvent(
+            AllEventRequest(
+                category = "",
+                city = "",
+                from = "",
+                isPaid = "",
+                keyword = "",
+                maxEntryFee = 0,
+                minEntryFee = 0,
+                myEventsOnly = false,
+                userId = "",
+                zip = ""
+            )
+        )
     }
 
 }

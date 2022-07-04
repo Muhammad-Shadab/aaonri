@@ -6,7 +6,9 @@ import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val eventApi: EventApi) {
 
+    suspend fun getRecentEvent(userEmail: String) = eventApi.getRecentEvent(userEmail)
+
     suspend fun getAllEvent(allEventRequest: AllEventRequest) =
-        eventApi.getAllClassified(allEventRequest)
+        eventApi.getAllEvent(allEventRequest)
 
 }

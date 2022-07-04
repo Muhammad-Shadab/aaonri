@@ -36,11 +36,13 @@ class EventScreenFragment : Fragment() {
         val pagerAdapter = EventPagerAdapter(fragment)
 
         eventScreenBinding?.apply {
+
+            eventsScreenViewPager.isUserInputEnabled = false
+
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
                 startActivity(intent)
             }
-
 
             eventsScreenViewPager.adapter = pagerAdapter
 
@@ -60,8 +62,14 @@ class EventScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
+                        selectedFilters.visibility = View.GONE
+                        filterEvent.visibility = View.GONE
+                        searchView.visibility = View.GONE
                         floatingActionBtnEvents.visibility = View.GONE
                     } else {
+                        selectedFilters.visibility = View.VISIBLE
+                        filterEvent.visibility = View.VISIBLE
+                        searchView.visibility = View.VISIBLE
                         floatingActionBtnEvents.visibility = View.VISIBLE
                     }
                 }
