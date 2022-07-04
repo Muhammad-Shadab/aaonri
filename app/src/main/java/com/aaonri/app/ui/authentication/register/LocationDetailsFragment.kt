@@ -140,7 +140,6 @@ class LocationDetailsFragment : Fragment() {
                     findNavController().navigateUp()
                     authCommonViewModel.selectedCommunityList.value?.clear()
                     authCommonViewModel.setSelectedCountryLocationScreen("","","")
-
                 }
             })
         return locationDetailsBinding?.root
@@ -187,7 +186,4 @@ class LocationDetailsFragment : Fragment() {
             }
         }
     }
-
-
-
 }
