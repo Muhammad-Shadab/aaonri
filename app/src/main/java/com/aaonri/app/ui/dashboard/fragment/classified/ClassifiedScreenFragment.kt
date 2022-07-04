@@ -68,6 +68,13 @@ class ClassifiedScreenFragment : Fragment() {
                 ""
             )
 
+        context?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(
+                ClassifiedConstant.SEARCH_KEYWORD_FILTER,
+                ""
+            )
+
+
         classifiedScreenBinding?.apply {
 
             deleteFilterIv1.setOnClickListener {
