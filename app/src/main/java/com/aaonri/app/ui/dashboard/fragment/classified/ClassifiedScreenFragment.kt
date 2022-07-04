@@ -260,11 +260,13 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
                         classifiedScreenBinding?.searchView?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
-                    } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
-                            View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
+                    }
+                    else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
                     }
                 }
 

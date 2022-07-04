@@ -461,7 +461,6 @@ class ClassifiedDetailsFragment : Fragment() {
     }
 
     private fun callLikeDislikeApi() {
-
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         classifiedViewModel.likeDislikeClassified(
             LikeDislikeClassifiedRequest(
