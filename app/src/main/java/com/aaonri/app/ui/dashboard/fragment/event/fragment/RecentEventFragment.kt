@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aaonri.app.R
-import com.aaonri.app.data.event.adapter.AllEventAdapter
+import com.aaonri.app.data.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
-import com.aaonri.app.databinding.FragmentMyEventBinding
 import com.aaonri.app.databinding.FragmentRecentEventBinding
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,14 +17,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class RecentEventFragment : Fragment() {
     val eventViewModel: EventViewModel by viewModels()
     var recentEventBinding: FragmentRecentEventBinding? = null
-    var allEventAdapter: AllEventAdapter? = null
+    var recentAdapter: RecentEventAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         recentEventBinding = FragmentRecentEventBinding.inflate(inflater, container, false)
 
-        allEventAdapter = AllEventAdapter {
+        recentAdapter = RecentEventAdapter {
 
         }
 
@@ -35,18 +33,18 @@ class RecentEventFragment : Fragment() {
         recentEventBinding?.apply {
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
-            recyclerViewMyEvent.adapter = allEventAdapter
+            recyclerViewMyEvent.adapter = recentAdapter
 
         }
 
-        eventViewModel.allEventData.observe(viewLifecycleOwner) { response ->
+        eventViewModel.recentEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     recentEventBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     recentEventBinding?.progressBar?.visibility = View.GONE
-                    allEventAdapter?.setData(response.data?.eventList)
+                    response.data?.let { recentAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     recentEventBinding?.progressBar?.visibility = View.GONE
