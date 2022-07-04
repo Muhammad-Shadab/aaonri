@@ -69,8 +69,8 @@ class AuthCommonViewModel @Inject constructor(
 
     var isCountrySelected: Boolean = false
         private set
-    var isCountryChange:Boolean=false
-        private set
+
+
     var countryFlagBmp:Bitmap?=null
         private set
 
@@ -208,9 +208,7 @@ class AuthCommonViewModel @Inject constructor(
         isCountrySelected = value
     }
 
-    fun isCountryChange(value: Boolean) {
-        isCountryChange=value
-    }
+
     fun countryFlagBmp(value: Bitmap?)
     {
         countryFlagBmp=value

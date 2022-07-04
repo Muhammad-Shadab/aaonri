@@ -138,7 +138,6 @@ class LocationDetailsFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
-                    authCommonViewModel.isCountryChange(true)
                     authCommonViewModel.selectedCommunityList.value?.clear()
                     authCommonViewModel.setSelectedCountryLocationScreen("","","")
 
