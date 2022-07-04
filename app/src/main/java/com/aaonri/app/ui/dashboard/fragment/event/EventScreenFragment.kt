@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
@@ -38,6 +39,10 @@ class EventScreenFragment : Fragment() {
         eventScreenBinding?.apply {
 
             eventsScreenViewPager.isUserInputEnabled = false
+
+            filterEvent.setOnClickListener {
+                findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
+            }
 
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
