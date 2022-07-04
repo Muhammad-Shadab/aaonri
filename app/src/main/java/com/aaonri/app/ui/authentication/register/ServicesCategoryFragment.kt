@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
@@ -60,7 +62,6 @@ class ServicesCategoryFragment : Fragment() {
         servicesGridItemBinding?.apply {
 
             companyEmailServices.isEnabled = false
-
             authCommonViewModel.addNavigationForStepper(AuthConstant.SERVICE_DETAILS_SCREEN)
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
@@ -229,6 +230,14 @@ class ServicesCategoryFragment : Fragment() {
                 }
             }
         }
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    findNavController().navigateUp()
+                }
+            })
         return servicesGridItemBinding?.root
     }
 

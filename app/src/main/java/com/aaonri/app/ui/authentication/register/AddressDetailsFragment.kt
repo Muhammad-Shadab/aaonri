@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -38,6 +39,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
     private var countryCode: String? = null
     private var countryName: String? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +51,9 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
 
 
         addressDetailsBinding?.apply {
-
+            if (authCommonViewModel.countryFlagBmp != null) {
+                countryCodePicker.imageViewFlag.setImageBitmap(authCommonViewModel.countryFlagBmp)
+            }
             countryCodePicker.setOnCountryChangeListener(this@AddressDetailsFragment)
             selectedCountryName.setOnClickListener {
                 countryCodePicker.launchCountrySelectionDialog()
@@ -62,6 +66,8 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             }
 
             stateNameAddressDetails.text = stateName
+            cityNameAddressDetails.setText(cityName)
+
 
             if (stateName.isEmpty()) {
                 addressDetailsBinding?.selectedCountryName?.text = "United States"
@@ -70,6 +76,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                     countryFlag = "",
                     countryCode = "US"
                 )
+
             } else {
 
             }
@@ -131,10 +138,16 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 val zipCode = zipCodeAddressDetails.text
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
+                countryCodePicker.imageViewFlag.invalidate()
+                val drawable = countryCodePicker.imageViewFlag.drawable
+                authCommonViewModel.countryFlagBmp(drawable.toBitmap())
                 if (stateName.isNotEmpty() && userEnteredCity.toString().length >= 2 && zipCode.toString()
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
+                    if (cityName.isEmpty()) {
+
+                        cityName = userEnteredCity.toString()
+                    }
                     authCommonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,
@@ -153,6 +166,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                             }
                         }
                     } else {
+
                         findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                     }
                     authCommonViewModel.addAddressDetails(
@@ -220,11 +234,17 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
+                        var cityChangedName = cityName
                         cityName = response.data.result.getOrNull(0)?.province.toString()
-                        stateName = response.data.result.getOrNull(0)?.state.toString()
 
+                        stateName = response.data.result.getOrNull(0)?.state.toString()
+                        if(cityName.isEmpty())
+                        {
+                            cityName = cityChangedName
+                        }
                         authCommonViewModel.addLocationDetails(
                             addressDetailsBinding?.zipCodeAddressDetails?.text.toString(),
                             stateName,
@@ -234,6 +254,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                         addressDetailsBinding?.stateNameAddressDetails?.text =
                             if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+
 
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
@@ -257,10 +278,19 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    authCommonViewModel.setIsCountrySelected(false)
-                    authCommonViewModel.addLocationDetails("", "", "")
-                    authCommonViewModel.zipCodeData.value = null
                     findNavController().navigateUp()
+                    stateName = ""
+                    cityName = ""
+                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                    authCommonViewModel.addLocationDetails(
+                        zipCode = "",
+                        state = "",
+                        city = ""
+                    )
+                    authCommonViewModel.setIsCountrySelected(false)
+                    authCommonViewModel.zipCodeData.value = null
+                    authCommonViewModel.countryFlagBmp(null)
+
                 }
             })
 
@@ -296,7 +326,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         addressDetailsBinding?.selectedCountryName?.text = countryName
 
         authCommonViewModel.addCountryClicked(true)
-
         addressDetailsBinding?.countryCodePicker?.selectedCountryNameCode?.let {
             addressDetailsBinding?.countryCodePicker?.selectedCountryName?.let { it1 ->
                 authCommonViewModel.setSelectedCountryAddressScreen(

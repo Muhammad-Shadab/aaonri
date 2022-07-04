@@ -3,6 +3,7 @@ package com.aaonri.app.ui.authentication.register
 import com.aaonri.app.R
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -48,6 +50,7 @@ class LocationDetailsFragment : Fragment() {
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
 
+
         /*authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner)*/
 
         /*if (!isCountrySelected) {
@@ -60,7 +63,7 @@ class LocationDetailsFragment : Fragment() {
         locationDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
-
+            countryFlagIcon.visibility= View.GONE
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
@@ -101,8 +104,16 @@ class LocationDetailsFragment : Fragment() {
         authCommonViewModel.selectedCountryLocationScreen?.observe(viewLifecycleOwner) { triple ->
             isCountrySelected = true
             locationDetailsBinding?.selectCountryLocation?.text = triple.first
-            locationDetailsBinding?.countryFlagIcon?.load(triple.second)
-            locationDetailsBinding?.countryFlagIcon?.visibility = View.VISIBLE
+
+
+            if(triple.second.isEmpty())
+            {
+                locationDetailsBinding?.countryFlagIcon?.visibility = View.GONE
+            }
+            else{
+                locationDetailsBinding?.countryFlagIcon?.load(triple.second)
+                locationDetailsBinding?.countryFlagIcon?.visibility = View.VISIBLE
+            }
         }
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
@@ -122,7 +133,17 @@ class LocationDetailsFragment : Fragment() {
             }
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+                    authCommonViewModel.isCountryChange(true)
+                    authCommonViewModel.selectedCommunityList.value?.clear()
+                    authCommonViewModel.setSelectedCountryLocationScreen("","","")
 
+                }
+            })
         return locationDetailsBinding?.root
     }
 
