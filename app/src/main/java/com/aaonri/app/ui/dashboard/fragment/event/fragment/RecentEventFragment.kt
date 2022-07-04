@@ -28,8 +28,6 @@ class RecentEventFragment : Fragment() {
 
         }
 
-        eventViewModel.getRecentEvent("saifshadab08@gmail.com")
-
         recentEventBinding?.apply {
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
@@ -55,6 +53,11 @@ class RecentEventFragment : Fragment() {
 
         return recentEventBinding?.root
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventViewModel.getRecentEvent("saifshadab08@gmail.com")
     }
 
 }
