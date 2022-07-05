@@ -43,7 +43,6 @@
                         android:layout_marginStart="@dimen/_12sdp"
                         android:visibility="gone" />
 
-
                     <TextView
                         android:id="@+id/selectCountryLocation"
                         android:layout_width="match_parent"
@@ -55,9 +54,9 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:paddingStart="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_4sdp"
                         android:paddingEnd="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_4sdp"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
                         android:textSize="16sp"
@@ -121,9 +120,9 @@
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
-                    android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
