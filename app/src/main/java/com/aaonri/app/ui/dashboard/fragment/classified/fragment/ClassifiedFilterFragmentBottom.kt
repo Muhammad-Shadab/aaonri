@@ -43,8 +43,10 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
             myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
+                    zipCodeEt.isEnabled = false
                     zipCodeEt.setText(zipCode)
                 } else {
+                    zipCodeEt.isEnabled = true
                     zipCodeEt.setText("")
                 }
             }
@@ -530,7 +532,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }*/
         }
 
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
                 classifiedFilterBinding?.locationTv?.visibility = View.GONE

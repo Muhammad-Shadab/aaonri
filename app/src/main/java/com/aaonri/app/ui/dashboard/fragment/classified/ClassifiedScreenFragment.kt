@@ -162,10 +162,12 @@ class ClassifiedScreenFragment : Fragment() {
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
+                    profilePicIv.visibility = View.GONE
                     floatingActionBtnClassified.visibility = View.GONE
                     classifiedScreenTabLayout.visibility = View.GONE
                     classifiedScreenViewPager.setPadding(0, 40, 0, 0)
                     classifiedScreenViewPager.isUserInputEnabled = false
+
                 }
             }
 
