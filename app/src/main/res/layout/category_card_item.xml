@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:fontFamily="@font/sf_pro_semi_bold"
+        android:fontFamily="@font/sf_pro_regular"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
         android:text="Country Name"
         android:textColor="@color/textViewColor"
-        android:textSize="@dimen/_13sdp" />
+        android:textSize="16sp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

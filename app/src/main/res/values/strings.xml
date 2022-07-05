@@ -57,9 +57,9 @@
     <string name="try_another_email_address"><u>Try another email address. or </u></string>
     <string name="spannableText2"><u>Try another email address.</u></string>
     <string name="post_a_classified">Post a Classified</string>
-    <string name="title_of_your_classified">Title of your Classified</string>
+    <string name="title_of_your_classified">Title of your Classified*</string>
     <string name="is_the_listed_product_new">Is the listed product new?</string>
-    <string name="please_describe_what_you_are_selling">Please describe what you are selling?</string>
+    <string name="please_describe_what_you_are_selling">Please describe what you are selling ?*</string>
     <string name="upload_image">Upload Image</string>
     <string name="image_can_be_upload_upto_max_size_2mb">Image can be upload upto max size 2MB</string>
     <string name="how_would_you_like_to_be_contacted">How would you like to be Contacted?</string>
