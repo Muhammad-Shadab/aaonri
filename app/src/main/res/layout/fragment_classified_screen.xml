@@ -37,16 +37,16 @@
 
         <ImageView
             android:id="@+id/profilePicIv"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/bellIconIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
@@ -78,43 +78,46 @@
             android:textSize="10sp" />
 
     </com.google.android.material.card.MaterialCardView>
-       <LinearLayout
-           android:id="@+id/searchViewll"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           app:layout_constraintStart_toStartOf="parent"
-           android:layout_marginStart="@dimen/_12sdp"
-           android:layout_marginTop="@dimen/_8sdp"
-           android:layout_marginEnd="@dimen/_50sdp"
-           android:background="@drawable/edit_text_shape"
-           android:paddingVertical="@dimen/_4sdp"
-           android:paddingHorizontal="@dimen/_6sdp"
-           android:gravity="center_vertical"
-           app:layout_constraintTop_toBottomOf="@+id/classifiedText">
-           <EditText
-               android:layout_weight="1"
-               android:id="@+id/searchView"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:clickable="true"
-               android:background="@android:color/transparent"
-               android:focusable="true"
-               android:hint="@string/what_are_you_looking_for"
-               android:imeOptions="actionDone"
-               android:inputType="text"
-               android:maxLines="1"
-               android:paddingVertical="@dimen/_6sdp"
-               android:paddingStart="@dimen/_16sdp"
-               android:paddingEnd="@dimen/_8sdp"
-               android:textSize="12sp" />
-           <ImageView
-               android:id="@+id/searchViewIcon"
-               android:layout_width="@dimen/_24sdp"
-               android:layout_height="@dimen/_24sdp"
-               android:background="@drawable/ic_icon_search"/>
-       </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/searchViewll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_42sdp"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
+
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/filterClassified"
@@ -131,7 +134,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginEnd="@dimen/_50sdp"
         android:orientation="horizontal"
         android:scrollbars="none"
@@ -569,7 +572,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

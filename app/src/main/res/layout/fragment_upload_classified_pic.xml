@@ -35,8 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_260sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_image_placeholder"
-                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_imageview_placeholder"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -103,7 +103,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -137,7 +137,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -170,7 +170,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
