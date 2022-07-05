@@ -41,7 +41,7 @@ class MyClassifiedFragment : Fragment() {
 
         myClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -108,8 +108,8 @@ class MyClassifiedFragment : Fragment() {
                         fetchCatSubCat = true,
                         keywords = "",
                         location = "",
-                        maxPrice = maxValue?.toDouble(),
-                        minPrice = minValue?.toDouble(),
+                        maxPrice = maxValue?.toInt(),
+                        minPrice = minValue?.toInt(),
                         myAdsOnly = true,
                         popularOnAoonri = null,
                         subCategory = "",
@@ -125,8 +125,8 @@ class MyClassifiedFragment : Fragment() {
                         fetchCatSubCat = true,
                         keywords = "",
                         location = "",
-                        maxPrice = 0.0,
-                        minPrice = 0.0,
+                        maxPrice = 0,
+                        minPrice = 0,
                         myAdsOnly = true,
                         popularOnAoonri = null,
                         subCategory = "",

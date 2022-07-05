@@ -113,9 +113,21 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
+
                 }
 
             })
+
+            searchViewIcon.setOnClickListener{
+                if (searchView.text.toString().isNotEmpty()) {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
+                        )
+                    setClassifiedViewPager(true)
+                }
+
+            }
             deleteFilterIv2.setOnClickListener {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -265,13 +277,13 @@ class ClassifiedScreenFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
-                        classifiedScreenBinding?.searchView?.visibility = View.GONE
+                        classifiedScreenBinding?.searchViewll?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
                     }
                     else {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.searchView?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
                     }

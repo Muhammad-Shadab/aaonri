@@ -44,7 +44,7 @@ class FavoriteClassifiedFragment : Fragment() {
             }
 
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
         }
 
 
