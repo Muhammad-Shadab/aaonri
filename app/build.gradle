@@ -17,10 +17,29 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+    def BASE_URL = "BASE_URL"
+
+    flavorDimensions "dev"
+
+    productFlavors{
+
+        dev{
+            dimension "dev"
+            applicationIdSuffix ".dev"
+            buildConfigField "String", BASE_URL, '"http://aaonridevnew.aaonri.com:8444"'
+        }
+
+        production{
+            dimension "dev"
+            applicationIdSuffix ""
+            buildConfigField "String", BASE_URL, '"https://aaonri.com"'
+        }
+    }
+
 
     buildTypes {
         release {

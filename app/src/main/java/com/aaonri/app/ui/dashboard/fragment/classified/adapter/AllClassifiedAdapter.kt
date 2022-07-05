@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
@@ -49,7 +50,7 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 val roundoff = df.format(random)
 
                 Glide.with(context)
-                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
                     .into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)
@@ -60,10 +61,10 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
-            val date = data[position].createdOn.subSequence(0,10)
-            val year = date.subSequence(0,4)
-            val month = date.subSequence(5,7)
-            val day = date.subSequence(8,10)
+            val date = data[position].createdOn.subSequence(0, 10)
+            val year = date.subSequence(0, 4)
+            val month = date.subSequence(5, 7)
+            val day = date.subSequence(8, 10)
             classifiedPostDateTv.text = "Posted On: $day-$month-$year"
 
 
@@ -111,7 +112,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
                 Glide.with(context)
-                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
                     .into(classifiedItemIv)
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle
@@ -119,10 +120,10 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             }
-            val date = data[position].createdOn.subSequence(0,10)
-            val year = date.subSequence(0,4)
-            val month = date.subSequence(5,7)
-            val day = date.subSequence(8,10)
+            val date = data[position].createdOn.subSequence(0, 10)
+            val year = date.subSequence(0, 4)
+            val month = date.subSequence(5, 7)
+            val day = date.subSequence(8, 10)
             classifiedPostDateTv.text = "Posted On: $day-$month-$year"
         }
         holder.itemView.setOnClickListener {

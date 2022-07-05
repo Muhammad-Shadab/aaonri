@@ -240,7 +240,6 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:maxLines="1"
-                        android:text="@string/category_d_cor_sub_category_art_crafts"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="parent"
