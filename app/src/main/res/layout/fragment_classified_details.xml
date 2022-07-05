@@ -13,7 +13,7 @@
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_image_placeholder" />
+       />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
@@ -237,9 +237,7 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
-                        android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="parent"

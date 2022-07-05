@@ -1,13 +1,16 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +25,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.Constant.BASE_URL
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -30,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
@@ -43,6 +48,8 @@ class ClassifiedDetailsFragment : Fragment() {
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -120,6 +127,12 @@ class ClassifiedDetailsFragment : Fragment() {
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
 
+//            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
+//            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
+//            timeZone=data[position].timeZone
+//            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
+            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
 
             itemId = userAds.id
 
@@ -136,7 +149,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
-                classifiedCategoryTv.text = "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
+                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
@@ -254,8 +267,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 classifiedPriceTv.text = "$$roundoff"
                 addTitle.text = userAds.adTitle
-                classifiedCategoryTv.text =
-                    "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
                 classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
                 classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
                 //sellerName.text = userAds.
@@ -267,6 +278,8 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
+            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
 
             itemId = userAds.id
 
@@ -284,7 +297,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
-                classifiedCategoryTv.text = "Category: ${userAds.category}\t|\tSub Category: ${userAds.subCategory}"
+                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
@@ -415,8 +428,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
                 classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
                 addTitle.text = userAds.adTitle
-                classifiedCategoryTv.text =
-                    "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
                 classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
                 classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
                 //sellerName.text = userAds.
