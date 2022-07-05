@@ -77,8 +77,13 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_all_classified.xml" value="0.12681159420289856" />
+<<<<<<< HEAD
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.16" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_details.xml" value="0.33" />
+=======
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_details.xml" value="0.1" />
+>>>>>>> 61200ed72201f9022f8b6ff0e3b2a2602c9e7b9e
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_filter.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_create_new_password.xml" value="0.12681159420289856" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_event_post_successful_bottom.xml" value="0.25" />
