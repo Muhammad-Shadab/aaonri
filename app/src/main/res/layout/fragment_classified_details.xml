@@ -28,7 +28,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"

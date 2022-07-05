@@ -42,7 +42,7 @@ class AllClassifiedFragment : Fragment() {
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
