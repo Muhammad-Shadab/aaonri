@@ -192,6 +192,7 @@
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
+                android:textAlignment="textStart"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users"
                 android:textColor="#333333"

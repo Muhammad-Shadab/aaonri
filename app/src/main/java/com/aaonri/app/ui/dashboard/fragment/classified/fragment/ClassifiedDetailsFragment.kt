@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -48,7 +49,6 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-
 
         classifiedDetailsBinding?.apply {
 
@@ -136,6 +136,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
+                classifiedCategoryTv.text = "Category: ${userAds.category} | Sub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
@@ -156,14 +157,15 @@ class ClassifiedDetailsFragment : Fragment() {
                     when (index) {
                         0 -> {
                             image1CardView.visibility = View.VISIBLE
+
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(addImage)
                             }
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image1)
                             }
                             /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -177,7 +179,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image2CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image2)
                             }
                             /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -188,7 +190,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image3CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image3)
                             }
                             /*image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -199,7 +201,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image4CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image4)
                             }
                             /*image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -211,7 +213,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 image1.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 0) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
+                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
                             }
                             changeCardViewBorder(0)
                         }
@@ -220,7 +222,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 image2.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 1) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
+                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
                             }
                             changeCardViewBorder(1)
                         }
@@ -229,7 +231,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 image3.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 2) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
+                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
                             }
                             changeCardViewBorder(2)
                         }
@@ -238,7 +240,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 image4.setOnClickListener {
                     userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                         if (index == 3) {
-                            addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
+                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
                             }
                             changeCardViewBorder(3)
                         }
@@ -282,6 +284,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
+                classifiedCategoryTv.text = "Category: ${userAds.category}\t|\tSub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
@@ -297,21 +300,18 @@ class ClassifiedDetailsFragment : Fragment() {
                     classifiedSellerEmail.text = userAds.adPhone
                 }
 
-
-
-
                 userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
                     when (index) {
                         0 -> {
                             image1CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(addImage)
                             }
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image1)
                             }
                             /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -325,7 +325,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image2CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image2)
                             }
                             /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -336,7 +336,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image3CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image3)
                             }
                             /*image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
@@ -347,7 +347,7 @@ class ClassifiedDetailsFragment : Fragment() {
                             image4CardView.visibility = View.VISIBLE
                             context?.let {
                                 Glide.with(it)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image4)
                             }
 
@@ -362,7 +362,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         if (index == 0) {
                             context?.let { it1 ->
                                 Glide.with(it1)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
                                     .into(addImage)
                             }
                             /* addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
@@ -376,7 +376,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         if (index == 1) {
                             context?.let { it1 ->
                                 Glide.with(it1)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}")
                                     .into(addImage)
                             }
                             /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
@@ -390,7 +390,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         if (index == 2) {
                             context?.let { it1 ->
                                 Glide.with(it1)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}")
                                     .into(addImage)
                             }
                             /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
@@ -404,7 +404,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         if (index == 3) {
                             context?.let { it1 ->
                                 Glide.with(it1)
-                                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}")
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}")
                                     .into(addImage)
                             }
                             /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {

@@ -170,6 +170,7 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
+                //Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
                 if (it) {
                     classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setNavigateToAllClassified(false)

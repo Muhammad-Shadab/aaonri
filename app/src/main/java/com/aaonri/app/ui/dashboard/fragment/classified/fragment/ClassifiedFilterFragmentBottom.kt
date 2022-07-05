@@ -534,10 +534,8 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             if (it) {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
                 classifiedFilterBinding?.locationTv?.visibility = View.GONE
-                classifiedFilterBinding?.zipCodeEt?.visibility = View.GONE
             } else {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.VISIBLE
-                classifiedFilterBinding?.zipCodeEt?.visibility = View.VISIBLE
                 classifiedFilterBinding?.locationTv?.visibility = View.VISIBLE
             }
         }
