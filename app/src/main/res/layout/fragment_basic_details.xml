@@ -47,7 +47,6 @@
                         android:src="@drawable/plus"
                         app:tint="@color/blueBtnColor" />
 
-
                 </FrameLayout>
 
                 <EditText
