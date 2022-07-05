@@ -33,6 +33,12 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
+            startDate = DateTimeFormatter.ofPattern("MMM dd").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data[position].startDate.split("T")[0]))
+            startTimeOfEvent=LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
+            endTimeOfEvent=LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
+            timeZone=data[position].timeZone
+            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+
             if (data[position].images.isNotEmpty()) {
                 val image =
                     "https://www.aaonri.com/api/v1/common/eventFile/${data[position].images[0].imagePath}"
@@ -40,12 +46,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                     .into(eventImageView)
                 eventName.text = data[position].title
 
-                startDate = DateTimeFormatter.ofPattern("MMM dd").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data[position].startDate.split("T")[0]))
-                startTimeOfEvent=LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
-                endTimeOfEvent=LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
-                timeZone=data[position].timeZone
 
-                eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + "-" + data[position].zipCode
