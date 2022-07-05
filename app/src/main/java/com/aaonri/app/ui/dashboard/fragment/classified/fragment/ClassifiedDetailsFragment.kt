@@ -470,6 +470,8 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+
+
         return classifiedDetailsBinding?.root
     }
 
