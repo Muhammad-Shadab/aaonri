@@ -3,8 +3,10 @@ package com.aaonri.app.data.event.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.model.AllEventResponse
+import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.RecentEventResponse
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
@@ -20,6 +22,8 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     val allEventData: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
     val recentEventData: MutableLiveData<Resource<RecentEventResponse>> = MutableLiveData()
 
+    var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
+        private set
 
     fun getRecentEvent(userEmail: String) = viewModelScope.launch {
         recentEventData.postValue(Resource.Loading())

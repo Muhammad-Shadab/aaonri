@@ -33,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
-    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+    //val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
