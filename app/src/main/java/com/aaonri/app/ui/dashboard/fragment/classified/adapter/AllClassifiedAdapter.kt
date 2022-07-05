@@ -27,13 +27,12 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
+            val random = data[position].askingPrice
+
+            val df = DecimalFormat("#,###.00")
+            df.roundingMode = RoundingMode.DOWN
+            val roundoff = df.format(random)
             if (data[position].userAdsImages.isEmpty()) {
-
-                val random = data[position].askingPrice
-
-                val df = DecimalFormat("#.##")
-                df.roundingMode = RoundingMode.DOWN
-                val roundoff = df.format(random)
 
                 classifiedPriceTv.text = "$$roundoff"
 
@@ -42,13 +41,6 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
                 popularTv.visibility =
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
-
-                val random = data[position].askingPrice
-
-                val df = DecimalFormat("#.##")
-                df.roundingMode = RoundingMode.DOWN
-                val roundoff = df.format(random)
-
                 Glide.with(context)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
                     .into(classifiedItemIv)
@@ -104,8 +96,13 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
+            val random = data[position].askingPrice
+
+            val df = DecimalFormat("#,###.00")
+            df.roundingMode = RoundingMode.DOWN
+            val roundoff = df.format(random)
             if (data[position].userAdsImages.isEmpty()) {
-                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedPriceTv.text = "$$roundoff"
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =
@@ -114,7 +111,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
                 Glide.with(context)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
                     .into(classifiedItemIv)
-                classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
+                classifiedPriceTv.text = "$$roundoff"
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =

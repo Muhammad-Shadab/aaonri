@@ -119,6 +119,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
+
+
             itemId = userAds.id
 
             if (userAds.userAdsImages.isEmpty()) {
@@ -246,7 +248,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
                 val random = userAds.askingPrice
 
-                val df = DecimalFormat("#.##")
+                val df = DecimalFormat("#,###.00")
                 df.roundingMode = RoundingMode.DOWN
                 val roundoff = df.format(random)
 

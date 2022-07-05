@@ -54,7 +54,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
@@ -79,7 +79,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
@@ -104,7 +104,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -325,7 +325,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="From"
+                            android:text="Posting on"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
@@ -348,7 +348,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="To"
+                            android:text="Posting expires on"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
