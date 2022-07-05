@@ -58,8 +58,10 @@ class FavoriteClassifiedFragment : Fragment() {
 
                     if (response.data?.classifieds?.isNotEmpty() == true) {
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
+                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
                         response.data.classifieds.let { favoriteClassifiedAdapter!!.setData(it) }
                     } else {
+                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 
