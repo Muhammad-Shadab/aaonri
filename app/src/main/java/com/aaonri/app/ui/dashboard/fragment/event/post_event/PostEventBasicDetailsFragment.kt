@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +18,7 @@ import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.trimSubstring
 import java.util.*
 
 @AndroidEntryPoint
@@ -24,6 +27,8 @@ class PostEventBasicDetailsFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val months =
         arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+    var isDateValid = false
 
     var date: String = ""
 
@@ -36,9 +41,6 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventBinding?.apply {
 
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
-
-            selectCategoryEvent.text = "categories"
-            eventTimezone.text = "EST"
 
             addressDetailsNextBtn.setOnClickListener {
 
@@ -99,6 +101,9 @@ class PostEventBasicDetailsFragment : Fragment() {
             selectCategoryEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventCategoryBottom)
             }
+            eventTimezone.setOnClickListener {
+                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventTimeZoneBottom)
+            }
             selectstartDate.setOnClickListener {
                 getSelectedDate(selectstartDate)
             }
@@ -111,9 +116,61 @@ class PostEventBasicDetailsFragment : Fragment() {
             selectEndTime.setOnClickListener {
                 getSelectedTime(selectEndTime)
             }
+
+            selectstartDate.addTextChangedListener {
+                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+                        .isNotEmpty()
+                ) {
+                    isDateValid =
+                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+                            showAlert("Start Date should be less then End Date.")
+                            false
+                        } else {
+                            true
+                        }
+                }
+            }
+            selectEndDate.addTextChangedListener {
+                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+                        .isNotEmpty()
+                ) {
+                    isDateValid =
+                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+                            showAlert("End Date should be more then Current Date.")
+                            false
+                        } else {
+                            true
+                        }
+                }
+            }
+
+            offlineRadioBtnCardView.setOnClickListener {
+                offlineRadioBtn.isChecked = true
+                onlineRdaioBtn.isChecked = false
+            }
+            onlineRadioBtnCardView.setOnClickListener {
+                onlineRdaioBtn.isChecked = true
+                offlineRadioBtn.isChecked = false
+            }
+            isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    askingFee.setText("")
+                    askingFee.isEnabled = false
+                } else {
+                    askingFee.isEnabled = true
+                }
+            }
+
         }
 
         postEventViewModel.getEventCategory()
+        postEventViewModel.selectedEventCategory.observe(viewLifecycleOwner) {
+            postEventBinding?.selectCategoryEvent?.text = it.title
+        }
+
+        postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
+            postEventBinding?.eventTimezone?.text = it
+        }
 
         return postEventBinding?.root
     }

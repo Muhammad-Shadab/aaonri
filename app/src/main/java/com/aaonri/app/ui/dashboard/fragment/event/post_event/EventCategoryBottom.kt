@@ -28,7 +28,8 @@ class EventCategoryBottom : BottomSheetDialogFragment() {
         isCancelable = false
 
         eventCategoryAdapter = EventCategoryAdapter {
-
+            postEventViewModel.setSelectedEventCategory(it)
+            dismiss()
         }
 
         categoryBinding?.apply {

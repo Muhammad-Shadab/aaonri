@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.event.model.EventCategoryResponse
+import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,21 @@ import javax.inject.Inject
 class PostEventViewModel @Inject constructor(private val eventRepository: EventRepository) :
     ViewModel() {
 
+    var selectedEventCategory: MutableLiveData<EventCategoryResponseItem> = MutableLiveData()
+        private set
+
+    var selectedEventTimeZone: MutableLiveData<String> = MutableLiveData()
+        private set
+
     val eventCategoryData: MutableLiveData<Resource<EventCategoryResponse>> = MutableLiveData()
+
+    fun setSelectedEventCategory(value: EventCategoryResponseItem) {
+        selectedEventCategory.postValue(value)
+    }
+
+    fun setEventTimeZone(value: String) {
+        selectedEventTimeZone.postValue(value)
+    }
 
     fun getEventCategory() = viewModelScope.launch {
         eventCategoryData.postValue(Resource.Loading())

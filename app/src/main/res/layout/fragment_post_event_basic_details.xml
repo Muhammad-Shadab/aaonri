@@ -20,90 +20,90 @@
                 android:layout_height="0dp"
                 android:orientation="vertical">
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-
-                    >
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        app:cardBackgroundColor="@color/graycolor"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="@dimen/_3sdp">
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/offlineRadioBtnCardView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/_20sdp"
-                            android:paddingVertical="@dimen/_12sdp">
+                            android:layout_margin="6dp"
+                            app:cardBackgroundColor="@color/graycolor"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="@dimen/_3sdp">
 
-                            <RadioButton
-                                android:id="@+id/offlineRadioBtn"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:button="@drawable/custom_radio_btn"
-                                android:buttonTint="@drawable/custom_radio_btn"
-                                android:checked="true"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp" />
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_12sdp">
 
-                            <TextView
-                                android:id="@+id/offlinetv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:fontFamily="@font/sf_pro_semi_bold"
-                                android:text="Offline Event"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                                <RadioButton
+                                    android:id="@+id/offlineRadioBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:button="@drawable/custom_radio_btn"
+                                    android:buttonTint="@drawable/custom_radio_btn"
+                                    android:checked="true"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_marginLeft="8dp"
-                        app:cardBackgroundColor="@color/graycolor"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="@dimen/_2sdp">
+                                <TextView
+                                    android:id="@+id/offlinetv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Offline Event"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
 
-                        <LinearLayout
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/onlineRadioBtnCardView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/_20sdp"
-                            android:paddingVertical="@dimen/_12sdp">
+                            android:layout_margin="6dp"
+                            android:layout_marginLeft="8dp"
+                            app:cardBackgroundColor="@color/graycolor"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="@dimen/_2sdp">
 
-                            <RadioButton
-                                android:id="@+id/onlineRdaioBtn"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:button="@drawable/custom_radio_btn"
-                                android:buttonTint="@drawable/custom_radio_btn"
-                                android:checked="false"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp" />
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_12sdp">
 
-                            <TextView
-                                android:id="@+id/emailTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:fontFamily="@font/sf_pro_semi_bold"
-                                android:text="Online Event"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                                <RadioButton
+                                    android:id="@+id/onlineRdaioBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:button="@drawable/custom_radio_btn"
+                                    android:buttonTint="@drawable/custom_radio_btn"
+                                    android:checked="false"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp" />
 
-                </RadioGroup>
+                                <TextView
+                                    android:id="@+id/emailTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Online Event"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
 
                 <EditText
                     android:id="@+id/titleEvent"
@@ -147,7 +147,6 @@
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
-
 
                 <TextView
                     android:id="@+id/selectstartDate"

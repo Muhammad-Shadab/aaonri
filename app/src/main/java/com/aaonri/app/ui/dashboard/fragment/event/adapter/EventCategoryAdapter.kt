@@ -39,3 +39,37 @@ class EventCategoryAdapter(private var selectedCategory: ((value: EventCategoryR
     inner class EventCategoryViewHolder(val binding: FilterCardViewItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
+
+class EventTimeZoneAdapter(private var selectedCategory: ((value: String) -> Unit)) :
+    RecyclerView.Adapter<EventTimeZoneAdapter.EventCategoryViewHolder>() {
+
+    var data = mutableListOf<String>()
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): EventCategoryViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = FilterCardViewItemBinding.inflate(inflater, parent, false)
+        return EventCategoryViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: EventCategoryViewHolder, position: Int) {
+        val context = holder.itemView.context
+        holder.binding.countryTv.text = data[position]
+        holder.binding.countryTv.setOnClickListener {
+            selectedCategory(data[position])
+        }
+    }
+
+    override fun getItemCount() = data.size
+
+    @JvmName("setData1")
+    fun setData(data: List<String>?) {
+        this.data = data as MutableList<String>
+        notifyDataSetChanged()
+    }
+
+    inner class EventCategoryViewHolder(val binding: FilterCardViewItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
+}
