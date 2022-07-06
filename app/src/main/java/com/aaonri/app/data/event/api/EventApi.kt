@@ -1,8 +1,6 @@
 package com.aaonri.app.data.event.api
 
-import com.aaonri.app.data.event.model.AllEventRequest
-import com.aaonri.app.data.event.model.AllEventResponse
-import com.aaonri.app.data.event.model.RecentEventResponse
+import com.aaonri.app.data.event.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,5 +16,10 @@ interface EventApi {
     suspend fun getAllEvent(
         @Body allEventRequest: AllEventRequest
     ): Response<AllEventResponse>
+
+    @POST("/api/v1/event/createEvent")
+    suspend fun postEvent(
+        @Body postEventRequest: PostEventRequest
+    ): Response<PostEventResponse>
 
 }

@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.classified.model.UserAds
-import com.aaonri.app.data.event.model.AllEventRequest
-import com.aaonri.app.data.event.model.AllEventResponse
-import com.aaonri.app.data.event.model.Event
-import com.aaonri.app.data.event.model.RecentEventResponse
+import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +21,8 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
         private set
+
+    var postEventData: MutableLiveData<Resource<PostEventResponse>> = MutableLiveData()
 
     fun getRecentEvent(userEmail: String) = viewModelScope.launch {
         recentEventData.postValue(Resource.Loading())
@@ -48,6 +47,22 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     }
 
     private fun handleAllEventResponse(response: Response<AllEventResponse>): Resource<AllEventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun postEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
+        postEventData.postValue(Resource.Loading())
+        val response = eventRepository.postEvent(postEventRequest)
+        postEventData.postValue(handlePostEventResponse(response))
+
+    }
+
+    private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
