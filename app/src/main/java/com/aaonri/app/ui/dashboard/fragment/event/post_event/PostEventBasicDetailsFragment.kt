@@ -8,19 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class PostEventBasicDetailsFragment : Fragment() {
     var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     val months =
         arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
     var date: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,8 +96,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                     showAlert("Please enter valid event title")
                 }
             }
+            selectCategoryEvent.setOnClickListener {
+                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventCategoryBottom)
+            }
             selectstartDate.setOnClickListener {
-
                 getSelectedDate(selectstartDate)
             }
             selectEndDate.setOnClickListener {
@@ -104,6 +112,8 @@ class PostEventBasicDetailsFragment : Fragment() {
                 getSelectedTime(selectEndTime)
             }
         }
+
+        postEventViewModel.getEventCategory()
 
         return postEventBinding?.root
     }

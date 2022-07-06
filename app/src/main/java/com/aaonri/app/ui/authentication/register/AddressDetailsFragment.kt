@@ -44,7 +44,6 @@ class AddressDetailsFragment : Fragment() {
 
         var job: Job? = null
 
-
         addressDetailsBinding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)

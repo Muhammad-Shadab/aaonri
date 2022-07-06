@@ -59,7 +59,6 @@
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -69,59 +68,68 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_8sdp"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingBottom="@dimen/_4sdp">
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingLeft="@dimen/_16sdp">
 
-                <TextView
-                    android:id="@+id/eventName"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:gravity="center_vertical"
-                    android:text="Bay Area Craft Beer…"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/eventName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:gravity="center_vertical"
+                        android:text="Bay Area Craft Beer…"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/eventLocationZip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:text="NY-08512"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:textStyle="normal"
+
+                        />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/eventTiming"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="1"
                     android:fontFamily="@font/sf_pro_semi_bold"
+                    android:maxLines="1"
                     android:text="Start from Mar 25, 10 am EST"
                     android:textColor="@color/black"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:textStyle="normal" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/eventLocationZip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_8sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:gravity="top"
-                android:paddingLeft="@dimen/_4sdp"
-                android:paddingTop="@dimen/_4sdp"
-                android:text="NY-08512"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/event_entryfee_bg1"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_16sdp"
-                android:paddingTop="@dimen/_2sdp"
-                android:paddingRight="@dimen/_16sdp">
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingTop="@dimen/_2sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,5 +152,6 @@
                     android:textStyle="normal" />
             </LinearLayout>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

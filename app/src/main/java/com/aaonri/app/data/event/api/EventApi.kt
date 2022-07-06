@@ -12,6 +12,9 @@ interface EventApi {
     @GET("/api/v1/event/recentEvents/{email}")
     suspend fun getRecentEvent(@Path("email") userEmail: String): Response<RecentEventResponse>
 
+    @GET("/api/v1/eventcategory/findAll")
+    suspend fun getEventCategory(): Response<EventCategoryResponse>
+
     @POST("/api/v1/event/search")
     suspend fun getAllEvent(
         @Body allEventRequest: AllEventRequest
