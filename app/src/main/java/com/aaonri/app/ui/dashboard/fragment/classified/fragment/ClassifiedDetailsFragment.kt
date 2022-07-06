@@ -48,6 +48,7 @@ class ClassifiedDetailsFragment : Fragment() {
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
+
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -56,8 +57,6 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-
-        classifiedViewModel.getClassifiedLikeDislikeInfo("saifshadab08@gmail.com", 406, "Classified")
 
         classifiedDetailsBinding?.apply {
 
@@ -123,17 +122,32 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
         }
-
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+
+            if (email != null) {
+                classifiedViewModel.getClassifiedLikeDislikeInfo(
+                    email,
+                    userAds.id,
+                    "Classified"
+                )
+            }
 
 //            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
 //            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
 //            timeZone=data[position].timeZone
 //            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
-            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
-            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
+            classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
+                )
+            classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(userAds.adExpireDT.split("T")[0])
+                )
 
             itemId = userAds.id
 
@@ -150,7 +164,8 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
-                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
+                classifiedCategoryTv.text =
+                    "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
@@ -196,9 +211,6 @@ class ClassifiedDetailsFragment : Fragment() {
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                     .into(image2)
                             }
-                            /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
                         }
                         2 -> {
                             image3CardView.visibility = View.VISIBLE
@@ -279,8 +291,15 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
-            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
-            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
+            classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
+                )
+            classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(userAds.adExpireDT.split("T")[0])
+                )
 
             itemId = userAds.id
 
@@ -298,7 +317,8 @@ class ClassifiedDetailsFragment : Fragment() {
                     popularTv.visibility = View.GONE
                 }
 
-                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
+                classifiedCategoryTv.text =
+                    "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
                 locationClassifiedTv.text = userAds.adLocation
                 adZipCode.text = userAds.adZip
 
