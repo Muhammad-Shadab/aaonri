@@ -14,6 +14,13 @@ interface ClassifiedApi {
         @Query("email") userEmail: String
     ): Response<GetClassifiedSellerResponse>
 
+    @GET("/api/v1/favourite/getItemFavouriteByEmailAndService")
+    suspend fun getClassifiedLikeInfo(
+        @Query("itemId") itemId: Int,
+        @Query("service") service: String,
+        @Query("email") userEmail: String
+    ): String
+
     @GET("/api/v1/favourite/findFavouriteByEmailAndService")
     suspend fun getFavoriteClassified(
         @Query("emailId") userEmail: String,

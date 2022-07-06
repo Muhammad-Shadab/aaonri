@@ -57,6 +57,8 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
 
+        classifiedViewModel.getClassifiedLikeDislikeInfo("saifshadab08@gmail.com", 406, "Classified")
+
         classifiedDetailsBinding?.apply {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
@@ -469,7 +471,22 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
 
+                }
+                is Resource.Success -> {
+                    Toast.makeText(context, "${response.data}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
 
         return classifiedDetailsBinding?.root
     }
