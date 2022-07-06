@@ -31,7 +31,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val classifiedSellerNameData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
         MutableLiveData()
 
-    val classifiedAdDetailsData : MutableLiveData<Resource<ClassifiedAdDetailsResponse>> =
+    val classifiedAdDetailsData : MutableLiveData<Resource<ClassifiedAdDetailsResponse>> = MutableLiveData()
+
+    val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
@@ -127,6 +129,19 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         return Resource.Error(response.message())
     }
 
+    fun getClassifiedLikeDislikeInfo(email: String, addId: Int, service: String) =
+        viewModelScope.launch {
+            classifiedLikeDislikeInfoData.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedLikeDislikeInfo(email, addId, service)
+            classifiedLikeDislikeInfoData.postValue(handleClassifiedLikeDislikeInfoResponse(response))
+        }
+
+    private fun handleClassifiedLikeDislikeInfoResponse(response: String): Resource<String>? {
+        if (response.isNotEmpty()) {
+            return Resource.Success(response)
+        }
+        return Resource.Error("Empty")
+    }
 
 
 }

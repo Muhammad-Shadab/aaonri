@@ -61,7 +61,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
         classifiedDetailsBinding?.apply {
 
+            val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
             classifiedViewModel.getClassifiedAdDetails(args.addId)
+            if (email != null) {
+                classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
+            }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -126,22 +131,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        classifiedViewModel.likeDislikeClassifiedData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Error -> {
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-                }
-            }
-        }
 
         classifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -183,9 +172,9 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-
         return classifiedDetailsBinding?.root
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
@@ -244,64 +233,86 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-            classifiedDetailsBinding?.image1?.setOnClickListener {
-                data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    if (index == 0) {
-                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}") {
-                        }
-                        changeCardViewBorder(0)
-                    }
-                }
-            }
-            classifiedDetailsBinding?.image2?.setOnClickListener {
-                data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    if (index == 1) {
-                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}") {
-                        }
-                        changeCardViewBorder(1)
-                    }
-                }
-            }
-            classifiedDetailsBinding?.image3?.setOnClickListener {
-                data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    if (index == 2) {
-                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}") {
-                        }
-                        changeCardViewBorder(2)
-                    }
-                }
-            }
-            classifiedDetailsBinding?.image4?.setOnClickListener {
-                data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    if (index == 3) {
-                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}") {
-                        }
-                        changeCardViewBorder(3)
-                    }
-                }
+
+
+        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+
+            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+            classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
+                )
+            classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(userAds.adExpireDT.split("T")[0])
+                )
+
+            itemId = userAds.id
+
+            if (userAds.userAdsImages.isEmpty()) {
+                changeCardViewBorder(9)
+            } else {
+                changeCardViewBorder(0)
             }
 
-            val random = data.askingPrice
 
-            val df = DecimalFormat("###.00")
-            df.roundingMode = RoundingMode.DOWN
-            val roundoff = df.format(random)
+        }
 
-            classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
-            classifiedDetailsBinding?.addTitle?.text = data.adTitle
-            classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
-            classifiedDetailsBinding?.classifiedLocationDetails?.text = data.adLocation + " - " + data.adZip
-            classifiedDetailsBinding?.sellerName?.text =
-                classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
-
-
+        classifiedDetailsBinding?.image1?.setOnClickListener {
+            data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                if (index == 1) {
+                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}") {
+                    }
+                    changeCardViewBorder(0)
+                }
+            }
+        }
 
 
 
-//            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
-//            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
-//            timeZone=data[position].timeZone
-//            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+        classifiedDetailsBinding?.image2?.setOnClickListener {
+            data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                if (index == 1) {
+                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}") {
+                    }
+                    changeCardViewBorder(1)
+                }
+            }
+        }
+        classifiedDetailsBinding?.image3?.setOnClickListener {
+            data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                if (index == 2) {
+                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}") {
+                    }
+                    changeCardViewBorder(2)
+                }
+            }
+        }
+        classifiedDetailsBinding?.image4?.setOnClickListener {
+            data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                if (index == 3) {
+                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}") {
+                    }
+                    changeCardViewBorder(3)
+                }
+            }
+        }
+
+        val random = data.askingPrice
+
+        val df = DecimalFormat("###.00")
+        df.roundingMode = RoundingMode.DOWN
+        val roundoff = df.format(random)
+
+        classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
+        classifiedDetailsBinding?.addTitle?.text = data.adTitle
+        classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
+        classifiedDetailsBinding?.classifiedLocationDetails?.text =
+            data.adLocation + " - " + data.adZip
+        classifiedDetailsBinding?.sellerName?.text =
+            classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
+
         classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.createdOn.split("T")[0]))
         classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
@@ -340,6 +351,27 @@ class ClassifiedDetailsFragment : Fragment() {
             classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adPhone
         }
 
+        classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (response.data.toBoolean()) {
+                        classifiedDetailsBinding?.likeDislikeBtn?.load(R.drawable.heart)
+                    } else {
+                        classifiedDetailsBinding?.likeDislikeBtn?.load(R.drawable.heart_grey)
+                    }
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
 
     }
 

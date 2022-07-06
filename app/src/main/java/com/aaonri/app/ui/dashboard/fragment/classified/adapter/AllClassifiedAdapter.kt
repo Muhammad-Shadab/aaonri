@@ -101,6 +101,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
             val df = DecimalFormat("###.00")
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
+               like.visibility = View.VISIBLE
             if (data[position].userAdsImages.isEmpty()) {
                 classifiedPriceTv.text = "$$roundoff"
                 classifiedTitleTv.text = data[position].adTitle

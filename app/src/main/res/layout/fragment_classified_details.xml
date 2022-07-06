@@ -12,8 +12,7 @@
         android:layout_height="@dimen/_500sdp"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
-        android:scaleType="centerCrop"
-       />
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
