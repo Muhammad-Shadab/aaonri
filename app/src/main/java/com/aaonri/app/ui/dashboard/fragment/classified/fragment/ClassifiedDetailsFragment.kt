@@ -12,20 +12,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.util.lruCache
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
+import com.aaonri.app.data.classified.model.UserAdsXX
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.Constant.BASE_URL
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -33,8 +35,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.time.LocalDate
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
@@ -44,10 +44,12 @@ class ClassifiedDetailsFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val args: ClassifiedDetailsFragmentArgs by navArgs()
     var isClassifiedLike = false
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
+
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -58,6 +60,8 @@ class ClassifiedDetailsFragment : Fragment() {
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
 
         classifiedDetailsBinding?.apply {
+
+            classifiedViewModel.getClassifiedAdDetails(args.addId)
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -122,319 +126,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) { userAds ->
-
-            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
-
-
-//            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
-//            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
-//            timeZone=data[position].timeZone
-//            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
-            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
-            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
-
-            itemId = userAds.id
-
-            if (userAds.userAdsImages.isEmpty()) {
-                changeCardViewBorder(9)
-            } else {
-                changeCardViewBorder(0)
-            }
-            classifiedDetailsBinding?.apply {
-
-                if (userAds.popularOnAaonri) {
-                    popularTv.visibility = View.VISIBLE
-                } else {
-                    popularTv.visibility = View.GONE
-                }
-
-                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
-                locationClassifiedTv.text = userAds.adLocation
-                adZipCode.text = userAds.adZip
-
-
-                if (userAds.adEmail.isNotEmpty()) {
-                    isEmailAvailable = userAds.adEmail
-                    isPhoneAvailable = userAds.adPhone
-                    emailTv.text = "Email"
-                    classifiedSellerEmail.text = userAds.adEmail
-                } else {
-                    isEmailAvailable = userAds.adEmail
-                    isPhoneAvailable = userAds.adPhone
-                    emailTv.text = "Phone"
-                    classifiedSellerEmail.text = userAds.adPhone
-                }
-
-                userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    when (index) {
-                        0 -> {
-                            image1CardView.visibility = View.VISIBLE
-
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(addImage)
-                            }
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image1)
-                            }
-                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                // placeholder(R.drawable.ic_loading)
-                            }
-                            image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        1 -> {
-                            image2CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image2)
-                            }
-                            /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        2 -> {
-                            image3CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image3)
-                            }
-                            /*image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        3 -> {
-                            image4CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image4)
-                            }
-                            /*image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                    }
-                }
-                image1.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 0) {
-                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
-                            }
-                            changeCardViewBorder(0)
-                        }
-                    }
-                }
-                image2.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 1) {
-                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
-                            }
-                            changeCardViewBorder(1)
-                        }
-                    }
-                }
-                image3.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 2) {
-                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
-                            }
-                            changeCardViewBorder(2)
-                        }
-                    }
-                }
-                image4.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 3) {
-                            addImage.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
-                            }
-                            changeCardViewBorder(3)
-                        }
-                    }
-                }
-                val random = userAds.askingPrice
-
-                val df = DecimalFormat("###.00")
-                df.roundingMode = RoundingMode.DOWN
-                val roundoff = df.format(random)
-
-                classifiedPriceTv.text = "$$roundoff"
-                addTitle.text = userAds.adTitle
-                classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
-                classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
-                //sellerName.text = userAds.
-
-            }
-        }
-
-
-        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
-
-            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
-            classifiedDetailsBinding?.postedDate1?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0]))
-            classifiedDetailsBinding?.postedDate2?.text= DateTimeFormatter.ofPattern("dd MMM yyyy").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.adExpireDT.split("T")[0]))
-
-            itemId = userAds.id
-
-            if (userAds.userAdsImages.isEmpty()) {
-                changeCardViewBorder(9)
-            } else {
-                changeCardViewBorder(0)
-            }
-
-            classifiedDetailsBinding?.apply {
-
-                if (userAds.popularOnAaonri) {
-                    popularTv.visibility = View.VISIBLE
-                } else {
-                    popularTv.visibility = View.GONE
-                }
-
-                classifiedCategoryTv.text = "Category: ${userAds.category}  |  Sub Category: ${userAds.subCategory}"
-                locationClassifiedTv.text = userAds.adLocation
-                adZipCode.text = userAds.adZip
-
-                if (userAds.adEmail.isNotEmpty()) {
-                    isEmailAvailable = userAds.adEmail
-                    isPhoneAvailable = userAds.adPhone
-                    emailTv.text = "Email"
-                    classifiedSellerEmail.text = userAds.adEmail
-                } else {
-                    isEmailAvailable = userAds.adEmail
-                    isPhoneAvailable = userAds.adPhone
-                    emailTv.text = "Phone"
-                    classifiedSellerEmail.text = userAds.adPhone
-                }
-
-                userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    when (index) {
-                        0 -> {
-                            image1CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(addImage)
-                            }
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image1)
-                            }
-                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                // placeholder(R.drawable.ic_loading)
-                            }
-                            image1.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        1 -> {
-                            image2CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image2)
-                            }
-                            /*image2.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        2 -> {
-                            image3CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image3)
-                            }
-                            /*image3.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                        3 -> {
-                            image4CardView.visibility = View.VISIBLE
-                            context?.let {
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                    .into(image4)
-                            }
-
-                            /*image4.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAdsImage.imagePath}") {
-                                placeholder(R.drawable.ic_image_placeholder)
-                            }*/
-                        }
-                    }
-                }
-                image1.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 0) {
-                            context?.let { it1 ->
-                                Glide.with(it1)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
-                                    .into(addImage)
-                            }
-                            /* addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}") {
-                             }*/
-                            changeCardViewBorder(0)
-                        }
-                    }
-                }
-                image2.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 1) {
-                            context?.let { it1 ->
-                                Glide.with(it1)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}")
-                                    .into(addImage)
-                            }
-                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[1].imagePath}") {
-                            }*/
-                            changeCardViewBorder(1)
-                        }
-                    }
-                }
-                image3.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 2) {
-                            context?.let { it1 ->
-                                Glide.with(it1)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}")
-                                    .into(addImage)
-                            }
-                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[2].imagePath}") {
-                            }*/
-                            changeCardViewBorder(2)
-                        }
-                    }
-                }
-                image4.setOnClickListener {
-                    userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                        if (index == 3) {
-                            context?.let { it1 ->
-                                Glide.with(it1)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}")
-                                    .into(addImage)
-                            }
-                            /*addImage.load("https://www.aaonri.com/api/v1/common/classifiedFile/${userAds.userAdsImages[3].imagePath}") {
-                            }*/
-                            changeCardViewBorder(3)
-                        }
-                    }
-                }
-                classifiedPriceTv.text = "$" + userAds.askingPrice.toString()
-                addTitle.text = userAds.adTitle
-                classifiedDescTv.text = Html.fromHtml(userAds.adDescription)
-                classifiedLocationDetails.text = userAds.adLocation + " - " + userAds.adZip
-                //sellerName.text = userAds.
-
-            }
-        }
-
         classifiedViewModel.likeDislikeClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -444,6 +135,27 @@ class ClassifiedDetailsFragment : Fragment() {
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+
+        classifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    classifiedDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    classifiedDetailsBinding?.progressBar?.visibility = View.GONE
+
+                    response.data?.let { setClassifiedDetails(it.userAds) }
+                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    classifiedDetailsBinding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -473,6 +185,162 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
         return classifiedDetailsBinding?.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setClassifiedDetails(data: UserAdsXX) {
+        data.userAdsImages.forEachIndexed { index, userAdsImage ->
+            when (index) {
+                0 -> {
+                    classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+
+                    context?.let {
+                        classifiedDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+                    context?.let {
+                        classifiedDetailsBinding?.image1?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+                }
+                1 -> {
+                    classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+                    context?.let {
+                        classifiedDetailsBinding?.image2?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+                }
+                2 -> {
+                    classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                    context?.let {
+                        classifiedDetailsBinding?.image3?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+                }
+                3 -> {
+                    classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+                    context?.let {
+                        classifiedDetailsBinding?.image4?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+            classifiedDetailsBinding?.image1?.setOnClickListener {
+                data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    if (index == 0) {
+                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}") {
+                        }
+                        changeCardViewBorder(0)
+                    }
+                }
+            }
+            classifiedDetailsBinding?.image2?.setOnClickListener {
+                data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    if (index == 1) {
+                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}") {
+                        }
+                        changeCardViewBorder(1)
+                    }
+                }
+            }
+            classifiedDetailsBinding?.image3?.setOnClickListener {
+                data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    if (index == 2) {
+                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}") {
+                        }
+                        changeCardViewBorder(2)
+                    }
+                }
+            }
+            classifiedDetailsBinding?.image4?.setOnClickListener {
+                data.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    if (index == 3) {
+                        classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}") {
+                        }
+                        changeCardViewBorder(3)
+                    }
+                }
+            }
+
+            val random = data.askingPrice
+
+            val df = DecimalFormat("###.00")
+            df.roundingMode = RoundingMode.DOWN
+            val roundoff = df.format(random)
+
+            classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
+            classifiedDetailsBinding?.addTitle?.text = data.adTitle
+            classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
+            classifiedDetailsBinding?.classifiedLocationDetails?.text = data.adLocation + " - " + data.adZip
+            classifiedDetailsBinding?.sellerName?.text =
+                classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
+
+
+
+
+
+//            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
+//            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
+//            timeZone=data[position].timeZone
+//            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+        classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.createdOn.split("T")[0]))
+        classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.adExpireDT.split("T")[0]))
+
+        itemId = data.id
+
+        if (data.userAdsImages.isEmpty()) {
+            changeCardViewBorder(9)
+        } else {
+            changeCardViewBorder(0)
+        }
+
+
+        if (data.popularOnAaonri) {
+            classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
+        } else {
+            classifiedDetailsBinding?.popularTv?.visibility = View.GONE
+        }
+
+        classifiedDetailsBinding?.classifiedCategoryTv?.text =
+            "Category: ${data.category}  |  Sub Category: ${data.subCategory}"
+        classifiedDetailsBinding?.locationClassifiedTv?.text = data.adLocation
+        classifiedDetailsBinding?.adZipCode?.text = data.adZip
+
+
+        if (data.adEmail.isNotEmpty()) {
+            isEmailAvailable = data.adEmail
+            isPhoneAvailable = data.adPhone
+            classifiedDetailsBinding?.emailTv?.text = "Email"
+            classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adEmail
+        } else {
+            isEmailAvailable = data.adEmail
+            isPhoneAvailable = data.adPhone
+            classifiedDetailsBinding?.emailTv?.text = "Phone"
+            classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adPhone
+        }
+
+
     }
 
     private fun callLikeDislikeApi() {

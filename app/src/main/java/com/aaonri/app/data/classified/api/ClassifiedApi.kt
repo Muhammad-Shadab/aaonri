@@ -20,6 +20,11 @@ interface ClassifiedApi {
         @Query("service") serviceName: String = "Classified"
     ): Response<FavoriteClassifiedResponse>
 
+    @GET("/api/v1/asd/getAdsDetails")
+    suspend fun getAddDetails(
+        @Query("adId") addId: Int
+    ): Response<ClassifiedAdDetailsResponse>
+
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/search")
     suspend fun getClassifiedByUser(

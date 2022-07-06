@@ -80,10 +80,10 @@ class BasicDetailsFragment : Fragment() {
                         }
                 }else{
                      var materialAlertDialogBuilder=
-                         context?.let { it1 -> MaterialAlertDialogBuilder(it1,R.drawable.dialog_box_bg) }
-                     materialAlertDialogBuilder
+                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
 
-                    materialAlertDialogBuilder?.setTitle("Profile Photo")?.setMessage("Change profile photo ? ")
+
+                    materialAlertDialogBuilder?.setTitle("Profile Photo")?.setMessage("Change profile photo? ")
                         ?.setPositiveButton("CHANGE"){ dialog, _ ->
                             ImagePicker.with(requireActivity())
                                 .compress(1024)

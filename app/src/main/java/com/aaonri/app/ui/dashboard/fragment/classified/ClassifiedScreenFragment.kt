@@ -118,7 +118,7 @@ class ClassifiedScreenFragment : Fragment() {
 
             })
 
-            searchViewIcon.setOnClickListener{
+            searchViewIcon.setOnClickListener {
                 if (searchView.text.toString().isNotEmpty()) {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
@@ -236,17 +236,19 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                val action =
+                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(it)
+                findNavController().navigate(action)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
 
-        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
+       /* postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
-        }
+        }*/
 
         return classifiedScreenBinding?.root
     }
@@ -283,13 +285,13 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
                         classifiedScreenBinding?.searchViewll?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
-                        classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
-                    }
-                    else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                    } else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                     }
                 }
 

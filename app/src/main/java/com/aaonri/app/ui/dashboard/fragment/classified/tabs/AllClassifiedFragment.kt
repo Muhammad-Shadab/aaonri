@@ -36,7 +36,7 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter {
-            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 

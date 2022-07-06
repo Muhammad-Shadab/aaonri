@@ -3,7 +3,7 @@
 <!--    <solid-->
 <!--        android:color="gra"/>-->
     <corners
-        android:radius="@dimen/_40sdp" />
+        android:radius="@dimen/_100sdp" />
 <!--    <stroke android:color="g" android:width="5dp"/>-->
 
 </shape>
