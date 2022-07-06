@@ -9,11 +9,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/selectCountryOrigin"
                     android:layout_width="match_parent"
@@ -50,13 +47,13 @@
                         android:layout_marginTop="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_2sdp"
                         android:fontFamily="@font/helvetica_regular"
+                        android:gravity="center_vertical"
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
                         android:maxLines="1"
+                        android:paddingVertical="@dimen/_4sdp"
                         android:paddingStart="@dimen/_12sdp"
                         android:paddingEnd="@dimen/_8sdp"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
                         android:textSize="16sp"
@@ -116,13 +113,13 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
                     android:hint="@string/select_your_community"
                     android:lines="1"
                     android:maxLines="1"
+                    android:paddingVertical="@dimen/_4sdp"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
@@ -210,22 +207,18 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/person"
+                    android:translationY="90dp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/person"
-                android:translationY="90dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

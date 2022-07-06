@@ -126,7 +126,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
 
-
 //            startTimeOfEvent= LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
 //            endTimeOfEvent= LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
 //            timeZone=data[position].timeZone

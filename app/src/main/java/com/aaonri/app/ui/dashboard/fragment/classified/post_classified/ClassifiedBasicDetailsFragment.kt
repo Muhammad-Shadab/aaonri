@@ -59,6 +59,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked
                                         )
+                                        postClassifiedViewModel.addClassifiedCategory(selectCategoryClassifiedSpinner.text.toString())
+                                        postClassifiedViewModel.addClassifiedSubCategory(selectSubCategoryClassifiedSpinner.text.toString())
                                         postClassifiedViewModel.addClassifiedBasicDetails(
                                             title = titleClassifiedEt.text.trim().toString(),
                                             price = priceClassifiedEt.text.trim().toString()
