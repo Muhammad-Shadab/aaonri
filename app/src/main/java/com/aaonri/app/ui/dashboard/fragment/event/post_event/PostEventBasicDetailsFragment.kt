@@ -65,6 +65,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         .toDouble() > 0
                                                 ) {
                                                     if (eventDescEt.text.isNotEmpty()) {
+                                                        postEventViewModel.setIsEventOffline(offlineRadioBtn.isChecked)
                                                         findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
                                                     } else {
                                                         showAlert("Please enter valid event description")

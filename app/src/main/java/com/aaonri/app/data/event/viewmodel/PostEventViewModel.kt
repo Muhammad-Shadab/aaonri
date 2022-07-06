@@ -22,6 +22,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var selectedEventTimeZone: MutableLiveData<String> = MutableLiveData()
         private set
 
+    var isEventOffline = false
+        private set
+
     val eventCategoryData: MutableLiveData<Resource<EventCategoryResponse>> = MutableLiveData()
 
     fun setSelectedEventCategory(value: EventCategoryResponseItem) {
@@ -30,6 +33,10 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun setEventTimeZone(value: String) {
         selectedEventTimeZone.postValue(value)
+    }
+
+    fun setIsEventOffline(value: Boolean) {
+        isEventOffline = value
     }
 
     fun getEventCategory() = viewModelScope.launch {

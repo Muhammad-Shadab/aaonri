@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.google.android.material.snackbar.Snackbar
@@ -14,11 +17,14 @@ import com.google.android.material.snackbar.Snackbar
 
 class PostEventAddressDetailsFragment : Fragment() {
     var postEventAddressBinding: FragmentPostEventAddressDetailsBinding? = null
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         postEventAddressBinding = FragmentPostEventAddressDetailsBinding.inflate(inflater, container, false)
+
+        Toast.makeText(context, "${postEventViewModel.isEventOffline}", Toast.LENGTH_SHORT).show()
 
         postEventAddressBinding?.apply {
             classifiedDetailsNextBtn.setOnClickListener {
