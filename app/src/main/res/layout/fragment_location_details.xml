@@ -51,7 +51,7 @@
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
                         android:maxLines="1"
-                        android:paddingVertical="@dimen/_4sdp"
+                        android:paddingVertical="@dimen/_2sdp"
                         android:paddingStart="@dimen/_12sdp"
                         android:paddingEnd="@dimen/_8sdp"
                         android:textColor="@color/editTextColor"
@@ -210,10 +210,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_60sdp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/person"
-                    android:translationY="90dp" />
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:src="@drawable/person" />
 
             </LinearLayout>
 

@@ -165,8 +165,7 @@ class ServicesCategoryFragment : Fragment() {
             adapter?.savedCategoriesList = serviceResponseItem
 
             serviceResponseItem.forEach {
-                if (it.id == 3)
-                    isJobSelected = true
+                isJobSelected = it.interestDesc == "Jobs"
             }
 
             if (serviceResponseItem.size >= 3 && isJobSelected) {

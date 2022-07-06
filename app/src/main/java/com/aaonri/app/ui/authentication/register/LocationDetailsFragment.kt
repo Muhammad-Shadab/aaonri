@@ -50,7 +50,6 @@ class LocationDetailsFragment : Fragment() {
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
 
-
         /*authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner)*/
 
         /*if (!isCountrySelected) {
