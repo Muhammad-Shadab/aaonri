@@ -50,9 +50,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                                     if (selectEndTime.text.toString().isNotEmpty()) {
 
                                         if (eventTimezone.text.toString().isNotEmpty()) {
-                                            if (askingFee.text.toString()
-                                                    .isNotEmpty() && askingFee.text.toString()
-                                                    .trim().length > 0
+                                            if (askingFee.text.toString().isNotEmpty()
                                             ) {
                                                 if (askingFee.text.toString()
                                                         .toDouble() < 999999999 && askingFee.text.toString()
@@ -137,18 +135,20 @@ class PostEventBasicDetailsFragment : Fragment() {
                 day
             )
         }
+        datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000;
         datepicker?.show()
     }
 
     private fun getSelectedTime(selectStartTime: TextView) {
         var ampm = ""
         var hoursOfTheDay: Int
-        var mTimePicker: TimePickerDialog
-        var mcurrentTime = Calendar.getInstance()
-        var hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
-        var minute = mcurrentTime.get(Calendar.MINUTE)
+        val mTimePicker: TimePickerDialog
+        val mcurrentTime = Calendar.getInstance()
+        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = mcurrentTime.get(Calendar.MINUTE)
 
-        mTimePicker = TimePickerDialog(context,
+        mTimePicker = TimePickerDialog(
+            context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
                 if (hoursOfTheDay == 0) {
@@ -164,7 +164,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                selectStartTime?.text = "$hoursOfTheDay:$minute $ampm"
+                selectStartTime.text = "$hoursOfTheDay:$minute $ampm"
             }, hour, minute, false
         )
         mTimePicker.show()

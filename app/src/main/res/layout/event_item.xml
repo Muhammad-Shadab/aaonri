@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:layout_marginBottom="@dimen/_10sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -77,9 +78,10 @@
 
                 <TextView
                     android:id="@+id/eventName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:maxLines="1"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:gravity="center_vertical"
                     android:text="Bay Area Craft Beer…"
@@ -88,12 +90,14 @@
 
                 <TextView
                     android:id="@+id/eventTiming"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="Start from Mar 25, 10 am EST"
                     android:textColor="@color/black"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <TextView
@@ -108,7 +112,7 @@
                 android:paddingTop="@dimen/_4sdp"
                 android:text="NY-08512"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
