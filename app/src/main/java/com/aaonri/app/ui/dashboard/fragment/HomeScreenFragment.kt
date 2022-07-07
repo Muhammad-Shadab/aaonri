@@ -78,24 +78,13 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    val poplarClassified = mutableListOf<UserAds>()
-                    val homeClassified = mutableListOf<UserAds>()
-                    homeClassified.addAll(response.data?.userAdsList?.subList(0, 4)!!)
-                    response.data.userAdsList.forEach {
-                        if (it.popularOnAaonri) {
-                            poplarClassified.add(it)
-                        }
-                    }
+                    var homeClassified = mutableListOf<UserAds>()
+                    homeClassified = response.data?.userAdsList?.subList(0, 4) as MutableList<UserAds>
+
                     response.data.userAdsList.let {
                         allClassifiedAdapter?.setData(homeClassified)
-                        if (poplarClassified.size >= 4){
-                            popularClassifiedAdapter?.setClassifiedHotData(poplarClassified.subList(0, 4))
-                        }else{
-                            popularClassifiedAdapter?.setClassifiedHotData(poplarClassified)
-                        }
                     }
                     homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
-                    homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
@@ -206,6 +195,22 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+        homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    //popularClassifiedAdapter.setClassifiedHotData(response.data.)
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
+
         return homeScreenBinding?.root
     }
 
@@ -250,6 +255,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
         homeViewModel.getHomeEvent()
+        homeViewModel.getPopularClassified()
     }
 
     fun View.margin(

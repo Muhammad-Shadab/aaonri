@@ -11,6 +11,7 @@ class HomeRepository @Inject constructor(private val homeApi: HomeApi) {
     suspend fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         homeApi.getClassifiedByUser(getClassifiedsByUserRequest)
 
+    suspend fun getPopularClassified() = homeApi.getAllPopularClassified()
 
 
 }

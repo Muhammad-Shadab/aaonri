@@ -7,6 +7,7 @@ import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.EventResponse
+import com.aaonri.app.data.home.model.PoplarClassifiedResponse
 import com.aaonri.app.data.home.repository.HomeRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         private set
 
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()
+
+    val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
         MutableLiveData()
 
     fun getHomeEvent() = viewModelScope.launch {
@@ -60,6 +64,21 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
         sendDataToClassifiedDetailsScreen.postValue(value)
+    }
+
+    fun getPopularClassified() = viewModelScope.launch {
+        popularClassifiedData.postValue(Resource.Loading())
+        val response = homeRepository.getPopularClassified()
+        popularClassifiedData.postValue(handlePopularClassifiedResponse(response))
+    }
+
+    private fun handlePopularClassifiedResponse(response: Response<PoplarClassifiedResponse>): Resource<PoplarClassifiedResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 

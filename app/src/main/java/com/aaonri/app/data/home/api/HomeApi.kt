@@ -3,6 +3,7 @@ package com.aaonri.app.data.home.api
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.event.model.EventResponse
+import com.aaonri.app.data.home.model.PoplarClassifiedResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,7 +16,7 @@ interface HomeApi {
     suspend fun getAllEvent(): Response<EventResponse>
 
     @GET("/api/v1/classified/findallpopularonaaonri")
-    suspend fun getAllPopularClassified(): Response<GetClassifiedsByUserResponse>
+    suspend fun getAllPopularClassified(): Response<PoplarClassifiedResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/search")
