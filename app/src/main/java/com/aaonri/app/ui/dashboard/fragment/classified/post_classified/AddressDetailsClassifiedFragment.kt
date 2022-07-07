@@ -268,7 +268,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 else -> {}
             }
-
         }
 
         postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->

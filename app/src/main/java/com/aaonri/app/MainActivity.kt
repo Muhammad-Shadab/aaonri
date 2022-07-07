@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
