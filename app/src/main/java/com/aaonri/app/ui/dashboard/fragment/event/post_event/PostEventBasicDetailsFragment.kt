@@ -200,7 +200,6 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
             postEventBinding?.eventTimezone?.text = it
         }
-
         return postEventBinding?.root
     }
 
