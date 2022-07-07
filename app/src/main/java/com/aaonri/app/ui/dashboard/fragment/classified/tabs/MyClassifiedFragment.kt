@@ -13,7 +13,6 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
-import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.Constant
@@ -36,13 +35,13 @@ class MyClassifiedFragment : Fragment() {
             FragmentMyClassifiedBinding.inflate(inflater, container, false)
 
         allClassifiedAdapter = AllClassifiedAdapter {
-            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         myClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->

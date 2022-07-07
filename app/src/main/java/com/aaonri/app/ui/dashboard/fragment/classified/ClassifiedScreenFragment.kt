@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +33,8 @@ class ClassifiedScreenFragment : Fragment() {
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
+    var noofSelection = 0
+
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +42,7 @@ class ClassifiedScreenFragment : Fragment() {
     ): View? {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
+
 
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
@@ -65,16 +64,28 @@ class ClassifiedScreenFragment : Fragment() {
                 ""
             )
 
+        context?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(
+                ClassifiedConstant.SEARCH_KEYWORD_FILTER,
+                ""
+            )
+
+
         classifiedScreenBinding?.apply {
+
             deleteFilterIv1.setOnClickListener {
                 classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(
                         ClassifiedConstant.MIN_VALUE_FILTER, ""
                     )
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MAX_VALUE_FILTER, ""
+                    )
                 postClassifiedViewModel.setClickedOnFilter(false)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
-
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
@@ -99,9 +110,21 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
+
                 }
 
             })
+
+            searchViewIcon.setOnClickListener {
+                if (searchView.text.toString().isNotEmpty()) {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
+                        )
+                    setClassifiedViewPager(true)
+                }
+
+            }
             deleteFilterIv2.setOnClickListener {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -109,6 +132,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
@@ -119,15 +143,16 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
 
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
 
-            moreTextView.setOnClickListener {
+            /*moreTextView.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
-            }
+            }*/
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
@@ -136,21 +161,31 @@ class ClassifiedScreenFragment : Fragment() {
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
+                    profilePicIv.visibility = View.GONE
+                    bellIconIv.visibility = View.GONE
                     floatingActionBtnClassified.visibility = View.GONE
                     classifiedScreenTabLayout.visibility = View.GONE
                     classifiedScreenViewPager.setPadding(0, 40, 0, 0)
                     classifiedScreenViewPager.isUserInputEnabled = false
+
                 }
             }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
+                //Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
                 if (it) {
                     classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setNavigateToAllClassified(false)
                 }
             }
         }
+        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
+            if (isClearAll) {
+                noofSelection = 0
+                onNoOfSelectedFilterItem(noofSelection)
 
+            }
+        }
         setClassifiedViewPager(false)
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
 
@@ -164,40 +199,49 @@ class ClassifiedScreenFragment : Fragment() {
                 context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
 
             if (isFilerBtnClicked) {
+                noofSelection = 0
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                    classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
+                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
 
                     if (minValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text = "Range: \$$minValue"
+                        classifiedScreenBinding?.filterText1?.text =
+                            "Range: \$$minValue - \$$maxValue"
+                        noofSelection++
+
                     } else {
                         classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                     }
 
-                    if (maxValue?.isNotEmpty() == true) {
+                    /*if (maxValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterText2?.text = "Range: \$$maxValue"
                     } else {
                         classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                    }
+                    }*/
 
                     if (zipCodeValue?.isNotEmpty() == true) {
                         classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterText3?.text =
                             "ZipCode: $zipCodeValue"
+                        noofSelection++
+
                     } else {
                         classifiedScreenBinding?.filterCv3?.visibility = View.GONE
                     }
 
+                    onNoOfSelectedFilterItem(noofSelection)
+
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                    classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+
+                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
                 }
             }
             if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
             setClassifiedViewPager(true)
         }
@@ -205,17 +249,21 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                val action =
+                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                        it
+                    )
+                findNavController().navigate(action)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
 
-        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
-            if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
-                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
-            }
-        }
+        /* postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
+             if (postClassifiedViewModel.navigateToClassifiedDetail) {
+                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
+                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+             }
+         }*/
 
         return classifiedScreenBinding?.root
     }
@@ -249,9 +297,17 @@ class ClassifiedScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-                        floatingActionBtnClassified.visibility = View.GONE
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.searchViewll?.visibility = View.GONE
+                        classifiedScreenBinding?.filterClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
                     } else {
-                        floatingActionBtnClassified.visibility = View.VISIBLE
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
+                        classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
+                        onNoOfSelectedFilterItem(noofSelection)
                     }
                 }
 
@@ -264,6 +320,17 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             })
 
+        }
+    }
+
+    fun onNoOfSelectedFilterItem(noofSelection: Int) {
+        if (noofSelection >= 1) {
+            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
+        } else {
+            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
         }
     }
 

@@ -1,15 +1,12 @@
 package com.aaonri.app.data.classified.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
+import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedCategorySubCategoryX
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
-import com.aaonri.app.databinding.FilterCardViewItemBinding
+import com.aaonri.app.databinding.CategoryCardItemBinding
 
 class ClassifiedCategoryAdapter(private var selectedCategory: ((value: ClassifiedCategoryResponseItem) -> Unit)) :
     RecyclerView.Adapter<ClassifiedCategoryAdapter.ClassifiedCategoryViewHolder>() {
@@ -21,13 +18,14 @@ class ClassifiedCategoryAdapter(private var selectedCategory: ((value: Classifie
         viewType: Int
     ): ClassifiedCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FilterCardViewItemBinding.inflate(inflater, parent, false)
+        val binding = CategoryCardItemBinding.inflate(inflater, parent, false)
         return ClassifiedCategoryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ClassifiedCategoryViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.countryTv.text = data[position].title
+        holder.binding.countryTv.setTextColor(context.getColor(R.color.black))
         holder.binding.countryTv.setOnClickListener {
             selectedCategory(data[position])
         }
@@ -41,7 +39,7 @@ class ClassifiedCategoryAdapter(private var selectedCategory: ((value: Classifie
         notifyDataSetChanged()
     }
 
-    inner class ClassifiedCategoryViewHolder(val binding: FilterCardViewItemBinding) :
+    inner class ClassifiedCategoryViewHolder(val binding: CategoryCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
 
@@ -57,7 +55,7 @@ class ClassifiedSubCategoryAdapter(private var deleteFilter: ((value: Classified
         viewType: Int
     ): ClassifiedCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FilterCardViewItemBinding.inflate(inflater, parent, false)
+        val binding = CategoryCardItemBinding.inflate(inflater, parent, false)
         return ClassifiedCategoryViewHolder(binding)
     }
 
@@ -75,6 +73,6 @@ class ClassifiedSubCategoryAdapter(private var deleteFilter: ((value: Classified
         notifyDataSetChanged()
     }
 
-    inner class ClassifiedCategoryViewHolder(val binding: FilterCardViewItemBinding) :
+    inner class ClassifiedCategoryViewHolder(val binding: CategoryCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

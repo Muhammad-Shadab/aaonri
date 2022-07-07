@@ -27,6 +27,7 @@ import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -67,30 +68,59 @@ class BasicDetailsFragment : Fragment() {
 
             profilePicPlaceholder.setOnClickListener {
                 if (profile.isEmpty()){
-                    ImagePicker.with(activity!!)
+                    ImagePicker.with(requireActivity())
                         .compress(1024)
+                        .crop()
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
+                            progressBarBasicDetails.visibility=View.VISIBLE
+
+
                         }
                 }else{
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Select")
-                    builder.setMessage("Change profile photo")
-                    builder.setPositiveButton("Change") { dialog, which ->
-                        ImagePicker.with(activity!!)
-                            .compress(1024)
-                            .maxResultSize(1080, 1080)
-                            .createIntent { intent ->
-                                startForProfileImageResult.launch(intent)
-                            }
-                    }
-                    builder.setNegativeButton("Remove") { dialog, which ->
-                        profile = ""
-                        setImage()
-                        addProfileBtn.visibility = View.VISIBLE
-                    }
-                    builder.show()
+                     var materialAlertDialogBuilder=
+                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
+
+
+                    materialAlertDialogBuilder?.setTitle("Profile Photo")?.setMessage("Change profile photo? ")
+                        ?.setPositiveButton("CHANGE"){ dialog, _ ->
+                            ImagePicker.with(requireActivity())
+                                .compress(1024)
+                                .maxResultSize(1080, 1080)
+                                .crop()
+                                .createIntent { intent ->
+                                    progressBarBasicDetails.visibility=View.VISIBLE
+                                    startForProfileImageResult.launch(intent)
+                                }
+                            dialog.dismiss()
+                        }
+                        ?.setNegativeButton("REMOVE") { dialog, _ ->
+                            profile = ""
+                            setImage()
+                            addProfileBtn.visibility = View.VISIBLE
+                            dialog.dismiss()
+                        }
+                        ?.show()
+//                    val builder = AlertDialog.Builder(context)
+//                    builder.setTitle("Select")
+//                    builder.setMessage("Change profile photo")
+//                    builder.setPositiveButton("Change") { dialog, which ->
+//                        ImagePicker.with(requireActivity())
+//                            .compress(1024)
+//                            .maxResultSize(1080, 1080)
+//                            .crop()
+//                            .createIntent { intent ->
+//                                progressBarBasicDetails.visibility=View.VISIBLE
+//                                startForProfileImageResult.launch(intent)
+//                            }
+//                    }
+//                    builder.setNegativeButton("Remove") { dialog, which ->
+//                        profile = ""
+//                        setImage()
+//                        addProfileBtn.visibility = View.VISIBLE
+//                    }
+//                    builder.show()
                 }
             }
 
@@ -123,11 +153,9 @@ class BasicDetailsFragment : Fragment() {
             }
 
 
-
-
             passwordBasicDetails.addTextChangedListener { editable ->
                 editable?.let {
-                    if (it.toString().isNotEmpty() && it.toString().length >= 6) {
+                    if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                         if (Validator.passwordValidation(it.toString())) {
                             isPasswordValid = true
                             basicDetailsBinding?.passwordValidationTv?.visibility = View.GONE
@@ -231,7 +259,7 @@ class BasicDetailsFragment : Fragment() {
                 val fileUri = data?.data!!
 
                 profile = fileUri.toString()
-
+                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
                 setImage()
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
                 basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
@@ -239,7 +267,7 @@ class BasicDetailsFragment : Fragment() {
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-
+                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
             }
         }
 
@@ -262,6 +290,7 @@ class BasicDetailsFragment : Fragment() {
                         .into(it)
                 }
             }
+
         }
     }
 

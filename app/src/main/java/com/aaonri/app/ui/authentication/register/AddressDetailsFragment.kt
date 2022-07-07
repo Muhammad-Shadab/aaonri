@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -21,6 +22,7 @@ import com.aaonri.app.databinding.FragmentAddressDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
+import com.hbb20.CountryCodePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -29,11 +31,14 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AddressDetailsFragment : Fragment() {
+class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeListener {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var addressDetailsBinding: FragmentAddressDetailsBinding? = null
     var cityName: String = ""
     var stateName: String = ""
+    private var countryCode: String? = null
+    private var countryName: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +50,13 @@ class AddressDetailsFragment : Fragment() {
         var job: Job? = null
 
         addressDetailsBinding?.apply {
+            if (authCommonViewModel.countryFlagBmp != null) {
+                countryCodePicker.imageViewFlag.setImageBitmap(authCommonViewModel.countryFlagBmp)
+            }
+            countryCodePicker.setOnCountryChangeListener(this@AddressDetailsFragment)
+            selectedCountryName.setOnClickListener {
+                countryCodePicker.launchCountrySelectionDialog()
+            }
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.ADDRESS_DETAILS_SCREEN)
 
@@ -52,14 +64,29 @@ class AddressDetailsFragment : Fragment() {
                 addressDetailsBinding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
             }
 
+            stateNameAddressDetails.text = stateName
+            cityNameAddressDetails.setText(cityName)
 
-            if (!authCommonViewModel.isCountrySelected) {
+
+            if (stateName.isEmpty()) {
+                addressDetailsBinding?.selectedCountryName?.text = "United States"
+                authCommonViewModel.setSelectedCountryAddressScreen(
+                    countryName = "USA",
+                    countryFlag = "",
+                    countryCode = "US"
+                )
+
+            } else {
+
+            }
+
+            /*if (!authCommonViewModel.isCountrySelected) {
                 authCommonViewModel.setSelectedCountryAddressScreen(
                     countryName = "USA",
                     countryFlag = "https://disease.sh/assets/img/flags/us.png",
                     countryCode = "US"
                 )
-            }
+            }*/
 
             authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner) { triple ->
 
@@ -84,22 +111,23 @@ class AddressDetailsFragment : Fragment() {
                             }
                         }
                     }
-                    selectCountryOriginAddress.text = triple.first
+                    selectedCountryName.text = triple.first
+                    /*
                     countryFlagIconAddress.load(triple.second)
-                    countryFlagIconAddress.visibility = View.VISIBLE
+                    countryFlagIconAddress.visibility = View.VISIBLE*/
                 } else {
-                    countryFlagIconAddress.visibility = View.GONE
+                    /*countryFlagIconAddress.visibility = View.GONE*/
                 }
             }
 
-            selectCountryOriginAddress.setOnClickListener {
+            /*selectCountryOriginAddress.setOnClickListener {
                 val action =
                     AddressDetailsFragmentDirections.actionAddressDetailsFragmentToSelectCountryBottomFragment(
                         true
                     )
                 findNavController().navigate(action)
             }
-
+*/
             addressDetailsNextBtn.setOnClickListener {
 
                 val address1 = address1.text
@@ -109,17 +137,23 @@ class AddressDetailsFragment : Fragment() {
                 val zipCode = zipCodeAddressDetails.text
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
-                if (stateName.isNotEmpty() && userEnteredCity.toString()
-                        .isNotEmpty() && zipCode.toString()
+                countryCodePicker.imageViewFlag.invalidate()
+                val drawable = countryCodePicker.imageViewFlag.drawable
+                authCommonViewModel.countryFlagBmp(drawable.toBitmap())
+                if (stateName.isNotEmpty() && userEnteredCity.toString().length >= 2 && zipCode.toString()
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
+                    if (cityName.isEmpty()) {
+
+                        cityName = userEnteredCity.toString()
+                    }
                     authCommonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
                         state = stateName,
                         city = userEnteredCity.toString()
                     )
                     if (phoneNumber.isNotEmpty()) {
+
                         if (phoneNumber.length == 10) {
                             findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                         } else {
@@ -131,6 +165,7 @@ class AddressDetailsFragment : Fragment() {
                             }
                         }
                     } else {
+
                         findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
                     }
                     authCommonViewModel.addAddressDetails(
@@ -198,11 +233,17 @@ class AddressDetailsFragment : Fragment() {
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
+                        var cityChangedName = cityName
                         cityName = response.data.result.getOrNull(0)?.province.toString()
-                        stateName = response.data.result.getOrNull(0)?.state.toString()
 
+                        stateName = response.data.result.getOrNull(0)?.state.toString()
+                        if(cityName.isEmpty())
+                        {
+                            cityName = cityChangedName
+                        }
                         authCommonViewModel.addLocationDetails(
                             addressDetailsBinding?.zipCodeAddressDetails?.text.toString(),
                             stateName,
@@ -210,7 +251,9 @@ class AddressDetailsFragment : Fragment() {
                         )
 
                         addressDetailsBinding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
-                        addressDetailsBinding?.stateNameAddressDetails?.text = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+                        addressDetailsBinding?.stateNameAddressDetails?.text =
+                            if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+
 
                         addressDetailsBinding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
@@ -234,10 +277,19 @@ class AddressDetailsFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    authCommonViewModel.setIsCountrySelected(false)
-                    authCommonViewModel.addLocationDetails("", "", "")
-                    authCommonViewModel.zipCodeData.value = null
                     findNavController().navigateUp()
+                    stateName = ""
+                    cityName = ""
+                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                    authCommonViewModel.addLocationDetails(
+                        zipCode = "",
+                        state = "",
+                        city = ""
+                    )
+                    authCommonViewModel.setIsCountrySelected(false)
+                    authCommonViewModel.zipCodeData.value = null
+                    authCommonViewModel.countryFlagBmp(null)
+
                 }
             })
 
@@ -265,5 +317,22 @@ class AddressDetailsFragment : Fragment() {
                 is Resource.Empty -> TODO()
             }
         }
+    }
+
+    override fun onCountrySelected() {
+        countryCode = addressDetailsBinding?.countryCodePicker?.selectedCountryCode
+        countryName = addressDetailsBinding?.countryCodePicker?.selectedCountryName
+        addressDetailsBinding?.selectedCountryName?.text = countryName
+
+        authCommonViewModel.addCountryClicked(true)
+        addressDetailsBinding?.countryCodePicker?.selectedCountryNameCode?.let {
+            addressDetailsBinding?.countryCodePicker?.selectedCountryName?.let { it1 ->
+                authCommonViewModel.setSelectedCountryAddressScreen(
+                    it1, "",
+                    it
+                )
+            }
+        }
+
     }
 }
