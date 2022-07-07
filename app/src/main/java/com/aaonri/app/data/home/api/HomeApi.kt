@@ -14,6 +14,9 @@ interface HomeApi {
     @GET("/api/v1/home/event/details")
     suspend fun getAllEvent(): Response<EventResponse>
 
+    @GET("/api/v1/classified/findallpopularonaaonri")
+    suspend fun getAllPopularClassified(): Response<GetClassifiedsByUserResponse>
+
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/search")
     suspend fun getClassifiedByUser(
