@@ -305,20 +305,12 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.searchViewll?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                        classifiedScreenBinding?. numberOfSelectedFilterCv?.visibility=View.GONE
                     } else {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-
-                        if(noofSelection>=1)
-                        {
-                            classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
-                        }
-                        else{
-                            classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
-
-                        }
+                        OnNoOfSelectedFilterItem(noofSelection)
 
                     }
                 }
