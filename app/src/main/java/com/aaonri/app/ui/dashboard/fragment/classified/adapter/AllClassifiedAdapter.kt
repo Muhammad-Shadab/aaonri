@@ -57,19 +57,12 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
         notifyDataSetChanged()
     }
 
-    @JvmName("setData2")
-    fun setClassifiedHotData(data: List<UserAds>) {
-        this.data = data
-        notifyDataSetChanged()
-    }
-
     override fun getItemCount() = data.size
 
     inner class ClassifiedViewHolder(val binding: ClassifiedCardItemsBinding) :
         RecyclerView.ViewHolder(
             binding.root
         )
-
 }
 
 

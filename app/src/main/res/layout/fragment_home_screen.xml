@@ -319,7 +319,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/tab_background_shape"
+                            android:background="@drawable/tab_background"
                             android:paddingHorizontal="@dimen/_12sdp"
                             android:paddingVertical="@dimen/_4sdp"
                             android:text="Events" />
@@ -420,8 +420,8 @@
 
                         <ImageView
                             android:id="@+id/eventImage1"
-                            android:layout_width="@dimen/_280sdp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_260sdp"
+                            android:layout_height="@dimen/_150sdp"
                             android:layout_marginStart="@dimen/_16sdp"
                             android:scaleType="fitXY"
                             android:src="@drawable/ic_image_placeholder"
@@ -430,31 +430,30 @@
 
                         <ImageView
                             android:id="@+id/eventImage2"
-                            android:layout_width="@dimen/_280sdp"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/_260sdp"
+                            android:layout_height="@dimen/_150sdp"
                             android:layout_marginStart="@dimen/_8sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
 
                         <ImageView
                             android:id="@+id/eventImage3"
-                            android:layout_width="@dimen/_280sdp"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/_260sdp"
+                            android:layout_height="@dimen/_150sdp"
                             android:layout_marginStart="@dimen/_8sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
 
                         <ImageView
                             android:id="@+id/eventImage4"
-                            android:layout_width="@dimen/_280sdp"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
+                            android:layout_width="@dimen/_260sdp"
+                            android:layout_height="@dimen/_150sdp"
                             android:layout_marginStart="@dimen/_8sdp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/ic_image_placeholder"
                             android:visibility="gone" />
-
 
 
                     </LinearLayout>

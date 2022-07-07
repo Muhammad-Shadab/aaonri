@@ -6,8 +6,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +16,7 @@ import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
+import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -37,7 +36,7 @@ class HomeScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
-    var popularClassifiedAdapter: AllClassifiedAdapter? = null
+    var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +48,8 @@ class HomeScreenFragment : Fragment() {
             homeViewModel.setSendDataToClassifiedDetailsScreen(it)
             findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
         }
-        popularClassifiedAdapter = AllClassifiedAdapter {
-            homeViewModel.setSendDataToClassifiedDetailsScreen(it)
+        popularClassifiedAdapter = PoplarClassifiedAdapter {
+            //homeViewModel.setSendDataToClassifiedDetailsScreen(it)
             findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
         }
 
@@ -79,7 +78,8 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     var homeClassified = mutableListOf<UserAds>()
-                    homeClassified = response.data?.userAdsList?.subList(0, 4) as MutableList<UserAds>
+                    homeClassified =
+                        response.data?.userAdsList?.subList(0, 4) as MutableList<UserAds>
 
                     response.data.userAdsList.let {
                         allClassifiedAdapter?.setData(homeClassified)
@@ -201,7 +201,14 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    //popularClassifiedAdapter.setClassifiedHotData(response.data.)
+                    if (response.data?.isNotEmpty() == true) {
+                        if (response.data.size >= 4) {
+                            popularClassifiedAdapter?.setData(response.data.subList(0, 4))
+                        } else {
+                            popularClassifiedAdapter?.setData(response.data)
+                        }
+                    }
+                    homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
