@@ -73,7 +73,6 @@
             android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginTop="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_1sdp"
-            android:text="5"
             android:textColor="@color/white"
             android:textSize="10sp" />
 

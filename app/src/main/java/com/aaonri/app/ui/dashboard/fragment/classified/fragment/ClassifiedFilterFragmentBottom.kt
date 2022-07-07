@@ -230,6 +230,14 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                         }
                     }
                 }
+                else{
+                    classifiedFilterBinding?.zipCodeEt?.setText("")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.ZIPCODE_FILTER,
+                            ""
+                        )
+                }
 
                 /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                      ?.set(
@@ -585,7 +593,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
 
     private fun clearAllData() {
-
+         postClassifiedViewModel.setClickOnClearAllFilter(true)
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
         classifiedFilterBinding?.zipCodeEt?.setText("")

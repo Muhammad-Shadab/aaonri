@@ -132,5 +132,9 @@ dependencies {
     //country code picker
     implementation 'com.hbb20:ccp:2.2.2'
 
+    //TextEditor for text (description)
+
+    implementation 'com.github.onecode369:WYSIWYG:4.0'
+
 
 }

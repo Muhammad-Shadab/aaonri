@@ -80,6 +80,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
 
+    var clickOnClearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
+
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
 
@@ -262,6 +264,12 @@ class PostClassifiedViewModel @Inject constructor(
     fun setClickedOnFilter(value: Boolean) {
         clickedOnFilter.postValue(value)
     }
+
+    fun setClickOnClearAllFilter(value: Boolean)
+    {
+        clickOnClearAllFilter.postValue(value)
+    }
+
 
     fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
         selectedClassifiedCategory.postValue(value)

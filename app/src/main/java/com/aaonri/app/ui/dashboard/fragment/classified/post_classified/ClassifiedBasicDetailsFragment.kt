@@ -37,7 +37,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         classifiedDetailsBinding?.apply {
 
             priceClassifiedEt.stickPrefix("$")
-
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 
             classifiedDetailsNextBtn.setOnClickListener {
@@ -55,6 +54,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         ) {
                             if (price.isNotEmpty() && price.length < 9) {
                                 if (price.toDouble() < 999999999) {
+
                                     if (classifiedDescEt.text.isNotEmpty()) {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked
