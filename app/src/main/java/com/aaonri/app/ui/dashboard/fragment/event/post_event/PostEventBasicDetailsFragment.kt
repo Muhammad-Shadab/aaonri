@@ -65,7 +65,20 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         .toDouble() > 0
                                                 ) {
                                                     if (eventDescEt.text.isNotEmpty()) {
-                                                        postEventViewModel.setIsEventOffline(offlineRadioBtn.isChecked)
+                                                        postEventViewModel.setIsEventOffline(
+                                                            offlineRadioBtn.isChecked
+                                                        )
+                                                        postEventViewModel.setEventBasicDetails(
+                                                            eventTitle = titleEvent.text.toString(),
+                                                            eventCategory = selectCategoryEvent.text.toString(),
+                                                            eventStartDate = selectstartDate.text.toString(),
+                                                            eventStartTime = selectStartTime.text.toString(),
+                                                            eventEndDate = selectEndDate.text.toString(),
+                                                            eventEndTime = selectEndTime.text.toString(),
+                                                            eventTimeZone = eventTimezone.text.toString(),
+                                                            eventFee = askingFee.text.toString(),
+                                                            eventDesc = eventDescEt.text.toString()
+                                                        )
                                                         findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
                                                     } else {
                                                         showAlert("Please enter valid event description")
@@ -142,6 +155,18 @@ class PostEventBasicDetailsFragment : Fragment() {
                         } else {
                             true
                         }
+                }
+            }
+
+            offlineRadioBtn.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    onlineRdaioBtn.isChecked = false
+                }
+            }
+
+            onlineRdaioBtn.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    offlineRadioBtn.isChecked = false
                 }
             }
 
