@@ -34,7 +34,6 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
 
-
         classifiedFilterBinding?.apply {
 
             applyBtn.setOnClickListener {

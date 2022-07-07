@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
@@ -41,6 +42,8 @@ class PostEventBasicDetailsFragment : Fragment() {
     ): View? {
         postEventBinding = FragmentPostEventBasicDetailsBinding.inflate(inflater, container, false)
 
+        setData()
+
         postEventBinding?.apply {
 
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
@@ -61,16 +64,32 @@ class PostEventBasicDetailsFragment : Fragment() {
                                     if (selectEndTime.text.toString().isNotEmpty()) {
 
                                         if (eventTimezone.text.toString().isNotEmpty()) {
+
                                                     if (askingFee.text.toString().isNotEmpty() && askingFee.text.toString().toDouble() < 999999999 && askingFee.text.toString().toDouble() > 0  || isFreeEntryCheckBox.isChecked
                                                     ) {
                                                         if (eventDescEt.text.isNotEmpty()) {
                                                             postEventViewModel.setIsEventOffline(
                                                                 offlineRadioBtn.isChecked
                                                             )
+                                                            postEventViewModel.setIsEventFree(
+                                                                isFreeEntryCheckBox.isChecked
+                                                            )
+                                                            postEventViewModel.setEventBasicDetails(
+                                                                eventTitle = titleEvent.text.toString(),
+                                                                eventCategory = selectCategoryEvent.text.toString(),
+                                                                eventStartDate = selectstartDate.text.toString(),
+                                                                eventStartTime = selectStartTime.text.toString(),
+                                                                eventEndDate = selectEndDate.text.toString(),
+                                                                eventEndTime = selectEndTime.text.toString(),
+                                                                eventTimeZone = eventTimezone.text.toString(),
+                                                                eventFee = askingFee.text.toString(),
+                                                                eventDesc = eventDescEt.text.toString()
+                                                            )
                                                             findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
                                                         } else {
                                                             showAlert("Please enter valid event description")
                                                         }
+
                                                     } else {
                                                         showAlert("Please enter valid fee")
                                                 }
@@ -150,6 +169,18 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }
 
+            offlineRadioBtn.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    onlineRdaioBtn.isChecked = false
+                }
+            }
+
+            onlineRdaioBtn.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    offlineRadioBtn.isChecked = false
+                }
+            }
+
             offlineRadioBtnCardView.setOnClickListener {
                 offlineRadioBtn.isChecked = true
                 onlineRdaioBtn.isChecked = false
@@ -177,8 +208,18 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
             postEventBinding?.eventTimezone?.text = it
         }
-
         return postEventBinding?.root
+    }
+
+    private fun setData() {
+        postEventBinding?.selectstartDate?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE] else ""
+        postEventBinding?.selectStartTime?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME] else ""
+        postEventBinding?.selectEndDate?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE] else ""
+        postEventBinding?.selectEndTime?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME] else ""
     }
 
     private fun showAlert(text: String) {
@@ -270,3 +311,7 @@ class PostEventBasicDetailsFragment : Fragment() {
     }
 
 }
+
+
+
+

@@ -203,7 +203,6 @@ class UploadClassifiedPicFragment : Fragment() {
                 )
             })
         }
-
     }
 
     private fun deleteImage(index: Int) {
