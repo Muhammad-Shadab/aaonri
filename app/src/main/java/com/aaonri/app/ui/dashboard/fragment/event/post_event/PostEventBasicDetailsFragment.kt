@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
@@ -37,6 +38,8 @@ class PostEventBasicDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         postEventBinding = FragmentPostEventBasicDetailsBinding.inflate(inflater, container, false)
+
+        setData()
 
         postEventBinding?.apply {
 
@@ -199,6 +202,17 @@ class PostEventBasicDetailsFragment : Fragment() {
         }
 
         return postEventBinding?.root
+    }
+
+    private fun setData() {
+        postEventBinding?.selectstartDate?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE] else ""
+        postEventBinding?.selectStartTime?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME] else ""
+        postEventBinding?.selectEndDate?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE] else ""
+        postEventBinding?.selectEndTime?.text =
+            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME] else ""
     }
 
     private fun showAlert(text: String) {
