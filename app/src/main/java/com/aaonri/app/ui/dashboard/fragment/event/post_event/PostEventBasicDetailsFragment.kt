@@ -71,6 +71,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         postEventViewModel.setIsEventOffline(
                                                             offlineRadioBtn.isChecked
                                                         )
+                                                        postEventViewModel.setIsEventFree(
+                                                            isFreeEntryCheckBox.isChecked
+                                                        )
                                                         postEventViewModel.setEventBasicDetails(
                                                             eventTitle = titleEvent.text.toString(),
                                                             eventCategory = selectCategoryEvent.text.toString(),

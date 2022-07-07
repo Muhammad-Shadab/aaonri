@@ -8,6 +8,8 @@ import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.model.EventCategoryResponse
 import com.aaonri.app.data.event.model.EventCategoryResponseItem
+import com.aaonri.app.data.event.model.PostEventRequest
+import com.aaonri.app.data.event.model.PostEventResponse
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +27,12 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var selectedEventTimeZone: MutableLiveData<String> = MutableLiveData()
         private set
 
+    var postEventData: MutableLiveData<Resource<PostEventResponse>> = MutableLiveData()
+
     var isEventOffline = false
+        private set
+
+    var isEventFree = false
         private set
 
     val eventCategoryData: MutableLiveData<Resource<EventCategoryResponse>> = MutableLiveData()
@@ -49,6 +56,10 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun setIsEventOffline(value: Boolean) {
         isEventOffline = value
+    }
+
+    fun setIsEventFree(value: Boolean) {
+        isEventFree = value
     }
 
     fun getEventCategory() = viewModelScope.launch {
@@ -89,7 +100,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
-        listOfImagesUri.addAll(uploadedImagesList)
+        listOfImagesUri = uploadedImagesList
     }
 
     fun setEventAddressDetailMap(
@@ -108,6 +119,21 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK] = landmark
         eventAddressDetailMap[EventConstants.ADDRESS_STATE] = state
         eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK] = socialMediaLink
+    }
+
+    fun postEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
+        postEventData.postValue(Resource.Loading())
+        val response = eventRepository.postEvent(postEventRequest)
+        postEventData.postValue(handlePostEventResponse(response))
+    }
+
+    private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }
