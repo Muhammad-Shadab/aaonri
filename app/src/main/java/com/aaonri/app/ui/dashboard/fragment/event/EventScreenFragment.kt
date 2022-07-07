@@ -36,6 +36,9 @@ class EventScreenFragment : Fragment() {
 
         val pagerAdapter = EventPagerAdapter(fragment)
 
+        val intent = Intent(requireContext(), EventScreenActivity::class.java)
+        startActivity(intent)
+
         eventScreenBinding?.apply {
 
             eventsScreenViewPager.isUserInputEnabled = false

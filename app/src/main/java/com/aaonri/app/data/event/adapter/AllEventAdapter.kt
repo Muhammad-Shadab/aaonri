@@ -50,7 +50,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + "-" + data[position].zipCode
-                eventFee.text = data[position].fee.toString()
+                eventFee.text = "$"+data[position].fee.toString()
 
             } else {
 
@@ -58,7 +58,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + "-" + data[position].zipCode
-                eventFee.text = data[position].fee.toString()
+                eventFee.text = "$"+data[position].fee.toString()
             }
         }
         holder.itemView.setOnClickListener {
@@ -106,7 +106,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + "-" + data[position].zipCode
-                eventFee.text = data[position].fee.toString()
+                eventFee.text ="$"+ data[position].fee.toString()
 
             } else {
 
@@ -114,7 +114,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + "-" + data[position].zipCode
-                eventFee.text = data[position].fee.toString()
+                eventFee.text = "$"+data[position].fee.toString()
             }
         }
         holder.itemView.setOnClickListener {

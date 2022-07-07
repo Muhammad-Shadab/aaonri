@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_postEventBasicDetailsFragment_to_uploadEventPicFragment"
             app:destination="@id/uploadEventPicFragment" />
+        <action
+            android:id="@+id/action_postEventBasicDetailsFragment_to_eventCategoryBottom"
+            app:destination="@id/eventCategoryBottom" />
+        <action
+            android:id="@+id/action_postEventBasicDetailsFragment_to_eventTimeZoneBottom"
+            app:destination="@id/eventTimeZoneBottom" />
     </fragment>
     <fragment
         android:id="@+id/uploadEventPicFragment"
@@ -37,4 +43,14 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventPostSuccessfulBottom"
         android:label="fragment_event_post_successful_bottom"
         tools:layout="@layout/fragment_event_post_successful_bottom" />
+    <dialog
+        android:id="@+id/eventCategoryBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventCategoryBottom"
+        android:label="fragment_event_category_bottom"
+        tools:layout="@layout/fragment_event_category_bottom" />
+    <dialog
+        android:id="@+id/eventTimeZoneBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventTimeZoneBottom"
+        android:label="fragment_event_time_zone_bottom"
+        tools:layout="@layout/fragment_event_time_zone_bottom" />
 </navigation>

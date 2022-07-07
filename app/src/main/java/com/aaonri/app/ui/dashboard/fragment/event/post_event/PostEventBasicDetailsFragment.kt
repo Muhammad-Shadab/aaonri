@@ -1,24 +1,40 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
-
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
+import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.*
 
+
+@AndroidEntryPoint
 class PostEventBasicDetailsFragment : Fragment() {
     var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
-    val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    val postEventViewModel: PostEventViewModel by activityViewModels()
+    val months =
+        arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
-    var date:String = ""
+    var isDateValid = false
+
+    var selectedDate :String=""
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,18 +43,9 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         postEventBinding?.apply {
 
+            askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
 
-
-            selectCategoryEvent.text = "categories"
-            eventTimezone.text="EST"
-
-
-
-            /* isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
-                 Toast.makeText(c, "", Toast.LENGTH_SHORT).show()
-             }*/
             addressDetailsNextBtn.setOnClickListener {
-
 
                 if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
                         .toString().length >= 3
@@ -53,35 +60,25 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                                     if (selectEndTime.text.toString().isNotEmpty()) {
 
-                                        if(eventTimezone.text.toString().isNotEmpty())
-                                        {
-                                        if (askingFee.text.toString()
-                                                .isNotEmpty() && askingFee.text.toString().trim().length > 0
-                                        ) {
-                                            if (askingFee.text.toString()
-                                                    .toDouble() < 999999999 && askingFee.text.toString()
-                                                    .toDouble() > 0
-                                            ) {
-                                                if (eventDescEt.text.isNotEmpty()) {
-                                                    findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
-                                                } else {
-                                                    showAlert("Please enter valid event description")
+                                        if (eventTimezone.text.toString().isNotEmpty()) {
+                                                    if (askingFee.text.toString().isNotEmpty() && askingFee.text.toString().toDouble() < 999999999 && askingFee.text.toString().toDouble() > 0  || isFreeEntryCheckBox.isChecked
+                                                    ) {
+                                                        if (eventDescEt.text.isNotEmpty()) {
+                                                            postEventViewModel.setIsEventOffline(
+                                                                offlineRadioBtn.isChecked
+                                                            )
+                                                            findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
+                                                        } else {
+                                                            showAlert("Please enter valid event description")
+                                                        }
+                                                    } else {
+                                                        showAlert("Please enter valid fee")
                                                 }
-                                            }
-                                            else{
-                                                showAlert("Please enter valid fee")
-                                            }
-                                        }
-                                        else {
-                                            showAlert("Please enter valid fee")
-                                        }
-                                    }
 
-                                    else{
+                                        } else {
                                             showAlert("Please enter valid timezone")
-                                    }
-                                    }
-                                    else {
+                                        }
+                                    } else {
                                         showAlert("Please enter valid end time")
                                     }
                                 } else {
@@ -101,19 +98,84 @@ class PostEventBasicDetailsFragment : Fragment() {
                     showAlert("Please enter valid event title")
                 }
             }
+            selectCategoryEvent.setOnClickListener {
+                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventCategoryBottom)
+            }
+            eventTimezone.setOnClickListener {
+                findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventTimeZoneBottom)
+            }
             selectstartDate.setOnClickListener {
-
-              getSelectedDate(selectstartDate)
+                getSelectedDate(selectstartDate,true)
             }
             selectEndDate.setOnClickListener {
-               getSelectedDate(selectEndDate)
+                if(selectstartDate.text.isNotEmpty())
+                {
+                getSelectedDate(selectEndDate,false)
+                }
+                else{
+                    showAlert("Please select start date first")
+                }
             }
             selectStartTime.setOnClickListener {
                 getSelectedTime(selectStartTime)
             }
             selectEndTime.setOnClickListener {
-             getSelectedTime(selectEndTime)
+                getSelectedTime(selectEndTime)
             }
+
+            selectstartDate.addTextChangedListener {
+                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+                        .isNotEmpty()
+                ) {
+                    isDateValid =
+                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+                            showAlert("Start Date should be less then End Date.")
+                            false
+                        } else {
+                            true
+                        }
+                }
+            }
+            selectEndDate.addTextChangedListener {
+                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+                        .isNotEmpty()
+                ) {
+                    isDateValid =
+                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+                            showAlert("End Date should be more then Current Date.")
+                            false
+                        } else {
+                            true
+                        }
+                }
+            }
+
+            offlineRadioBtnCardView.setOnClickListener {
+                offlineRadioBtn.isChecked = true
+                onlineRdaioBtn.isChecked = false
+            }
+            onlineRadioBtnCardView.setOnClickListener {
+                onlineRdaioBtn.isChecked = true
+                offlineRadioBtn.isChecked = false
+            }
+            isFreeEntryCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    askingFee.setText("")
+                    askingFee.isEnabled = false
+                } else {
+                    askingFee.isEnabled = true
+                }
+            }
+
+        }
+
+        postEventViewModel.getEventCategory()
+        postEventViewModel.selectedEventCategory.observe(viewLifecycleOwner) {
+            postEventBinding?.selectCategoryEvent?.text = it.title
+        }
+
+        postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
+            postEventBinding?.eventTimezone?.text = it
         }
 
         return postEventBinding?.root
@@ -127,37 +189,66 @@ class PostEventBasicDetailsFragment : Fragment() {
             ).show()
         }
     }
-    private fun getSelectedDate(selectstartDate: TextView? = null){
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getSelectedDate(selectstartDate: TextView? = null, isStartdate: Boolean) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
+        var selectedMonth:String
+        var seletedDay : String
+        val datepicker = context?.let { it1 ->
+            DatePickerDialog(
+                it1,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in textbox
 
-         val datepicker = context?.let { it1 ->
-             DatePickerDialog(
-                 it1,
-                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                     // Display Selected date in textbox
-                     selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
-                 },
-                 year,
-                 month,
-                 day
-             )
-         }
-         datepicker?.show()
+                    selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
+                 if(isStartdate)
+                 {
+                    selectedMonth={monthOfYear+1}.toString()
+                    seletedDay=dayOfMonth.toString()
+                   if(monthOfYear+1<10)
+                   {
+                      selectedMonth="0${monthOfYear+1}"
+                   }
+                    if(dayOfMonth<10)
+                    {
+                        seletedDay="0$dayOfMonth"
+                    }
+
+                    selectedDate = "${seletedDay}-${selectedMonth}-${year}"
+                 }
+
+                },
+                year,
+                month,
+                day
+            )
+        }
+        if(isStartdate) {
+            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000;
+        }
+        else{
+            val date = SimpleDateFormat("dd-MM-yyyy").parse(selectedDate)
+            datepicker?.datePicker?.minDate =  date.time- 1000 + (1000 * 60 * 60 * 24*2)
+        }
+        datepicker?.show()
     }
+
     private fun getSelectedTime(selectStartTime: TextView) {
         var ampm = ""
-        var hoursOfTheDay:Int
-        var mTimePicker: TimePickerDialog
-        var mcurrentTime = Calendar.getInstance()
-        var hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
-        var minute = mcurrentTime.get(Calendar.MINUTE)
+        var hoursOfTheDay: Int
+        val mTimePicker: TimePickerDialog
+        val mcurrentTime = Calendar.getInstance()
+        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = mcurrentTime.get(Calendar.MINUTE)
 
-        mTimePicker = TimePickerDialog(context,
+        mTimePicker = TimePickerDialog(
+            context,
             { view, hourOfDay, minute ->
-                  hoursOfTheDay=hourOfDay
+                hoursOfTheDay = hourOfDay
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -171,8 +262,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                selectStartTime?.text="$hoursOfTheDay:$minute $ampm"
-            }, hour, minute, false)
+                selectStartTime.text = "$hoursOfTheDay:$minute $ampm"
+            }, hour, minute, false
+        )
         mTimePicker.show()
 
     }

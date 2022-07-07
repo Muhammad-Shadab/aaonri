@@ -1,8 +1,6 @@
 package com.aaonri.app.data.event.api
 
-import com.aaonri.app.data.event.model.AllEventRequest
-import com.aaonri.app.data.event.model.AllEventResponse
-import com.aaonri.app.data.event.model.RecentEventResponse
+import com.aaonri.app.data.event.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,9 +12,17 @@ interface EventApi {
     @GET("/api/v1/event/recentEvents/{email}")
     suspend fun getRecentEvent(@Path("email") userEmail: String): Response<RecentEventResponse>
 
+    @GET("/api/v1/eventcategory/findAllActiveCategories")
+    suspend fun getEventActiveCategory(): Response<EventCategoryResponse>
+
     @POST("/api/v1/event/search")
     suspend fun getAllEvent(
         @Body allEventRequest: AllEventRequest
     ): Response<AllEventResponse>
+
+    @POST("/api/v1/event/createEvent")
+    suspend fun postEvent(
+        @Body postEventRequest: PostEventRequest
+    ): Response<PostEventResponse>
 
 }

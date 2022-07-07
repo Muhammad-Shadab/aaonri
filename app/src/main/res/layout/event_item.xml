@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_12sdp"
+    android:layout_marginBottom="@dimen/_10sdp">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_160sdp"
-        android:layout_margin="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -69,9 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_16sdp"
-                android:paddingVertical="@dimen/_4sdp"
-               >
+                android:paddingVertical="@dimen/_8sdp"
+                android:paddingLeft="@dimen/_8sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,10 +81,12 @@
 
                     <TextView
                         android:id="@+id/eventName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:gravity="center_vertical"
                         android:text="Bay Area Craft Beer…"
@@ -95,13 +98,13 @@
                         android:id="@+id/eventLocationZip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_8sdp"
                         android:ellipsize="end"
+                        android:includeFontPadding="false"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingHorizontal="@dimen/_4sdp"
                         android:text="NY-08512"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="normal"
 
                         />
@@ -109,26 +112,28 @@
 
                 <TextView
                     android:id="@+id/eventTiming"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/sf_pro_semi_bold"
+                    android:maxLines="1"
+                    android:includeFontPadding="false"
                     android:text="Start from Mar 25, 10 am EST"
                     android:textColor="@color/black"
                     android:textSize="10sp"
-                    android:ellipsize="end"
-                    android:textStyle="normal"
-
-                    />
+                    android:textStyle="normal" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/event_entryfee_bg1"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingTop="@dimen/_2sdp">
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_4sdp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,20 +141,26 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="Entry Fee"
+                    android:includeFontPadding="false"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/eventFee"
+                    android:layout_marginTop="@dimen/_1sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="$45.99"
+                    android:maxLines="1"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:ellipsize="end"
                     android:textStyle="normal" />
             </LinearLayout>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
