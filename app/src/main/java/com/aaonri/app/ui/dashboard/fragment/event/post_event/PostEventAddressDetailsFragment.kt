@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.model.PostEventRequest
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 
 class PostEventAddressDetailsFragment : Fragment() {
@@ -66,7 +76,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
                                         postEvent()
-                                        //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -98,7 +107,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         socialMediaLink = socialMediaLinkEt.text.toString()
                                     )
                                     postEvent()
-                                    //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                                 } else {
                                     showAlert("Please accept terms & condition")
                                 }
@@ -106,10 +114,65 @@ class PostEventAddressDetailsFragment : Fragment() {
                         }
                     }
                 }
-
             }
         }
+
+        postEventViewModel.postEventData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    if (response.data?.id.toString().isNotEmpty()) {
+                        if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
+                            postEventViewModel.listOfImagesUri.forEach {
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            }
+                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                        } else {
+                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                        }
+                    }
+                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
+
+        postEventViewModel.uploadPictureData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+
         return postEventAddressBinding?.root
+    }
+
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
+
+        val file = File(uri.toString().replace("file:", ""))
+
+        val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
+
+        postEventViewModel.uploadEventPicture(requestImage, addId, delId)
     }
 
     private fun postEvent() {
@@ -126,7 +189,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate = "2022-02-21",//postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_CITY]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_CITY]!! else "",
                 favorite = false,
@@ -136,7 +199,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = "2022-02-21",//postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,

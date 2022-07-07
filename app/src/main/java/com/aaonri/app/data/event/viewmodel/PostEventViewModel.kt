@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.event.EventConstants
-import com.aaonri.app.data.event.model.EventCategoryResponse
-import com.aaonri.app.data.event.model.EventCategoryResponseItem
-import com.aaonri.app.data.event.model.PostEventRequest
-import com.aaonri.app.data.event.model.PostEventResponse
+import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -45,6 +44,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     var listOfImagesUri = mutableListOf<Uri>()
         private set
+
+    val uploadPictureData: MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
 
     fun setSelectedEventCategory(value: EventCategoryResponseItem) {
         selectedEventCategory.postValue(value)
@@ -128,6 +129,26 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun uploadEventPicture(
+        files: MultipartBody.Part,
+        eventId: RequestBody,
+        delImageIds: RequestBody
+    ) =
+        viewModelScope.launch {
+            uploadPictureData.postValue(Resource.Loading())
+            val response = eventRepository.uploadEventPicture(files, eventId, delImageIds)
+            uploadPictureData.postValue(handleUploadPictureResponse(response))
+        }
+
+    private fun handleUploadPictureResponse(response: Response<UploadEventPicResponse>): Resource<UploadEventPicResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -259,7 +259,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
                     }
-
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
