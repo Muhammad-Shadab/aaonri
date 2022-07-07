@@ -10,7 +10,7 @@
 
     <application
         android:name="com.aaonri.app.base.ApplicationClass"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aaonri"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
             android:name="com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity"
@@ -41,17 +43,6 @@
             </intent-filter>
 
             <nav-graph android:value="@navigation/login_nav_graph" />
-
-            <!--<intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:scheme="https"
-                    android:host="www.aaonri.com"/>
-
-            </intent-filter>-->
-
 
         </activity>
         <activity

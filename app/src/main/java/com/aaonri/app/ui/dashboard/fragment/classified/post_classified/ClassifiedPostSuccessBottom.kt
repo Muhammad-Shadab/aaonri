@@ -62,8 +62,8 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.isUnderlineText = false
-                ds.color = context?.let { ContextCompat.getColor(it, R.color.black) }!!
+                ds.isUnderlineText = true
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
 

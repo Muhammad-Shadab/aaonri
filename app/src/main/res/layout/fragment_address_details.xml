@@ -23,9 +23,8 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/address_line_1"
-                android:textSize="16sp"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:maxLines="1"
@@ -34,18 +33,18 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/address_line_2"
                 android:inputType="textEmailAddress"
                 android:lines="1"
@@ -55,9 +54,10 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -93,6 +93,50 @@
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
+            </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:orientation="horizontal">
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryCodePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:ccp_defaultNameCode="US"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    app:ccpDialog_searchEditTextTint="@color/black"
+                    app:ccp_hintExampleNumber="true"
+                    app:ccp_showArrow="false"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="false" />
+
+                <TextView
+                    android:id="@+id/selectedCountryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/select_country_of_origin"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp"
+                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
+
             </LinearLayout>
 
             <EditText
@@ -101,10 +145,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:textSize="16sp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/zip_code"
                 android:inputType="number"
                 android:lines="1"
@@ -115,7 +158,8 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/invalidZipCodeTv"
@@ -138,10 +182,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:textSize="16sp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/city"
                 android:inputType="text"
                 android:lines="1"
@@ -151,7 +194,8 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/stateNameAddressDetails"
@@ -161,7 +205,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/state"
                 android:lines="1"
                 android:maxLines="1"
@@ -181,7 +225,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
                 android:lines="1"
@@ -191,9 +235,9 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
-                android:textSize="16sp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addressDetailsNextBtn"
@@ -216,9 +260,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/person"
-                android:translationY="90dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:src="@drawable/person" />
 
         </LinearLayout>
 

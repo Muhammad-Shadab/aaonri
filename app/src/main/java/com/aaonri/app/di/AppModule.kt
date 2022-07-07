@@ -1,5 +1,6 @@
 package com.aaonri.app.di
 
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.utils.Constant
 import dagger.Module
 import dagger.Provides
@@ -31,7 +32,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(Constant.BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
 

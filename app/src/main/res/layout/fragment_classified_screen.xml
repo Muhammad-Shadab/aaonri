@@ -37,16 +37,16 @@
 
         <ImageView
             android:id="@+id/profilePicIv"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/bellIconIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
@@ -73,57 +73,73 @@
             android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginTop="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_1sdp"
-            android:text="5"
             android:textColor="@color/white"
             android:textSize="10sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
-
-    <EditText
-        android:inputType="text"
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/searchViewll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_42sdp"
         android:background="@drawable/edit_text_shape"
-        android:clickable="true"
-        android:drawableRight="@drawable/ic_icon_search"
-        android:focusable="true"
-        android:imeOptions="actionDone"
-        android:hint="@string/what_are_you_looking_for"
-        android:maxLines="1"
-        android:paddingVertical="@dimen/_6sdp"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classifiedText" />
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
+
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/filterClassified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_icons_filter"
-        app:layout_constraintBottom_toBottomOf="@id/searchView"
+        app:layout_constraintBottom_toBottomOf="@id/searchViewll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/searchView"
-        app:layout_constraintTop_toTopOf="@id/searchView" />
+        app:layout_constraintStart_toEndOf="@id/searchViewll"
+        app:layout_constraintTop_toTopOf="@id/searchViewll" />
 
     <HorizontalScrollView
         android:id="@+id/selectedFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:orientation="horizontal"
         android:scrollbars="none"
         android:visibility="gone"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView">
+        app:layout_constraintTop_toBottomOf="@id/searchViewll">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -137,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
                 app:cardBackgroundColor="#a0eee4"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +161,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/lightGrey"
-                android:visibility="gone"
                 app:strokeWidth="1dp">
 
                 <TextView
@@ -174,10 +190,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/filterCv2"
                 android:layout_width="wrap_content"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
                 app:cardBackgroundColor="#a0eee4"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -217,8 +233,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                app:cardBackgroundColor="#a0eee4"
                 android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -257,8 +273,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                app:cardBackgroundColor="#a0eee4"
                 android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -295,7 +311,7 @@
 
     </HorizontalScrollView>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/moreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -307,13 +323,13 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/selectedFilters"
         app:layout_constraintStart_toEndOf="@id/selectedFilters"
-        app:layout_constraintTop_toTopOf="@id/selectedFilters" />
+        app:layout_constraintTop_toTopOf="@id/selectedFilters" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -334,8 +350,8 @@
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
             app:tabMode="auto"
-            app:tabPaddingEnd="@dimen/_4sdp"
-            app:tabPaddingStart="@dimen/_4sdp"
+            app:tabPaddingEnd="@dimen/_2sdp"
+            app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2

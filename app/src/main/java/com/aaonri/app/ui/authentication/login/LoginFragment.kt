@@ -2,7 +2,6 @@ package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
-import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
@@ -90,35 +87,35 @@ class LoginFragment : Fragment() {
                 if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
                     if (Validator.emailValidation(editable.toString())) {
                         isEmailValid = true
-                        introBinding?.emailValidationTv?.visibility = View.GONE
+                        //introBinding?.emailValidationTv?.visibility = View.GONE
                     } else {
                         isEmailValid = false
-                        introBinding?.emailValidationTv?.visibility = View.VISIBLE
+                        //introBinding?.emailValidationTv?.visibility = View.VISIBLE
                         introBinding?.emailValidationTv?.text =
                             "Please enter valid email"
                     }
                 } else {
                     isEmailValid = false
-                    introBinding?.emailValidationTv?.visibility = View.GONE
+                    //introBinding?.emailValidationTv?.visibility = View.GONE
                 }
             }
         }
 
         introBinding?.loginPasswordEt?.addTextChangedListener { editable ->
             editable?.let {
-                if (it.toString().isNotEmpty() && it.toString().length >= 6) {
+                if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
                         isPasswordValid = true
-                        introBinding?.passwordValidationTv?.visibility = View.GONE
+                        //introBinding?.passwordValidationTv?.visibility = View.GONE
                     } else {
                         isPasswordValid = false
                         introBinding?.passwordValidationTv?.text =
                             "Please enter valid password"
-                        introBinding?.passwordValidationTv?.visibility = View.VISIBLE
+                        //introBinding?.passwordValidationTv?.visibility = View.VISIBLE
                     }
                 } else {
                     isPasswordValid = false
-                    introBinding?.passwordValidationTv?.visibility = View.GONE
+                    //introBinding?.passwordValidationTv?.visibility = View.GONE
                 }
             }
         }
@@ -146,13 +143,23 @@ class LoginFragment : Fragment() {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_CITY, response.data.user.city)
                         }
+
                         if (response.data?.user?.zipcode?.isNotEmpty() == true) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
+                        if (response.data?.massage?.isBlank() == true) {
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
                 }
                 is Resource.Error -> {
