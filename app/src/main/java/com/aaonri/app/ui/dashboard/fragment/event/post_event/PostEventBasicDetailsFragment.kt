@@ -48,6 +48,8 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         setData()
 
+        postEventViewModel.addNavigationForStepper(EventConstants.EVENT_BASIC_DETAILS)
+
         postEventBinding?.apply {
 
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))

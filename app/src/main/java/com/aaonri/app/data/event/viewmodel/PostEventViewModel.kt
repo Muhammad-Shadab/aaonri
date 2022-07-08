@@ -20,6 +20,9 @@ import javax.inject.Inject
 class PostEventViewModel @Inject constructor(private val eventRepository: EventRepository) :
     ViewModel() {
 
+    var navigationForStepper: MutableLiveData<String> = MutableLiveData()
+        private set
+
     var selectedEventCategory: MutableLiveData<EventCategoryResponseItem> = MutableLiveData()
         private set
 
@@ -29,6 +32,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var postEventData: MutableLiveData<Resource<PostEventResponse>> = MutableLiveData()
 
     var isEventOffline = false
+        private set
+
+    var stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
     var isEventFree = false
@@ -155,6 +161,14 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun addStepViewLastTick(value: Boolean) {
+        stepViewLastTick.value = value
+    }
+
+    fun addNavigationForStepper(value: String) {
+        navigationForStepper.value = value
     }
 
 }

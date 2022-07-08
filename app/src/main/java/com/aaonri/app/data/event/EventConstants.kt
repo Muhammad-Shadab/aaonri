@@ -2,6 +2,11 @@ package com.aaonri.app.data.event
 
 object EventConstants {
 
+    // Constants For Stepper
+    const val EVENT_BASIC_DETAILS = "EVENT_BASIC_DETAILS"
+    const val EVENT_UPLOAD_PICS = "EVENT_UPLOAD_PICS"
+    const val EVENT_ADDRESS_DETAILS = "EVENT_ADDRESS_DETAILS"
+
     // Event Basic Details Screen Constants
     const val EVENT_TITLE = "EVENT_NAME"
     const val EVENT_CATEGORY = "EVENT_CATEGORY"

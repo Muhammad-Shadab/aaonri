@@ -38,12 +38,11 @@ class PostEventAddressDetailsFragment : Fragment() {
 
 
         if (!postEventViewModel.isEventOffline) {
-            Toast.makeText(context, "${postEventViewModel.isEventOffline}", Toast.LENGTH_SHORT)
-                .show()
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
         }
 
         postEventAddressBinding?.apply {
+
             classifiedDetailsNextBtn.setOnClickListener {
 
                 if (cityNameEt.text.toString()

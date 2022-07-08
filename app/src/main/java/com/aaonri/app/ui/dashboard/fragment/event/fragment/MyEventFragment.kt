@@ -30,7 +30,6 @@ class MyEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         myEventBinding = FragmentMyEventBinding.inflate(inflater, container, false)
 
         allEventAdapter = AllEventAdapter {
@@ -59,7 +58,9 @@ class MyEventFragment : Fragment() {
                     if (response.data?.eventList?.isEmpty() == true) {
                         eventViewModel.setHideFloatingButtonInSecondTab(true)
                         myEventBinding?.nestedScrollView?.visibility = View.VISIBLE
+                        myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
                     } else {
+                        myEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
                         eventViewModel.setHideFloatingButtonInSecondTab(false)
                         myEventBinding?.nestedScrollView?.visibility = View.GONE
                         allEventAdapter?.setData(response.data?.eventList)

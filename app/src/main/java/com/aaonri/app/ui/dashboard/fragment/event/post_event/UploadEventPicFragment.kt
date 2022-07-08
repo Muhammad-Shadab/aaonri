@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentCreateNewPasswordBinding
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
@@ -50,7 +51,8 @@ class UploadEventPicFragment : Fragment() {
         val curveRadius = 10F
         setImageOnNavigatingBack()
 
-//        postEventViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
+        postEventViewModel.addNavigationForStepper(EventConstants.EVENT_UPLOAD_PICS)
+
         uploadEventPicBinding?.apply {
             uploadPicBtn.setOnClickListener {
 
@@ -395,7 +397,7 @@ class UploadEventPicFragment : Fragment() {
                 uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(0)
             }
-        }else{
+        } else {
             changeCardViewBg(4)
         }
     }
@@ -446,8 +448,7 @@ class UploadEventPicFragment : Fragment() {
                     it2
                 )
             }
-        }
-        else if (selectedImageIndex == 1 && image2Uri.isNotEmpty()) {
+        } else if (selectedImageIndex == 1 && image2Uri.isNotEmpty()) {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
@@ -489,8 +490,7 @@ class UploadEventPicFragment : Fragment() {
                     it2
                 )
             }
-        }
-        else if (selectedImageIndex == 2 && image3Uri.isNotEmpty()) {
+        } else if (selectedImageIndex == 2 && image3Uri.isNotEmpty()) {
 
             context?.let { it1 ->
                 ContextCompat.getColor(
@@ -534,8 +534,7 @@ class UploadEventPicFragment : Fragment() {
                 )
             }
 
-        }
-        else if (selectedImageIndex == 3 && image4Uri.isNotEmpty()) {
+        } else if (selectedImageIndex == 3 && image4Uri.isNotEmpty()) {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
@@ -577,8 +576,7 @@ class UploadEventPicFragment : Fragment() {
                     it2
                 )
             }
-        }
-        else {
+        } else {
             context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
