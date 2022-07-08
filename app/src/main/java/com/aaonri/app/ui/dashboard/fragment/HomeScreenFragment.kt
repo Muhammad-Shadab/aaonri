@@ -28,7 +28,7 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-
+        findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
 
         return homeScreenBinding?.root
     }

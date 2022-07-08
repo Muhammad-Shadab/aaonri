@@ -33,7 +33,11 @@ class PostEventBasicDetailsFragment : Fragment() {
 
     var isDateValid = false
 
-    var selectedDate :String=""
+    var selectedDate  = ""
+    var startTime = ""
+    var endTime = ""
+    var startDate = ""
+    var endDate = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -136,10 +140,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }
             selectStartTime.setOnClickListener {
-                getSelectedTime(selectStartTime)
+                getSelectedTime(selectStartTime,true)
             }
             selectEndTime.setOnClickListener {
-                getSelectedTime(selectEndTime)
+                getSelectedTime(selectEndTime,false)
             }
 
             selectstartDate.addTextChangedListener {
@@ -270,15 +274,20 @@ class PostEventBasicDetailsFragment : Fragment() {
         }
         if(isStartdate) {
             datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000;
+            //this is startDate
+            startDate=selectedDate
         }
         else{
             val date = SimpleDateFormat("dd-MM-yyyy").parse(selectedDate)
             datepicker?.datePicker?.minDate =  date.time- 1000 + (1000 * 60 * 60 * 24*2)
+
+            //this is for enddDate
+            endDate=selectedDate
         }
         datepicker?.show()
     }
 
-    private fun getSelectedTime(selectStartTime: TextView) {
+    private fun getSelectedTime(selectStartTime: TextView, isStartTime: Boolean) {
         var ampm = ""
         var hoursOfTheDay: Int
         val mTimePicker: TimePickerDialog
@@ -290,6 +299,15 @@ class PostEventBasicDetailsFragment : Fragment() {
             context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
+                if(isStartTime)
+                {
+                    //this is for startTime
+                    startTime="$hourOfDay:$minute"
+                }
+                else{
+                    //this is for  endTime
+                    endTime="$hourOfDay:$minute"
+                }
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -306,6 +324,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 selectStartTime.text = "$hoursOfTheDay:$minute $ampm"
             }, hour, minute, false
         )
+
         mTimePicker.show()
 
     }

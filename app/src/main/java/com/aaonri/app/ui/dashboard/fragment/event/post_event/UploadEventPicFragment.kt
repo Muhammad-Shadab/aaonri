@@ -1,21 +1,27 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.Outline
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentCreateNewPasswordBinding
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
@@ -24,7 +30,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 class UploadEventPicFragment : Fragment() {
     var uploadEventPicBinding: FragmentUploadEventPicBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
-    val listOfImagesUri = mutableListOf<Uri>()
+    val showingImagesList = mutableListOf<Uri>()
     var image1Uri = ""
     var image2Uri = ""
     var image3Uri = ""
@@ -34,22 +40,29 @@ class UploadEventPicFragment : Fragment() {
     var image3 = true
     var image4 = true
     var selectPicIndex = -1
+    var rotatedBitmap: Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         uploadEventPicBinding = FragmentUploadEventPicBinding.inflate(inflater, container, false)
+        val curveRadius = 10F
+        setImageOnNavigatingBack()
 
+//        postEventViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
         uploadEventPicBinding?.apply {
-
             uploadPicBtn.setOnClickListener {
+
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
                     ImagePicker.with(requireActivity())
                         .compress(800)
                         .maxResultSize(1080, 1080)
+                        .crop()
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
+                            progressBarPicUpload.visibility = View.VISIBLE
+
                         }
                 } else {
 
@@ -67,6 +80,24 @@ class UploadEventPicFragment : Fragment() {
             }
             deleteImage4.setOnClickListener {
                 deleteImage(3)
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                selectedImage.outlineProvider = object : ViewOutlineProvider() {
+
+                    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+                    override fun getOutline(view: View?, outline: Outline?) {
+                        outline?.setRoundRect(
+                            0,
+                            0,
+                            view!!.width,
+                            (view.height + curveRadius).toInt(),
+                            curveRadius
+                        )
+                    }
+                }
+                selectedImage.clipToOutline = true
             }
 
             uploadedImage1.setOnClickListener {
@@ -95,62 +126,65 @@ class UploadEventPicFragment : Fragment() {
             }
 
             eventUploadPicNextBtn.setOnClickListener {
-
                 if (image1Uri.isNotEmpty()) {
-                    if (!listOfImagesUri.contains(image1Uri.toUri())) {
-                        listOfImagesUri.add(image1Uri.toUri())
+                    if (!showingImagesList.contains(image1Uri.toUri())) {
+                        showingImagesList.add(image1Uri.toUri())
                     }
                 }
                 if (image2Uri.isNotEmpty()) {
-                    if (!listOfImagesUri.contains(image2Uri.toUri())) {
-                        listOfImagesUri.add(image2Uri.toUri())
+                    if (!showingImagesList.contains(image2Uri.toUri())) {
+                        showingImagesList.add(image2Uri.toUri())
                     }
                 }
                 if (image3Uri.isNotEmpty()) {
-                    if (!listOfImagesUri.contains(image3Uri.toUri())) {
-                        listOfImagesUri.add(image3Uri.toUri())
+                    if (!showingImagesList.contains(image3Uri.toUri())) {
+                        showingImagesList.add(image3Uri.toUri())
                     }
                 }
                 if (image4Uri.isNotEmpty()) {
-                    if (!listOfImagesUri.contains(image4Uri.toUri())) {
-                        listOfImagesUri.add(image4Uri.toUri())
+                    if (!showingImagesList.contains(image4Uri.toUri())) {
+                        showingImagesList.add(image4Uri.toUri())
                     }
                 }
-
-                postEventViewModel.setListOfUploadImagesUri(listOfImagesUri)
-                findNavController().navigate(R.id.action_uploadEventPicFragment_to_postEventAddressDetailsFragment)
-
+                postEventViewModel.setListOfUploadImagesUri(showingImagesList)
+                findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
             }
         }
 
         return uploadEventPicBinding?.root
     }
 
+
     private val startForClassifiedImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+
             val resultCode = result.resultCode
             val data = result.data
 
             if (resultCode == Activity.RESULT_OK) {
 
                 val fileUri = data?.data!!
-
                 if (image1Uri.isEmpty()) {
                     image1Uri = fileUri.toString()
+                    setImage()
                 } else if (image2Uri.isEmpty()) {
                     image2Uri = fileUri.toString()
+                    setImage()
                 } else if (image3Uri.isEmpty()) {
                     image3Uri = fileUri.toString()
+                    setImage()
                 } else if (image4Uri.isEmpty()) {
                     image4Uri = fileUri.toString()
+                    setImage()
                 }
 
-                setImage()
+                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
+                //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-
+                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
             }
         }
 
@@ -160,6 +194,9 @@ class UploadEventPicFragment : Fragment() {
             uploadEventPicBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
             uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
             uploadEventPicBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            if (!showingImagesList.contains(image1Uri.toUri())) {
+                showingImagesList.add(image1Uri.toUri())
+            }
             image1 = false
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
@@ -167,6 +204,9 @@ class UploadEventPicFragment : Fragment() {
             uploadEventPicBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
             uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
             uploadEventPicBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            if (!showingImagesList.contains(image2Uri.toUri())) {
+                showingImagesList.add(image2Uri.toUri())
+            }
             image2 = false
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
@@ -174,6 +214,9 @@ class UploadEventPicFragment : Fragment() {
             uploadEventPicBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
             uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
             uploadEventPicBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            if (!showingImagesList.contains(image3Uri.toUri())) {
+                showingImagesList.add(image3Uri.toUri())
+            }
             image3 = false
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
@@ -181,10 +224,16 @@ class UploadEventPicFragment : Fragment() {
             uploadEventPicBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
             uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
             uploadEventPicBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            if (!showingImagesList.contains(image4Uri.toUri())) {
+                showingImagesList.add(image4Uri.toUri())
+            }
             image4 = false
             changeCardViewBg(3)
         }
+        disableUploadBtnColor()
+    }
 
+    private fun disableUploadBtnColor() {
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
             uploadEventPicBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
@@ -198,6 +247,54 @@ class UploadEventPicFragment : Fragment() {
                 )
             })
         }
+    }
+
+    private fun setImageOnNavigatingBack() {
+        if (image1Uri.isNotEmpty()) {
+            selectPicIndex = 0
+            uploadEventPicBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
+            uploadEventPicBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            if (!showingImagesList.contains(image1Uri.toUri())) {
+                showingImagesList.add(image1Uri.toUri())
+            }
+            image1 = false
+            changeCardViewBg(0)
+        }
+        if (image2Uri.isNotEmpty()) {
+            selectPicIndex = 1
+            uploadEventPicBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
+            uploadEventPicBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            if (!showingImagesList.contains(image2Uri.toUri())) {
+                showingImagesList.add(image2Uri.toUri())
+            }
+            image2 = false
+            changeCardViewBg(1)
+        }
+        if (image3Uri.isNotEmpty()) {
+            selectPicIndex = 2
+            uploadEventPicBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
+            uploadEventPicBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            if (!showingImagesList.contains(image3Uri.toUri())) {
+                showingImagesList.add(image3Uri.toUri())
+            }
+            image3 = false
+            changeCardViewBg(2)
+        }
+        if (image4Uri.isNotEmpty()) {
+            selectPicIndex = 3
+            uploadEventPicBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
+            uploadEventPicBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            if (!showingImagesList.contains(image4Uri.toUri())) {
+                showingImagesList.add(image4Uri.toUri())
+            }
+            image4 = false
+            changeCardViewBg(3)
+        }
+        disableUploadBtnColor()
     }
 
     private fun deleteImage(index: Int) {
@@ -209,9 +306,9 @@ class UploadEventPicFragment : Fragment() {
                 )
             })
             uploadEventPicBinding?.deleteImage1?.visibility = View.GONE
-            removeBorder(0)
-            if (listOfImagesUri.contains(image1Uri.toUri())) {
-                listOfImagesUri.remove(image1Uri.toUri())
+            changeCardViewBg(0)
+            if (showingImagesList.contains(image1Uri.toUri())) {
+                showingImagesList.remove(image1Uri.toUri())
             }
             image1Uri = ""
             image1 = true
@@ -222,11 +319,11 @@ class UploadEventPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image2Uri.toUri())) {
-                listOfImagesUri.remove(image2Uri.toUri())
+            if (showingImagesList.contains(image2Uri.toUri())) {
+                showingImagesList.remove(image2Uri.toUri())
             }
             uploadEventPicBinding?.deleteImage2?.visibility = View.GONE
-            removeBorder(1)
+            changeCardViewBg(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
@@ -236,11 +333,11 @@ class UploadEventPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image3Uri.toUri())) {
-                listOfImagesUri.remove(image3Uri.toUri())
+            if (showingImagesList.contains(image3Uri.toUri())) {
+                showingImagesList.remove(image3Uri.toUri())
             }
             uploadEventPicBinding?.deleteImage3?.visibility = View.GONE
-            removeBorder(2)
+            changeCardViewBg(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
@@ -250,11 +347,11 @@ class UploadEventPicFragment : Fragment() {
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            if (listOfImagesUri.contains(image4Uri.toUri())) {
-                listOfImagesUri.remove(image4Uri.toUri())
+            if (showingImagesList.contains(image4Uri.toUri())) {
+                showingImagesList.remove(image4Uri.toUri())
             }
             uploadEventPicBinding?.deleteImage4?.visibility = View.GONE
-            removeBorder(3)
+            changeCardViewBg(3)
             image4Uri = ""
             image4 = true
         }
@@ -262,7 +359,7 @@ class UploadEventPicFragment : Fragment() {
         if (image1Uri.isEmpty() && image2Uri.isEmpty() && image3Uri.isEmpty() && image4Uri.isEmpty()) {
             uploadEventPicBinding?.selectedImage?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
-                    it1, R.drawable.ic_image_placeholder
+                    it1, R.drawable.ic_imageview_placeholder
                 )
             })
         }
@@ -280,60 +377,29 @@ class UploadEventPicFragment : Fragment() {
                 )
             })
         }
+        setImageAfterDelete()
     }
 
-    private fun removeBorder(index: Int) {
-        when (index) {
-            0 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadEventPicBinding?.uploadedImage1?.setBackgroundColor(
-                        it2
-                    )
-                }
+    private fun setImageAfterDelete() {
+        if (showingImagesList.size != 0) {
+            if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()) {
+                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(3)
+            } else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()) {
+                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(2)
+            } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()) {
+                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(1)
+            } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()) {
+                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                changeCardViewBg(0)
             }
-            1 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadEventPicBinding?.uploadedImage2?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-            2 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadEventPicBinding?.uploadedImage3?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-            3 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadEventPicBinding?.uploadedImage4?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
+        }else{
+            changeCardViewBg(4)
         }
     }
+
 
     private fun changeCardViewBg(selectedImageIndex: Int) {
 
@@ -344,7 +410,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage1?.setBackgroundColor(
+                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -354,48 +420,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage2?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 1) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.blueBtnColor
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage2?.setBackgroundColor(
+                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -406,80 +431,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 2) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage2?.setBackgroundColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.blueBtnColor
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 3) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage2?.setBackgroundColor(
+                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -490,7 +442,19 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage3?.setBackgroundColor(
+                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else if (selectedImageIndex == 1 && image2Uri.isNotEmpty()) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -500,11 +464,162 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImage4?.setBackgroundColor(
+                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else if (selectedImageIndex == 2 && image3Uri.isNotEmpty()) {
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+
+        }
+        else if (selectedImageIndex == 3 && image4Uri.isNotEmpty()) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
         }
     }
-
 }
