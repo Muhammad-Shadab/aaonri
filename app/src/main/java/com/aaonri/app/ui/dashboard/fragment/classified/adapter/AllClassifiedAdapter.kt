@@ -8,6 +8,7 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
+import com.aaonri.app.utils.Constant.BASE_URL
 import com.bumptech.glide.Glide
 import java.math.RoundingMode
 import java.text.DecimalFormat
