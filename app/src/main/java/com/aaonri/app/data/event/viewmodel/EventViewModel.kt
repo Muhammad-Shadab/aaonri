@@ -18,11 +18,10 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     val allEventData: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
     val recentEventData: MutableLiveData<Resource<RecentEventResponse>> = MutableLiveData()
+    val eventDetailsData: MutableLiveData<Resource<EventDetailsResponse>> = MutableLiveData()
 
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
         private set
-
-    val hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getRecentEvent(userEmail: String) = viewModelScope.launch {
         recentEventData.postValue(Resource.Loading())
@@ -39,6 +38,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         return Resource.Error(response.message())
     }
 
+
     fun getAllEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         allEventData.postValue(Resource.Loading())
         val response = eventRepository.getAllEvent(allEventRequest)
@@ -54,8 +54,19 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         return Resource.Error(response.message())
     }
 
-    fun setHideFloatingButtonInSecondTab(value: Boolean) {
-        hideFloatingButtonInSecondTab.postValue(value)
+    fun getEventDetails(eventId: Int) = viewModelScope.launch {
+        eventDetailsData.postValue(Resource.Loading())
+        val response = eventRepository.getEventDetails(eventId)
+        eventDetailsData.postValue(handleEventDetailsResponse(response))
+    }
+
+    private fun handleEventDetailsResponse(response: Response<EventDetailsResponse>): Resource<EventDetailsResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

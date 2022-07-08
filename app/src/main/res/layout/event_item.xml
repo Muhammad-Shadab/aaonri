@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/_155sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -90,7 +90,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:gravity="center_vertical"
                         android:text="Bay Area Craft Beer…"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="normal" />
 
@@ -103,7 +103,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:paddingHorizontal="@dimen/_4sdp"
                         android:text="NY-08512"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="normal"
 
@@ -120,7 +120,7 @@
                     android:maxLines="1"
                     android:includeFontPadding="false"
                     android:text="Start from Mar 25, 10 am EST"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="normal" />
             </LinearLayout>

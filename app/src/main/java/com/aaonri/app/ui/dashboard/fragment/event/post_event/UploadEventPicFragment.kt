@@ -149,7 +149,8 @@ class UploadEventPicFragment : Fragment() {
                     }
                 }
                 postEventViewModel.setListOfUploadImagesUri(showingImagesList)
-                findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
+                val action = UploadEventPicFragmentDirections.actionUploadEventPicFragmentToPostEventAddressDetailsFragment2()
+                findNavController().navigate(action)
             }
         }
 
