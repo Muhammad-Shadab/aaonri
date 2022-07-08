@@ -172,6 +172,7 @@ class HomeScreenFragment : Fragment() {
                                     homeScreenBinding?.eventImage4?.let { it2 ->
                                         Glide.with(it1)
                                             .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .transform(CenterInside(), RoundedCorners(24))
                                             .into(
                                                 it2
                                             )
