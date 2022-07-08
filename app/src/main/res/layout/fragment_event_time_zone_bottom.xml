@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Select Category"
+            android:text="Select Timezone"
             android:textColor="@color/textViewColor"
             android:textSize="@dimen/_14sdp" />
 

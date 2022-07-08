@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.event.model.EventCategoryResponseItem
+import com.aaonri.app.databinding.CategoryCardItemBinding
 import com.aaonri.app.databinding.FilterCardViewItemBinding
 
 class EventCategoryAdapter(private var selectedCategory: ((value: EventCategoryResponseItem) -> Unit)) :
@@ -16,7 +17,7 @@ class EventCategoryAdapter(private var selectedCategory: ((value: EventCategoryR
         viewType: Int
     ): EventCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FilterCardViewItemBinding.inflate(inflater, parent, false)
+        val binding = CategoryCardItemBinding.inflate(inflater, parent, false)
         return EventCategoryViewHolder(binding)
     }
 
@@ -36,7 +37,7 @@ class EventCategoryAdapter(private var selectedCategory: ((value: EventCategoryR
         notifyDataSetChanged()
     }
 
-    inner class EventCategoryViewHolder(val binding: FilterCardViewItemBinding) :
+    inner class EventCategoryViewHolder(val binding: CategoryCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
 
@@ -50,7 +51,7 @@ class EventTimeZoneAdapter(private var selectedCategory: ((value: String) -> Uni
         viewType: Int
     ): EventCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FilterCardViewItemBinding.inflate(inflater, parent, false)
+        val binding = CategoryCardItemBinding.inflate(inflater, parent, false)
         return EventCategoryViewHolder(binding)
     }
 
@@ -70,6 +71,6 @@ class EventTimeZoneAdapter(private var selectedCategory: ((value: String) -> Uni
         notifyDataSetChanged()
     }
 
-    inner class EventCategoryViewHolder(val binding: FilterCardViewItemBinding) :
+    inner class EventCategoryViewHolder(val binding: CategoryCardItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

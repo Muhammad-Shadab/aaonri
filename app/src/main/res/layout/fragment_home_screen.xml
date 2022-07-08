@@ -318,7 +318,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/tab_background"
+                            android:background="@drawable/selected_tab_background"
+                            android:textColor="@color/white"
                             android:paddingHorizontal="@dimen/_12sdp"
                             android:paddingVertical="@dimen/_4sdp"
                             android:text="Events" />
