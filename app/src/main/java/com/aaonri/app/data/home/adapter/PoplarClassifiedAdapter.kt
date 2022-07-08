@@ -22,6 +22,11 @@ class PoplarClassifiedAdapter(private var selectedServices: ((value: PoplarClass
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
+
+            if (data[position].favorite) {
+                like.visibility = View.VISIBLE
+            }
+
             if (data[position].userAdsImages.isEmpty()) {
                 classifiedPriceTv.text = "$" + data[position].askingPrice.toString()
                 classifiedTitleTv.text = data[position].adTitle

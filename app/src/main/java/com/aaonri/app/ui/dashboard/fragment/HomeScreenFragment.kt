@@ -44,14 +44,15 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-
         allClassifiedAdapter = AllClassifiedAdapter {
-            homeViewModel.setSendDataToClassifiedDetailsScreen(it)
-            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(it.id)
+            findNavController().navigate(action)
         }
         popularClassifiedAdapter = PoplarClassifiedAdapter {
-            //homeViewModel.setSendDataToClassifiedDetailsScreen(it)
-            findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(it.id)
+            findNavController().navigate(action)
         }
 
         homeScreenBinding?.apply {
@@ -65,10 +66,10 @@ class HomeScreenFragment : Fragment() {
             }
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
-            classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
+            classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
-            popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
+            popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
         homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -79,10 +80,17 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     var homeClassified = mutableListOf<UserAds>()
-                    homeClassified =
-                        response.data?.userAdsList?.subList(0, 4) as MutableList<UserAds>
+                    response.data?.userAdsList?.forEachIndexed { index, userAds ->
+                        if (index <= 3) {
+                            if (homeClassified.contains(userAds)) {
+                                homeClassified.remove(userAds)
+                            } else {
+                                homeClassified.add(userAds)
+                            }
+                        }
+                    }
 
-                    response.data.userAdsList.let {
+                    response.data?.userAdsList.let {
                         allClassifiedAdapter?.setData(homeClassified)
                     }
                     homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
@@ -200,20 +208,19 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
+                    homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.isNotEmpty() == true) {
-                        if (response.data.size >= 4) {
-                            popularClassifiedAdapter?.setData(response.data.subList(0, 4))
-                        } else {
-                            popularClassifiedAdapter?.setData(response.data)
-                        }
+                        popularClassifiedAdapter?.setData(response.data)
                     }
+                    homeScreenBinding?.homeConstraintLayout?.visibility = View.VISIBLE
                     homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
+                    homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}

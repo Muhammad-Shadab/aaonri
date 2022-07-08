@@ -250,6 +250,7 @@
                 android:background="#c9c9c9" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/homeConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -319,10 +320,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/selected_tab_background"
-                            android:textColor="@color/white"
                             android:paddingHorizontal="@dimen/_12sdp"
                             android:paddingVertical="@dimen/_4sdp"
-                            android:text="Events" />
+                            android:text="Events"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -901,7 +902,6 @@
                     android:id="@+id/immigrationHorizontalLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:scrollbars="none"
                     android:visibility="visible"
@@ -915,8 +915,9 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="@dimen/_280sdp"
+                            android:layout_width="@dimen/_250sdp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
                             app:cardBackgroundColor="#0fc7a9"
                             app:cardCornerRadius="@dimen/_10sdp">
 
@@ -948,7 +949,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="@dimen/_280sdp"
+                            android:layout_width="@dimen/_250sdp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8sdp"
                             app:cardBackgroundColor="#01879b"
@@ -982,7 +983,7 @@
                         </com.google.android.material.card.MaterialCardView>
 
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="@dimen/_280sdp"
+                            android:layout_width="@dimen/_250sdp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginEnd="@dimen/_16sdp"
@@ -1051,7 +1052,8 @@
                             android:fontFamily="@font/sf_pro_semi_bold"
                             android:text="@string/see_all"
                             android:textColor="@color/blueBtnColor"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
                         <ImageView
                             android:layout_width="@dimen/_12sdp"

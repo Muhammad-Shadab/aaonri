@@ -21,10 +21,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     var homeEventData: MutableLiveData<Resource<EventResponse>> = MutableLiveData()
         private set
-
-    var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
-        private set
-
+    
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
@@ -62,10 +59,6 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         return Resource.Error(response.message())
     }
 
-    fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
-        sendDataToClassifiedDetailsScreen.postValue(value)
-    }
-
     fun getPopularClassified() = viewModelScope.launch {
         popularClassifiedData.postValue(Resource.Loading())
         val response = homeRepository.getPopularClassified()
@@ -80,6 +73,5 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         }
         return Resource.Error(response.message())
     }
-
 
 }
