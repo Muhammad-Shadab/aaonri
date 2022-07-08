@@ -125,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginVertical="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:orientation="horizontal"
                 android:visibility="visible"
@@ -141,8 +142,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
                         android:src="@drawable/ic_real_state" />
 
                     <TextView
@@ -151,7 +152,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Real Estate"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,8 +165,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
                         android:src="@drawable/ic_event" />
 
                     <TextView
@@ -174,7 +175,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Events"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,8 +187,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
                         android:src="@drawable/ic_immigration" />
 
                     <TextView
@@ -196,7 +197,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Real Estate"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -208,8 +209,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
                         android:src="@drawable/ic_travel" />
 
                     <TextView
@@ -218,7 +219,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Real Estate"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -230,8 +231,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
                         android:src="@drawable/ic_community" />
 
                     <TextView
@@ -240,7 +241,7 @@
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Community"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
 
