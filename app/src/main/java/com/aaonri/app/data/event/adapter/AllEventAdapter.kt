@@ -33,11 +33,11 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            startDate = DateTimeFormatter.ofPattern("MMM dd").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data[position].startDate.split("T")[0]))
+           /* startDate = DateTimeFormatter.ofPattern("MMM dd").format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data[position].startDate.split("T")[0]))
             startTimeOfEvent=LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
             endTimeOfEvent=LocalTime.parse(data[position].endTime).format(DateTimeFormatter.ofPattern("h:mma"))
             timeZone=data[position].timeZone
-            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+            eventTiming.text= "$startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"*/
 
             if (data[position].images.isNotEmpty()) {
                 val image =

@@ -25,8 +25,9 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.UploadEventPicFragment"
         android:label="fragment_upload_event_pic"
         tools:layout="@layout/fragment_upload_event_pic" >
+
         <action
-            android:id="@+id/action_uploadEventPicFragment_to_postEventAddressDetailsFragment"
+            android:id="@+id/action_uploadEventPicFragment_to_postEventAddressDetailsFragment2"
             app:destination="@id/postEventAddressDetailsFragment" />
     </fragment>
     <fragment
