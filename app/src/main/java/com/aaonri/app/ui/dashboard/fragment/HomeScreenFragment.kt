@@ -44,6 +44,7 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
+
         allClassifiedAdapter = AllClassifiedAdapter {
             homeViewModel.setSendDataToClassifiedDetailsScreen(it)
             findNavController().navigate(R.id.action_homeScreenFragment_to_classifiedDetailsFragment)
@@ -55,7 +56,7 @@ class HomeScreenFragment : Fragment() {
 
         homeScreenBinding?.apply {
 
-            homeTv.setOnClickListener {
+            openEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             }
 

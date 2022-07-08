@@ -6,19 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
+   <!-- <com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:customBackgroundShape="@drawable/bottom_nav_bg_shape"
-        app:circleColor="@color/blueBtnColor"
         app:itemTextColor="@color/blueBtnColor"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu"/>-->
 
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />-->
+        app:menu="@menu/bottom_navigation_menu" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/dashboardNavHost"
