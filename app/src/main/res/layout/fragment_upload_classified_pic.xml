@@ -35,8 +35,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_260sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_image_placeholder"
-                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_imageview_placeholder"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,22 +55,23 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/uploadedImageFl1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
                         app:cardCornerRadius="@dimen/_4sdp"
+                        app:strokeWidth="@dimen/_1sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/uploadedImage1"
-                            android:layout_width="@dimen/_40sdp"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -95,7 +97,8 @@
                         app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/uploadedImageFl1"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <ImageView
                             android:id="@+id/uploadedImage2"
@@ -103,7 +106,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView
@@ -121,7 +124,7 @@
 
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/uploadedImageFl3"
+                        android:id="@+id/uploadedImageFl4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
@@ -129,7 +132,8 @@
                         app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <ImageView
                             android:id="@+id/uploadedImage4"
@@ -137,8 +141,10 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_uplaoded_image" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_uplaoded_image"
+
+                            />
 
                         <ImageView
                             android:id="@+id/deleteImage4"
@@ -154,15 +160,16 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/uploadedImageFl4"
+                        android:id="@+id/uploadedImageFl3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
                         app:cardCornerRadius="@dimen/_4sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/uploadedImageFl3"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintEnd_toStartOf="@id/uploadedImageFl4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <ImageView
                             android:id="@+id/uploadedImage3"
@@ -170,7 +177,7 @@
                             android:layout_height="@dimen/_40sdp"
                             android:layout_gravity="center"
                             android:padding="@dimen/_1sdp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ic_uplaoded_image" />
 
                         <ImageView

@@ -9,11 +9,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,10 +20,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/selectCountryOrigin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_28sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -43,21 +40,20 @@
                         android:layout_marginStart="@dimen/_12sdp"
                         android:visibility="gone" />
 
-
                     <TextView
                         android:id="@+id/selectCountryLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_2sdp"
-                        android:fontFamily="@font/sf_pro_regular"
+                        android:fontFamily="@font/helvetica_regular"
+                        android:gravity="center_vertical"
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
                         android:maxLines="1"
+                        android:paddingVertical="@dimen/_2sdp"
                         android:paddingStart="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_4sdp"
                         android:paddingEnd="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
                         android:textSize="16sp"
@@ -73,7 +69,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
+                    android:fontFamily="@font/helvetica_regular"
                     android:hint="Origin of City"
                     android:inputType="text"
                     android:lines="1"
@@ -94,7 +90,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
+                    android:fontFamily="@font/helvetica_regular"
                     android:hint="Origin of State"
                     android:inputType="text"
                     android:lines="1"
@@ -116,14 +112,14 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
                     android:hint="@string/select_your_community"
                     android:lines="1"
                     android:maxLines="1"
+                    android:paddingVertical="@dimen/_4sdp"
                     android:paddingStart="@dimen/_16sdp"
-                    android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
@@ -210,20 +206,18 @@
                     android:text="@string/next"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
-            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/person"
-                android:translationY="90dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:src="@drawable/person" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

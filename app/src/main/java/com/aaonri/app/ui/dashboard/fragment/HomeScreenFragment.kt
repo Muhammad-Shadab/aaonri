@@ -30,6 +30,16 @@ class HomeScreenFragment : Fragment() {
 
         val origin = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+            if (it) {
+                homeScreenBinding?.profilePicCv?.visibility = View.GONE
+                homeScreenBinding?.bellIconIv?.visibility = View.GONE
+            } else {
+                homeScreenBinding?.profilePicCv?.visibility = View.VISIBLE
+                homeScreenBinding?.bellIconIv?.visibility = View.VISIBLE
+            }
+        }
+
         homeScreenBinding?.apply {
 
             if (origin?.isNotEmpty() == true) {

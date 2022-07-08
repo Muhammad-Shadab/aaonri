@@ -36,13 +36,13 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter {
-            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -52,6 +52,8 @@ class AllClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
+                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
+                    allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
                         activity?.let { it1 ->
                             Snackbar.make(
@@ -60,8 +62,6 @@ class AllClassifiedFragment : Fragment() {
                             ).show()
                         }
                     }
-                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
-                    allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                 }
                 is Resource.Error -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
@@ -108,8 +108,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = keyword,
                                 location = "",
-                                maxPrice = maxValue?.toDouble(),
-                                minPrice = minValue?.toDouble(),
+                                maxPrice = maxValue?.toInt(),
+                                minPrice = minValue?.toInt(),
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -124,8 +124,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = keyword,
                                 location = "",
-                                maxPrice = maxValue?.toDouble(),
-                                minPrice = minValue?.toDouble(),
+                                maxPrice = maxValue?.toInt(),
+                                minPrice = minValue?.toInt(),
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -142,8 +142,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = "",
                                 location = "",
-                                maxPrice = 0.0,
-                                minPrice = 0.0,
+                                maxPrice = 0,
+                                minPrice = 0,
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",
@@ -158,8 +158,8 @@ class AllClassifiedFragment : Fragment() {
                                 fetchCatSubCat = true,
                                 keywords = "",
                                 location = "",
-                                maxPrice = 0.0,
-                                minPrice = 0.0,
+                                maxPrice = 0,
+                                minPrice = 0,
                                 myAdsOnly = false,
                                 popularOnAoonri = null,
                                 subCategory = "",

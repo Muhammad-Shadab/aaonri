@@ -12,14 +12,12 @@
         android:layout_height="@dimen/_500sdp"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_image_placeholder" />
+        android:scaleType="centerInside"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/_16sdp"
         android:orientation="horizontal"
         android:translationY="-36dp"
         app:layout_anchor="@id/classifiedDetailsBottom">
@@ -54,7 +52,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
@@ -79,7 +77,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
@@ -104,7 +102,7 @@
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginVertical="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_4sdp"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -122,27 +120,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_image_placeholder" />
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- <androidx.cardview.widget.CardView
-             android:layout_width="@dimen/_44sdp"
-             android:layout_height="@dimen/_44sdp"
-             android:layout_marginStart="@dimen/_8sdp"
-             android:layout_marginBottom="@dimen/_60sdp"
-             app:cardBackgroundColor="@color/white"
-             app:cardCornerRadius="@dimen/_5sdp"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintHorizontal_bias="0.5"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toTopOf="parent">
-
-             <ImageView
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:padding="@dimen/_2sdp"
-                 android:scaleType="fitCenter"
-                 android:src="@drawable/ic_image_placeholder" />
-
-         </androidx.cardview.widget.CardView>-->
 
     </LinearLayout>
 
@@ -185,7 +162,6 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_28sdp"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:text="$29.99"
                         android:textColor="#114591"
                         android:textSize="24sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -208,7 +184,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_semi_bold"
-                            android:text="Lord Ganesha Idol"
                             android:textColor="#333333"
                             android:textSize="18sp" />
 
@@ -223,6 +198,7 @@
                             android:text="Popular"
                             android:textColor="#ffffff"
                             android:textSize="12sp"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"
                             app:layout_constraintStart_toEndOf="@+id/classifiedPriceTv"
                             app:layout_constraintTop_toBottomOf="@+id/classifiedItemIv"
@@ -237,10 +213,7 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
-                        android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
-                        android:text="@string/category_d_cor_sub_category_art_crafts"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="parent"
@@ -279,7 +252,6 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_semi_bold"
                             android:maxLines="1"
-                            android:text="New York"
                             android:textColor="#333333"
                             android:textSize="12sp" />
 
@@ -291,7 +263,6 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="08512"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
@@ -326,7 +297,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="From"
+                            android:text="Posting on"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
@@ -338,7 +309,6 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_semi_bold"
                             android:maxLines="1"
-                            android:text="05 FEB 2022"
                             android:textColor="#333333"
                             android:textSize="12sp" />
 
@@ -349,7 +319,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="To"
+                            android:text="Posting expires on"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
@@ -361,7 +331,6 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_semi_bold"
                             android:maxLines="1"
-                            android:text="05 FEB 2022"
                             android:textColor="#333333"
                             android:textSize="12sp" />
 
@@ -375,7 +344,6 @@
                         android:layout_marginTop="@dimen/_16sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
                         android:fontFamily="@font/sf_pro_semi_bold"
-                        android:text="classifiedDescTv"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -429,7 +397,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:text="California - 08512"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
@@ -463,7 +430,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:text="Abhijith M N"
                         android:textColor="#333333"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="@id/sellerNameTv"
@@ -496,7 +462,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_regular"
-                        android:text="California - 08512"
                         android:textColor="#365fa1"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/emailIcon"
@@ -535,5 +500,12 @@
         android:background="@drawable/blue_circle_shape"
         android:padding="@dimen/_2sdp"
         android:src="@drawable/navigate_back" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
@@ -33,27 +35,36 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         classifiedFilterBinding?.apply {
-
+            minPriceRange.stickPrefix("$")
+            maxPriceRange.stickPrefix("$")
             minPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
             maxPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
 
 
             myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
+                    zipCodeEt.isEnabled = false
                     zipCodeEt.setText(zipCode)
                 } else {
+                    zipCodeEt.isEnabled = true
                     zipCodeEt.setText("")
                 }
             }
 
             applyBtn.setOnClickListener {
 
-                val minValue = minPriceRange.text.toString()
-                val maxValue = maxPriceRange.text.toString()
+                var minValue = ""
+                var maxValue = ""
+                if (minPriceRange.text.toString().contains("$")) {
+                    minValue = minPriceRange.text.toString().replace("$", "")
+                }
+                if (maxPriceRange.text.toString().contains("$")) {
+                    maxValue = maxPriceRange.text.toString().replace("$", "")
+                }
 
                 if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
-                        if (minValue.toDouble() > 0 && minValue.toDouble() < maxValue.toDouble() && maxValue.toDouble() != minValue.toDouble()) {
+                        if (minValue.toInt() > 0 && minValue.toInt() < maxValue.toInt() && maxValue.toInt() != minValue.toInt()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(
                                     ClassifiedConstant.MIN_VALUE_FILTER,
@@ -107,10 +118,17 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ClassifiedConstant.MIN_VALUE_FILTER,
                             ""
                         )*/
+                    dialog?.window?.decorView?.let {
+                        Snackbar.make(
+                            it,
+                            "Please enter valid price range",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
-                        if (maxValue.toDouble() > minValue.toDouble() && minValue.toDouble() > 0 && maxValue.toDouble() != minValue.toDouble()) {
+                        if (maxValue.toInt() > minValue.toInt() && minValue.toInt() > 0 && maxValue.toInt() != minValue.toInt()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(
                                     ClassifiedConstant.MIN_VALUE_FILTER,
@@ -162,6 +180,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ClassifiedConstant.MAX_VALUE_FILTER,
                             ""
                         )*/
+                    dialog?.window?.decorView?.let {
+                        Snackbar.make(
+                            it,
+                            "Please enter valid price range",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
 
                 /*if (myLocationCheckBox.isChecked) {
@@ -204,6 +229,14 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ).show()
                         }
                     }
+                }
+                else{
+                    classifiedFilterBinding?.zipCodeEt?.setText("")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.ZIPCODE_FILTER,
+                            ""
+                        )
                 }
 
                 /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
@@ -507,14 +540,12 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
             }*/
         }
 
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
                 classifiedFilterBinding?.locationTv?.visibility = View.GONE
-                classifiedFilterBinding?.zipCodeEt?.visibility = View.GONE
             } else {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.VISIBLE
-                classifiedFilterBinding?.zipCodeEt?.visibility = View.VISIBLE
                 classifiedFilterBinding?.locationTv?.visibility = View.VISIBLE
             }
         }
@@ -562,7 +593,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
 
     private fun clearAllData() {
-
+         postClassifiedViewModel.setClickOnClearAllFilter(true)
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
         classifiedFilterBinding?.zipCodeEt?.setText("")
@@ -704,5 +735,14 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    private fun EditText.stickPrefix(prefix: String) {
+        this.addTextChangedListener(afterTextChanged = {
+            if (!it.toString().startsWith(prefix) && it?.isNotEmpty() == true) {
+                this.setText(prefix + this.text)
+                this.setSelection(this.length())
+            }
+        })
     }
 }

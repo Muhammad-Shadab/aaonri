@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:src="@drawable/ic_success_tick" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/enterYourEmailToSendLinkTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_94sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="@string/congratulations_you_have_successfully_posted_your_classified"
         android:textAlignment="center"

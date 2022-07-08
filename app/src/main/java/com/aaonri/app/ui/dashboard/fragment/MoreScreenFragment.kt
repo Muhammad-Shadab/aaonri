@@ -40,8 +40,16 @@ class MoreScreenFragment : Fragment() {
               builder.setTitle("Confirm")
               builder.setMessage("Are you sure you want to Logout")
               builder.setPositiveButton("OK") { dialog, which ->
+
                   context?.let { it1 -> PreferenceManager<String>(it1) }
                       ?.set(Constant.USER_EMAIL, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_ZIP_CODE, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_CITY, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_STATE, "")
+
                   val intent = Intent(context, LoginActivity::class.java)
                   startActivity(intent)
                   activity?.finish()

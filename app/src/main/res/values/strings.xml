@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">aaonri</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="BASE_URL"/>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_to_explore">LOGIN TO EXPLORE ALL SERVICES\n OFFERING BY AAONRI?</string>
     <string name="register_now">REGISTER NOW</string>
@@ -56,22 +57,22 @@
     <string name="try_another_email_address"><u>Try another email address. or </u></string>
     <string name="spannableText2"><u>Try another email address.</u></string>
     <string name="post_a_classified">Post a Classified</string>
-    <string name="title_of_your_classified">Title of your Classified</string>
+    <string name="title_of_your_classified">Title of your Classified*</string>
     <string name="is_the_listed_product_new">Is the listed product new?</string>
-    <string name="please_describe_what_you_are_selling"><font size="12">Please describe what you are selling?</font></string>
+    <string name="please_describe_what_you_are_selling">Please describe what you are selling ?*</string>
     <string name="upload_image">Upload Image</string>
     <string name="image_can_be_upload_upto_max_size_2mb">Image can be upload upto max size 2MB</string>
     <string name="how_would_you_like_to_be_contacted">How would you like to be Contacted?</string>
     <string name="submit_a_classified">SUBMIT A CLASSIFIED</string>
     <string name="your_classified_will">Your Classified will appear in search\n and / or on classifieds section of aaonri\n for 15 days at no charge: If you wish to\n extend your ad after 15 days, please\n email us at adminclassifieds@aaonri.com</string>
     <string name="your_classified">Your Classified will appear in search\n and / or on classifieds section of aaonri for 15 days at no charge: If you wish to extend your ad after 15 days, please email us at adminclassifieds@aaonri.com</string>
-    <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your\n ad, which will be used for search by other users</string>
+    <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your ad, which will be used for search by other users</string>
     <string name="if_you_want">If you want your ad to appear in the \"Featured\" section, please contact us at admin Classfieds@aaonri.com</string>
     <string name="please_review_your_information">Please review your information, you will\n not be able to update the changes once\n the Ad is approved by the aaonri administrator.</string>
     <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms of use and our Privacy Policy</string>
     <string name="congratulations_you_have_successfully_posted_your_classified">Congratulations\n You have successfully posted your Classified</string>
     <string name="if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com">If a user wishes to make an ad Popular/Hot\n Please email to admin@aaonri.com</string>
-    <string name="view_your_classified">VIEW YOUR CLASSIFIED</string>
+    <string name="view_your_classified">VIEW YOUR CLASSIFIEDS</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="apply">APPLY</string>
     <string name="clear_all">CLEAR ALL</string>

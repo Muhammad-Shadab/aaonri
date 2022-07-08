@@ -309,7 +309,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 )
             })
             uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
-            removeBorder(0)
+            changeCardViewBg(0)
             if (showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.remove(image1Uri.toUri())
             }
@@ -326,7 +326,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 showingImagesList.remove(image2Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
-            removeBorder(1)
+            changeCardViewBg(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
@@ -340,7 +340,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 showingImagesList.remove(image3Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
-            removeBorder(2)
+            changeCardViewBg(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
@@ -354,7 +354,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 showingImagesList.remove(image4Uri.toUri())
             }
             uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
-            removeBorder(3)
+            changeCardViewBg(3)
             image4Uri = ""
             image4 = true
         }
@@ -362,7 +362,7 @@ class UploadClassifiedPicFragment : Fragment() {
         if (image1Uri.isEmpty() && image2Uri.isEmpty() && image3Uri.isEmpty() && image4Uri.isEmpty()) {
             uploadClassifiedBinding?.selectedImage?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
-                    it1, R.drawable.ic_image_placeholder
+                    it1, R.drawable.ic_imageview_placeholder
                 )
             })
         }
@@ -398,61 +398,11 @@ class UploadClassifiedPicFragment : Fragment() {
                 uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(0)
             }
+        }else{
+            changeCardViewBg(4)
         }
     }
 
-    private fun removeBorder(index: Int) {
-        when (index) {
-            0 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-            1 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-            2 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-            3 -> {
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.white
-                    )
-                }?.let { it2 ->
-                    uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
-                        it2
-                    )
-                }
-            }
-        }
-    }
 
     private fun changeCardViewBg(selectedImageIndex: Int) {
 
@@ -463,7 +413,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
+                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -473,48 +423,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 1) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.blueBtnColor
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
+                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -525,80 +434,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 2) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.blueBtnColor
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
-                    it2
-                )
-            }
-        } else if (selectedImageIndex == 3) {
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage1?.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage2?.setBackgroundColor(
+                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -609,7 +445,19 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage3?.setBackgroundColor(
+                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else if (selectedImageIndex == 1 && image2Uri.isNotEmpty()) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -619,7 +467,159 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImage4?.setBackgroundColor(
+                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else if (selectedImageIndex == 2 && image3Uri.isNotEmpty()) {
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+
+        }
+        else if (selectedImageIndex == 3 && image4Uri.isNotEmpty()) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                    it2
+                )
+            }
+        }
+        else {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }

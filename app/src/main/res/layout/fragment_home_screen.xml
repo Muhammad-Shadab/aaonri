@@ -63,31 +63,72 @@
         app:layout_constraintStart_toEndOf="@id/locationIcon"
         app:layout_constraintTop_toTopOf="@+id/locationIcon" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/profilePicCv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginEnd="@dimen/_4sdp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="@id/homeTv"
         app:layout_constraintEnd_toStartOf="@+id/bellIconIv"
-        app:layout_constraintTop_toTopOf="@id/homeTv"
-        app:strokeColor="@color/white"
-        app:strokeWidth="@dimen/_1sdp">
+        app:layout_constraintTop_toTopOf="@id/homeTv">
 
         <ImageView
             android:id="@+id/profilePicIv"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeTv">
+
+        <EditText
+            android:id="@+id/searchViewEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/bellIconIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
@@ -95,12 +136,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />
 
-    <EditText
+    <!--<EditText
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/edit_text_shape"
         android:clickable="true"
         android:drawableRight="@drawable/ic_icon_search"
@@ -116,7 +157,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTv" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTv" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"

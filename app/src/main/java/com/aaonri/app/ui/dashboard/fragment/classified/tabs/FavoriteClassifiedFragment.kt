@@ -33,7 +33,7 @@ class FavoriteClassifiedFragment : Fragment() {
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
 
         favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
-            postClassifiedViewModel.setSendFavoriteDataToClassifiedDetails(it)
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
@@ -44,7 +44,7 @@ class FavoriteClassifiedFragment : Fragment() {
             }
 
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 40, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
         }
 
 
@@ -58,8 +58,10 @@ class FavoriteClassifiedFragment : Fragment() {
 
                     if (response.data?.classifieds?.isNotEmpty() == true) {
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
+                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
                         response.data.classifieds.let { favoriteClassifiedAdapter!!.setData(it) }
                     } else {
+                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 

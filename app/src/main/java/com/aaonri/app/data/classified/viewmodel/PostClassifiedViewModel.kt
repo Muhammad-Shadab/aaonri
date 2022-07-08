@@ -49,7 +49,7 @@ class PostClassifiedViewModel @Inject constructor(
     var isAgreeToAaonri: Boolean = false
         private set
 
-    var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
+    var sendDataToClassifiedDetailsScreen: MutableLiveData<Int> = MutableLiveData()
         private set
 
     var sendFavoriteDataToClassifiedDetails: MutableLiveData<Classified> = MutableLiveData()
@@ -79,6 +79,8 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
+
+    var clickOnClearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
 
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
@@ -182,7 +184,7 @@ class PostClassifiedViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
-    fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
+    fun setSendDataToClassifiedDetailsScreen(value: Int) {
         sendDataToClassifiedDetailsScreen.postValue(value)
     }
 
@@ -201,10 +203,6 @@ class PostClassifiedViewModel @Inject constructor(
     fun setFilterData(value: MutableList<String>) {
         filterSelectedDataList.postValue(value)
     }
-
-
-
-
 
 
 
@@ -266,6 +264,12 @@ class PostClassifiedViewModel @Inject constructor(
     fun setClickedOnFilter(value: Boolean) {
         clickedOnFilter.postValue(value)
     }
+
+    fun setClickOnClearAllFilter(value: Boolean)
+    {
+        clickOnClearAllFilter.postValue(value)
+    }
+
 
     fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
         selectedClassifiedCategory.postValue(value)

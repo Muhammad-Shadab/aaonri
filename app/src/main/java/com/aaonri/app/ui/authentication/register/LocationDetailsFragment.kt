@@ -50,7 +50,6 @@ class LocationDetailsFragment : Fragment() {
         selectedCommunityAdapter = SelectedCommunityAdapter()
 
 
-
         /*authCommonViewModel.selectedCountryAddressScreen?.observe(viewLifecycleOwner)*/
 
         /*if (!isCountrySelected) {
@@ -140,7 +139,6 @@ class LocationDetailsFragment : Fragment() {
                     findNavController().navigateUp()
                     authCommonViewModel.selectedCommunityList.value?.clear()
                     authCommonViewModel.setSelectedCountryLocationScreen("","","")
-
                 }
             })
         return locationDetailsBinding?.root
@@ -187,7 +185,4 @@ class LocationDetailsFragment : Fragment() {
             }
         }
     }
-
-
-
 }
