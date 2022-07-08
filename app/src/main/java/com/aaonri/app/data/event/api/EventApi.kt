@@ -1,5 +1,6 @@
 package com.aaonri.app.data.event.api
 
+import com.aaonri.app.data.classified.model.ClassifiedAdDetailsResponse
 import com.aaonri.app.data.event.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,6 +14,11 @@ interface EventApi {
 
     @GET("/api/v1/eventcategory/findAllActiveCategories")
     suspend fun getEventActiveCategory(): Response<EventCategoryResponse>
+
+    @GET("/api/v1/event/view/{eventId}")
+    suspend fun getEventDetails(
+        @Path("eventId") eventId: Int
+    ): Response<EventDetailsResponse>
 
     @POST("/api/v1/event/search")
     suspend fun getAllEvent(

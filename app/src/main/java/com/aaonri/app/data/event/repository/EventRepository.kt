@@ -23,5 +23,5 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
         eventId: RequestBody,
         delImageIds: RequestBody
     ) = eventApi.uploadEventPicture(files, eventId, delImageIds)
-
+    suspend fun getEventDetails(eventID : Int) = eventApi.getEventDetails(eventID)
 }

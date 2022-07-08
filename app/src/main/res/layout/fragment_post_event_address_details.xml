@@ -47,7 +47,6 @@
                 android:hint="@string/address_line_2"
                 android:inputType="text"
                 android:lines="1"
-                android:maxLength="6"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingTop="@dimen/_6sdp"

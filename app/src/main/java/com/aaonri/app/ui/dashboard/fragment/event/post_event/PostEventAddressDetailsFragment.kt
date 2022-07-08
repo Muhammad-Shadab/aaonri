@@ -38,8 +38,6 @@ class PostEventAddressDetailsFragment : Fragment() {
 
 
         if (!postEventViewModel.isEventOffline) {
-            Toast.makeText(context, "${postEventViewModel.isEventOffline}", Toast.LENGTH_SHORT)
-                .show()
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
         }
 
@@ -189,7 +187,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = "2022-02-21",//postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_CITY]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_CITY]!! else "",
                 favorite = false,
@@ -199,7 +197,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = "2022-02-21",//postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,

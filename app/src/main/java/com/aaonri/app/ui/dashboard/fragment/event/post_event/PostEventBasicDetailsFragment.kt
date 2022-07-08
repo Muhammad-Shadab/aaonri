@@ -33,8 +33,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
     var isDateValid = false
 
-    var selectedDate1  = ""
-    var selectedDate2  = ""
+    var selectedDate  = ""
     var startTime = ""
     var endTime = ""
     var startDate = ""
@@ -261,14 +260,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                     {
                         seletedDay="0$dayOfMonth"
                     }
+                    selectedDate = "${year}-${selectedMonth}-${seletedDay}"
                  if(isStartdate)
                  {
-                    selectedDate1 = "${year}-${selectedMonth}-${seletedDay}"
+
                      endDate = ""
                      postEventBinding?.selectEndDate?.text = ""
+                     startDate=selectedDate
                  }
                     else{
-                     selectedDate2 = "${year}-${selectedMonth}-${seletedDay}"
+                     endDate=selectedDate
                     }
 
                 },
@@ -278,41 +279,29 @@ class PostEventBasicDetailsFragment : Fragment() {
             )
         }
         if(isStartdate) {
-            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000;
-            //this is startDate
-            startDate=selectedDate1
+            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000
         }
         else{
-            val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate1)
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
             datepicker?.datePicker?.minDate =  date.time- 1000 +(1000*60*60*24)
 
-            //this is for enddDate
-            endDate=selectedDate2
         }
         datepicker?.show()
     }
 
     private fun getSelectedTime(selectStartTime: TextView, isStartTime: Boolean) {
         var ampm = ""
+        var getMinute=""
         var hoursOfTheDay: Int
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
         val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
         val minute = mcurrentTime.get(Calendar.MINUTE)
-
         mTimePicker = TimePickerDialog(
             context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
-                if(isStartTime)
-                {
-                    //this is for startTime
-                    startTime="$hourOfDay:$minute"
-                }
-                else{
-                    //this is for  endTime
-                    endTime="$hourOfDay:$minute"
-                }
+
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -326,10 +315,25 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                selectStartTime.text = "$hoursOfTheDay:$minute $ampm"
+                if(minute<10)
+                {
+                    getMinute="0$minute"
+                }
+                else{
+                    getMinute="$minute"
+                }
+                selectStartTime.text = "$hoursOfTheDay:$getMinute $ampm"
+                if(isStartTime)
+                {
+                    //this is for startTime
+                    startTime="$hourOfDay:$getMinute"
+                }
+                else{
+                    //this is for  endTime
+                    endTime="$hourOfDay:$getMinute"
+                }
             }, hour, minute, false
         )
-
         mTimePicker.show()
 
     }
