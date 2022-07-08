@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_classifiedDetailsFragment"
             app:destination="@id/classifiedDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"

@@ -81,10 +81,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                             postEventViewModel.setEventBasicDetails(
                                                                 eventTitle = titleEvent.text.toString(),
                                                                 eventCategory = selectCategoryEvent.text.toString(),
-                                                                eventStartDate = selectstartDate.text.toString(),
-                                                                eventStartTime = selectStartTime.text.toString(),
-                                                                eventEndDate = selectEndDate.text.toString(),
-                                                                eventEndTime = selectEndTime.text.toString(),
+                                                                eventStartDate = startDate,
+                                                                eventStartTime = startTime,
+                                                                eventEndDate = endDate,
+                                                                eventEndTime = endTime,
                                                                 eventTimeZone = eventTimezone.text.toString(),
                                                                 eventFee = askingFee.text.toString(),
                                                                 eventDesc = eventDescEt.text.toString()
@@ -129,6 +129,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             }
             selectstartDate.setOnClickListener {
                 getSelectedDate(selectstartDate,true)
+
             }
             selectEndDate.setOnClickListener {
                 if(selectstartDate.text.isNotEmpty())
@@ -159,19 +160,19 @@ class PostEventBasicDetailsFragment : Fragment() {
                         }
                 }
             }
-            selectEndDate.addTextChangedListener {
-                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
-                        .isNotEmpty()
-                ) {
-                    isDateValid =
-                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
-                            showAlert("End Date should be more then Current Date.")
-                            false
-                        } else {
-                            true
-                        }
-                }
-            }
+//            selectEndDate.addTextChangedListener {
+//                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+//                        .isNotEmpty()
+//                ) {
+//                    isDateValid =
+//                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+//                            showAlert("End Date should be more then Current Date.")
+//                            false
+//                        } else {
+//                            true
+//                        }
+//                }
+//            }
 
             offlineRadioBtn.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
@@ -248,23 +249,28 @@ class PostEventBasicDetailsFragment : Fragment() {
                 it1,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
-
                     selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
-                 if(isStartdate)
-                 {
                     selectedMonth={monthOfYear+1}.toString()
                     seletedDay=dayOfMonth.toString()
-                   if(monthOfYear+1<10)
-                   {
-                      selectedMonth="0${monthOfYear+1}"
-                   }
+                    if(monthOfYear+1<10)
+                    {
+                        selectedMonth="0${monthOfYear+1}"
+                    }
                     if(dayOfMonth<10)
                     {
                         seletedDay="0$dayOfMonth"
                     }
+                    selectedDate = "${year}-${selectedMonth}-${seletedDay}"
+                 if(isStartdate)
+                 {
 
-                    selectedDate = "${seletedDay}-${selectedMonth}-${year}"
+                     endDate = ""
+                     postEventBinding?.selectEndDate?.text = ""
+                     startDate=selectedDate
                  }
+                    else{
+                     endDate=selectedDate
+                    }
 
                 },
                 year,
@@ -273,41 +279,29 @@ class PostEventBasicDetailsFragment : Fragment() {
             )
         }
         if(isStartdate) {
-            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000;
-            //this is startDate
-            startDate=selectedDate
+            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000
         }
         else{
-            val date = SimpleDateFormat("dd-MM-yyyy").parse(selectedDate)
-            datepicker?.datePicker?.minDate =  date.time- 1000 + (1000 * 60 * 60 * 24*2)
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
+            datepicker?.datePicker?.minDate =  date.time- 1000 +(1000*60*60*24)
 
-            //this is for enddDate
-            endDate=selectedDate
         }
         datepicker?.show()
     }
 
     private fun getSelectedTime(selectStartTime: TextView, isStartTime: Boolean) {
         var ampm = ""
+        var getMinute=""
         var hoursOfTheDay: Int
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
         val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
         val minute = mcurrentTime.get(Calendar.MINUTE)
-
         mTimePicker = TimePickerDialog(
             context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
-                if(isStartTime)
-                {
-                    //this is for startTime
-                    startTime="$hourOfDay:$minute"
-                }
-                else{
-                    //this is for  endTime
-                    endTime="$hourOfDay:$minute"
-                }
+
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -321,10 +315,25 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                selectStartTime.text = "$hoursOfTheDay:$minute $ampm"
+                if(minute<10)
+                {
+                    getMinute="0$minute"
+                }
+                else{
+                    getMinute="$minute"
+                }
+                selectStartTime.text = "$hoursOfTheDay:$getMinute $ampm"
+                if(isStartTime)
+                {
+                    //this is for startTime
+                    startTime="$hourOfDay:$getMinute"
+                }
+                else{
+                    //this is for  endTime
+                    endTime="$hourOfDay:$getMinute"
+                }
             }, hour, minute, false
         )
-
         mTimePicker.show()
 
     }

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.databinding.FragmentRecentEventBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,7 +59,10 @@ class RecentEventFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        eventViewModel.getRecentEvent("saifshadab08@gmail.com")
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        if (email != null) {
+            eventViewModel.getRecentEvent(email)
+        }
     }
 
 }

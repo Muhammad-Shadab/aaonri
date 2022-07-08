@@ -234,7 +234,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
 
-        postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+   /*     postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
 
             classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
             classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
@@ -256,11 +256,11 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
 
-        }
+        }*/
 
         classifiedDetailsBinding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                if (index == 1) {
+                if (index == 0) {
                     classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}") {
                     }
                     changeCardViewBorder(0)
