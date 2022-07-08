@@ -127,8 +127,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
                 val phoneNumber = phoneNumberAddressDetails.text.trim().toString().replace("-", "")
 
-
-                if (cityNameAddressDetails.text.trim().toString().length >= 3
+                if (cityNameAddressDetails.text.trim().toString().length >= 2
                 ) {
                     if (zipCodeAddressDetails.text.trim().toString().length >= 5) {
                         if (emailRadioBtn.isChecked) {
@@ -259,7 +258,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
                     }
-
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {

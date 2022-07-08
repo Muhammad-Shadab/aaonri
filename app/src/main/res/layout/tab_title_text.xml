@@ -6,8 +6,8 @@
     android:background="@drawable/tab_background_selector"
     android:gravity="center"
     android:fontFamily="@font/sf_pro_semi_bold"
-    android:paddingHorizontal="@dimen/_12sdp"
-    android:paddingVertical="@dimen/_6sdp"
+    android:paddingHorizontal="@dimen/_8sdp"
+    android:paddingVertical="@dimen/_4sdp"
     android:text="title"
     android:textColor="@drawable/tab_text_selector"
     android:textSize="12sp">

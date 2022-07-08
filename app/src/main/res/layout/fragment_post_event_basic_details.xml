@@ -1,298 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.event.post_event.PostEventBasicDetailsFragment">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
 
-        >
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/graycolor"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="6dp"
-    app:cardElevation="@dimen/_2sdp"
-    >
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_20sdp"
-        android:paddingVertical="@dimen/_12sdp"
-        >
-        <RadioButton
-            android:id="@+id/offlineRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/custom_radio_btn"
-            android:buttonTint="@drawable/custom_radio_btn"
-            android:checked="true"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
-
-        <TextView
-            android:id="@+id/offlinetv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Offline Event"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_marginLeft="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/graycolor"
-            app:cardCornerRadius="4dp"
-            android:layout_margin="6dp"
-            app:cardElevation="@dimen/_2sdp"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/_20sdp"
-                android:paddingVertical="@dimen/_12sdp"
-                >
-                <RadioButton
-                    android:id="@+id/onlineRdaioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/custom_radio_btn"
-                    android:buttonTint="@drawable/custom_radio_btn"
-                    android:checked="true"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
-
-                <TextView
-                    android:id="@+id/emailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Online Event"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </RadioGroup>
-    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/titleEvent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="@string/title_of_your_event"
-                android:textSize="16sp"
-                android:inputType="text"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
-
-
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/offlineRadioBtnCardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            app:cardBackgroundColor="@color/graycolor"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="@dimen/_3sdp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_12sdp">
+
+                                <RadioButton
+                                    android:id="@+id/offlineRadioBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:button="@drawable/custom_radio_btn"
+                                    android:buttonTint="@drawable/custom_radio_btn"
+                                    android:checked="true"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp" />
+
+                                <TextView
+                                    android:id="@+id/offlinetv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Offline Event"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/onlineRadioBtnCardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:layout_marginLeft="8dp"
+                            app:cardBackgroundColor="@color/graycolor"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="@dimen/_2sdp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_12sdp">
+
+                                <RadioButton
+                                    android:id="@+id/onlineRdaioBtn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:button="@drawable/custom_radio_btn"
+                                    android:buttonTint="@drawable/custom_radio_btn"
+                                    android:checked="false"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp" />
+
+                                <TextView
+                                    android:id="@+id/emailTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:text="Online Event"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                <EditText
+                    android:id="@+id/titleEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:hint="@string/title_of_your_event"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp" />
+
 
                 <TextView
                     android:id="@+id/selectCategoryEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/select_category"
+                    android:hint="Select Category"
                     android:lines="1"
                     android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/selectstartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/start_date"
                     android:lines="1"
                     android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/calendar" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/selectStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/start_time"
                     android:lines="1"
                     android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/clock" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/selectEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/end_date"
                     android:lines="1"
                     android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/calendar" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/selectEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/end_time"
                     android:lines="1"
                     android:maxLines="1"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/clock" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:orientation="horizontal">
-
                 <TextView
-                    android:id="@+id/Askingfee"
+                    android:id="@+id/eventTimezone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:hint="Timezone"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:textColor="@color/editTextColor"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="16sp"
+                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
+
+                <EditText
+                    android:id="@+id/askingFee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:drawablePadding="@dimen/_4sdp"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/asking_fee_in"
+                    android:inputType="numberDecimal"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_12sdp"
@@ -303,92 +278,80 @@
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
                     app:drawableLeftCompat="@drawable/dollor"
-                    android:drawablePadding="@dimen/_4sdp"
+
                     />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-               android:gravity="center_vertical"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/isFreeEntryCheckBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:background="@color/white"
-                    android:button="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkbox"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
+                    <CheckBox
+                        android:id="@+id/isFreeEntryCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:background="@color/white"
+                        android:button="@drawable/custom_checkbox"
+                        android:buttonTint="@drawable/custom_checkbox"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:text="Free Entry"
+                        android:textColor="@color/darkGrayColor"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/eventDescEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginHorizontal="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/multiline_textfield_shape"
+                    android:ems="10"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:text="Free Entry"
-                    android:textColor="@color/darkGrayColor"
-                    android:textSize="15sp" />
+                    android:gravity="left"
+                    android:hint="@string/please_describe_about_the_event"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addressDetailsNextBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:layout_marginBottom="@dimen/_28sdp"
+                    android:background="@drawable/green_btn_shape"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:minHeight="0dp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="@string/next"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
 
             </LinearLayout>
-            <EditText
-                android:id="@+id/EventDescEt"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_marginHorizontal="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/multiline_textfield_shape"
-                android:ems="10"
-                android:fontFamily="@font/sf_pro_regular"
-                android:gravity="left"
-                android:hint="@string/please_describe_about_the_event"
-                android:inputType="textMultiLine|textCapSentences"
-                android:maxLength="2000"
-                android:paddingHorizontal="@dimen/_12sdp"
-                android:paddingVertical="@dimen/_8sdp"
-                android:textSize="16sp"
-                tools:ignore="RtlHardcoded" />
-            <TextView
-                android:id="@+id/descLength"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:text="0/2000"
-                android:textColor="@color/hintColor"
-                android:textSize="12sp"
-                android:visibility="visible" />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addressDetailsNextBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:background="@drawable/green_btn_shape"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:minHeight="0dp"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingBottom="@dimen/_4sdp"
-                android:text="@string/next"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
 
+        </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

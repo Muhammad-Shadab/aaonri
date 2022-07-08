@@ -17,10 +17,29 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+    def BASE_URL = "BASE_URL"
+
+    flavorDimensions "dev"
+
+    productFlavors{
+
+        dev{
+            dimension "dev"
+            applicationIdSuffix ".dev"
+            buildConfigField "String", BASE_URL, '"http://aaonridevnew.aaonri.com:8444"'
+        }
+
+        production{
+            dimension "dev"
+            applicationIdSuffix ""
+            buildConfigField "String", BASE_URL, '"https://aaonri.com"'
+        }
+    }
+
 
     buildTypes {
         release {
@@ -104,12 +123,18 @@ dependencies {
 
     //Glide image loading
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // bottom navigation
-    implementation 'com.github.Kwasow:BottomNavigationCircles-Android:1.2'
+    //country code picker
+    implementation 'com.hbb20:ccp:2.2.2'
+
+    //TextEditor for text (description)
+
+    implementation 'com.github.onecode369:WYSIWYG:4.0'
+
 
 }

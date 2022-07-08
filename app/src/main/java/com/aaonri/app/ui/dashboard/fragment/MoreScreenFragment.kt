@@ -24,25 +24,6 @@ class MoreScreenFragment : Fragment() {
     ): View? {
         moreScreenBinding = FragmentMoreScreenBinding.inflate(inflater, container, false)
 
-        moreScreenBinding?.apply {
-            logOutBtn.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout")
-                builder.setPositiveButton("OK") { dialog, which ->
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, "")
-                    val intent = Intent(context, LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }
-                builder.setNegativeButton("Cancel") { dialog, which ->
-
-                }
-                builder.show()
-            }
-        }
-
          dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
              if (it) {
                  moreScreenBinding?.logOutBtn?.visibility = View.GONE
@@ -50,6 +31,34 @@ class MoreScreenFragment : Fragment() {
                  moreScreenBinding?.logOutBtn?.visibility = View.VISIBLE
              }
          }
+
+        moreScreenBinding?.apply {
+
+            logOutBtn.setOnClickListener {
+              val builder = AlertDialog.Builder(context)
+              builder.setTitle("Confirm")
+              builder.setMessage("Are you sure you want to Logout")
+              builder.setPositiveButton("OK") { dialog, which ->
+
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_EMAIL, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_ZIP_CODE, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_CITY, "")
+                  context?.let { it1 -> PreferenceManager<String>(it1) }
+                      ?.set(Constant.USER_STATE, "")
+
+                  val intent = Intent(context, LoginActivity::class.java)
+                  startActivity(intent)
+                  activity?.finish()
+              }
+              builder.setNegativeButton("Cancel") { dialog, which ->
+
+              }
+              builder.show()
+          }
+        }
 
         return moreScreenBinding?.root
     }

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
@@ -20,13 +19,14 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
-    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     override fun onCreateView(
@@ -36,13 +36,13 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
         allClassifiedAdapter = AllClassifiedAdapter {
-            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it)
+            postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
-            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 42, 40))
+            recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -54,6 +54,14 @@ class AllClassifiedFragment : Fragment() {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
                     response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
+                    if (response.data?.userAdsList?.isEmpty() == true) {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "No result found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
@@ -66,8 +74,6 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-
-
         return allClassifiedBinding?.root
     }
 
@@ -78,16 +84,20 @@ class AllClassifiedFragment : Fragment() {
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (bundle.getBoolean("filterEnabled")) {
-                    var minValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
-                    var maxValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
-                    val zipCodeFilter = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
-                    val keyword = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
-                    if(minValue?.isEmpty() ==true){
-                        minValue ="0"
+                    var minValue =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
+                    var maxValue =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
+                    val zipCodeFilter =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+                    val keyword =
+                        context?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
+                    if (minValue?.isEmpty() == true) {
+                        minValue = "0"
                     }
 
-                    if(maxValue?.isEmpty() ==true){
-                        maxValue ="0"
+                    if (maxValue?.isEmpty() == true) {
+                        maxValue = "0"
                     }
 
                     if (it) {
@@ -106,8 +116,7 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = zipCodeFilter
                             )
                         )
-                    }
-                    else {
+                    } else {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -124,7 +133,7 @@ class AllClassifiedFragment : Fragment() {
                             )
                         )
                     }
-                }else{
+                } else {
                     if (it) {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
@@ -141,8 +150,7 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = ""
                             )
                         )
-                    }
-                    else {
+                    } else {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -161,9 +169,7 @@ class AllClassifiedFragment : Fragment() {
                     }
                 }
             }
-
         }
-
     }
 }
 

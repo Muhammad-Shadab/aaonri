@@ -28,6 +28,14 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val likeDislikeClassifiedData: MutableLiveData<Resource<LikeDislikeClassifiedResponse>> =
         MutableLiveData()
 
+    val classifiedSellerNameData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+        MutableLiveData()
+
+    val classifiedAdDetailsData : MutableLiveData<Resource<ClassifiedAdDetailsResponse>> = MutableLiveData()
+
+    val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
+        MutableLiveData()
+
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.getAllUserAdsClassified(email)
@@ -90,5 +98,50 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         }
         return Resource.Error(response.message())
     }
+
+    fun getClassifiedSellerName(email: String) = viewModelScope.launch {
+        classifiedSellerNameData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedSellerName(email)
+        classifiedSellerNameData.postValue(handleClassifiedSellerNameResponse(response))
+    }
+
+    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+
+        return Resource.Error(response.message())
+    }
+
+    fun getClassifiedAdDetails(addId : Int) = viewModelScope.launch {
+        classifiedAdDetailsData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedAddDetails(addId)
+        classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
+    }
+
+    private fun handleClassifiedAdDetails(response: Response<ClassifiedAdDetailsResponse>): Resource<ClassifiedAdDetailsResponse>? {
+      if(response.isSuccessful)
+          response.body()?.let {
+              return Resource.Success(it)
+          }
+        return Resource.Error(response.message())
+    }
+
+    fun getClassifiedLikeDislikeInfo(email: String, addId: Int, service: String) =
+        viewModelScope.launch {
+            classifiedLikeDislikeInfoData.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedLikeDislikeInfo(email, addId, service)
+            classifiedLikeDislikeInfoData.postValue(handleClassifiedLikeDislikeInfoResponse(response))
+        }
+
+    private fun handleClassifiedLikeDislikeInfoResponse(response: String): Resource<String>? {
+        if (response.isNotEmpty()) {
+            return Resource.Success(response)
+        }
+        return Resource.Error("Empty")
+    }
+
 
 }

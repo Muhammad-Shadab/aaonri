@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.dashboard.fragment.event.post_event.ViewEventDetailsFragment">
+    tools:context=".ui.dashboard.fragment.event.post_event.EventDetailsScreenFragment">
     <ImageView
         android:id="@+id/addImage"
         android:layout_width="match_parent"
@@ -462,7 +462,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="EventDescTv"
+                    android:text="desc"
                     android:textColor="#333333"
                     android:textSize="12sp"/>
             </LinearLayout>

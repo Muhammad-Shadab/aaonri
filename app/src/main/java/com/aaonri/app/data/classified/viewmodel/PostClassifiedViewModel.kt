@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
@@ -48,7 +49,7 @@ class PostClassifiedViewModel @Inject constructor(
     var isAgreeToAaonri: Boolean = false
         private set
 
-    var sendDataToClassifiedDetailsScreen: MutableLiveData<UserAds> = MutableLiveData()
+    var sendDataToClassifiedDetailsScreen: MutableLiveData<Int> = MutableLiveData()
         private set
 
     var sendFavoriteDataToClassifiedDetails: MutableLiveData<Classified> = MutableLiveData()
@@ -79,6 +80,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
 
+    var clickOnClearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
+
     /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
         private set*/
 
@@ -99,6 +102,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
+
+
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -179,7 +184,7 @@ class PostClassifiedViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
-    fun setSendDataToClassifiedDetailsScreen(value: UserAds) {
+    fun setSendDataToClassifiedDetailsScreen(value: Int) {
         sendDataToClassifiedDetailsScreen.postValue(value)
     }
 
@@ -198,6 +203,8 @@ class PostClassifiedViewModel @Inject constructor(
     fun setFilterData(value: MutableList<String>) {
         filterSelectedDataList.postValue(value)
     }
+
+
 
     /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
          uploadImagesData.postValue(Resource.Loading())
@@ -235,7 +242,7 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
-        listOfImagesUri.addAll(uploadedImagesList)
+        listOfImagesUri = uploadedImagesList
     }
 
     fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
@@ -258,6 +265,12 @@ class PostClassifiedViewModel @Inject constructor(
         clickedOnFilter.postValue(value)
     }
 
+    fun setClickOnClearAllFilter(value: Boolean)
+    {
+        clickOnClearAllFilter.postValue(value)
+    }
+
+
     fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
         selectedClassifiedCategory.postValue(value)
     }
@@ -265,5 +278,4 @@ class PostClassifiedViewModel @Inject constructor(
     fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
         selectedSubClassifiedCategory.postValue(value)
     }
-
 }

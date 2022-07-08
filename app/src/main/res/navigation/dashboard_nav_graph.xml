@@ -67,10 +67,35 @@
         android:id="@+id/classifiedDetailsFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment"
         android:label="fragment_classified_details"
-        tools:layout="@layout/fragment_classified_details"></fragment>
+        tools:layout="@layout/fragment_classified_details">
+        <action
+            android:id="@+id/action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom"
+            app:destination="@id/updateDeleteClassifiedBottom" />
+        <argument
+            android:name="addId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/eventScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.EventScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.EventScreenFragment"
         android:label="fragment_event_screen"
-        tools:layout="@layout/fragment_event_screen" />
+        tools:layout="@layout/fragment_event_screen" >
+        <action
+            android:id="@+id/action_eventScreenFragment_to_classifiedFilterFragmentBottom"
+            app:destination="@id/classifiedFilterFragmentBottom" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailsScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventDetailsScreenFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/fragment_event_details" />
+    <dialog
+        android:id="@+id/updateDeleteClassifiedBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"
+        android:label="fragment_update_delete_classified_bottom"
+        tools:layout="@layout/fragment_update_delete_classified_bottom" />
+>>>>>>> feac20f59f1b79deaa4b549e5e44e9938bbe470b
 </navigation>

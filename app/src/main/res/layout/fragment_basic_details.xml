@@ -52,7 +52,7 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/first_name"
                 android:inputType="textCapSentences"
                 android:lines="1"
@@ -85,7 +85,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/last_name"
                 android:inputType="textCapSentences"
                 android:lines="1"
@@ -144,7 +144,6 @@
                 android:textColor="#FF0000"
                 android:textSize="@dimen/_10sdp"
                 android:visibility="gone" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -212,7 +211,7 @@
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:background="@drawable/green_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"
@@ -225,9 +224,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/person"
-                android:translationY="90dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:src="@drawable/person" />
 
         </LinearLayout>
 
@@ -237,6 +236,7 @@
         android:id="@+id/progressBarBasicDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
