@@ -1,17 +1,14 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventTimeZoneBottomBinding
-import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventCategoryAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventTimeZoneAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
