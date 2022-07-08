@@ -62,15 +62,16 @@
 
         <ImageView
             android:id="@+id/profilePicIv"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
     <ImageView
         android:id="@+id/bellIconIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
@@ -303,7 +304,7 @@
                     android:id="@+id/eventsJobsHorizontalScroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:scrollbars="none"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -466,7 +467,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:elevation="@dimen/_6sdp"
                     android:visibility="visible"
                     app:cardBackgroundColor="@color/white"
@@ -854,7 +856,7 @@
                     android:id="@+id/immigrantsHorizontalTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:scrollbars="none"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1061,6 +1063,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_4sdp"
                             android:src="@drawable/arrow_forward"
+                            android:visibility="gone"
                             app:tint="@color/blueBtnColor" />
                     </LinearLayout>
 

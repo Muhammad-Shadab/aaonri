@@ -61,6 +61,10 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             }
 
+            seeAllEvents.setOnClickListener {
+                findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
+            }
+
             seeAllClassified.setOnClickListener {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
             }

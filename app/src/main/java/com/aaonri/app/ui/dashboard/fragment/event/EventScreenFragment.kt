@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -23,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EventScreenFragment : Fragment() {
     var eventScreenBinding: FragmentEventScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
-
+    val eventViewModel: EventViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Events", "My Events", "Recent Events")
 
@@ -77,6 +80,11 @@ class EventScreenFragment : Fragment() {
                         searchView.visibility = View.VISIBLE
                         floatingActionBtnEvents.visibility = View.VISIBLE
                     }
+                    if (tab?.position == 1) {
+                        floatingActionBtnEvents.visibility = View.GONE
+                    } else {
+                        floatingActionBtnEvents.visibility = View.VISIBLE
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -97,7 +105,14 @@ class EventScreenFragment : Fragment() {
                     eventsScreenViewPager.isUserInputEnabled = false
                 }
             }
+        }
 
+        eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
+            if (it) {
+                eventScreenBinding?.floatingActionBtnEvents?.visibility = View.GONE
+            } else {
+                eventScreenBinding?.floatingActionBtnEvents?.visibility = View.VISIBLE
+            }
         }
 
         return eventScreenBinding?.root
