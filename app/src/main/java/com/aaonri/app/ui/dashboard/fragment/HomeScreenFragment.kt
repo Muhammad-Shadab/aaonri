@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
@@ -259,7 +258,6 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
-
 
                 }
                 is Resource.Error -> {

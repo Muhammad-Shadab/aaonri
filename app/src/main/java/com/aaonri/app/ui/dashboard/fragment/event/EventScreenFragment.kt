@@ -73,20 +73,14 @@ class EventScreenFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
                         selectedFilters.visibility = View.GONE
-                        filterEvent.visibility = View.GONE
-                        searchView.visibility = View.GONE
-                        floatingActionBtnEvents.visibility = View.GONE
                     } else {
                         selectedFilters.visibility = View.VISIBLE
-                        filterEvent.visibility = View.VISIBLE
-                        searchView.visibility = View.VISIBLE
-                        floatingActionBtnEvents.visibility = View.VISIBLE
                     }
-                    if (tab?.position == 1) {
+                    /*if (tab?.position == 1) {
                         floatingActionBtnEvents.visibility = View.GONE
                     } else {
                         floatingActionBtnEvents.visibility = View.VISIBLE
-                    }
+                    }*/
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -119,7 +113,9 @@ class EventScreenFragment : Fragment() {
         postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postEventViewModel.navigateToClassifiedDetail) {
                 val action =
-                    EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(it)
+                    EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
+                        it
+                    )
                 findNavController().navigate(action)
                 postEventViewModel.setNavigateToClassifiedDetailsScreen(false)
             }

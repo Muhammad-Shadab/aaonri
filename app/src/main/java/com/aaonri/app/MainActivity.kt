@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
             //
 
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.classifiedDetailsFragment || destination.id == R.id.eventScreenFragment) {
+                if (destination.id == R.id.classifiedDetailsFragment || destination.id == R.id.eventScreenFragment || destination.id == R.id.eventDetailsScreenFragment) {
                     bottomNavigation.visibility = View.GONE
                 } else {
                     bottomNavigation.visibility = View.VISIBLE
@@ -63,7 +63,6 @@ class MainActivity : BaseActivity() {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
         }
-
     }
 
     override fun onResume() {
