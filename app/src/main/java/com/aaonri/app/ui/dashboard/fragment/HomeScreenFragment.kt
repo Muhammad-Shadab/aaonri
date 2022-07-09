@@ -299,50 +299,6 @@ class HomeScreenFragment : Fragment() {
         return homeScreenBinding?.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) { isGuestUser ->
-            if (isGuestUser) {
-                homeViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
-            } else {
-                homeViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
-            }
-        }
-        homeViewModel.getHomeEvent()
-        homeViewModel.getPopularClassified()
-    }
-
     fun View.margin(
         left: Float? = null,
         top: Float? = null,
