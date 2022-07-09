@@ -34,7 +34,6 @@ class ClassifiedScreenFragment : Fragment() {
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
     var noofSelection = 0
-
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +83,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
@@ -132,7 +131,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
@@ -143,7 +142,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             filterClassified.setOnClickListener {
@@ -179,12 +178,13 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             }
         }
-        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
-            if (isClearAll) {
-                noofSelection = 0
-                onNoOfSelectedFilterItem(noofSelection)
+        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner){ isClearAll ->
+            if(isClearAll)
+              {
+                 noofSelection=0
+                OnNoOfSelectedFilterItem(noofSelection)
 
-            }
+                }
         }
         setClassifiedViewPager(false)
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
@@ -199,7 +199,7 @@ class ClassifiedScreenFragment : Fragment() {
                 context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
 
             if (isFilerBtnClicked) {
-                noofSelection = 0
+                  noofSelection=0
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                     // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
@@ -231,7 +231,7 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.filterCv3?.visibility = View.GONE
                     }
 
-                    onNoOfSelectedFilterItem(noofSelection)
+                    OnNoOfSelectedFilterItem(noofSelection)
 
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
@@ -250,20 +250,11 @@ class ClassifiedScreenFragment : Fragment() {
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
                 val action =
-                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
-                        it
-                    )
+                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(it)
                 findNavController().navigate(action)
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
-
-        /* postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
-             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
-                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
-             }
-         }*/
 
         return classifiedScreenBinding?.root
     }
@@ -301,16 +292,15 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.searchViewll?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+                        classifiedScreenBinding?. numberOfSelectedFilterCv?.visibility=View.GONE
                     } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
-                            View.VISIBLE
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
-                        onNoOfSelectedFilterItem(noofSelection)
+                        OnNoOfSelectedFilterItem(noofSelection)
+
                     }
                 }
-
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
                     return
                 }
@@ -322,15 +312,17 @@ class ClassifiedScreenFragment : Fragment() {
 
         }
     }
-
-    fun onNoOfSelectedFilterItem(noofSelection: Int) {
-        if (noofSelection >= 1) {
-            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
-        } else {
-            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+    fun OnNoOfSelectedFilterItem(noofSelection : Int)
+    {
+        if(noofSelection >= 1)
+        {
+        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility=View.VISIBLE
+            classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
+        classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
+        }
+        else{
+            classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
+            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility=View.GONE
         }
     }
 

@@ -101,6 +101,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
 
+            moreClassifiedOption.setOnClickListener {
+                findNavController().navigate(R.id.action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom)
+            }
+
             classifiedSellerEmail.setOnClickListener {
                 if (isEmailAvailable.isNotEmpty()) {
                     val emailIntent = Intent(
