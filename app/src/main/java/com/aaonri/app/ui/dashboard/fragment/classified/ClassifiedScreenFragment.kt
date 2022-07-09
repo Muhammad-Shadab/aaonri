@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,10 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import android.widget.TextView.GONE
-import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,7 +19,6 @@ import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
-import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -261,13 +255,6 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
-
-       /* postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
-            if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
-                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
-            }
-        }*/
 
         return classifiedScreenBinding?.root
     }

@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/moreScreenFragment"
-        android:icon="@drawable/ic_more"
+        android:icon="@drawable/ic_icon_open_menu"
         android:title="More" />
 
 </menu>
