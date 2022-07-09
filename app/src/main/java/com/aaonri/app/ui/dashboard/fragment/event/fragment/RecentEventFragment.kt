@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentRecentEventBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RecentEventFragment : Fragment() {
     val eventViewModel: EventViewModel by viewModels()
-    //val postEventViewModel: PostEventViewModel by activityViewModels()
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     var recentEventBinding: FragmentRecentEventBinding? = null
     var recentAdapter: RecentEventAdapter? = null
     override fun onCreateView(
@@ -28,7 +30,8 @@ class RecentEventFragment : Fragment() {
         recentEventBinding = FragmentRecentEventBinding.inflate(inflater, container, false)
 
         recentAdapter = RecentEventAdapter {
-
+            postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
+            postEventViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         recentEventBinding?.apply {
