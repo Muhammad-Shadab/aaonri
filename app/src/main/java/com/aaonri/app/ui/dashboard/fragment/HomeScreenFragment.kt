@@ -45,6 +45,8 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
+        val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
+
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(it.id)
@@ -57,6 +59,17 @@ class HomeScreenFragment : Fragment() {
         }
 
         homeScreenBinding?.apply {
+
+            if (userCity != null) {
+                if (userCity.isNotEmpty()) {
+                    locationTv.text = userCity
+                    locationTv.visibility = View.VISIBLE
+                    locationIcon.visibility = View.VISIBLE
+                } else {
+                    locationTv.visibility = View.GONE
+                    locationIcon.visibility = View.GONE
+                }
+            }
 
             openEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
@@ -86,7 +99,9 @@ class HomeScreenFragment : Fragment() {
                 eventId.forEachIndexed { index, i ->
                     if (index == 1) {
                         val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                                i
+                            )
                         findNavController().navigate(action)
                     }
                 }
@@ -96,7 +111,9 @@ class HomeScreenFragment : Fragment() {
                 eventId.forEachIndexed { index, i ->
                     if (index == 2) {
                         val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                                i
+                            )
                         findNavController().navigate(action)
                     }
                 }
@@ -106,7 +123,9 @@ class HomeScreenFragment : Fragment() {
                 eventId.forEachIndexed { index, i ->
                     if (index == 3) {
                         val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                                i
+                            )
                         findNavController().navigate(action)
                     }
                 }
