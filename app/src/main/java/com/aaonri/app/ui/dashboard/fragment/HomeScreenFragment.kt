@@ -86,9 +86,27 @@ class HomeScreenFragment : Fragment() {
                 eventId.forEachIndexed { index, i ->
                     if (index == 1) {
                         val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i
-                            )
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
+                        findNavController().navigate(action)
+                    }
+                }
+            }
+
+            eventImage3.setOnClickListener {
+                eventId.forEachIndexed { index, i ->
+                    if (index == 2) {
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
+                        findNavController().navigate(action)
+                    }
+                }
+            }
+
+            eventImage4.setOnClickListener {
+                eventId.forEachIndexed { index, i ->
+                    if (index == 3) {
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(i)
                         findNavController().navigate(action)
                     }
                 }
@@ -144,6 +162,9 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     val images = mutableListOf<Image>()
                     response.data?.userEvent?.get(0)?.let { eventId.add(it.id) }
+                    response.data?.userEvent?.get(1)?.let { eventId.add(it.id) }
+                    response.data?.userEvent?.get(2)?.let { eventId.add(it.id) }
+                    response.data?.userEvent?.get(3)?.let { eventId.add(it.id) }
                     response.data?.userEvent?.forEach { userEvent ->
                         userEvent.images.forEach { image ->
                             if (images.contains(image)) {
