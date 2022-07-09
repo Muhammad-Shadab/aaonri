@@ -316,7 +316,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.postClassified(
             PostClassifiedRequest(
                 active = true,
-                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION]!!,
+                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]!!,
                 adEmail = adEmail,
                 adExpireDT = "2022-02-21T06:57:24.837+0000",
                 adImages = null,
@@ -324,11 +324,11 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 adLocation = cityName,
                 adPhone = adPhone,
                 adThumbnails = null,
-                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE]!!,
+                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE]!!,
                 adZip = zipCode,
                 approved = false,
-                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE]!!.toDouble(),
-                category = postClassifiedViewModel.classifiedCategory,
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE]!!.toDouble(),
+                category = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY]!!,
                 contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
                 createdOn = "2022-02-06T06:57:24.858+0000",
                 delImages = null,
@@ -341,7 +341,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 popularOnAaonri = false,
                 rejected = false,
                 rejectionReson = null,
-                subCategory = postClassifiedViewModel.classifiedSubCategory,
+                subCategory = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]!!,
                 totalFavourite = 0,
                 userAdsImages = listOf(),
                 userId = email.toString()

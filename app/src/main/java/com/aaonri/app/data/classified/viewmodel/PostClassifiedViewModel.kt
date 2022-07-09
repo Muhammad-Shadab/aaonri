@@ -25,6 +25,12 @@ class PostClassifiedViewModel @Inject constructor(
     var navigationForStepper: MutableLiveData<String> = MutableLiveData()
         private set
 
+    var isUpdateClassified = false
+        private set
+
+    var updateClassifiedId = 0
+        private set
+
     var stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
@@ -32,12 +38,6 @@ class PostClassifiedViewModel @Inject constructor(
         MutableLiveData()
 
     var isProductNewCheckBox: Boolean = false
-        private set
-
-    var classifiedCategory: String = ""
-        private set
-
-    var classifiedSubCategory: String = ""
         private set
 
     var classifiedBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
@@ -70,6 +70,9 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
     var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
+
+    val classifiedAdDetailsData: MutableLiveData<Resource<ClassifiedAdDetailsResponse>> =
+        MutableLiveData()
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
@@ -104,7 +107,6 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
 
-
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -129,14 +131,6 @@ class PostClassifiedViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
-    fun addClassifiedCategory(category: String) {
-        classifiedCategory = category
-    }
-
-    fun addClassifiedSubCategory(subCategory: String) {
-        classifiedSubCategory = subCategory
-    }
-
     fun addIsProductNewCheckBox(value: Boolean) {
         isProductNewCheckBox = value
     }
@@ -144,11 +138,15 @@ class PostClassifiedViewModel @Inject constructor(
     fun addClassifiedBasicDetails(
         title: String,
         price: String,
-        adDescription: String
-    ) {
-        classifiedBasicDetailsMap[ClassifiedConstant.TITLE] = title
-        classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE] = price
-        classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION] = adDescription
+        adDescription: String,
+        classifiedCategory: String,
+        classifiedSubCategory: String,
+        ) {
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE] = title
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE] = price
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION] = adDescription
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY] = classifiedCategory
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY] = classifiedSubCategory
     }
 
     fun addClassifiedAddressDetails(
@@ -203,7 +201,6 @@ class PostClassifiedViewModel @Inject constructor(
     fun setFilterData(value: MutableList<String>) {
         filterSelectedDataList.postValue(value)
     }
-
 
 
     /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
@@ -265,8 +262,7 @@ class PostClassifiedViewModel @Inject constructor(
         clickedOnFilter.postValue(value)
     }
 
-    fun setClickOnClearAllFilter(value: Boolean)
-    {
+    fun setClickOnClearAllFilter(value: Boolean) {
         clickOnClearAllFilter.postValue(value)
     }
 
@@ -277,5 +273,27 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
         selectedSubClassifiedCategory.postValue(value)
+    }
+
+    fun setIsUpdateClassified(value: Boolean) {
+        isUpdateClassified = value
+    }
+
+    fun setUpdateClassifiedId(value: Int) {
+        updateClassifiedId = value
+    }
+
+    fun getClassifiedAdDetails(addId: Int) = viewModelScope.launch {
+        classifiedAdDetailsData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedAddDetails(addId)
+        classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
+    }
+
+    private fun handleClassifiedAdDetails(response: Response<ClassifiedAdDetailsResponse>): Resource<ClassifiedAdDetailsResponse>? {
+        if (response.isSuccessful)
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        return Resource.Error(response.message())
     }
 }

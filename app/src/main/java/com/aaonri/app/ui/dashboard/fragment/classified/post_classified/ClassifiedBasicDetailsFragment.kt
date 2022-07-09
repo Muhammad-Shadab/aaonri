@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,6 +32,10 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             FragmentClassifiedBasicDetailsBinding.inflate(inflater, container, false)
 
         postClassifiedViewModel.getClassifiedCategory()
+
+        if (postClassifiedViewModel.isUpdateClassified) {
+            postClassifiedViewModel.getClassifiedAdDetails(postClassifiedViewModel.updateClassifiedId)
+        }
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
@@ -59,13 +64,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked
                                         )
-                                        postClassifiedViewModel.addClassifiedCategory(selectCategoryClassifiedSpinner.text.toString())
-                                        postClassifiedViewModel.addClassifiedSubCategory(selectSubCategoryClassifiedSpinner.text.toString())
+
                                         postClassifiedViewModel.addClassifiedBasicDetails(
                                             title = titleClassifiedEt.text.trim().toString(),
                                             price = priceClassifiedEt.text.trim().toString()
                                                 .replace("$", ""),
-                                            adDescription = classifiedDescEt.text.trim().toString()
+                                            adDescription = classifiedDescEt.text.trim().toString(),
+                                            classifiedCategory = selectCategoryClassifiedSpinner.text.toString(),
+                                            classifiedSubCategory = selectSubCategoryClassifiedSpinner.text.toString()
                                         )
                                         findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_uploadClassifiedPicFragment)
                                     } else {

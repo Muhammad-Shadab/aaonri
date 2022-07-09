@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.util.lruCache
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -63,7 +62,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-            classifiedViewModel.getClassifiedAdDetails(args.addId)
+            postClassifiedViewModel.getClassifiedAdDetails(args.addId)
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
@@ -103,7 +102,11 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                findNavController().navigate(R.id.action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom)
+                val action =
+                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                        args.addId
+                    )
+                findNavController().navigate(action)
             }
 
             classifiedSellerEmail.setOnClickListener {
@@ -136,7 +139,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-        classifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBar?.visibility = View.VISIBLE
