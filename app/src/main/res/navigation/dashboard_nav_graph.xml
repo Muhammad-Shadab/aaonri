@@ -94,7 +94,11 @@
         android:id="@+id/eventDetailsScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventDetailsScreenFragment"
         android:label="fragment_event_details"
-        tools:layout="@layout/fragment_event_details" />
+        tools:layout="@layout/fragment_event_details" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
     <dialog
         android:id="@+id/updateDeleteClassifiedBottom"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"

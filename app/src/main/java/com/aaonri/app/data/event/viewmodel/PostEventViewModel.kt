@@ -23,6 +23,12 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var navigationForStepper: MutableLiveData<String> = MutableLiveData()
         private set
 
+    var navigateToClassifiedDetail = false
+        private set
+
+    var sendDataToClassifiedDetailsScreen: MutableLiveData<Int> = MutableLiveData()
+        private set
+
     var selectedEventCategory: MutableLiveData<EventCategoryResponseItem> = MutableLiveData()
         private set
 
@@ -169,6 +175,14 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
+    }
+
+    fun setSendDataToClassifiedDetailsScreen(value: Int) {
+        sendDataToClassifiedDetailsScreen.postValue(value)
+    }
+
+    fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
+        navigateToClassifiedDetail = value
     }
 
 }

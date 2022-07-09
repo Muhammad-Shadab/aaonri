@@ -37,6 +37,7 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
+    val eventId = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +68,30 @@ class HomeScreenFragment : Fragment() {
 
             seeAllClassified.setOnClickListener {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+            }
+
+            eventImage1.setOnClickListener {
+                eventId.forEachIndexed { index, i ->
+                    if (index == 0) {
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                                i
+                            )
+                        findNavController().navigate(action)
+                    }
+                }
+            }
+
+            eventImage2.setOnClickListener {
+                eventId.forEachIndexed { index, i ->
+                    if (index == 1) {
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                                i
+                            )
+                        findNavController().navigate(action)
+                    }
+                }
             }
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
@@ -118,7 +143,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     val images = mutableListOf<Image>()
-
+                    response.data?.userEvent?.get(0)?.let { eventId.add(it.id) }
                     response.data?.userEvent?.forEach { userEvent ->
                         userEvent.images.forEach { image ->
                             if (images.contains(image)) {

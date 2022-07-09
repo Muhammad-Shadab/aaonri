@@ -17,6 +17,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -27,6 +28,7 @@ class EventScreenFragment : Fragment() {
     var eventScreenBinding: FragmentEventScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Events", "My Events", "Recent Events")
 
@@ -96,7 +98,6 @@ class EventScreenFragment : Fragment() {
                 }
             })
 
-
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
                     floatingActionBtnEvents.visibility = View.GONE
@@ -107,11 +108,20 @@ class EventScreenFragment : Fragment() {
             }
         }
 
-        eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
+        /*eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
             if (it) {
                 eventScreenBinding?.floatingActionBtnEvents?.visibility = View.GONE
             } else {
                 eventScreenBinding?.floatingActionBtnEvents?.visibility = View.VISIBLE
+            }
+        }*/
+
+        postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
+            if (postEventViewModel.navigateToClassifiedDetail) {
+                val action =
+                    EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(it)
+                findNavController().navigate(action)
+                postEventViewModel.setNavigateToClassifiedDetailsScreen(false)
             }
         }
 

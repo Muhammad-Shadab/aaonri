@@ -13,6 +13,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.databinding.FragmentMyEventBinding
 import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyEventFragment : Fragment() {
     val eventViewModel: EventViewModel by activityViewModels()
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     var myEventBinding: FragmentMyEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
     override fun onCreateView(
@@ -33,7 +35,8 @@ class MyEventFragment : Fragment() {
         myEventBinding = FragmentMyEventBinding.inflate(inflater, container, false)
 
         allEventAdapter = AllEventAdapter {
-
+            postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
+            postEventViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         myEventBinding?.apply {

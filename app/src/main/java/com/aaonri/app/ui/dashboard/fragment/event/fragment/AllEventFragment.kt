@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AllEventFragment : Fragment() {
     val eventViewModel: EventViewModel by viewModels()
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     var allEventBinding: FragmentAllEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
     override fun onCreateView(
@@ -27,7 +31,8 @@ class AllEventFragment : Fragment() {
             FragmentAllEventBinding.inflate(inflater, container, false)
 
         allEventAdapter = AllEventAdapter {
-
+            postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
+            postEventViewModel.setNavigateToClassifiedDetailsScreen(true)
         }
 
         allEventBinding?.apply {

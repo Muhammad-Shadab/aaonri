@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RecentEventFragment : Fragment() {
     val eventViewModel: EventViewModel by viewModels()
+    //val postEventViewModel: PostEventViewModel by activityViewModels()
     var recentEventBinding: FragmentRecentEventBinding? = null
     var recentAdapter: RecentEventAdapter? = null
     override fun onCreateView(

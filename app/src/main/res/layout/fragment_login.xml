@@ -299,7 +299,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version: 1.0.2B"
+        android:text="Version: 1.0.2C"
         app:layout_constraintBottom_toTopOf="@id/imageView"
         android:translationY="@dimen/_75sdp"
         android:textSize="10sp"

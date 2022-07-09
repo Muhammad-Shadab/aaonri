@@ -1,17 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
@@ -26,11 +29,13 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
+
 @AndroidEntryPoint
 class EventDetailsScreenFragment : Fragment() {
-
+    val args: EventDetailsScreenFragmentArgs by navArgs()
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val eventViewModel: EventViewModel by viewModels()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +45,7 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding = FragmentEventDetailsBinding.inflate(inflater, container, false)
         evenDetailsBinding?.apply {
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-            eventViewModel.getEventDetails(264)
+            eventViewModel.getEventDetails(args.eventId)
             bottomSheetOuter.peekHeight = 450
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
@@ -176,7 +181,7 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 1) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${ event.images[1].imagePath}") {
+                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[1].imagePath}") {
                     }
                     changeCardViewBorder(1)
                 }
@@ -185,7 +190,7 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.image3?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 2) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${ event.images[2].imagePath}") {
+                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[2].imagePath}") {
                     }
                     changeCardViewBorder(2)
                 }
@@ -193,39 +198,41 @@ class EventDetailsScreenFragment : Fragment() {
         }
         evenDetailsBinding?.image4?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
-                if (index == 3 ) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${ event.images[3].imagePath}") {
+                if (index == 3) {
+                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[3].imagePath}") {
                     }
                     changeCardViewBorder(3)
                 }
             }
         }
-if(event.fee>0) {
-    val random = event.fee
+        if (event.fee > 0) {
+            val random = event.fee
 
-    val df = DecimalFormat("###.00")
-    df.roundingMode = RoundingMode.DOWN
-    val roundoff = df.format(random)
+            val df = DecimalFormat("###.00")
+            df.roundingMode = RoundingMode.DOWN
+            val roundoff = df.format(random)
 
-    evenDetailsBinding?.eventPriceTv?.text = "$$roundoff"
-    }
-        else{
-    evenDetailsBinding?.eventPriceTv?.text = "FREE"
+            evenDetailsBinding?.eventPriceTv?.text = "$$roundoff"
+        } else {
+            evenDetailsBinding?.eventPriceTv?.text = "FREE"
         }
-    evenDetailsBinding?.eventTitle?.text = event.title
-    evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
+        evenDetailsBinding?.eventTitle?.text = event.title
+        evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
         evenDetailsBinding?.locationEventTv?.text = event.city
-    evenDetailsBinding?.eventLocationZip?.text = event.zipCode
-        evenDetailsBinding?.eventCategoryTv?.text = event.category
+        evenDetailsBinding?.eventLocationZip?.text = event.zipCode
+        evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
         evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
-        evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString()
-        evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString()
+        evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() +" going"
+        evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() +" Interested"
 
+        evenDetailsBinding?.premiumLink?.setOnClickListener {
+            //activity?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(event.socialMediaLink)))
+        }
 
-    evenDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.startDate.split("T")[0]))
-    evenDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0]))
+        evenDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.startDate.split("T")[0]))
+        evenDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0]))
 
 //        itemId = data.id
 
@@ -236,6 +243,7 @@ if(event.fee>0) {
         }
 
     }
+
     private fun changeCardViewBorder(selectedImageIndex: Int) {
 
         if (selectedImageIndex == 0) {
