@@ -2,6 +2,7 @@ package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +39,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.getClassifiedCategory()
 
         setData()
-
-        if (postClassifiedViewModel.isUpdateClassified) {
-            postClassifiedViewModel.getClassifiedAdDetails(postClassifiedViewModel.updateClassifiedId)
-        }
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
@@ -150,12 +147,17 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         classifiedDetailsBinding?.titleClassifiedEt?.setText(response.data?.userAds?.adTitle)
                         classifiedDetailsBinding?.priceClassifiedEt?.setText(response.data?.userAds?.askingPrice.toString())
                         classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
-                            response.data?.userAds?.isNew!!
+                            response.data?.userAds?.isNew == true
+
                         classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
-                        response.data.userAds.userAdsImages.forEach {
+                        response.data?.userAds?.userAdsImages?.forEach {
                             uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
-                        postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                        Log.i("onCreateView", "onCreateView: ${response.data?.userAds?.adEmail}")
+
+                        if (uploadedImages.isNotEmpty()) {
+                            postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                        }
                     }
                 }
                 is Resource.Error -> {

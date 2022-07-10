@@ -1,11 +1,9 @@
 package com.aaonri.app.data.classified.viewmodel
 
 import android.net.Uri
-import androidx.compose.runtime.key
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
@@ -15,7 +13,6 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -79,6 +76,8 @@ class PostClassifiedViewModel @Inject constructor(
         MutableLiveData()
 
     val postClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
+
+    val updateClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
     val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
 
@@ -170,6 +169,12 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun addIsAgreeToAaonri(value: Boolean) {
         isAgreeToAaonri = value
+    }
+
+    fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
+        updateClassifiedData.postValue(Resource.Loading())
+        val response = classifiedRepository.upDateClassified(postClassifiedRequest)
+        postClassifiedData.postValue(handlePostClassifiedResponse(response))
     }
 
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {

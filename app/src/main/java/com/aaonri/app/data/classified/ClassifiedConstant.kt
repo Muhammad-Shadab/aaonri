@@ -19,7 +19,6 @@ object ClassifiedConstant {
     const val ADDRESS_DETAILS_ZIP_CODE = "ZIP_CODE"
     const val ADDRESS_DETAILS_EMAIL = "EMAIL"
     const val ADDRESS_DETAILS_PHONE = "PHONE"
-    const val ADDRESS_DETAILS_DESCRIPTION = "DESCRIPTION"
     const val ADDRESS_DETAILS_KEYWORD = "ADDRESS_DETAILS_KEYWORD"
 
     //Constants for filter

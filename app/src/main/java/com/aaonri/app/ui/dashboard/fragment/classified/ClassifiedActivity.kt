@@ -31,9 +31,9 @@ class ClassifiedActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
-        //postClassifiedViewModel.setIsUpdateClassified(isUpdateClassified)
+        postClassifiedViewModel.setIsUpdateClassified(isUpdateClassified)
+        postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
 
-        //postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
         if (isUpdateClassified) {
             postClassifiedViewModel.getClassifiedAdDetails(updateClassifiedId)
         }

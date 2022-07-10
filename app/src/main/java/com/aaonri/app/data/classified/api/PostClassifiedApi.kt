@@ -26,5 +26,11 @@ interface PostClassifiedApi {
         @Body postClassifiedRequest: PostClassifiedRequest
     ): Response<PostClassifiedRequest>
 
+    @Headers("Content-Type:application/json")
+    @POST("/api/v1/asd/update")
+    suspend fun updateClassified(
+        @Body postClassifiedRequest: PostClassifiedRequest
+    ): Response<PostClassifiedRequest>
+
 
 }

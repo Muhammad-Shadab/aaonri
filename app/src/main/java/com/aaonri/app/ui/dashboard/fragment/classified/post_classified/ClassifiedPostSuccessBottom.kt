@@ -22,6 +22,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedPostSuccessBottomBinding
+import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
