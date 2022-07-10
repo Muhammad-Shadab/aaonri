@@ -62,7 +62,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-            postClassifiedViewModel.getClassifiedAdDetails(args.addId)
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
@@ -610,6 +609,11 @@ class ClassifiedDetailsFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
     }
 
     override fun onDestroy() {
