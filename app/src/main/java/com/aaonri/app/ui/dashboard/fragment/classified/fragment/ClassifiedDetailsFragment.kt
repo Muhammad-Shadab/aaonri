@@ -611,4 +611,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        postClassifiedViewModel.classifiedAdDetailsData.value = null
+    }
 }

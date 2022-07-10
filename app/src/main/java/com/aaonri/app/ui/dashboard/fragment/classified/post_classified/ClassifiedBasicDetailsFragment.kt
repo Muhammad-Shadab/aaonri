@@ -33,6 +33,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
         postClassifiedViewModel.getClassifiedCategory()
 
+        setData()
+
         if (postClassifiedViewModel.isUpdateClassified) {
             postClassifiedViewModel.getClassifiedAdDetails(postClassifiedViewModel.updateClassifiedId)
         }
@@ -125,6 +127,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         return classifiedDetailsBinding?.root
+    }
+
+    private fun setData() {
+        postClassifiedViewModel.apply {
+            classifiedBasicDetailsMap.let {
+
+            }
+        }
     }
 
     private fun showAlert(text: String) {
