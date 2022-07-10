@@ -28,6 +28,9 @@ class PostClassifiedViewModel @Inject constructor(
     var isUpdateClassified = false
         private set
 
+    var isNavigateBackToClassified = false
+        private set
+
     var updateClassifiedId = 0
         private set
 
@@ -141,12 +144,13 @@ class PostClassifiedViewModel @Inject constructor(
         adDescription: String,
         classifiedCategory: String,
         classifiedSubCategory: String,
-        ) {
+    ) {
         classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE] = title
         classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE] = price
         classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION] = adDescription
         classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY] = classifiedCategory
-        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY] = classifiedSubCategory
+        classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY] =
+            classifiedSubCategory
     }
 
     fun addClassifiedAddressDetails(
@@ -295,5 +299,9 @@ class PostClassifiedViewModel @Inject constructor(
                 return Resource.Success(it)
             }
         return Resource.Error(response.message())
+    }
+
+    fun setIsNavigateBackToBasicDetails(value: Boolean) {
+        isNavigateBackToClassified = value
     }
 }

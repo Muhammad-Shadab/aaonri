@@ -1,11 +1,14 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,6 +18,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
+import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -126,13 +130,63 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
+
+                    if (postClassifiedViewModel.isNavigateBackToClassified) {
+                        setData()
+                        postClassifiedViewModel.setIsNavigateBackToBasicDetails(false)
+                    } else {
+                        val uploadedImages = mutableListOf<Uri>()
+                        classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
+                            response.data?.userAds?.category
+                        classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
+                            response.data?.userAds?.subCategory
+                        classifiedDetailsBinding?.titleClassifiedEt?.setText(response.data?.userAds?.adTitle)
+                        classifiedDetailsBinding?.priceClassifiedEt?.setText(response.data?.userAds?.askingPrice.toString())
+                        classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
+                            response.data?.userAds?.isNew!!
+                        classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
+                        response.data.userAds.userAdsImages.forEach {
+                            uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath.toUri()}".toUri())
+                        }
+                        postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages)
+                    }
+                }
+                is Resource.Error -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                }
+                else -> {}
+            }
+        }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            })
+
         return classifiedDetailsBinding?.root
     }
 
     private fun setData() {
         postClassifiedViewModel.apply {
-            classifiedBasicDetailsMap.let {
 
+            classifiedBasicDetailsMap.let {
+                classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
+                    it[ClassifiedConstant.BASIC_DETAILS_CATEGORY]
+                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
+                    it[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]
+                classifiedDetailsBinding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
+                classifiedDetailsBinding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
+                classifiedDetailsBinding?.classifiedDescEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
             }
         }
     }

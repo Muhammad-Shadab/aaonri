@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.ActivityClassifiedScreenBinding
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClassifiedActivity : AppCompatActivity() {
     var classifiedScreenBinding: ActivityClassifiedScreenBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
+    var title: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         classifiedScreenBinding = ActivityClassifiedScreenBinding.inflate(layoutInflater)
@@ -29,8 +31,12 @@ class ClassifiedActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
-        postClassifiedViewModel.setIsUpdateClassified(isUpdateClassified)
-        postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
+        //postClassifiedViewModel.setIsUpdateClassified(isUpdateClassified)
+
+        //postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
+        if (isUpdateClassified) {
+            postClassifiedViewModel.getClassifiedAdDetails(updateClassifiedId)
+        }
 
         classifiedScreenBinding?.apply {
 
