@@ -153,9 +153,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                             response.data?.userAds?.isNew!!
                         classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
                         response.data.userAds.userAdsImages.forEach {
-                            uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath.toUri()}".toUri())
+                            uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
-                        postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages)
+                        postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
                     }
                 }
                 is Resource.Error -> {

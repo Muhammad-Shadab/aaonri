@@ -52,6 +52,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
+        //setData()
+
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
         val text = resources.getString(R.string.your_classified_will)
@@ -150,7 +152,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             zip = zipCodeAddressDetails.text.toString(),
                                             email = emailAddressBasicDetails.text.toString(),
                                             phone = "",
-                                            description = classifiedKeywordEt.text.toString()
+                                            keyword = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
                                     } else {
@@ -179,7 +181,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             zip = zipCodeAddressDetails.text.toString(),
                                             email = "",
                                             phone = phoneNumber,
-                                            description = classifiedKeywordEt.text.toString()
+                                            keyword = classifiedKeywordEt.text.toString()
                                         )
                                         postClassifiedViewModel.addIsAgreeToAaonri(true)
                                     } else {
@@ -287,8 +289,56 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         }
 
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+
+                    addressDetailsBinding?.cityNameAddressDetails?.setText(response.data?.userAds?.adLocation)
+                    addressDetailsBinding?.zipCodeAddressDetails?.setText(response.data?.userAds?.adZip)
+                    if (response.data?.userAds?.adEmail?.isNotEmpty() == true) {
+                        addressDetailsBinding?.emailRadioBtn?.isChecked = true
+                        addressDetailsBinding?.emailAddressBasicDetails?.setText(response.data.userAds.adEmail)
+                    } else {
+                        addressDetailsBinding?.phoneRadioBtn?.isChecked = true
+                        addressDetailsBinding?.phoneNumberAddressDetails?.setText(response.data?.userAds?.adPhone)
+                    }
+
+
+                }
+                is Resource.Error -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                else -> {}
+            }
+
+        }
+
 
         return addressDetailsBinding?.root
+    }
+
+    private fun setData() {
+        postClassifiedViewModel.apply {
+
+            classifiedBasicDetailsMap.let {
+                addressDetailsBinding?.cityNameAddressDetails?.setText(it[ClassifiedConstant.ADDRESS_DETAILS_CITY_NAME])
+                addressDetailsBinding?.zipCodeAddressDetails?.setText(it[ClassifiedConstant.ADDRESS_DETAILS_ZIP_CODE])
+
+                if (it[ClassifiedConstant.ADDRESS_DETAILS_EMAIL]?.isNotEmpty() == true) {
+                    addressDetailsBinding?.emailRadioBtn?.isChecked = true
+                    addressDetailsBinding?.emailAddressBasicDetails?.setText(it[ClassifiedConstant.ADDRESS_DETAILS_EMAIL])
+                } else {
+                    addressDetailsBinding?.phoneRadioBtn?.isChecked = true
+                    addressDetailsBinding?.phoneNumberAddressDetails?.setText(it[ClassifiedConstant.ADDRESS_DETAILS_PHONE])
+                }
+                addressDetailsBinding?.classifiedKeywordEt?.setText(it[ClassifiedConstant.ADDRESS_DETAILS_KEYWORD])
+
+            }
+        }
     }
 
     private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {

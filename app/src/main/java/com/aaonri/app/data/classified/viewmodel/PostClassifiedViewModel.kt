@@ -1,6 +1,7 @@
 package com.aaonri.app.data.classified.viewmodel
 
 import android.net.Uri
+import androidx.compose.runtime.key
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -158,13 +159,13 @@ class PostClassifiedViewModel @Inject constructor(
         zip: String,
         email: String,
         phone: String,
-        description: String,
+        keyword: String,
     ) {
-        classifiedAddressDetailsMap[ClassifiedConstant.CITY_NAME] = city
-        classifiedAddressDetailsMap[ClassifiedConstant.ZIP_CODE] = zip
-        classifiedAddressDetailsMap[ClassifiedConstant.EMAIL] = email
-        classifiedAddressDetailsMap[ClassifiedConstant.PHONE] = phone
-        classifiedAddressDetailsMap[ClassifiedConstant.DESCRIPTION] = description
+        classifiedAddressDetailsMap[ClassifiedConstant.ADDRESS_DETAILS_CITY_NAME] = city
+        classifiedAddressDetailsMap[ClassifiedConstant.ADDRESS_DETAILS_ZIP_CODE] = zip
+        classifiedAddressDetailsMap[ClassifiedConstant.ADDRESS_DETAILS_EMAIL] = email
+        classifiedAddressDetailsMap[ClassifiedConstant.ADDRESS_DETAILS_PHONE] = phone
+        classifiedAddressDetailsMap[ClassifiedConstant.ADDRESS_DETAILS_KEYWORD] = keyword
     }
 
     fun addIsAgreeToAaonri(value: Boolean) {
