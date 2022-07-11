@@ -66,6 +66,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
+            if (args.isMyClassifiedScreen) {
+                moreClassifiedOption.visibility = View.VISIBLE
+            }
+
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
             bottomSheetOuter.peekHeight = 450

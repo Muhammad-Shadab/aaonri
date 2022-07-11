@@ -71,6 +71,9 @@
         <argument
             android:name="addId"
             app:argType="integer" />
+        <argument
+            android:name="isMyClassifiedScreen"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/eventScreenFragment"

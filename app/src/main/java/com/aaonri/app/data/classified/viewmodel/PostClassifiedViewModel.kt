@@ -59,6 +59,9 @@ class PostClassifiedViewModel @Inject constructor(
     var navigateToClassifiedDetail = false
         private set
 
+    var navigateToMyClassifiedScreen = false
+        private set
+
     var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
@@ -200,8 +203,9 @@ class PostClassifiedViewModel @Inject constructor(
         sendFavoriteDataToClassifiedDetails.postValue(value)
     }
 
-    fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
+    fun setNavigateToClassifiedDetailsScreen(value: Boolean, isMyClassifiedScreen: Boolean) {
         navigateToClassifiedDetail = value
+        navigateToMyClassifiedScreen = isMyClassifiedScreen
     }
 
     fun setNavigateToAllClassified(value: Boolean) {

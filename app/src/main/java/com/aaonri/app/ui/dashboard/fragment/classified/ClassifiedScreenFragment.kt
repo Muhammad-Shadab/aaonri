@@ -250,12 +250,25 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                val action =
-                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
-                        it
-                    )
-                findNavController().navigate(action)
-                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+                if (postClassifiedViewModel.navigateToMyClassifiedScreen) {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            true
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            false
+                        )
+                    findNavController().navigate(action)
+                }
+                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
+                    value = false,
+                    isMyClassifiedScreen = false
+                )
             }
         }
 
