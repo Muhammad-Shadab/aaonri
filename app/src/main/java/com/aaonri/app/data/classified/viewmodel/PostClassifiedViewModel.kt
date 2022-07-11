@@ -177,7 +177,7 @@ class PostClassifiedViewModel @Inject constructor(
     fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         updateClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.upDateClassified(postClassifiedRequest)
-        postClassifiedData.postValue(handlePostClassifiedResponse(response))
+        updateClassifiedData.postValue(handlePostClassifiedResponse(response))
     }
 
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {

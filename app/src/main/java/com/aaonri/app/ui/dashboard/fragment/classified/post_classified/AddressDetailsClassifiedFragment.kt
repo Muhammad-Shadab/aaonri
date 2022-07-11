@@ -139,32 +139,20 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
                                             updateClassified(
-                                                adKeywords = classifiedKeywordEt.text.toString(),
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
-                                                cityName = cityNameAddressDetails.text.trim()
-                                                    .toString(),
-                                                zipCode = zipCodeAddressDetails.text.trim()
-                                                    .toString()
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
                                             )
                                         } else {
                                             postClassifiedRequest(
-                                                adKeywords = classifiedKeywordEt.text.toString(),
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
-                                                cityName = cityNameAddressDetails.text.trim()
-                                                    .toString(),
-                                                zipCode = zipCodeAddressDetails.text.trim()
-                                                    .toString()
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
                                             )
-                                            postClassifiedViewModel.addClassifiedAddressDetails(
-                                                city = cityNameAddressDetails.text.toString(),
-                                                zip = zipCodeAddressDetails.text.toString(),
-                                                email = emailAddressBasicDetails.text.toString(),
-                                                phone = "",
-                                                keyword = classifiedKeywordEt.text.toString()
-                                            )
-                                            postClassifiedViewModel.addIsAgreeToAaonri(true)
                                         }
                                     } else {
                                         showAlert("Please accept terms & condition")
@@ -181,33 +169,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
                                             updateClassified(
-                                                adKeywords = classifiedKeywordEt.text.toString(),
                                                 adEmail = "",
-                                                adPhone = phoneNumber,
-                                                cityName = cityNameAddressDetails.text.trim()
-                                                    .toString(),
-                                                zipCode = zipCodeAddressDetails.text.trim()
-                                                    .toString()
+                                                adPhone = phoneNumberAddressDetails.text.toString(),
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
                                             )
                                         } else {
                                             postClassifiedRequest(
-                                                adKeywords = classifiedKeywordEt.text.toString(),
                                                 adEmail = "",
-                                                adPhone = phoneNumber,
-                                                cityName = cityNameAddressDetails.text.trim()
-                                                    .toString(),
-                                                zipCode = zipCodeAddressDetails.text.trim()
-                                                    .toString()
+                                                adPhone = phoneNumberAddressDetails.text.toString(),
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
                                             )
                                         }
-                                        postClassifiedViewModel.addClassifiedAddressDetails(
-                                            city = cityNameAddressDetails.text.toString(),
-                                            zip = zipCodeAddressDetails.text.toString(),
-                                            email = "",
-                                            phone = phoneNumber,
-                                            keyword = classifiedKeywordEt.text.toString()
-                                        )
-                                        postClassifiedViewModel.addIsAgreeToAaonri(true)
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -273,11 +249,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
-                                //callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         } else {
@@ -285,6 +260,32 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         }
                     }
 
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+
+        postClassifiedViewModel.updateClassifiedData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    if (response.data?.id.toString().isNotEmpty()) {
+                        if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
+                            postClassifiedViewModel.listOfImagesUri.forEach {
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            }
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                        } else {
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                        }
+                    }
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
@@ -305,6 +306,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
                     addressDetailsBinding?.cityNameAddressDetails?.setText(response.data?.userAds?.adLocation)
                     addressDetailsBinding?.zipCodeAddressDetails?.setText(response.data?.userAds?.adZip)
+                    addressDetailsBinding?.classifiedKeywordEt?.setText(response.data?.userAds?.adKeywords)
+                    addressDetailsBinding?.agreeCheckboxClassified?.isChecked = response.data?.userAds?.isTermsAndConditionAccepted == true
                     if (response.data?.userAds?.adEmail?.isNotEmpty() == true) {
                         addressDetailsBinding?.emailRadioBtn?.isChecked = true
                         addressDetailsBinding?.emailAddressBasicDetails?.setText(response.data.userAds.adEmail)
@@ -317,22 +320,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                else -> {}
-            }
-        }
-
-        postClassifiedViewModel.updateClassifiedData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
-                }
-                is Resource.Error -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
             }

@@ -274,6 +274,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 }
             }
         }
+        disableUploadBtnColor()
     }
 
     private val startForClassifiedImageResult =
