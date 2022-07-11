@@ -421,7 +421,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 adThumbnails = null,
                 adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE]!!,
                 adZip = zipCode,
-                approved = true,
+                approved = false,
                 askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE]!!.toDouble(),
                 category = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY]!!,
                 contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
