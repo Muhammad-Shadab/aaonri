@@ -8,6 +8,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -24,6 +25,7 @@ import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -35,7 +37,7 @@ class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val eventViewModel: EventViewModel by viewModels()
-
+    var eventPremiumLink :String = ""
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +67,7 @@ class EventDetailsScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
+
         }
 
 
@@ -112,6 +115,14 @@ class EventDetailsScreenFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
+        eventPremiumLink=event.socialMediaLink
+        if(eventPremiumLink.isEmpty())
+        {
+            evenDetailsBinding?.buyTicket?.visibility=View.GONE
+        }
+        else{
+            evenDetailsBinding?.buyTicket?.visibility=View.VISIBLE
+        }
         event.images.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {
@@ -224,9 +235,14 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
         evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() +" going"
         evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() +" Interested"
-
         evenDetailsBinding?.premiumLink?.setOnClickListener {
-            //activity?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(event.socialMediaLink)))
+            if(URLUtil.isValidUrl(eventPremiumLink)) {
+                activity?.startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(eventPremiumLink)))
+            }
+            else{
+                showAlert("Invalid link")
+
+            }
         }
 
         evenDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
@@ -461,5 +477,12 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
     }
-
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
 }
