@@ -137,22 +137,23 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             ) {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
-                                        postClassifiedRequest(
-                                            adKeywords = classifiedKeywordEt.text.toString(),
-                                            adEmail = emailAddressBasicDetails.text.toString(),
-                                            adPhone = "",
-                                            cityName = cityNameAddressDetails.text.trim()
-                                                .toString(),
-                                            zipCode = zipCodeAddressDetails.text.trim().toString()
-                                        )
-                                        postClassifiedViewModel.addClassifiedAddressDetails(
-                                            city = cityNameAddressDetails.text.toString(),
-                                            zip = zipCodeAddressDetails.text.toString(),
-                                            email = emailAddressBasicDetails.text.toString(),
-                                            phone = "",
-                                            description = classifiedKeywordEt.text.toString()
-                                        )
-                                        postClassifiedViewModel.addIsAgreeToAaonri(true)
+                                        if (postClassifiedViewModel.isUpdateClassified) {
+                                            updateClassified(
+                                                adEmail = emailAddressBasicDetails.text.toString(),
+                                                adPhone = "",
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
+                                            )
+                                        } else {
+                                            postClassifiedRequest(
+                                                adEmail = emailAddressBasicDetails.text.toString(),
+                                                adPhone = "",
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
+                                            )
+                                        }
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -166,22 +167,23 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             if (phoneNumber.length >= 10) {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
-                                        postClassifiedRequest(
-                                            adKeywords = classifiedKeywordEt.text.toString(),
-                                            adEmail = "",
-                                            adPhone = phoneNumber,
-                                            cityName = cityNameAddressDetails.text.trim()
-                                                .toString(),
-                                            zipCode = zipCodeAddressDetails.text.trim().toString()
-                                        )
-                                        postClassifiedViewModel.addClassifiedAddressDetails(
-                                            city = cityNameAddressDetails.text.toString(),
-                                            zip = zipCodeAddressDetails.text.toString(),
-                                            email = "",
-                                            phone = phoneNumber,
-                                            description = classifiedKeywordEt.text.toString()
-                                        )
-                                        postClassifiedViewModel.addIsAgreeToAaonri(true)
+                                        if (postClassifiedViewModel.isUpdateClassified) {
+                                            updateClassified(
+                                                adEmail = "",
+                                                adPhone = phoneNumberAddressDetails.text.toString(),
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
+                                            )
+                                        } else {
+                                            postClassifiedRequest(
+                                                adEmail = "",
+                                                adPhone = phoneNumberAddressDetails.text.toString(),
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
+                                            )
+                                        }
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -247,7 +249,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
@@ -266,15 +267,24 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 else -> {}
             }
-
         }
 
-        postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
+        postClassifiedViewModel.updateClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    if (response.data?.id.toString().isNotEmpty()) {
+                        if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
+                            postClassifiedViewModel.listOfImagesUri.forEach {
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            }
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                        } else {
+                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                        }
+                    }
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
@@ -283,9 +293,51 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 else -> {}
             }
-
         }
 
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+
+                    addressDetailsBinding?.cityNameAddressDetails?.setText(response.data?.userAds?.adLocation)
+                    addressDetailsBinding?.zipCodeAddressDetails?.setText(response.data?.userAds?.adZip)
+                    addressDetailsBinding?.classifiedKeywordEt?.setText(response.data?.userAds?.adKeywords)
+                    addressDetailsBinding?.agreeCheckboxClassified?.isChecked = response.data?.userAds?.isTermsAndConditionAccepted == true
+                    if (response.data?.userAds?.adEmail?.isNotEmpty() == true) {
+                        addressDetailsBinding?.emailRadioBtn?.isChecked = true
+                        addressDetailsBinding?.emailAddressBasicDetails?.setText(response.data.userAds.adEmail)
+                    } else {
+                        addressDetailsBinding?.phoneRadioBtn?.isChecked = true
+                        addressDetailsBinding?.phoneNumberAddressDetails?.setText(response.data?.userAds?.adPhone)
+                    }
+
+
+                }
+                is Resource.Error -> {
+                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                else -> {}
+            }
+        }
+
+        postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
 
         return addressDetailsBinding?.root
     }
@@ -315,32 +367,76 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.postClassified(
             PostClassifiedRequest(
                 active = true,
-                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.DESCRIPTION]!!,
+                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]!!,
                 adEmail = adEmail,
-                adExpireDT = "2022-02-21T06:57:24.837+0000",
+                adExpireDT = "",
                 adImages = null,
                 adKeywords = adKeywords,
                 adLocation = cityName,
                 adPhone = adPhone,
                 adThumbnails = null,
-                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.TITLE]!!,
+                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE]!!,
                 adZip = zipCode,
                 approved = false,
-                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.ASKING_PRICE]!!.toDouble(),
-                category = postClassifiedViewModel.classifiedCategory,
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE]!!.toDouble(),
+                category = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY]!!,
                 contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
-                createdOn = "2022-02-06T06:57:24.858+0000",
+                createdOn = "",
                 delImages = null,
                 deletedOn = null,
                 favorite = false,
                 id = null,
                 isNew = postClassifiedViewModel.isProductNewCheckBox,
                 isTermsAndConditionAccepted = true,
-                lastUpdated = "2022-02-06T06:57:24.858+0000",
+                lastUpdated = "",
                 popularOnAaonri = false,
                 rejected = false,
                 rejectionReson = null,
-                subCategory = postClassifiedViewModel.classifiedSubCategory,
+                subCategory = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]!!,
+                totalFavourite = 0,
+                userAdsImages = listOf(),
+                userId = email.toString()
+            )
+        )
+    }
+
+    private fun updateClassified(
+        adEmail: String,
+        adPhone: String,
+        adKeywords: String,
+        cityName: String,
+        zipCode: String
+    ) {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        postClassifiedViewModel.updateClassified(
+            PostClassifiedRequest(
+                active = true,
+                adDescription = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]!!,
+                adEmail = adEmail,
+                adExpireDT = "",
+                adImages = null,
+                adKeywords = adKeywords,
+                adLocation = cityName,
+                adPhone = adPhone,
+                adThumbnails = null,
+                adTitle = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_TITLE]!!,
+                adZip = zipCode,
+                approved = true,
+                askingPrice = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE]!!.toDouble(),
+                category = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_CATEGORY]!!,
+                contactType = if (adPhone.isNotEmpty()) "Phone" else "Email",
+                createdOn = "",
+                delImages = null,
+                deletedOn = null,
+                favorite = false,
+                id = postClassifiedViewModel.updateClassifiedId,
+                isNew = postClassifiedViewModel.isProductNewCheckBox,
+                isTermsAndConditionAccepted = true,
+                lastUpdated = "",
+                popularOnAaonri = false,
+                rejected = false,
+                rejectionReson = null,
+                subCategory = postClassifiedViewModel.classifiedBasicDetailsMap[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]!!,
                 totalFavourite = 0,
                 userAdsImages = listOf(),
                 userId = email.toString()

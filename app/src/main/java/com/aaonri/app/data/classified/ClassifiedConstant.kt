@@ -8,15 +8,18 @@ object ClassifiedConstant {
     const val ADDRESS_DETAILS_SCREEN = "ADDRESS_DETAILS_SCREEN"
 
     // Classified Basic Details Map Constants
-    const val TITLE = "TITLE"
-    const val ASKING_PRICE = "ASKING_PRICE"
+    const val BASIC_DETAILS_TITLE = "BASIC_DETAILS_TITLE"
+    const val BASIC_DETAILS_ASKING_PRICE = "BASIC_DETAILS_ASKING_PRICE"
+    const val BASIC_DETAILS_DESCRIPTION = "BASIC_DETAILS_DESCRIPTION"
+    const val BASIC_DETAILS_CATEGORY = "BASIC_DETAILS_CATEGORY"
+    const val BASIC_DETAILS_SUB_CATEGORY = "BASIC_DETAILS_SUB_CATEGORY"
 
     // Classified Address Details Map Constants
-    const val CITY_NAME = "CITY_NAME"
-    const val ZIP_CODE = "ZIP_CODE"
-    const val EMAIL = "EMAIL"
-    const val PHONE = "PHONE"
-    const val DESCRIPTION = "DESCRIPTION"
+    const val ADDRESS_DETAILS_CITY_NAME = "CITY_NAME"
+    const val ADDRESS_DETAILS_ZIP_CODE = "ZIP_CODE"
+    const val ADDRESS_DETAILS_EMAIL = "EMAIL"
+    const val ADDRESS_DETAILS_PHONE = "PHONE"
+    const val ADDRESS_DETAILS_KEYWORD = "ADDRESS_DETAILS_KEYWORD"
 
     //Constants for filter
     const val MIN_MAX_FILTER = "MIN_MAX_VALUE"

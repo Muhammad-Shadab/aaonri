@@ -34,7 +34,10 @@ class FavoriteClassifiedFragment : Fragment() {
 
         favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
-            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
+                value = true,
+                isMyClassifiedScreen = false
+            )
         }
 
         favoriteClassifiedBinding?.apply {

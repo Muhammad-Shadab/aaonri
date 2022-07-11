@@ -30,10 +30,12 @@ class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+    var addId = 0
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
     var noofSelection = 0
+
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -155,6 +157,7 @@ class ClassifiedScreenFragment : Fragment() {
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                intent.putExtra("updateClassified", false)
                 startActivity(intent)
             }
 
@@ -171,20 +174,18 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
-                //Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
                 if (it) {
                     classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setNavigateToAllClassified(false)
                 }
             }
         }
-        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner){ isClearAll ->
-            if(isClearAll)
-              {
-                 noofSelection=0
+        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
+            if (isClearAll) {
+                noofSelection = 0
                 OnNoOfSelectedFilterItem(noofSelection)
 
-                }
+            }
         }
         setClassifiedViewPager(false)
         postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
@@ -199,7 +200,7 @@ class ClassifiedScreenFragment : Fragment() {
                 context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
 
             if (isFilerBtnClicked) {
-                  noofSelection=0
+                noofSelection = 0
                 if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                     // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
@@ -249,10 +250,25 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                val action =
-                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(it)
-                findNavController().navigate(action)
-                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+                if (postClassifiedViewModel.navigateToMyClassifiedScreen) {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            true
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            false
+                        )
+                    findNavController().navigate(action)
+                }
+                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
+                    value = false,
+                    isMyClassifiedScreen = false
+                )
             }
         }
 
@@ -292,15 +308,17 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.searchViewll?.visibility = View.GONE
                         classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                        classifiedScreenBinding?. numberOfSelectedFilterCv?.visibility=View.GONE
+                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
                     } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
                         OnNoOfSelectedFilterItem(noofSelection)
 
                     }
                 }
+
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
                     return
                 }
@@ -312,17 +330,15 @@ class ClassifiedScreenFragment : Fragment() {
 
         }
     }
-    fun OnNoOfSelectedFilterItem(noofSelection : Int)
-    {
-        if(noofSelection >= 1)
-        {
-        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility=View.VISIBLE
-            classifiedScreenBinding?.selectedFilters?.visibility=View.VISIBLE
-        classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
-        }
-        else{
-            classifiedScreenBinding?.selectedFilters?.visibility=View.GONE
-            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility=View.GONE
+
+    fun OnNoOfSelectedFilterItem(noofSelection: Int) {
+        if (noofSelection >= 1) {
+            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
+        } else {
+            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
         }
     }
 

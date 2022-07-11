@@ -62,9 +62,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-            classifiedViewModel.getClassifiedAdDetails(args.addId)
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
+            }
+
+            if (args.isMyClassifiedScreen) {
+                moreClassifiedOption.visibility = View.VISIBLE
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
@@ -102,7 +105,11 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                findNavController().navigate(R.id.action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom)
+                val action =
+                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                        args.addId
+                    )
+                findNavController().navigate(action)
             }
 
             classifiedSellerEmail.setOnClickListener {
@@ -135,7 +142,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-        classifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBar?.visibility = View.VISIBLE
@@ -606,5 +613,15 @@ class ClassifiedDetailsFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        postClassifiedViewModel.classifiedAdDetailsData.value = null
     }
 }

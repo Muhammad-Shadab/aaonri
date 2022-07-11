@@ -36,7 +36,10 @@ class MyClassifiedFragment : Fragment() {
 
         allClassifiedAdapter = AllClassifiedAdapter {
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
-            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(true)
+            postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
+                value = true,
+                isMyClassifiedScreen = true
+            )
         }
 
         myClassifiedBinding?.apply {
@@ -89,16 +92,19 @@ class MyClassifiedFragment : Fragment() {
         arguments?.let { bundle ->
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             if (bundle.getBoolean("filterEnabled")) {
-                var minValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
-                var maxValue = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
-                val zipCodeFilter = context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
+                var minValue =
+                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, "0"] }
+                var maxValue =
+                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, "0"] }
+                val zipCodeFilter =
+                    context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
 
-                if(minValue?.isEmpty() ==true){
-                    minValue ="0"
+                if (minValue?.isEmpty() == true) {
+                    minValue = "0"
                 }
 
-                if(maxValue?.isEmpty() ==true){
-                    maxValue ="0"
+                if (maxValue?.isEmpty() == true) {
+                    maxValue = "0"
                 }
 
                 classifiedViewModel.getClassifiedByUser(
@@ -116,7 +122,7 @@ class MyClassifiedFragment : Fragment() {
                         zipCode = zipCodeFilter
                     )
                 )
-            }else{
+            } else {
 
                 classifiedViewModel.getClassifiedByUser(
                     GetClassifiedByUserRequest(
