@@ -188,6 +188,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
+        data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
             if (userAdsImage.sequenceNumber == 1) {
                 classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE

@@ -318,6 +318,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/multiline_textfield_shape"
                     android:ems="10"
+                    android:maxLength="2000"
                     android:fontFamily="@font/sf_pro_regular"
                     android:gravity="left"
                     android:hint="@string/please_describe_about_the_event"
@@ -326,7 +327,18 @@
                     android:paddingVertical="@dimen/_8sdp"
                     android:textSize="16sp"
                     tools:ignore="RtlHardcoded" />
-
+                <TextView
+                    android:id="@+id/descLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:text="0/2000"
+                    android:textColor="@color/hintColor"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/addressDetailsNextBtn"
                     android:layout_width="match_parent"

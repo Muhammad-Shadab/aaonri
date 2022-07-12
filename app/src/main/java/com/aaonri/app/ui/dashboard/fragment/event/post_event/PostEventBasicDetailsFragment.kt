@@ -123,6 +123,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                     showAlert("Please enter valid event title")
                 }
             }
+            eventDescEt.addTextChangedListener { editable ->
+                descLength.text = "${editable.toString().length}/2000"
+            }
             selectCategoryEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventCategoryBottom)
             }

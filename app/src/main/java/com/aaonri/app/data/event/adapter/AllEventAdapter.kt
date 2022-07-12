@@ -63,7 +63,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 totalFavourite.text = data[position].totalFavourite.toString()
 
                 eventLocationZip.text = data[position].city + (if (data[position].zipCode.isNotEmpty()&&data[position].city.isNotEmpty()) "-" else "")+data[position].zipCode
-                if(data[position].fee>1) {
+                if(data[position].fee>0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 }
                 else{
@@ -75,7 +75,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + (if (data[position].zipCode.isNotEmpty()&&data[position].city.isNotEmpty()) "-" else "")+data[position].zipCode
-                if(data[position].fee>1) {
+                if(data[position].fee>0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 }
                 else{
@@ -144,7 +144,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + (if (data[position].zipCode.isNotEmpty()&&data[position].city.isNotEmpty()) "-" else "")+data[position].zipCode
-                if(data[position].fee>1) {
+                if(data[position].fee>0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 }
                 else{
@@ -157,7 +157,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
                 eventLocationZip.text = data[position].city + (if (data[position].zipCode.isNotEmpty()&&data[position].city.isNotEmpty()) "-" else "")+data[position].zipCode
-                if(data[position].fee>1) {
+                if(data[position].fee>0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 }
                 else{
