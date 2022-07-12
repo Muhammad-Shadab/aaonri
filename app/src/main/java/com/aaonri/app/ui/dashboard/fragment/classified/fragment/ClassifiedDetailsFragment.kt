@@ -189,8 +189,7 @@ class ClassifiedDetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
-            if(userAdsImage.sequenceNumber == 1)
-            {
+            if (userAdsImage.sequenceNumber == 1) {
                 classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
                 context?.let {
@@ -208,8 +207,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
             }
-            if(userAdsImage.sequenceNumber == 2)
-            {
+            if (userAdsImage.sequenceNumber == 2) {
                 classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
                 context?.let {
                     classifiedDetailsBinding?.image2?.let { it1 ->
@@ -219,19 +217,17 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
             }
-             if(userAdsImage.sequenceNumber == 3)
-             {
-                 classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
-                 context?.let {
-                     classifiedDetailsBinding?.image3?.let { it1 ->
-                         Glide.with(it)
-                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                             .into(it1)
-                     }
-                 }
-             }
-            if(userAdsImage.sequenceNumber == 4)
-            {
+            if (userAdsImage.sequenceNumber == 3) {
+                classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                context?.let {
+                    classifiedDetailsBinding?.image3?.let { it1 ->
+                        Glide.with(it)
+                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .into(it1)
+                    }
+                }
+            }
+            if (userAdsImage.sequenceNumber == 4) {
                 classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
                 context?.let {
                     classifiedDetailsBinding?.image4?.let { it1 ->
@@ -298,30 +294,29 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
+        /*     postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
 
-   /*     postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
+                 classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
+                 classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                     .format(
+                         DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
+                     )
+                 classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+                     .format(
+                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                             .parse(userAds.adExpireDT.split("T")[0])
+                     )
 
-            classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
-            classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-                .format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
-                )
-            classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-                .format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        .parse(userAds.adExpireDT.split("T")[0])
-                )
+                 itemId = userAds.id
 
-            itemId = userAds.id
-
-            if (userAds.userAdsImages.isEmpty()) {
-                changeCardViewBorder(9)
-            } else {
-                changeCardViewBorder(0)
-            }
+                 if (userAds.userAdsImages.isEmpty()) {
+                     changeCardViewBorder(9)
+                 } else {
+                     changeCardViewBorder(0)
+                 }
 
 
-        }*/
+             }*/
 
         classifiedDetailsBinding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->

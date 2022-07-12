@@ -77,6 +77,9 @@
         <argument
             android:name="addId"
             app:argType="integer" />
+        <argument
+            android:name="isMyClassifiedScreen"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/eventScreenFragment"
@@ -106,6 +109,10 @@
         android:id="@+id/updateDeleteClassifiedBottom"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"
         android:label="fragment_update_delete_classified_bottom"
-        tools:layout="@layout/fragment_update_delete_classified_bottom" />
+        tools:layout="@layout/fragment_update_delete_classified_bottom" >
+        <argument
+            android:name="addId"
+            app:argType="integer" />
+    </dialog>
 >>>>>>> feac20f59f1b79deaa4b549e5e44e9938bbe470b
 </navigation>

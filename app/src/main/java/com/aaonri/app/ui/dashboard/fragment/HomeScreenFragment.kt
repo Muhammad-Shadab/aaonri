@@ -48,12 +48,18 @@ class HomeScreenFragment : Fragment() {
 
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
-                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(it.id)
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
+                    it.id,
+                    false
+                )
             findNavController().navigate(action)
         }
         popularClassifiedAdapter = PoplarClassifiedAdapter {
             val action =
-                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(it.id)
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
+                    it.id,
+                    false
+                )
             findNavController().navigate(action)
         }
 
@@ -180,7 +186,7 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     val images = mutableListOf<Image>()
                     response.data?.userEvent?.forEachIndexed { index, userEvent ->
-                        when(index){
+                        when (index) {
                             0 -> {
                                 eventId.add((userEvent.id))
                             }
