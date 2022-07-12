@@ -1,5 +1,7 @@
 package com.aaonri.app.data.event.adapter
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,7 +24,6 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     private var startTimeOfEvent:String?=null
     private var endTimeOfEvent:String?=null
     private var timeZone:String?=null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -49,6 +50,8 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
 
 
             if (data[position].images.isNotEmpty()) {
+
+
                 val image =
                     "https://www.aaonri.com/api/v1/common/eventFile/${data[position].images[0].imagePath}"
                 Glide.with(context).load(image)

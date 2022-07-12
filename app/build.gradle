@@ -136,5 +136,7 @@ dependencies {
 
     implementation 'com.github.onecode369:WYSIWYG:4.0'
 
+    implementation 'androidx.palette:palette:1.0.0'
+
 
 }
