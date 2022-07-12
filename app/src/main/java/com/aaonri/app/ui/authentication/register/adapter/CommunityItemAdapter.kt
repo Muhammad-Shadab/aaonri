@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.databinding.CommunityItemBinding
+import java.util.ArrayList
 
 
 class CommunityItemAdapter(private var selectedCommunity: ((value: List<Community>) -> Unit)? = null) :
