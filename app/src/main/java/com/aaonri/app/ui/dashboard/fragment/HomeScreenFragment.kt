@@ -179,10 +179,23 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     val images = mutableListOf<Image>()
-                    response.data?.userEvent?.get(0)?.let { eventId.add(it.id) }
-                    response.data?.userEvent?.get(1)?.let { eventId.add(it.id) }
-                    response.data?.userEvent?.get(2)?.let { eventId.add(it.id) }
-//                    response.data?.userEvent?.get(3)?.let { eventId.add(it.id) }
+                    response.data?.userEvent?.forEachIndexed { index, userEvent ->
+                        when(index){
+                            0 -> {
+                                eventId.add((userEvent.id))
+                            }
+                            1 -> {
+                                eventId.add((userEvent.id))
+                            }
+                            2 -> {
+                                eventId.add((userEvent.id))
+                            }
+                            3 -> {
+                                eventId.add((userEvent.id))
+                            }
+                        }
+                    }
+
                     response.data?.userEvent?.forEach { userEvent ->
                         userEvent.images.forEach { image ->
                             if (images.contains(image)) {

@@ -98,6 +98,9 @@
         <argument
             android:name="eventId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_eventDetailsScreenFragment_to_updateDeleteClassifiedBottom"
+            app:destination="@id/updateDeleteClassifiedBottom" />
     </fragment>
     <dialog
         android:id="@+id/updateDeleteClassifiedBottom"
