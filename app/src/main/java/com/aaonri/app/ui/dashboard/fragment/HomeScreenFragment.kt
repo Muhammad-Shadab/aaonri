@@ -182,7 +182,7 @@ class HomeScreenFragment : Fragment() {
                     response.data?.userEvent?.get(0)?.let { eventId.add(it.id) }
                     response.data?.userEvent?.get(1)?.let { eventId.add(it.id) }
                     response.data?.userEvent?.get(2)?.let { eventId.add(it.id) }
-                    response.data?.userEvent?.get(3)?.let { eventId.add(it.id) }
+//                    response.data?.userEvent?.get(3)?.let { eventId.add(it.id) }
                     response.data?.userEvent?.forEach { userEvent ->
                         userEvent.images.forEach { image ->
                             if (images.contains(image)) {

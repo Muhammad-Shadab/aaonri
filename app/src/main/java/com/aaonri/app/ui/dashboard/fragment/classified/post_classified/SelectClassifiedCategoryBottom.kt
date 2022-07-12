@@ -61,7 +61,9 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
                     selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
                         View.GONE
                 }
-                else -> {}
+                else -> {
+
+                }
             }
         }
 
