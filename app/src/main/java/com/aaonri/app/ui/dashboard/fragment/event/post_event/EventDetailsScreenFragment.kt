@@ -65,6 +65,11 @@ class EventDetailsScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
+
+            moreBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_eventDetailsScreenFragment_to_updateDeleteClassifiedBottom)
+            }
+
         }
 
 
@@ -222,8 +227,8 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
         evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
-        evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() +" going"
-        evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() +" Interested"
+        evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() + " going"
+        evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
 
         evenDetailsBinding?.premiumLink?.setOnClickListener {
             //activity?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(event.socialMediaLink)))
