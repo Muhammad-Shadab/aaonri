@@ -20,6 +20,7 @@ import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.model.EventDetailsResponse
+import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Resource
@@ -123,6 +124,7 @@ class EventDetailsScreenFragment : Fragment() {
         else{
             evenDetailsBinding?.buyTicket?.visibility=View.VISIBLE
         }
+        event.images.sortedWith(compareByDescending { it.imageId })
         event.images.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {

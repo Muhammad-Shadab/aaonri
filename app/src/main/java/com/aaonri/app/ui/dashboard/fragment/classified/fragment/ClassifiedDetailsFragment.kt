@@ -177,6 +177,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
+        data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {

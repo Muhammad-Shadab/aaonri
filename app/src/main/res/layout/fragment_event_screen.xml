@@ -321,7 +321,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/eventsScreenTabLayout"
             android:layout_width="0dp"
@@ -333,9 +332,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="auto"
-            app:tabPaddingEnd="@dimen/_4sdp"
-            app:tabPaddingStart="@dimen/_4sdp"
+            app:tabMode="fixed"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            app:tabMaxWidth="0dp"
+            app:tabPaddingEnd="@dimen/_2sdp"
+            app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2

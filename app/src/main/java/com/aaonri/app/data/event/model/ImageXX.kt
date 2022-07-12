@@ -4,5 +4,6 @@ data class ImageXX(
     val imageId: Int,
     val imagePath: String,
     val referenceId: Int,
-    val userEvent: Any
+    val userEvent: Any,
+    val sequenceNumber: Int
 )
