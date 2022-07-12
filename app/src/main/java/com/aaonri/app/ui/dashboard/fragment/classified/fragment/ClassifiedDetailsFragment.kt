@@ -62,9 +62,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-            classifiedViewModel.getClassifiedAdDetails(args.addId)
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
+            }
+
+            if (args.isMyClassifiedScreen) {
+                moreClassifiedOption.visibility = View.VISIBLE
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
@@ -101,6 +104,14 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
 
+            moreClassifiedOption.setOnClickListener {
+                val action =
+                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                        args.addId
+                    )
+                findNavController().navigate(action)
+            }
+
             classifiedSellerEmail.setOnClickListener {
                 if (isEmailAvailable.isNotEmpty()) {
                     val emailIntent = Intent(
@@ -131,7 +142,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-        classifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBar?.visibility = View.VISIBLE
@@ -178,7 +189,61 @@ class ClassifiedDetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
-            when (index) {
+            if(userAdsImage.sequenceNumber == 1)
+            {
+                classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+
+                context?.let {
+                    classifiedDetailsBinding?.addImage?.let { it1 ->
+                        Glide.with(it)
+                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .into(it1)
+                    }
+                }
+                context?.let {
+                    classifiedDetailsBinding?.image1?.let { it1 ->
+                        Glide.with(it)
+                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .into(it1)
+                    }
+                }
+            }
+            if(userAdsImage.sequenceNumber == 2)
+            {
+                classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+                context?.let {
+                    classifiedDetailsBinding?.image2?.let { it1 ->
+                        Glide.with(it)
+                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .into(it1)
+                    }
+                }
+            }
+             if(userAdsImage.sequenceNumber == 3)
+             {
+                 classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                 context?.let {
+                     classifiedDetailsBinding?.image3?.let { it1 ->
+                         Glide.with(it)
+                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                             .into(it1)
+                     }
+                 }
+             }
+            if(userAdsImage.sequenceNumber == 4)
+            {
+                classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+                context?.let {
+                    classifiedDetailsBinding?.image4?.let { it1 ->
+                        Glide.with(it)
+                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .into(it1)
+                    }
+                }
+            }
+
+
+            /*when (index) {
                 0 -> {
                     classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
@@ -229,7 +294,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
 
 
-            }
+            }*/
         }
 
 
@@ -602,5 +667,15 @@ class ClassifiedDetailsFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        postClassifiedViewModel.classifiedAdDetailsData.value = null
     }
 }

@@ -45,9 +45,9 @@ class EventScreenFragment : Fragment() {
 
             eventsScreenViewPager.isUserInputEnabled = false
 
-            filterEvent.setOnClickListener {
+            /*filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
-            }
+            }*/
 
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)

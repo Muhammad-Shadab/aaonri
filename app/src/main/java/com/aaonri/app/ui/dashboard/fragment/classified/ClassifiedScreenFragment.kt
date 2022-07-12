@@ -30,6 +30,7 @@ class ClassifiedScreenFragment : Fragment() {
     var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+    var addId = 0
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
@@ -84,7 +85,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
@@ -132,7 +133,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
@@ -143,7 +144,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                OnNoOfSelectedFilterItem(--noofSelection)
             }
 
             filterClassified.setOnClickListener {
@@ -156,6 +157,7 @@ class ClassifiedScreenFragment : Fragment() {
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                intent.putExtra("updateClassified", false)
                 startActivity(intent)
             }
 
@@ -172,7 +174,6 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
-                //Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
                 if (it) {
                     classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setNavigateToAllClassified(false)
@@ -182,7 +183,7 @@ class ClassifiedScreenFragment : Fragment() {
         postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
                 noofSelection = 0
-                onNoOfSelectedFilterItem(noofSelection)
+                OnNoOfSelectedFilterItem(noofSelection)
 
             }
         }
@@ -231,7 +232,7 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.filterCv3?.visibility = View.GONE
                     }
 
-                    onNoOfSelectedFilterItem(noofSelection)
+                    OnNoOfSelectedFilterItem(noofSelection)
 
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
@@ -249,21 +250,27 @@ class ClassifiedScreenFragment : Fragment() {
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                val action =
-                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
-                        it
-                    )
-                findNavController().navigate(action)
-                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
+                if (postClassifiedViewModel.navigateToMyClassifiedScreen) {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            true
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToClassifiedDetailsFragment(
+                            it,
+                            false
+                        )
+                    findNavController().navigate(action)
+                }
+                postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
+                    value = false,
+                    isMyClassifiedScreen = false
+                )
             }
         }
-
-        /* postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) {
-             if (postClassifiedViewModel.navigateToClassifiedDetail) {
-                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedDetailsFragment)
-                 postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(false)
-             }
-         }*/
 
         return classifiedScreenBinding?.root
     }
@@ -307,7 +314,8 @@ class ClassifiedScreenFragment : Fragment() {
                             View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
                         classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
-                        onNoOfSelectedFilterItem(noofSelection)
+                        OnNoOfSelectedFilterItem(noofSelection)
+
                     }
                 }
 
@@ -323,7 +331,7 @@ class ClassifiedScreenFragment : Fragment() {
         }
     }
 
-    fun onNoOfSelectedFilterItem(noofSelection: Int) {
+    fun OnNoOfSelectedFilterItem(noofSelection: Int) {
         if (noofSelection >= 1) {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE

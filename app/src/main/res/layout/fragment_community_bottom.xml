@@ -3,14 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
-
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_16sdp"
+    >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +20,9 @@
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:src="@drawable/ic_close" />
 
+
+
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -34,7 +32,43 @@
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/select_one_or_multiple_communities"
                 android:textSize="16sp" />
+            <LinearLayout
+                android:id="@+id/searchViewll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_42sdp"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_4sdp">
 
+                <EditText
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:hint="@string/what_are_you_looking_for"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/searchViewIcon"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/ic_icon_search" />
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/progressBarCommunityBottom"
                 android:layout_width="wrap_content"
@@ -45,6 +79,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBottomFragment"
                 android:layout_width="match_parent"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
                 android:layout_height="@dimen/_260sdp" />
 
             <TextView
@@ -69,7 +105,6 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/green_btn_shape"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"
@@ -78,5 +113,5 @@
                 android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

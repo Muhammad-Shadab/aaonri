@@ -22,6 +22,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedPostSuccessBottomBinding
+import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,10 +67,7 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-
         bottomBinding?.apply {
             textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()

@@ -2,11 +2,15 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.marginBottom
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,8 +22,11 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class CommunityBottomFragment : BottomSheetDialogFragment() {
@@ -29,17 +36,17 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     private var communityItemAdapter: CommunityItemAdapter? = null
     var communityBottomBinding: FragmentCommunityBottomBinding? = null
     var selectedCommunitiesSize = 0
-
+    var communityAdapter : CommunityItemAdapter? = null
+    var tempArrayList = mutableListOf<Community>()
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
+
         communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
-
-
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
@@ -51,6 +58,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.GONE
             }
         }
+
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
             selectedCommunitiesSize = selectedCommunitiesList.size
@@ -66,7 +74,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
 
 
         communityBottomBinding?.apply {
-
             closeCommunityBtn.setOnClickListener {
                 dismiss()
             }
@@ -98,6 +105,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                             )
                         }
                     }
+                    if (sortedList != null) {
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
@@ -107,5 +116,71 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
+/*    private fun searchCommunity(data: List<Community>) {
+        communityBottomBinding?.searchView?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                tempArrayList.clear()
+//                val searchText = s!!.lowercase(Locale.getDefault())
+                if (s != null) {
+                    if (s.isNotEmpty()){
+                        data?.forEach {
+                            Toast.makeText(context, s.toString(), Toast.LENGTH_SHORT).show()
+                            if (it.communityName.lowercase(Locale.getDefault()).contains(s)) {
+                                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                                tempArrayList.add(it)
+                            }
+                        }
+                        communityAdapter?.setData(tempArrayList)
+                        communityBottomBinding?.rvBottomFragment?.adapter?.notifyDataSetChanged()
+                    } else {
+                        tempArrayList.clear()
+                        data?.let { tempArrayList.addAll(it) }
+                        communityAdapter?.setData(tempArrayList)
+                    }
+                }
+                communityAdapter?.setData(tempArrayList)
+            }
+
+        })
+//        communityBottomBinding?.serachView1?.setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(p0: String?): Boolean {
+//                return false
+//            }
+//
+//            @SuppressLint("NotifyDataSetChanged")
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//
+//
+//                return false
+//            }
+//        })
+    }*/
+
+    // this method Disable drag of BottomSheetDialogFragment
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    if (dialog is BottomSheetDialog) {
+        val behaviour = (dialog as BottomSheetDialog).behavior
+        behaviour.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
+    }
+}
 
 }
