@@ -67,10 +67,7 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-
         bottomBinding?.apply {
             textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
