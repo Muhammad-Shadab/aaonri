@@ -148,11 +148,11 @@ class AuthCommonViewModel @Inject constructor(
     fun addCompanyEmailAliasCheckBoxValue(
         isRecruiterCheckBox: Boolean,
         isAliasNameCheckBox: Boolean,
-        belongToCricketCheckBox: Boolean
+        //belongToCricketCheckBox: Boolean
     ) {
         companyEmailAliasCheckBoxValue["isRecruiterCheckBox"] = isRecruiterCheckBox
         companyEmailAliasCheckBoxValue["isAliasNameCheckBox"] = isAliasNameCheckBox
-        companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
+        //companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
     }
 
     fun getCommunities() = viewModelScope.launch {
