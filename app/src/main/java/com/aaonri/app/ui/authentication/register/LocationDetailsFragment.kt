@@ -145,6 +145,7 @@ class LocationDetailsFragment : Fragment() {
     }
 
     private fun getCommunities() {
+
         authCommonViewModel.getCommunities()
 
         authCommonViewModel.communitiesList.observe(viewLifecycleOwner) { response ->
