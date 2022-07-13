@@ -129,15 +129,20 @@ class ClassifiedDetailsFragment : Fragment() {
                     startActivity(intent)
                 }
             }
+
+            loginToViewSellerInfo.setOnClickListener {
+                activity?.finish()
+            }
+
         }
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+                classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
 
             } else {
-                classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
