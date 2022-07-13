@@ -38,7 +38,6 @@ class MainActivity : BaseActivity() {
         mainActivityBinding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
-
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.classifiedDetailsFragment || destination.id == R.id.eventScreenFragment) {
                     bottomNavigation.visibility = View.GONE

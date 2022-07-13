@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu" />-->
+
+    <com.aaonri.app.utils.custom.BottomNavigationCircles
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        app:itemTextColor="@color/blueBtnColor"
+        app:customBackgroundShape="@drawable/circle_blue_shape"
+        app:itemIconTint="@color/bottom_navigtaion_selector"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="start|bottom"
+        app:menu="@menu/bottom_navigation_menu"/>
 
 
     <androidx.fragment.app.FragmentContainerView
