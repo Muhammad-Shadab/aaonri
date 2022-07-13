@@ -20,9 +20,6 @@
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:src="@drawable/ic_close" />
 
-
-
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -32,13 +29,14 @@
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/select_one_or_multiple_communities"
                 android:textSize="16sp" />
+
             <LinearLayout
                 android:id="@+id/searchViewll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_42sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@drawable/edit_text_shape"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -58,10 +56,10 @@
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingVertical="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/_2sdp"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/searchViewIcon"
@@ -80,6 +78,7 @@
                 android:id="@+id/rvBottomFragment"
                 android:layout_width="match_parent"
                 android:clipToPadding="false"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:nestedScrollingEnabled="false"
                 android:layout_height="@dimen/_260sdp" />
 
