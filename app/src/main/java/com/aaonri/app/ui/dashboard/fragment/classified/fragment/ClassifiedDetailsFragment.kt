@@ -275,60 +275,16 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
             }
+        }
 
-
-            /*when (index) {
-                0 -> {
-                    classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
-
-                    context?.let {
-                        classifiedDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                    context?.let {
-                        classifiedDetailsBinding?.image1?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
+        if (data.userAdsImages.isNotEmpty()) {
+            classifiedDetailsBinding?.addImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                        .into(it)
                 }
-                1 -> {
-                    classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
-                    context?.let {
-                        classifiedDetailsBinding?.image2?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-                2 -> {
-                    classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
-                    context?.let {
-                        classifiedDetailsBinding?.image3?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-                3 -> {
-                    classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
-                    context?.let {
-                        classifiedDetailsBinding?.image4?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-
-
-            }*/
+            }
         }
 
 

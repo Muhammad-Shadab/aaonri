@@ -149,7 +149,6 @@ class EventDetailsScreenFragment : Fragment() {
                     evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
                     context?.let {
-
                         evenDetailsBinding?.addImage?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
@@ -222,10 +221,19 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                 }
-
-
             }
         }
+
+        if (event.images.isNotEmpty()){
+            context?.let {
+                evenDetailsBinding?.addImage?.let { it1 ->
+                    Glide.with(it)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
+                        .into(it1)
+                }
+            }
+        }
+
         evenDetailsBinding?.image1?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
