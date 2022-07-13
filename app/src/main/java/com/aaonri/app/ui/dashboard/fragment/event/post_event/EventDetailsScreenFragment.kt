@@ -33,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
@@ -263,10 +264,14 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
-        evenDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.startDate.split("T")[0]))
-        evenDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0]))
+        evenDetailsBinding?.postedDate1?.text = "${DateTimeFormatter.ofPattern("dd MMM")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.startDate.split("T")[0]))}, ${
+            LocalTime.parse(event.startTime)
+            .format(DateTimeFormatter.ofPattern("h:mma"))} ${event.timeZone}"
+        evenDetailsBinding?.postedDate2?.text =  "${DateTimeFormatter.ofPattern("dd MMM")
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0]))}, ${
+            LocalTime.parse(event.endTime)
+                .format(DateTimeFormatter.ofPattern("h:mma"))} ${event.timeZone}"
 
 //        itemId = data.id
 

@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\NovoStack-DELL-010\.android\avd\Pixel_XL_API_30_5.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="192.168.1.8:42787" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-07-13T10:57:29.154796100Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-07-13T12:35:45.728393800Z" />
   </component>
 </project>

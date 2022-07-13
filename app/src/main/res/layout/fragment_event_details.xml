@@ -432,7 +432,7 @@
                             android:drawableLeft="@drawable/user_icon"
                             android:drawablePadding="@dimen/_6sdp"
                             android:gravity="center"
-                            android:inputType="number"
+                            android:fontFamily="@font/sf_pro_regular"
                             android:textColor="@color/graytxtcolor"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -451,7 +451,7 @@
                             android:drawableLeft="@drawable/star_icon"
                             android:drawablePadding="@dimen/_6sdp"
                             android:gravity="center"
-                            android:inputType="number"
+                            android:fontFamily="@font/sf_pro_regular"
                             android:textColor="@color/graytxtcolor"
                             android:textSize="12sp" />
                     </LinearLayout>
