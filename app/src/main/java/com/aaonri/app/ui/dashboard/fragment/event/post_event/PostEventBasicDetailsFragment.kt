@@ -2,6 +2,7 @@ package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +12,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
@@ -89,10 +92,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                     postEventViewModel.setEventBasicDetails(
                                                         eventTitle = titleEvent.text.toString(),
                                                         eventCategory = selectCategoryEvent.text.toString(),
-                                                        eventStartDate = startDate,
-                                                        eventStartTime = startTime,
-                                                        eventEndDate = endDate,
-                                                        eventEndTime = endTime,
+                                                        eventStartDate = startDate.ifEmpty { selectstartDate.text.toString() },
+                                                        eventStartTime = startTime.ifEmpty { selectStartTime.text.toString() },
+                                                        eventEndDate = endDate.ifEmpty { selectEndDate.text.toString() },
+                                                        eventEndTime = endTime.ifEmpty { selectEndTime.text.toString() },
                                                         eventTimeZone = eventTimezone.text.toString(),
                                                         eventFee = askingFee.text.toString(),
                                                         eventDesc = eventDescEt.text.toString()
@@ -235,6 +238,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                         setData()
                         postEventViewModel.setIsNavigateBackToBasicDetails(false)
                     } else {
+                        val uploadedImages = mutableListOf<Uri>()
                         if (response.data?.zipCode?.isNotEmpty() == true) {
                             postEventBinding?.offlineRadioBtn?.isChecked = true
                         } else {
@@ -258,8 +262,14 @@ class PostEventBasicDetailsFragment : Fragment() {
                         } else {
                             //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
                         }
-
                         postEventBinding?.eventDescEt?.setText(response.data?.description)
+
+                        response.data?.images?.forEach {
+                            uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${it.imagePath}".toUri())
+                        }
+                        if (uploadedImages.isNotEmpty()) {
+                            postEventViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                        }
 
                     }
 
@@ -291,12 +301,6 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         postEventViewModel.apply {
             eventBasicDetailMap.let {
-
-                Toast.makeText(
-                    context,
-                    "${it[EventConstants.EVENT_START_DATE]}",
-                    Toast.LENGTH_SHORT
-                ).show()
 
                 postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
                 postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]

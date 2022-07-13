@@ -58,7 +58,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-            postEventViewModel.getEventDetails(args.eventId)
+
             bottomSheetOuter.peekHeight = 450
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
@@ -136,12 +136,12 @@ class EventDetailsScreenFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
-        if (eventPremiumLink.isEmpty()) {
+        /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
         } else {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
-        }
-        event.images.sortedWith(compareByDescending { it.imageId })
+        }*/
+        //event.images.sortedWith(compareByDescending { it.imageId })
         event.images.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {
@@ -503,6 +503,11 @@ class EventDetailsScreenFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        postEventViewModel.getEventDetails(args.eventId)
     }
 
     override fun onDestroy() {

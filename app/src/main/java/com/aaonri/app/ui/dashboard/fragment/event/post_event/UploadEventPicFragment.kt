@@ -27,6 +27,7 @@ import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentCreateNewPasswordBinding
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class UploadEventPicFragment : Fragment() {
@@ -50,7 +51,10 @@ class UploadEventPicFragment : Fragment() {
 
         uploadEventPicBinding = FragmentUploadEventPicBinding.inflate(inflater, container, false)
         val curveRadius = 10F
+
         setImageOnNavigatingBack()
+
+        setImagesForUpdatingEvent()
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_UPLOAD_PICS)
 
@@ -166,6 +170,110 @@ class UploadEventPicFragment : Fragment() {
             })
 
         return uploadEventPicBinding?.root
+    }
+
+    private fun setImagesForUpdatingEvent() {
+        postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
+            when (index) {
+                0 -> {
+                    image1Uri = uri.toString()
+                    selectPicIndex = 0
+                    uploadEventPicBinding?.uploadedImage1?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image1Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.selectedImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image1Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
+                    if (!showingImagesList.contains(image1Uri.toUri())) {
+                        showingImagesList.add(image1Uri.toUri())
+                    }
+                    image1 = false
+                    changeCardViewBg(0)
+                }
+                1 -> {
+                    image2Uri = uri.toString()
+                    selectPicIndex = 1
+                    uploadEventPicBinding?.uploadedImage2?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image2Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.selectedImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image2Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
+                    if (!showingImagesList.contains(image2Uri.toUri())) {
+                        showingImagesList.add(image2Uri.toUri())
+                    }
+                    image2 = false
+                    changeCardViewBg(1)
+                }
+                2 -> {
+                    image3Uri = uri.toString()
+                    selectPicIndex = 2
+                    uploadEventPicBinding?.uploadedImage3?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image3Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.selectedImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image3Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
+                    if (!showingImagesList.contains(image3Uri.toUri())) {
+                        showingImagesList.add(image3Uri.toUri())
+                    }
+                    image3 = false
+                    changeCardViewBg(2)
+                }
+                3 -> {
+                    image4Uri = uri.toString()
+                    selectPicIndex = 3
+                    uploadEventPicBinding?.uploadedImage4?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image4Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.selectedImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1).load(image4Uri).into(
+                                it
+                            )
+                        }
+                    }
+                    uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
+                    if (!showingImagesList.contains(image4Uri.toUri())) {
+                        showingImagesList.add(image4Uri.toUri())
+                    }
+                    image4 = false
+                    changeCardViewBg(3)
+                }
+            }
+        }
+        disableUploadBtnColor()
     }
 
 

@@ -50,6 +50,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     var postEventData: MutableLiveData<Resource<PostEventResponse>> = MutableLiveData()
 
+    var updateEventData: MutableLiveData<Resource<PostEventResponse>> = MutableLiveData()
+
     var isEventOffline = false
         private set
 
@@ -150,6 +152,12 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     fun postEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
         postEventData.postValue(Resource.Loading())
         val response = eventRepository.postEvent(postEventRequest)
+        postEventData.postValue(handlePostEventResponse(response))
+    }
+
+    fun updateEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
+        updateEventData.postValue(Resource.Loading())
+        val response = eventRepository.updateEvent(postEventRequest)
         postEventData.postValue(handlePostEventResponse(response))
     }
 

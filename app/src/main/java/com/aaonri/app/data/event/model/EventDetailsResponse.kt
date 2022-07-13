@@ -3,7 +3,7 @@ package com.aaonri.app.data.event.model
 data class EventDetailsResponse(
     val acceptedTermsAndConditions: Boolean,
     val address1: String,
-    val address2: Any,
+    val address2: String,
     val approved: Boolean,
     val category: String,
     val city: String,
@@ -13,7 +13,7 @@ data class EventDetailsResponse(
     val description: String,
     val endDate: String,
     val endTime: String,
-    val eventPlace: Any,
+    val eventPlace: String,
     val favorite: Boolean,
     val fee: Double,
     val id: Int,

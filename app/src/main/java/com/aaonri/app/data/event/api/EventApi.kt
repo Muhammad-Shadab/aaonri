@@ -38,4 +38,9 @@ interface EventApi {
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<UploadEventPicResponse>
 
+    @PUT("/api/v1/event/update")
+    suspend fun updateEvent(
+        @Body postEventRequest: PostEventRequest
+    ): Response<PostEventResponse>
+
 }

@@ -387,7 +387,6 @@ class ClassifiedDetailsFragment : Fragment() {
             changeCardViewBorder(0)
         }
 
-
         if (data.popularOnAaonri) {
             classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
         } else {

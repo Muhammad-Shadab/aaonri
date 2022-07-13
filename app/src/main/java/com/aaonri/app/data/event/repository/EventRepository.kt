@@ -16,6 +16,8 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
 
     suspend fun postEvent(postEventRequest: PostEventRequest) = eventApi.postEvent(postEventRequest)
 
+    suspend fun updateEvent(postEventRequest: PostEventRequest) = eventApi.updateEvent(postEventRequest)
+
     suspend fun getEventCategory() = eventApi.getEventActiveCategory()
 
     suspend fun uploadEventPicture(

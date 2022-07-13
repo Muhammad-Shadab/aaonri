@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -148,7 +149,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                         classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
                         response.data?.userAds?.userAdsImages?.forEach {
-                            uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath}".toUri())
+                            uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
 
                         if (uploadedImages.isNotEmpty()) {
