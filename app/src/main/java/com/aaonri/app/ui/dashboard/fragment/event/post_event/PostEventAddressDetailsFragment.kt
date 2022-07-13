@@ -1,11 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -40,9 +49,42 @@ class PostEventAddressDetailsFragment : Fragment() {
         if (!postEventViewModel.isEventOffline) {
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
         }
+        val text = resources.getString(R.string.if_you_want_event)
+        val text1 = resources.getString(R.string.by_posting_an_ad)
+        val ss = SpannableString(text)
+        val ss1=SpannableString(text1)
 
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "events@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        ss.setSpan(clickableSpan1, 81, 98, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss1.setSpan(clickableSpan1,49,63,0)
+        ss1.setSpan(clickableSpan1,68,80,0)
         postEventAddressBinding?.apply {
-
+            textDesc1.text = ss
+            privacyTextTv.text=ss1
+            privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
+            textDesc1.movementMethod = LinkMovementMethod.getInstance()
             classifiedDetailsNextBtn.setOnClickListener {
 
                 if (cityNameEt.text.toString()

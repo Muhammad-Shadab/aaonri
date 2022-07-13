@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "407216562924",
+    "project_id": "aaonri-51efa",
+    "storage_bucket": "aaonri-51efa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407216562924:android:386328d53fe68137317bc9",
+        "android_client_info": {
+          "package_name": "com.aaonri.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407216562924-651q4nf7ui96veen3q67utfdnfehi04a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuOmjIoRjVnZ33H1AvV04qMI-YzXgEvkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407216562924-651q4nf7ui96veen3q67utfdnfehi04a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

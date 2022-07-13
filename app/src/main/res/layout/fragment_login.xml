@@ -280,17 +280,18 @@
             app:layout_constraintBottom_toTopOf="@+id/loginGuideLine3">
 
             <ImageView
+                android:id="@+id/gmailLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_weight="1"
                 android:src="@drawable/ic_google_plus" />
 
-            <ImageView
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebooklogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_facebook" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
