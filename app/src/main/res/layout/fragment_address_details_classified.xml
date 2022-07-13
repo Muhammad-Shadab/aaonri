@@ -282,6 +282,7 @@
                             android:src="@drawable/bullet_blue" />
 
                         <TextView
+                            android:id="@+id/textDec2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_regular"
@@ -339,6 +340,7 @@
                     android:minHeight="0dp" />
 
                 <TextView
+                    android:id="@+id/textDec3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
