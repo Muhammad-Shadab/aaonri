@@ -191,16 +191,49 @@ class ClassifiedDetailsFragment : Fragment() {
     private fun setClassifiedDetails(data: UserAdsXX) {
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
+
+            when (index) {
+                0 -> {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                                .into(it)
+                        }
+                    }
+                }
+                1 -> {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
+                                .into(it)
+                        }
+                    }
+                }
+                2 -> {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
+                                .into(it)
+                        }
+                    }
+                }
+                3 -> {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
+                                .into(it)
+                        }
+                    }
+                }
+            }
+
             if (userAdsImage.sequenceNumber == 1) {
                 classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                context?.let {
-                    classifiedDetailsBinding?.addImage?.let { it1 ->
-                        Glide.with(it)
-                            .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                            .into(it1)
-                    }
-                }
                 context?.let {
                     classifiedDetailsBinding?.image1?.let { it1 ->
                         Glide.with(it)
@@ -210,6 +243,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
             if (userAdsImage.sequenceNumber == 2) {
+
                 classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
                 context?.let {
                     classifiedDetailsBinding?.image2?.let { it1 ->
@@ -220,6 +254,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
             if (userAdsImage.sequenceNumber == 3) {
+
                 classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
                 context?.let {
                     classifiedDetailsBinding?.image3?.let { it1 ->
@@ -230,6 +265,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
             if (userAdsImage.sequenceNumber == 4) {
+
                 classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
                 context?.let {
                     classifiedDetailsBinding?.image4?.let { it1 ->
@@ -323,8 +359,16 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
-                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}") {
+
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                                .into(it)
+                        }
                     }
+
+
                     changeCardViewBorder(0)
                 }
             }
@@ -335,7 +379,12 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.image2?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 1) {
-                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}") {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
+                                .into(it)
+                        }
                     }
                     changeCardViewBorder(1)
                 }
@@ -344,7 +393,12 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.image3?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 2) {
-                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}") {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
+                                .into(it)
+                        }
                     }
                     changeCardViewBorder(2)
                 }
@@ -353,7 +407,12 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.image4?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 3) {
-                    classifiedDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}") {
+                    classifiedDetailsBinding?.addImage?.let {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
+                                .into(it)
+                        }
                     }
                     changeCardViewBorder(3)
                 }
