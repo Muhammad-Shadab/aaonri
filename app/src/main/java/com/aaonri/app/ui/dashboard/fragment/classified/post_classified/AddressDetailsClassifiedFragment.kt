@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -53,6 +54,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
+
 
         val text = resources.getString(R.string.your_classified_will)
 
@@ -278,7 +280,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                                if (!it.toString().startsWith("htt")) {
+                                    callUploadClassifiedPicApi(
+                                        it,
+                                        postClassifiedViewModel.updateClassifiedId,
+                                        response.data?.id
+                                    )
+                                }
                             }
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         } else {
@@ -306,7 +314,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     addressDetailsBinding?.cityNameAddressDetails?.setText(response.data?.userAds?.adLocation)
                     addressDetailsBinding?.zipCodeAddressDetails?.setText(response.data?.userAds?.adZip)
                     addressDetailsBinding?.classifiedKeywordEt?.setText(response.data?.userAds?.adKeywords)
-                    addressDetailsBinding?.agreeCheckboxClassified?.isChecked = response.data?.userAds?.isTermsAndConditionAccepted == true
+                    addressDetailsBinding?.agreeCheckboxClassified?.isChecked =
+                        response.data?.userAds?.isTermsAndConditionAccepted == true
                     if (response.data?.userAds?.adEmail?.isNotEmpty() == true) {
                         addressDetailsBinding?.emailRadioBtn?.isChecked = true
                         addressDetailsBinding?.emailAddressBasicDetails?.setText(response.data.userAds.adEmail)

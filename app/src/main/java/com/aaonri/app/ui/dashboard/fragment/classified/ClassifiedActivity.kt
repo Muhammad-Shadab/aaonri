@@ -36,6 +36,7 @@ class ClassifiedActivity : AppCompatActivity() {
 
         if (isUpdateClassified) {
             postClassifiedViewModel.getClassifiedAdDetails(updateClassifiedId)
+            classifiedScreenBinding?.registrationText?.text = "Update Your Classified"
         }
 
         classifiedScreenBinding?.apply {
