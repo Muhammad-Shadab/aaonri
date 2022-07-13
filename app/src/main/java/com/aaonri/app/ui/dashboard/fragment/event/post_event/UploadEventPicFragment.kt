@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -149,10 +150,20 @@ class UploadEventPicFragment : Fragment() {
                     }
                 }
                 postEventViewModel.setListOfUploadImagesUri(showingImagesList)
-                val action = UploadEventPicFragmentDirections.actionUploadEventPicFragmentToPostEventAddressDetailsFragment2()
+                val action =
+                    UploadEventPicFragmentDirections.actionUploadEventPicFragmentToPostEventAddressDetailsFragment2()
                 findNavController().navigate(action)
             }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    postEventViewModel.setIsNavigateBackToBasicDetails(true)
+                    findNavController().navigateUp()
+                }
+            })
 
         return uploadEventPicBinding?.root
     }

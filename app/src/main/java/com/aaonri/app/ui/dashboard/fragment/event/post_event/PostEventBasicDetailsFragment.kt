@@ -1,4 +1,5 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.utils.DecimalDigitsInputFilter
+import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -33,7 +36,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
     var isDateValid = false
 
-    var selectedDate  = ""
+    var selectedDate = ""
     var startTime = ""
     var endTime = ""
     var startDate = ""
@@ -71,34 +74,37 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                                         if (eventTimezone.text.toString().isNotEmpty()) {
 
-                                                    if (askingFee.text.toString().isNotEmpty() && askingFee.text.toString().toDouble() < 999999999 && askingFee.text.toString().toDouble() > 0  || isFreeEntryCheckBox.isChecked
-                                                    ) {
-                                                        if (eventDescEt.text.isNotEmpty()) {
-                                                            postEventViewModel.setIsEventOffline(
-                                                                offlineRadioBtn.isChecked
-                                                            )
-                                                            postEventViewModel.setIsEventFree(
-                                                                isFreeEntryCheckBox.isChecked
-                                                            )
-                                                            postEventViewModel.setEventBasicDetails(
-                                                                eventTitle = titleEvent.text.toString(),
-                                                                eventCategory = selectCategoryEvent.text.toString(),
-                                                                eventStartDate = startDate,
-                                                                eventStartTime = startTime,
-                                                                eventEndDate = endDate,
-                                                                eventEndTime = endTime,
-                                                                eventTimeZone = eventTimezone.text.toString(),
-                                                                eventFee = askingFee.text.toString(),
-                                                                eventDesc = eventDescEt.text.toString()
-                                                            )
-                                                            findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
-                                                        } else {
-                                                            showAlert("Please enter valid event description")
-                                                        }
-
-                                                    } else {
-                                                        showAlert("Please enter valid fee")
+                                            if (askingFee.text.toString()
+                                                    .isNotEmpty() && askingFee.text.toString()
+                                                    .toDouble() < 999999999 && askingFee.text.toString()
+                                                    .toDouble() > 0 || isFreeEntryCheckBox.isChecked
+                                            ) {
+                                                if (eventDescEt.text.isNotEmpty()) {
+                                                    postEventViewModel.setIsEventOffline(
+                                                        offlineRadioBtn.isChecked
+                                                    )
+                                                    postEventViewModel.setIsEventFree(
+                                                        isFreeEntryCheckBox.isChecked
+                                                    )
+                                                    postEventViewModel.setEventBasicDetails(
+                                                        eventTitle = titleEvent.text.toString(),
+                                                        eventCategory = selectCategoryEvent.text.toString(),
+                                                        eventStartDate = startDate,
+                                                        eventStartTime = startTime,
+                                                        eventEndDate = endDate,
+                                                        eventEndTime = endTime,
+                                                        eventTimeZone = eventTimezone.text.toString(),
+                                                        eventFee = askingFee.text.toString(),
+                                                        eventDesc = eventDescEt.text.toString()
+                                                    )
+                                                    findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
+                                                } else {
+                                                    showAlert("Please enter valid event description")
                                                 }
+
+                                            } else {
+                                                showAlert("Please enter valid fee")
+                                            }
 
                                         } else {
                                             showAlert("Please enter valid timezone")
@@ -133,23 +139,21 @@ class PostEventBasicDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventTimeZoneBottom)
             }
             selectstartDate.setOnClickListener {
-                getSelectedDate(selectstartDate,true)
+                getSelectedDate(selectstartDate, true)
 
             }
             selectEndDate.setOnClickListener {
-                if(selectstartDate.text.isNotEmpty())
-                {
-                getSelectedDate(selectEndDate,false)
-                }
-                else{
+                if (selectstartDate.text.isNotEmpty()) {
+                    getSelectedDate(selectEndDate, false)
+                } else {
                     showAlert("Please select start date first")
                 }
             }
             selectStartTime.setOnClickListener {
-                getSelectedTime(selectStartTime,true)
+                getSelectedTime(selectStartTime, true)
             }
             selectEndTime.setOnClickListener {
-                getSelectedTime(selectEndTime,false)
+                getSelectedTime(selectEndTime, false)
             }
 
             selectstartDate.addTextChangedListener {
@@ -218,18 +222,99 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
             postEventBinding?.eventTimezone?.text = it
         }
+
+        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    postEventBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    postEventBinding?.progressBar?.visibility = View.GONE
+
+                    if (postEventViewModel.isNavigateBackBasicDetails) {
+                        setData()
+                        postEventViewModel.setIsNavigateBackToBasicDetails(false)
+                    } else {
+                        if (response.data?.zipCode?.isNotEmpty() == true) {
+                            postEventBinding?.offlineRadioBtn?.isChecked = true
+                        } else {
+                            postEventBinding?.onlineRdaioBtn?.isChecked = true
+                        }
+                        postEventBinding?.titleEvent?.setText(response.data?.title)
+                        postEventBinding?.selectCategoryEvent?.text = response.data?.category
+                        postEventBinding?.selectstartDate?.text = response.data?.startDate
+                        postEventBinding?.selectStartTime?.text = response.data?.startTime
+                        postEventBinding?.selectEndDate?.text = response.data?.endDate
+                        postEventBinding?.selectEndTime?.text = response.data?.endTime
+                        postEventBinding?.eventTimezone?.text = response.data?.timeZone
+
+                        if (response.data?.fee != null) {
+                            if (response.data.fee > 0) {
+                                postEventBinding?.askingFee?.setText(response.data.fee.toString())
+                            } else {
+                                postEventBinding?.isFreeEntryCheckBox?.isChecked = true
+                                postEventBinding?.askingFee?.isEnabled = false
+                            }
+                        } else {
+                            //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
+                        }
+
+                        postEventBinding?.eventDescEt?.setText(response.data?.description)
+
+                    }
+
+
+                }
+                is Resource.Error -> {
+                    postEventBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
+        }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            })
+
         return postEventBinding?.root
     }
 
     private fun setData() {
-        postEventBinding?.selectstartDate?.text =
-            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE] else ""
-        postEventBinding?.selectStartTime?.text =
-            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME] else ""
-        postEventBinding?.selectEndDate?.text =
-            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE] else ""
-        postEventBinding?.selectEndTime?.text =
-            if (postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]?.isNotEmpty() == true) postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME] else ""
+
+        postEventViewModel.apply {
+            eventBasicDetailMap.let {
+
+                Toast.makeText(
+                    context,
+                    "${it[EventConstants.EVENT_START_DATE]}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
+                postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
+                postEventBinding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
+                postEventBinding?.selectStartTime?.text = it[EventConstants.EVENT_START_TIME]
+                postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
+                postEventBinding?.selectEndTime?.text = it[EventConstants.EVENT_END_TIME]
+                postEventBinding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
+                if (isEventFree) {
+                    postEventBinding?.isFreeEntryCheckBox?.isChecked = true
+                    postEventBinding?.askingFee?.isEnabled = false
+                } else {
+                    postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
+                }
+                postEventBinding?.eventDescEt?.setText(it[EventConstants.EVENT_TIMEZONE])
+
+            }
+        }
     }
 
     private fun showAlert(text: String) {
@@ -247,34 +332,30 @@ class PostEventBasicDetailsFragment : Fragment() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        var selectedMonth:String
-        var seletedDay : String
+        var selectedMonth: String
+        var seletedDay: String
         val datepicker = context?.let { it1 ->
             DatePickerDialog(
                 it1,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
                     selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
-                    selectedMonth={monthOfYear+1}.toString()
-                    seletedDay=dayOfMonth.toString()
-                    if(monthOfYear+1<10)
-                    {
-                        selectedMonth="0${monthOfYear+1}"
+                    selectedMonth = { monthOfYear + 1 }.toString()
+                    seletedDay = dayOfMonth.toString()
+                    if (monthOfYear + 1 < 10) {
+                        selectedMonth = "0${monthOfYear + 1}"
                     }
-                    if(dayOfMonth<10)
-                    {
-                        seletedDay="0$dayOfMonth"
+                    if (dayOfMonth < 10) {
+                        seletedDay = "0$dayOfMonth"
                     }
                     selectedDate = "${year}-${selectedMonth}-${seletedDay}"
-                 if(isStartdate)
-                 {
+                    if (isStartdate) {
 
-                     endDate = ""
-                     postEventBinding?.selectEndDate?.text = ""
-                     startDate=selectedDate
-                 }
-                    else{
-                     endDate=selectedDate
+                        endDate = ""
+                        postEventBinding?.selectEndDate?.text = ""
+                        startDate = selectedDate
+                    } else {
+                        endDate = selectedDate
                     }
 
                 },
@@ -283,12 +364,11 @@ class PostEventBasicDetailsFragment : Fragment() {
                 day
             )
         }
-        if(isStartdate) {
-            datepicker?.datePicker?.minDate = System.currentTimeMillis()-1000
-        }
-        else{
+        if (isStartdate) {
+            datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
+        } else {
             val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
-            datepicker?.datePicker?.minDate =  date.time- 1000 +(1000*60*60*24)
+            datepicker?.datePicker?.minDate = date.time - 1000 + (1000 * 60 * 60 * 24)
 
         }
         datepicker?.show()
@@ -296,7 +376,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
     private fun getSelectedTime(selectStartTime: TextView, isStartTime: Boolean) {
         var ampm = ""
-        var getMinute=""
+        var getMinute = ""
         var hoursOfTheDay: Int
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
@@ -320,27 +400,22 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 if (hourOfDay < 10) {
                 }
-                if(minute<10)
-                {
-                    getMinute="0$minute"
-                }
-                else{
-                    getMinute="$minute"
+                if (minute < 10) {
+                    getMinute = "0$minute"
+                } else {
+                    getMinute = "$minute"
                 }
                 selectStartTime.text = "$hoursOfTheDay:$getMinute $ampm"
-                if(isStartTime)
-                {
+                if (isStartTime) {
                     //this is for startTime
-                    startTime="$hourOfDay:$getMinute"
-                }
-                else{
+                    startTime = "$hourOfDay:$getMinute"
+                } else {
                     //this is for  endTime
-                    endTime="$hourOfDay:$getMinute"
+                    endTime = "$hourOfDay:$getMinute"
                 }
             }, hour, minute, false
         )
         mTimePicker.show()
-
     }
 
 }

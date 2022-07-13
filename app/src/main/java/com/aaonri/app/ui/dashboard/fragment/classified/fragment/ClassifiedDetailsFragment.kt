@@ -107,7 +107,8 @@ class ClassifiedDetailsFragment : Fragment() {
             moreClassifiedOption.setOnClickListener {
                 val action =
                     ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
-                        args.addId
+                        args.addId,
+                        true
                     )
                 findNavController().navigate(action)
             }

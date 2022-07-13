@@ -8,16 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.aaonri.app.MainActivity
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -111,13 +107,24 @@ class EventScreenFragment : Fragment() {
         }*/
 
         postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
-            if (postEventViewModel.navigateToClassifiedDetail) {
-                val action =
-                    EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
-                        it
-                    )
-                findNavController().navigate(action)
-                postEventViewModel.setNavigateToClassifiedDetailsScreen(false)
+            if (postEventViewModel.navigateToEventDetailScreen) {
+                if (postEventViewModel.isMyEventScreen) {
+                    val action =
+                        EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
+                            it, true
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
+                            it, false
+                        )
+                    findNavController().navigate(action)
+                }
+                postEventViewModel.setNavigateToEventDetailScreen(
+                    value = false,
+                    isMyEventScreen = false
+                )
             }
         }
 

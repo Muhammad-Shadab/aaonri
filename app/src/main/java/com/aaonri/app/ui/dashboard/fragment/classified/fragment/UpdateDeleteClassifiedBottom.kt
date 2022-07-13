@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentUpdateDeleteClassifiedBottomBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedActivity
+import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -27,12 +28,19 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
         updateDeleteBinding?.apply {
 
             updateClassified.setOnClickListener {
-                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
-                intent.putExtra("updateClassified", true)
-                intent.putExtra("addId", args.addId)
-                startActivity(intent)
-                dismiss()
 
+                if (args.isClassifiedUpdate) {
+                    val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                    intent.putExtra("updateClassified", true)
+                    intent.putExtra("addId", args.addId)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(requireContext(), EventScreenActivity::class.java)
+                    intent.putExtra("updateEvent", true)
+                    intent.putExtra("eventId", args.addId)
+                    startActivity(intent)
+                }
+                dismiss()
             }
 
         }

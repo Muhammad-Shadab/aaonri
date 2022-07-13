@@ -26,7 +26,7 @@ class PostClassifiedViewModel @Inject constructor(
     var isUpdateClassified = false
         private set
 
-    var isNavigateBackToClassified = false
+    var isNavigateBackBasicDetails = false
         private set
 
     var updateClassifiedId = 0
@@ -312,6 +312,6 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setIsNavigateBackToBasicDetails(value: Boolean) {
-        isNavigateBackToClassified = value
+        isNavigateBackBasicDetails = value
     }
 }

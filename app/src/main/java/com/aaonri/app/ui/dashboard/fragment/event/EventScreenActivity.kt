@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.event
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
@@ -23,6 +24,17 @@ class EventScreenActivity : BaseActivity() {
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
+
+        val isUpdateEvent = intent.getBooleanExtra("updateEvent", false)
+        val updateEventId = intent.getIntExtra("eventId", 0)
+
+        postEventViewModel.setIsUpdateEvent(isUpdateEvent)
+        postEventViewModel.setUpdateEventId(updateEventId)
+
+        if (isUpdateEvent) {
+            postEventViewModel.getEventDetails(updateEventId)
+        }
+
 
         eventActivityBinding?.apply {
 

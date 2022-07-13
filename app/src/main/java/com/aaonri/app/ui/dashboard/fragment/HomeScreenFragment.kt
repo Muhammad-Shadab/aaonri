@@ -93,7 +93,8 @@ class HomeScreenFragment : Fragment() {
                     if (index == 0) {
                         val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i
+                                i,
+                                false
                             )
                         findNavController().navigate(action)
                     }
@@ -105,7 +106,8 @@ class HomeScreenFragment : Fragment() {
                     if (index == 1) {
                         val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i
+                                i,
+                                false
                             )
                         findNavController().navigate(action)
                     }
@@ -117,7 +119,8 @@ class HomeScreenFragment : Fragment() {
                     if (index == 2) {
                         val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i
+                                i,
+                                false
                             )
                         findNavController().navigate(action)
                     }
@@ -129,7 +132,8 @@ class HomeScreenFragment : Fragment() {
                     if (index == 3) {
                         val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i
+                                i,
+                                false
                             )
                         findNavController().navigate(action)
                     }

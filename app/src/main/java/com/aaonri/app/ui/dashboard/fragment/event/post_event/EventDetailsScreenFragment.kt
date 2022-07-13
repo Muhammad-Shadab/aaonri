@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,7 +23,9 @@ import com.aaonri.app.R
 import com.aaonri.app.data.event.model.EventDetailsResponse
 import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.event.EventScreenFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -37,8 +40,9 @@ import java.time.format.DateTimeFormatter
 class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
-    val eventViewModel: EventViewModel by viewModels()
-    var eventPremiumLink :String = ""
+    val postEventViewModel: PostEventViewModel by activityViewModels()
+    var eventPremiumLink: String = ""
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +50,15 @@ class EventDetailsScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         evenDetailsBinding = FragmentEventDetailsBinding.inflate(inflater, container, false)
+
         evenDetailsBinding?.apply {
+
+            if (args.isMyEvent) {
+                moreBtn.visibility = View.VISIBLE
+            }
+
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-            eventViewModel.getEventDetails(args.eventId)
+            postEventViewModel.getEventDetails(args.eventId)
             bottomSheetOuter.peekHeight = 450
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
@@ -70,13 +80,18 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             moreBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_eventDetailsScreenFragment_to_updateDeleteClassifiedBottom)
+                val action =
+                    EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToUpdateDeleteClassifiedBottom(
+                        args.eventId,
+                        false
+                    )
+                findNavController().navigate(action)
             }
 
         }
 
 
-        eventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
@@ -120,13 +135,11 @@ class EventDetailsScreenFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
-        eventPremiumLink=event.socialMediaLink
-        if(eventPremiumLink.isEmpty())
-        {
-            evenDetailsBinding?.buyTicket?.visibility=View.GONE
-        }
-        else{
-            evenDetailsBinding?.buyTicket?.visibility=View.VISIBLE
+        eventPremiumLink = event.socialMediaLink
+        if (eventPremiumLink.isEmpty()) {
+            evenDetailsBinding?.buyTicket?.visibility = View.GONE
+        } else {
+            evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
         }
         event.images.sortedWith(compareByDescending { it.imageId })
         event.images.forEachIndexed { index, userAdsImage ->
@@ -243,10 +256,9 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
 
         evenDetailsBinding?.premiumLink?.setOnClickListener {
-            if(URLUtil.isValidUrl(eventPremiumLink)) {
-                activity?.startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(eventPremiumLink)))
-            }
-            else{
+            if (URLUtil.isValidUrl(eventPremiumLink)) {
+                activity?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(eventPremiumLink)))
+            } else {
                 showAlert("Invalid link")
             }
         }
@@ -483,6 +495,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
     }
+
     private fun showAlert(text: String) {
         activity?.let { it1 ->
             Snackbar.make(
@@ -490,5 +503,10 @@ class EventDetailsScreenFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        postEventViewModel.eventDetailsData.value = null
     }
 }

@@ -321,20 +321,21 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/eventsScreenTabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/tab_background_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            android:layout_marginHorizontal="@dimen/_12sdp"
             app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
             app:tabPaddingEnd="@dimen/_2sdp"
             app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />
@@ -343,6 +344,7 @@
             android:id="@+id/eventsScreenViewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

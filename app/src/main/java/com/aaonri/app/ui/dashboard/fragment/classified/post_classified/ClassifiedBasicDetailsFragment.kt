@@ -2,12 +2,10 @@ package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -134,7 +132,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.GONE
 
-                    if (postClassifiedViewModel.isNavigateBackToClassified) {
+                    if (postClassifiedViewModel.isNavigateBackBasicDetails) {
                         setData()
                         postClassifiedViewModel.setIsNavigateBackToBasicDetails(false)
                     } else {
@@ -152,7 +150,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         response.data?.userAds?.userAdsImages?.forEach {
                             uploadedImages.add("https://www.aaonri.com/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
-                        Log.i("onCreateView", "onCreateView: ${response.data?.userAds?.adEmail}")
 
                         if (uploadedImages.isNotEmpty()) {
                             postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)

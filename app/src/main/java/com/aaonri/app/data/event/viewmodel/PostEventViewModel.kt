@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
@@ -20,10 +19,24 @@ import javax.inject.Inject
 class PostEventViewModel @Inject constructor(private val eventRepository: EventRepository) :
     ViewModel() {
 
+    var isNavigateBackBasicDetails = false
+        private set
+
     var navigationForStepper: MutableLiveData<String> = MutableLiveData()
         private set
 
-    var navigateToClassifiedDetail = false
+    val eventDetailsData: MutableLiveData<Resource<EventDetailsResponse>> = MutableLiveData()
+
+    var navigateToEventDetailScreen = false
+        private set
+
+    var isUpdateEvent = false
+        private set
+
+    var updateEventId = 0
+        private set
+
+    var isMyEventScreen = false
         private set
 
     var sendDataToClassifiedDetailsScreen: MutableLiveData<Int> = MutableLiveData()
@@ -181,8 +194,37 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         sendDataToClassifiedDetailsScreen.postValue(value)
     }
 
-    fun setNavigateToClassifiedDetailsScreen(value: Boolean) {
-        navigateToClassifiedDetail = value
+    fun setNavigateToEventDetailScreen(value: Boolean, isMyEventScreen: Boolean) {
+        navigateToEventDetailScreen = value
+        this.isMyEventScreen = isMyEventScreen
     }
+
+    fun setIsUpdateEvent(value: Boolean) {
+        isUpdateEvent = value
+    }
+
+    fun setUpdateEventId(value: Int) {
+        updateEventId = value
+    }
+
+    fun getEventDetails(eventId: Int) = viewModelScope.launch {
+        eventDetailsData.postValue(Resource.Loading())
+        val response = eventRepository.getEventDetails(eventId)
+        eventDetailsData.postValue(handleEventDetailsResponse(response))
+    }
+
+    private fun handleEventDetailsResponse(response: Response<EventDetailsResponse>): Resource<EventDetailsResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setIsNavigateBackToBasicDetails(value: Boolean) {
+        isNavigateBackBasicDetails = value
+    }
+
 
 }
