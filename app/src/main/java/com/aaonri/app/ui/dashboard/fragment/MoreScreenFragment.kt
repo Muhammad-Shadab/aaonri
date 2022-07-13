@@ -37,7 +37,7 @@ class MoreScreenFragment : Fragment() {
             logOutBtn.setOnClickListener {
               val builder = AlertDialog.Builder(context)
               builder.setTitle("Confirm")
-              builder.setMessage("Are you sure you want to Logout")
+              builder.setMessage("Are you sure you want to Logout?")
               builder.setPositiveButton("OK") { dialog, which ->
 
                   context?.let { it1 -> PreferenceManager<String>(it1) }

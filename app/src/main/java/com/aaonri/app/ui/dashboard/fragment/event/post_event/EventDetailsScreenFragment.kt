@@ -142,6 +142,7 @@ class EventDetailsScreenFragment : Fragment() {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
         }*/
         //event.images.sortedWith(compareByDescending { it.imageId })
+
         event.images.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {
@@ -154,6 +155,7 @@ class EventDetailsScreenFragment : Fragment() {
                                 .into(it1)
                         }
                     }
+
                     context?.let {
                         evenDetailsBinding?.image1?.let { it1 ->
                             Glide.with(it)
@@ -164,6 +166,15 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 1 -> {
                     evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+
                     context?.let {
                         evenDetailsBinding?.image2?.let { it1 ->
                             Glide.with(it)
@@ -174,6 +185,15 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 2 -> {
                     evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+
                     context?.let {
                         evenDetailsBinding?.image3?.let { it1 ->
                             Glide.with(it)
@@ -184,6 +204,15 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 3 -> {
                     evenDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .into(it1)
+                        }
+                    }
+
                     context?.let {
                         evenDetailsBinding?.image4?.let { it1 ->
                             Glide.with(it)
@@ -192,14 +221,28 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                 }
-
-
             }
         }
+
+        if (event.images.isNotEmpty()){
+            context?.let {
+                evenDetailsBinding?.addImage?.let { it1 ->
+                    Glide.with(it)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
+                        .into(it1)
+                }
+            }
+        }
+
         evenDetailsBinding?.image1?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}") {
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
+                                .into(it1)
+                        }
                     }
                     changeCardViewBorder(0)
                 }
@@ -211,7 +254,12 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 1) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[1].imagePath}") {
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[1].imagePath}")
+                                .into(it1)
+                        }
                     }
                     changeCardViewBorder(1)
                 }
@@ -220,7 +268,12 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.image3?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 2) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[2].imagePath}") {
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[2].imagePath}")
+                                .into(it1)
+                        }
                     }
                     changeCardViewBorder(2)
                 }
@@ -229,7 +282,12 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.image4?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (index == 3) {
-                    evenDetailsBinding?.addImage?.load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[3].imagePath}") {
+                    context?.let {
+                        evenDetailsBinding?.addImage?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[3].imagePath}")
+                                .into(it1)
+                        }
                     }
                     changeCardViewBorder(3)
                 }

@@ -220,7 +220,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
+               <!-- <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/_40sdp"
@@ -247,7 +247,7 @@
                         android:textColor="@color/textViewColor"
                         android:textSize="12sp" />
 
-                </LinearLayout>
+                </LinearLayout>-->
 
             </LinearLayout>
 

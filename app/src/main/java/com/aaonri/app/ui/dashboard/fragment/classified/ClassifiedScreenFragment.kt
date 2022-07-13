@@ -305,15 +305,12 @@ class ClassifiedScreenFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
-                        classifiedScreenBinding?.searchViewll?.visibility = View.GONE
-                        classifiedScreenBinding?.filterClassified?.visibility = View.GONE
                         classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                         classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
                     } else {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterClassified?.visibility = View.VISIBLE
                         OnNoOfSelectedFilterItem(noofSelection)
 
                     }
