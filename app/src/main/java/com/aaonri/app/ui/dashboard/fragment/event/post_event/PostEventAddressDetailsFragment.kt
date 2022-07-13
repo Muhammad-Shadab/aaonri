@@ -180,7 +180,11 @@ class PostEventAddressDetailsFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
                             postEventViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                                callUploadClassifiedPicApi(
+                                    it,
+                                    postEventViewModel.updateEventId,
+                                    response.data?.id
+                                )
                             }
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
@@ -230,8 +234,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                         }
                         postEventAddressBinding?.landmarkEt?.setText(eventPlace)
                         postEventAddressBinding?.stateEt?.setText(state)
-                        //postEventAddressBinding?.socialMediaLinkEt?.setText()
-
+                        postEventAddressBinding?.socialMediaLinkEt?.setText(socialMediaLink)
                     }
                 }
                 is Resource.Error -> {
