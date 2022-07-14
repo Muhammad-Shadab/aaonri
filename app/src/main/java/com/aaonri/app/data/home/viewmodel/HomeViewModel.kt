@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
-                Resource.Success(it)
+                return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())

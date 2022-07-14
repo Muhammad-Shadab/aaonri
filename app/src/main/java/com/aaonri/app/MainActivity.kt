@@ -68,21 +68,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        homeViewModel.allInterestData.observe(this) { response ->
-            when (response) {
-                is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(applicationContext, "${response.data?.get(0)}", Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Error -> {
-
-                }
-                else -> {}
-            }
-        }
 
     }
 

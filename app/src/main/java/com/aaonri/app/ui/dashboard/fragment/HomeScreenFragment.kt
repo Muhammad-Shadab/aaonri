@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
+import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -39,6 +41,7 @@ class HomeScreenFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
+    var interestAdapter: InterestAdapter? = null
     val eventId = mutableListOf<Int>()
 
     override fun onCreateView(
@@ -57,6 +60,11 @@ class HomeScreenFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
+        interestAdapter = InterestAdapter {
+
+        }
+
         popularClassifiedAdapter = PoplarClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
@@ -79,9 +87,9 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            openEvent.setOnClickListener {
+            /*openEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            }
+            }*/
 
             seeAllEvents.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
@@ -142,6 +150,10 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
             }
+
+            interestRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            interestRecyclerView.adapter = interestAdapter
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
@@ -358,6 +370,24 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
+        homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (response.data?.isNotEmpty() == true) {
+                        homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
+                        homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
+                    }
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
 
 
         return homeScreenBinding?.root
