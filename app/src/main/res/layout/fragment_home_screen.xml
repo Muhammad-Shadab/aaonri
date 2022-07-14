@@ -25,10 +25,10 @@
         android:id="@id/locationIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:src="@drawable/ic_location"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/homeTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/homeTv"
@@ -42,8 +42,8 @@
         android:fontFamily="@font/helvetica_regular"
         android:text="New York, NY"
         android:textColor="@color/white"
-        android:visibility="gone"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/locationIcon"
         app:layout_constraintStart_toEndOf="@id/locationIcon"
         app:layout_constraintTop_toTopOf="@+id/locationIcon" />
@@ -64,16 +64,16 @@
 
         <ImageView
             android:id="@+id/profilePicIv"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
     <ImageView
         android:id="@+id/bellIconIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
@@ -122,7 +122,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/interestRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:listitem="@layout/interest_item" />
+
+
+            <!--<LinearLayout
                 android:id="@+id/aaonriFeatureLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -245,11 +254,13 @@
                         android:textColor="@color/black"
                         android:textSize="10sp" />
                 </LinearLayout>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <View
+                android:id="@+id/interestBorder"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="#c9c9c9" />
 
@@ -473,7 +484,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:elevation="@dimen/_6sdp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_2sdp"
@@ -829,6 +840,7 @@
                     android:text="Immigration"
                     android:textColor="@color/black"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/myEventsCardView" />
 
@@ -841,6 +853,7 @@
                     android:text="@string/see_all"
                     android:textColor="@color/blueBtnColor"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/immigration"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/immigration" />
@@ -850,6 +863,7 @@
                     android:layout_height="@dimen/_12sdp"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:src="@drawable/arrow_forward"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/seeAllImmigration"
                     app:layout_constraintStart_toEndOf="@id/seeAllImmigration"
                     app:layout_constraintTop_toTopOf="@id/seeAllImmigration"
@@ -861,7 +875,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:scrollbars="none"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/immigration">
@@ -909,7 +923,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:scrollbars="none"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/immigrantsHorizontalTab">

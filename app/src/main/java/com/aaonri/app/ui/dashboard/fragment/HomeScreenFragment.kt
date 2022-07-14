@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
+import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -34,8 +38,10 @@ class HomeScreenFragment : Fragment() {
     var homeScreenBinding: FragmentHomeScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
+    var interestAdapter: InterestAdapter? = null
     val eventId = mutableListOf<Int>()
 
     override fun onCreateView(
@@ -54,6 +60,62 @@ class HomeScreenFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
+        interestAdapter = InterestAdapter {
+            when (it.interestDesc) {
+                "Classifieds" -> {
+                    dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                }
+                "Events" -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
+                }
+                "Jobs" -> {
+                }
+                "Immigration" -> {
+                }
+                "Astrology" -> {
+                }
+                "Sports" -> {
+                }
+                "Community Connect" -> {
+
+                }
+                "Foundation & Donations" -> {
+
+                }
+                "Student Services" -> {
+
+                }
+                "Legal Services" -> {
+
+                }
+                "Matrimony & Weddings" -> {
+
+                }
+                "Medical Care" -> {
+
+                }
+                "Real Estate" -> {
+
+                }
+                "Shop With Us" -> {
+
+                }
+                "Travel and Stay" -> {
+
+                }
+                "Home Needs" -> {
+
+                }
+                "Business Needs" -> {
+
+                }
+                "Advertise With Us" -> {
+
+                }
+            }
+        }
+
         popularClassifiedAdapter = PoplarClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
@@ -76,9 +138,9 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            openEvent.setOnClickListener {
+            /*openEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            }
+            }*/
 
             seeAllEvents.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
@@ -140,6 +202,10 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
+            interestRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            interestRecyclerView.adapter = interestAdapter
+
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
@@ -147,28 +213,47 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        homeViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        /*classifiedViewModel.classifiedListForHomeScreen.observe(viewLifecycleOwner) {
+            var homeClassified = mutableListOf<UserAds>()
+            it.forEachIndexed { index, userAds ->
+                if (index <= 3) {
+                    if (homeClassified.contains(userAds)) {
+                        homeClassified.remove(userAds)
+                    } else {
+                        homeClassified.add(userAds)
+                    }
+                }
+            }
+            it.let {
+                allClassifiedAdapter?.setData(homeClassified)
+            }
+            homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
+        }*/
+
+        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    var homeClassified = mutableListOf<UserAds>()
-                    response.data?.userAdsList?.forEachIndexed { index, userAds ->
-                        if (index <= 3) {
-                            if (homeClassified.contains(userAds)) {
-                                homeClassified.remove(userAds)
-                            } else {
-                                homeClassified.add(userAds)
-                            }
+                    response.data?.userAdsList?.let {
+                        if (classifiedViewModel.classifiedListForHomeScreen.isEmpty()) {
+                            classifiedViewModel.setClassifiedForHomeScreen(it)
+                            setHomeClassifiedData()
+                        } else {
+                            setHomeClassifiedData()
                         }
                     }
-
-                    response.data?.userAdsList.let {
-                        allClassifiedAdapter?.setData(homeClassified)
-                    }
                     homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
+                    if (response.data?.userAdsList?.isEmpty() == true) {
+                        /*activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "No result found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }*/
+                    }
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
@@ -248,7 +333,6 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
-
 
 
                     images.forEachIndexed { index, image ->
@@ -343,18 +427,37 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "${response.data?.get(0)}", Toast.LENGTH_SHORT).show()
+                    if (response.data?.isNotEmpty() == true) {
+                        homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
+                        homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
+                    }
                 }
                 is Resource.Error -> {
 
                 }
                 else -> {}
             }
-
         }
 
+
         return homeScreenBinding?.root
+    }
+
+    private fun setHomeClassifiedData() {
+
+        if (classifiedViewModel.classifiedListForHomeScreen.size > 3) {
+            allClassifiedAdapter?.setData(
+                classifiedViewModel.classifiedListForHomeScreen.subList(
+                    0,
+                    4
+                )
+            )
+        } else {
+            allClassifiedAdapter?.setData(classifiedViewModel.classifiedListForHomeScreen)
+        }
+
+
     }
 
     fun View.margin(

@@ -51,7 +51,7 @@ class MyEventFragment : Fragment() {
 
         }
 
-        eventViewModel.allEventData.observe(viewLifecycleOwner) { response ->
+        eventViewModel.myEvent.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     myEventBinding?.progressBar?.visibility = View.VISIBLE
@@ -78,26 +78,5 @@ class MyEventFragment : Fragment() {
 
         return myEventBinding?.root
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
-        eventViewModel.getAllEvent(
-            AllEventRequest(
-                category = "",
-                city = "",
-                from = "",
-                isPaid = "",
-                keyword = "",
-                maxEntryFee = 0,
-                minEntryFee = 0,
-                myEventsOnly = true,
-                userId = if (email?.isNotEmpty() == true) email else "",
-                zip = ""
-            )
-        )
     }
 }

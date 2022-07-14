@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecentEventFragment : Fragment() {
-    val eventViewModel: EventViewModel by viewModels()
+    val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var recentEventBinding: FragmentRecentEventBinding? = null
     var recentAdapter: RecentEventAdapter? = null
@@ -71,12 +71,5 @@ class RecentEventFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        if (email != null) {
-            eventViewModel.getRecentEvent(email)
-        }
-    }
 
 }

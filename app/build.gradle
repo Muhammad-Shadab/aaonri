@@ -25,15 +25,15 @@ android {
 
     flavorDimensions "dev"
 
-    productFlavors{
+    productFlavors {
 
-        dev{
+        dev {
             dimension "dev"
             applicationIdSuffix ".dev"
             buildConfigField "String", BASE_URL, '"http://aaonridevnew.aaonri.com:8444"'
         }
 
-        production{
+        production {
             dimension "dev"
             applicationIdSuffix ""
             buildConfigField "String", BASE_URL, '"https://aaonri.com"'
@@ -135,8 +135,6 @@ dependencies {
     //TextEditor for text (description)
 
     implementation 'com.github.onecode369:WYSIWYG:4.0'
-
-    implementation 'androidx.palette:palette:1.0.0'
 
 
 }

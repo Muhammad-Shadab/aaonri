@@ -47,7 +47,7 @@ class ClassifiedDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedDetailsBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val args: ClassifiedDetailsFragmentArgs by navArgs()
     var isClassifiedLike = false
     var itemId = 0
@@ -222,7 +222,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-
         return classifiedDetailsBinding?.root
     }
 
@@ -364,7 +363,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
 
-
                     changeCardViewBorder(0)
                 }
             }
@@ -500,6 +498,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 service = "Classified"
             )
         )
+        classifiedViewModel.setIsLikedButtonClicked(true)
     }
 
     private fun changeCardViewBorder(selectedImageIndex: Int) {

@@ -26,8 +26,8 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     var allInterestData: MutableLiveData<Resource<InterestResponse>> = MutableLiveData()
         private set
 
-    val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
-        MutableLiveData()
+    /*val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()*/
 
     val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
         MutableLiveData()
@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
-                Resource.Success(it)
+                return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
@@ -62,7 +62,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         return Resource.Error(response.message())
     }
 
-    fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
+    /*fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
             classifiedByUserData.postValue(Resource.Loading())
             val response = homeRepository.getClassifiedByUser(getClassifiedsByUserRequest)
@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun getPopularClassified() = viewModelScope.launch {
         popularClassifiedData.postValue(Resource.Loading())
@@ -92,5 +92,6 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         }
         return Resource.Error(response.message())
     }
+
 
 }
