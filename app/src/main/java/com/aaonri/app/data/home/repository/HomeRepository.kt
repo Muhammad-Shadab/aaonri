@@ -1,6 +1,5 @@
 package com.aaonri.app.data.home.repository
 
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.home.api.HomeApi
 import javax.inject.Inject
 

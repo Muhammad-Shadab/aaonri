@@ -26,8 +26,8 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     var allInterestData: MutableLiveData<Resource<InterestResponse>> = MutableLiveData()
         private set
 
-    val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
-        MutableLiveData()
+    /*val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()*/
 
     val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
         MutableLiveData()

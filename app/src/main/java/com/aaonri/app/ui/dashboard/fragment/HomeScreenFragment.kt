@@ -272,7 +272,6 @@ class HomeScreenFragment : Fragment() {
                     }
 
 
-
                     images.forEachIndexed { index, image ->
                         when (index) {
                             0 -> {
@@ -359,22 +358,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    /*Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "${response.data?.get(0)}", Toast.LENGTH_SHORT).show()*/
-                }
-                is Resource.Error -> {
-
-                }
-                else -> {}
-            }
-
-        }
 
         return homeScreenBinding?.root
     }

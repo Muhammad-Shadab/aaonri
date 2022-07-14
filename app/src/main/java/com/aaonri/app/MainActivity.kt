@@ -3,6 +3,7 @@ package com.aaonri.app
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -14,6 +15,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,6 +68,21 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        homeViewModel.allInterestData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "${response.data?.get(0)}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
 
     }
 
