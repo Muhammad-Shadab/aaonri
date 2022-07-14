@@ -164,378 +164,383 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/eventDetailsBottom"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/rounded_bottom_sheet_shape">
-        <androidx.core.widget.NestedScrollView
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_bottom_sheet_shape"
+        android:layout_marginTop="@dimen/_120sdp">
+        <FrameLayout
+            android:id="@+id/eventDetailsBottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
             <LinearLayout
-                android:id="@+id/linear"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint1"
+                android:layout_height="wrap_content">
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/arrowBottomSheet"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:src="@drawable/up_arrow_bottomshet"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/eventPriceTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_28sdp"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:textColor="#114591"
-                        android:textSize="24sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <LinearLayout
-                        android:id="@+id/eventNameLinear"
+                        android:id="@+id/linear"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventPriceTv">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/eventTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/sf_pro_semi_bold"
-                            android:textColor="#333333"
-                            android:textSize="18sp" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraint1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/arrowBottomSheet"
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:src="@drawable/up_arrow_bottomshet"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/eventPriceTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_28sdp"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:textColor="#114591"
+                                android:textSize="24sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:id="@+id/eventNameLinear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:orientation="horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/eventPriceTv">
+
+                                <TextView
+                                    android:id="@+id/eventTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:textColor="#333333"
+                                    android:textSize="18sp" />
 
 
-                    </LinearLayout>
+                            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/eventCategoryTv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:maxLines="1"
-                        android:textColor="#333333"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/eventNameLinear" />
+                            <TextView
+                                android:id="@+id/eventCategoryTv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:maxLines="1"
+                                android:textColor="#333333"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/eventNameLinear" />
 
-                    <LinearLayout
-                        android:id="@+id/eventLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventCategoryTv">
+                            <LinearLayout
+                                android:id="@+id/eventLocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:orientation="horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/eventCategoryTv">
 
-                        <ImageView
-                            android:id="@+id/locationIconEvent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:src="@drawable/ic_location"
-                            app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
-                            app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+                                <ImageView
+                                    android:id="@+id/locationIconEvent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_2sdp"
+                                    android:src="@drawable/ic_location"
+                                    app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                                    app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
 
-                        <TextView
-                            android:id="@+id/locationEventTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_semi_bold"
-                            android:maxLines="1"
-                            android:textColor="#333333"
-                            android:textSize="12sp" />
+                                <TextView
+                                    android:id="@+id/locationEventTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:maxLines="1"
+                                    android:textColor="#333333"
+                                    android:textSize="12sp" />
 
-                        <TextView
-                            android:id="@+id/eventLocationZip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:maxLines="1"
-                            android:textColor="#8d959f"
-                            android:textSize="12sp" />
+                                <TextView
+                                    android:id="@+id/eventLocationZip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:maxLines="1"
+                                    android:textColor="#8d959f"
+                                    android:textSize="12sp" />
 
-                    </LinearLayout>
+                            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/eventPostDateLinearLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventLocation">
+                            <LinearLayout
+                                android:id="@+id/eventPostDateLinearLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:orientation="vertical"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/eventLocation">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    >
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:src="@drawable/ic_time_watch"
+                                        app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                                        app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_marginLeft="@dimen/_4sdp">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="@dimen/_4sdp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/sf_pro_regular"
+                                                android:maxLines="1"
+                                                android:text="From"
+                                                android:textColor="#8d959f"
+                                                android:textSize="12sp" />
+
+                                            <TextView
+                                                android:id="@+id/postedDate1"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="@dimen/_4sdp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/sf_pro_semi_bold"
+                                                android:maxLines="2"
+                                                android:textColor="#333333"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="@dimen/_4sdp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/sf_pro_regular"
+                                                android:maxLines="1"
+                                                android:text="To"
+                                                android:textColor="#8d959f"
+                                                android:textSize="12sp" />
+
+                                            <TextView
+                                                android:id="@+id/postedDate2"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="@dimen/_4sdp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/sf_pro_semi_bold"
+                                                android:maxLines="2"
+                                                android:textColor="#333333"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/buyTicket"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:orientation="horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/eventPostDateLinearLayout">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_2sdp"
+                                    android:src="@drawable/buyticketicon"
+                                    app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                                    app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:maxLines="1"
+                                    android:text="Buy Tickets Here"
+                                    android:textColor="#8d959f"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/premiumLink"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:maxLines="1"
+                                    android:textColor="#154591"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_14sdp"
+                            android:background="@color/disableServiceColor"
                             android:orientation="horizontal"
-                            >
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:src="@drawable/ic_time_watch"
-                            app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
-                            app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginLeft="@dimen/_4sdp">
+                            android:padding="@dimen/_10sdp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/totalVisitingTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/user_icon"
+                                    android:drawablePadding="@dimen/_6sdp"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:textColor="@color/graytxtcolor"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/totalFavoriteTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/star_icon"
+                                    android:drawablePadding="@dimen/_6sdp"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:textColor="@color/graytxtcolor"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:maxLines="1"
-                            android:text="From"
-                            android:textColor="#8d959f"
-                            android:textSize="12sp" />
+                            android:layout_marginHorizontal="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_24sdp"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/goingBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/green_btn_shape"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:minHeight="0dp"
+                                android:paddingTop="@dimen/_4sdp"
+                                android:paddingBottom="@dimen/_4sdp"
+                                android:text="@string/going"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/interestedBtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:background="@drawable/green_btn_shape"
+                                android:backgroundTint="@color/blue"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:minHeight="0dp"
+                                android:paddingTop="@dimen/_4sdp"
+                                android:paddingBottom="@dimen/_4sdp"
+                                android:text="@string/interested"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/postedDate1"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/eventDescTv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
+                            android:layout_marginHorizontal="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
                             android:fontFamily="@font/sf_pro_semi_bold"
-                            android:maxLines="2"
                             android:textColor="#333333"
                             android:textSize="12sp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_regular"
-            android:maxLines="1"
-            android:text="To"
-            android:textColor="#8d959f"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/postedDate2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:maxLines="2"
-            android:textColor="#333333"
-            android:textSize="12sp" />
-    </LinearLayout>
-                        </LinearLayout>
-
-                        </LinearLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/buyTicket"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventPostDateLinearLayout">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:src="@drawable/buyticketicon"
-                            app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
-                            app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:maxLines="1"
-                            android:text="Buy Tickets Here"
-                            android:textColor="#8d959f"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/premiumLink"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_semi_bold"
-                            android:maxLines="1"
-                            android:textColor="#154591"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@color/disableServiceColor"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_10sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/totalVisitingTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/user_icon"
-                            android:drawablePadding="@dimen/_6sdp"
-                            android:gravity="center"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:textColor="@color/graytxtcolor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/totalFavoriteTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/star_icon"
-                            android:drawablePadding="@dimen/_6sdp"
-                            android:gravity="center"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:textColor="@color/graytxtcolor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_24sdp"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/goingBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/green_btn_shape"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:minHeight="0dp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:paddingBottom="@dimen/_4sdp"
-                        android:text="@string/going"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/interestedBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/green_btn_shape"
-                        android:backgroundTint="@color/blue"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:minHeight="0dp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:paddingBottom="@dimen/_4sdp"
-                        android:text="@string/interested"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/eventDescTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:textColor="#333333"
-                    android:textSize="12sp" />
+                </androidx.core.widget.NestedScrollView>
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-</LinearLayout>
-    </FrameLayout>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -167,9 +167,9 @@ class MainActivity : BaseActivity() {
                     )
                 )
 
-
             }
         }
+
 
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
