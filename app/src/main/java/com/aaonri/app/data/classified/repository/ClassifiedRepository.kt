@@ -46,8 +46,11 @@ class ClassifiedRepository @Inject constructor(
     suspend fun getClassifiedLikeDislikeInfo(email: String, addId: Int, service: String) =
         classifiedApi.getClassifiedLikeInfo(addId, service, email)
 
-    suspend fun upDateClassified(postClassifiedRequest: PostClassifiedRequest) =
+    suspend fun updateClassified(postClassifiedRequest: PostClassifiedRequest) =
         postClassifiedApi.updateClassified(postClassifiedRequest)
+
+    suspend fun deleteClassified(classifiedId: Int) =
+        postClassifiedApi.deleteClassified(classifiedId)
 
     // suspend fun uploadImages(uploadImagesRequest: UploadImagesRequest) = postClassifiedApi.uploadImages(uploadImagesRequest)
 

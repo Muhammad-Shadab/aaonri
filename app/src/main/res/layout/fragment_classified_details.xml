@@ -297,7 +297,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_regular"
                             android:maxLines="1"
-                            android:text="Posting on"
+                            android:text="Posted on"
                             android:textColor="#8d959f"
                             android:textSize="12sp" />
 
@@ -469,6 +469,18 @@
                         app:layout_constraintTop_toBottomOf="@id/emailTv" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/loginToViewSellerInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:text="Login to view Seller Information"
+                    android:textAlignment="center"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/bottomViewForSpace"

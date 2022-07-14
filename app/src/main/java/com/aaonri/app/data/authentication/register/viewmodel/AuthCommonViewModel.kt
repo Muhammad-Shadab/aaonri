@@ -70,8 +70,7 @@ class AuthCommonViewModel @Inject constructor(
     var isCountrySelected: Boolean = false
         private set
 
-
-    var countryFlagBmp:Bitmap?=null
+    var countryFlagBmp: Bitmap? = null
         private set
 
     fun addNavigationForStepper(value: String) {
@@ -148,11 +147,11 @@ class AuthCommonViewModel @Inject constructor(
     fun addCompanyEmailAliasCheckBoxValue(
         isRecruiterCheckBox: Boolean,
         isAliasNameCheckBox: Boolean,
-        belongToCricketCheckBox: Boolean
+        //belongToCricketCheckBox: Boolean
     ) {
         companyEmailAliasCheckBoxValue["isRecruiterCheckBox"] = isRecruiterCheckBox
         companyEmailAliasCheckBoxValue["isAliasNameCheckBox"] = isAliasNameCheckBox
-        companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
+        //companyEmailAliasCheckBoxValue["belongToCricketCheckBox"] = belongToCricketCheckBox
     }
 
     fun getCommunities() = viewModelScope.launch {

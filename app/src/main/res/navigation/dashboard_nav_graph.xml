@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/classifiedScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
 
     <fragment
         android:id="@+id/homeScreenFragment"
@@ -119,6 +119,9 @@
         <argument
             android:name="isClassifiedUpdate"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_updateDeleteClassifiedBottom_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment" />
     </dialog>
     >>>>>>> feac20f59f1b79deaa4b549e5e44e9938bbe470b
 </navigation>

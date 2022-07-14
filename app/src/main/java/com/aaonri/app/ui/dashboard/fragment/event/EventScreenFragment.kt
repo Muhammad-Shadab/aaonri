@@ -41,6 +41,10 @@ class EventScreenFragment : Fragment() {
 
             eventsScreenViewPager.isUserInputEnabled = false
 
+            navigateBack.setOnClickListener {
+                activity?.onBackPressed()
+            }
+
             /*filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
             }*/

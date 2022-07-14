@@ -112,6 +112,8 @@ class PostClassifiedViewModel @Inject constructor(
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    val classifiedDeleteData: MutableLiveData<Resource<String>> =
+        MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -176,9 +178,25 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         updateClassifiedData.postValue(Resource.Loading())
-        val response = classifiedRepository.upDateClassified(postClassifiedRequest)
+        val response = classifiedRepository.updateClassified(postClassifiedRequest)
         updateClassifiedData.postValue(handlePostClassifiedResponse(response))
     }
+
+    fun deleteClassified(classifiedId: Int) = viewModelScope.launch {
+        classifiedDeleteData.postValue(Resource.Loading())
+        val response = classifiedRepository.deleteClassified(classifiedId)
+        classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
+    }
+
+    private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         postClassifiedData.postValue(Resource.Loading())

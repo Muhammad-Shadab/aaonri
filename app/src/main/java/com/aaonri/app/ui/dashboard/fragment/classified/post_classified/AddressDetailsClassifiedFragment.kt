@@ -59,6 +59,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val text = resources.getString(R.string.your_classified_will)
 
         val ss = SpannableString(text)
+        val ss1 = SpannableString(resources.getString(R.string.if_you_want))
+        val ss3 = SpannableString("By Posting an ad on aaonri.com, you agree to our\\n Terms of use and")
+        val ss4 = SpannableString("Privacy Policy")
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -82,13 +85,87 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "Classfieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val clickableSpan3: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "Classfieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val clickableSpan4: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "Classfieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
 
         ss.setSpan(clickableSpan1, 174, 201, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss1.setSpan(clickableSpan2,84,105,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss3.setSpan(clickableSpan3,49,61,0)
+        ss4.setSpan(clickableSpan4,0,10,0)
 
         addressDetailsBinding?.apply {
 
             textDesc1.text = ss
+            textDec2.text = ss1
+            textDec3.text = "$ss3 $ss4"
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
+            textDec2.movementMethod = LinkMovementMethod.getInstance()
+            textDec3.movementMethod = LinkMovementMethod.getInstance()
 
             if (city?.isNotEmpty() == true) {
                 cityNameAddressDetails.setText(city)

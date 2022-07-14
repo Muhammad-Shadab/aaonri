@@ -36,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ServicesCategoryFragment : Fragment() {
     var servicesGridItemBinding: FragmentServicesCategoryBinding? = null
     private var adapter: ServicesItemAdapter? = null
-    val registrationViewModel: RegistrationViewModel by viewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var isServicesSelected = false
     var isJobSelected = false
@@ -111,7 +111,7 @@ class ServicesCategoryFragment : Fragment() {
                                     aliasName.toString(),
                                     isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
                                     isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
-                                    belongToCricketCheckBox = belongToCricketCheckBox.isChecked
+                                    //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
                                 )
                             } else {
                                 activity?.let { it1 ->
@@ -138,7 +138,7 @@ class ServicesCategoryFragment : Fragment() {
                             companyEmail.toString(), aliasName.toString(),
                             isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
                             isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
-                            belongToCricketCheckBox = belongToCricketCheckBox.isChecked
+                            //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
                         )
                     } else {
                         activity?.let { it1 ->
@@ -245,7 +245,7 @@ class ServicesCategoryFragment : Fragment() {
         aliasName: String,
         isRecruiterCheckBox: Boolean,
         isAliasNameCheckBox: Boolean,
-        belongToCricketCheckBox: Boolean
+        //belongToCricketCheckBox: Boolean
     ) {
         authCommonViewModel.addCompanyEmailAliasName(
             companyEmail,
@@ -254,7 +254,7 @@ class ServicesCategoryFragment : Fragment() {
         authCommonViewModel.addCompanyEmailAliasCheckBoxValue(
             isRecruiterCheckBox,
             isAliasNameCheckBox,
-            belongToCricketCheckBox
+            //belongToCricketCheckBox
         )
         registrationViewModel.registerUser(
             RegisterRequest(

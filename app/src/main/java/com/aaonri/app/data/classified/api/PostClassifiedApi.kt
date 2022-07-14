@@ -32,5 +32,9 @@ interface PostClassifiedApi {
         @Body postClassifiedRequest: PostClassifiedRequest
     ): Response<PostClassifiedRequest>
 
+    @DELETE("/api/v1/asd/delete/{classifiedId}")
+    suspend fun deleteClassified(
+        @Path("classifiedId") classifiedId: Int
+    ): Response<String>
 
 }

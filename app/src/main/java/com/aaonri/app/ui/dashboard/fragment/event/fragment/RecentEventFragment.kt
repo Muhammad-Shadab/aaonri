@@ -15,6 +15,7 @@ import com.aaonri.app.databinding.FragmentRecentEventBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +49,16 @@ class RecentEventFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     recentEventBinding?.progressBar?.visibility = View.GONE
-                    response.data?.let { recentAdapter?.setData(it) }
+                    if (response.data?.isEmpty() == true) {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "No result found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    } else {
+                        response.data?.let { recentAdapter?.setData(it) }
+                    }
                 }
                 is Resource.Error -> {
                     recentEventBinding?.progressBar?.visibility = View.GONE
