@@ -215,7 +215,7 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
-
+                    Toast.makeText(context, "${images.size}", Toast.LENGTH_SHORT).show()
                     when (images.size) {
                         1 -> {
                             homeScreenBinding?.eventImage1?.margin(right = 20F)
@@ -315,6 +315,23 @@ class HomeScreenFragment : Fragment() {
                 }
                 else -> {}
             }
+        }
+
+        homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${response.data?.get(0)}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+
         }
 
         return homeScreenBinding?.root

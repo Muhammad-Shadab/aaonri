@@ -7,6 +7,7 @@ import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.EventResponse
+import com.aaonri.app.data.home.model.InterestResponse
 import com.aaonri.app.data.home.model.PoplarClassifiedResponse
 import com.aaonri.app.data.home.repository.HomeRepository
 import com.aaonri.app.utils.Resource
@@ -21,12 +22,30 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     var homeEventData: MutableLiveData<Resource<EventResponse>> = MutableLiveData()
         private set
-    
+
+    var allInterestData: MutableLiveData<Resource<InterestResponse>> = MutableLiveData()
+        private set
+
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
     val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
         MutableLiveData()
+
+    fun getAllInterest() = viewModelScope.launch {
+        allInterestData.postValue(Resource.Loading())
+        val response = homeRepository.getAllInterest()
+        allInterestData.postValue(handleAllInterestResponse(response))
+    }
+
+    private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     fun getHomeEvent() = viewModelScope.launch {
         homeEventData.postValue(Resource.Loading())

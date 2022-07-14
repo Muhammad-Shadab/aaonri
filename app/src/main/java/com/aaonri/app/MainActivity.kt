@@ -45,8 +45,6 @@ class MainActivity : BaseActivity() {
 
             bottomNavigation.setupWithNavController(navController)
 
-            //
-
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.classifiedScreenFragment || destination.id == R.id.advertiseScreenFragment ||
                     destination.id == R.id.shopScreenFragment || destination.id == R.id.moreScreenFragment
@@ -108,6 +106,7 @@ class MainActivity : BaseActivity() {
                 )
             }
         }
+        homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
     }
