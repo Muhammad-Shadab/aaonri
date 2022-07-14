@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.Image
@@ -29,7 +30,6 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -62,7 +62,58 @@ class HomeScreenFragment : Fragment() {
         }
 
         interestAdapter = InterestAdapter {
+            when (it.interestDesc) {
+                "Classifieds" -> {
+                    dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                }
+                "Events" -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
+                }
+                "Jobs" -> {
+                }
+                "Immigration" -> {
+                }
+                "Astrology" -> {
+                }
+                "Sports" -> {
+                }
+                "Community Connect" -> {
 
+                }
+                "Foundation & Donations" -> {
+
+                }
+                "Student Services" -> {
+
+                }
+                "Legal Services" -> {
+
+                }
+                "Matrimony & Weddings" -> {
+
+                }
+                "Medical Care" -> {
+
+                }
+                "Real Estate" -> {
+
+                }
+                "Shop With Us" -> {
+
+                }
+                "Travel and Stay" -> {
+
+                }
+                "Home Needs" -> {
+
+                }
+                "Business Needs" -> {
+
+                }
+                "Advertise With Us" -> {
+
+                }
+            }
         }
 
         popularClassifiedAdapter = PoplarClassifiedAdapter {
