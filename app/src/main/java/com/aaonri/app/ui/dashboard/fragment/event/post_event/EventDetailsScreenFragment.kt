@@ -76,6 +76,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             })
             navigateBack.setOnClickListener {
+                postEventViewModel.eventDetailsData.value = null
                 findNavController().navigateUp()
             }
 
@@ -149,13 +150,13 @@ class EventDetailsScreenFragment : Fragment() {
                 0 -> {
                     evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                  /*  context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
+                    /*  context?.let {
+                          evenDetailsBinding?.addImage?.let { it1 ->
+                              Glide.with(it)
+                                  .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                  .into(it1)
+                          }
+                      }*/
 
                     context?.let {
                         evenDetailsBinding?.image1?.let { it1 ->
