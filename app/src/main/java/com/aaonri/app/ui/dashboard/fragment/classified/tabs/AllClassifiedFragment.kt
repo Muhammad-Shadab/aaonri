@@ -55,7 +55,10 @@ class AllClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let { allClassifiedAdapter!!.setData(it) }
+                    response.data?.userAdsList?.let {
+                        allClassifiedAdapter!!.setData(it)
+                        classifiedViewModel.setClassifiedForHomeScreen(it)
+                    }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
                         activity?.let { it1 ->
