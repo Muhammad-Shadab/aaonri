@@ -97,6 +97,21 @@ class MainActivity : BaseActivity() {
                         zipCode = ""
                     )
                 )
+
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
             } else {
 
                 classifiedViewModel.setIsLikedButtonClicked(true)
