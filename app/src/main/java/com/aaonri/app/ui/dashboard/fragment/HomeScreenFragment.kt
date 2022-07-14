@@ -188,7 +188,7 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    val images = mutableListOf<Image>()
+                    var images = mutableListOf<Image>()
                     response.data?.userEvent?.forEachIndexed { index, userEvent ->
                         when (index) {
                             0 -> {
@@ -215,22 +215,41 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
-                    images.distinct()
-                    Toast.makeText(context, "${images.size}", Toast.LENGTH_SHORT).show()
-                    when (images.size) {
-                        1 -> {
-                            homeScreenBinding?.eventImage1?.margin(right = 20F)
+
+                    if (images.size > 3) {
+                        images = images.subList(0, 3)
+                        when (images.size) {
+                            1 -> {
+                                homeScreenBinding?.eventImage1?.margin(right = 20F)
+                            }
+                            2 -> {
+                                homeScreenBinding?.eventImage2?.margin(right = 20F)
+                            }
+                            3 -> {
+                                homeScreenBinding?.eventImage3?.margin(right = 20F)
+                            }
+                            4 -> {
+                                homeScreenBinding?.eventImage4?.margin(right = 20F)
+                            }
                         }
-                        2 -> {
-                            homeScreenBinding?.eventImage2?.margin(right = 20F)
-                        }
-                        3 -> {
-                            homeScreenBinding?.eventImage3?.margin(right = 20F)
-                        }
-                        4 -> {
-                            homeScreenBinding?.eventImage4?.margin(right = 20F)
+                    } else {
+                        when (images.size) {
+                            1 -> {
+                                homeScreenBinding?.eventImage1?.margin(right = 20F)
+                            }
+                            2 -> {
+                                homeScreenBinding?.eventImage2?.margin(right = 20F)
+                            }
+                            3 -> {
+                                homeScreenBinding?.eventImage3?.margin(right = 20F)
+                            }
+                            4 -> {
+                                homeScreenBinding?.eventImage4?.margin(right = 20F)
+                            }
                         }
                     }
+
+
 
                     images.forEachIndexed { index, image ->
                         when (index) {
