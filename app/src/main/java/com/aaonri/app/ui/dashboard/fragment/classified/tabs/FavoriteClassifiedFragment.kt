@@ -20,10 +20,11 @@ import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoriteClassifiedFragment : Fragment() {
+class
+FavoriteClassifiedFragment : Fragment() {
     var favoriteClassifiedBinding: FragmentFavoriteClassifiedBinding? = null
     var favoriteClassifiedAdapter: FavoriteClassifiedAdapter? = null
-    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,8 +89,15 @@ class FavoriteClassifiedFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        if (email != null) {
-            classifiedViewModel.getFavoriteClassified(email)
+
+        classifiedViewModel.isLikedButtonClicked.observe(viewLifecycleOwner) { isLikeButtonClicked ->
+            Toast.makeText(context, "$isLikeButtonClicked", Toast.LENGTH_SHORT).show()
+            if (isLikeButtonClicked) {
+                if (email != null) {
+                    classifiedViewModel.getFavoriteClassified(email)
+                }
+                classifiedViewModel.setIsLikedButtonClicked(false)
+            }
         }
     }
 }

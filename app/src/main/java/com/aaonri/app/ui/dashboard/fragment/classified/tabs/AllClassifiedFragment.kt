@@ -137,7 +137,7 @@ class AllClassifiedFragment : Fragment() {
                         )
                     }
                 } else {
-                    if (it) {
+                    /*if (it) {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -169,7 +169,7 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = ""
                             )
                         )
-                    }
+                    }*/
                 }
             }
         }

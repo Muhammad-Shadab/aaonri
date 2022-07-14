@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
+import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
@@ -21,6 +22,8 @@ class MainActivity : BaseActivity() {
     var mainActivityBinding: ActivityMainBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
     val homeViewModel: HomeViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +65,8 @@ class MainActivity : BaseActivity() {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
         }
+
+
     }
 
     override fun onResume() {
@@ -72,7 +77,7 @@ class MainActivity : BaseActivity() {
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->
             if (isGuestUser) {
-                homeViewModel.getClassifiedByUser(
+                classifiedViewModel.getClassifiedByUser(
                     GetClassifiedByUserRequest(
                         category = "",
                         email = "",
@@ -88,7 +93,26 @@ class MainActivity : BaseActivity() {
                     )
                 )
             } else {
-                homeViewModel.getClassifiedByUser(
+
+                classifiedViewModel.setIsLikedButtonClicked(true)
+
+                classifiedViewModel.getMyClassified(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+
+                classifiedViewModel.getClassifiedByUser(
                     GetClassifiedByUserRequest(
                         category = "",
                         email = if (email?.isNotEmpty() == true) email else "",
@@ -105,6 +129,7 @@ class MainActivity : BaseActivity() {
                 )
             }
         }
+
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()

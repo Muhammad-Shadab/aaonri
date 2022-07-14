@@ -25,6 +25,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
+    val myClassified: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()
+
     val likeDislikeClassifiedData: MutableLiveData<Resource<LikeDislikeClassifiedResponse>> =
         MutableLiveData()
 
@@ -33,6 +36,12 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
         MutableLiveData()
+
+    var classifiedListForHomeScreen = mutableListOf<UserAds>()
+        private set
+
+    var isLikedButtonClicked: MutableLiveData<Boolean> = MutableLiveData()
+        private set
 
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
@@ -71,6 +80,13 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
             classifiedByUserData.postValue(handleGetClassifiedUserResponse(response))
         }
+
+    fun getMyClassified(getClassifiedRequest: GetClassifiedByUserRequest) = viewModelScope.launch {
+        myClassified.postValue((Resource.Loading()))
+        val response = classifiedRepository.getClassifiedByUser(getClassifiedRequest)
+        myClassified.postValue(handleGetClassifiedUserResponse(response))
+    }
+
 
     private fun handleGetClassifiedUserResponse(response: Response<GetClassifiedsByUserResponse>): Resource<GetClassifiedsByUserResponse>? {
         if (response.isSuccessful) {
@@ -128,5 +144,12 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         return Resource.Error("Empty")
     }
 
+    fun setClassifiedForHomeScreen(value: List<UserAds>) {
+        classifiedListForHomeScreen = value as MutableList<UserAds>
+    }
+
+    fun setIsLikedButtonClicked(value: Boolean) {
+        isLikedButtonClicked.postValue(value)
+    }
 
 }

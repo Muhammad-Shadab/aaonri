@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyClassifiedFragment : Fragment() {
-    val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var myClassifiedBinding: FragmentMyClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
@@ -47,7 +47,7 @@ class MyClassifiedFragment : Fragment() {
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
         }
 
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        classifiedViewModel.myClassified.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     myClassifiedBinding?.progressBar?.visibility = View.VISIBLE
@@ -124,21 +124,6 @@ class MyClassifiedFragment : Fragment() {
                 )
             } else {
 
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = true,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
             }
         }
 

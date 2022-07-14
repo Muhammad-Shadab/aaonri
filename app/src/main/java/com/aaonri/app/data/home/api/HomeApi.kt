@@ -22,10 +22,10 @@ interface HomeApi {
     @GET("/api/v1/classified/findallpopularonaaonri")
     suspend fun getAllPopularClassified(): Response<PoplarClassifiedResponse>
 
-    @Headers("Content-Type:application/json")
+    /*@Headers("Content-Type:application/json")
     @POST("/api/v1/asd/search")
     suspend fun getClassifiedByUser(
         @Body getClassifiedsByUserRequest: GetClassifiedByUserRequest
-    ): Response<GetClassifiedsByUserResponse>
+    ): Response<GetClassifiedsByUserResponse>*/
 
 }

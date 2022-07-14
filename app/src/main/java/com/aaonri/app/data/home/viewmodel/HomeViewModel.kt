@@ -62,7 +62,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         return Resource.Error(response.message())
     }
 
-    fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
+    /*fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
             classifiedByUserData.postValue(Resource.Loading())
             val response = homeRepository.getClassifiedByUser(getClassifiedsByUserRequest)
@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun getPopularClassified() = viewModelScope.launch {
         popularClassifiedData.postValue(Resource.Loading())
@@ -92,5 +92,6 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         }
         return Resource.Error(response.message())
     }
+
 
 }
