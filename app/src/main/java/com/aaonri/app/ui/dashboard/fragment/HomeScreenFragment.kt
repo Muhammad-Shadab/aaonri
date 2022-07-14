@@ -215,6 +215,7 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
+                    images.distinct()
                     Toast.makeText(context, "${images.size}", Toast.LENGTH_SHORT).show()
                     when (images.size) {
                         1 -> {
