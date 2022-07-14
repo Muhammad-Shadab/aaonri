@@ -60,7 +60,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         val ss = SpannableString(text)
         val ss1 = SpannableString(resources.getString(R.string.if_you_want))
-        val ss3 = SpannableString("By Posting an ad on aaonri.com, you agree to our\\n Terms of use and")
+        val ss3 = SpannableString("By Posting an ad on aaonri.com, you agree to our\n Terms of use and")
         val ss4 = SpannableString("Privacy Policy")
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
@@ -109,15 +109,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
         val clickableSpan3: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
-                val emailIntent = Intent(
-                    Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "Classfieds@aaonri.com", null
-                    )
-                )
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
-                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+                activity?.startActivity(Intent("https://www.aaonri.com/"))
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -131,15 +123,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
         val clickableSpan4: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
-                val emailIntent = Intent(
-                    Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "Classfieds@aaonri.com", null
-                    )
-                )
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
-                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+                activity?.startActivity(Intent("https://www.aaonri.com/"))
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)

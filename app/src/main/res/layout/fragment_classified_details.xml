@@ -127,12 +127,14 @@
         android:id="@+id/classifiedDetailsBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_bottom_sheet_shape"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_bottom_sheet_shape">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_500sdp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -289,7 +291,15 @@
                             app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
-
+<LinearLayout
+    android:layout_marginLeft="@dimen/_4sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -311,7 +321,11 @@
                             android:maxLines="1"
                             android:textColor="#333333"
                             android:textSize="12sp" />
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -333,7 +347,8 @@
                             android:maxLines="1"
                             android:textColor="#333333"
                             android:textSize="12sp" />
-
+    </LinearLayout>
+</LinearLayout>
                     </LinearLayout>
 
                     <TextView
@@ -476,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Login to view Seller Information"
+                    android:text="@string/login_to_view_seller_information"
                     android:textAlignment="center"
                     android:textColor="#333333"
                     android:textSize="14sp"
@@ -490,7 +505,7 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout

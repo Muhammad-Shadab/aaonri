@@ -169,12 +169,14 @@
         android:id="@+id/eventDetailsBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_bottom_sheet_shape"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet_shape">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_500sdp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/linear"
@@ -302,11 +304,16 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/eventLocation">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -316,7 +323,16 @@
                             app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/_4sdp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -335,32 +351,39 @@
                             android:layout_marginStart="@dimen/_4sdp"
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_semi_bold"
-                            android:maxLines="1"
+                            android:maxLines="2"
                             android:textColor="#333333"
                             android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_regular"
+            android:maxLines="1"
+            android:text="To"
+            android:textColor="#8d959f"
+            android:textSize="12sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_regular"
-                            android:maxLines="1"
-                            android:text="To"
-                            android:textColor="#8d959f"
-                            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/postedDate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:maxLines="2"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+    </LinearLayout>
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/postedDate2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/sf_pro_semi_bold"
-                            android:maxLines="1"
-                            android:textColor="#333333"
-                            android:textSize="12sp" />
-
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -511,6 +534,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+</LinearLayout>
     </FrameLayout>
 
     <ProgressBar

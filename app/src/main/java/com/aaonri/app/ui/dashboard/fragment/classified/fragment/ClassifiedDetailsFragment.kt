@@ -6,6 +6,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,9 +62,26 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
+             val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
 
+                    activity?.finish()
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        ss.setSpan(clickableSpan1, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         classifiedDetailsBinding?.apply {
-
+            loginToViewSellerInfo.text = ss
+            loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
             if (email != null) {
@@ -130,9 +152,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
 
-            loginToViewSellerInfo.setOnClickListener {
-                activity?.finish()
-            }
 
         }
 
@@ -410,9 +429,9 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.sellerName?.text =
             classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
 
-        classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+        classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.createdOn.split("T")[0]))
-        classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
+        classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.adExpireDT.split("T")[0]))
 
         itemId = data.id
