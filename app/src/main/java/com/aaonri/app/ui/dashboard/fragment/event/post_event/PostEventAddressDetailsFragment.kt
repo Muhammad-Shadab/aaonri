@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.model.PostEventRequest
@@ -38,6 +36,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventAddressBinding =
             FragmentPostEventAddressDetailsBinding.inflate(inflater, container, false)
 
+        postEventViewModel.addNavigationForStepper(EventConstants.EVENT_ADDRESS_DETAILS)
 
         if (!postEventViewModel.isEventOffline) {
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
@@ -154,8 +153,41 @@ class PostEventAddressDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            postEventViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
+                                when (index) {
+                                    0 -> {
+                                        callUploadClassifiedPicApi(
+                                            uri,
+                                            response.data?.id,
+                                            response.data?.id,
+                                            imageName = "cover"
+                                        )
+                                    }
+                                    1 -> {
+                                        callUploadClassifiedPicApi(
+                                            uri,
+                                            response.data?.id,
+                                            response.data?.id,
+                                            imageName = "first"
+                                        )
+                                    }
+                                    2 -> {
+                                        callUploadClassifiedPicApi(
+                                            uri,
+                                            response.data?.id,
+                                            response.data?.id,
+                                            imageName = "second"
+                                        )
+                                    }
+                                    3 -> {
+                                        callUploadClassifiedPicApi(
+                                            uri,
+                                            response.data?.id,
+                                            response.data?.id,
+                                            imageName = "third"
+                                        )
+                                    }
+                                }
                             }
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
@@ -179,12 +211,26 @@ class PostEventAddressDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            postEventViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(
-                                    it,
-                                    postEventViewModel.updateEventId,
-                                    response.data?.id
-                                )
+                            postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
+                                when (index) {
+                                    0 -> {
+                                        callUploadClassifiedPicApi(
+                                            uri,
+                                            response.data?.id,
+                                            response.data?.id,
+                                            imageName = "cover"
+                                        )
+                                    }
+                                    1 -> {
+
+                                    }
+                                    2 -> {
+
+                                    }
+                                    3 -> {
+
+                                    }
+                                }
                             }
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
@@ -251,7 +297,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         return postEventAddressBinding?.root
     }
 
-    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?, imageName: String) {
 
         val file = File(uri.toString().replace("file:", ""))
 
@@ -260,7 +306,7 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
+        val requestImage = MultipartBody.Part.createFormData("files", imageName, requestFile)
 
         postEventViewModel.uploadEventPicture(requestImage, addId, delId)
     }

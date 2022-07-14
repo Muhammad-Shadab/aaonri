@@ -82,8 +82,9 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-                    dismiss()
-                    findNavController().navigateUp()
+
+                    /*dismiss()
+                    findNavController().navigateUp()*/
                 }
                 is Resource.Error -> {
 
