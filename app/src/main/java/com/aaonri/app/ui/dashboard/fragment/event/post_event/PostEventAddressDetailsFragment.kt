@@ -1,11 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,11 +33,13 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.time.format.DateTimeFormatter
 
 
 class PostEventAddressDetailsFragment : Fragment() {
     var postEventAddressBinding: FragmentPostEventAddressDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,10 +52,83 @@ class PostEventAddressDetailsFragment : Fragment() {
         if (!postEventViewModel.isEventOffline) {
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
         }
+        val ss1 = SpannableString(resources.getString(R.string.if_you_want_event))
+        val ss2 = SpannableString("By Posting an ad on aaonri.com, you agree to our\n Terms of use and")
+        val ss3 = SpannableString("Privacy Policy")
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
 
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "adminclassifieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
 
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "Classfieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val clickableSpan3: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "Classfieds@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        ss1.setSpan(clickableSpan1,80,98, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss2.setSpan(clickableSpan2,49,61,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss3.setSpan(clickableSpan3,0,10,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         postEventAddressBinding?.apply {
-
+            textDesc1.text = ss1
+            textDesc2.text = "$ss2 $ss3"
+            textDesc1.movementMethod = LinkMovementMethod.getInstance()
+            textDesc2.movementMethod = LinkMovementMethod.getInstance()
             classifiedDetailsNextBtn.setOnClickListener {
 
                 if (cityNameEt.text.toString()
@@ -311,6 +395,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.uploadEventPicture(requestImage, addId, delId)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun postEvent() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         postEventViewModel.postEvent(
@@ -325,7 +410,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateTimeFormatter.ofPattern("MM-dd-yyyy").parse(postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!)),
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]!! else "",
                 favorite = false,
@@ -335,7 +420,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateTimeFormatter.ofPattern("MM-dd-yyyy").parse(postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!)),
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,
@@ -347,6 +432,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun updateEvent() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
@@ -362,7 +448,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate =DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateTimeFormatter.ofPattern("MM-dd-yyyy").parse(postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!)),
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]!! else "",
                 favorite = false,
@@ -372,7 +458,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateTimeFormatter.ofPattern("MM-dd-yyyy").parse(postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!)),
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,

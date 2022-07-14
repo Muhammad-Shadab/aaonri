@@ -1,11 +1,8 @@
 package com.aaonri.app.data.event.adapter
 
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
@@ -15,7 +12,6 @@ import com.aaonri.app.databinding.EventItemBinding
 import com.bumptech.glide.Glide
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     RecyclerView.Adapter<AllEventAdapter.EventViewHolder>() {
@@ -36,8 +32,9 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
+
             try {
-                startDate = DateTimeFormatter.ofPattern("MMM dd").format(
+                startDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         .parse(data[position].startDate.split("T")[0])
                 )
@@ -53,18 +50,40 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
 
 
             if (data[position].images.isNotEmpty()) {
+                if (data[position].images[0].imagePath.contains(".cover") || data[position].images[0].imagePath.contains(
+                        ".first"
+                    ) || data[position].images[0].imagePath.contains(".second") || data[position].images[0].imagePath.contains(
+                        ".third"
+                    )
+                ) {
+                data[position].images.forEachIndexed { index, userAdsImage ->
 
-                val image =
-                    "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
-                Glide.with(context).load(image)
-                    .into(eventImageView)
+                        if (userAdsImage.imagePath.contains(".cover")) {
+                            val image =
+                                "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[index].imagePath}"
+                            Glide.with(context).load(image)
+                                .into(eventImageView)
+                        }
+
+                }
+                }
+                else{
+                    val image =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
+                    Glide.with(context).load(image)
+                        .into(eventImageView)
+                }
                 eventName.text = data[position].title
 
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
+                try {
+                    eventLocationZip.text =
+                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+                }
+                catch(e : Exception){
 
-                //data[position].city + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + data[position].zipCode
-
+                }
                 if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
@@ -75,8 +94,13 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-               /* eventLocationZip.text =
-                    data[position].city + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + data[position].zipCode*/
+                try {
+                    eventLocationZip.text =
+                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+                }
+                catch(e : Exception){
+
+                }
                 if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
@@ -126,7 +150,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
         val context = holder.itemView.context
         holder.binding.apply {
             try {
-                startDate = DateTimeFormatter.ofPattern("MMM dd").format(
+                startDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         .parse(data[position].startDate.split("T")[0])
                 )
@@ -140,15 +164,39 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
 
             }
             if (data[position].images.isNotEmpty()) {
-                val image =
-                    "https://www.aaonri.com/api/v1/common/eventFile/${data[position].images[0].imagePath}"
-                Glide.with(context).load(image)
-                    .into(eventImageView)
+                if (data[position].images[0].imagePath.contains(".cover") || data[position].images[0].imagePath.contains(
+                        ".first"
+                    ) || data[position].images[0].imagePath.contains(".second") || data[position].images[0].imagePath.contains(
+                        ".third"
+                    )
+                ) {
+                    data[position].images.forEachIndexed { index, userAdsImage ->
+
+                        if (userAdsImage.imagePath.contains(".cover")) {
+                            val image =
+                                "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[index].imagePath}"
+                            Glide.with(context).load(image)
+                                .into(eventImageView)
+                        }
+
+                    }
+                }
+                else{
+                    val image =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
+                    Glide.with(context).load(image)
+                        .into(eventImageView)
+                }
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                eventLocationZip.text =
-                    data[position].city + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + data[position].zipCode
+                try {
+                    eventLocationZip.text =
+                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+                }
+                catch(e : Exception){
+
+                }
                 if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
@@ -160,9 +208,14 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                eventLocationZip.text =
-                    data[position].city + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + data[position].zipCode
-                if (data[position].fee > 0) {
+                try {
+                    eventLocationZip.text =
+                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+                }
+                catch(e : Exception){
+
+                }
+                  if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
                     eventFee.text = "FREE"
