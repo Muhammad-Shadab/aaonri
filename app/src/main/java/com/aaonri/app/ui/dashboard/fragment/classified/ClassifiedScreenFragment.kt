@@ -20,6 +20,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
 import com.aaonri.app.utils.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -156,9 +157,15 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Seva me nahi hai", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                /*val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 intent.putExtra("updateClassified", false)
-                startActivity(intent)
+                startActivity(intent)*/
             }
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {

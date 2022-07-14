@@ -35,6 +35,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -61,11 +62,11 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-             val ss = SpannableString("resources.getString(R.string.login_to_view_seller_information)")
+        val ss = SpannableString("resources.getString(R.string.login_to_view_seller_information)")
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
 
-                    activity?.finish()
+                activity?.finish()
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -93,7 +94,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-            bottomSheetOuter.peekHeight = 450
+            bottomSheetOuter.peekHeight = 470
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -127,12 +128,18 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                val action =
-                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
-                        args.addId,
-                        true
-                    )
-                findNavController().navigate(action)
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Seva me nahi hai", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                /* val action =
+                     ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                         args.addId,
+                         true
+                     )
+                 findNavController().navigate(action)*/
             }
 
             classifiedSellerEmail.setOnClickListener {

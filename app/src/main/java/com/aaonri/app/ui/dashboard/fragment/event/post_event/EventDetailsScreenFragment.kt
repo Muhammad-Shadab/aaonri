@@ -60,7 +60,7 @@ class EventDetailsScreenFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
-            bottomSheetOuter.peekHeight = 450
+            bottomSheetOuter.peekHeight = 470
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -82,12 +82,18 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             moreBtn.setOnClickListener {
-                val action =
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Seva me nahi hai", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                /*val action =
                     EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToUpdateDeleteClassifiedBottom(
                         args.eventId,
                         false
                     )
-                findNavController().navigate(action)
+                findNavController().navigate(action)*/
             }
 
         }

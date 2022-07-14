@@ -15,6 +15,7 @@ import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +51,14 @@ class EventScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnEvents.setOnClickListener {
-                val intent = Intent(requireContext(), EventScreenActivity::class.java)
-                startActivity(intent)
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Seva me nahi hai", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                /*val intent = Intent(requireContext(), EventScreenActivity::class.java)
+                startActivity(intent)*/
             }
 
             eventsScreenViewPager.adapter = pagerAdapter

@@ -19,6 +19,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,6 +80,30 @@ class MainActivity : BaseActivity() {
 
         val email =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val gmailEmail = FirebaseAuth.getInstance().currentUser?.email
+
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            eventViewModel.getMyEvent(
+                AllEventRequest(
+                    category = "",
+                    city = "",
+                    from = "",
+                    isPaid = "",
+                    keyword = "",
+                    maxEntryFee = 0,
+                    minEntryFee = 0,
+                    myEventsOnly = true,
+                    userId = if (gmailEmail?.isNotEmpty() == true) gmailEmail else "",
+                    zip = ""
+                )
+            )
+
+            if (gmailEmail != null) {
+                eventViewModel.getRecentEvent(
+                    gmailEmail
+                )
+            }
+        }
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->
             if (isGuestUser) {
