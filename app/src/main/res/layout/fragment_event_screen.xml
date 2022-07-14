@@ -7,6 +7,20 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.event.EventScreenFragment">
 
+    <ImageView
+        android:id="@+id/navigateBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:background="@drawable/blue_circle_shape"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/navigate_back"
+        app:layout_constraintBottom_toBottomOf="@+id/classifiedText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/classifiedText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp" />
+
     <TextView
         android:id="@+id/classifiedText"
         android:layout_width="wrap_content"

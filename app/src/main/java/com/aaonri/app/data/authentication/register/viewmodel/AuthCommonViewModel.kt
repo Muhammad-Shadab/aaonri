@@ -70,8 +70,7 @@ class AuthCommonViewModel @Inject constructor(
     var isCountrySelected: Boolean = false
         private set
 
-
-    var countryFlagBmp:Bitmap?=null
+    var countryFlagBmp: Bitmap? = null
         private set
 
     fun addNavigationForStepper(value: String) {

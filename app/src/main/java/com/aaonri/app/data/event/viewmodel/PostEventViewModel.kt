@@ -1,5 +1,6 @@
 package com.aaonri.app.data.event.viewmodel
 
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,6 +63,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         private set
 
     val eventCategoryData: MutableLiveData<Resource<EventCategoryResponse>> = MutableLiveData()
+
+    val deleteEventData: MutableLiveData<Resource<EventDeleteResponse>> = MutableLiveData()
 
     var eventBasicDetailMap: MutableMap<String, String> = mutableMapOf()
         private set
@@ -162,6 +165,21 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun deleteEvent(eventId: Int) = viewModelScope.launch {
+        deleteEventData.postValue(Resource.Loading())
+        val response = eventRepository.deleteEvent(eventId)
+        deleteEventData.postValue(handleDeleteEventResponse(response))
+    }
+
+    private fun handleDeleteEventResponse(response: Response<EventDeleteResponse>): Resource<EventDeleteResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

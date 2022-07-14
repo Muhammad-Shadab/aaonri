@@ -43,4 +43,8 @@ interface EventApi {
         @Body postEventRequest: PostEventRequest
     ): Response<PostEventResponse>
 
+    @DELETE("/api/v1/event/delete/{eventId}")
+    suspend fun deleteEvent(
+        @Path("eventId") eventId: Int
+    ): Response<EventDeleteResponse>
 }

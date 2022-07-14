@@ -36,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ServicesCategoryFragment : Fragment() {
     var servicesGridItemBinding: FragmentServicesCategoryBinding? = null
     private var adapter: ServicesItemAdapter? = null
-    val registrationViewModel: RegistrationViewModel by viewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     var isServicesSelected = false
     var isJobSelected = false

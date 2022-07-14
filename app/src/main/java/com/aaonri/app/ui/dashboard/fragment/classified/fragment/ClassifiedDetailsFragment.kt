@@ -188,6 +188,21 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.classifiedDeleteData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigateUp()
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
+
 
         return classifiedDetailsBinding?.root
     }

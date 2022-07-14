@@ -16,7 +16,10 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
 
     suspend fun postEvent(postEventRequest: PostEventRequest) = eventApi.postEvent(postEventRequest)
 
-    suspend fun updateEvent(postEventRequest: PostEventRequest) = eventApi.updateEvent(postEventRequest)
+    suspend fun updateEvent(postEventRequest: PostEventRequest) =
+        eventApi.updateEvent(postEventRequest)
+
+    suspend fun deleteEvent(eventID: Int) = eventApi.deleteEvent(eventID)
 
     suspend fun getEventCategory() = eventApi.getEventActiveCategory()
 
@@ -25,5 +28,6 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
         eventId: RequestBody,
         delImageIds: RequestBody
     ) = eventApi.uploadEventPicture(files, eventId, delImageIds)
-    suspend fun getEventDetails(eventID : Int) = eventApi.getEventDetails(eventID)
+
+    suspend fun getEventDetails(eventID: Int) = eventApi.getEventDetails(eventID)
 }

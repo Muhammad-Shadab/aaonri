@@ -130,6 +130,7 @@ class EventDetailsScreenFragment : Fragment() {
 //            }
 //        }
 
+
         return evenDetailsBinding?.root
     }
 
@@ -148,13 +149,13 @@ class EventDetailsScreenFragment : Fragment() {
                 0 -> {
                     evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                    context?.let {
+                  /*  context?.let {
                         evenDetailsBinding?.addImage?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
                         }
-                    }
+                    }*/
 
                     context?.let {
                         evenDetailsBinding?.image1?.let { it1 ->
@@ -224,7 +225,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
-        if (event.images.isNotEmpty()){
+        if (event.images.isNotEmpty()) {
             context?.let {
                 evenDetailsBinding?.addImage?.let { it1 ->
                     Glide.with(it)
