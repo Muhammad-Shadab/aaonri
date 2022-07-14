@@ -11,6 +11,8 @@ import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.event.model.AllEventRequest
+import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
@@ -25,6 +27,7 @@ class MainActivity : BaseActivity() {
     val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
     val homeViewModel: HomeViewModel by viewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val eventViewModel: EventViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +72,6 @@ class MainActivity : BaseActivity() {
         }
 
 
-
     }
 
     override fun onResume() {
@@ -99,21 +101,9 @@ class MainActivity : BaseActivity() {
 
                 classifiedViewModel.setIsLikedButtonClicked(true)
 
-                classifiedViewModel.getMyClassified(
-                    GetClassifiedByUserRequest(
-                        category = "",
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = 0,
-                        minPrice = 0,
-                        myAdsOnly = true,
-                        popularOnAoonri = null,
-                        subCategory = "",
-                        zipCode = ""
-                    )
-                )
+                if (email != null) {
+                    eventViewModel.getRecentEvent(email)
+                }
 
                 classifiedViewModel.getClassifiedByUser(
                     GetClassifiedByUserRequest(
@@ -130,6 +120,54 @@ class MainActivity : BaseActivity() {
                         zipCode = ""
                     )
                 )
+
+                classifiedViewModel.getMyClassified(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
+
+
             }
         }
 

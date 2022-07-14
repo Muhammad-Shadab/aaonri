@@ -134,6 +134,4 @@ class EventScreenFragment : Fragment() {
 
         return eventScreenBinding?.root
     }
-
-
 }

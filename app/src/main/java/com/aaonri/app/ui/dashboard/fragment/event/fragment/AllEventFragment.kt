@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AllEventFragment : Fragment() {
-    val eventViewModel: EventViewModel by viewModels()
+    val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var allEventBinding: FragmentAllEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
@@ -68,20 +68,7 @@ class AllEventFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        eventViewModel.getAllEvent(
-            AllEventRequest(
-                category = "",
-                city = "",
-                from = "",
-                isPaid = "",
-                keyword = "",
-                maxEntryFee = 0,
-                minEntryFee = 0,
-                myEventsOnly = false,
-                userId = "",
-                zip = ""
-            )
-        )
+
     }
 
 }
