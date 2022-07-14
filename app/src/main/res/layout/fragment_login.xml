@@ -287,11 +287,12 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_google_plus" />
 
-
-            <com.facebook.login.widget.LoginButton
+            <ImageView
                 android:id="@+id/facebooklogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_facebook" />
 
         </LinearLayout>
 
@@ -301,10 +302,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Version: 1.0.2C"
-        app:layout_constraintBottom_toTopOf="@id/imageView"
-        android:translationY="@dimen/_75sdp"
-        android:textSize="10sp"
         android:textColor="@color/hintColor"
+        android:textSize="10sp"
+        android:translationY="@dimen/_75sdp"
+        app:layout_constraintBottom_toTopOf="@id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />

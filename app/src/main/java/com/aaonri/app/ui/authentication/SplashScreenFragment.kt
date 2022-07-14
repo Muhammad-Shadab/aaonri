@@ -13,6 +13,7 @@ import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentSplashScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 
 class SplashScreenFragment : Fragment() {
     var splashScreenBinding: FragmentSplashScreenBinding? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +32,7 @@ class SplashScreenFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+
         var job: Job? = null
         job = MainScope().launch {
             delay(2000L)
@@ -37,8 +40,13 @@ class SplashScreenFragment : Fragment() {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
+            } else if (FirebaseAuth.getInstance().currentUser != null) {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             } else {
                 findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
+
             }
         }
 

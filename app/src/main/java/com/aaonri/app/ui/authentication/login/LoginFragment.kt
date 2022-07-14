@@ -122,13 +122,13 @@ class LoginFragment : Fragment() {
             }
 
             gmailLogin.setOnClickListener { view: View? ->
-//                signInGoogle()
+               signInGoogle()
                 LoginManager.getInstance().logOut()
             }
 
 
-            facebooklogin.setReadPermissions(listOf("email"))
-            facebooklogin.setFragment(this@LoginFragment)
+         /*   facebooklogin.setReadPermissions(listOf("email"))
+            facebooklogin.setFragment(this@LoginFragment)*/
             facebooklogin.setOnClickListener{
 //                mGoogleSignInClient.signOut()
                 signInFacebook()
@@ -307,7 +307,7 @@ class LoginFragment : Fragment() {
                 UpdateUI(account)
             }
         } catch (e: ApiException) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -316,24 +316,13 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(context, "gmail ${account.email.toString()}\nname ${account.displayName.toString()}\n ", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+                //Toast.makeText(context, "gmail ${account.email.toString()}\nname ${account.displayName.toString()}\n ", Toast.LENGTH_SHORT).show()
             }
         }
     }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-//            startActivity(
-//                Intent(
-//                    this, DashboardActivity
-//                    ::class.java
-//                )
-//            )
-//            finish()
-//        }
-//    }
-
 
 
     override fun onResume() {

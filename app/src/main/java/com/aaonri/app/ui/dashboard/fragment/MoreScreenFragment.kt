@@ -14,6 +14,7 @@ import com.aaonri.app.databinding.FragmentMoreScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.google.firebase.auth.FirebaseAuth
 
 class MoreScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
@@ -24,40 +25,42 @@ class MoreScreenFragment : Fragment() {
     ): View? {
         moreScreenBinding = FragmentMoreScreenBinding.inflate(inflater, container, false)
 
-         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner){
-             if (it) {
-                 moreScreenBinding?.logOutBtn?.visibility = View.GONE
-             } else {
-                 moreScreenBinding?.logOutBtn?.visibility = View.VISIBLE
-             }
-         }
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            if (it) {
+                moreScreenBinding?.logOutBtn?.visibility = View.GONE
+            } else {
+                moreScreenBinding?.logOutBtn?.visibility = View.VISIBLE
+            }
+        }
 
         moreScreenBinding?.apply {
 
             logOutBtn.setOnClickListener {
-              val builder = AlertDialog.Builder(context)
-              builder.setTitle("Confirm")
-              builder.setMessage("Are you sure you want to Logout?")
-              builder.setPositiveButton("OK") { dialog, which ->
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure you want to Logout?")
+                builder.setPositiveButton("OK") { dialog, which ->
 
-                  context?.let { it1 -> PreferenceManager<String>(it1) }
-                      ?.set(Constant.USER_EMAIL, "")
-                  context?.let { it1 -> PreferenceManager<String>(it1) }
-                      ?.set(Constant.USER_ZIP_CODE, "")
-                  context?.let { it1 -> PreferenceManager<String>(it1) }
-                      ?.set(Constant.USER_CITY, "")
-                  context?.let { it1 -> PreferenceManager<String>(it1) }
-                      ?.set(Constant.USER_STATE, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_ZIP_CODE, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_CITY, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_STATE, "")
 
-                  val intent = Intent(context, LoginActivity::class.java)
-                  startActivity(intent)
-                  activity?.finish()
-              }
-              builder.setNegativeButton("Cancel") { dialog, which ->
+                    FirebaseAuth.getInstance().signOut()
 
-              }
-              builder.show()
-          }
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                }
+                builder.show()
+            }
         }
 
         return moreScreenBinding?.root

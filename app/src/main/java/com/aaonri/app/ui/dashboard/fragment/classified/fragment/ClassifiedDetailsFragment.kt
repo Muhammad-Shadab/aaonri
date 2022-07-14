@@ -61,7 +61,7 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-             val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
+             val ss = SpannableString("resources.getString(R.string.login_to_view_seller_information)")
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
 
