@@ -241,7 +241,7 @@ class LoginFragment : Fragment() {
                 }
             })
 
-        try {
+        /*try {
             val info: PackageInfo? = getPackageInfo(
                 requireContext(),
                 "com.aaonri.app"
@@ -253,7 +253,7 @@ class LoginFragment : Fragment() {
             }
         } catch (e: PackageManager.NameNotFoundException) {
         } catch (e: NoSuchAlgorithmException) {
-        }
+        }*/
 
         return introBinding?.root
     }
