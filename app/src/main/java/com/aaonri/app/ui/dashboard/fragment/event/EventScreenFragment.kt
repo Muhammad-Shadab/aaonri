@@ -52,8 +52,8 @@ class EventScreenFragment : Fragment() {
 
             floatingActionBtnEvents.setOnClickListener {
 
-                /*val intent = Intent(requireContext(), EventScreenActivity::class.java)
-                startActivity(intent)*/
+                val intent = Intent(requireContext(), EventScreenActivity::class.java)
+                startActivity(intent)
             }
 
             eventsScreenViewPager.adapter = pagerAdapter

@@ -66,6 +66,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant4.xml" value="0.1945" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant5.xml" value="0.1945" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/gray_btn.xml" value="0.1945" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/green_btn_shape.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_time_watch.xml" value="0.179" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/navigate_back.xml" value="0.179" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.1925" />
@@ -94,6 +95,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_details.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_filter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_post_success_bottom.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_screen.xml" value="0.25" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_community_bottom.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_create_new_password.xml" value="0.12681159420289856" />
@@ -111,6 +113,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_event_basic_details.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_event_upload_image.xml" value="0.16485507246376813" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_services_category.xml" value="0.33" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_event_pic.xml" value="0.25" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_view_event_details.xml" value="0.25" />

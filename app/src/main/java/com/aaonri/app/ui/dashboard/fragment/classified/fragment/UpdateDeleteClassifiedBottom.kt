@@ -53,11 +53,11 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
             }
 
             deleteClassified.setOnClickListener {
-                if (args.isClassifiedUpdate) {
+                /*if (args.isClassifiedUpdate) {
                     postClassifiedViewModel.deleteClassified(args.addId)
                 } else {
                     postEventViewModel.deleteEvent(args.addId)
-                }
+                }*/
             }
         }
 

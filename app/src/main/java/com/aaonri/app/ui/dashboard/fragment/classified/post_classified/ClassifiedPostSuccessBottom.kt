@@ -69,6 +69,13 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
         }
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         bottomBinding?.apply {
+            if (postClassifiedViewModel.isUpdateClassified)
+            {
+                enterYourEmailToSendLinkTv.text = "Congratulations\\n You have successfully updated your Classified"
+            }
+            else{
+                enterYourEmailToSendLinkTv.text = "Congratulations\\n You have successfully posted your Classified"
+            }
             textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
             viewYourClassifiedBtn.setOnClickListener {

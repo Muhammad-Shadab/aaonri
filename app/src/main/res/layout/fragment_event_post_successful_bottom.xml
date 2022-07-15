@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
-        android:fontFamily="@font/sf_pro_regular"
+        android:fontFamily="@font/sf_pro_semi_bold"
         android:text="@string/congratulations_you_have_successfully"
         android:textAlignment="center"
         android:textColor="#333333"

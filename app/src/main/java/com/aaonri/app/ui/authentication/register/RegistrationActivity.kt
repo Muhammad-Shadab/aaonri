@@ -92,7 +92,7 @@ class RegistrationActivity : BaseActivity() {
                         stepView.go(2, true)
                     }
                     AuthConstant.SERVICE_DETAILS_SCREEN -> {
-                        introSubText.text = "What modules would you like to explore on aaonri ?"
+                        introSubText.text = "What modules would you like to explore \n on aaonri ?"
                         stepView.go(3, true)
                     }
                 }
