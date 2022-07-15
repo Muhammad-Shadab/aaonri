@@ -317,6 +317,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/eventLocation">
 
                                 <LinearLayout
+                                    android:id="@+id/datesLinearLayot"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">

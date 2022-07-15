@@ -481,6 +481,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Login to view Seller Information"
                         android:textAlignment="center"
@@ -513,6 +514,7 @@
             android:id="@+id/likeDislikeBtn"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
+            android:visibility="gone"
             android:layout_marginEnd="@dimen/_2sdp"
             android:src="@drawable/heart_grey" />
 

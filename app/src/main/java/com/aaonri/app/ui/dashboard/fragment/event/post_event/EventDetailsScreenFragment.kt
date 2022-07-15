@@ -145,7 +145,7 @@ class EventDetailsScreenFragment : Fragment() {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
         }*/
         //event.images.sortedWith(compareByDescending { it.imageId })
-        if(event.images.size>1) {
+        if (event.images.size > 1) {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
                         ".second"
@@ -324,7 +324,7 @@ class EventDetailsScreenFragment : Fragment() {
                     }
                 }
             }
-                  }
+        }
         /*  if (event.images.isNotEmpty()) {
               context?.let {
                   evenDetailsBinding?.addImage?.let { it1 ->
@@ -478,7 +478,11 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.locationEventTv?.text = event.city
         evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
-        evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
+        if (event.socialMediaLink.isNotEmpty()) {
+            evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
+        } else {
+            evenDetailsBinding?.premiumLink?.visibility = View.GONE
+        }
         evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() + " going"
         evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
 

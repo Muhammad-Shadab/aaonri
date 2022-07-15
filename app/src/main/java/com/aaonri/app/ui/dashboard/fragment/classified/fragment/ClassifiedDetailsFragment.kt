@@ -128,12 +128,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
             moreClassifiedOption.setOnClickListener {
 
-                 val action =
-                     ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
-                         args.addId,
-                         true
-                     )
-                 findNavController().navigate(action)
+                val action =
+                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                        args.addId,
+                        true
+                    )
+                findNavController().navigate(action)
             }
 
             classifiedSellerEmail.setOnClickListener {
@@ -152,8 +152,6 @@ class ClassifiedDetailsFragment : Fragment() {
                     startActivity(intent)
                 }
             }
-
-
         }
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
@@ -165,6 +163,7 @@ class ClassifiedDetailsFragment : Fragment() {
             } else {
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
+                classifiedDetailsBinding?.likeDislikeBtn?.visibility = View.VISIBLE
             }
         }
 
