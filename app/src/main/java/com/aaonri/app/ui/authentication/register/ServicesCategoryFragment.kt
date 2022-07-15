@@ -247,6 +247,7 @@ class ServicesCategoryFragment : Fragment() {
         isAliasNameCheckBox: Boolean,
         //belongToCricketCheckBox: Boolean
     ) {
+
         authCommonViewModel.addCompanyEmailAliasName(
             companyEmail,
             aliasName
