@@ -14,6 +14,7 @@ import com.aaonri.app.databinding.FragmentMoreScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -60,7 +61,7 @@ class MoreScreenFragment : Fragment() {
                         .build()
 
                     FirebaseAuth.getInstance().signOut()
-
+                    LoginManager.getInstance().logOut()
                     mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
                     mGoogleSignInClient.signOut()
 
