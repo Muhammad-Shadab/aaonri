@@ -25,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    val postEventViewModel: PostEventViewModel by activityViewModels()
     var eventBottomBinding: FragmentEventPostSuccessfulBottomBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     override fun onCreateView(
