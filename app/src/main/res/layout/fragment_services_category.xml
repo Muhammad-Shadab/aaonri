@@ -7,13 +7,14 @@
     tools:context=".ui.authentication.register.ServicesCategoryFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/_60sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +32,6 @@
                 android:text="Choose any three or more"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/servicesGridRecyclerView"
@@ -57,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_24sdp"
                     android:layout_marginEnd="@dimen/_24sdp"
+                   android:layout_marginBottom="@dimen/_60sdp"
                     app:cardBackgroundColor="#EFEFEF"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:strokeColor="#E1E1E1"
