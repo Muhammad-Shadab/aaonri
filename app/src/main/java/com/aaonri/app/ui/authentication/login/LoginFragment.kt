@@ -34,16 +34,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.util.ClientLibraryUtils.getPackageInfo
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -129,16 +125,17 @@ class LoginFragment : Fragment() {
 
             gmailLogin.setOnClickListener { view: View? ->
                signInGoogle()
-                LoginManager.getInstance().logOut()
             }
 
-
+            fbLoginBtn.setOnClickListener{
+                facebooklogin.performClick()
+            }
             facebooklogin.setReadPermissions(listOf("email"))
             facebooklogin.setFragment(this@LoginFragment)
             facebooklogin.setOnClickListener{
                 //mGoogleSignInClient.signOut()
                 signInFacebook()
-                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
+//                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
             }
         }
 
@@ -241,7 +238,8 @@ class LoginFragment : Fragment() {
                 }
             })
 
-        /*try {
+
+     /*   try {
             val info: PackageInfo? = getPackageInfo(
                 requireContext(),
                 "com.aaonri.app"
@@ -259,6 +257,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun signInFacebook() {
+        introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
                 handleFacebookAccessToken(result.accessToken)
@@ -266,11 +265,13 @@ class LoginFragment : Fragment() {
 
             override fun onCancel() {
                 //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
+                introBinding?.progressBarCommunityBottom?.visibility = View.GONE
 
             }
 
             override fun onError(error: FacebookException) {
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
+                introBinding?.progressBarCommunityBottom?.visibility = View.GONE
             }
 
 
@@ -283,8 +284,15 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
+            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
             val email  =it.user?.email
-            Toast.makeText(context, "your are logged in with : $email", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "your are logged in with : $email", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }.addOnFailureListener{
+            Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
+            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
         }
 
          /*   Log.d(TAG, "handleFacebookAccessToken:$accessToken")

@@ -16,4 +16,6 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    You can use styles for modifiy the login button like this
+
 </resources>
