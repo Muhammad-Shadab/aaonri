@@ -82,24 +82,18 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             moreBtn.setOnClickListener {
-                activity?.let { it1 ->
-                    Snackbar.make(
-                        it1.findViewById(android.R.id.content),
-                        "Seva me nahi hai", Snackbar.LENGTH_LONG
-                    ).show()
-                }
-                /*val action =
+
+            }
+            /*val action =
                     EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToUpdateDeleteClassifiedBottom(
                         args.eventId,
                         false
                     )
                 findNavController().navigate(action)*/
-            }
-
         }
 
-
-        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner)
+        { response ->
             when (response) {
                 is Resource.Loading -> {
                     evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
@@ -153,7 +147,10 @@ class EventDetailsScreenFragment : Fragment() {
         //event.images.sortedWith(compareByDescending { it.imageId })
 
         event.images.forEachIndexed { index, userAdsImage ->
-            if( userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(".second") || userAdsImage.imagePath.contains(".third")) {
+            if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
+                    ".second"
+                ) || userAdsImage.imagePath.contains(".third")
+            ) {
                 /*if (userAdsImage.imagePath.contains(".cover")) {
                     evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
@@ -201,13 +198,13 @@ class EventDetailsScreenFragment : Fragment() {
                 if (userAdsImage.imagePath.contains(".second")) {
                     evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
 
-                  /*  context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
+                    /*  context?.let {
+                          evenDetailsBinding?.addImage?.let { it1 ->
+                              Glide.with(it)
+                                  .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                  .into(it1)
+                          }
+                      }*/
 
                     context?.let {
                         evenDetailsBinding?.image3?.let { it1 ->
@@ -236,113 +233,115 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                 }
-            }
-           else {
+            } else {
 
 
                 when (index) {
-                0 -> {
-                    context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
+                    0 -> {
+                        context?.let {
+                            evenDetailsBinding?.addImage?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
+                        }
+                        evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                        evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+
+                        /*  context?.let {
+                              evenDetailsBinding?.addImage?.let { it1 ->
+                                  Glide.with(it)
+                                      .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                      .into(it1)
+                              }
+                          }*/
+
+                        context?.let {
+                            evenDetailsBinding?.image1?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
                         }
                     }
-                    evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
-                    evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                    1 -> {
+                        evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
 
-                    /*  context?.let {
-                          evenDetailsBinding?.addImage?.let { it1 ->
-                              Glide.with(it)
-                                  .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                  .into(it1)
-                          }
-                      }*/
+                        /*  context?.let {
+                              evenDetailsBinding?.addImage?.let { it1 ->
+                                  Glide.with(it)
+                                      .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                      .into(it1)
+                              }
+                          }*/
 
-                    context?.let {
-                        evenDetailsBinding?.image1?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
+                        context?.let {
+                            evenDetailsBinding?.image2?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
+                        }
+                    }
+                    2 -> {
+                        evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+
+                        /* context?.let {
+                             evenDetailsBinding?.addImage?.let { it1 ->
+                                 Glide.with(it)
+                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                     .into(it1)
+                             }
+                         }*/
+
+                        context?.let {
+                            evenDetailsBinding?.image3?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
+                        }
+                    }
+                    3 -> {
+                        evenDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+
+                        /* context?.let {
+                             evenDetailsBinding?.addImage?.let { it1 ->
+                                 Glide.with(it)
+                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                     .into(it1)
+                             }
+                         }*/
+
+                        context?.let {
+                            evenDetailsBinding?.image4?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
                         }
                     }
                 }
-                1 -> {
-                    evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
-
-                  /*  context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
-
-                    context?.let {
-                        evenDetailsBinding?.image2?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-                2 -> {
-                    evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
-
-                   /* context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
-
-                    context?.let {
-                        evenDetailsBinding?.image3?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-                3 -> {
-                    evenDetailsBinding?.image4CardView?.visibility = View.VISIBLE
-
-                   /* context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
-
-                    context?.let {
-                        evenDetailsBinding?.image4?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
-            }
             }
         }
 
-      /*  if (event.images.isNotEmpty()) {
-            context?.let {
-                evenDetailsBinding?.addImage?.let { it1 ->
-                    Glide.with(it)
-                        .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
-                        .into(it1)
-                }
-            }
-        }*/
+        /*  if (event.images.isNotEmpty()) {
+              context?.let {
+                  evenDetailsBinding?.addImage?.let { it1 ->
+                      Glide.with(it)
+                          .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
+                          .into(it1)
+                  }
+              }
+          }*/
 
         evenDetailsBinding?.image1?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(".second") || userAdsImage.imagePath.contains(".third")) {
-                    if(userAdsImage.imagePath.contains(".cover")) {
+                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
+                        ".second"
+                    ) || userAdsImage.imagePath.contains(".third")
+                ) {
+                    if (userAdsImage.imagePath.contains(".cover")) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -353,9 +352,8 @@ class EventDetailsScreenFragment : Fragment() {
 
                     }
 
-                }
-                else{
-                    if(index==0) {
+                } else {
+                    if (index == 0) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -373,8 +371,11 @@ class EventDetailsScreenFragment : Fragment() {
 
         evenDetailsBinding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(".second") || userAdsImage.imagePath.contains(".third")) {
-                    if(userAdsImage.imagePath.contains(".first")) {
+                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
+                        ".second"
+                    ) || userAdsImage.imagePath.contains(".third")
+                ) {
+                    if (userAdsImage.imagePath.contains(".first")) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -385,9 +386,8 @@ class EventDetailsScreenFragment : Fragment() {
 
                     }
 
-                }
-                else{
-                    if(index==1) {
+                } else {
+                    if (index == 1) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -402,8 +402,11 @@ class EventDetailsScreenFragment : Fragment() {
         }
         evenDetailsBinding?.image3?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(".second") || userAdsImage.imagePath.contains(".third")) {
-                    if(userAdsImage.imagePath.contains(".second")) {
+                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
+                        ".second"
+                    ) || userAdsImage.imagePath.contains(".third")
+                ) {
+                    if (userAdsImage.imagePath.contains(".second")) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -414,9 +417,8 @@ class EventDetailsScreenFragment : Fragment() {
 
                     }
 
-                }
-                else{
-                    if(index==2) {
+                } else {
+                    if (index == 2) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -431,8 +433,11 @@ class EventDetailsScreenFragment : Fragment() {
         }
         evenDetailsBinding?.image4?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(".second") || userAdsImage.imagePath.contains(".third")) {
-                    if(userAdsImage.imagePath.contains(".third")) {
+                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
+                        ".second"
+                    ) || userAdsImage.imagePath.contains(".third")
+                ) {
+                    if (userAdsImage.imagePath.contains(".third")) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -443,9 +448,8 @@ class EventDetailsScreenFragment : Fragment() {
 
                     }
 
-                }
-                else{
-                    if(index==3) {
+                } else {
+                    if (index == 3) {
                         context?.let {
                             evenDetailsBinding?.addImage?.let { it1 ->
                                 Glide.with(it)
@@ -487,14 +491,25 @@ class EventDetailsScreenFragment : Fragment() {
         }
 
         try {
-            evenDetailsBinding?.postedDate1?.text = "${DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.startDate.split("T")[0]))}, ${
+            evenDetailsBinding?.postedDate1?.text = "${
+                DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                    .format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                            .parse(event.startDate.split("T")[0])
+                    )
+            }, ${
                 LocalTime.parse(event.startTime)
-                .format(DateTimeFormatter.ofPattern("h:mma"))} ${event.timeZone}"
-            evenDetailsBinding?.postedDate2?.text =  "${DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0]))}, ${
+                    .format(DateTimeFormatter.ofPattern("h:mma"))
+            } ${event.timeZone}"
+            evenDetailsBinding?.postedDate2?.text = "${
+                DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                    .format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0])
+                    )
+            }, ${
                 LocalTime.parse(event.endTime)
-                    .format(DateTimeFormatter.ofPattern("h:mma"))} ${event.timeZone}"
+                    .format(DateTimeFormatter.ofPattern("h:mma"))
+            } ${event.timeZone}"
         } catch (e: Exception) {
         }
 

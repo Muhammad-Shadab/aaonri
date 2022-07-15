@@ -14,10 +14,14 @@ import com.aaonri.app.databinding.FragmentMoreScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class MoreScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     var moreScreenBinding: FragmentMoreScreenBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +54,15 @@ class MoreScreenFragment : Fragment() {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_STATE, "")
 
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.gmail_client_id))
+                        .requestEmail()
+                        .build()
+
                     FirebaseAuth.getInstance().signOut()
+
+                    mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
+                    mGoogleSignInClient.signOut()
 
                     val intent = Intent(context, LoginActivity::class.java)
                     startActivity(intent)

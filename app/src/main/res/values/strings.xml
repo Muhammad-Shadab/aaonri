@@ -109,4 +109,5 @@
     <string name="facebook_app_id">364841215825670</string>
     <string name="fb_login_protocol_scheme">fb364841215825670</string>
     <string name="facebook_client_token">220973957b83fc29de946ed796627cf5</string>
+    <string name="login_to_view_seller_information">Login to view Seller Information</string>
 </resources>

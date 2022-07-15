@@ -51,12 +51,7 @@ class EventScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnEvents.setOnClickListener {
-                activity?.let { it1 ->
-                    Snackbar.make(
-                        it1.findViewById(android.R.id.content),
-                        "Seva me nahi hai", Snackbar.LENGTH_LONG
-                    ).show()
-                }
+
                 /*val intent = Intent(requireContext(), EventScreenActivity::class.java)
                 startActivity(intent)*/
             }

@@ -157,12 +157,7 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-                activity?.let { it1 ->
-                    Snackbar.make(
-                        it1.findViewById(android.R.id.content),
-                        "Seva me nahi hai", Snackbar.LENGTH_LONG
-                    ).show()
-                }
+
                 /*val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 intent.putExtra("updateClassified", false)
                 startActivity(intent)*/

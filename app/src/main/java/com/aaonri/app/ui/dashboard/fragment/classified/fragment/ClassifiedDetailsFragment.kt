@@ -62,10 +62,9 @@ class ClassifiedDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
-        val ss = SpannableString("resources.getString(R.string.login_to_view_seller_information)")
+        val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
                 activity?.finish()
             }
 
@@ -128,12 +127,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                activity?.let { it1 ->
-                    Snackbar.make(
-                        it1.findViewById(android.R.id.content),
-                        "Seva me nahi hai", Snackbar.LENGTH_LONG
-                    ).show()
-                }
+
                 /* val action =
                      ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
                          args.addId,

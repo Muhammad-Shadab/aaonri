@@ -127,12 +127,12 @@ class LoginFragment : Fragment() {
             }
 
 
-         /*   facebooklogin.setReadPermissions(listOf("email"))
-            facebooklogin.setFragment(this@LoginFragment)*/
+            facebooklogin.setReadPermissions(listOf("email"))
+            facebooklogin.setFragment(this@LoginFragment)
             facebooklogin.setOnClickListener{
-//                mGoogleSignInClient.signOut()
+                //mGoogleSignInClient.signOut()
                 signInFacebook()
-//                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
+                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
             }
         }
 
@@ -241,11 +241,11 @@ class LoginFragment : Fragment() {
     private fun signInFacebook() {
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
-                handleFacebookAccessToken(result!!.accessToken)
+                handleFacebookAccessToken(result.accessToken)
             }
 
             override fun onCancel() {
-                Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
 
             }
 
