@@ -67,6 +67,9 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    var isNewUserRegisterUsingGmail = false
+        private set
+
     var isCountrySelected: Boolean = false
         private set
 
@@ -208,8 +211,12 @@ class AuthCommonViewModel @Inject constructor(
     }
 
 
-    fun countryFlagBmp(value: Bitmap?)
-    {
-        countryFlagBmp=value
+    fun countryFlagBmp(value: Bitmap?) {
+        countryFlagBmp = value
     }
+
+    fun setIsNewUserRegisterUsingGmail(value: Boolean) {
+        isNewUserRegisterUsingGmail = value
+    }
+
 }

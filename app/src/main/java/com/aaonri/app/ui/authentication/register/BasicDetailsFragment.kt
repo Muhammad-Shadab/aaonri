@@ -1,8 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -23,7 +21,6 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
-import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -63,34 +60,39 @@ class BasicDetailsFragment : Fragment() {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.BASIC_DETAILS_SCREEN)
 
+            if (authCommonViewModel.isNewUserRegisterUsingGmail) {
+                findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+            }
+
             firstNameBasicDetails.filters = arrayOf(filter)
             lastNameBasicDetails.filters = arrayOf(filter)
 
             profilePicPlaceholder.setOnClickListener {
-                if (profile.isEmpty()){
+                if (profile.isEmpty()) {
                     ImagePicker.with(requireActivity())
                         .compress(1024)
                         .crop()
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
-                            progressBarBasicDetails.visibility=View.VISIBLE
+                            progressBarBasicDetails.visibility = View.VISIBLE
 
 
                         }
-                }else{
-                     var materialAlertDialogBuilder=
-                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
+                } else {
+                    var materialAlertDialogBuilder =
+                        context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
 
 
-                    materialAlertDialogBuilder?.setTitle("Profile Photo")?.setMessage("Change profile photo? ")
-                        ?.setPositiveButton("CHANGE"){ dialog, _ ->
+                    materialAlertDialogBuilder?.setTitle("Profile Photo")
+                        ?.setMessage("Change profile photo? ")
+                        ?.setPositiveButton("CHANGE") { dialog, _ ->
                             ImagePicker.with(requireActivity())
                                 .compress(1024)
                                 .maxResultSize(1080, 1080)
                                 .crop()
                                 .createIntent { intent ->
-                                    progressBarBasicDetails.visibility=View.VISIBLE
+                                    progressBarBasicDetails.visibility = View.VISIBLE
                                     startForProfileImageResult.launch(intent)
                                 }
                             dialog.dismiss()
@@ -183,7 +185,7 @@ class BasicDetailsFragment : Fragment() {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
-                    if (isEmailValid && isPasswordValid){
+                    if (isEmailValid && isPasswordValid) {
                         authCommonViewModel.addBasicDetails(
                             firstName.toString(),
                             lastName.toString(),
@@ -192,7 +194,7 @@ class BasicDetailsFragment : Fragment() {
                         )
                         authCommonViewModel.addCountryClicked(true)
                         findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
-                    }else{
+                    } else {
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
@@ -259,7 +261,7 @@ class BasicDetailsFragment : Fragment() {
                 val fileUri = data?.data!!
 
                 profile = fileUri.toString()
-                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
+                basicDetailsBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
                 setImage()
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
                 basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
@@ -267,12 +269,12 @@ class BasicDetailsFragment : Fragment() {
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                basicDetailsBinding?.progressBarBasicDetails?.visibility=View.INVISIBLE
+                basicDetailsBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
             }
         }
 
     private fun setImage() {
-        if (profile.isNotEmpty()){
+        if (profile.isNotEmpty()) {
             basicDetailsBinding?.addProfileIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
@@ -281,7 +283,7 @@ class BasicDetailsFragment : Fragment() {
                         .into(it)
                 }
             }
-        }else{
+        } else {
             basicDetailsBinding?.addProfileIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)

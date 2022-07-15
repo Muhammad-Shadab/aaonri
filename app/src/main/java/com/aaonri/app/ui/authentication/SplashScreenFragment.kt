@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentSplashScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -30,12 +27,13 @@ class SplashScreenFragment : Fragment() {
         splashScreenBinding =
             FragmentSplashScreenBinding.inflate(inflater, container, false)
 
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
 
         var job: Job? = null
         job = MainScope().launch {
-            delay(2000L)
-            if (email?.isNotEmpty() == true) {
+            //delay(2000L)
+            if (isUserLogin == true) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 activity?.finish()

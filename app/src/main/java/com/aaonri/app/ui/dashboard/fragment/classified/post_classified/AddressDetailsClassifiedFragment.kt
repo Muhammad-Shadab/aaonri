@@ -287,8 +287,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         })
 
-
-
         addressDetailsBinding?.emailAddressBasicDetails?.addTextChangedListener { editable ->
             editable?.let {
                 if (editable.toString().isNotEmpty() && editable.toString().length > 8) {

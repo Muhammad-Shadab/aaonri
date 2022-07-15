@@ -15,7 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventPostSuccessfulBottomBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -23,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     var eventBottomBinding: FragmentEventPostSuccessfulBottomBinding? = null
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +34,7 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
         eventBottomBinding =
             FragmentEventPostSuccessfulBottomBinding.inflate(inflater, container, false)
 
+        postEventViewModel.addStepViewLastTick(true)
 
         val text = "If a user wishes to make an ad Popular/Hot\n" +
                 "Please email to admin@aaonri.com"

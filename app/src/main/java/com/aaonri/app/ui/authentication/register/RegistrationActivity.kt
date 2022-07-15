@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +13,11 @@ import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.ActivityRegistrationBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,10 +39,42 @@ class RegistrationActivity : BaseActivity() {
             supportFragmentManager.findFragmentById(R.id.onBoardingNavHost) as NavHostFragment
         val navController: NavController = navHostFragment.navController
 
+        val newUserRegister = intent.getBooleanExtra("newUserRegister", false)
+
+        authCommonViewModel.setIsNewUserRegisterUsingGmail(newUserRegister)
+
+        val firstName =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] }
+
+        val lastName =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.GMAIL_LAST_NAME, ""] }
+
+        val userEmail =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        if (newUserRegister) {
+            if (firstName != null) {
+                lastName?.let {
+                    userEmail?.let { it1 ->
+                        authCommonViewModel.addBasicDetails(
+                            firstName = firstName,
+                            lastName = it,
+                            emailAddress = it1,
+                            password = "Qwerty123"
+                        )
+                    }
+                }
+            }
+        }
+
         registrationBinding?.apply {
 
             navigateBack.setOnClickListener {
-                onBackPressed()
+                if (authCommonViewModel.isNewUserRegisterUsingGmail) {
+                    finish()
+                } else {
+                    onBackPressed()
+                }
             }
 
             authCommonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->

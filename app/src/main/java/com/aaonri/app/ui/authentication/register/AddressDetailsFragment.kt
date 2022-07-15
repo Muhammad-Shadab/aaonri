@@ -240,8 +240,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         cityName = response.data.result.getOrNull(0)?.province.toString()
 
                         stateName = response.data.result.getOrNull(0)?.state.toString()
-                        if(cityName.isEmpty())
-                        {
+                        if (cityName.isEmpty()) {
                             cityName = cityChangedName
                         }
                         authCommonViewModel.addLocationDetails(
@@ -277,19 +276,22 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                    stateName = ""
-                    cityName = ""
-                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
-                    authCommonViewModel.addLocationDetails(
-                        zipCode = "",
-                        state = "",
-                        city = ""
-                    )
-                    authCommonViewModel.setIsCountrySelected(false)
-                    authCommonViewModel.zipCodeData.value = null
-                    authCommonViewModel.countryFlagBmp(null)
-
+                    if (authCommonViewModel.isNewUserRegisterUsingGmail) {
+                        activity?.finish()
+                    } else {
+                        findNavController().navigateUp()
+                        stateName = ""
+                        cityName = ""
+                        addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                        authCommonViewModel.addLocationDetails(
+                            zipCode = "",
+                            state = "",
+                            city = ""
+                        )
+                        authCommonViewModel.setIsCountrySelected(false)
+                        authCommonViewModel.zipCodeData.value = null
+                        authCommonViewModel.countryFlagBmp(null)
+                    }
                 }
             })
 

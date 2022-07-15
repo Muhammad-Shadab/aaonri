@@ -1,12 +1,7 @@
 package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
@@ -114,6 +110,7 @@ class LoginFragment : Fragment() {
 
             createAccountTv.setOnClickListener {
                 val intent = Intent(requireContext(), RegistrationActivity::class.java)
+
                 startActivity(intent)
             }
 
@@ -186,6 +183,10 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
+
+                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_USER_LOGIN, true)
+
                         response.data?.emailId?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_EMAIL, it)
@@ -224,8 +225,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-
-
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -257,15 +256,18 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.status == "true") {
-                        //isEmailValid = false
-                        // user exist
+                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_USER_LOGIN, true)
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
                     } else {
-                        //isEmailValid = true
-                        Toast.makeText(context, "${response.data?.message}", Toast.LENGTH_SHORT)
-                            .show()
+                        FirebaseAuth.getInstance().signOut()
+                        mGoogleSignInClient.signOut()
+                        LoginManager.getInstance().logOut()
+                        val intent = Intent(requireContext(), RegistrationActivity::class.java)
+                        intent.putExtra("newUserRegister", true)
+                        startActivity(intent)
                     }
                 }
                 is Resource.Error -> {
@@ -278,6 +280,8 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+
 
         return introBinding?.root
     }
@@ -312,11 +316,35 @@ class LoginFragment : Fragment() {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
             introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+
             val email = it.user?.email
-//            Toast.makeText(context, "your are logged in with : $email", Toast.LENGTH_SHORT).show()
-            val intent = Intent(requireContext(), MainActivity::class.java)
+            val name = it.user?.displayName
+            val lastName = it.user?.photoUrl
+
+            val firstName = name?.split(" ")?.toTypedArray()
+
+            email?.let { it1 -> EmailVerifyRequest(it1) }
+                ?.let { it2 -> registrationViewModel.isEmailAlreadyRegister(it2) }
+
+            if (email != null) {
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_EMAIL, email)
+            }
+
+            firstName?.get(0)?.let { it1 ->
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.GMAIL_FIRST_NAME, it1)
+            }
+
+            firstName?.get(1)?.let { it1 ->
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.GMAIL_LAST_NAME, it1)
+            }
+
+
+            /*val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
-            activity?.finish()
+            activity?.finish()*/
         }.addOnFailureListener {
             Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
             introBinding?.progressBarCommunityBottom?.visibility = View.GONE
@@ -367,6 +395,22 @@ class LoginFragment : Fragment() {
 
     // this is where we update the UI after Google signin takes place
     private fun UpdateUI(account: GoogleSignInAccount) {
+
+        account.givenName?.let {
+            context?.let { it1 -> PreferenceManager<String>(it1) }
+                ?.set(Constant.GMAIL_FIRST_NAME, it)
+        }
+
+        account.familyName?.let {
+            context?.let { it1 -> PreferenceManager<String>(it1) }
+                ?.set(Constant.GMAIL_LAST_NAME, it)
+        }
+
+        account.email?.let {
+            context?.let { it1 -> PreferenceManager<String>(it1) }
+                ?.set(Constant.USER_EMAIL, it)
+        }
+
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
