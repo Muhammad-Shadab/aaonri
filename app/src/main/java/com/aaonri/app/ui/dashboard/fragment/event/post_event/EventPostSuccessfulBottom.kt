@@ -84,4 +84,5 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
 
         return eventBottomBinding?.root
     }
+
 }

@@ -1,6 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,25 +15,22 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.model.EventDetailsResponse
-import com.aaonri.app.data.event.model.ImageXX
-import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.event.EventScreenFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.LocalTime
@@ -79,6 +79,12 @@ class EventDetailsScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 postEventViewModel.eventDetailsData.value = null
                 findNavController().navigateUp()
+            }
+
+
+            shareBtn.setOnClickListener {
+                //getScreenShot(view)
+                /*context?.let { it1 -> shareImage(it1,  ) }*/
             }
 
             moreBtn.setOnClickListener {
@@ -763,4 +769,79 @@ class EventDetailsScreenFragment : Fragment() {
         super.onDestroy()
         postEventViewModel.eventDetailsData.value = null
     }
+
+
+    fun getScreenShot(view: View?): Bitmap? {
+        return if (view != null) {
+            view.isDrawingCacheEnabled = true
+            val bitmap = Bitmap.createBitmap(view.drawingCache)
+            view.isDrawingCacheEnabled = false
+            bitmap
+        } else {
+            null
+        }
+    }
+
+    fun shareImage(context: Context, file: File, message: String?) {
+        val apkURI: Uri
+        val intent = Intent(Intent.ACTION_SEND)
+        try {
+            apkURI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(
+                    context,
+                    context.packageName.toString() + ".provider",
+                    file
+                )
+            } else {
+                Uri.fromFile(file)
+            }
+            intent.putExtra(Intent.EXTRA_TEXT, message)
+            intent.putExtra(Intent.EXTRA_STREAM, apkURI)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            intent.type = "image/png"
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+
+        // Intent inte = Intent.createChooser(intent,"Share file");
+
+        // List<ResolveInfo> resolverList = context.getPackageManager().queryIntentActivities(inte, PackageManager.MATCH_DEFAULT_ONLY);
+        try {
+            context.startActivity(Intent.createChooser(intent, "Share file"))
+            //    for(ResolveInfo info:resolverList){
+            //        String packageName = info.activityInfo.packageName;
+            //       context.grantUriPermission(packageName,apkURI,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //  }
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /* fun getCmpressed(context: Context, bitmap: Bitmap) {
+         File cacheDir=context.getExternalCacheDir();
+         if(cacheDir==null)
+         //fall back
+             cacheDir=context.getCacheDir();
+
+         String rootDir=cacheDir.getAbsolutePath()+"/BharatATM";
+         File root=new File(rootDir);
+
+         if(!root.exists())
+             root.mkdirs();
+
+
+         File compressed=new File(root,SDF.format(new Date())+".jpg"/Your desired format/);
+
+         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+         FileOutputStream fileOutputStream=new FileOutputStream(compressed);
+         fileOutputStream.write(byteArrayOutputStream.toByteArray());
+         fileOutputStream.flush();
+
+         fileOutputStream.close();
+
+         return compressed;
+     }*/
+
+
 }
