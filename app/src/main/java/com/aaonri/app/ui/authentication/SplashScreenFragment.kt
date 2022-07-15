@@ -32,15 +32,10 @@ class SplashScreenFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-
         var job: Job? = null
         job = MainScope().launch {
             delay(2000L)
             if (email?.isNotEmpty() == true) {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-            } else if (FirebaseAuth.getInstance().currentUser != null) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 activity?.finish()

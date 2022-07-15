@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLoginBinding
 import com.aaonri.app.ui.authentication.register.RegistrationActivity
@@ -49,7 +50,7 @@ class LoginFragment : Fragment() {
     var isEmailValid = false
     var isPasswordValid = false
 
-    var callbackManager:CallbackManager?=null
+    var callbackManager: CallbackManager? = null
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val Req_Code: Int = 123
@@ -61,17 +62,10 @@ class LoginFragment : Fragment() {
     ): View? {
         introBinding = FragmentLoginBinding.inflate(inflater, container, false)
 
-//        FirebaseApp.initializeApp(this)
-
-
-
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.gmail_client_id))
             .requestEmail()
             .build()
-
-
 
         mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
         firebaseAuth = FirebaseAuth.getInstance()
@@ -124,15 +118,15 @@ class LoginFragment : Fragment() {
             }
 
             gmailLogin.setOnClickListener { view: View? ->
-               signInGoogle()
+                signInGoogle()
             }
 
-            fbLoginBtn.setOnClickListener{
+            fbLoginBtn.setOnClickListener {
                 facebooklogin.performClick()
             }
             facebooklogin.setReadPermissions(listOf("email"))
             facebooklogin.setFragment(this@LoginFragment)
-            facebooklogin.setOnClickListener{
+            facebooklogin.setOnClickListener {
                 //mGoogleSignInClient.signOut()
                 signInFacebook()
 //                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
@@ -230,6 +224,8 @@ class LoginFragment : Fragment() {
             }
         }
 
+
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -239,75 +235,106 @@ class LoginFragment : Fragment() {
             })
 
 
-     /*   try {
-            val info: PackageInfo? = getPackageInfo(
-                requireContext(),
-                "com.aaonri.app"
-            )
-            for (signature in info?.signatures!!) {
-                val md: MessageDigest = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.e("KeyHash:", encodeToString(md.digest(),DEFAULT))
+        /*   try {
+               val info: PackageInfo? = getPackageInfo(
+                   requireContext(),
+                   "com.aaonri.app"
+               )
+               for (signature in info?.signatures!!) {
+                   val md: MessageDigest = MessageDigest.getInstance("SHA")
+                   md.update(signature.toByteArray())
+                   Log.e("KeyHash:", encodeToString(md.digest(),DEFAULT))
+               }
+           } catch (e: PackageManager.NameNotFoundException) {
+           } catch (e: NoSuchAlgorithmException) {
+           }*/
+
+        registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    if (response.data?.status == "true") {
+                        //isEmailValid = false
+                        // user exist
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    } else {
+                        //isEmailValid = true
+                        Toast.makeText(context, "${response.data?.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                is Resource.Error -> {
+                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
             }
-        } catch (e: PackageManager.NameNotFoundException) {
-        } catch (e: NoSuchAlgorithmException) {
-        }*/
+        }
 
         return introBinding?.root
     }
 
     private fun signInFacebook() {
         introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
-        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult) {
-                handleFacebookAccessToken(result.accessToken)
-            }
+        LoginManager.getInstance()
+            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult) {
+                    handleFacebookAccessToken(result.accessToken)
+                }
 
-            override fun onCancel() {
-                //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
-                introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                override fun onCancel() {
+                    //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
+                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
 
-            }
+                }
 
-            override fun onError(error: FacebookException) {
-                Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
-                introBinding?.progressBarCommunityBottom?.visibility = View.GONE
-            }
+                override fun onError(error: FacebookException) {
+                    Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
+                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                }
 
 
-        })
+            })
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
 
-         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
+        val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
             introBinding?.progressBarCommunityBottom?.visibility = View.GONE
-            val email  =it.user?.email
+            val email = it.user?.email
 //            Toast.makeText(context, "your are logged in with : $email", Toast.LENGTH_SHORT).show()
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             activity?.finish()
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
             introBinding?.progressBarCommunityBottom?.visibility = View.GONE
         }
 
-         /*   Log.d(TAG, "handleFacebookAccessToken:$accessToken")
+        /*   Log.d(TAG, "handleFacebookAccessToken:$accessToken")
 
-            val credential = accessToken?.token?.let { FacebookAuthProvider.getCredential(it) }
-        if (credential != null) {
-            firebaseAuth.signInWithCredential(credential)
-                .addOnSuccessListener {
-                    Toast.makeText(context, it.user?.displayName, Toast.LENGTH_SHORT).show()
-                }.addOnCompleteListener{
-                    Toast.makeText(context, it.result.user.toString(), Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener{
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
-        }*/
+           val credential = accessToken?.token?.let { FacebookAuthProvider.getCredential(it) }
+       if (credential != null) {
+           firebaseAuth.signInWithCredential(credential)
+               .addOnSuccessListener {
+                   Toast.makeText(context, it.user?.displayName, Toast.LENGTH_SHORT).show()
+               }.addOnCompleteListener{
+                   Toast.makeText(context, it.result.user.toString(), Toast.LENGTH_SHORT).show()
+               }.addOnFailureListener{
+                   Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+               }
+       }*/
 
     }
 
@@ -322,9 +349,8 @@ class LoginFragment : Fragment() {
         if (requestCode == Req_Code) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleResult(task)
-        }
-        else{
-            callbackManager?.onActivityResult(requestCode,resultCode,data)
+        } else {
+            callbackManager?.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -344,10 +370,18 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val intent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-                //Toast.makeText(context, "gmail ${account.email.toString()}\nname ${account.displayName.toString()}\n ", Toast.LENGTH_SHORT).show()
+
+                account.email?.let {
+                    EmailVerifyRequest(
+                        it
+                    )
+                }?.let { registrationViewModel.isEmailAlreadyRegister(it) }
+
+                /*Toast.makeText(
+                    context,
+                    "gmail ${account.email.toString()}\nname ${account.displayName.toString()}\n ",
+                    Toast.LENGTH_SHORT
+                ).show()*/
             }
         }
     }
