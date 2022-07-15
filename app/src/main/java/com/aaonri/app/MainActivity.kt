@@ -1,10 +1,12 @@
 package com.aaonri.app
 
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
@@ -62,6 +64,8 @@ class MainActivity : BaseActivity() {
                     bottomNavigation.visibility = View.GONE
                 }
             }
+
+
         }
 
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {

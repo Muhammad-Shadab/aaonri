@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -60,6 +62,9 @@ class HomeScreenFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         interestAdapter = InterestAdapter {
             when (it.interestDesc) {
@@ -137,6 +142,10 @@ class HomeScreenFragment : Fragment() {
                     locationIcon.visibility = View.GONE
                 }
             }
+
+
+
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
             /*openEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)

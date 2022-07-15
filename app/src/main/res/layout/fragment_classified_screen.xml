@@ -22,18 +22,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/profilePicCv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginEnd="@dimen/_4sdp"
-        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="@id/classifiedText"
         app:layout_constraintEnd_toStartOf="@+id/bellIconIv"
-        app:layout_constraintTop_toTopOf="@id/classifiedText">
+        app:layout_constraintTop_toTopOf="@id/classifiedText"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/_1sdp">
 
         <ImageView
             android:id="@+id/profilePicIv"
@@ -41,7 +42,7 @@
             android:layout_height="@dimen/_24sdp"
             android:padding="@dimen/_1sdp"
             android:src="@drawable/profile_pic_placeholder" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <ImageView
         android:id="@+id/bellIconIv"

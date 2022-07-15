@@ -19,8 +19,9 @@ import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.google.android.material.snackbar.Snackbar
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,8 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
             ?.set(
@@ -116,6 +119,8 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
             })
+
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
             searchViewIcon.setOnClickListener {
                 if (searchView.text.toString().isNotEmpty()) {

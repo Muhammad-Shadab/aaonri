@@ -15,6 +15,9 @@ import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -36,6 +39,9 @@ class EventScreenFragment : Fragment() {
         eventScreenBinding = FragmentEventScreenBinding.inflate(inflater, container, false)
         val fragment = this
 
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+
         val pagerAdapter = EventPagerAdapter(fragment)
 
         eventScreenBinding?.apply {
@@ -45,6 +51,9 @@ class EventScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 activity?.onBackPressed()
             }
+
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+
 
             /*filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)

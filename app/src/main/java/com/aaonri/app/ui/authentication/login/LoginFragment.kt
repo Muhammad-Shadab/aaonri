@@ -1,12 +1,8 @@
 package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +12,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
@@ -36,15 +31,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.util.ClientLibraryUtils.getPackageInfo
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 
 @AndroidEntryPoint
@@ -242,19 +234,19 @@ class LoginFragment : Fragment() {
             })
 
 
-           /*try {
-               val info: PackageInfo? = getPackageInfo(
-                   requireContext(),
-                   "com.aaonri.app"
-               )
-               for (signature in info?.signatures) {
-                   val md: MessageDigest = MessageDigest.getInstance("SHA")
-                   md.update(signature.toByteArray())
-                   Log.e("KeyHash:", encodeToString(md.digest(),DEFAULT))
-               }
-           } catch (e: PackageManager.NameNotFoundException) {
-           } catch (e: NoSuchAlgorithmException) {
-           }*/
+        /*try {
+            val info: PackageInfo? = getPackageInfo(
+                requireContext(),
+                "com.aaonri.app"
+            )
+            for (signature in info?.signatures!!) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.e("KeyHash:", encodeToString(md.digest(),DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: NoSuchAlgorithmException) {
+        }*/
 
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -294,6 +286,50 @@ class LoginFragment : Fragment() {
         return introBinding?.root
     }
 
+
+    /*fun getApplicationSignature(packageName: String = context?.packageName.toString()): List<String> {
+        val signatureList: List<String>
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                // New signature
+                val sig = context?.packageManager?.getPackageInfo(
+                    packageName,
+                    PackageManager.GET_SIGNING_CERTIFICATES
+                )?.signingInfo
+                signatureList = if (sig?.hasMultipleSigners() == true) {
+                    // Send all with apkContentsSigners
+                    sig.apkContentsSigners.map {
+                        val digest = MessageDigest.getInstance("SHA")
+                        digest.update(it.toByteArray())
+                        bytesToHex(digest.digest())
+                    }
+                } else ({
+                    // Send one with signingCertificateHistory
+                    sig?.signingCertificateHistory?.map {
+                        val digest = MessageDigest.getInstance("SHA")
+                        digest.update(it.toByteArray())
+                        bytesToHex(digest.digest())
+                    }
+                })!!
+            } else {
+                val sig = context?.packageManager?.getPackageInfo(
+                    packageName,
+                    PackageManager.GET_SIGNATURES
+                )?.signatures
+                signatureList = sig?.map {
+                    val digest = MessageDigest.getInstance("SHA")
+                    digest.update(it.toByteArray())
+                    bytesToHex(digest.digest())
+                }!!
+            }
+
+            return signatureList
+        } catch (e: Exception) {
+            // Handle error
+        }
+        return emptyList()
+    }*/
+
     private fun signInFacebook() {
         introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
         LoginManager.getInstance()
@@ -309,6 +345,9 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onError(error: FacebookException) {
+                    FirebaseAuth.getInstance().signOut()
+                    mGoogleSignInClient.signOut()
+                    LoginManager.getInstance().logOut()
                     Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
                 }
@@ -327,9 +366,10 @@ class LoginFragment : Fragment() {
 
             val email = it.user?.email
             val name = it.user?.displayName
-            val lastName = it.user?.photoUrl
 
             val firstName = name?.split(" ")?.toTypedArray()
+
+            //  context?.let { it1 -> PreferenceManager<String>(it1) }?.set(Constant.USER_CITY, response.data.user.city)
 
             email?.let { it1 -> EmailVerifyRequest(it1) }
                 ?.let { it2 -> registrationViewModel.isEmailAlreadyRegister(it2) }
@@ -347,6 +387,11 @@ class LoginFragment : Fragment() {
             firstName?.get(1)?.let { it1 ->
                 context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(Constant.GMAIL_LAST_NAME, it1)
+            }
+
+            it.user?.photoUrl?.let { it1 ->
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.PROFILE_USER, it1.toString())
             }
 
 
@@ -408,6 +453,12 @@ class LoginFragment : Fragment() {
             context?.let { it1 -> PreferenceManager<String>(it1) }
                 ?.set(Constant.GMAIL_FIRST_NAME, it)
         }
+
+        account.photoUrl?.let {
+            context?.let { it1 -> PreferenceManager<String>(it1) }
+                ?.set(Constant.PROFILE_USER, it.toString())
+        }
+
 
         account.familyName?.let {
             context?.let { it1 -> PreferenceManager<String>(it1) }

@@ -125,8 +125,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/interestRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:visibility="gone"
                 tools:listitem="@layout/interest_item" />
 
@@ -260,9 +260,9 @@
                 android:id="@+id/interestBorder"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="#c9c9c9" />
+                android:background="#c9c9c9"
+                android:visibility="gone" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/homeConstraintLayout"
