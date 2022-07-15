@@ -266,7 +266,7 @@ class BottomNavigationCircles : BottomNavigationView {
 
     private fun setSubTextStyle(textView: TextView) {
         textView.setTypeface(textView.typeface, Typeface.BOLD)
-        textView.setTextColor(textColor)
+        textView.setTextColor(resources.getColor(R.color.blue))
     }
 
     private fun buildTranslateIconAnimator(currentView: View, from: Float, to: Float):
