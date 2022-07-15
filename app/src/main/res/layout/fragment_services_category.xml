@@ -9,6 +9,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_60sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -258,24 +259,6 @@
                 android:layout_gravity="center"
                 android:visibility="gone" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/serviceSubmitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_32sdp"
-                android:background="@drawable/green_btn_shape"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:minHeight="0dp"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingBottom="@dimen/_4sdp"
-                android:text="Get Started"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -283,4 +266,22 @@
     </androidx.core.widget.NestedScrollView>
 
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/serviceSubmitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="Get Started"
+        android:textColor="@color/darkGrayColor"
+        android:textSize="16sp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

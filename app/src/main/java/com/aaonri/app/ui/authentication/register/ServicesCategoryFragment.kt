@@ -2,6 +2,7 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -173,19 +174,19 @@ class ServicesCategoryFragment : Fragment() {
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.white))
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.VISIBLE
+                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.white))
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
-                servicesGridItemBinding?.serviceSubmitBtn?.visibility = View.GONE
+                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.darkGrayColor))
             }
         }
 
