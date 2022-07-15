@@ -158,9 +158,9 @@ class ClassifiedScreenFragment : Fragment() {
 
             floatingActionBtnClassified.setOnClickListener {
 
-                /*val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 intent.putExtra("updateClassified", false)
-                startActivity(intent)*/
+                startActivity(intent)
             }
 
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {

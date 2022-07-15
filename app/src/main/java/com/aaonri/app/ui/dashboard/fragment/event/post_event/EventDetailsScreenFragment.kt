@@ -82,14 +82,14 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             moreBtn.setOnClickListener {
-
-            }
-            /*val action =
+                val action =
                     EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToUpdateDeleteClassifiedBottom(
                         args.eventId,
                         false
                     )
-                findNavController().navigate(action)*/
+                findNavController().navigate(action)
+            }
+
         }
 
         postEventViewModel.eventDetailsData.observe(viewLifecycleOwner)

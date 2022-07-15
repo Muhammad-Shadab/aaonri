@@ -13,15 +13,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventPostSuccessfulBottomBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     var eventBottomBinding: FragmentEventPostSuccessfulBottomBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +65,15 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
 
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         eventBottomBinding?.apply {
-            textView6.text = ss
+
+            if (postEventViewModel.isUpdateEvent)
+            {
+                successful.text = "You have successfully updated your Event"
+            }
+            else{
+                successful.text = "You have successfully posted your Event"
+            }
+                textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
             bottomLoginBtn.setOnClickListener {
                 activity?.finish()

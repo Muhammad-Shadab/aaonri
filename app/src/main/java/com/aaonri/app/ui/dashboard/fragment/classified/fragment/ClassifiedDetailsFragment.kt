@@ -128,12 +128,12 @@ class ClassifiedDetailsFragment : Fragment() {
 
             moreClassifiedOption.setOnClickListener {
 
-                /* val action =
+                 val action =
                      ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
                          args.addId,
                          true
                      )
-                 findNavController().navigate(action)*/
+                 findNavController().navigate(action)
             }
 
             classifiedSellerEmail.setOnClickListener {
