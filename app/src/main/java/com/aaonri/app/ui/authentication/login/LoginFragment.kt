@@ -1,8 +1,11 @@
 package com.aaonri.app.ui.authentication.login
 
-import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64.DEFAULT
+import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,12 +34,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.util.ClientLibraryUtils.getPackageInfo
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
@@ -234,6 +240,20 @@ class LoginFragment : Fragment() {
                     activity?.finish()
                 }
             })
+
+        try {
+            val info: PackageInfo? = getPackageInfo(
+                requireContext(),
+                "com.aaonri.app"
+            )
+            for (signature in info?.signatures!!) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.e("KeyHash:", encodeToString(md.digest(),DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: NoSuchAlgorithmException) {
+        }
 
         return introBinding?.root
     }
