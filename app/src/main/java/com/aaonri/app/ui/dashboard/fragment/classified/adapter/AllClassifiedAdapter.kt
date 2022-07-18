@@ -64,7 +64,7 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
             val year = date.subSequence(0, 4)
             val month = date.subSequence(5, 7)
             val day = date.subSequence(8, 10)
-            classifiedPostDateTv.text = "Posted On: $day-$month-$year"
+            classifiedPostDateTv.text = "Posted On: $month-$day-$year"
 
         }
         holder.itemView.setOnClickListener {
@@ -128,7 +128,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
             val year = date.subSequence(0, 4)
             val month = date.subSequence(5, 7)
             val day = date.subSequence(8, 10)
-            classifiedPostDateTv.text = "Posted On: $day-$month-$year"
+            classifiedPostDateTv.text = "Posted On: $month-$day-$year"
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
