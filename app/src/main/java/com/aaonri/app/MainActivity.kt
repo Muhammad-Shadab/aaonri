@@ -204,6 +204,8 @@ class MainActivity : BaseActivity() {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
         }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -213,8 +215,10 @@ class MainActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
-
             if (callClassifiedApi == true) {
+
+                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
+
                 classifiedViewModel.getMyClassified(
                     GetClassifiedByUserRequest(
                         category = "",
@@ -231,6 +235,7 @@ class MainActivity : BaseActivity() {
                     )
                 )
             } else if (callEventApi == true) {
+                eventViewModel.setCallEventDetailsApiAfterUpdating(true)
                 eventViewModel.getMyEvent(
                     AllEventRequest(
                         category = "",

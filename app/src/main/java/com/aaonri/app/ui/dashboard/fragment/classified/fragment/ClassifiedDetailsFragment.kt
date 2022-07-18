@@ -226,6 +226,13 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        classifiedViewModel.callClassifiedDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
+            if (it) {
+                postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(false)
+            }
+        }
+
         return classifiedDetailsBinding?.root
     }
 

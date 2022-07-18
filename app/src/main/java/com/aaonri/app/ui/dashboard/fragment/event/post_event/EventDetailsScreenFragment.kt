@@ -23,6 +23,7 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.model.EventDetailsResponse
+import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Resource
@@ -42,6 +43,7 @@ class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
+    val eventViewModel: EventViewModel by activityViewModels()
     var eventPremiumLink: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -119,6 +121,13 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 else -> {
                 }
+            }
+        }
+
+        eventViewModel.callEventDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
+            if (it) {
+                postEventViewModel.getEventDetails(args.eventId)
+                eventViewModel.setCallEventDetailsApiAfterUpdating(false)
             }
         }
 
