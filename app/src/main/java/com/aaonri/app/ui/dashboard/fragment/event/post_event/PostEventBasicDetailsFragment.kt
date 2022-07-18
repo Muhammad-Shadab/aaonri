@@ -27,7 +27,6 @@ import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -93,9 +92,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                     postEventViewModel.setEventBasicDetails(
                                                         eventTitle = titleEvent.text.toString(),
                                                         eventCategory = selectCategoryEvent.text.toString(),
-                                                        eventStartDate =startDate.ifEmpty { selectstartDate.text.toString()},
+                                                        eventStartDate = startDate.ifEmpty { selectstartDate.text.toString() },
                                                         eventStartTime = startTime.ifEmpty { selectStartTime.text.toString() },
-                                                        eventEndDate = endDate.ifEmpty { selectEndDate.text.toString()},
+                                                        eventEndDate = endDate.ifEmpty { selectEndDate.text.toString() },
                                                         eventEndTime = endTime.ifEmpty { selectEndTime.text.toString() },
                                                         eventTimeZone = eventTimezone.text.toString(),
                                                         eventFee = askingFee.text.toString(),
@@ -160,7 +159,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 getSelectedTime(selectEndTime, false)
             }
 
-       /*     selectstartDate.addTextChangedListener {
+            selectstartDate.addTextChangedListener {
                 if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
                         .isNotEmpty()
                 ) {
@@ -172,7 +171,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                             true
                         }
                 }
-            }*/
+            }
 //            selectEndDate.addTextChangedListener {
 //                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
 //                        .isNotEmpty()
@@ -247,18 +246,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                         }
                         postEventBinding?.titleEvent?.setText(response.data?.title)
                         postEventBinding?.selectCategoryEvent?.text = response.data?.category
-                         selectedDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                                .parse(response.data?.startDate?.split("T")?.get(0)))
-                        startDate = selectedDate
-                        postEventBinding?.selectstartDate?.text = selectedDate
-
+                        postEventBinding?.selectstartDate?.text = response.data?.startDate
                         postEventBinding?.selectStartTime?.text = response.data?.startTime
-                        endDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                                .parse(response.data?.endDate?.split("T")?.get(0)) )
-                        postEventBinding?.selectEndDate?.text = endDate
-
+                        postEventBinding?.selectEndDate?.text = response.data?.endDate
                         postEventBinding?.selectEndTime?.text = response.data?.endTime
                         postEventBinding?.eventTimezone?.text = response.data?.timeZone
 
@@ -353,7 +343,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 it1,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
-//                    selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
+                    selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
                     selectedMonth = { monthOfYear + 1 }.toString()
                     seletedDay = dayOfMonth.toString()
                     if (monthOfYear + 1 < 10) {
@@ -362,8 +352,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     if (dayOfMonth < 10) {
                         seletedDay = "0$dayOfMonth"
                     }
-                    selectedDate = "${selectedMonth}-${seletedDay}-${year}"
-                    selectstartDate?.text =selectedDate
+                    selectedDate = "${year}-${selectedMonth}-${seletedDay}"
                     if (isStartdate) {
 
                         endDate = ""
@@ -382,7 +371,7 @@ class PostEventBasicDetailsFragment : Fragment() {
         if (isStartdate) {
             datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
         } else {
-            val date = SimpleDateFormat("MM-dd-yyyy").parse(selectedDate)
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
             datepicker?.datePicker?.minDate = date.time - 1000 + (1000 * 60 * 60 * 24)
 
         }
