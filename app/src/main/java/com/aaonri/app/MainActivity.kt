@@ -3,12 +3,9 @@ package com.aaonri.app
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.net.toUri
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
@@ -21,12 +18,6 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +49,6 @@ class MainActivity : BaseActivity() {
 
         val email =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        val gmailEmail = FirebaseAuth.getInstance().currentUser?.email
 
         mainActivityBinding?.apply {
 
@@ -74,7 +64,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        if (FirebaseAuth.getInstance().currentUser != null) {
+        /*if (FirebaseAuth.getInstance().currentUser != null) {
             eventViewModel.getMyEvent(
                 AllEventRequest(
                     category = "",
@@ -95,7 +85,7 @@ class MainActivity : BaseActivity() {
                     gmailEmail
                 )
             }
-        }
+        }*/
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->
             if (isGuestUser) {
@@ -217,19 +207,13 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val email =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val email =
-                applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
-            Toast.makeText(
-                applicationContext,
-                "callClassifiedApi = $callClassifiedApi",
-                Toast.LENGTH_SHORT
-            ).show()
-            Toast.makeText(applicationContext, "callEventApi = $callEventApi", Toast.LENGTH_SHORT)
-                .show()
+
             if (callClassifiedApi == true) {
                 classifiedViewModel.getMyClassified(
                     GetClassifiedByUserRequest(
@@ -247,10 +231,21 @@ class MainActivity : BaseActivity() {
                     )
                 )
             } else if (callEventApi == true) {
-
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
             }
         }
     }
-
-
 }
