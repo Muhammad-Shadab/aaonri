@@ -40,7 +40,6 @@ class SplashScreenFragment : Fragment() {
                 activity?.finish()
             } else {
                 findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
-
             }
         }
 

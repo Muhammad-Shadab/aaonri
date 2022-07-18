@@ -297,9 +297,9 @@
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/facebooklogin"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -307,7 +307,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version: 1.0.2C"
+        android:text="Version: 1.0.3"
         android:textColor="@color/hintColor"
         android:textSize="10sp"
         android:translationY="@dimen/_75sdp"

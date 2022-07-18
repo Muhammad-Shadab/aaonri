@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_40sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="@string/congratulations_you_have_successfully_posted_your_classified"
+        android:text="Congratulations \n You have successfully posted your Classified"
         android:textAlignment="center"
         android:textColor="#333333"
         android:textSize="16sp" />

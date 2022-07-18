@@ -286,50 +286,6 @@ class LoginFragment : Fragment() {
         return introBinding?.root
     }
 
-
-    /*fun getApplicationSignature(packageName: String = context?.packageName.toString()): List<String> {
-        val signatureList: List<String>
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                // New signature
-                val sig = context?.packageManager?.getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNING_CERTIFICATES
-                )?.signingInfo
-                signatureList = if (sig?.hasMultipleSigners() == true) {
-                    // Send all with apkContentsSigners
-                    sig.apkContentsSigners.map {
-                        val digest = MessageDigest.getInstance("SHA")
-                        digest.update(it.toByteArray())
-                        bytesToHex(digest.digest())
-                    }
-                } else ({
-                    // Send one with signingCertificateHistory
-                    sig?.signingCertificateHistory?.map {
-                        val digest = MessageDigest.getInstance("SHA")
-                        digest.update(it.toByteArray())
-                        bytesToHex(digest.digest())
-                    }
-                })!!
-            } else {
-                val sig = context?.packageManager?.getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNATURES
-                )?.signatures
-                signatureList = sig?.map {
-                    val digest = MessageDigest.getInstance("SHA")
-                    digest.update(it.toByteArray())
-                    bytesToHex(digest.digest())
-                }!!
-            }
-
-            return signatureList
-        } catch (e: Exception) {
-            // Handle error
-        }
-        return emptyList()
-    }*/
-
     private fun signInFacebook() {
         introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
         LoginManager.getInstance()
