@@ -70,7 +70,6 @@
             android:name="com.aaonri.app.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
-
         </activity>
 
 
