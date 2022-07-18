@@ -222,7 +222,14 @@ class MainActivity : BaseActivity() {
             val email =
                 applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
-            Toast.makeText(applicationContext, "$callClassifiedApi", Toast.LENGTH_SHORT).show()
+            val callEventApi = data?.getBooleanExtra("callEventApi", false)
+            Toast.makeText(
+                applicationContext,
+                "callClassifiedApi = $callClassifiedApi",
+                Toast.LENGTH_SHORT
+            ).show()
+            Toast.makeText(applicationContext, "callEventApi = $callEventApi", Toast.LENGTH_SHORT)
+                .show()
             if (callClassifiedApi == true) {
                 classifiedViewModel.getMyClassified(
                     GetClassifiedByUserRequest(
@@ -239,9 +246,9 @@ class MainActivity : BaseActivity() {
                         zipCode = ""
                     )
                 )
-            }
-        } else {
+            } else if (callEventApi == true) {
 
+            }
         }
     }
 

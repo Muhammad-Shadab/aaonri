@@ -43,12 +43,11 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
                     intent.putExtra("updateClassified", true)
                     intent.putExtra("addId", args.addId)
                     startActivityForResult(intent, 1)
-                    //startActivity(intent)
                 } else {
                     val intent = Intent(requireContext(), EventScreenActivity::class.java)
                     intent.putExtra("updateEvent", true)
                     intent.putExtra("eventId", args.addId)
-                    startActivity(intent)
+                    startActivityForResult(intent, 2)
                 }
                 dismiss()
             }
