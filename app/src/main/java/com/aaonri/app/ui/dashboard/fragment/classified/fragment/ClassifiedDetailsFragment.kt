@@ -85,15 +85,16 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.apply {
             loginToViewSellerInfo.text = ss
             loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
+
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
-            if (args.isMyClassifiedScreen) {
+            /*if (args.isMyClassifiedScreen) {
                 moreClassifiedOption.visibility = View.VISIBLE
-            }
+            }*/
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -239,6 +240,10 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        if (data.userId == email) {
+            classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+        }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
 

@@ -26,6 +26,8 @@ import com.aaonri.app.data.event.model.EventDetailsResponse
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -57,10 +59,6 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.getEventDetails(args.eventId)
 
         evenDetailsBinding?.apply {
-
-            if (args.isMyEvent) {
-                moreBtn.visibility = View.VISIBLE
-            }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
@@ -156,6 +154,10 @@ class EventDetailsScreenFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        if (event.createdBy == email) {
+            evenDetailsBinding?.moreBtn?.visibility = View.VISIBLE
+        }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
         } else {
