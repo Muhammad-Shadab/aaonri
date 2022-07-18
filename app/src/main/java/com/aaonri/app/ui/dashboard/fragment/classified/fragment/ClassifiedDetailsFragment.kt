@@ -78,6 +78,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
         ss.setSpan(clickableSpan1, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+
         classifiedDetailsBinding?.apply {
             loginToViewSellerInfo.text = ss
             loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -717,11 +720,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 )
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
     }
 
     override fun onDestroy() {

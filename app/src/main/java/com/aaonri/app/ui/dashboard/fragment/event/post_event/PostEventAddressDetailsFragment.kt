@@ -116,9 +116,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             state = stateEt.text.toString(),
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
-//                                        postEvent()
-                                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-
+                                        postEvent()
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -149,9 +147,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         state = stateEt.text.toString(),
                                         socialMediaLink = socialMediaLinkEt.text.toString()
                                     )
-//                                    postEvent()
-                                    findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-
+                                    postEvent()
                                 } else {
                                     showAlert("Please accept terms & condition")
                                 }

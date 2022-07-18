@@ -52,6 +52,8 @@ class EventDetailsScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         evenDetailsBinding = FragmentEventDetailsBinding.inflate(inflater, container, false)
 
+        postEventViewModel.getEventDetails(args.eventId)
+
         evenDetailsBinding?.apply {
 
             if (args.isMyEvent) {
@@ -760,11 +762,6 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        postEventViewModel.getEventDetails(args.eventId)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         postEventViewModel.eventDetailsData.value = null
@@ -817,31 +814,5 @@ class EventDetailsScreenFragment : Fragment() {
             Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
         }
     }
-
-    /* fun getCmpressed(context: Context, bitmap: Bitmap) {
-         File cacheDir=context.getExternalCacheDir();
-         if(cacheDir==null)
-         //fall back
-             cacheDir=context.getCacheDir();
-
-         String rootDir=cacheDir.getAbsolutePath()+"/BharatATM";
-         File root=new File(rootDir);
-
-         if(!root.exists())
-             root.mkdirs();
-
-
-         File compressed=new File(root,SDF.format(new Date())+".jpg"/Your desired format/);
-
-         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-         FileOutputStream fileOutputStream=new FileOutputStream(compressed);
-         fileOutputStream.write(byteArrayOutputStream.toByteArray());
-         fileOutputStream.flush();
-
-         fileOutputStream.close();
-
-         return compressed;
-     }*/
-
 
 }

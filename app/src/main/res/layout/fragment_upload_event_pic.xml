@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.fragment.event.post_event.UploadEventPicFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".ui.dashboard.fragment.event.post_event.UploadEventPicFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -56,10 +55,10 @@
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_marginVertical="@dimen/_6sdp"
                         app:cardCornerRadius="@dimen/_4sdp"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <ImageView
                             android:id="@+id/uploadedImage1"
@@ -225,14 +224,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/sf_pro_regular"
+                android:lineSpacingExtra="@dimen/_6sdp"
                 android:text="Upload up to 4 Images for your event \n Image can be uploaded up to max size of 2MB"
+                android:textAlignment="center"
                 android:textColor="#979797"
                 android:textSize="12sp"
-                android:textAlignment="center"
-                android:lineSpacingExtra="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="@id/choose1img"
                 app:layout_constraintStart_toStartOf="@id/choose1img"
                 app:layout_constraintTop_toBottomOf="@id/uploadImageTv" />
+
             <TextView
                 android:id="@+id/choose1img"
                 android:layout_width="wrap_content"
@@ -240,12 +240,28 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/choose_1st_image_for_cover_photo"
+                android:textAlignment="center"
                 android:textColor="#333333"
                 android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@id/uploadPicBtn"
                 app:layout_constraintStart_toStartOf="@id/uploadPicBtn"
                 app:layout_constraintTop_toBottomOf="@+id/uploadImageDes" />
+
+            <TextView
+                android:id="@+id/coverRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="( Cover ratio should be 3:2 )"
+                android:textAlignment="center"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/choose1img"
+                app:layout_constraintStart_toStartOf="@id/choose1img"
+                app:layout_constraintTop_toBottomOf="@+id/choose1img" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/eventUploadPicNextBtn"
@@ -272,6 +288,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <ProgressBar
         android:id="@+id/progressBarPicUpload"
         android:layout_width="wrap_content"

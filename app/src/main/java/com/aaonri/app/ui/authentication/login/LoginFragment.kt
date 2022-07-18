@@ -205,12 +205,15 @@ class LoginFragment : Fragment() {
                             startActivity(intent)
                             activity?.finish()
                         } else {
-                            activity?.let { it1 ->
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                            /*activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
                                     "Email address is not verified yet", Snackbar.LENGTH_LONG
                                 ).show()
-                            }
+                            }*/
                         }
                     }
                 }

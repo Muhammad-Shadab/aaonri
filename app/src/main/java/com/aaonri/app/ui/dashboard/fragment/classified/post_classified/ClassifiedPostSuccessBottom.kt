@@ -46,7 +46,6 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
 
         val ss = SpannableString(text)
 
-
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
 

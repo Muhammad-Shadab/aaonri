@@ -52,6 +52,9 @@ class MainActivity : BaseActivity() {
         val guest = intent.getBooleanExtra("guest", false)
         dashboardCommonViewModel.setGuestUser(guest)
 
+        val email = applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val gmailEmail = FirebaseAuth.getInstance().currentUser?.email
+
         mainActivityBinding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
@@ -64,27 +67,7 @@ class MainActivity : BaseActivity() {
                     bottomNavigation.visibility = View.GONE
                 }
             }
-
-
         }
-
-        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
-            if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId =
-                    R.id.classifiedScreenFragment
-                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
-            }
-        }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val email =
-            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        val gmailEmail = FirebaseAuth.getInstance().currentUser?.email
 
         if (FirebaseAuth.getInstance().currentUser != null) {
             eventViewModel.getMyEvent(
@@ -218,6 +201,14 @@ class MainActivity : BaseActivity() {
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
+
+        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
+            if (it) {
+                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                    R.id.classifiedScreenFragment
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
+            }
+        }
     }
 
 }

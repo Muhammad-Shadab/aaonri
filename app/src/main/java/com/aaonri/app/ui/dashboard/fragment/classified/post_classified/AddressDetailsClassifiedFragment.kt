@@ -55,12 +55,12 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
-
         val text = resources.getString(R.string.your_classified_will)
 
         val ss = SpannableString(text)
         val ss1 = SpannableString(resources.getString(R.string.if_you_want))
-        val ss3 = SpannableString("By Posting an ad on aaonri.com, you agree to our\n Terms of use and")
+        val ss3 =
+            SpannableString("By Posting an ad on aaonri.com, you agree to our\n Terms of use and")
         val ss4 = SpannableString("Privacy Policy")
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
@@ -138,9 +138,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
 
         ss.setSpan(clickableSpan1, 174, 201, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss1.setSpan(clickableSpan2,84,105,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss3.setSpan(clickableSpan3,49,61,0)
-        ss4.setSpan(clickableSpan4,0,10,0)
+        ss1.setSpan(clickableSpan2, 84, 105, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss3.setSpan(clickableSpan3, 49, 61, 0)
+        ss4.setSpan(clickableSpan4, 0, 10, 0)
 
         addressDetailsBinding?.apply {
 
@@ -201,25 +201,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                           /* updateClassified(
+                                            updateClassified(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
-
+                                            )
                                         } else {
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
-
-                                            /* postClassifiedRequest(
-                                                 adEmail = emailAddressBasicDetails.text.toString(),
-                                                 adPhone = "",
-                                                 adKeywords = classifiedKeywordEt.text.toString(),
-                                                 cityName = cityNameAddressDetails.text.toString(),
-                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                             )*/
+                                            postClassifiedRequest(
+                                                adEmail = emailAddressBasicDetails.text.toString(),
+                                                adPhone = "",
+                                                adKeywords = classifiedKeywordEt.text.toString(),
+                                                cityName = cityNameAddressDetails.text.toString(),
+                                                zipCode = zipCodeAddressDetails.text.toString()
+                                            )
                                         }
                                     } else {
                                         showAlert("Please accept terms & condition")
@@ -235,25 +231,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                           /* updateClassified(
+                                            updateClassified(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
-
+                                            )
                                         } else {
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
-
-                                            /*postClassifiedRequest(
+                                            postClassifiedRequest(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
+                                            )
                                         }
                                     } else {
                                         showAlert("Please accept terms & condition")
@@ -323,9 +315,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
-                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                            val action =
+                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                            findNavController().navigate(action)
                         } else {
-                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                            val action =
+                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                            findNavController().navigate(action)
                         }
                     }
                     addressDetailsBinding?.progressBar?.visibility = View.GONE
