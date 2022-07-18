@@ -347,6 +347,11 @@ class PostEventAddressDetailsFragment : Fragment() {
         )
     }
 
+
+
+
+
+
     fun updateEvent() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
