@@ -22,9 +22,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
+import com.aaonri.app.data.event.model.EventAddGoingRequest
+import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -33,6 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -43,7 +49,9 @@ class EventDetailsScreenFragment : Fragment() {
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var eventPremiumLink: String = ""
-
+    var startDate = ""
+    var endDate = ""
+    var eventTitleName = ""
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +87,7 @@ class EventDetailsScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 postEventViewModel.eventDetailsData.value = null
                 findNavController().navigateUp()
+
             }
 
 
@@ -94,6 +103,47 @@ class EventDetailsScreenFragment : Fragment() {
                         false
                     )
                 findNavController().navigate(action)
+            }
+            interestedBtn.setOnClickListener {
+                val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                postEventViewModel.addEventAddInterested(
+                    EventAddInterestedRequest(
+                        emailId = email.toString(),
+                        favourite = true,
+                        itemId = args.eventId,
+                        service = "Event"
+                    )
+                )
+            }
+
+            goingBtn.setOnClickListener {
+                val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                postEventViewModel.addEventGoing(
+                    EventAddGoingRequest(
+                        emailId = email.toString(),
+                        eventId = args.eventId,
+                        visiting = true
+                    )
+                )
+
+            }
+            calendarBtn.setOnClickListener{
+                try {
+                    val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    val mStartTime = mSimpleDateFormat.parse(startDate)
+                    val mEndTime = mSimpleDateFormat.parse(endDate)
+                    val mIntent = Intent(Intent.ACTION_EDIT)
+                    mIntent.type = "vnd.android.cursor.item/event"
+                    mIntent.putExtra("beginTime", mStartTime.time)
+                    mIntent.putExtra("time", true)
+                    mIntent.putExtra("rule", "FREQ=YEARLY")
+                    mIntent.putExtra("endTime", mEndTime.time)
+                    mIntent.putExtra("title", eventTitleName.toString())
+                    startActivity(mIntent)
+                } catch (e: Exception) {
+
+                }
+
             }
 
         }
@@ -146,6 +196,9 @@ class EventDetailsScreenFragment : Fragment() {
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
         evenDetailsBinding?.ll1?.visibility = View.VISIBLE
+        startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
+        endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
+        eventTitleName = event.title
         evenDetailsBinding?.navigateBack?.visibility = View.VISIBLE
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE

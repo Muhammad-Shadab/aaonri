@@ -2,6 +2,8 @@ package com.aaonri.app.data.event.repository
 
 import com.aaonri.app.data.event.api.EventApi
 import com.aaonri.app.data.event.model.AllEventRequest
+import com.aaonri.app.data.event.model.EventAddGoingRequest
+import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.PostEventRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,4 +32,8 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
     ) = eventApi.uploadEventPicture(files, eventId, delImageIds)
 
     suspend fun getEventDetails(eventID: Int) = eventApi.getEventDetails(eventID)
+
+    suspend fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) = eventApi.addEventfav(eventAddInterestedRequest)
+
+    suspend fun addEventGoing(eventAddGoingRequest: EventAddGoingRequest) = eventApi.addEventGoing(eventAddGoingRequest)
 }

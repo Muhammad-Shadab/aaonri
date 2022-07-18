@@ -75,7 +75,11 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var listOfImagesUri = mutableListOf<Uri>()
         private set
 
-    val uploadPictureData: MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
+    val uploadPictureData : MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
+
+    val addInterestedData : MutableLiveData<Resource<EventAddInterestedResponse>> = MutableLiveData()
+
+    val addGoingData : MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
 
     fun setSelectedEventCategory(value: EventCategoryResponseItem) {
         selectedEventCategory.postValue(value)
@@ -250,6 +254,37 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun setIsNavigateBackToBasicDetails(value: Boolean) {
         isNavigateBackBasicDetails = value
+    }
+
+    fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) = viewModelScope.launch {
+        addInterestedData.postValue(Resource.Loading())
+        val response = eventRepository.addEventAddInterested(eventAddInterestedRequest)
+        addInterestedData.postValue(handleEventAddInterestedResponse(response))
+
+    }
+
+    private fun handleEventAddInterestedResponse(response: Response<EventAddInterestedResponse>): Resource<EventAddInterestedResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+    fun addEventGoing(eventAddGoingRequest: EventAddGoingRequest) = viewModelScope.launch {
+        addInterestedData.postValue(Resource.Loading())
+        val response = eventRepository.addEventGoing(eventAddGoingRequest)
+        addGoingData.postValue(handleaddEventGoingResponse(response))
+    }
+
+    private fun handleaddEventGoingResponse(response: Response<EventAddGoingResponse>): Resource<EventAddGoingResponse>? {
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 
