@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-4dp"
                         android:fontFamily="@font/sf_pro_display_light"
-                        android:text="I want edit my Classified"
+                        android:text="I want to edit my Classified"
                         android:textColor="#333333"
                         android:textSize="@dimen/_11sdp" />
 
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-4dp"
                         android:fontFamily="@font/sf_pro_display_light"
-                        android:text="I want remove this Classified from this app"
+                        android:text="I want to remove this Classified"
                         android:textColor="#333333"
                         android:textSize="@dimen/_11sdp" />
 

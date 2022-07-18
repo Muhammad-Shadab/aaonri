@@ -145,6 +145,8 @@ class EventDetailsScreenFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
+        evenDetailsBinding?.ll1?.visibility = View.VISIBLE
+        evenDetailsBinding?.navigateBack?.visibility = View.VISIBLE
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
         } else {
@@ -481,11 +483,10 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventTitle?.text = event.title
         evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
-        evenDetailsBinding?.eventPostDateLinearLayout?.visibility = View.GONE
         evenDetailsBinding?.locationEventTv?.text = event.city
         evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
-        evenDetailsBinding?.goInterestedll?.visibility = View.VISIBLE
+        evenDetailsBinding?.eventDetailsBottom?.visibility =View.VISIBLE
         if (event.socialMediaLink.isNotEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
             evenDetailsBinding?.premiumLink?.text = event.socialMediaLink

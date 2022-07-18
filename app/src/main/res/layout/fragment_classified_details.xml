@@ -126,7 +126,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginTop="@dimen/_120sdp">
 
         <FrameLayout
@@ -147,6 +146,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraint1"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bottom_sheet_details_bg_color">
@@ -351,7 +351,7 @@
                             android:layout_marginHorizontal="@dimen/_16sdp"
                             android:layout_marginTop="@dimen/_16sdp"
                             android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:fontFamily="@font/sf_pro_regular"
                             android:textColor="#333333"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -537,6 +537,7 @@
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_gravity="start"
+        android:visibility="gone"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_32sdp"
         android:background="@drawable/blue_circle_shape"

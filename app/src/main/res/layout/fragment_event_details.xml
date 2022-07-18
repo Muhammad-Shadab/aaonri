@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_32sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:orientation="horizontal">
@@ -47,6 +48,7 @@
 
     <ImageView
         android:id="@+id/navigateBack"
+        android:visibility="gone"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_gravity="start"
@@ -174,6 +176,7 @@
             android:id="@+id/eventDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@drawable/rounded_bottom_sheet_shape"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -307,7 +310,6 @@
 
                             <LinearLayout
                                 android:id="@+id/eventPostDateLinearLayout"
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_16sdp"
@@ -449,7 +451,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/goInterestedll"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -498,6 +499,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/goInterestedBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -546,7 +548,7 @@
                             android:layout_marginHorizontal="@dimen/_16sdp"
                             android:layout_marginTop="@dimen/_16sdp"
                             android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:fontFamily="@font/sf_pro_regular"
                             android:textColor="#333333"
                             android:textSize="12sp" />
                     </LinearLayout>

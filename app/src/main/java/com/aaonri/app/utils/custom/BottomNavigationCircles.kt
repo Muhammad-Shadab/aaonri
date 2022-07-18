@@ -30,7 +30,7 @@ class BottomNavigationCircles : BottomNavigationView {
 
     private lateinit var rootLayout: RelativeLayout
     private var disabledColor =
-        ContextCompat.getColor(context, R.color.lightGrey)
+        ContextCompat.getColor(context, R.color.grayColor_1)
     private var enabledColor = Color.WHITE
     private var textColor by Delegates.notNull<Int>()
 

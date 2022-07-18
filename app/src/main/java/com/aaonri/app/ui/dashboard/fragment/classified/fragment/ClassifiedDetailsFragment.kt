@@ -407,11 +407,11 @@ class ClassifiedDetailsFragment : Fragment() {
         val df = DecimalFormat("###.00")
         df.roundingMode = RoundingMode.DOWN
         val roundoff = df.format(random)
-
+        classifiedDetailsBinding?.constraint1?.visibility = View.VISIBLE
         classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
         classifiedDetailsBinding?.addTitle?.text = data.adTitle
         classifiedDetailsBinding?.addTitle?.visibility = View.VISIBLE
-
+        classifiedDetailsBinding?.navigateBack?.visibility = View.VISIBLE
         classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
         classifiedDetailsBinding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
