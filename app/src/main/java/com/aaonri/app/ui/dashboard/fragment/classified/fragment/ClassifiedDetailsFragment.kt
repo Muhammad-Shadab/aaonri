@@ -154,18 +154,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-            if (it) {
-                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
-                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
-                classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
 
-            } else {
-                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
-                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
-                classifiedDetailsBinding?.likeDislikeBtn?.visibility = View.VISIBLE
-            }
-        }
 
 
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
@@ -421,6 +410,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
         classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
         classifiedDetailsBinding?.addTitle?.text = data.adTitle
+        classifiedDetailsBinding?.addTitle?.visibility = View.VISIBLE
+
         classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
         classifiedDetailsBinding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
@@ -448,6 +439,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
         classifiedDetailsBinding?.classifiedCategoryTv?.text =
             "Category: ${data.category}  |  Sub Category: ${data.subCategory}"
+        classifiedDetailsBinding?.classifiedLocation?.visibility = View.VISIBLE
+        classifiedDetailsBinding?.classifiedPostDate?.visibility = View.VISIBLE
         classifiedDetailsBinding?.locationClassifiedTv?.text = data.adLocation
         classifiedDetailsBinding?.adZipCode?.text = data.adZip
 
@@ -463,7 +456,18 @@ class ClassifiedDetailsFragment : Fragment() {
             classifiedDetailsBinding?.emailTv?.text = "Phone"
             classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adPhone
         }
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            if (it) {
+                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
+                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+                classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
 
+            } else {
+                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
+                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
+                classifiedDetailsBinding?.likeDislikeBtn?.visibility = View.VISIBLE
+            }
+        }
         classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {

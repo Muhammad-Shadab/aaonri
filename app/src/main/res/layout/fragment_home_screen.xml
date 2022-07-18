@@ -104,19 +104,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeTv" />
 
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginBottom="-32dp"
+    app:cardCornerRadius="@dimen/_32sdp"
+    android:background="@drawable/top_rounded_corner_shape"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/searchView"
+    >
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/top_rounded_corner_shape"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
-
+        android:layout_height="wrap_content"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,6 +132,7 @@
                 android:id="@+id/interestRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:visibility="gone"
                 tools:listitem="@layout/interest_item" />
@@ -1094,8 +1101,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
+</com.google.android.material.card.MaterialCardView>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

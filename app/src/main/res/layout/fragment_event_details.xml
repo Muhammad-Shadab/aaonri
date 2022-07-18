@@ -271,6 +271,7 @@
 
                                 <ImageView
                                     android:id="@+id/locationIconEvent"
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/_2sdp"
@@ -306,6 +307,7 @@
 
                             <LinearLayout
                                 android:id="@+id/eventPostDateLinearLayout"
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_16sdp"
@@ -406,6 +408,7 @@
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_marginEnd="@dimen/_16sdp"
                                 android:orientation="horizontal"
+                                android:visibility="gone"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/eventPostDateLinearLayout">
@@ -446,6 +449,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/goInterestedll"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_14sdp"
