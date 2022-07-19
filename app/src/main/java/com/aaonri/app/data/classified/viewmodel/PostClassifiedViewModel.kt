@@ -107,6 +107,9 @@ class PostClassifiedViewModel @Inject constructor(
     var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
         MutableLiveData()
 
+    var classifiedUploadedImagesIdList = mutableListOf<Int>()
+        private set
+
     var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
         private set
 
@@ -356,6 +359,10 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setClassifiedCategoryWhileUpdating(value: String) {
         selectedClssifiedCategoryWhileUpdating = value
+    }
+
+    fun setClassifiedUploadedImagesIdList(value: MutableList<Int>) {
+        classifiedUploadedImagesIdList = value
     }
 
 }

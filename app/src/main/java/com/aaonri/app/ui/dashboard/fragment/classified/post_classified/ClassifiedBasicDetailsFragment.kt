@@ -141,6 +141,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         postClassifiedViewModel.setIsNavigateBackToBasicDetails(false)
                     } else {
                         val uploadedImages = mutableListOf<Uri>()
+                        val uploadedImagesIdList = mutableListOf<Int>()
                         classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
                             response.data?.userAds?.category
                         classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
@@ -149,9 +150,10 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         classifiedDetailsBinding?.priceClassifiedEt?.setText(response.data?.userAds?.askingPrice.toString())
                         classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                             response.data?.userAds?.isNew == true
-                        //postClassifiedViewModel.setSelectedClassifiedCategory(response.data.userAds.)
+
                         classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
                         response.data?.userAds?.userAdsImages?.forEach {
+                            uploadedImagesIdList.add(it.imageId)
                             uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
 
@@ -163,6 +165,12 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                         if (uploadedImages.isNotEmpty()) {
                             postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                        }
+
+                        if (uploadedImagesIdList.isNotEmpty()) {
+                            postClassifiedViewModel.setClassifiedUploadedImagesIdList(
+                                uploadedImagesIdList
+                            )
                         }
                     }
                 }

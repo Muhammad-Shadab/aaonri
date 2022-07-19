@@ -58,6 +58,10 @@ class UploadClassifiedPicFragment : Fragment() {
 
         setImagesForUpdatingClassified()
 
+        postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+        }
+
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 
         uploadClassifiedBinding?.apply {
@@ -81,15 +85,19 @@ class UploadClassifiedPicFragment : Fragment() {
 
             deleteImage1.setOnClickListener {
                 deleteImage(0)
+                deleteImageWithId(0)
             }
             deleteImage2.setOnClickListener {
                 deleteImage(1)
+                deleteImageWithId(1)
             }
             deleteImage3.setOnClickListener {
                 deleteImage(2)
+                deleteImageWithId(2)
             }
             deleteImage4.setOnClickListener {
                 deleteImage(3)
+                deleteImageWithId(3)
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -171,6 +179,27 @@ class UploadClassifiedPicFragment : Fragment() {
             })
 
         return uploadClassifiedBinding?.root
+    }
+
+    private fun deleteImageWithId(idIndex: Int) {
+        postClassifiedViewModel.classifiedUploadedImagesIdList.forEachIndexed { index, i ->
+            when (index) {
+                0 -> {
+                    if (idIndex == index) {
+
+                    }
+                }
+                1 -> {
+
+                }
+                2 -> {
+
+                }
+                3 -> {
+
+                }
+            }
+        }
     }
 
     private fun setImagesForUpdatingClassified() {
