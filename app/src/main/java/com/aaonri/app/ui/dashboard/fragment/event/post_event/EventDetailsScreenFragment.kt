@@ -171,6 +171,7 @@ class EventDetailsScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
+
                     isVisiting = !response.data.toBoolean()
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
