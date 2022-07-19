@@ -15,6 +15,7 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -54,6 +55,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
+
+        /*postClassifiedViewModel.imageIdGoindToRemove.forEach {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+        }*/
 
         val text = resources.getString(R.string.your_classified_will)
 
@@ -341,6 +346,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
+                        postClassifiedViewModel.imageIdGoindToRemove.forEach {
+                            callUploadClassifiedPicApi(
+                                "".toUri(),
+                                response.data?.id,
+                                response.data?.id
+                            )
+                        }
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 if (!it.toString().startsWith("htt")) {

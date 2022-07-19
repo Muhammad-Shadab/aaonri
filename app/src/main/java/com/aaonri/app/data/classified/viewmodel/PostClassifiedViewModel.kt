@@ -110,6 +110,9 @@ class PostClassifiedViewModel @Inject constructor(
     var classifiedUploadedImagesIdList = mutableListOf<Int>()
         private set
 
+    var imageIdGoindToRemove = mutableListOf<Int>()
+        private set
+
     var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
         private set
 
