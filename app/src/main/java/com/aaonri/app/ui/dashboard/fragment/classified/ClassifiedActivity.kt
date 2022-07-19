@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.ActivityClassifiedScreenBinding
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,4 +65,6 @@ class ClassifiedActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

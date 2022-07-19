@@ -22,7 +22,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
@@ -113,6 +112,8 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             moreBtn.setOnClickListener {
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
                 val action =
                     EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToUpdateDeleteClassifiedBottom(
                         args.eventId,
@@ -714,7 +715,21 @@ class EventDetailsScreenFragment : Fragment() {
         } else {
             changeCardViewBorder(0)
         }
+          if(isVisiting)
+          {
+              evenDetailsBinding?.goingBtn?.setText("GOING")
+          }
+        else{
+              evenDetailsBinding?.goingBtn?.setText("NOT GOING")
+        }
 
+        if(isInterested)
+        {
+            evenDetailsBinding?.interestedBtn?.setText("INTERESTED")
+        }
+        else{
+            evenDetailsBinding?.interestedBtn?.setText("NOT INTERESTED")
+        }
     }
 
     private fun changeCardViewBorder(selectedImageIndex: Int) {

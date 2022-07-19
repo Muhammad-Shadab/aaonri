@@ -162,7 +162,8 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 //intent.putExtra("updateClassified", false)
                 startActivityForResult(intent, 1)
@@ -346,5 +347,10 @@ class ClassifiedScreenFragment : Fragment() {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
         }
     }
+    override fun onStart() {
+        super.onStart()
+        context?.let { PreferenceManager<String>(it) }
+            ?.set("description", "")
 
+    }
 }

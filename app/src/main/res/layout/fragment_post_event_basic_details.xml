@@ -310,7 +310,7 @@
 
                 </LinearLayout>
 
-                <EditText
+                <TextView
                     android:id="@+id/eventDescEt"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"

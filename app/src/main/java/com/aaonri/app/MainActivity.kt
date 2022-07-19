@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -19,6 +18,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
