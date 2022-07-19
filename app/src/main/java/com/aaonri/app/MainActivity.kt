@@ -253,6 +253,11 @@ class MainActivity : BaseActivity() {
                 )
             } else if (callEventApi == true) {
                 eventViewModel.setCallEventDetailsApiAfterUpdating(true)
+
+                if (email != null) {
+                    eventViewModel.getRecentEvent(email)
+                }
+
                 eventViewModel.getMyEvent(
                     AllEventRequest(
                         category = "",

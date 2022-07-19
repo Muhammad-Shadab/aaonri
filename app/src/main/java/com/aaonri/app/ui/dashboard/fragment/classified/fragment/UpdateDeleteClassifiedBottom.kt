@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -57,7 +58,16 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
                 if (args.isClassifiedUpdate) {
                     //postClassifiedViewModel.deleteClassified(args.addId)
                 } else {
-                    postEventViewModel.deleteEvent(args.addId)
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Confirm")
+                    builder.setMessage("Are you sure you want to Delete?")
+                    builder.setPositiveButton("OK") { dialog, which ->
+                        postEventViewModel.deleteEvent(args.addId)
+                    }
+                    builder.setNegativeButton("Cancel") { dialog, which ->
+
+                    }
+                    builder.show()
                 }
             }
         }

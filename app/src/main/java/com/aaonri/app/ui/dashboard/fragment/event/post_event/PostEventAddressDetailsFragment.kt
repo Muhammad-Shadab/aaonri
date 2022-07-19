@@ -92,7 +92,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventAddressBinding?.apply {
 
             textDesc1.text = ss
-            privacyTextTv.text = ss1
+            //privacyTextTv.text = ss1
             privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
