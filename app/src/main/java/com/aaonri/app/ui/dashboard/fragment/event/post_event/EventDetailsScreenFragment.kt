@@ -157,7 +157,6 @@ class EventDetailsScreenFragment : Fragment() {
                 is Resource.Success -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
 
-
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
