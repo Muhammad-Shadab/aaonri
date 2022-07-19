@@ -655,7 +655,21 @@ class EventDetailsScreenFragment : Fragment() {
         } else {
             changeCardViewBorder(0)
         }
+          if(isVisiting)
+          {
+              evenDetailsBinding?.goingBtn?.setText("GOING")
+          }
+        else{
+              evenDetailsBinding?.goingBtn?.setText("NOT GOING")
+        }
 
+        if(isInterested)
+        {
+            evenDetailsBinding?.interestedBtn?.setText("INTERESTED")
+        }
+        else{
+            evenDetailsBinding?.interestedBtn?.setText("NOT INTERESTED")
+        }
     }
 
     private fun changeCardViewBorder(selectedImageIndex: Int) {
