@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.home.model.PoplarClassifiedResponseItem
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
@@ -35,7 +36,7 @@ class PoplarClassifiedAdapter(private var selectedServices: ((value: PoplarClass
                     if (data[position].popularOnAaonri) View.VISIBLE else View.GONE
             } else {
                 Glide.with(context)
-                    .load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
                     .into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)

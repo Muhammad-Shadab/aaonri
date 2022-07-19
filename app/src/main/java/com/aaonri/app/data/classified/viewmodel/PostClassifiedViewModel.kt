@@ -8,6 +8,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
+import com.google.gson.JsonElement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -112,7 +113,7 @@ class PostClassifiedViewModel @Inject constructor(
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
-    val classifiedDeleteData: MutableLiveData<Resource<String>> =
+    val classifiedDeleteData: MutableLiveData<Resource<JsonElement>> =
         MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
@@ -188,7 +189,7 @@ class PostClassifiedViewModel @Inject constructor(
         classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
     }
 
-    private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
+    private fun handleClassifiedDeleteResponse(response: Response<JsonElement>): Resource<JsonElement>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

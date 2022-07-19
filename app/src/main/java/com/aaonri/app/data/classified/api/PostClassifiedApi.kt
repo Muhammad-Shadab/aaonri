@@ -1,6 +1,7 @@
 package com.aaonri.app.data.classified.api
 
 import com.aaonri.app.data.classified.model.*
+import com.google.gson.JsonElement
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -35,6 +36,6 @@ interface PostClassifiedApi {
     @DELETE("/api/v1/asd/delete/{classifiedId}")
     suspend fun deleteClassified(
         @Path("classifiedId") classifiedId: Int
-    ): Response<String>
+    ): Response<JsonElement>
 
 }

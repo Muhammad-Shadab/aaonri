@@ -53,11 +53,11 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
             }
 
             deleteClassified.setOnClickListener {
-                /*if (args.isClassifiedUpdate) {
+                if (args.isClassifiedUpdate) {
                     postClassifiedViewModel.deleteClassified(args.addId)
                 } else {
                     postEventViewModel.deleteEvent(args.addId)
-                }*/
+                }
             }
         }
 
@@ -67,7 +67,8 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-
+                    dismiss()
+                    findNavController().navigateUp()
                 }
                 is Resource.Error -> {
 
@@ -82,7 +83,6 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-
                     /*dismiss()
                     findNavController().navigateUp()*/
                 }

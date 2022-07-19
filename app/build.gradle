@@ -145,6 +145,10 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.facebook.android:facebook-login:latest.release'
 
+    //Retrofit 
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+
 
 
 }
