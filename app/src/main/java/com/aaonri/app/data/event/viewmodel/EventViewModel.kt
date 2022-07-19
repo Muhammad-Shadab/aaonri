@@ -26,6 +26,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     val hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
 
+
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         myEvent.postValue(Resource.Loading())
         val response = eventRepository.getAllEvent(allEventRequest)
@@ -66,6 +67,8 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     fun setHideFloatingButtonInSecondTab(value: Boolean) {
         hideFloatingButtonInSecondTab.postValue(value)
     }
+
+
 
 
 }

@@ -36,4 +36,11 @@ class EventRepository @Inject constructor(private val eventApi: EventApi) {
     suspend fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) = eventApi.addEventfav(eventAddInterestedRequest)
 
     suspend fun addEventGoing(eventAddGoingRequest: EventAddGoingRequest) = eventApi.addEventGoing(eventAddGoingRequest)
+
+    suspend fun geisUserVisitingEventInfo(email: String, eventId: Int) =
+        eventApi.geisUserVisitingEventInfo(eventId,email)
+
+    suspend fun getUserisInterested(email: String,services: String ,eventId: Int) =
+        eventApi.getUserisInterested(eventId,services,email)
+
 }

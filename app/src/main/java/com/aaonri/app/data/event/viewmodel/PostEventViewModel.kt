@@ -81,6 +81,12 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     val addGoingData : MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
 
+
+    val eventuserVisitinginfoData: MutableLiveData<Resource<String>> =
+        MutableLiveData()
+    val eventuserInterestedinfoData: MutableLiveData<Resource<String>> =
+        MutableLiveData()
+
     fun setSelectedEventCategory(value: EventCategoryResponseItem) {
         selectedEventCategory.postValue(value)
     }
@@ -286,6 +292,30 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         }
         return Resource.Error(response.message())
     }
+    fun getisUserVisitingEventInfo(email: String, addId: Int) =
+        viewModelScope.launch {
+            eventuserVisitinginfoData.postValue(Resource.Loading())
+            val response = eventRepository.geisUserVisitingEventInfo(email, addId)
+            eventuserVisitinginfoData.postValue(handleUserVisitingEventInfoResponse(response))
+        }
 
+    private fun handleUserVisitingEventInfoResponse(response: String): Resource<String>? {
+        if (response.isNotEmpty()) {
+            return Resource.Success(response)
+        }
+        return Resource.Error("Empty")
+    }
+    fun getUserisInterested(email: String,services: String, addId: Int) =
+        viewModelScope.launch {
+            eventuserInterestedinfoData.postValue(Resource.Loading())
+            val response = eventRepository.getUserisInterested(email,services, addId)
+            eventuserInterestedinfoData.postValue(handleUserisInterestedInfoResponse(response))
+        }
 
+    private fun handleUserisInterestedInfoResponse(response: String): Resource<String>? {
+        if (response.isNotEmpty()) {
+            return Resource.Success(response)
+        }
+        return Resource.Error("Empty")
+    }
 }

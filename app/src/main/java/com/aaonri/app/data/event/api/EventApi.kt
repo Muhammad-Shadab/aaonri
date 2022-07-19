@@ -20,6 +20,19 @@ interface EventApi {
         @Path("eventId") eventId: Int
     ): Response<EventDetailsResponse>
 
+    @GET("/api/v1/eventvisit/isUserVisitingEvent")
+    suspend fun geisUserVisitingEventInfo(
+        @Query("eventId") eventId: Int,
+        @Query("email") email: String,
+    ): String
+
+    @GET("/api/v1/favourite/getItemFavouriteByEmailAndService")
+    suspend fun getUserisInterested(
+        @Query("itemId") eventId: Int,
+        @Query("service") service: String,
+        @Query("email") email: String,
+    ): String
+
     @POST("/api/v1/event/search")
     suspend fun getAllEvent(
         @Body allEventRequest: AllEventRequest

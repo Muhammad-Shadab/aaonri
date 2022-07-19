@@ -52,6 +52,8 @@ class EventDetailsScreenFragment : Fragment() {
     var startDate = ""
     var endDate = ""
     var eventTitleName = ""
+    var isVisiting = false
+    var isInterested = false
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -65,6 +67,16 @@ class EventDetailsScreenFragment : Fragment() {
 
             if (args.isMyEvent) {
                 moreBtn.visibility = View.VISIBLE
+            }
+            val email =  context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+            if (email != null) {
+                postEventViewModel.getisUserVisitingEventInfo(
+                    email,args.eventId
+                )
+
+                postEventViewModel.getUserisInterested(
+                    email,"Event",args.eventId
+                )
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
@@ -110,7 +122,7 @@ class EventDetailsScreenFragment : Fragment() {
                 postEventViewModel.addEventAddInterested(
                     EventAddInterestedRequest(
                         emailId = email.toString(),
-                        favourite = true,
+                        favourite = isInterested,
                         itemId = args.eventId,
                         service = "Event"
                     )
@@ -123,7 +135,7 @@ class EventDetailsScreenFragment : Fragment() {
                     EventAddGoingRequest(
                         emailId = email.toString(),
                         eventId = args.eventId,
-                        visiting = true
+                        visiting = isVisiting
                     )
                 )
 
@@ -148,7 +160,40 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
         }
+        postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner){ response ->
+            when (response) {
+                is Resource.Loading -> {
 
+                }
+                is Resource.Success -> {
+                    isVisiting = !response.data.toBoolean()
+                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+        postEventViewModel.eventuserInterestedinfoData.observe(viewLifecycleOwner){ response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    isInterested = !response.data.toBoolean()
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
         postEventViewModel.addInterestedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -156,14 +201,14 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
+                    isInterested = !response.data?.favourite!!
 
-
+                    postEventViewModel.getEventDetails(args.eventId)
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
+
                 }
                 else -> {
                 }
@@ -177,7 +222,8 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
-                    response.data?.visiting
+                    isVisiting = !response.data?.visiting!!
+                    postEventViewModel.getEventDetails(args.eventId)
 
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
