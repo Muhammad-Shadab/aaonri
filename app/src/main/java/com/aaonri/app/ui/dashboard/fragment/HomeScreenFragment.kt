@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -351,7 +352,7 @@ class HomeScreenFragment : Fragment() {
                                 context?.let { it1 ->
                                     homeScreenBinding?.eventImage1?.let { it2 ->
                                         Glide.with(it1)
-                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
                                             .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
@@ -362,7 +363,7 @@ class HomeScreenFragment : Fragment() {
                                 context?.let { it1 ->
                                     homeScreenBinding?.eventImage2?.let { it2 ->
                                         Glide.with(it1)
-                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
                                             .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
@@ -373,7 +374,7 @@ class HomeScreenFragment : Fragment() {
                                 context?.let { it1 ->
                                     homeScreenBinding?.eventImage3?.let { it2 ->
                                         Glide.with(it1)
-                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
                                             .transform(CenterInside(), RoundedCorners(24))
                                             .into(it2)
                                     }
@@ -384,7 +385,7 @@ class HomeScreenFragment : Fragment() {
                                     homeScreenBinding?.eventImage4?.visibility = View.VISIBLE
                                     homeScreenBinding?.eventImage4?.let { it2 ->
                                         Glide.with(it1)
-                                            .load("https://www.aaonri.com/api/v1/common/eventFile/${image.imagePath}")
+                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
                                             .transform(CenterInside(), RoundedCorners(24))
                                             .into(
                                                 it2

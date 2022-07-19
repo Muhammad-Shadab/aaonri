@@ -1,12 +1,12 @@
 package com.aaonri.app
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.net.toUri
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
@@ -19,9 +19,6 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +28,6 @@ class MainActivity : BaseActivity() {
     val homeViewModel: HomeViewModel by viewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     val eventViewModel: EventViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +48,9 @@ class MainActivity : BaseActivity() {
         val guest = intent.getBooleanExtra("guest", false)
         dashboardCommonViewModel.setGuestUser(guest)
 
+        val email =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         mainActivityBinding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
@@ -64,29 +63,9 @@ class MainActivity : BaseActivity() {
                     bottomNavigation.visibility = View.GONE
                 }
             }
-
-
         }
 
-        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
-            if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId =
-                    R.id.classifiedScreenFragment
-                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
-            }
-        }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val email =
-            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-        val gmailEmail = FirebaseAuth.getInstance().currentUser?.email
-
-        if (FirebaseAuth.getInstance().currentUser != null) {
+        /*if (FirebaseAuth.getInstance().currentUser != null) {
             eventViewModel.getMyEvent(
                 AllEventRequest(
                     category = "",
@@ -107,7 +86,7 @@ class MainActivity : BaseActivity() {
                     gmailEmail
                 )
             }
-        }
+        }*/
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->
             if (isGuestUser) {
@@ -218,6 +197,108 @@ class MainActivity : BaseActivity() {
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
+
+        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
+            if (it) {
+                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                    R.id.classifiedScreenFragment
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
+            }
+        }
+
+        eventViewModel.callEventApiAfterDelete.observe(this) {
+            if (it) {
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
+            }
+        }
+
+
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val email =
+            applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
+            val callEventApi = data?.getBooleanExtra("callEventApi", false)
+            if (callClassifiedApi == true) {
+
+                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
+
+                classifiedViewModel.getMyClassified(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+            } else if (callEventApi == true) {
+                eventViewModel.setCallEventDetailsApiAfterUpdating(true)
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
+            }
+        }
+    }
 }

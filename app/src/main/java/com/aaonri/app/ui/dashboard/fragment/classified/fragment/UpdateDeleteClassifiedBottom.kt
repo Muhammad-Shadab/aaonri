@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -42,22 +43,22 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
                     val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                     intent.putExtra("updateClassified", true)
                     intent.putExtra("addId", args.addId)
-                    startActivity(intent)
+                    startActivityForResult(intent, 1)
                 } else {
                     val intent = Intent(requireContext(), EventScreenActivity::class.java)
                     intent.putExtra("updateEvent", true)
                     intent.putExtra("eventId", args.addId)
-                    startActivity(intent)
+                    startActivityForResult(intent, 2)
                 }
                 dismiss()
             }
 
             deleteClassified.setOnClickListener {
-                /*if (args.isClassifiedUpdate) {
-                    postClassifiedViewModel.deleteClassified(args.addId)
+                if (args.isClassifiedUpdate) {
+                    //postClassifiedViewModel.deleteClassified(args.addId)
                 } else {
                     postEventViewModel.deleteEvent(args.addId)
-                }*/
+                }
             }
         }
 
@@ -67,7 +68,8 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-
+                    /*dismiss()
+                    findNavController().navigateUp()*/
                 }
                 is Resource.Error -> {
 
@@ -82,9 +84,8 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-
-                    /*dismiss()
-                    findNavController().navigateUp()*/
+                    dismiss()
+                    findNavController().navigateUp()
                 }
                 is Resource.Error -> {
 

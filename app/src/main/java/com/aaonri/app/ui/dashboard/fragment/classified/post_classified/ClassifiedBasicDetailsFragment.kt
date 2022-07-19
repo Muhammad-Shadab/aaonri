@@ -149,7 +149,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         classifiedDetailsBinding?.priceClassifiedEt?.setText(response.data?.userAds?.askingPrice.toString())
                         classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                             response.data?.userAds?.isNew == true
-
+                        //postClassifiedViewModel.setSelectedClassifiedCategory(response.data.userAds.)
                         classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
                         response.data?.userAds?.userAdsImages?.forEach {
                             uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())

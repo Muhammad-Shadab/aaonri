@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -78,18 +79,22 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
         ss.setSpan(clickableSpan1, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+
         classifiedDetailsBinding?.apply {
             loginToViewSellerInfo.text = ss
             loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
+
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
-            if (args.isMyClassifiedScreen) {
+            /*if (args.isMyClassifiedScreen) {
                 moreClassifiedOption.visibility = View.VISIBLE
-            }
+            }*/
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -211,12 +216,23 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        classifiedViewModel.callClassifiedDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
+            if (it) {
+                postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(false)
+            }
+        }
+
         return classifiedDetailsBinding?.root
     }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        if (data.userId == email) {
+            classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+        }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
 
@@ -723,13 +739,9 @@ class ClassifiedDetailsFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        postClassifiedViewModel.getClassifiedAdDetails(args.addId)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
     }
+
 }

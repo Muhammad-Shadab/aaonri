@@ -26,6 +26,7 @@ import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
+import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Constant
@@ -42,12 +43,12 @@ import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-
 @AndroidEntryPoint
 class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
+    val eventViewModel: EventViewModel by activityViewModels()
     var eventPremiumLink: String = ""
     var startDate = ""
     var endDate = ""
@@ -62,6 +63,8 @@ class EventDetailsScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         evenDetailsBinding = FragmentEventDetailsBinding.inflate(inflater, container, false)
+
+        postEventViewModel.getEventDetails(args.eventId)
 
         evenDetailsBinding?.apply {
 
@@ -256,6 +259,47 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
+        eventViewModel.callEventDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
+            if (it) {
+                postEventViewModel.getEventDetails(args.eventId)
+                eventViewModel.setCallEventDetailsApiAfterUpdating(false)
+            }
+        }
+
+//        eventViewModel.eventDetailsData..observe(viewLifecycleOwner) { response ->
+//            when (response) {
+//                is Resource.Loading -> {
+//
+//                }
+//                is Resource.Success -> {
+//                    evenDetailsBinding?.sellerName?.text =
+//                        response.data?.firstName + " " + response.data?.lastName
+//                }
+//                is Resource.Error -> {
+//                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//                else -> {
+//                }
+//            }
+//        }
+
+        postEventViewModel.deleteEventData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigateUp()
+                    eventViewModel.setCallEventApiAfterDelete(true)
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
+
         return evenDetailsBinding?.root
     }
 
@@ -267,6 +311,10 @@ class EventDetailsScreenFragment : Fragment() {
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
         eventTitleName = event.title
         evenDetailsBinding?.navigateBack?.visibility = View.VISIBLE
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        if (event.createdBy == email) {
+            evenDetailsBinding?.moreBtn?.visibility = View.VISIBLE
+        }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
         } else {
@@ -324,6 +372,17 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 if (userAdsImage.imagePath.contains(".second")) {
                     evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                        context?.let {
+                            evenDetailsBinding?.image2?.let { it1 ->
+                                Glide.with(it)
+                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .into(it1)
+                            }
+                        }
+                    }
+
+                    if (userAdsImage.imagePath.contains(".second")) {
+                        evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
 
                     /*  context?.let {
                       evenDetailsBinding?.addImage?.let { it1 ->
@@ -493,8 +552,6 @@ class EventDetailsScreenFragment : Fragment() {
                 changeCardViewBorder(0)
             }
         }
-
-
 
         evenDetailsBinding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
@@ -884,11 +941,6 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        postEventViewModel.getEventDetails(args.eventId)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         postEventViewModel.eventDetailsData.value = null
@@ -942,30 +994,9 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    /* fun getCmpressed(context: Context, bitmap: Bitmap) {
-         File cacheDir=context.getExternalCacheDir();
-         if(cacheDir==null)
-         //fall back
-             cacheDir=context.getCacheDir();
-
-         String rootDir=cacheDir.getAbsolutePath()+"/BharatATM";
-         File root=new File(rootDir);
-
-         if(!root.exists())
-             root.mkdirs();
-
-
-         File compressed=new File(root,SDF.format(new Date())+".jpg"/Your desired format/);
-
-         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-         FileOutputStream fileOutputStream=new FileOutputStream(compressed);
-         fileOutputStream.write(byteArrayOutputStream.toByteArray());
-         fileOutputStream.flush();
-
-         fileOutputStream.close();
-
-         return compressed;
-     }*/
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        postEventViewModel.deleteEventData.value = null
+    }
 
 }

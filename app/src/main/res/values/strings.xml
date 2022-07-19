@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">aaonri</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="BASE_URL"/>
+    <string name="BASE_URL" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_to_explore">LOGIN TO EXPLORE ALL SERVICES\n OFFERING BY AAONRI?</string>
     <string name="register_now">REGISTER NOW</string>

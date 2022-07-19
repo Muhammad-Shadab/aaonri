@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -46,7 +47,6 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
 
         val ss = SpannableString(text)
 
-
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
 
@@ -79,6 +79,9 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
             viewYourClassifiedBtn.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("callClassifiedApi", true)
+                activity?.setResult(Activity.RESULT_OK, intent)
                 activity?.finish()
             }
         }

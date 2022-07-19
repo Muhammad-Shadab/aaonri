@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -67,16 +68,17 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         eventBottomBinding?.apply {
 
-            if (postEventViewModel.isUpdateEvent)
-            {
+            if (postEventViewModel.isUpdateEvent) {
                 successful.text = "You have successfully updated your Event"
-            }
-            else{
+            } else {
                 successful.text = "You have successfully posted your Event"
             }
-                textView6.text = ss
+            textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
             bottomLoginBtn.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("callEventApi", true)
+                activity?.setResult(Activity.RESULT_OK, intent)
                 activity?.finish()
             }
 

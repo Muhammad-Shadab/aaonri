@@ -19,6 +19,8 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     /* var allUserAdsClassifiedData: MutableLiveData<Resource<AllUserAdsClassifiedResponse>> =
          MutableLiveData()*/
 
+    val callClassifiedDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
+
     val favoriteClassifiedData: MutableLiveData<Resource<FavoriteClassifiedResponse>> =
         MutableLiveData()
 
@@ -150,6 +152,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun setIsLikedButtonClicked(value: Boolean) {
         isLikedButtonClicked.postValue(value)
+    }
+
+    fun setCallClassifiedDetailsApiAfterUpdating(value: Boolean) {
+        callClassifiedDetailsApiAfterUpdating.postValue(value)
     }
 
 }
