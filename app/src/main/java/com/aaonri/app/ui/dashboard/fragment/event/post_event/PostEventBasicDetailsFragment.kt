@@ -34,8 +34,6 @@ import java.util.*
 class PostEventBasicDetailsFragment : Fragment() {
     var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
-    val months =
-        arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
     var isDateValid = false
 
@@ -159,7 +157,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 getSelectedTime(selectEndTime, false)
             }
 
-            selectstartDate.addTextChangedListener {
+        /*    selectstartDate.addTextChangedListener {
                 if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
                         .isNotEmpty()
                 ) {
@@ -171,7 +169,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                             true
                         }
                 }
-            }
+            }*/
 //            selectEndDate.addTextChangedListener {
 //                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
 //                        .isNotEmpty()
@@ -246,9 +244,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                         }
                         postEventBinding?.titleEvent?.setText(response.data?.title)
                         postEventBinding?.selectCategoryEvent?.text = response.data?.category
-                        postEventBinding?.selectstartDate?.text = response.data?.startDate
+                        postEventBinding?.selectstartDate?.text =
+                            response.data?.startDate?.split("T")?.get(0)
                         postEventBinding?.selectStartTime?.text = response.data?.startTime
-                        postEventBinding?.selectEndDate?.text = response.data?.endDate
+                        postEventBinding?.selectEndDate?.text = response.data?.endDate?.split("T")?.get(0)
                         postEventBinding?.selectEndTime?.text = response.data?.endTime
                         postEventBinding?.eventTimezone?.text = response.data?.timeZone
 
@@ -343,7 +342,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 it1,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
-                    selectstartDate?.text = "${months[monthOfYear]} $dayOfMonth $year"
+
                     selectedMonth = { monthOfYear + 1 }.toString()
                     seletedDay = dayOfMonth.toString()
                     if (monthOfYear + 1 < 10) {
@@ -353,6 +352,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                         seletedDay = "0$dayOfMonth"
                     }
                     selectedDate = "${year}-${selectedMonth}-${seletedDay}"
+                    selectstartDate?.text = "$selectedDate"
                     if (isStartdate) {
 
                         endDate = ""

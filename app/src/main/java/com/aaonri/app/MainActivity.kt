@@ -65,28 +65,6 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        /*if (FirebaseAuth.getInstance().currentUser != null) {
-            eventViewModel.getMyEvent(
-                AllEventRequest(
-                    category = "",
-                    city = "",
-                    from = "",
-                    isPaid = "",
-                    keyword = "",
-                    maxEntryFee = 0,
-                    minEntryFee = 0,
-                    myEventsOnly = true,
-                    userId = if (gmailEmail?.isNotEmpty() == true) gmailEmail else "",
-                    zip = ""
-                )
-            )
-
-            if (gmailEmail != null) {
-                eventViewModel.getRecentEvent(
-                    gmailEmail
-                )
-            }
-        }*/
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->
             if (isGuestUser) {
