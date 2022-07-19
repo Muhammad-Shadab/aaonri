@@ -39,7 +39,6 @@ import java.text.DecimalFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-
 @AndroidEntryPoint
 class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
@@ -147,6 +146,21 @@ class EventDetailsScreenFragment : Fragment() {
 //            }
 //        }
 
+        postEventViewModel.deleteEventData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigateUp()
+                    eventViewModel.setCallEventApiAfterDelete(true)
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
 
         return evenDetailsBinding?.root
     }
@@ -214,6 +228,7 @@ class EventDetailsScreenFragment : Fragment() {
                             }
                         }
                     }
+
                     if (userAdsImage.imagePath.contains(".second")) {
                         evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
 
@@ -385,8 +400,6 @@ class EventDetailsScreenFragment : Fragment() {
                 changeCardViewBorder(0)
             }
         }
-
-
 
         evenDetailsBinding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
@@ -824,6 +837,11 @@ class EventDetailsScreenFragment : Fragment() {
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        postEventViewModel.deleteEventData.value = null
     }
 
 }

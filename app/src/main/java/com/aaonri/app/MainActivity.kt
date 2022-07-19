@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -205,6 +206,39 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        eventViewModel.callEventApiAfterDelete.observe(this) {
+            if (it) {
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
+            }
+        }
+
 
     }
 
@@ -247,6 +281,20 @@ class MainActivity : BaseActivity() {
                         minEntryFee = 0,
                         myEventsOnly = true,
                         userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
                         zip = ""
                     )
                 )
