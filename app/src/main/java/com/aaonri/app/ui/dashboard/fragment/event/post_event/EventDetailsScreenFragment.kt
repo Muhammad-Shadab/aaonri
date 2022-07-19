@@ -197,18 +197,21 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.addInterestedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
+
                 }
                 is Resource.Success -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
-                    isInterested = !response.data?.favourite!!
 
+                    if(response.data?.favourite!=null) {
+                        isInterested = !response.data?.favourite
+                    }
                     postEventViewModel.getEventDetails(args.eventId)
+
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
 
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 else -> {
                 }
@@ -218,17 +221,15 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.addGoingData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
+
                 }
                 is Resource.Success -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
                     isVisiting = !response.data?.visiting!!
                     postEventViewModel.getEventDetails(args.eventId)
 
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
