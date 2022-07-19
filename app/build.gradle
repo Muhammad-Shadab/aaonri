@@ -125,7 +125,6 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     //Glide image loading
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation "androidx.core:core-ktx:+"
@@ -138,7 +137,7 @@ dependencies {
     //TextEditor for text (description)
 
     implementation 'com.github.onecode369:WYSIWYG:4.0'
-
+    implementation 'com.github.chinalwb:are:0.1.7'
 
     //for gmail login
     implementation 'com.google.android.gms:play-services-auth:18.1.0'

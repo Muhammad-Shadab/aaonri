@@ -2,9 +2,11 @@ package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +24,9 @@ import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.DecimalDigitsInputFilter
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -216,6 +220,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }
 
+       eventDescEt.setOnClickListener {
+           val intent = Intent(context, RichTextEditor::class.java)
+           startActivity(intent)
+       }
         }
 
         postEventViewModel.getEventCategory()
@@ -432,6 +440,19 @@ class PostEventBasicDetailsFragment : Fragment() {
         )
         mTimePicker.show()
     }
+    override fun onResume() {
+        super.onResume()
+
+        if(Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()?.isNotEmpty() == true) {
+            postEventBinding?.eventDescEt?.text =
+                Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+        }    }
+
+   /* override fun onResume() {
+        super.onResume()
+        Toast.makeText(context, context?.let { PreferenceManager<String>(it)["description", ""] }, Toast.LENGTH_SHORT).show()
+        postEventBinding?.eventDescEt?.text = Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+    }*/
 
 }
 

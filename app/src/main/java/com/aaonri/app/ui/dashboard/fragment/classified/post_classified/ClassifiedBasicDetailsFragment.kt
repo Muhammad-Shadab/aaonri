@@ -1,8 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.content.Intent
 import com.aaonri.app.R
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +20,9 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.DecimalDigitsInputFilter
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -101,6 +105,13 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDescEt.addTextChangedListener { editable ->
                 descLength.text = "${editable.toString().length}/2000"
             }
+
+            classifiedDescEt.setOnClickListener {
+//                findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_classifiedRichTextEditor)
+                val intent = Intent(context, RichTextEditor::class.java)
+                startActivity(intent)
+            }
+
             selectCategoryClassifiedSpinner.setOnClickListener {
                 val action =
                     ClassifiedBasicDetailsFragmentDirections.actionClassifiedBasicDetailsFragmentToSelectClassifiedCategoryBottom()
@@ -244,5 +255,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             }
         })
     }
+    override fun onResume() {
+        super.onResume()
+        if(Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()?.isNotEmpty() == true) {
+            classifiedDetailsBinding?.classifiedDescEt?.text =
+                Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+        }
+    }
+
+
 }
 

@@ -18,7 +18,6 @@ import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +59,8 @@ class EventScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnEvents.setOnClickListener {
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
 
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
                 startActivity(intent)
@@ -144,5 +145,11 @@ class EventScreenFragment : Fragment() {
         }
 
         return eventScreenBinding?.root
+    }
+    override fun onStart() {
+        super.onStart()
+        context?.let { PreferenceManager<String>(it) }
+            ?.set("description", "")
+
     }
 }
