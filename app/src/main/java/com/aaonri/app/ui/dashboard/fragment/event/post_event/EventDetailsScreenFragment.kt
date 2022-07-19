@@ -207,7 +207,6 @@ class EventDetailsScreenFragment : Fragment() {
                     }
                     postEventViewModel.getEventDetails(args.eventId)
 
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
 
@@ -228,7 +227,6 @@ class EventDetailsScreenFragment : Fragment() {
                     isVisiting = !response.data?.visiting!!
                     postEventViewModel.getEventDetails(args.eventId)
 
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
@@ -248,7 +246,6 @@ class EventDetailsScreenFragment : Fragment() {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
 
                     response.data?.let { setEventdDetails(it) }
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
@@ -259,25 +256,6 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
         }
-
-//        eventViewModel.eventDetailsData..observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is Resource.Loading -> {
-//
-//                }
-//                is Resource.Success -> {
-//                    evenDetailsBinding?.sellerName?.text =
-//                        response.data?.firstName + " " + response.data?.lastName
-//                }
-//                is Resource.Error -> {
-//                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//                else -> {
-//                }
-//            }
-//        }
-
 
         return evenDetailsBinding?.root
     }
