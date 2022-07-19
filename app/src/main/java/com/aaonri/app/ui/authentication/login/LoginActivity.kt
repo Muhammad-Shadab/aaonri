@@ -34,8 +34,7 @@ class LoginActivity : BaseActivity() {
         if (uri != null){
             val path = uri.toString()
             Toast.makeText(this, "path = $path", Toast.LENGTH_SHORT).show()
-        }
-*/
+        }*/
     }
 
     private fun printKeyHash() {

@@ -1,10 +1,10 @@
 package com.aaonri.app.data.event.viewmodel
 
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
@@ -25,6 +25,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     var navigationForStepper: MutableLiveData<String> = MutableLiveData()
         private set
+
+    val zipCodeData: MutableLiveData<Resource<ZipCodeResponse>> = MutableLiveData()
 
     val eventDetailsData: MutableLiveData<Resource<EventDetailsResponse>> = MutableLiveData()
 
@@ -75,11 +77,11 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var listOfImagesUri = mutableListOf<Uri>()
         private set
 
-    val uploadPictureData : MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
+    val uploadPictureData: MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
 
-    val addInterestedData : MutableLiveData<Resource<EventAddInterestedResponse>> = MutableLiveData()
+    val addInterestedData: MutableLiveData<Resource<EventAddInterestedResponse>> = MutableLiveData()
 
-    val addGoingData : MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
+    val addGoingData: MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
 
 
     val eventuserVisitinginfoData: MutableLiveData<Resource<String>> =
@@ -262,12 +264,13 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         isNavigateBackBasicDetails = value
     }
 
-    fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) = viewModelScope.launch {
-        addInterestedData.postValue(Resource.Loading())
-        val response = eventRepository.addEventAddInterested(eventAddInterestedRequest)
-        addInterestedData.postValue(handleEventAddInterestedResponse(response))
+    fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) =
+        viewModelScope.launch {
+            addInterestedData.postValue(Resource.Loading())
+            val response = eventRepository.addEventAddInterested(eventAddInterestedRequest)
+            addInterestedData.postValue(handleEventAddInterestedResponse(response))
 
-    }
+        }
 
     private fun handleEventAddInterestedResponse(response: Response<EventAddInterestedResponse>): Resource<EventAddInterestedResponse>? {
         if (response.isSuccessful) {
@@ -277,6 +280,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         }
         return Resource.Error(response.message())
     }
+
     fun addEventGoing(eventAddGoingRequest: EventAddGoingRequest) = viewModelScope.launch {
         addInterestedData.postValue(Resource.Loading())
         val response = eventRepository.addEventGoing(eventAddGoingRequest)
@@ -292,6 +296,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         }
         return Resource.Error(response.message())
     }
+
     fun getisUserVisitingEventInfo(email: String, addId: Int) =
         viewModelScope.launch {
             eventuserVisitinginfoData.postValue(Resource.Loading())
@@ -305,10 +310,11 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         }
         return Resource.Error("Empty")
     }
-    fun getUserisInterested(email: String,services: String, addId: Int) =
+
+    fun getUserisInterested(email: String, services: String, addId: Int) =
         viewModelScope.launch {
             eventuserInterestedinfoData.postValue(Resource.Loading())
-            val response = eventRepository.getUserisInterested(email,services, addId)
+            val response = eventRepository.getUserisInterested(email, services, addId)
             eventuserInterestedinfoData.postValue(handleUserisInterestedInfoResponse(response))
         }
 
@@ -317,5 +323,20 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             return Resource.Success(response)
         }
         return Resource.Error("Empty")
+    }
+
+    fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
+        zipCodeData.postValue(Resource.Loading())
+        val response = eventRepository.getLocationByZipCode(postalCode, countryCode)
+        zipCodeData.postValue(handleZipCodeResponse(response))
+    }
+
+    private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 }

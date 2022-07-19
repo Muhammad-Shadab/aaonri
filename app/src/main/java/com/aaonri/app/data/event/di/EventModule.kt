@@ -1,5 +1,6 @@
 package com.aaonri.app.data.event.di
 
+import com.aaonri.app.data.authentication.register.api.ZipCodeApi
 import com.aaonri.app.data.event.api.EventApi
 import com.aaonri.app.data.event.repository.EventRepository
 import dagger.Module
@@ -20,6 +21,7 @@ object EventModule {
 
     @Provides
     @Singleton
-    fun provideEventRepository(eventApi: EventApi) = EventRepository(eventApi)
+    fun provideEventRepository(eventApi: EventApi, zipCodeApi: ZipCodeApi) =
+        EventRepository(eventApi, zipCodeApi)
 
 }

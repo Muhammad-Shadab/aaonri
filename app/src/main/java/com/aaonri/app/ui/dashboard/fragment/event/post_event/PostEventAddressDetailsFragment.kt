@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,10 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,7 +59,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         val text = resources.getString(R.string.if_you_want_event)
         val text1 = resources.getString(R.string.by_posting_an_ad)
         val ss = SpannableString(text)
-        val ss1= SpannableString(text1)
+        val ss1 = SpannableString(text1)
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -80,14 +85,14 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
 
         ss.setSpan(clickableSpan1, 81, 98, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss1.setSpan(clickableSpan1,49,63,0)
-        ss1.setSpan(clickableSpan1,68,80,0)
+        ss1.setSpan(clickableSpan1, 49, 63, 0)
+        ss1.setSpan(clickableSpan1, 68, 80, 0)
 
 
         postEventAddressBinding?.apply {
 
             textDesc1.text = ss
-            privacyTextTv.text=ss1
+            privacyTextTv.text = ss1
             privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
@@ -185,6 +190,25 @@ class PostEventAddressDetailsFragment : Fragment() {
                                     showAlert("Please accept terms & condition")
                                 }
                             }
+                        }
+                    }
+                }
+            }
+            var job: Job? = null
+            zipCodeEt.addTextChangedListener { editable ->
+                job?.cancel()
+                job = MainScope().launch {
+                    delay(300L)
+                    editable?.let {
+                        if (editable.toString()
+                                .isNotEmpty() && editable.toString().length >= 5
+                        ) {
+                            postEventViewModel.getLocationByZipCode(
+                                editable.toString(),
+                                "US"
+                            )
+                        } else {
+                            //invalidZipCodeTv.visibility = View.GONE
                         }
                     }
                 }
@@ -339,6 +363,43 @@ class PostEventAddressDetailsFragment : Fragment() {
                     postEventAddressBinding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
+                }
+                else -> {
+
+                }
+            }
+        }
+
+        postEventViewModel.zipCodeData.observe(
+            viewLifecycleOwner
+        ) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+
+                is Resource.Success -> {
+                    if (response.data?.result?.isNotEmpty() == true) {
+                        Toast.makeText(
+                            context,
+                            response.data.result.getOrNull(0)?.province.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        postEventAddressBinding?.cityNameEt?.setText(response.data.result.getOrNull(0)?.district.toString())
+                        postEventAddressBinding?.stateEt?.setText(response.data.result.getOrNull(0)?.state.toString())
+
+                        /* cityName = response.data.result.getOrNull(0)?.province.toString()
+
+                         stateName = response.data.result.getOrNull(0)?.state.toString()*/
+
+                    } else {
+
+                    }
+
+                }
+                is Resource.Error -> {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
 

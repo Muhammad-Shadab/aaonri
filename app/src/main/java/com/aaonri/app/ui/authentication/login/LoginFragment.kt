@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
+import android.util.Base64.DEFAULT
+import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -243,19 +245,19 @@ class LoginFragment : Fragment() {
                 }
             })
 
-       /* try {
-            val info: PackageInfo? = activity?.packageManager?.getPackageInfo(
-                "com.aaonri.app",
-                PackageManager.GET_SIGNATURES
-            )
-            for (signature in info?.signatures!!) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-        } catch (e: NoSuchAlgorithmException) {
-        }*/
+        /* try {
+             val info: PackageInfo? = activity?.packageManager?.getPackageInfo(
+                 "com.aaonri.app",
+                 PackageManager.GET_SIGNATURES
+             )
+             for (signature in info?.signatures!!) {
+                 val md = MessageDigest.getInstance("SHA")
+                 md.update(signature.toByteArray())
+                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+             }
+         } catch (e: PackageManager.NameNotFoundException) {
+         } catch (e: NoSuchAlgorithmException) {
+         }*/
 
         /*try {
             val info: PackageInfo? = getPackageInfo(
@@ -265,7 +267,7 @@ class LoginFragment : Fragment() {
             for (signature in info?.signatures!!) {
                 val md: MessageDigest = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
-                Log.i("KeyHash:", encodeToString(md.digest(),DEFAULT))
+                Log.i("KeyHash:", encodeToString(md.digest(), DEFAULT))
             }
         } catch (e: PackageManager.NameNotFoundException) {
         } catch (e: NoSuchAlgorithmException) {

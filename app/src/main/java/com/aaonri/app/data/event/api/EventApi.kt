@@ -1,5 +1,6 @@
 package com.aaonri.app.data.event.api
 
+import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.classified.model.ClassifiedAdDetailsResponse
 import com.aaonri.app.data.event.model.*
 import okhttp3.MultipartBody
@@ -54,13 +55,13 @@ interface EventApi {
     @POST("/api/v1/favourite/add")
     suspend fun addEventfav(
         @Body addEvnetInterestedRequest: EventAddInterestedRequest
-    ) : Response<EventAddInterestedResponse>
+    ): Response<EventAddInterestedResponse>
 
 
-   @POST("/api/v1/eventvisit/add")
-   suspend fun addEventGoing(
-       @Body eventAddGoingRequest: EventAddGoingRequest
-   ) : Response<EventAddGoingResponse>
+    @POST("/api/v1/eventvisit/add")
+    suspend fun addEventGoing(
+        @Body eventAddGoingRequest: EventAddGoingRequest
+    ): Response<EventAddGoingResponse>
 
     @PUT("/api/v1/event/update")
     suspend fun updateEvent(
@@ -71,4 +72,5 @@ interface EventApi {
     suspend fun deleteEvent(
         @Path("eventId") eventId: Int
     ): Response<EventDeleteResponse>
+
 }
