@@ -21,6 +21,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -183,6 +184,10 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                 uploadedImagesIdList
                             )
                         }
+
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set("description", response.data?.userAds?.adDescription.toString())
+
                     }
                 }
                 is Resource.Error -> {
@@ -263,9 +268,12 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             }
         })
     }
+
     override fun onResume() {
         super.onResume()
-        if(Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()?.isNotEmpty() == true) {
+        if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
+                ?.isNotEmpty() == true
+        ) {
             classifiedDetailsBinding?.classifiedDescEt?.text =
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
         }
