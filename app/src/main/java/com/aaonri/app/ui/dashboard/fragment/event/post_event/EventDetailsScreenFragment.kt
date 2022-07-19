@@ -121,6 +121,7 @@ class EventDetailsScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
             interestedBtn.setOnClickListener {
+                eventViewModel.setCallEventApiAfterDelete(true)
                 val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
                 postEventViewModel.addEventAddInterested(
                     EventAddInterestedRequest(
@@ -133,6 +134,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             goingBtn.setOnClickListener {
+                eventViewModel.setCallEventApiAfterDelete(true)
                 val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
                 postEventViewModel.addEventGoing(
                     EventAddGoingRequest(

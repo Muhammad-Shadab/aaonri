@@ -185,6 +185,11 @@ class MainActivity : BaseActivity() {
         }
 
         eventViewModel.callEventApiAfterDelete.observe(this) {
+
+            if (email != null) {
+                eventViewModel.getRecentEvent(email)
+            }
+
             if (it) {
                 eventViewModel.getMyEvent(
                     AllEventRequest(
