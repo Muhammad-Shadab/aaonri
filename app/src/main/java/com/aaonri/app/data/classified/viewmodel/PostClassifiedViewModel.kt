@@ -26,6 +26,9 @@ class PostClassifiedViewModel @Inject constructor(
     var isUpdateClassified = false
         private set
 
+    var clearSubCategory = false
+        private set
+
     var isNavigateBackBasicDetails = false
         private set
 
@@ -43,6 +46,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var classifiedBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
+
+    var selectedClssifiedCategoryWhileUpdating = ""
 
     var classifiedAddressDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
@@ -66,6 +71,10 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
     var selectedClassifiedCategory: MutableLiveData<ClassifiedCategoryResponseItem> =
+        MutableLiveData()
+        private set
+
+    var selectedClassifiedSubCategoryList: MutableLiveData<ClassifiedCategoryResponseItem> =
         MutableLiveData()
         private set
 
@@ -298,9 +307,20 @@ class PostClassifiedViewModel @Inject constructor(
         clickOnClearAllFilter.postValue(value)
     }
 
-
-    fun setSelectedClassifiedCategory(value: ClassifiedCategoryResponseItem) {
+    fun setSelectedClassifiedCategory(
+        value: ClassifiedCategoryResponseItem,
+    ) {
         selectedClassifiedCategory.postValue(value)
+    }
+
+    fun setClassifiedSubCategoryList(
+        value: ClassifiedCategoryResponseItem,
+    ) {
+        selectedClassifiedSubCategoryList.postValue(value)
+    }
+
+    fun setClearSubCategory(value: Boolean) {
+        clearSubCategory = value
     }
 
     fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
@@ -332,4 +352,9 @@ class PostClassifiedViewModel @Inject constructor(
     fun setIsNavigateBackToBasicDetails(value: Boolean) {
         isNavigateBackBasicDetails = value
     }
+
+    fun setClassifiedCategoryWhileUpdating(value: String) {
+        selectedClssifiedCategoryWhileUpdating = value
+    }
+
 }

@@ -42,7 +42,7 @@ class SelectClassifiedSubCategoryBottom : BottomSheetDialogFragment() {
             countriesRv.adapter = classifiedSubCategoryAdapter
         }
 
-        postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
+        postClassifiedViewModel.selectedClassifiedSubCategoryList.observe(viewLifecycleOwner) {
             classifiedSubCategoryAdapter?.setSubCategoryData(it.classifiedSubcategory as MutableList<ClassifiedSubcategoryX>)
 
         }
