@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -27,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedBasicDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,13 +114,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     findNavController().navigate(action)
                 }
             }
-
-
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
             classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text = it.title
-            classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+            if (postClassifiedViewModel.clearSubCategory) {
+                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+                postClassifiedViewModel.setClearSubCategory(false)
+            }
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
@@ -152,6 +155,12 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                             uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                         }
 
+                        response.data?.userAds?.category?.let {
+                            postClassifiedViewModel.setClassifiedCategoryWhileUpdating(
+                                it
+                            )
+                        }
+
                         if (uploadedImages.isNotEmpty()) {
                             postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
                         }
@@ -172,6 +181,33 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 }
             })
 
+
+        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility =
+                        View.VISIBLE
+                }
+                is Resource.Success -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility =
+                        View.GONE
+
+                    response.data?.forEach {
+                        if (it.title == postClassifiedViewModel.selectedClssifiedCategoryWhileUpdating) {
+                            postClassifiedViewModel.setClassifiedSubCategoryList(it)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    classifiedDetailsBinding?.progressBarBasicDetails?.visibility =
+                        View.GONE
+                }
+                else -> {
+
+                }
+            }
+        }
+
         return classifiedDetailsBinding?.root
     }
 
@@ -179,6 +215,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.apply {
 
             classifiedBasicDetailsMap.let {
+
                 classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
                     it[ClassifiedConstant.BASIC_DETAILS_CATEGORY]
                 classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
