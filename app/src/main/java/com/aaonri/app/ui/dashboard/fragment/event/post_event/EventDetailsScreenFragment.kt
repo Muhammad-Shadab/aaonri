@@ -634,9 +634,7 @@ class EventDetailsScreenFragment : Fragment() {
                                     .into(it1)
                             }
                         }
-
                     }
-
                 } else {
                     if (index == 3) {
                         context?.let {

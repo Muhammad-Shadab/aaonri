@@ -257,7 +257,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                         showAlert("Please accept terms & condition")
                                     }
                                 } else {
-                                    showAlert("Please enter valid classified description")
+                                    showAlert("Please enter valid classified keyword")
                                 }
                             } else {
                                 showAlert("Please enter valid phone number")
