@@ -11,6 +11,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/green_btn_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_imageview_placeholder.xml" value="0.2375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_uplaoded_image.xml" value="0.2375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/top_rounded_corner_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout-v28/activity_registration.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_auth.xml" value="0.25" />
@@ -33,7 +34,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_screen.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_community_bottom.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_create_new_password.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_details.xml" value="0.21" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_details.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_screen.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_favorite_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_home_screen.xml" value="0.3359375" />
