@@ -161,19 +161,19 @@ class PostEventBasicDetailsFragment : Fragment() {
                 getSelectedTime(selectEndTime, false)
             }
 
-        /*    selectstartDate.addTextChangedListener {
-                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
-                        .isNotEmpty()
-                ) {
-                    isDateValid =
-                        if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
-                            showAlert("Start Date should be less then End Date.")
-                            false
-                        } else {
-                            true
-                        }
-                }
-            }*/
+            /*    selectstartDate.addTextChangedListener {
+                    if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
+                            .isNotEmpty()
+                    ) {
+                        isDateValid =
+                            if (selectstartDate.text.toString() == selectEndDate.text.toString()) {
+                                showAlert("Start Date should be less then End Date.")
+                                false
+                            } else {
+                                true
+                            }
+                    }
+                }*/
 //            selectEndDate.addTextChangedListener {
 //                if (selectEndDate.text.toString().isNotEmpty() && selectstartDate.text.toString()
 //                        .isNotEmpty()
@@ -217,10 +217,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }
 
-       eventDescEt.setOnClickListener {
-           val intent = Intent(context, RichTextEditor::class.java)
-           startActivity(intent)
-       }
+            eventDescEt.setOnClickListener {
+                val intent = Intent(context, RichTextEditor::class.java)
+                startActivity(intent)
+            }
         }
 
         postEventViewModel.getEventCategory()
@@ -255,7 +255,8 @@ class PostEventBasicDetailsFragment : Fragment() {
                         postEventBinding?.selectstartDate?.text =
                             response.data?.startDate?.split("T")?.get(0)
                         postEventBinding?.selectStartTime?.text = response.data?.startTime
-                        postEventBinding?.selectEndDate?.text = response.data?.endDate?.split("T")?.get(0)
+                        postEventBinding?.selectEndDate?.text =
+                            response.data?.endDate?.split("T")?.get(0)
                         postEventBinding?.selectEndTime?.text = response.data?.endTime
                         postEventBinding?.eventTimezone?.text = response.data?.timeZone
 
@@ -269,7 +270,8 @@ class PostEventBasicDetailsFragment : Fragment() {
                         } else {
                             //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
                         }
-                        postEventBinding?.eventDescEt?.setText(response.data?.description)
+                        postEventBinding?.eventDescEt?.text =
+                            Html.fromHtml(response.data?.description)
 
                         response.data?.images?.forEach {
                             uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${it.imagePath}".toUri())
@@ -324,7 +326,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 } else {
                     postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
-                postEventBinding?.eventDescEt?.setText(it[EventConstants.EVENT_TIMEZONE])
+                postEventBinding?.eventDescEt?.text = it[EventConstants.EVENT_TIMEZONE]
 
             }
         }
@@ -431,19 +433,23 @@ class PostEventBasicDetailsFragment : Fragment() {
         )
         mTimePicker.show()
     }
+
     override fun onResume() {
         super.onResume()
 
-        if(Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()?.isNotEmpty() == true) {
+        if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
+                ?.isNotEmpty() == true
+        ) {
             postEventBinding?.eventDescEt?.text =
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-        }    }
+        }
+    }
 
-   /* override fun onResume() {
-        super.onResume()
-        Toast.makeText(context, context?.let { PreferenceManager<String>(it)["description", ""] }, Toast.LENGTH_SHORT).show()
-        postEventBinding?.eventDescEt?.text = Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-    }*/
+    /* override fun onResume() {
+         super.onResume()
+         Toast.makeText(context, context?.let { PreferenceManager<String>(it)["description", ""] }, Toast.LENGTH_SHORT).show()
+         postEventBinding?.eventDescEt?.text = Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+     }*/
 
 }
 

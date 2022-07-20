@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -19,7 +20,7 @@ object RegistrationModule {
 
     @Provides
     @Singleton
-    fun providesRegistrationApi(retrofit: Retrofit.Builder): RegistrationApi =
+    fun providesRegistrationApi(@Named("RetrofitForGlobal") retrofit: Retrofit.Builder): RegistrationApi =
         retrofit.build().create(RegistrationApi::class.java)
 
     @Provides

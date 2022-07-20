@@ -132,8 +132,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
             moreClassifiedOption.setOnClickListener {
 
-                    context?.let { PreferenceManager<String>(it) }
-                        ?.set("description", "")
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
 
                 val action =
                     ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
@@ -222,6 +222,22 @@ class ClassifiedDetailsFragment : Fragment() {
             if (it) {
                 postClassifiedViewModel.getClassifiedAdDetails(args.addId)
                 classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(false)
+            }
+        }
+
+        postClassifiedViewModel.classifiedDeleteData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigateUp()
+                    classifiedViewModel.setCallClassifiedApiAfterDelete(true)
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
             }
         }
 
@@ -744,6 +760,8 @@ class ClassifiedDetailsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
+        postClassifiedViewModel.classifiedDeleteData.value = null
+
     }
 
 }

@@ -128,8 +128,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 state = stateEt.text.toString(),
                                                 socialMediaLink = socialMediaLinkEt.text.toString()
                                             )
-                                            //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                            updateEvent()
+                                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                                            //updateEvent()
                                         } else {
                                             postEventViewModel.setEventAddressDetailMap(
                                                 addressLine1 = eventAddressEt1.text.toString(),
@@ -140,8 +140,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 state = stateEt.text.toString(),
                                                 socialMediaLink = socialMediaLinkEt.text.toString()
                                             )
-                                            //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                            postEvent()
+                                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                                            //postEvent()
                                         }
 
                                     } else {
@@ -175,8 +175,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             state = stateEt.text.toString(),
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
-                                        //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                        updateEvent()
+                                        //updateEvent()
+                                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                                     } else {
                                         postEventViewModel.setEventAddressDetailMap(
                                             addressLine1 = eventAddressEt1.text.toString(),
@@ -187,8 +187,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             state = stateEt.text.toString(),
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
-                                        //findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                        postEvent()
+                                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                                        //postEvent()
                                     }
                                 } else {
                                     showAlert("Please accept terms & condition")
@@ -384,7 +384,11 @@ class PostEventAddressDetailsFragment : Fragment() {
 
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
-                        postEventAddressBinding?.cityNameEt?.setText(response.data.result.getOrNull(0)?.district.toString())
+                        postEventAddressBinding?.cityNameEt?.setText(
+                            response.data.result.getOrNull(
+                                0
+                            )?.district.toString()
+                        )
                         postEventAddressBinding?.stateEt?.setText(response.data.result.getOrNull(0)?.state.toString())
 
                         /* cityName = response.data.result.getOrNull(0)?.province.toString()
@@ -479,7 +483,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]!! else "",
                 favorite = false,
                 fee = if (postEventViewModel.isEventFree) 0.0 else postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_ASKING_FEE]?.toDouble()!!,
-                id = 0,
+                id = postEventViewModel.updateEventId,
                 images = null,
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
@@ -494,7 +498,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                 zipCode = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_ZIPCODE]!!
             )
         )
-
     }
 
 

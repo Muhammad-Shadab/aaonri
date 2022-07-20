@@ -128,7 +128,7 @@ class PostClassifiedViewModel @Inject constructor(
     var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
-    val classifiedDeleteData: MutableLiveData<Resource<JsonElement>> =
+    val classifiedDeleteData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
@@ -204,7 +204,7 @@ class PostClassifiedViewModel @Inject constructor(
         classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
     }
 
-    private fun handleClassifiedDeleteResponse(response: Response<JsonElement>): Resource<JsonElement>? {
+    private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

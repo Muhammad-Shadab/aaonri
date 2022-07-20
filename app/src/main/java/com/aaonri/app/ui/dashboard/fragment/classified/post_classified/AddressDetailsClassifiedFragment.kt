@@ -203,7 +203,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                           /* updateClassified(
+                                            /*updateClassified(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
                                                 adKeywords = classifiedKeywordEt.text.toString(),
@@ -212,7 +212,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             )*/
                                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                                         } else {
-                                           /* postClassifiedRequest(
+                                            /*postClassifiedRequest(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
                                                 adKeywords = classifiedKeywordEt.text.toString(),
@@ -235,7 +235,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                           /* updateClassified(
+                                            /*updateClassified(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
@@ -244,7 +244,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                             )*/
                                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                                         } else {
-                                            /*postClassifiedRequest(
+                                           /*postClassifiedRequest(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
@@ -257,7 +257,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                         showAlert("Please accept terms & condition")
                                     }
                                 } else {
-                                    showAlert("Please enter valid classified description")
+                                    showAlert("Please enter valid classified keyword")
                                 }
                             } else {
                                 showAlert("Please enter valid phone number")

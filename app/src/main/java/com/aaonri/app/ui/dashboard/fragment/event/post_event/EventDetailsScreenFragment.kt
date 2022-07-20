@@ -70,14 +70,14 @@ class EventDetailsScreenFragment : Fragment() {
             if (args.isMyEvent) {
                 moreBtn.visibility = View.VISIBLE
             }
-            val email =  context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+            val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             if (email != null) {
                 postEventViewModel.getisUserVisitingEventInfo(
-                    email,args.eventId
+                    email, args.eventId
                 )
 
                 postEventViewModel.getUserisInterested(
-                    email,"Event",args.eventId
+                    email, "Event", args.eventId
                 )
             }
 
@@ -166,7 +166,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
         }
-        postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner){ response ->
+        postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -184,7 +184,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
         }
-        postEventViewModel.eventuserInterestedinfoData.observe(viewLifecycleOwner){ response ->
+        postEventViewModel.eventuserInterestedinfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -208,7 +208,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
 
-                    if(response.data?.favourite!=null) {
+                    if (response.data?.favourite != null) {
                         isInterested = !response.data?.favourite
                     }
                     postEventViewModel.getEventDetails(args.eventId)
@@ -287,6 +287,7 @@ class EventDetailsScreenFragment : Fragment() {
 //                }
 //            }
 //        }
+
 
         postEventViewModel.deleteEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -376,17 +377,17 @@ class EventDetailsScreenFragment : Fragment() {
                 }
                 if (userAdsImage.imagePath.contains(".second")) {
                     evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
-                        context?.let {
-                            evenDetailsBinding?.image2?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .into(it1)
-                            }
+                    context?.let {
+                        evenDetailsBinding?.image2?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .into(it1)
                         }
                     }
+                }
 
-                    if (userAdsImage.imagePath.contains(".second")) {
-                        evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                if (userAdsImage.imagePath.contains(".second")) {
+                    evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
 
                     /*  context?.let {
                       evenDetailsBinding?.addImage?.let { it1 ->
@@ -633,9 +634,7 @@ class EventDetailsScreenFragment : Fragment() {
                                     .into(it1)
                             }
                         }
-
                     }
-
                 } else {
                     if (index == 3) {
                         context?.let {
@@ -715,19 +714,15 @@ class EventDetailsScreenFragment : Fragment() {
         } else {
             changeCardViewBorder(0)
         }
-          if(isVisiting)
-          {
-              evenDetailsBinding?.goingBtn?.setText("GOING")
-          }
-        else{
-              evenDetailsBinding?.goingBtn?.setText("NOT GOING")
+        if (isVisiting) {
+            evenDetailsBinding?.goingBtn?.setText("GOING")
+        } else {
+            evenDetailsBinding?.goingBtn?.setText("NOT GOING")
         }
 
-        if(isInterested)
-        {
+        if (isInterested) {
             evenDetailsBinding?.interestedBtn?.setText("INTERESTED")
-        }
-        else{
+        } else {
             evenDetailsBinding?.interestedBtn?.setText("NOT INTERESTED")
         }
     }
@@ -959,12 +954,6 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        postEventViewModel.eventDetailsData.value = null
-    }
-
-
     fun getScreenShot(view: View?): Bitmap? {
         return if (view != null) {
             view.isDrawingCacheEnabled = true
@@ -1014,6 +1003,7 @@ class EventDetailsScreenFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
     }
 

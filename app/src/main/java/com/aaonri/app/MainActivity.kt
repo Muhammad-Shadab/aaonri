@@ -167,7 +167,6 @@ class MainActivity : BaseActivity() {
                         zip = ""
                     )
                 )
-
             }
         }
 
@@ -184,8 +183,41 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        eventViewModel.callEventApiAfterDelete.observe(this) {
+        classifiedViewModel.callClassifiedApiAfterDelete.observe(this) {
+            classifiedViewModel.getClassifiedByUser(
+                GetClassifiedByUserRequest(
+                    category = "",
+                    email = if (email?.isNotEmpty() == true) email else "",
+                    fetchCatSubCat = true,
+                    keywords = "",
+                    location = "",
+                    maxPrice = 0,
+                    minPrice = 0,
+                    myAdsOnly = false,
+                    popularOnAoonri = null,
+                    subCategory = "",
+                    zipCode = ""
+                )
+            )
 
+            classifiedViewModel.getMyClassified(
+                GetClassifiedByUserRequest(
+                    category = "",
+                    email = if (email?.isNotEmpty() == true) email else "",
+                    fetchCatSubCat = true,
+                    keywords = "",
+                    location = "",
+                    maxPrice = 0,
+                    minPrice = 0,
+                    myAdsOnly = true,
+                    popularOnAoonri = null,
+                    subCategory = "",
+                    zipCode = ""
+                )
+            )
+        }
+
+        eventViewModel.callEventApiAfterDelete.observe(this) {
             if (email != null) {
                 eventViewModel.getRecentEvent(email)
             }

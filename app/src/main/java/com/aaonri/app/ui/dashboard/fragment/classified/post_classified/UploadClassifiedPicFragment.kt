@@ -58,9 +58,9 @@ class UploadClassifiedPicFragment : Fragment() {
 
         setImagesForUpdatingClassified()
 
-        postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
+        /*postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 

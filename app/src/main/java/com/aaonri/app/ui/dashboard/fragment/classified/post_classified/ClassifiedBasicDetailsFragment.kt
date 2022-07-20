@@ -33,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedBasicDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-
+    var description: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,12 +72,11 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked
                                         )
-
                                         postClassifiedViewModel.addClassifiedBasicDetails(
                                             title = titleClassifiedEt.text.trim().toString(),
                                             price = priceClassifiedEt.text.trim().toString()
                                                 .replace("$", ""),
-                                            adDescription = classifiedDescEt.text.trim().toString(),
+                                            adDescription = if (description != null) description!! else "",
                                             classifiedCategory = selectCategoryClassifiedSpinner.text.toString(),
                                             classifiedSubCategory = selectSubCategoryClassifiedSpinner.text.toString()
                                         )
@@ -163,7 +162,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                             response.data?.userAds?.isNew == true
 
-                        classifiedDetailsBinding?.classifiedDescEt?.setText(response.data?.userAds?.adDescription.toString())
+                        classifiedDetailsBinding?.classifiedDescEt?.text =
+                            Html.fromHtml(response.data?.userAds?.adDescription.toString())
                         response.data?.userAds?.userAdsImages?.forEach {
                             uploadedImagesIdList.add(it.imageId)
                             uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
@@ -276,9 +276,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         ) {
             classifiedDetailsBinding?.classifiedDescEt?.text =
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+            description = context?.let { PreferenceManager<String>(it)["description", ""] }
         }
     }
-
-
 }
 
