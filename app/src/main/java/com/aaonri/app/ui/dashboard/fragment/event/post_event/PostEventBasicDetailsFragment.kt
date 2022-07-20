@@ -283,8 +283,6 @@ class PostEventBasicDetailsFragment : Fragment() {
                                 ?.set("description", it)
                         }
                     }
-
-
                 }
                 is Resource.Error -> {
                     postEventBinding?.progressBar?.visibility = View.GONE
