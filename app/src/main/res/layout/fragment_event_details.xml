@@ -249,7 +249,6 @@
                                     android:layout_marginStart="@dimen/_4sdp"
                                     android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:maxLines="1"
                                     android:textColor="#333333"
                                     android:textSize="12sp" />
 

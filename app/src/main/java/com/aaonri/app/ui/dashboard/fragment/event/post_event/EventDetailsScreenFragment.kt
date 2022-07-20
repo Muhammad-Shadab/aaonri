@@ -1,12 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -35,12 +40,15 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
+import java.io.*
 import java.math.RoundingMode
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+
 
 @AndroidEntryPoint
 class EventDetailsScreenFragment : Fragment() {
@@ -54,6 +62,9 @@ class EventDetailsScreenFragment : Fragment() {
     var eventTitleName = ""
     var isVisiting = false
     var isInterested = false
+    var firstImageuri = ""
+    var eventname = ""
+    val eventdesc = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -106,10 +117,10 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
 
-            shareBtn.setOnClickListener {
+           /* shareBtn.setOnClickListener {
                 //getScreenShot(view)
-                /*context?.let { it1 -> shareImage(it1,  ) }*/
-            }
+                *//*context?.let { it1 -> shareImage(it1,  ) }*//*
+            }*/
 
             moreBtn.setOnClickListener {
                 context?.let { PreferenceManager<String>(it) }
@@ -165,7 +176,26 @@ class EventDetailsScreenFragment : Fragment() {
 
             }
 
-        }
+            shareBtn.setOnClickListener {
+                try {
+                    val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+                    val bitmap = addImage.drawable.toBitmap() // your imageView here.
+                    val bytes = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "tempimage", null)
+                    val uri = Uri.parse(path)
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    intent.setType("text/plain")
+                    val shareSub = "https://www.aaonri.com/#/events/details/${args.eventId}"
+                    intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    startActivity(intent)
+//                uri.toFile().delete()
+                } catch (e: Exception) {
+                }
+            }
+
+            }
+
         postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner){ response ->
             when (response) {
                 is Resource.Loading -> {
@@ -307,9 +337,11 @@ class EventDetailsScreenFragment : Fragment() {
         return evenDetailsBinding?.root
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
+        eventname = event.title
         evenDetailsBinding?.ll1?.visibility = View.VISIBLE
         startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
@@ -330,31 +362,32 @@ class EventDetailsScreenFragment : Fragment() {
                     ".second"
                 ) || userAdsImage.imagePath.contains(".third")
             ) {
-                /*if (userAdsImage.imagePath.contains(".cover")) {
-                evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                if (userAdsImage.imagePath.contains(".cover")) {
+               /* evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                *//*  context?.let {
+                  context?.let {
                       evenDetailsBinding?.addImage?.let { it1 ->
                           Glide.with(it)
                               .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                               .into(it1)
                       }
-                  }*//*
+                  }
                     context?.let {
                         evenDetailsBinding?.addImage?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
                         }
-                    }
-                    context?.let {
-                        evenDetailsBinding?.image1?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }*/
+                    }*/
+                    evenDetailsBinding?.image1?.visibility =View.GONE
+//                    context?.let {
+//                        evenDetailsBinding?.image1?.let { it1 ->
+//                            Glide.with(it)
+//                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+//                                .into(it1)
+//                        }
+//                    }
+                }
                 if (userAdsImage.imagePath.contains(".first")) {
                     evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
 
@@ -664,7 +697,10 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventTitle?.text = event.title
         evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
-        evenDetailsBinding?.locationEventTv?.text = event.city
+        try {
+            evenDetailsBinding?.locationEventTv?.text = "${if(!event.address1.isNullOrEmpty())event.address1 else ""} ${if(!event.address2.isNullOrEmpty())event.address2 else ""} ${if(!event.city.isNullOrEmpty())event.city else ""} ${if(!event.state.isNullOrEmpty())event.state else ""} "
+        } catch (e: Exception) {
+        }
         evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
         evenDetailsBinding?.eventDetailsBottom?.visibility = View.VISIBLE
@@ -976,45 +1012,51 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    fun shareImage(context: Context, file: File, message: String?) {
-        val apkURI: Uri
-        val intent = Intent(Intent.ACTION_SEND)
-        try {
-            apkURI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                FileProvider.getUriForFile(
-                    context,
-                    context.packageName.toString() + ".provider",
-                    file
-                )
-            } else {
-                Uri.fromFile(file)
-            }
-            intent.putExtra(Intent.EXTRA_TEXT, message)
-            intent.putExtra(Intent.EXTRA_STREAM, apkURI)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            intent.type = "image/png"
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-
-        // Intent inte = Intent.createChooser(intent,"Share file");
-
-        // List<ResolveInfo> resolverList = context.getPackageManager().queryIntentActivities(inte, PackageManager.MATCH_DEFAULT_ONLY);
-        try {
-            context.startActivity(Intent.createChooser(intent, "Share file"))
-            //    for(ResolveInfo info:resolverList){
-            //        String packageName = info.activityInfo.packageName;
-            //       context.grantUriPermission(packageName,apkURI,Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            //  }
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    fun shareImage(context: Context, file: File, message: String?) {
+//        val apkURI: Uri
+//        val intent = Intent(Intent.ACTION_SEND)
+//        try {
+//            apkURI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                FileProvider.getUriForFile(
+//                    context,
+//                    context.packageName.toString() + ".provider",
+//                    file
+//                )
+//            } else {
+//                Uri.fromFile(file)
+//            }
+//            intent.putExtra(Intent.EXTRA_TEXT, message)
+//            intent.putExtra(Intent.EXTRA_STREAM, apkURI)
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+//            intent.type = "image/png"
+//        } catch (e: java.lang.Exception) {
+//            e.printStackTrace()
+//        }
+//
+//        // Intent inte = Intent.createChooser(intent,"Share file");
+//
+//        // List<ResolveInfo> resolverList = context.getPackageManager().queryIntentActivities(inte, PackageManager.MATCH_DEFAULT_ONLY);
+//        try {
+//            context.startActivity(Intent.createChooser(intent, "Share file"))
+//            //    for(ResolveInfo info:resolverList){
+//            //        String packageName = info.activityInfo.packageName;
+//            //       context.grantUriPermission(packageName,apkURI,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            //  }
+//        } catch (e: ActivityNotFoundException) {
+//            Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         postEventViewModel.deleteEventData.value = null
     }
+
+
+
+
+
+
 
 }

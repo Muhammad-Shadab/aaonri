@@ -75,7 +75,7 @@
         android:background="@color/white"
         android:gravity="center_vertical" />
 
-    <!--<View
+    <View
         android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
           android:id="@+id/arrow"
           android:layout_width="30dp"
           android:layout_height="30dp"
-          android:src="@drawable/arrow_down_spinner" />-->
-<!--    </LinearLayout>-->
+          android:src="@drawable/arrow_down_spinner" />
+    </LinearLayout>
   </LinearLayout>
 </RelativeLayout>
