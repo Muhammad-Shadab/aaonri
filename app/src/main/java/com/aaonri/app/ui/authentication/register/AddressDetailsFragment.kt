@@ -237,7 +237,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
                         var cityChangedName = cityName
-                        cityName = response.data.result.getOrNull(0)?.province.toString()
+                        cityName = response.data.result.getOrNull(0)?.district.toString()
 
                         stateName = response.data.result.getOrNull(0)?.state.toString()
                         if (cityName.isEmpty()) {
