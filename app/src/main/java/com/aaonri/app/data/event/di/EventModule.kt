@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +17,7 @@ object EventModule {
 
     @Provides
     @Singleton
-    fun provideEventApi(retrofit: Retrofit.Builder): EventApi =
+    fun provideEventApi(@Named("RetrofitForGlobal") retrofit: Retrofit.Builder): EventApi =
         retrofit.build().create(EventApi::class.java)
 
     @Provides

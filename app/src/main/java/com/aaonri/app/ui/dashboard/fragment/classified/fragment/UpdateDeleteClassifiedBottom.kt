@@ -56,7 +56,17 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
             deleteClassified.setOnClickListener {
                 if (args.isClassifiedUpdate) {
-                    //postClassifiedViewModel.deleteClassified(args.addId)
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Confirm")
+                    builder.setMessage("Are you sure you want to Delete?")
+                    builder.setPositiveButton("OK") { dialog, which ->
+                        postClassifiedViewModel.deleteClassified(args.addId)
+                    }
+                    builder.setNegativeButton("Cancel") { dialog, which ->
+
+                    }
+                    builder.show()
+
                 } else {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Confirm")
@@ -78,8 +88,8 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-                    /*dismiss()
-                    findNavController().navigateUp()*/
+                    dismiss()
+                    //findNavController().navigateUp()
                 }
                 is Resource.Error -> {
 

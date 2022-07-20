@@ -1,7 +1,6 @@
 package com.aaonri.app.di
 
 import com.aaonri.app.BuildConfig
-import com.aaonri.app.utils.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -32,11 +32,21 @@ object AppModule {
 
     @Provides
     @Singleton
+    @Named("RetrofitForGlobal")
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
 
+    @Provides
+    @Singleton
+    @Named("RetrofitForScalerConverter")
+    fun provideRetrofitForScalerConverter(okHttpClient: OkHttpClient): Retrofit.Builder =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(ScalarsConverterFactory.create())
+
 }
 
-/*.addConverterFactory(ScalarsConverterFactory.create())*/
+/**/

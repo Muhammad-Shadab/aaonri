@@ -1,6 +1,7 @@
 package com.aaonri.app.data.classified.repository
 
 import com.aaonri.app.data.classified.api.ClassifiedApi
+import com.aaonri.app.data.classified.api.DeleteClassifiedApi
 import com.aaonri.app.data.classified.api.PostClassifiedApi
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 class ClassifiedRepository @Inject constructor(
     private val classifiedApi: ClassifiedApi,
-    private val postClassifiedApi: PostClassifiedApi
+    private val postClassifiedApi: PostClassifiedApi,
+    private val deleteClassifiedApi: DeleteClassifiedApi
 ) {
 
     /*suspend fun getAllUserAdsClassified(email: String) = classifiedApi.allUserAdsClassified(email)*/
@@ -50,7 +52,7 @@ class ClassifiedRepository @Inject constructor(
         postClassifiedApi.updateClassified(postClassifiedRequest)
 
     suspend fun deleteClassified(classifiedId: Int) =
-        postClassifiedApi.deleteClassified(classifiedId)
+        deleteClassifiedApi.deleteClassified(classifiedId)
 
     // suspend fun uploadImages(uploadImagesRequest: UploadImagesRequest) = postClassifiedApi.uploadImages(uploadImagesRequest)
 

@@ -21,6 +21,8 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     val callClassifiedDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
 
+    val callClassifiedApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
+
     val favoriteClassifiedData: MutableLiveData<Resource<FavoriteClassifiedResponse>> =
         MutableLiveData()
 
@@ -156,6 +158,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun setCallClassifiedDetailsApiAfterUpdating(value: Boolean) {
         callClassifiedDetailsApiAfterUpdating.postValue(value)
+    }
+
+    fun setCallClassifiedApiAfterDelete(value: Boolean) {
+        callClassifiedApiAfterDelete.postValue(value)
     }
 
 }
