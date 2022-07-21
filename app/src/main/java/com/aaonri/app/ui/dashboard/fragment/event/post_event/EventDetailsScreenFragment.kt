@@ -49,6 +49,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -61,6 +62,7 @@ class EventDetailsScreenFragment : Fragment() {
     var startDate = ""
     var endDate = ""
     var eventTitleName = ""
+    var eventTimeZone = ""
     var isVisiting = false
     var isInterested = false
     var firstImageuri = ""
@@ -156,10 +158,11 @@ class EventDetailsScreenFragment : Fragment() {
                         visiting = isVisiting
                     )
                 )
-
             }
+
             calendarBtn.setOnClickListener {
                 try {
+
                     val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     val mStartTime = mSimpleDateFormat.parse(startDate)
                     val mEndTime = mSimpleDateFormat.parse(endDate)
@@ -169,8 +172,8 @@ class EventDetailsScreenFragment : Fragment() {
                     mIntent.putExtra("time", true)
                     mIntent.putExtra("rule", "FREQ=YEARLY")
                     mIntent.putExtra("endTime", mEndTime.time)
-                    mIntent.putExtra("title", eventTitleName.toString())
-                    startActivity(mIntent)
+                    mIntent.putExtra("title", eventTitleName)
+                    //startActivity(mIntent)
                 } catch (e: Exception) {
 
                 }
@@ -367,6 +370,7 @@ class EventDetailsScreenFragment : Fragment() {
     private fun setEventdDetails(event: EventDetailsResponse) {
         eventPremiumLink = event.socialMediaLink
         eventname = event.title
+        eventTimeZone = event.timeZone
         evenDetailsBinding?.ll1?.visibility = View.VISIBLE
         startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
@@ -1070,6 +1074,5 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
     }
-
 
 }

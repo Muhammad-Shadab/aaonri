@@ -62,7 +62,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/cityLocationDetails"
+                    android:id="@+id/stateLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
@@ -70,7 +70,7 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Origin of City"
+                    android:hint="State of origin"
                     android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
@@ -83,7 +83,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/stateLocationDetails"
+                    android:id="@+id/cityLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
@@ -91,7 +91,7 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Origin of State"
+                    android:hint="City of origin"
                     android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
@@ -102,7 +102,6 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
-
 
                 <TextView
                     android:id="@+id/selectCommunityEt"
