@@ -2,7 +2,9 @@ package com.aaonri.app
 
 import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -18,8 +20,9 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.google.firebase.auth.FirebaseAuth
+import com.aaonri.app.utils.custom.ConnectivityReceiver
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -254,8 +257,14 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        val connectivityReceiver = ConnectivityReceiver()
+        registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
 
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val email =
