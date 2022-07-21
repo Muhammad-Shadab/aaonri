@@ -60,8 +60,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.dashboard.fragment.classified.RichTextEditor"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="stateVisible"
+            android:exported="false" />
         <activity
             android:name="com.aaonri.app.ui.authentication.login.LoginActivity"
             android:exported="true"
@@ -81,15 +81,7 @@
             android:windowSoftInputMode="adjustPan"></activity>
 
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.aaonri.app.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
-        </provider>
+
 
     </application>
 

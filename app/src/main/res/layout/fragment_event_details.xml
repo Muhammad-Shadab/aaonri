@@ -355,7 +355,7 @@
                                                 android:includeFontPadding="false"
                                                 android:fontFamily="@font/sf_pro_regular"
                                                 android:maxLines="1"
-                                                android:text="From"
+                                                android:text="Starts"
                                                 android:textColor="#8d959f"
                                                 android:textSize="12sp" />
 
@@ -384,7 +384,7 @@
                                                 android:ellipsize="end"
                                                 android:fontFamily="@font/sf_pro_regular"
                                                 android:maxLines="1"
-                                                android:text="To"
+                                                android:text="Ends"
                                                 android:includeFontPadding="false"
                                                 android:textColor="#8d959f"
                                                 android:textSize="12sp" />

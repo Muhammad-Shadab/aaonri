@@ -176,21 +176,21 @@ class ServicesCategoryFragment : Fragment() {
                 isServicesSelected = true
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.white))
+                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
 //                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.white))
+                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
 //                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
-                servicesGridItemBinding?.serviceSubmitBtn?.setTextColor(resources.getColor(R.color.darkGrayColor))
+                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.light_green_btn_shape)
             }
         }
 

@@ -1,14 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.databinding.ActivityRichTextEditorBinding
-import com.aaonri.app.ui.dashboard.fragment.event.post_event.PostEventBasicDetailsFragment
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.SystemServiceUtil
 import com.chinalwb.are.AREditText
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
 import com.chinalwb.are.styles.toolitems.*
@@ -29,19 +30,27 @@ class RichTextEditor : AppCompatActivity() {
 //                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
         binding?.apply {
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(
+                InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY
+            )
             binding?.arEditText?.text = Html.fromHtml(PreferenceManager<String>(applicationContext)["description", ""]) as Editable?
 
             navigateBack.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
+
                 finish()
             }
 
             toolbar()
-            val richtext :PostEventBasicDetailsFragment
+
             doneTextTv.setOnClickListener {
 
                 PreferenceManager<String>(applicationContext)["description"] =
                     arEditText.html.toString()
-
+                SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
                 finish()
             }
         }

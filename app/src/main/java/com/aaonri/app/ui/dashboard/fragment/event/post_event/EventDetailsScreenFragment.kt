@@ -73,11 +73,11 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.getEventDetails(args.eventId)
 
         evenDetailsBinding?.apply {
-            val metrics = WindowMetricsCalculator.getOrCreate()
+          /*  val metrics = WindowMetricsCalculator.getOrCreate()
                 .computeCurrentWindowMetrics(requireActivity())
             val heightDp = metrics.bounds.height() /
                     resources.displayMetrics.density
-            Toast.makeText(context,heightDp.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,heightDp.toString(), Toast.LENGTH_SHORT).show()*/
 
             if (args.isMyEvent) {
                 moreBtn.visibility = View.VISIBLE
