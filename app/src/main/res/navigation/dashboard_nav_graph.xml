@@ -107,7 +107,12 @@
         <argument
             android:name="isMyEvent"
             app:argType="boolean" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="https://www.aaonri.com/#/events/details/{eventId}" />
+
     </fragment>
+
     <dialog
         android:id="@+id/updateDeleteClassifiedBottom"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"
@@ -123,5 +128,4 @@
             android:id="@+id/action_updateDeleteClassifiedBottom_to_eventScreenFragment"
             app:destination="@id/eventScreenFragment" />
     </dialog>
-    >>>>>>> feac20f59f1b79deaa4b549e5e44e9938bbe470b
 </navigation>

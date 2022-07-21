@@ -1,10 +1,8 @@
 package com.aaonri.app.ui.authentication.login
 
 import android.content.pm.PackageManager
-import android.content.pm.Signature
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Message
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -12,8 +10,6 @@ import android.widget.Toast
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityAuthBinding
 import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import kotlin.math.log
 
 
 class LoginActivity : BaseActivity() {

@@ -72,13 +72,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <nav-graph android:value="@navigation/login_nav_graph" />
+           <!-- <nav-graph android:value="@navigation/login_nav_graph" />-->
+
 
         </activity>
         <activity
             android:name="com.aaonri.app.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+
+            <nav-graph android:value="@navigation/dashboard_nav_graph" />
+
+        </activity>
 
 
         <provider
