@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -21,10 +20,9 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
-import com.aaonri.app.utils.ClassifiedCategoriesList
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -137,7 +135,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         if (postClassifiedViewModel.isUpdateClassified) {
-            val addDetails = ClassifiedCategoriesList.getAddDetails()
+            val addDetails = ClassifiedStaticData.getAddDetails()
             if (postClassifiedViewModel.isNavigateBackBasicDetails) {
                 setData()
                 postClassifiedViewModel.setIsNavigateBackToBasicDetails(false)
@@ -181,7 +179,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         if (postClassifiedViewModel.isUpdateClassified) {
-            ClassifiedCategoriesList.getCategoryList()
+            ClassifiedStaticData.getCategoryList()
                 .forEachIndexed { index, classifiedCategoryResponseItem ->
                     if (classifiedCategoryResponseItem.title == postClassifiedViewModel.selectedClssifiedCategoryWhileUpdating) {
                         postClassifiedViewModel.setClassifiedSubCategoryList(

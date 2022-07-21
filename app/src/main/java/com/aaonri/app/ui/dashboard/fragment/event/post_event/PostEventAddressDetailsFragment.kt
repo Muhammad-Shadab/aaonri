@@ -21,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
+import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.PostEventRequest
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
@@ -128,8 +129,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 state = stateEt.text.toString(),
                                                 socialMediaLink = socialMediaLinkEt.text.toString()
                                             )
-                                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                            //updateEvent()
+                                            updateEvent()
                                         } else {
                                             postEventViewModel.setEventAddressDetailMap(
                                                 addressLine1 = eventAddressEt1.text.toString(),
@@ -140,8 +140,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 state = stateEt.text.toString(),
                                                 socialMediaLink = socialMediaLinkEt.text.toString()
                                             )
-                                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                            //postEvent()
+                                            postEvent()
                                         }
 
                                     } else {
@@ -175,8 +174,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             state = stateEt.text.toString(),
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
-                                        //updateEvent()
-                                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                                        updateEvent()
                                     } else {
                                         postEventViewModel.setEventAddressDetailMap(
                                             addressLine1 = eventAddressEt1.text.toString(),
@@ -187,8 +185,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             state = stateEt.text.toString(),
                                             socialMediaLink = socialMediaLinkEt.text.toString()
                                         )
-                                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                                        //postEvent()
+                                        postEvent()
                                     }
                                 } else {
                                     showAlert("Please accept terms & condition")
@@ -342,7 +339,28 @@ class PostEventAddressDetailsFragment : Fragment() {
             }
         }
 
-        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+        if (postEventViewModel.isUpdateEvent) {
+
+            val eventDetails = EventStaticData.getEventDetailsData()
+
+            eventDetails?.apply {
+                postEventAddressBinding?.eventAddressEt1?.setText(address1)
+                postEventAddressBinding?.eventAddressEt2?.setText(address2)
+                postEventAddressBinding?.cityNameEt?.setText(city)
+                if (zipCode.isNotEmpty()) {
+                    postEventAddressBinding?.zipCodeEt?.setText(zipCode)
+                } else {
+                    postEventAddressBinding?.zipCodeEt?.isEnabled = false
+                }
+                postEventAddressBinding?.landmarkEt?.setText(eventPlace)
+                postEventAddressBinding?.stateEt?.setText(state)
+                postEventAddressBinding?.socialMediaLinkEt?.setText(socialMediaLink)
+                postEventAddressBinding?.agreeCheckboxClassified?.isChecked = acceptedTermsAndConditions
+
+            }
+        }
+
+        /*postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
@@ -372,7 +390,7 @@ class PostEventAddressDetailsFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
 
         postEventViewModel.zipCodeData.observe(
             viewLifecycleOwner

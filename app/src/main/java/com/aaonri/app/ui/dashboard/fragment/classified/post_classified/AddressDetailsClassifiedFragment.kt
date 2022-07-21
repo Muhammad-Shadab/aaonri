@@ -21,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
@@ -377,7 +378,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         if (postClassifiedViewModel.isUpdateClassified) {
 
-            val addDetails = ClassifiedCategoriesList.getAddDetails()
+            val addDetails = ClassifiedStaticData.getAddDetails()
 
             addressDetailsBinding?.cityNameAddressDetails?.setText(addDetails?.userAds?.adLocation)
             addressDetailsBinding?.zipCodeAddressDetails?.setText(addDetails?.userAds?.adZip)

@@ -3,15 +3,12 @@ package com.aaonri.app.ui.dashboard.fragment.classified
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.ActivityClassifiedScreenBinding
-import com.aaonri.app.utils.ClassifiedCategoriesList
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +36,7 @@ class ClassifiedActivity : AppCompatActivity() {
         if (isUpdateClassified) {
             classifiedScreenBinding?.registrationText?.text = "Update Your Classified"
         } else {
-            if (ClassifiedCategoriesList.getCategoryList().isEmpty()) {
+            if (ClassifiedStaticData.getCategoryList().isEmpty()) {
                 postClassifiedViewModel.getClassifiedCategory()
             }
         }

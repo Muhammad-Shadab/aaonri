@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.EventConstants
+import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.ActivityEventScreenBinding
 
@@ -32,10 +33,12 @@ class EventScreenActivity : BaseActivity() {
         postEventViewModel.setUpdateEventId(updateEventId)
 
         if (isUpdateEvent) {
-            postEventViewModel.getEventDetails(updateEventId)
             eventActivityBinding?.registrationText?.text = "Update Your Event"
+        } else {
+            if (EventStaticData.getEventCategory().isEmpty()) {
+                postEventViewModel.getEventCategory()
+            }
         }
-
 
         eventActivityBinding?.apply {
 

@@ -1,7 +1,5 @@
 package com.aaonri.app.data.event.api
 
-import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
-import com.aaonri.app.data.classified.model.ClassifiedAdDetailsResponse
 import com.aaonri.app.data.event.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

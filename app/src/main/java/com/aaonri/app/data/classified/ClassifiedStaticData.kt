@@ -1,9 +1,9 @@
-package com.aaonri.app.utils
+package com.aaonri.app.data.classified
 
 import com.aaonri.app.data.classified.model.ClassifiedAdDetailsResponse
 import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 
-object ClassifiedCategoriesList {
+object ClassifiedStaticData {
 
     private var categoriesList = ArrayList<ClassifiedCategoryResponseItem>()
 

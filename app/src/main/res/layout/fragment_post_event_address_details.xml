@@ -251,13 +251,12 @@
                     android:id="@+id/agreeCheckboxClassified"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:background="@color/white"
                     android:button="@drawable/custom_checkbox"
                     android:buttonTint="@drawable/custom_checkbox"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    />
+                    android:minHeight="0dp" />
 
                 <TextView
                     android:id="@+id/privacyTextTv"

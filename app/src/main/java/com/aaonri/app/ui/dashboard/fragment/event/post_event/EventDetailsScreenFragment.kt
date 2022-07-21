@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
@@ -117,9 +118,9 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
 
-           /* shareBtn.setOnClickListener {
-                //getScreenShot(view)
-                *//*context?.let { it1 -> shareImage(it1,  ) }*//*
+            /* shareBtn.setOnClickListener {
+                 //getScreenShot(view)
+                 *//*context?.let { it1 -> shareImage(it1,  ) }*//*
             }*/
 
             moreBtn.setOnClickListener {
@@ -182,7 +183,12 @@ class EventDetailsScreenFragment : Fragment() {
                     val bitmap = addImage.drawable.toBitmap() // your imageView here.
                     val bytes = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "tempimage", null)
+                    val path = MediaStore.Images.Media.insertImage(
+                        requireContext().contentResolver,
+                        bitmap,
+                        "tempimage",
+                        null
+                    )
                     val uri = Uri.parse(path)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)
                     intent.setType("text/plain")
@@ -194,9 +200,9 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
 
-            }
+        }
 
-        postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner){ response ->
+        postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -281,7 +287,10 @@ class EventDetailsScreenFragment : Fragment() {
                 is Resource.Success -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
 
-                    response.data?.let { setEventdDetails(it) }
+                    response.data?.let {
+                        setEventdDetails(it)
+                        EventStaticData.updateEventDetails(it)
+                    }
                 }
                 is Resource.Error -> {
                     evenDetailsBinding?.progressBar?.visibility = View.GONE
@@ -335,6 +344,21 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
+        postEventViewModel.eventCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    /*categoryBinding?.progressBar?.visibility = View.VISIBLE*/
+                }
+                is Resource.Success -> {
+                    response.data?.let { EventStaticData.updateEventCategory(it) }
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
+
         return evenDetailsBinding?.root
     }
 
@@ -351,6 +375,9 @@ class EventDetailsScreenFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (event.createdBy == email) {
             evenDetailsBinding?.moreBtn?.visibility = View.VISIBLE
+            if (EventStaticData.getEventCategory().isEmpty()) {
+                postEventViewModel.getEventCategory()
+            }
         }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
@@ -364,23 +391,23 @@ class EventDetailsScreenFragment : Fragment() {
                 ) || userAdsImage.imagePath.contains(".third")
             ) {
                 if (userAdsImage.imagePath.contains(".cover")) {
-               /* evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                    /* evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                  context?.let {
-                      evenDetailsBinding?.addImage?.let { it1 ->
-                          Glide.with(it)
-                              .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                              .into(it1)
-                      }
-                  }
-                    context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }*/
-                    evenDetailsBinding?.image1?.visibility =View.GONE
+                       context?.let {
+                           evenDetailsBinding?.addImage?.let { it1 ->
+                               Glide.with(it)
+                                   .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                   .into(it1)
+                           }
+                       }
+                         context?.let {
+                             evenDetailsBinding?.addImage?.let { it1 ->
+                                 Glide.with(it)
+                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                     .into(it1)
+                             }
+                         }*/
+                    evenDetailsBinding?.image1?.visibility = View.GONE
 //                    context?.let {
 //                        evenDetailsBinding?.image1?.let { it1 ->
 //                            Glide.with(it)
@@ -697,7 +724,8 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
         try {
-            evenDetailsBinding?.locationEventTv?.text = "${if(!event.address1.isNullOrEmpty())event.address1 else ""} ${if(!event.address2.isNullOrEmpty())event.address2 else ""} ${if(!event.city.isNullOrEmpty())event.city else ""} ${if(!event.state.isNullOrEmpty())event.state else ""} "
+            evenDetailsBinding?.locationEventTv?.text =
+                "${if (!event.address1.isNullOrEmpty()) event.address1 else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 else ""} ${if (!event.city.isNullOrEmpty()) event.city else ""} ${if (!event.state.isNullOrEmpty()) event.state else ""} "
         } catch (e: Exception) {
         }
         evenDetailsBinding?.eventLocationZip?.text = event.zipCode
@@ -1042,11 +1070,6 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
     }
-
-
-
-
-
 
 
 }

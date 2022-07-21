@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -31,7 +30,7 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
-import com.aaonri.app.utils.ClassifiedCategoriesList
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -175,7 +174,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                     response.data?.let {
                         setClassifiedDetails(it.userAds)
-                        ClassifiedCategoriesList.updateAddDetails(it)
+                        ClassifiedStaticData.updateAddDetails(it)
                     }
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
@@ -254,7 +253,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
                         View.GONE*/
-                    response.data?.let { ClassifiedCategoriesList.updateCategoryList(it) }
+                    response.data?.let { ClassifiedStaticData.updateCategoryList(it) }
                 }
                 is Resource.Error -> {
                     /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
@@ -275,7 +274,7 @@ class ClassifiedDetailsFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
             classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
-            if (ClassifiedCategoriesList.getCategoryList().isEmpty()) {
+            if (ClassifiedStaticData.getCategoryList().isEmpty()) {
                 postClassifiedViewModel.getClassifiedCategory()
             }
         }

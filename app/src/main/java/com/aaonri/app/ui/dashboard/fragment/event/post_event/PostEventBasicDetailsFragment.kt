@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
+import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
@@ -223,7 +224,8 @@ class PostEventBasicDetailsFragment : Fragment() {
             }
         }
 
-        postEventViewModel.getEventCategory()
+
+
         postEventViewModel.selectedEventCategory.observe(viewLifecycleOwner) {
             postEventBinding?.selectCategoryEvent?.text = it.title
         }
@@ -232,7 +234,62 @@ class PostEventBasicDetailsFragment : Fragment() {
             postEventBinding?.eventTimezone?.text = it
         }
 
-        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+        if (postEventViewModel.isUpdateEvent) {
+
+            val eventDetails = EventStaticData.getEventDetailsData()
+
+            if (postEventViewModel.isNavigateBackBasicDetails) {
+                setData()
+                postEventViewModel.setIsNavigateBackToBasicDetails(false)
+            } else {
+                val uploadedImages = mutableListOf<Uri>()
+                if (eventDetails?.zipCode?.isNotEmpty() == true) {
+                    postEventBinding?.offlineRadioBtn?.isChecked = true
+                } else {
+                    postEventBinding?.onlineRdaioBtn?.isChecked = true
+                }
+                postEventBinding?.titleEvent?.setText(eventDetails?.title)
+                postEventBinding?.selectCategoryEvent?.text = eventDetails?.category
+                postEventBinding?.selectstartDate?.text =
+                    eventDetails?.startDate?.split("T")?.get(0)
+                postEventBinding?.selectStartTime?.text = eventDetails?.startTime
+                postEventBinding?.selectEndDate?.text =
+                    eventDetails?.endDate?.split("T")?.get(0)
+                postEventBinding?.selectEndTime?.text = eventDetails?.endTime
+                postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
+
+                if (eventDetails?.fee != null) {
+                    if (eventDetails.fee > 0) {
+                        postEventBinding?.askingFee?.setText(eventDetails.fee.toString())
+                    } else {
+                        postEventBinding?.isFreeEntryCheckBox?.isChecked = true
+                        postEventBinding?.askingFee?.isEnabled = false
+                    }
+                } else {
+                    //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
+                }
+                postEventBinding?.eventDescEt?.text =
+                    Html.fromHtml(eventDetails?.description)
+
+                eventDetails?.images?.forEach {
+                    uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${it.imagePath}".toUri())
+                }
+                if (uploadedImages.isNotEmpty()) {
+                    postEventViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                }
+
+                eventDetails?.description?.let {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set("description", it)
+                }
+            }
+        }
+
+        if (EventStaticData.getEventCategory().isEmpty()) {
+            postEventViewModel.getEventCategory()
+        }
+
+        /*postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     postEventBinding?.progressBar?.visibility = View.VISIBLE
@@ -295,7 +352,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
 
         requireActivity()
             .onBackPressedDispatcher

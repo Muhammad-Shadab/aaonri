@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
-import com.aaonri.app.utils.ClassifiedCategoriesList
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +49,8 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
 
         }
 
-        if (ClassifiedCategoriesList.getCategoryList().isNotEmpty()) {
-            classifiedCategoryAdapter?.setData(ClassifiedCategoriesList.getCategoryList())
+        if (ClassifiedStaticData.getCategoryList().isNotEmpty()) {
+            classifiedCategoryAdapter?.setData(ClassifiedStaticData.getCategoryList())
         } else {
             postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
                 when (response) {
@@ -64,7 +63,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
                             View.GONE
                         response.data?.let {
                             classifiedCategoryAdapter!!.setData(it)
-                            ClassifiedCategoriesList.updateCategoryList(it)
+                            ClassifiedStaticData.updateCategoryList(it)
                         }
                     }
                     is Resource.Error -> {
@@ -79,7 +78,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
         }
 
         if (postClassifiedViewModel.isUpdateClassified) {
-            classifiedCategoryAdapter?.setData(ClassifiedCategoriesList.getCategoryList())
+            classifiedCategoryAdapter?.setData(ClassifiedStaticData.getCategoryList())
         }
 
 
