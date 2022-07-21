@@ -23,10 +23,7 @@ import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -60,6 +57,12 @@ class HomeScreenFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
+       /* Toast.makeText(
+            context,
+            CategoriesList.getCategoryList().toString(),
+            Toast.LENGTH_SHORT
+        ).show()*/
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }

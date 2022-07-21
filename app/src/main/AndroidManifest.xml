@@ -82,7 +82,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
 
-            <nav-graph android:value="@navigation/dashboard_nav_graph" />
+            <!--<nav-graph android:value="@navigation/dashboard_nav_graph" />-->
 
         </activity>
 

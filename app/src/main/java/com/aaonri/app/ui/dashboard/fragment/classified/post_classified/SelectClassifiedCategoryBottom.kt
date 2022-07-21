@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
+import com.aaonri.app.utils.ClassifiedCategoriesList
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,25 +50,36 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
 
         }
 
-        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
-                        View.VISIBLE
-                }
-                is Resource.Success -> {
-                    selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
-                        View.GONE
-                    response.data?.let { classifiedCategoryAdapter!!.setData(it) }
-                }
-                is Resource.Error -> {
-                    selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
-                        View.GONE
-                }
-                else -> {
+        if (ClassifiedCategoriesList.getCategoryList().isNotEmpty()) {
+            classifiedCategoryAdapter?.setData(ClassifiedCategoriesList.getCategoryList())
+        } else {
+            postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                            View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                            View.GONE
+                        response.data?.let {
+                            classifiedCategoryAdapter!!.setData(it)
+                            ClassifiedCategoriesList.updateCategoryList(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                            View.GONE
+                    }
+                    else -> {
 
+                    }
                 }
             }
+        }
+
+        if (postClassifiedViewModel.isUpdateClassified) {
+            classifiedCategoryAdapter?.setData(ClassifiedCategoriesList.getCategoryList())
         }
 
 

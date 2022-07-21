@@ -107,9 +107,6 @@
         <argument
             android:name="isMyEvent"
             app:argType="boolean" />
-        <deepLink
-            android:id="@+id/deepLink2"
-            app:uri="https://www.aaonri.com/#/events/details/{eventId}" />
 
     </fragment>
 

@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
 import android.content.Intent
-import com.aaonri.app.R
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
@@ -17,11 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
-import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.ClassifiedCategoriesList
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -41,8 +41,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
     ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedBasicDetailsBinding.inflate(inflater, container, false)
-
-        postClassifiedViewModel.getClassifiedCategory()
 
         setData()
 
@@ -107,7 +105,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             }
 
             classifiedDescEt.setOnClickListener {
-//                findNavController().navigate(R.id.action_classifiedBasicDetailsFragment_to_classifiedRichTextEditor)
                 val intent = Intent(context, RichTextEditor::class.java)
                 startActivity(intent)
             }
@@ -139,7 +136,62 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
-        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+        if (postClassifiedViewModel.isUpdateClassified) {
+            val addDetails = ClassifiedCategoriesList.getAddDetails()
+            if (postClassifiedViewModel.isNavigateBackBasicDetails) {
+                setData()
+                postClassifiedViewModel.setIsNavigateBackToBasicDetails(false)
+            } else {
+                val uploadedImages = mutableListOf<Uri>()
+                val uploadedImagesIdList = mutableListOf<Int>()
+                classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
+                    addDetails?.userAds?.category
+                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
+                    addDetails?.userAds?.subCategory
+                classifiedDetailsBinding?.titleClassifiedEt?.setText(addDetails?.userAds?.adTitle)
+                classifiedDetailsBinding?.priceClassifiedEt?.setText(addDetails?.userAds?.askingPrice.toString())
+                classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
+                    addDetails?.userAds?.isNew == true
+
+                classifiedDetailsBinding?.classifiedDescEt?.text =
+                    Html.fromHtml(addDetails?.userAds?.adDescription.toString())
+                addDetails?.userAds?.userAdsImages?.forEach {
+                    uploadedImagesIdList.add(it.imageId)
+                    uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
+                }
+
+                addDetails?.userAds?.category?.let {
+                    postClassifiedViewModel.setClassifiedCategoryWhileUpdating(
+                        it
+                    )
+                }
+
+                if (uploadedImages.isNotEmpty()) {
+                    postClassifiedViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
+                }
+
+                if (uploadedImagesIdList.isNotEmpty()) {
+                    postClassifiedViewModel.setClassifiedUploadedImagesIdList(
+                        uploadedImagesIdList
+                    )
+                }
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set("description", addDetails?.userAds?.adDescription.toString())
+            }
+        }
+
+        if (postClassifiedViewModel.isUpdateClassified) {
+            ClassifiedCategoriesList.getCategoryList()
+                .forEachIndexed { index, classifiedCategoryResponseItem ->
+                    if (classifiedCategoryResponseItem.title == postClassifiedViewModel.selectedClssifiedCategoryWhileUpdating) {
+                        postClassifiedViewModel.setClassifiedSubCategoryList(
+                            classifiedCategoryResponseItem
+                        )
+                    }
+                }
+        }
+
+        /*postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
@@ -195,7 +247,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 }
                 else -> {}
             }
-        }
+        }*/
 
         requireActivity()
             .onBackPressedDispatcher
@@ -206,7 +258,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             })
 
 
-        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
+        /*postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     classifiedDetailsBinding?.progressBarBasicDetails?.visibility =
@@ -230,7 +282,13 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
+
+
+        /*if (postClassifiedViewModel.isUpdateClassified) {
+
+        }*/
+
 
         return classifiedDetailsBinding?.root
     }

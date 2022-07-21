@@ -203,24 +203,22 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                            /*updateClassified(
+                                            updateClassified(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                                            )
                                         } else {
-                                            /*postClassifiedRequest(
+                                            postClassifiedRequest(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
+                                            )
                                         }
-                                        findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                                     } else {
                                         showAlert("Please accept terms & condition")
                                     }
@@ -235,23 +233,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
-                                            /*updateClassified(
+                                            updateClassified(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                                            )
                                         } else {
-                                           /*postClassifiedRequest(
+                                            postClassifiedRequest(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
                                                 adKeywords = classifiedKeywordEt.text.toString(),
                                                 cityName = cityNameAddressDetails.text.toString(),
                                                 zipCode = zipCodeAddressDetails.text.toString()
-                                            )*/
-                                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                                            )
                                         }
                                     } else {
                                         showAlert("Please accept terms & condition")
@@ -379,7 +375,25 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
+        if (postClassifiedViewModel.isUpdateClassified) {
+
+            val addDetails = ClassifiedCategoriesList.getAddDetails()
+
+            addressDetailsBinding?.cityNameAddressDetails?.setText(addDetails?.userAds?.adLocation)
+            addressDetailsBinding?.zipCodeAddressDetails?.setText(addDetails?.userAds?.adZip)
+            addressDetailsBinding?.classifiedKeywordEt?.setText(addDetails?.userAds?.adKeywords)
+            addressDetailsBinding?.agreeCheckboxClassified?.isChecked =
+                addDetails?.userAds?.isTermsAndConditionAccepted == true
+            if (addDetails?.userAds?.adEmail?.isNotEmpty() == true) {
+                addressDetailsBinding?.emailRadioBtn?.isChecked = true
+                addressDetailsBinding?.emailAddressBasicDetails?.setText(addDetails.userAds.adEmail)
+            } else {
+                addressDetailsBinding?.phoneRadioBtn?.isChecked = true
+                addressDetailsBinding?.phoneNumberAddressDetails?.setText(addDetails?.userAds?.adPhone)
+            }
+        }
+
+        /*postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
@@ -399,15 +413,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         addressDetailsBinding?.phoneRadioBtn?.isChecked = true
                         addressDetailsBinding?.phoneNumberAddressDetails?.setText(response.data?.userAds?.adPhone)
                     }
-
-
                 }
                 is Resource.Error -> {
                     addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
                 }
                 else -> {}
             }
-        }
+        }*/
 
         postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
             when (response) {

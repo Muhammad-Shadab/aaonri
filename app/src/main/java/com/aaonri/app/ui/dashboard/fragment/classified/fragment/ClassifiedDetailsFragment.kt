@@ -31,6 +31,7 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
+import com.aaonri.app.utils.ClassifiedCategoriesList
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -172,7 +173,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     classifiedDetailsBinding?.progressBar?.visibility = View.GONE
 
-                    response.data?.let { setClassifiedDetails(it.userAds) }
+                    response.data?.let {
+                        setClassifiedDetails(it.userAds)
+                        ClassifiedCategoriesList.updateAddDetails(it)
+                    }
                     //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
@@ -241,6 +245,27 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    /*classifiedDetailsBinding?.progressBarCommunityBottom?.visibility =
+                        View.VISIBLE*/
+                }
+                is Resource.Success -> {
+                    /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                        View.GONE*/
+                    response.data?.let { ClassifiedCategoriesList.updateCategoryList(it) }
+                }
+                is Resource.Error -> {
+                    /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                        View.GONE*/
+                }
+                else -> {
+
+                }
+            }
+        }
+
         return classifiedDetailsBinding?.root
     }
 
@@ -250,6 +275,9 @@ class ClassifiedDetailsFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
             classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+            if (ClassifiedCategoriesList.getCategoryList().isEmpty()) {
+                postClassifiedViewModel.getClassifiedCategory()
+            }
         }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
