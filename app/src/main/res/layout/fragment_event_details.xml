@@ -132,7 +132,7 @@
             android:id="@+id/eventDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_bottom_sheet_shape"
+            android:background="@drawable/top_rounded_corner_shape"
             android:visibility="gone"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -164,18 +164,63 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
+<LinearLayout
+    android:id="@+id/ll2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:gravity="center_vertical"
+    android:layout_marginTop="@dimen/_28sdp">
 
-                            <TextView
-                                android:id="@+id/eventPriceTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_16sdp"
-                                android:layout_marginTop="@dimen/_28sdp"
-                                android:fontFamily="@font/sf_pro_semi_bold"
-                                android:textColor="#114591"
-                                android:textSize="24sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/eventPriceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:textColor="#114591"
+        android:textSize="24sp"
+
+        />
+    <LinearLayout
+        android:id="@+id/totalFavVisitingLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/totalVisiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_btn"
+            android:drawableLeft="@drawable/user_icon"
+            android:drawablePadding="@dimen/_2sdp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:text="297"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/totalFavourite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_btn"
+            android:drawableLeft="@drawable/star_icon"
+            android:drawablePadding="@dimen/_2sdp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:text="297"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
+
 
                             <LinearLayout
                                 android:id="@+id/eventNameLinear"
@@ -187,7 +232,7 @@
                                 android:orientation="horizontal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/eventPriceTv">
+                                app:layout_constraintTop_toBottomOf="@+id/ll2">
 
                                 <TextView
                                     android:id="@+id/eventTitle"
@@ -284,7 +329,7 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:layout_gravity="center_vertical"
                                         android:src="@drawable/ic_time_watch"
                                         app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
                                         app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
@@ -307,6 +352,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="@dimen/_4sdp"
                                                 android:ellipsize="end"
+                                                android:includeFontPadding="false"
                                                 android:fontFamily="@font/sf_pro_regular"
                                                 android:maxLines="1"
                                                 android:text="From"
@@ -319,6 +365,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="@dimen/_4sdp"
                                                 android:ellipsize="end"
+                                                android:includeFontPadding="false"
                                                 android:fontFamily="@font/sf_pro_semi_bold"
                                                 android:maxLines="2"
                                                 android:textColor="#333333"
@@ -338,6 +385,7 @@
                                                 android:fontFamily="@font/sf_pro_regular"
                                                 android:maxLines="1"
                                                 android:text="To"
+                                                android:includeFontPadding="false"
                                                 android:textColor="#8d959f"
                                                 android:textSize="12sp" />
 
@@ -349,6 +397,7 @@
                                                 android:ellipsize="end"
                                                 android:fontFamily="@font/sf_pro_semi_bold"
                                                 android:maxLines="2"
+                                                android:includeFontPadding="false"
                                                 android:textColor="#333333"
                                                 android:textSize="12sp" />
                                         </LinearLayout>
@@ -410,7 +459,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_14sdp"
-                            android:background="@color/disableServiceColor"
+                            android:background="#efefef"
                             android:orientation="horizontal"
                             android:padding="@dimen/_10sdp">
 
@@ -543,18 +592,29 @@
             android:src="@drawable/bluemore"
             android:visibility="gone" />
     </LinearLayout>
-
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        app:cardCornerRadius="@dimen/_11sdp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        app:cardElevation="6dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        android:visibility="gone"
         android:layout_gravity="start"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:background="@drawable/blue_circle_shape"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/navigate_back"
-        android:visibility="gone" />
+        android:layout_marginTop="@dimen/_32sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back"
+            />
+    </androidx.cardview.widget.CardView>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

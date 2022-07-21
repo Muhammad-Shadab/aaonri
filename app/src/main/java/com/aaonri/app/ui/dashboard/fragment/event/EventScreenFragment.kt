@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
@@ -75,7 +76,7 @@ class EventScreenFragment : Fragment() {
             for (i in 0..3) {
                 val textView =
                     LayoutInflater.from(requireContext())
-                        .inflate(R.layout.tab_title_text, null) as TextView
+                        .inflate(R.layout.tab_title_text, null) as CardView
                 eventsScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }

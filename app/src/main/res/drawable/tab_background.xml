@@ -11,6 +11,6 @@
         android:centerColor="#00FF0000"
         android:centerY="0.1"
         android:endColor="#00FF0000"
-        android:startColor="#6B000000" />
+        android:startColor="#00FF0000" />
 </shape>
 

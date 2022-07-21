@@ -132,7 +132,7 @@
             android:id="@+id/classifiedDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_bottom_sheet_shape"
+            android:background="@drawable/top_rounded_corner_shape"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
