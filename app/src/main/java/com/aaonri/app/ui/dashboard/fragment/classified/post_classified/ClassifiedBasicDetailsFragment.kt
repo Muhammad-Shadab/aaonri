@@ -334,6 +334,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
             description = context?.let { PreferenceManager<String>(it)["description", ""] }
         }
+        else{
+            classifiedDetailsBinding?.classifiedDescEt?.text = ""
+        }
     }
 }
 

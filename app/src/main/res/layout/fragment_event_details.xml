@@ -385,7 +385,7 @@
                                                 android:fontFamily="@font/sf_pro_regular"
                                                 android:includeFontPadding="false"
                                                 android:maxLines="1"
-                                                android:text="Ends"
+                                                android:text="Ends "
                                                 android:textColor="#8d959f"
                                                 android:textSize="12sp" />
 

@@ -52,7 +52,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:paddingVertical="@dimen/_2sdp"
-                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingStart="@dimen/_16sdp"
                         android:paddingEnd="@dimen/_8sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"

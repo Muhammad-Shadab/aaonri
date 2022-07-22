@@ -7,6 +7,7 @@ import android.text.Html
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.databinding.ActivityRichTextEditorBinding
 import com.aaonri.app.utils.PreferenceManager
@@ -54,8 +55,8 @@ class RichTextEditor : AppCompatActivity() {
 
             doneTextTv.setOnClickListener {
 
-                PreferenceManager<String>(applicationContext)["description"] =
-                    arEditText.html.toString()
+                    PreferenceManager<String>(applicationContext)["description"] =
+                        arEditText.html.toString()
                 SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
                 finish()
             }

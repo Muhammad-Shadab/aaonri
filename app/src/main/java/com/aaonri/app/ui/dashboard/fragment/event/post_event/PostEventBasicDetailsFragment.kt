@@ -500,6 +500,8 @@ class PostEventBasicDetailsFragment : Fragment() {
         ) {
             postEventBinding?.eventDescEt?.text =
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+        }else{
+            postEventBinding?.eventDescEt?.text = ""
         }
     }
 
