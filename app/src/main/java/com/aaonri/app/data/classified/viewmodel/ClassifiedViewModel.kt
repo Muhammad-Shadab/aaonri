@@ -138,7 +138,6 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
                 return Resource.Success(it)
             }
         }
-
         return Resource.Error(response.message())
     }
 

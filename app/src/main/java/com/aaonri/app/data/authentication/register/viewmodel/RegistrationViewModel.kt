@@ -11,6 +11,7 @@ import com.aaonri.app.data.authentication.register.model.add_user.RegisterReques
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
+import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +30,9 @@ class RegistrationViewModel
     private var mutableServices: MutableStateFlow<Resource<ServicesResponse>> =
         MutableStateFlow(Resource.Empty())
     val service: StateFlow<Resource<ServicesResponse>> = mutableServices
+
+    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+        MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()
@@ -85,6 +89,21 @@ class RegistrationViewModel
     }
 
     private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun findByEmail(email: String) = viewModelScope.launch {
+        findByEmailData.postValue(Resource.Loading())
+        val response = repository.findByEmail(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
+    }
+
+    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

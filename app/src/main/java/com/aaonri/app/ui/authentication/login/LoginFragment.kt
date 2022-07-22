@@ -192,7 +192,6 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
-
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                             ?.set(Constant.IS_USER_LOGIN, true)
 
@@ -287,9 +286,16 @@ class LoginFragment : Fragment() {
                         FirebaseAuth.getInstance().signOut()
                         mGoogleSignInClient.signOut()
                         LoginManager.getInstance().logOut()
-                        val intent = Intent(requireContext(), RegistrationActivity::class.java)
+
+                        context?.let {
+                            PreferenceManager<String>(
+                                it
+                            )[Constant.USER_EMAIL, ""]
+                        }?.let { registrationViewModel.findByEmail(it) }
+
+                        /*val intent = Intent(requireContext(), RegistrationActivity::class.java)
                         intent.putExtra("newUserRegister", true)
-                        startActivity(intent)
+                        startActivity(intent)*/
                     }
                 }
                 is Resource.Error -> {
@@ -303,6 +309,26 @@ class LoginFragment : Fragment() {
             }
         }
 
+        /*registrationViewModel.findByEmailData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (response.data?.userFlags?.)
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }*/
 
 
         return introBinding?.root
@@ -326,7 +352,7 @@ class LoginFragment : Fragment() {
                     FirebaseAuth.getInstance().signOut()
                     mGoogleSignInClient.signOut()
                     LoginManager.getInstance().logOut()
-                    Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${error.message}", Toast.LENGTH_SHORT).show()
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
                 }
 

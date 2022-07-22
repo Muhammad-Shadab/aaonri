@@ -9,11 +9,9 @@ import com.aaonri.app.data.authentication.register.model.add_user.RegisterationR
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
+import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RegistrationApi {
 
@@ -22,6 +20,11 @@ interface RegistrationApi {
 
     @GET("api/v1/interests/all")
     suspend fun getAllServicesInterest(): ServicesResponse
+
+    @GET("/api/v1/user/findByEmail")
+    suspend fun findByEmail(
+        @Query("email") userEmail: String
+    ): Response<GetClassifiedSellerResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/userExists")

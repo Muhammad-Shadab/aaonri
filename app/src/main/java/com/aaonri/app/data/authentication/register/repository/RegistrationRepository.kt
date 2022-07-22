@@ -30,6 +30,8 @@ class RegistrationRepository @Inject constructor(
         emit(registrationApi.getAllServicesInterest())
     }.flowOn(Dispatchers.IO)
 
+    suspend fun findByEmail(email: String) = registrationApi.findByEmail(email)
+
     suspend fun isEmailAlreadyRegistered(emailVerifyRequest: EmailVerifyRequest) =
         registrationApi.isEmailAlreadyRegistered(emailVerifyRequest)
 
