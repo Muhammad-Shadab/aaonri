@@ -58,6 +58,7 @@ class EventDetailsScreenFragment : Fragment() {
     val eventViewModel: EventViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     var eventPremiumLink: String = ""
+    var isGuestUser = false
     var startDate = ""
     var endDate = ""
     var eventTitleName = ""
@@ -97,12 +98,6 @@ class EventDetailsScreenFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
-            Toast.makeText(
-                context,
-                "${context?.let { dpFromPx(it, getScreenHeight().toFloat()) }}",
-                Toast.LENGTH_SHORT
-            ).show()
-
             val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
 
             if (screenDp != null) {
@@ -138,7 +133,6 @@ class EventDetailsScreenFragment : Fragment() {
 
             }
 
-
             /* shareBtn.setOnClickListener {
                  //getScreenShot(view)
                  *//*context?.let { it1 -> shareImage(it1,  ) }*//*
@@ -155,29 +149,35 @@ class EventDetailsScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
             interestedBtn.setOnClickListener {
-                eventViewModel.setCallEventApiAfterDelete(true)
-                val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-                postEventViewModel.addEventAddInterested(
-                    EventAddInterestedRequest(
-                        emailId = email.toString(),
-                        favourite = isInterested,
-                        itemId = args.eventId,
-                        service = "Event"
+
+                if (!isGuestUser) {
+                    eventViewModel.setCallEventApiAfterDelete(true)
+                    val email =
+                        context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                    postEventViewModel.addEventAddInterested(
+                        EventAddInterestedRequest(
+                            emailId = email.toString(),
+                            favourite = isInterested,
+                            itemId = args.eventId,
+                            service = "Event"
+                        )
                     )
-                )
+                }
             }
 
             goingBtn.setOnClickListener {
-                eventViewModel.setCallEventApiAfterDelete(true)
-                val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-                postEventViewModel.addEventGoing(
-                    EventAddGoingRequest(
-                        emailId = email.toString(),
-                        eventId = args.eventId,
-                        visiting = isVisiting
+                if (!isGuestUser) {
+                    eventViewModel.setCallEventApiAfterDelete(true)
+                    val email =
+                        context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                    postEventViewModel.addEventGoing(
+                        EventAddGoingRequest(
+                            emailId = email.toString(),
+                            eventId = args.eventId,
+                            visiting = isVisiting
+                        )
                     )
-                )
-
+                }
             }
             calendarBtn.setOnClickListener {
                 try {
@@ -235,7 +235,10 @@ class EventDetailsScreenFragment : Fragment() {
                 } catch (e: Exception) {
                 }
             }
+        }
 
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            isGuestUser = it
         }
 
         postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
