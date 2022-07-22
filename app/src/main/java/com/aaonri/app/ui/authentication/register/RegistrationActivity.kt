@@ -55,7 +55,7 @@ class RegistrationActivity : BaseActivity() {
                             firstName = firstName,
                             lastName = it,
                             emailAddress = it1,
-                            password = "Qwerty123"
+                            password = "987654321"
                         )
                     }
                 }

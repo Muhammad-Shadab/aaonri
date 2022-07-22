@@ -53,19 +53,17 @@ class MyClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     myClassifiedBinding?.progressBar?.visibility = View.GONE
-                    try {
-                        if (response.data?.userAdsList?.isNotEmpty() == true) {
-                            myClassifiedBinding?.emptyClassifiedImage?.visibility = View.GONE
-                            myClassifiedBinding?.emptyTextVew?.visibility = View.GONE
-                            response.data.userAdsList.let { allClassifiedAdapter!!.setData(it) }
-                            myClassifiedBinding?.recyclerViewClassified?.adapter =
-                                allClassifiedAdapter
-                        } else {
-                            myClassifiedBinding?.emptyClassifiedImage?.visibility = View.VISIBLE
-                            myClassifiedBinding?.emptyTextVew?.visibility = View.VISIBLE
-                        }
-                    } catch (e: Exception) {
-
+                    if (response.data?.userAdsList?.isNotEmpty() == true) {
+                        myClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
+                        myClassifiedBinding?.emptyClassifiedImage?.visibility = View.GONE
+                        myClassifiedBinding?.emptyTextVew?.visibility = View.GONE
+                        response.data.userAdsList.let { allClassifiedAdapter!!.setData(it) }
+                        myClassifiedBinding?.recyclerViewClassified?.adapter =
+                            allClassifiedAdapter
+                    } else {
+                        myClassifiedBinding?.emptyClassifiedImage?.visibility = View.VISIBLE
+                        myClassifiedBinding?.emptyTextVew?.visibility = View.VISIBLE
+                        myClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
                     }
 
                 }

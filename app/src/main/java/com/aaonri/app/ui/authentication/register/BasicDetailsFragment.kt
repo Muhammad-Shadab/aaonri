@@ -61,7 +61,14 @@ class BasicDetailsFragment : Fragment() {
             authCommonViewModel.addNavigationForStepper(AuthConstant.BASIC_DETAILS_SCREEN)
 
             if (authCommonViewModel.isNewUserRegisterUsingGmail) {
-                findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                firstNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] })
+                lastNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_LAST_NAME, ""] })
+                emailAddressBasicDetails.isEnabled = false
+                passwordBasicDetails.isEnabled = false
+                emailAddressBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] })
+                passwordBasicDetails.setText("********")
+                isPasswordValid = true
+                isEmailValid = true
             }
 
             firstNameBasicDetails.filters = arrayOf(filter)
@@ -76,8 +83,6 @@ class BasicDetailsFragment : Fragment() {
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
                             progressBarBasicDetails.visibility = View.VISIBLE
-
-
                         }
                 } else {
                     var materialAlertDialogBuilder =
