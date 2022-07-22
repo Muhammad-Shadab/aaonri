@@ -38,6 +38,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val classifiedSellerNameData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
         MutableLiveData()
 
+    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+        MutableLiveData()
+
     val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
@@ -115,6 +118,12 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun findByEmail(email: String) = viewModelScope.launch {
+        findByEmailData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedSellerName(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
     fun getClassifiedSellerName(email: String) = viewModelScope.launch {

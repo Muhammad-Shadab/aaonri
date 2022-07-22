@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -112,7 +113,7 @@ class MainActivity : BaseActivity() {
 
                 if (email != null) {
                     eventViewModel.getRecentEvent(email)
-                    classifiedViewModel.getClassifiedSellerName(email)
+                    classifiedViewModel.findByEmail(email)
                 }
 
                 classifiedViewModel.getClassifiedByUser(
@@ -183,6 +184,32 @@ class MainActivity : BaseActivity() {
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
+
+        classifiedViewModel.findByEmailData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.city?.let {
+                        PreferenceManager<String>(applicationContext)[Constant.USER_CITY] = it
+                    }
+                    response.data?.zipcode?.let {
+                        PreferenceManager<String>(applicationContext)[Constant.USER_ZIP_CODE] = it
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        applicationContext,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
 
         homeViewModel.popularClassifiedData.observe(this) { response ->
             when (response) {

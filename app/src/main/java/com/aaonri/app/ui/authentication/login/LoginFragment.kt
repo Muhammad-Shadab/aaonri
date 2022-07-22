@@ -256,19 +256,19 @@ class LoginFragment : Fragment() {
          } catch (e: NoSuchAlgorithmException) {
          }*/
 
-       /* try {
-            val info: PackageInfo? = getPackageInfo(
-                requireContext(),
-                "com.aaonri.app.dev"
-            )
-            for (signature in info?.signatures!!) {
-                val md: MessageDigest = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.i("KeyHash:", encodeToString(md.digest(), DEFAULT))
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-        } catch (e: NoSuchAlgorithmException) {
-        }*/
+        /* try {
+             val info: PackageInfo? = getPackageInfo(
+                 requireContext(),
+                 "com.aaonri.app.dev"
+             )
+             for (signature in info?.signatures!!) {
+                 val md: MessageDigest = MessageDigest.getInstance("SHA")
+                 md.update(signature.toByteArray())
+                 Log.i("KeyHash:", encodeToString(md.digest(), DEFAULT))
+             }
+         } catch (e: PackageManager.NameNotFoundException) {
+         } catch (e: NoSuchAlgorithmException) {
+         }*/
 
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
