@@ -279,13 +279,6 @@ class LoginFragment : Fragment() {
                     if (response.data?.status == "true") {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                             ?.set(Constant.IS_USER_LOGIN, true)
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-                    } else {
-                        FirebaseAuth.getInstance().signOut()
-                        mGoogleSignInClient.signOut()
-                        LoginManager.getInstance().logOut()
 
                         context?.let {
                             PreferenceManager<String>(
@@ -293,9 +286,17 @@ class LoginFragment : Fragment() {
                             )[Constant.USER_EMAIL, ""]
                         }?.let { registrationViewModel.findByEmail(it) }
 
-                        /*val intent = Intent(requireContext(), RegistrationActivity::class.java)
+                        /*val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()*/
+                    } else {
+                        FirebaseAuth.getInstance().signOut()
+                        mGoogleSignInClient.signOut()
+                        LoginManager.getInstance().logOut()
+
+                        val intent = Intent(requireContext(), RegistrationActivity::class.java)
                         intent.putExtra("newUserRegister", true)
-                        startActivity(intent)*/
+                        startActivity(intent)
                     }
                 }
                 is Resource.Error -> {
@@ -309,7 +310,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        registrationViewModel.findByEmailData.observe(this) { response ->
+        registrationViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -317,9 +318,9 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.userFlags?.forEach {
                         if (it.flagStatus) {
-                            val intent = Intent(requireContext(), RegistrationActivity::class.java)
-                            intent.putExtra("newUserRegister", true)
+                            val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
+                            activity?.finish()
                         } else {
                             activity?.let { it1 ->
                                 Snackbar.make(

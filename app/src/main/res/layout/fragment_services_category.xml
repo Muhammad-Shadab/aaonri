@@ -13,8 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,8 +27,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:textAlignment="center"
                 android:text="Choose any three or more"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -58,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_24sdp"
                     android:layout_marginEnd="@dimen/_24sdp"
-                   android:layout_marginBottom="@dimen/_60sdp"
+                    android:layout_marginBottom="@dimen/_60sdp"
                     app:cardBackgroundColor="#EFEFEF"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:strokeColor="#E1E1E1"
@@ -223,44 +222,36 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-               <!-- <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_24sdp"
-                    android:orientation="horizontal">
+                <!-- <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginStart="@dimen/_40sdp"
+                     android:layout_marginTop="@dimen/_8sdp"
+                     android:layout_marginEnd="@dimen/_24sdp"
+                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/belongToCricketCheckBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:button="@drawable/custom_checkbox"
-                        android:buttonTint="@drawable/custom_checkbox"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp" />
+                     <CheckBox
+                         android:id="@+id/belongToCricketCheckBox"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@color/white"
+                         android:button="@drawable/custom_checkbox"
+                         android:buttonTint="@drawable/custom_checkbox"
+                         android:minWidth="0dp"
+                         android:minHeight="0dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="12sp" />
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="@dimen/_4sdp"
+                         android:fontFamily="@font/sf_pro_regular"
+                         android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
+                         android:textColor="@color/textViewColor"
+                         android:textSize="12sp" />
 
-                </LinearLayout>-->
+                 </LinearLayout>-->
 
             </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
 
         </LinearLayout>
 
@@ -278,13 +269,26 @@
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/light_green_btn_shape"
+        android:elevation="@dimen/_6sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:minHeight="0dp"
-        android:elevation="@dimen/_6sdp"
         android:paddingTop="@dimen/_4sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:paddingBottom="@dimen/_4sdp"
         android:text="Get Started"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
