@@ -112,6 +112,7 @@ class MainActivity : BaseActivity() {
 
                 if (email != null) {
                     eventViewModel.getRecentEvent(email)
+                    classifiedViewModel.getClassifiedSellerName(email)
                 }
 
                 classifiedViewModel.getClassifiedByUser(

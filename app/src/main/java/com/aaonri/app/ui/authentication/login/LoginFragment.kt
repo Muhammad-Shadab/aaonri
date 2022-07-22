@@ -256,7 +256,7 @@ class LoginFragment : Fragment() {
          } catch (e: NoSuchAlgorithmException) {
          }*/
 
-        /*try {
+       /* try {
             val info: PackageInfo? = getPackageInfo(
                 requireContext(),
                 "com.aaonri.app.dev"

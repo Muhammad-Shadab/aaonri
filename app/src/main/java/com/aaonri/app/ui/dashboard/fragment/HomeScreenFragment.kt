@@ -139,7 +139,6 @@ class HomeScreenFragment : Fragment() {
             }
 
 
-
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
             /*openEvent.setOnClickListener {
