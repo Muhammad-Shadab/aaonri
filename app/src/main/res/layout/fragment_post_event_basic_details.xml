@@ -20,90 +20,90 @@
                 android:layout_height="0dp"
                 android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/offlineRadioBtnCardView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="@color/graycolor"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/_5sdp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/offlineRadioBtnCardView"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="6dp"
-                            app:cardBackgroundColor="@color/graycolor"
-                            app:cardCornerRadius="4dp"
-                            app:cardElevation="@dimen/_5sdp">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:paddingVertical="@dimen/_12sdp">
 
-                            <LinearLayout
+                            <RadioButton
+                                android:id="@+id/offlineRadioBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="@dimen/_16sdp"
-                                android:paddingVertical="@dimen/_12sdp">
+                                android:button="@drawable/custom_radio_btn"
+                                android:buttonTint="@drawable/custom_radio_btn"
+                                android:checked="true"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp" />
 
-                                <RadioButton
-                                    android:id="@+id/offlineRadioBtn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:button="@drawable/custom_radio_btn"
-                                    android:buttonTint="@drawable/custom_radio_btn"
-                                    android:checked="true"
-                                    android:minWidth="0dp"
-                                    android:minHeight="0dp" />
+                            <TextView
+                                android:id="@+id/offlinetv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:text="Offline Event"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                                <TextView
-                                    android:id="@+id/offlinetv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_8sdp"
-                                    android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:text="Offline Event"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/onlineRadioBtnCardView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:layout_marginLeft="8dp"
+                        app:cardBackgroundColor="@color/graycolor"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="@dimen/_5sdp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/onlineRadioBtnCardView"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="6dp"
-                            android:layout_marginLeft="8dp"
-                            app:cardBackgroundColor="@color/graycolor"
-                            app:cardCornerRadius="4dp"
-                            app:cardElevation="@dimen/_5sdp">
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:paddingVertical="@dimen/_12sdp">
 
-                            <LinearLayout
+                            <RadioButton
+                                android:id="@+id/onlineRdaioBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="@dimen/_16sdp"
-                                android:paddingVertical="@dimen/_12sdp">
+                                android:button="@drawable/custom_radio_btn"
+                                android:buttonTint="@drawable/custom_radio_btn"
+                                android:checked="false"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp" />
 
-                                <RadioButton
-                                    android:id="@+id/onlineRdaioBtn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:button="@drawable/custom_radio_btn"
-                                    android:buttonTint="@drawable/custom_radio_btn"
-                                    android:checked="false"
-                                    android:minWidth="0dp"
-                                    android:minHeight="0dp" />
+                            <TextView
+                                android:id="@+id/emailTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:text="Online Event"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                                <TextView
-                                    android:id="@+id/emailTv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_8sdp"
-                                    android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:text="Online Event"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
-                    </LinearLayout>
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/titleEvent"
@@ -309,28 +309,33 @@
                         android:textSize="15sp" />
 
                 </LinearLayout>
+
                 <androidx.core.widget.NestedScrollView
+                    android:id="@+id/openRichTextEditor"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
+                    android:scrollbars="vertical"
                     android:layout_marginHorizontal="@dimen/_28sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:paddingVertical="@dimen/_4sdp"
-                    android:background="@drawable/multiline_textfield_shape">
-                <TextView
-                    android:id="@+id/eventDescEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:maxLength="2000"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:gravity="left"
-                    android:hint="@string/please_describe_about_the_event"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:textSize="16sp"
-                    android:scrollbars = "vertical"
-                    tools:ignore="RtlHardcoded" />
+                    android:background="@drawable/multiline_textfield_shape"
+                    android:paddingVertical="@dimen/_4sdp">
+
+                    <TextView
+                        android:id="@+id/eventDescEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:gravity="left"
+                        android:hint="@string/please_describe_about_the_event"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLength="2000"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:scrollbars="vertical"
+                        android:textSize="16sp"
+                        tools:ignore="RtlHardcoded" />
                 </androidx.core.widget.NestedScrollView>
+
                 <TextView
                     android:id="@+id/descLength"
                     android:layout_width="wrap_content"
@@ -338,14 +343,12 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
+                    android:layout_marginBottom="@dimen/_50sdp"
                     android:fontFamily="@font/sf_pro_regular"
                     android:text="0/2000"
                     android:textColor="@color/hintColor"
                     android:textSize="12sp"
-                    android:visibility="visible"
-                    android:layout_marginBottom="@dimen/_50sdp"
-                    />
-
+                    android:visibility="visible" />
 
 
             </LinearLayout>
@@ -353,13 +356,11 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addressDetailsNextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="@dimen/_28sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_28sdp"
@@ -371,7 +372,11 @@
         android:paddingBottom="@dimen/_4sdp"
         android:text="@string/next"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
