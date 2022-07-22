@@ -5,21 +5,14 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <gradient
-                        android:startColor="#FF000000"
-                        android:endColor="#00000000"
-                        android:gradientRadius="31dp"
-                        android:type="radial" />
+                    <gradient android:endColor="#00000000" android:gradientRadius="31dp" android:startColor="#FF000000" android:type="radial" />
                 </shape>
             </item>
-            <item android:top="4dp" android:left="1dp" android:right="1dp" android:bottom="0dp">
+            <item android:bottom="0dp" android:left="1dp" android:right="1dp" android:top="4dp">
                 <shape android:shape="oval">
-                    <size android:width="55dp"
-                        android:height="55dp"/>
+                    <size android:width="55dp" android:height="55dp" />
                     <solid android:color="@color/blueBtnColor" />
-                    <stroke
-                        android:width="3dp"
-                        android:color="@android:color/white" />
+                    <stroke android:width="3dp" android:color="@android:color/white" />
                 </shape>
             </item>
 

@@ -1,7 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -24,13 +26,13 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.model.UserAdsXX
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
-import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -98,7 +100,19 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-            bottomSheetOuter.peekHeight = 470
+            val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+
+            if (screenDp != null) {
+                if (screenDp in 900.0..1000.0) {
+                    bottomSheetOuter.peekHeight = 600
+                } else if (screenDp in 700.0..9000.0) {
+                    bottomSheetOuter.peekHeight = 450
+                } else if (screenDp in 600.0..7000.0) {
+                    Toast.makeText(context, "condition ", Toast.LENGTH_SHORT).show()
+                    bottomSheetOuter.peekHeight = 800
+                }
+            }
+
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -766,11 +780,23 @@ class ClassifiedDetailsFragment : Fragment() {
         }
     }
 
+    fun getScreenWidth(): Int {
+        return Resources.getSystem().getDisplayMetrics().widthPixels
+    }
+
+    fun getScreenHeight(): Int {
+        return Resources.getSystem().getDisplayMetrics().heightPixels
+    }
+
+    fun dpFromPx(context: Context, px: Float): Float {
+        return px / context.getResources().getDisplayMetrics().density
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
-
     }
 
 }

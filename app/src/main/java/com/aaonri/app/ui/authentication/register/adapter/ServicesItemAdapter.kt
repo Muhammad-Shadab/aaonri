@@ -35,59 +35,59 @@ class ServicesItemAdapter(
             binding.apply {
 
                 servicesGridTv.text = data[position].interestDesc
-                when (data[position].id) {
-                    1 -> {
+                when (data[position].interestDesc) {
+                    "Classifieds" -> {
                         servicesGridIv.load(R.drawable.ic_classified)
                     }
-                    2 -> {
+                    "Events" -> {
                         servicesGridIv.load(R.drawable.ic_event)
                     }
-                    3 -> {
+                    "Jobs" -> {
                         servicesGridIv.load(R.drawable.ic_job)
                     }
-                    4 -> {
+                    "Immigration" -> {
                         servicesGridIv.load(R.drawable.ic_immigration)
                     }
-                    5 -> {
+                    "Astrology"-> {
                         servicesGridIv.load(R.drawable.ic_astrology)
                     }
-                    6 -> {
+                    "Sports"-> {
                         servicesGridIv.load(R.drawable.ic_sports)
                     }
-                    8 -> {
+                    "Community Connect" -> {
                         servicesGridIv.load(R.drawable.ic_community)
                     }
-                    9 -> {
+                    "Foundation & Donations" -> {
                         servicesGridIv.load(R.drawable.ic_donation)
                     }
-                    10 -> {
+                    "Student Services" -> {
                         servicesGridIv.load(R.drawable.ic_education)
                     }
-                    11 -> {
+                    "Legal Services" -> {
                         servicesGridIv.load(R.drawable.ic_legal_service)
                     }
-                    12 -> {
+                    "Matrimony & Weddings" -> {
                         servicesGridIv.load(R.drawable.ic_matrimony)
                     }
-                    13 -> {
+                    "Medical Care" -> {
                         servicesGridIv.load(R.drawable.ic_medical)
                     }
-                    14 -> {
+                    "Real Estate" -> {
                         servicesGridIv.load(R.drawable.ic_real_state)
                     }
-                    15 -> {
+                    "Shop With Us"  -> {
                         servicesGridIv.load(R.drawable.ic_shop)
                     }
-                    16 -> {
+                    "Travel and Stay" -> {
                         servicesGridIv.load(R.drawable.ic_travel)
                     }
-                    17 -> {
+                    "Home Needs" -> {
                         servicesGridIv.load(R.drawable.ic_home_need)
                     }
-                    18 -> {
+                    "Business Needs" -> {
                         servicesGridIv.load(R.drawable.ic_business_need)
                     }
-                    19 -> {
+                    "Advertise With Us" -> {
                         servicesGridIv.load(R.drawable.ic_advertise)
                     }
                 }

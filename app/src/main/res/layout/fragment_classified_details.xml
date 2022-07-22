@@ -278,6 +278,7 @@
 
                             </LinearLayout>
 
+
                             <LinearLayout
                                 android:id="@+id/classifiedPostDate"
                                 android:layout_width="match_parent"
@@ -294,58 +295,82 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_2sdp"
+                                    android:layout_gravity="center_vertical"
                                     android:src="@drawable/ic_time_watch"
-                                    app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
-                                    app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
+                                    app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                                    app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+                                    app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/sf_pro_regular"
-                                    android:maxLines="1"
-                                    android:text="Posted on"
-                                    android:textColor="#8d959f"
-                                    android:textSize="12sp" />
+                                    android:layout_marginLeft="@dimen/_4sdp"
+                                    android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/postedDate1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:maxLines="1"
-                                    android:textColor="#333333"
-                                    android:textSize="12sp" />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/sf_pro_regular"
-                                    android:maxLines="1"
-                                    android:text="Posting expires on"
-                                    android:textColor="#8d959f"
-                                    android:textSize="12sp" />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/_4sdp"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/sf_pro_regular"
+                                            android:includeFontPadding="false"
+                                            android:maxLines="1"
+                                            android:text="Posted on"
+                                            android:textColor="#8d959f"
+                                            android:textSize="12sp" />
 
-                                <TextView
-                                    android:id="@+id/postedDate2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:maxLines="1"
-                                    android:textColor="#333333"
-                                    android:textSize="12sp" />
+                                        <TextView
+                                            android:id="@+id/postedDate1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/_4sdp"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/sf_pro_semi_bold"
+                                            android:includeFontPadding="false"
+                                            android:maxLines="2"
+                                            android:textColor="#333333"
+                                            android:textSize="12sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/_4sdp"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/sf_pro_regular"
+                                            android:includeFontPadding="false"
+                                            android:maxLines="1"
+                                            android:text="Posting expires on"
+                                            android:textColor="#8d959f"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/postedDate2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/_4sdp"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/sf_pro_semi_bold"
+                                            android:includeFontPadding="false"
+                                            android:maxLines="2"
+                                            android:textColor="#333333"
+                                            android:textSize="12sp" />
+                                    </LinearLayout>
+                                </LinearLayout>
 
                             </LinearLayout>
+
 
                             <TextView
                                 android:id="@+id/classifiedDescTv"

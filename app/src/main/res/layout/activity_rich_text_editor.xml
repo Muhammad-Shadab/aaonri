@@ -51,23 +51,24 @@
         android:layout_marginEnd="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent" />
   </androidx.constraintlayout.widget.ConstraintLayout>
+
   <ScrollView
-      android:layout_below="@+id/ll1"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@+id/bottombar"
-      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/ll1"
       android:layout_alignParentStart="true"
+      android:layout_alignParentLeft="true"
       android:background="@android:color/white">
 
     <com.chinalwb.are.AREditText
         android:id="@+id/arEditText"
-        android:layout_margin="@dimen/_12sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:gravity="top|left"
         android:hint="Please describe what you are selling"
-        android:layout_marginTop="@dimen/_10sdp"
         android:textColor="@color/black"
         android:textSize="50sp" />
   </ScrollView>
