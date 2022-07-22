@@ -68,10 +68,10 @@
             android:inputType="textEmailAddress"
             android:lines="1"
             android:maxLines="1"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_7sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_7sdp"
             android:textColor="@color/editTextColor"
             android:textColorHint="@color/hintColor"
             android:textSize="16sp"
@@ -99,7 +99,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginPasswordTi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_28sdp"
             android:layout_marginEnd="@dimen/_28sdp"
             android:minHeight="0dp"
@@ -175,6 +175,7 @@
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:minHeight="0dp"
+            android:elevation="@dimen/_6sdp"
             android:paddingTop="@dimen/_4sdp"
             android:paddingBottom="@dimen/_4sdp"
             android:text="@string/login"
@@ -203,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/new_user"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView

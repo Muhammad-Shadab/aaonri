@@ -2,9 +2,11 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -174,6 +177,7 @@ class ServicesCategoryFragment : Fragment() {
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
+                 servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
@@ -183,6 +187,7 @@ class ServicesCategoryFragment : Fragment() {
                 authCommonViewModel.addStepViewLastTick(true)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
+                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
 //                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else {
@@ -190,6 +195,7 @@ class ServicesCategoryFragment : Fragment() {
                 isServicesSelected = false
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
+                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 60f)
                 servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.light_green_btn_shape)
             }
         }
@@ -324,4 +330,27 @@ class ServicesCategoryFragment : Fragment() {
             }
         }
     }
+
+
+    fun View.margin(
+        left: Float? = null,
+        top: Float? = null,
+        right: Float? = null,
+        bottom: Float? = null
+    ) {
+        layoutParams<ViewGroup.MarginLayoutParams> {
+            left?.run { leftMargin = dpToPx(this) }
+            top?.run { topMargin = dpToPx(this) }
+            right?.run { rightMargin = dpToPx(this) }
+            bottom?.run { bottomMargin = dpToPx(this) }
+        }
+    }
+
+    inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(block: T.() -> Unit) {
+        if (layoutParams is T) block(layoutParams as T)
+    }
+
+    fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
+    fun Context.dpToPx(dp: Float): Int =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 }
