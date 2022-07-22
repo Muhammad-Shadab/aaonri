@@ -2,6 +2,7 @@ package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -46,6 +47,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -78,9 +80,10 @@ class EventDetailsScreenFragment : Fragment() {
 
         evenDetailsBinding?.apply {
 
-            if (args.isMyEvent) {
+            /*if (args.isMyEvent) {
                 moreBtn.visibility = View.VISIBLE
-            }
+            }*/
+
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             if (email != null) {
                 postEventViewModel.getisUserVisitingEventInfo(
@@ -93,12 +96,23 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-            if (getScreenHeight() <= 2000) {
-                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.5).toInt()
-            } else if (getScreenHeight() in 2001..2500) {
-                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
-            } else {
-                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
+
+            Toast.makeText(
+                context,
+                "${context?.let { dpFromPx(it, getScreenHeight().toFloat()) }}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+
+            if (screenDp != null) {
+                if (screenDp in 900.0..1000.0) {
+                    bottomSheetOuter.peekHeight = 630
+                } else if (screenDp in 700.0..9000.0) {
+                    bottomSheetOuter.peekHeight = 480
+                } else if (screenDp in 600.0..7000.0) {
+                    bottomSheetOuter.peekHeight = 830
+                }
             }
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
@@ -168,14 +182,29 @@ class EventDetailsScreenFragment : Fragment() {
             calendarBtn.setOnClickListener {
                 try {
                     val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    mSimpleDateFormat.timeZone = TimeZone.getTimeZone(eventTimeZone)
                     val mStartTime = mSimpleDateFormat.parse(startDate)
                     val mEndTime = mSimpleDateFormat.parse(endDate)
+                    val mSimpleDateFormat1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    mSimpleDateFormat1.timeZone =
+                        TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
+                    /*Toast.makeText(
+                        context,
+                        "${startDate}  ${mSimpleDateFormat1.parse(mSimpleDateFormat1.format(mEndTime))} ",
+                        Toast.LENGTH_SHORT
+                    ).show()*/
                     val mIntent = Intent(Intent.ACTION_EDIT)
                     mIntent.type = "vnd.android.cursor.item/event"
-                    mIntent.putExtra("beginTime", mStartTime.time)
+                    mIntent.putExtra(
+                        "beginTime",
+                        mSimpleDateFormat1.parse(mSimpleDateFormat1.format(mStartTime)).time
+                    )
                     mIntent.putExtra("time", true)
                     mIntent.putExtra("rule", "FREQ=YEARLY")
-                    mIntent.putExtra("endTime", mEndTime.time)
+                    mIntent.putExtra(
+                        "endTime",
+                        mSimpleDateFormat1.parse(mSimpleDateFormat1.format(mEndTime)).time
+                    )
                     mIntent.putExtra("title", eventTitleName)
                     startActivity(mIntent)
                 } catch (e: Exception) {
@@ -1070,13 +1099,6 @@ class EventDetailsScreenFragment : Fragment() {
 //        }
 //    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        postEventViewModel.eventDetailsData.value = null
-        postEventViewModel.deleteEventData.value = null
-    }
-
-
     fun getScreenWidth(): Int {
         return Resources.getSystem().getDisplayMetrics().widthPixels
     }
@@ -1085,5 +1107,14 @@ class EventDetailsScreenFragment : Fragment() {
         return Resources.getSystem().getDisplayMetrics().heightPixels
     }
 
+    fun dpFromPx(context: Context, px: Float): Float {
+        return px / context.getResources().getDisplayMetrics().density
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        postEventViewModel.eventDetailsData.value = null
+        postEventViewModel.deleteEventData.value = null
+    }
 
 }
