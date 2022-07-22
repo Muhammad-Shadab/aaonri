@@ -50,6 +50,7 @@ class ClassifiedDetailsFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val args: ClassifiedDetailsFragmentArgs by navArgs()
     var isClassifiedLike = false
+    var isGuestUser = false
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
@@ -120,14 +121,19 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             likeDislikeBtn.setOnClickListener {
-                isClassifiedLike = !isClassifiedLike
-                if (isClassifiedLike) {
-                    likeDislikeBtn.load(R.drawable.heart)
-                    callLikeDislikeApi()
+                if (isGuestUser) {
+
                 } else {
-                    likeDislikeBtn.load(R.drawable.heart_grey)
-                    callLikeDislikeApi()
+                    isClassifiedLike = !isClassifiedLike
+                    if (isClassifiedLike) {
+                        likeDislikeBtn.load(R.drawable.heart)
+                        callLikeDislikeApi()
+                    } else {
+                        likeDislikeBtn.load(R.drawable.heart_grey)
+                        callLikeDislikeApi()
+                    }
                 }
+
             }
 
             moreClassifiedOption.setOnClickListener {
@@ -376,31 +382,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-
-        /*     postClassifiedViewModel.sendFavoriteDataToClassifiedDetails.observe(viewLifecycleOwner) { userAds ->
-
-                 classifiedViewModel.getClassifiedSellerName(userAds.adEmail)
-                 classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-                     .format(
-                         DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(userAds.createdOn.split("T")[0])
-                     )
-                 classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("dd MMM yyyy")
-                     .format(
-                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                             .parse(userAds.adExpireDT.split("T")[0])
-                     )
-
-                 itemId = userAds.id
-
-                 if (userAds.userAdsImages.isEmpty()) {
-                     changeCardViewBorder(9)
-                 } else {
-                     changeCardViewBorder(0)
-                 }
-
-
-             }*/
-
         classifiedDetailsBinding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
@@ -519,16 +500,17 @@ class ClassifiedDetailsFragment : Fragment() {
         }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
+                isGuestUser = true
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
                 classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
-
             } else {
+                isGuestUser = false
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
                 classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
-                classifiedDetailsBinding?.likeDislikeBtn?.visibility = View.VISIBLE
             }
         }
+
         classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {

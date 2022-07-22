@@ -20,6 +20,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -178,6 +179,21 @@ class MainActivity : BaseActivity() {
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
 
+        homeViewModel.popularClassifiedData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
+
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {
                 mainActivityBinding?.bottomNavigation?.selectedItemId =
@@ -264,7 +280,6 @@ class MainActivity : BaseActivity() {
         )
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val email =

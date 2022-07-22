@@ -525,7 +525,7 @@
             android:layout_height="@dimen/_36sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:src="@drawable/heart_grey"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/moreClassifiedOption"

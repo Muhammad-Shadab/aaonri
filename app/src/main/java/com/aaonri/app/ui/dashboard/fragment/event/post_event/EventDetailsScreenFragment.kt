@@ -1,11 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,15 +15,14 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
@@ -41,15 +37,12 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.*
+import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
-import java.net.HttpURLConnection
-import java.net.URL
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -58,6 +51,7 @@ class EventDetailsScreenFragment : Fragment() {
     var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     var eventPremiumLink: String = ""
     var startDate = ""
     var endDate = ""
@@ -162,7 +156,6 @@ class EventDetailsScreenFragment : Fragment() {
 
             calendarBtn.setOnClickListener {
                 try {
-
                     val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     val mStartTime = mSimpleDateFormat.parse(startDate)
                     val mEndTime = mSimpleDateFormat.parse(endDate)

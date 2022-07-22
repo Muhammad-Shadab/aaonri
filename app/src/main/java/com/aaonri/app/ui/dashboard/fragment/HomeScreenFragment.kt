@@ -58,12 +58,6 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-       /* Toast.makeText(
-            context,
-            CategoriesList.getCategoryList().toString(),
-            Toast.LENGTH_SHORT
-        ).show()*/
-
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
