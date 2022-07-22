@@ -309,13 +309,26 @@ class LoginFragment : Fragment() {
             }
         }
 
-        /*registrationViewModel.findByEmailData.observe(this) { response ->
+        registrationViewModel.findByEmailData.observe(this) { response ->
             when (response) {
                 is Resource.Loading -> {
 
                 }
                 is Resource.Success -> {
-                    if (response.data?.userFlags?.)
+                    response.data?.userFlags?.forEach {
+                        if (it.flagStatus) {
+                            val intent = Intent(requireContext(), RegistrationActivity::class.java)
+                            intent.putExtra("newUserRegister", true)
+                            startActivity(intent)
+                        } else {
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(
@@ -328,7 +341,7 @@ class LoginFragment : Fragment() {
                 else -> {
                 }
             }
-        }*/
+        }
 
 
         return introBinding?.root

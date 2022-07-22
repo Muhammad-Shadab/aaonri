@@ -101,18 +101,18 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-          /*  val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+            /*  val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
 
-            if (screenDp != null) {
-                if (screenDp in 900.0..1000.0) {
-                    bottomSheetOuter.peekHeight = 600
-                } else if (screenDp in 700.0..9000.0) {
-                    bottomSheetOuter.peekHeight = 450
-                } else if (screenDp in 600.0..7000.0) {
-                    Toast.makeText(context, "condition ", Toast.LENGTH_SHORT).show()
-                    bottomSheetOuter.peekHeight = 800
-                }
-            }*/
+              if (screenDp != null) {
+                  if (screenDp in 900.0..1000.0) {
+                      bottomSheetOuter.peekHeight = 600
+                  } else if (screenDp in 700.0..9000.0) {
+                      bottomSheetOuter.peekHeight = 450
+                  } else if (screenDp in 600.0..7000.0) {
+                      Toast.makeText(context, "condition ", Toast.LENGTH_SHORT).show()
+                      bottomSheetOuter.peekHeight = 800
+                  }
+              }*/
 
 
             linear.viewTreeObserver.addOnGlobalLayoutListener(object :
