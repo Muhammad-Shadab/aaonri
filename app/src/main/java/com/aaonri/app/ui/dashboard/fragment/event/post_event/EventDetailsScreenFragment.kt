@@ -99,13 +99,15 @@ class EventDetailsScreenFragment : Fragment() {
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
             val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
-
+            Toast.makeText(context, screenDp.toString(), Toast.LENGTH_SHORT).show()
             if (screenDp != null) {
                 if (screenDp in 900.0..1000.0) {
                     bottomSheetOuter.peekHeight = 630
-                } else if (screenDp in 700.0..9000.0) {
+                } else if (screenDp in 800.0..900.0) {
                     bottomSheetOuter.peekHeight = 480
-                } else if (screenDp in 600.0..7000.0) {
+                }else if (screenDp in 700.0..800.0) {
+                    bottomSheetOuter.peekHeight = 650
+                } else if (screenDp in 600.0..700.0) {
                     bottomSheetOuter.peekHeight = 830
                 }
             }
