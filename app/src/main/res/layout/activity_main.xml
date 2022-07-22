@@ -26,8 +26,11 @@
         app:itemTextColor="@color/bottom_navigtaion_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="@dimen/_20sdp"
+        app:elevation="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:outlineAmbientShadowColor="@color/grayColor_1"
         app:menu="@menu/bottom_navigation_menu" />
 
     <androidx.fragment.app.FragmentContainerView

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +61,7 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_BASIC_DETAILS)
 
         postEventBinding?.apply {
-
+            eventDescEt.setMovementMethod(ScrollingMovementMethod())
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
 
             addressDetailsNextBtn.setOnClickListener {

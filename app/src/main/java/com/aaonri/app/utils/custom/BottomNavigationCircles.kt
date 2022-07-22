@@ -207,10 +207,10 @@ class BottomNavigationCircles : BottomNavigationView {
                 )
                 oldCircle.animate()
                     .alpha(0F)
-                    .duration = 500
+                    .duration = 20
 
                 GlobalScope.launch {
-                    delay(500)
+                    delay(20)
                     withContext(Dispatchers.Main) {
                         rootLayout.removeView(oldCircle)
                     }
@@ -239,7 +239,7 @@ class BottomNavigationCircles : BottomNavigationView {
 
             circleView.animate()
                 .alpha(1F)
-                .duration = 500
+                .duration = 20
 
             currentNavigationItemId = itemId
             animatorSet.start()
@@ -275,7 +275,7 @@ class BottomNavigationCircles : BottomNavigationView {
             currentView,
             "translationY",
             from, to
-        ).setDuration(500)
+        ).setDuration(20)
     }
 
     private fun buildTranslateCircleAnimator(oldCircle: View, from: Float, to: Float):
@@ -284,13 +284,13 @@ class BottomNavigationCircles : BottomNavigationView {
             oldCircle,
             "translationY",
             from, to
-        ).setDuration(500)
+        ).setDuration(20)
     }
 
     private fun buildTintAnimator(currentView: AppCompatImageView, from: Int, to: Int):
             ValueAnimator {
         val animateTint = ValueAnimator.ofArgb(from, to)
-        animateTint.duration = 500
+        animateTint.duration = 20
         animateTint.addUpdateListener {
             currentView.drawable.setTint(it.animatedValue as Int)
         }

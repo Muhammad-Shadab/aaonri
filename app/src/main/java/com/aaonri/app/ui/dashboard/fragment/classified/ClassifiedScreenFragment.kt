@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -304,7 +305,7 @@ class ClassifiedScreenFragment : Fragment() {
             for (i in 0..3) {
                 val textView =
                     LayoutInflater.from(requireContext())
-                        .inflate(R.layout.tab_title_text, null) as TextView
+                        .inflate(R.layout.tab_title_text, null) as CardView
                 classifiedScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }

@@ -132,7 +132,7 @@
             android:id="@+id/classifiedDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_bottom_sheet_shape"
+            android:background="@drawable/top_rounded_corner_shape"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
@@ -538,18 +538,30 @@
     </LinearLayout>
 
 
-    <ImageView
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        app:cardCornerRadius="@dimen/_11sdp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        app:cardElevation="6dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        app:cardBackgroundColor="@color/blueBtnColor"
         android:layout_gravity="start"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_32sdp"
-        android:background="@drawable/blue_circle_shape"
-        android:padding="@dimen/_2sdp"
-        android:src="@drawable/navigate_back"
-        android:visibility="gone" />
+        android:visibility="gone"
+        >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back"
+            />
+    </androidx.cardview.widget.CardView>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

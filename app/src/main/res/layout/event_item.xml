@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/gray_btn"
                 android:drawableLeft="@drawable/star_icon"
-                android:drawablePadding="@dimen/_4sdp"
+                android:drawablePadding="@dimen/_2sdp"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/_6sdp"
                 android:paddingVertical="@dimen/_4sdp"

@@ -1,7 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -20,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.window.layout.WindowMetricsCalculator
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -90,8 +93,16 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-
-            bottomSheetOuter.peekHeight = 470
+           if(getScreenHeight() <= 2000)
+               {
+                   bottomSheetOuter.peekHeight = (getScreenHeight() / 2.5).toInt()
+               }
+               else if(getScreenHeight() in 2001..2500){
+               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.6).toInt()
+               }
+            else{
+               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
+            }
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -100,6 +111,10 @@ class EventDetailsScreenFragment : Fragment() {
                         arrowBottomSheet.rotation = 180F
                     } else if (bottomSheetOuter.state == 4) {
                         arrowBottomSheet.rotation = 360F
+                        totalFavVisitingLl.visibility = View.VISIBLE
+                    }
+                    else if(bottomSheetOuter.state == 1){
+                        totalFavVisitingLl.visibility = View.GONE
                     }
                 }
 
@@ -114,9 +129,9 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
 
-            /* shareBtn.setOnClickListener {
-                 //getScreenShot(view)
-                 *//*context?.let { it1 -> shareImage(it1,  ) }*//*
+           /* shareBtn.setOnClickListener {
+                //getScreenShot(view)
+                *//*context?.let { it1 -> shareImage(it1,  ) }*//*
             }*/
 
             moreBtn.setOnClickListener {
@@ -152,8 +167,8 @@ class EventDetailsScreenFragment : Fragment() {
                         visiting = isVisiting
                     )
                 )
-            }
 
+            }
             calendarBtn.setOnClickListener {
                 try {
                     val mSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -166,7 +181,7 @@ class EventDetailsScreenFragment : Fragment() {
                     mIntent.putExtra("rule", "FREQ=YEARLY")
                     mIntent.putExtra("endTime", mEndTime.time)
                     mIntent.putExtra("title", eventTitleName)
-                    //startActivity(mIntent)
+                    startActivity(mIntent)
                 } catch (e: Exception) {
 
                 }
@@ -196,7 +211,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
 
-        }
+            }
 
         postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -431,17 +446,10 @@ class EventDetailsScreenFragment : Fragment() {
                                 .into(it1)
                         }
                     }
+                    changeCardViewBorder(1)
+
                 }
-                if (userAdsImage.imagePath.contains(".second")) {
-                    evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
-                    context?.let {
-                        evenDetailsBinding?.image2?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .into(it1)
-                        }
-                    }
-                }
+
 
                 if (userAdsImage.imagePath.contains(".second")) {
                     evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
@@ -494,7 +502,6 @@ class EventDetailsScreenFragment : Fragment() {
                             }
                         }
                         evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
-                        evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
                         /*  context?.let {
                           evenDetailsBinding?.addImage?.let { it1 ->
@@ -511,6 +518,7 @@ class EventDetailsScreenFragment : Fragment() {
                                     .into(it1)
                             }
                         }
+                        changeCardViewBorder(0)
                     }
                     1 -> {
                         evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
@@ -736,6 +744,8 @@ class EventDetailsScreenFragment : Fragment() {
         }
         evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() + " going"
         evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
+        evenDetailsBinding?.totalVisiting?.text = event.totalVisiting.toString()
+        evenDetailsBinding?.totalFavourite?.text = event.totalFavourite.toString()
 
         evenDetailsBinding?.premiumLink?.setOnClickListener {
             if (URLUtil.isValidUrl(eventPremiumLink)) {
@@ -1037,6 +1047,8 @@ class EventDetailsScreenFragment : Fragment() {
 //                    file
 //                )
 //            } else {
+
+
 //                Uri.fromFile(file)
 //            }
 //            intent.putExtra(Intent.EXTRA_TEXT, message)
@@ -1067,5 +1079,15 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
     }
+
+
+    fun getScreenWidth(): Int {
+        return Resources.getSystem().getDisplayMetrics().widthPixels
+    }
+
+    fun getScreenHeight(): Int {
+        return Resources.getSystem().getDisplayMetrics().heightPixels
+    }
+
 
 }
