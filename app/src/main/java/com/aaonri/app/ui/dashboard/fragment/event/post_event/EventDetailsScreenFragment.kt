@@ -98,7 +98,7 @@ class EventDetailsScreenFragment : Fragment() {
                    bottomSheetOuter.peekHeight = (getScreenHeight() / 2.5).toInt()
                }
                else if(getScreenHeight() in 2001..2500){
-               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.6).toInt()
+               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
                }
             else{
                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
