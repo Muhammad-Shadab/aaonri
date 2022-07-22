@@ -16,6 +16,7 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -100,7 +101,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
-            val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+          /*  val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
 
             if (screenDp != null) {
                 if (screenDp in 900.0..1000.0) {
@@ -111,8 +112,17 @@ class ClassifiedDetailsFragment : Fragment() {
                     Toast.makeText(context, "condition ", Toast.LENGTH_SHORT).show()
                     bottomSheetOuter.peekHeight = 800
                 }
-            }
+            }*/
 
+
+            linear.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    linear.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val hiddenView: View = linear.getChildAt(0)
+                    bottomSheetOuter.peekHeight = hiddenView.bottom
+                }
+            })
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {

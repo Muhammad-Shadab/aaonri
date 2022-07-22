@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -14,6 +13,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.window.layout.WindowMetricsCalculator
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -98,7 +97,15 @@ class EventDetailsScreenFragment : Fragment() {
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
-            val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+            linear.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    linear.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val hiddenView: View = linear.getChildAt(1)
+                    bottomSheetOuter.peekHeight = hiddenView.top
+                }
+            })
+
+           /* val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
             if (screenDp != null) {
                 if (screenDp in 900.0..1000.0) {
                     bottomSheetOuter.peekHeight = 630
@@ -109,7 +116,7 @@ class EventDetailsScreenFragment : Fragment() {
                 } else if (screenDp in 600.0..700.0) {
                     bottomSheetOuter.peekHeight = 830
                 }
-            }
+            }*/
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
