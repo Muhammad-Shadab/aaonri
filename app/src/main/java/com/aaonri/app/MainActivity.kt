@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +23,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -45,6 +47,7 @@ class MainActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.dashboardNavHost) as NavHostFragment
         val navController = navHostFragment.navController
@@ -56,6 +59,7 @@ class MainActivity : BaseActivity() {
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         mainActivityBinding?.apply {
+
 
             bottomNavigation.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, destination, _ ->

@@ -93,15 +93,12 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
-           if(getScreenHeight() <= 2000)
-               {
-                   bottomSheetOuter.peekHeight = (getScreenHeight() / 2.5).toInt()
-               }
-               else if(getScreenHeight() in 2001..2500){
-               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
-               }
-            else{
-               bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
+            if (getScreenHeight() <= 2000) {
+                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.5).toInt()
+            } else if (getScreenHeight() in 2001..2500) {
+                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
+            } else {
+                bottomSheetOuter.peekHeight = (getScreenHeight() / 2.8).toInt()
             }
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
@@ -112,8 +109,7 @@ class EventDetailsScreenFragment : Fragment() {
                     } else if (bottomSheetOuter.state == 4) {
                         arrowBottomSheet.rotation = 360F
                         totalFavVisitingLl.visibility = View.VISIBLE
-                    }
-                    else if(bottomSheetOuter.state == 1){
+                    } else if (bottomSheetOuter.state == 1) {
                         totalFavVisitingLl.visibility = View.GONE
                     }
                 }
@@ -129,9 +125,9 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
 
-           /* shareBtn.setOnClickListener {
-                //getScreenShot(view)
-                *//*context?.let { it1 -> shareImage(it1,  ) }*//*
+            /* shareBtn.setOnClickListener {
+                 //getScreenShot(view)
+                 *//*context?.let { it1 -> shareImage(it1,  ) }*//*
             }*/
 
             moreBtn.setOnClickListener {
@@ -211,7 +207,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
 
-            }
+        }
 
         postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
