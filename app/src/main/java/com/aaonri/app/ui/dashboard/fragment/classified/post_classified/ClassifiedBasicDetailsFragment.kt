@@ -65,6 +65,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             priceClassifiedEt.stickPrefix("$")
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 
+            classifiedDescEt.textSize = 10F
+
             classifiedDetailsNextBtn.setOnClickListener {
 
                 var price = ""
@@ -342,19 +344,5 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         })
     }
 
-
-    override fun onResume() {
-        /* if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] },Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)?.trim()
-                 ?.isNotEmpty() == true
-         ) {
-             classifiedDetailsBinding?.classifiedDescEt?.text =
-                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] },Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
-             description = context?.let { PreferenceManager<String>(it)["description", ""] }
-         }
-         else{
-             classifiedDetailsBinding?.classifiedDescEt?.text = ""
-         }*/
-        super.onResume()
-    }
 }
 
