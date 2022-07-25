@@ -273,22 +273,18 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (authCommonViewModel.isNewUserRegisterUsingGmail) {
-                        activity?.finish()
-                    } else {
-                        findNavController().navigateUp()
-                        stateName = ""
-                        cityName = ""
-                        addressDetailsBinding?.cityNameAddressDetails?.setText("")
-                        authCommonViewModel.addLocationDetails(
-                            zipCode = "",
-                            state = "",
-                            city = ""
-                        )
-                        authCommonViewModel.setIsCountrySelected(false)
-                        authCommonViewModel.zipCodeData.value = null
-                        authCommonViewModel.countryFlagBmp(null)
-                    }
+                    findNavController().navigateUp()
+                    stateName = ""
+                    cityName = ""
+                    addressDetailsBinding?.cityNameAddressDetails?.setText("")
+                    authCommonViewModel.addLocationDetails(
+                        zipCode = "",
+                        state = "",
+                        city = ""
+                    )
+                    authCommonViewModel.setIsCountrySelected(false)
+                    authCommonViewModel.zipCodeData.value = null
+                    authCommonViewModel.countryFlagBmp(null)
                 }
             })
 

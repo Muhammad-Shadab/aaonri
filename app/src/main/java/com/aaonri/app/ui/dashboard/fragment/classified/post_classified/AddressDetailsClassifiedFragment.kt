@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -62,9 +63,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         val ss = SpannableString(text)
         val ss1 = SpannableString(resources.getString(R.string.if_you_want))
-        val ss3 =
-            SpannableString("By Posting an ad on aaonri.com, you agree to our\n Terms of use and")
-        val ss4 = SpannableString("Privacy Policy")
+
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -110,49 +109,54 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-        val clickableSpan3: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                activity?.startActivity(Intent("https://www.aaonri.com/"))
-            }
-
-            @RequiresApi(Build.VERSION_CODES.Q)
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = true
-                ds.underlineColor =
-                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
-                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
-            }
-        }
-        val clickableSpan4: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                activity?.startActivity(Intent("https://www.aaonri.com/"))
-            }
-
-            @RequiresApi(Build.VERSION_CODES.Q)
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = true
-                ds.underlineColor =
-                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
-                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
-            }
-        }
-
 
         ss.setSpan(clickableSpan1, 174, 201, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss1.setSpan(clickableSpan2, 84, 105, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss3.setSpan(clickableSpan3, 49, 61, 0)
-        ss4.setSpan(clickableSpan4, 0, 10, 0)
+
+        val SpanString = SpannableString(
+            resources.getString(R.string.by_posting_an_ad)
+        )
+
+        val teremsAndCondition: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+//                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
+            }
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val privacy: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+//                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
+
+            }
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        SpanString.setSpan(teremsAndCondition, 50, 62, 0)
+        SpanString.setSpan(privacy, 67, 85, 0)
 
         addressDetailsBinding?.apply {
 
             textDesc1.text = ss
             textDec2.text = ss1
-            textDec3.text = "$ss3 $ss4"
+            textDec3.movementMethod = LinkMovementMethod.getInstance()
+            textDec3.setText(SpanString, TextView.BufferType.SPANNABLE)
+            textDec3.isSelected = true
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
             textDec2.movementMethod = LinkMovementMethod.getInstance()
-            textDec3.movementMethod = LinkMovementMethod.getInstance()
+
 
             if (city?.isNotEmpty() == true) {
                 cityNameAddressDetails.setText(city)

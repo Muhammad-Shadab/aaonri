@@ -289,8 +289,6 @@ class PostEventBasicDetailsFragment : Fragment() {
                 } else {
                     //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
                 }
-                postEventBinding?.eventDescEt?.text =
-                    Html.fromHtml(eventDetails?.description)
 
                 eventDetails?.images?.forEach {
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${it.imagePath}".toUri())
@@ -300,6 +298,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
 
                 description = eventDetails?.description
+                postEventBinding?.eventDescEt?.setText(description)
+
+                //Toast.makeText(context, "$description", Toast.LENGTH_SHORT).show()
 
                 /*eventDetails?.description?.let {
                     context?.let { it1 -> PreferenceManager<String>(it1) }

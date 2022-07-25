@@ -12,6 +12,7 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -58,9 +59,8 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
 
         val text = resources.getString(R.string.if_you_want_event)
-        val text1 = resources.getString(R.string.by_posting_an_ad)
+
         val ss = SpannableString(text)
-        val ss1 = SpannableString(text1)
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -86,15 +86,48 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
 
         ss.setSpan(clickableSpan1, 81, 98, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss1.setSpan(clickableSpan1, 49, 63, 0)
-        ss1.setSpan(clickableSpan1, 68, 80, 0)
+        val SpanString = SpannableString(
+            resources.getString(R.string.by_posting_an_ad)
+        )
+
+        val teremsAndCondition: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+//                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
+            }
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        val privacy: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+//                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
+
+            }
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+        SpanString.setSpan(teremsAndCondition, 50, 62, 0)
+        SpanString.setSpan(privacy, 67, 85, 0)
 
 
         postEventAddressBinding?.apply {
 
             textDesc1.text = ss
-            //privacyTextTv.text = ss1
             privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
+            privacyTextTv.setText(SpanString, TextView.BufferType.SPANNABLE)
+            privacyTextTv.isSelected = true
+
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
             classifiedDetailsNextBtn.setOnClickListener {

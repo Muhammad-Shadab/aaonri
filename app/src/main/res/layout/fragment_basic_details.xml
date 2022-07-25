@@ -146,6 +146,7 @@
                 android:visibility="gone" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passTi"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="@dimen/_28sdp"

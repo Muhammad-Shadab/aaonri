@@ -74,6 +74,7 @@ class BasicDetailsFragment : Fragment() {
                 passwordBasicDetails.setText("********")
                 emailAddressBasicDetails.isEnabled = false
                 passwordBasicDetails.isEnabled = false
+                passTi.isEnabled = false
             }
 
             firstNameBasicDetails.filters = arrayOf(filter)
