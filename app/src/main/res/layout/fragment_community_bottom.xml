@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
@@ -101,17 +101,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_28sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
             android:background="@drawable/green_btn_shape"
-            android:elevation="@dimen/_10sdp"
+            android:elevation="@dimen/_6sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:minHeight="0dp"
+            android:gravity="center"
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/submit"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

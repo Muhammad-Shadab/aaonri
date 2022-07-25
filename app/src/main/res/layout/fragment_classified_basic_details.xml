@@ -465,6 +465,7 @@
                </LinearLayout>-->
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollViewDescEt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginHorizontal="@dimen/_28sdp"
@@ -479,7 +480,7 @@
                     android:maxLength="2000"
                     android:fontFamily="@font/sf_pro_regular"
                     android:gravity="left"
-                    android:hint="please describe what you are selling*"
+                    android:hint="please describe what you are selling?*"
                     android:inputType="textMultiLine|textCapSentences"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:textSize="16sp"

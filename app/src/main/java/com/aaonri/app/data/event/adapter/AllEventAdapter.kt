@@ -10,6 +10,8 @@ import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.RecentEventResponseItem
 import com.aaonri.app.databinding.EventItemBinding
 import com.bumptech.glide.Glide
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -85,7 +87,10 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
 
                 }
                 if (data[position].fee > 0) {
-                    eventFee.text = "$" + data[position].fee.toString()
+                    val df = DecimalFormat("#,###.00")
+                    df.roundingMode = RoundingMode.DOWN
+                    val roundoff = df.format(data[position].fee)
+                    eventFee.text = "$$roundoff"
                 } else {
                     eventFee.text = "FREE"
                 }
@@ -198,7 +203,10 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
 
                 }
                 if (data[position].fee > 0) {
-                    eventFee.text = "$" + data[position].fee.toString()
+                    val df = DecimalFormat("#,###.00")
+                    df.roundingMode = RoundingMode.DOWN
+                    val roundoff = df.format(data[position].fee)
+                    eventFee.text = "$$roundoff"
                 } else {
                     eventFee.text = "FREE"
                 }

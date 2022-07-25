@@ -14,12 +14,12 @@
     <item
         android:id="@+id/shopScreenFragment"
         android:icon="@drawable/ic_shop"
-        android:title="Shop" />
+        android:title="Shop With Us" />
 
     <item
         android:id="@+id/advertiseScreenFragment"
         android:icon="@drawable/ic_advertise"
-        android:title="Advertise" />
+        android:title="Advertise With Us" />
 
     <item
         android:id="@+id/moreScreenFragment"

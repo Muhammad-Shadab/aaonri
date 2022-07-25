@@ -753,7 +753,7 @@ class EventDetailsScreenFragment : Fragment() {
         if (event.fee > 0) {
             val random = event.fee
 
-            val df = DecimalFormat("###.00")
+            val df = DecimalFormat("#,###.00")
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
 
