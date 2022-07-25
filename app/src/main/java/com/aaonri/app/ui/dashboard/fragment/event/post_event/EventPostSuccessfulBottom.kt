@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -75,6 +76,7 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
             }
             textView6.text = ss
             textView6.movementMethod = LinkMovementMethod.getInstance()
+
             bottomLoginBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callEventApi", true)

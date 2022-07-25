@@ -41,9 +41,12 @@ class MyEventFragment : Fragment() {
 
         myEventBinding?.apply {
 
-            myEventBtn.setOnClickListener {
+            postEventBtn.setOnClickListener {
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
+
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 2)
             }
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)

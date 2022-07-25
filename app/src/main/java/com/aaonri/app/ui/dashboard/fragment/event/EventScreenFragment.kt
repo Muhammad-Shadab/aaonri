@@ -54,7 +54,6 @@ class EventScreenFragment : Fragment() {
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
-
             /*filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
             }*/
@@ -85,7 +84,7 @@ class EventScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-                        selectedFilters.visibility = View.GONE
+                        selectedFilters.visibility = View.INVISIBLE
                     } else {
                         selectedFilters.visibility = View.VISIBLE
                     }

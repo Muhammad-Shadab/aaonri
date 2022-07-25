@@ -320,6 +320,7 @@ class MainActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
+
             if (callClassifiedApi == true) {
 
                 classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
