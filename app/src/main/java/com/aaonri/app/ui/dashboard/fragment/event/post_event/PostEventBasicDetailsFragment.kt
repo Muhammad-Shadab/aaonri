@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -40,8 +42,22 @@ import java.util.*
 class PostEventBasicDetailsFragment : Fragment() {
     var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
+    var description: String? = ""
 
     var isDateValid = false
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    postEventBinding?.eventDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    postEventBinding?.eventDescEt?.text = ""
+                }
+            }
+        }
 
     var selectedDate = ""
     var startTime = ""
@@ -61,6 +77,9 @@ class PostEventBasicDetailsFragment : Fragment() {
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_BASIC_DETAILS)
 
         postEventBinding?.apply {
+
+            eventDescEt.textSize = 16F
+
             eventDescEt.setMovementMethod(ScrollingMovementMethod())
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
 
@@ -221,7 +240,8 @@ class PostEventBasicDetailsFragment : Fragment() {
 
             eventDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
-                startActivity(intent)
+                intent.putExtra("data", description)
+                resultLauncher.launch(intent)
             }
         }
 
@@ -500,7 +520,7 @@ class PostEventBasicDetailsFragment : Fragment() {
         ) {
             postEventBinding?.eventDescEt?.text =
                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-        }else{
+        } else {
             postEventBinding?.eventDescEt?.text = ""
         }
     }

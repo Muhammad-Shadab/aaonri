@@ -480,7 +480,7 @@
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingTop="@dimen/_4sdp"
                 android:scrollbars="vertical"
-                android:textSize="2sp"
+                android:textSize="16sp"
                 tools:ignore="RtlHardcoded" />
 
 

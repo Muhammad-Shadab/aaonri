@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,11 +62,11 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
         classifiedDetailsBinding?.apply {
-
+            classifiedDescEt.setMovementMethod(ScrollingMovementMethod())
             priceClassifiedEt.stickPrefix("$")
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 
-            classifiedDescEt.textSize = 10F
+            classifiedDescEt.textSize = 16F
 
             classifiedDetailsNextBtn.setOnClickListener {
 
@@ -192,8 +193,12 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         uploadedImagesIdList
                     )
                 }
-                context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set("description", addDetails?.userAds?.adDescription.toString())
+
+                classifiedDetailsBinding?.classifiedDescEt?.text =
+                    Html.fromHtml(addDetails?.userAds?.adDescription)
+
+                /*context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set("description", addDetails?.userAds?.adDescription.toString())*/
             }
         }
 
