@@ -89,11 +89,15 @@ class EventScreenFragment : Fragment() {
                     } else {
                         selectedFilters.visibility = View.VISIBLE
                     }
-                    /*if (tab?.position == 1) {
-                        floatingActionBtnEvents.visibility = View.GONE
+                    if (tab?.position == 1) {
+                        eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
+                            if (it) {
+                                floatingActionBtnEvents.visibility = View.GONE
+                            }
+                        }
                     } else {
                         floatingActionBtnEvents.visibility = View.VISIBLE
-                    }*/
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -147,6 +151,7 @@ class EventScreenFragment : Fragment() {
 
         return eventScreenBinding?.root
     }
+
     override fun onStart() {
         super.onStart()
         context?.let { PreferenceManager<String>(it) }

@@ -38,8 +38,15 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
 
         updateDeleteBinding?.apply {
 
-            updateClassified.setOnClickListener {
+            if (args.isClassifiedUpdate) {
+                editOption.text = "I want to edit my Classified"
+                deleteOption.text = "I want to remove this Classified"
+            } else {
+                editOption.text = "I want to edit my Event"
+                deleteOption.text = "I want to remove this Event"
+            }
 
+            updateClassified.setOnClickListener {
                 if (args.isClassifiedUpdate) {
                     val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                     intent.putExtra("updateClassified", true)

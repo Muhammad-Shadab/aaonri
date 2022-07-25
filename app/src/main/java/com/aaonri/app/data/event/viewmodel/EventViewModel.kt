@@ -27,8 +27,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
         private set
 
-    val hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
-
+    var hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         myEvent.postValue(Resource.Loading())
@@ -67,7 +66,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         return Resource.Error(response.message())
     }
 
-    fun setHideFloatingButtonInSecondTab(value: Boolean) {
+    fun setHideFloatingBtn(value: Boolean) {
         hideFloatingButtonInSecondTab.postValue(value)
     }
 
@@ -78,8 +77,6 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     fun setCallEventApiAfterDelete(value: Boolean) {
         callEventApiAfterDelete.postValue(value)
     }
-
-
 
 
 }

@@ -59,12 +59,12 @@ class MyEventFragment : Fragment() {
                 is Resource.Success -> {
                     myEventBinding?.progressBar?.visibility = View.GONE
                     if (response.data?.eventList?.isEmpty() == true) {
-                        eventViewModel.setHideFloatingButtonInSecondTab(true)
+                        eventViewModel.setHideFloatingBtn(true)
                         myEventBinding?.nestedScrollView?.visibility = View.VISIBLE
                         myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
                     } else {
                         myEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
-                        eventViewModel.setHideFloatingButtonInSecondTab(false)
+                        eventViewModel.setHideFloatingBtn(false)
                         myEventBinding?.nestedScrollView?.visibility = View.GONE
                         allEventAdapter?.setData(response.data?.eventList)
                     }

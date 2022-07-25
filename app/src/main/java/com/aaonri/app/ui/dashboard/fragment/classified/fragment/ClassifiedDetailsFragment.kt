@@ -206,7 +206,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         setClassifiedDetails(it.userAds)
                         ClassifiedStaticData.updateAddDetails(it)
                     }
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
+
                 }
                 is Resource.Error -> {
                     classifiedDetailsBinding?.progressBar?.visibility = View.GONE

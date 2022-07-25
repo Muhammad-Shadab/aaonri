@@ -82,7 +82,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:includeFontPadding="false"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"

@@ -45,7 +45,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="reset_my_password">Reset My Password</string>
     <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
-    <string name="verification">Verification email sent to your Email Id. \n please comeback to the app and click the \'Continue\' button below once your account verification process is completed</string>
+    <string name="verification">Verification email sent to your Email ID. \n please come back to the app and click the \'Continue\' button below once your account verification process is completed</string>
     <string name="need_to_reset_your_password">Need to reset your password? No problem! Just click the button below and you’ll be on your way. If you did not make this request, please ignore this email.</string>
     <string name="_2022_aaonri_all_rights_reserved">© 2022 aaonri \nAll Rights Reserved.</string>
     <string name="create_new_password">Create New Password</string>
