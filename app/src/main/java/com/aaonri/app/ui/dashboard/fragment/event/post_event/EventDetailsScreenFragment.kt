@@ -256,8 +256,9 @@ class EventDetailsScreenFragment : Fragment() {
                     )
                     val uri = Uri.parse(path)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.setType("text/plain")
-                    val shareSub = "${BuildConfig.BASE_URL}/#/events/details/${args.eventId}"
+                    intent.type = "text/plain"
+                    val shareSub =
+                        "${BuildConfig.BASE_URL}/events/details/${args.eventId}".replace("8444", "").replace(":","")
                     intent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     startActivity(intent)
                 } catch (e: Exception) {
