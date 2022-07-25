@@ -464,29 +464,20 @@
                    android:layout_height="@dimen/_130sdp" />
                </LinearLayout>-->
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScrollViewDescEt"
+            <com.chinalwb.are.render.AreTextView
+                android:id="@+id/classifiedDescEt"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_marginHorizontal="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:paddingVertical="@dimen/_4sdp"
-                android:background="@drawable/multiline_textfield_shape">
-                <TextView
-                    android:id="@+id/classifiedDescEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:maxLength="2000"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:gravity="left"
-                    android:hint="please describe what you are selling?*"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:textSize="16sp"
-                    android:scrollbars = "vertical"
-                    tools:ignore="RtlHardcoded" />
-            </androidx.core.widget.NestedScrollView>
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_regular"
+                android:gravity="left"
+                android:hint="please describe what you are selling*"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="2000"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:scrollbars="vertical"
+                android:textSize="16sp"
+                tools:ignore="RtlHardcoded" />
 
 
             <TextView

@@ -60,10 +60,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))

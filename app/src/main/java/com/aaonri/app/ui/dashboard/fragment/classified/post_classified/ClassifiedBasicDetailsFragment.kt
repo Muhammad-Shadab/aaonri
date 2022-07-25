@@ -1,15 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,10 +20,10 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
-import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +35,19 @@ class ClassifiedBasicDetailsFragment : Fragment() {
     var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var description: String? = ""
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    classifiedDetailsBinding?.classifiedDescEt?.text = ""
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,6 +102,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                             } else {
                                 showAlert("Please enter valid classified price")
                             }
+
                         } else {
                             showAlert("Please enter valid classified title")
                         }
@@ -104,7 +120,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
             classifiedDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
-                startActivity(intent)
+                intent.putExtra("data", description)
+                resultLauncher.launch(intent)
             }
 
             selectCategoryClassifiedSpinner.setOnClickListener {
@@ -119,9 +136,6 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         ClassifiedBasicDetailsFragmentDirections.actionClassifiedBasicDetailsFragmentToSelectClassifiedSubCategoryBottom()
                     findNavController().navigate(action)
                 }
-            }
-            nestedScrollViewDescEt.setOnClickListener {
-
             }
         }
 
@@ -155,7 +169,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     addDetails?.userAds?.isNew == true
 
                 classifiedDetailsBinding?.classifiedDescEt?.text =
-                    Html.fromHtml(addDetails?.userAds?.adDescription.toString())
+                    Html.fromHtml(addDetails?.userAds?.adDescription.toString()) as Editable?
                 addDetails?.userAds?.userAdsImages?.forEach {
                     uploadedImagesIdList.add(it.imageId)
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
@@ -328,17 +342,19 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         })
     }
 
+
     override fun onResume() {
+        /* if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] },Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)?.trim()
+                 ?.isNotEmpty() == true
+         ) {
+             classifiedDetailsBinding?.classifiedDescEt?.text =
+                 Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] },Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
+             description = context?.let { PreferenceManager<String>(it)["description", ""] }
+         }
+         else{
+             classifiedDetailsBinding?.classifiedDescEt?.text = ""
+         }*/
         super.onResume()
-        if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
-                ?.isNotEmpty() == true
-        ) {
-            classifiedDetailsBinding?.classifiedDescEt?.text =
-                Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-            description = context?.let { PreferenceManager<String>(it)["description", ""] }
-        } else {
-            classifiedDetailsBinding?.classifiedDescEt?.text = ""
-        }
     }
 }
 
