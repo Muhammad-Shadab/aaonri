@@ -118,7 +118,7 @@ class PostEventAddressDetailsFragment : Fragment() {
             }
         }
         SpanString.setSpan(teremsAndCondition, 50, 62, 0)
-        SpanString.setSpan(privacy, 67, 85, 0)
+        SpanString.setSpan(privacy, 71, 85, 0)
 
 
         postEventAddressBinding?.apply {

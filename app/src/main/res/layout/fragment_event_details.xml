@@ -287,9 +287,10 @@
 
                                 <TextView
                                     android:id="@+id/locationEventTv"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="@dimen/_200sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_10sdp"
+                                    android:maxLines="2"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:textColor="#333333"
                                     android:textSize="12sp" />
@@ -300,7 +301,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_4sdp"
                                     android:fontFamily="@font/sf_pro_regular"
-                                    android:maxLines="1"
+                                    android:maxLines="2"
                                     android:textColor="#8d959f"
                                     android:textSize="12sp" />
 
@@ -443,6 +444,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_4sdp"
+                                    android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:maxLines="1"
                                     android:textColor="#154591"

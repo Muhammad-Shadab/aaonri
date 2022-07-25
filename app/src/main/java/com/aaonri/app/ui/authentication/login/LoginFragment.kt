@@ -493,18 +493,12 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-
                 account.email?.let {
                     EmailVerifyRequest(
                         it
                     )
                 }?.let { registrationViewModel.isEmailAlreadyRegister(it) }
 
-                /*Toast.makeText(
-                    context,
-                    "gmail ${account.email.toString()}\nname ${account.displayName.toString()}\n ",
-                    Toast.LENGTH_SHORT
-                ).show()*/
             }
         }
     }

@@ -319,7 +319,7 @@
                     android:background="@drawable/multiline_textfield_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="left"
-                    android:hint="Please describe what you are selling*"
+                    android:hint="Please describe about the event*"
                     android:includeFontPadding="false"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLength="2000"
@@ -329,31 +329,31 @@
                     android:textSize="2sp"
                     tools:ignore="RtlHardcoded" />
 
-               <!-- <androidx.core.widget.NestedScrollView
-                    android:id="@+id/openRichTextEditor"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp"
-                    android:scrollbars="vertical"
-                    android:layout_marginHorizontal="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/multiline_textfield_shape"
-                    android:paddingVertical="@dimen/_4sdp">
+                <!-- <androidx.core.widget.NestedScrollView
+                     android:id="@+id/openRichTextEditor"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/_100sdp"
+                     android:scrollbars="vertical"
+                     android:layout_marginHorizontal="@dimen/_28sdp"
+                     android:layout_marginTop="@dimen/_20sdp"
+                     android:background="@drawable/multiline_textfield_shape"
+                     android:paddingVertical="@dimen/_4sdp">
 
-                    <TextView
-                        android:id="@+id/eventDescEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ems="10"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:gravity="left"
-                        android:hint="@string/please_describe_about_the_event"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:maxLength="2000"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:scrollbars="vertical"
-                        android:textSize="16sp"
-                        tools:ignore="RtlHardcoded" />
-                </androidx.core.widget.NestedScrollView>-->
+                     <TextView
+                         android:id="@+id/eventDescEt"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:ems="10"
+                         android:fontFamily="@font/sf_pro_regular"
+                         android:gravity="left"
+                         android:hint="@string/please_describe_about_the_event"
+                         android:inputType="textMultiLine|textCapSentences"
+                         android:maxLength="2000"
+                         android:paddingHorizontal="@dimen/_12sdp"
+                         android:scrollbars="vertical"
+                         android:textSize="16sp"
+                         tools:ignore="RtlHardcoded" />
+                 </androidx.core.widget.NestedScrollView>-->
 
                 <TextView
                     android:id="@+id/descLength"

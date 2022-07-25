@@ -300,8 +300,6 @@ class PostEventBasicDetailsFragment : Fragment() {
                 description = eventDetails?.description
                 postEventBinding?.eventDescEt?.setText(description)
 
-                //Toast.makeText(context, "$description", Toast.LENGTH_SHORT).show()
-
                 /*eventDetails?.description?.let {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set("description", it)
