@@ -1,14 +1,18 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
 import android.R
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import com.aaonri.app.databinding.ActivityRichTextEditorBinding
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.SystemServiceUtil
@@ -23,7 +27,8 @@ class RichTextEditor : AppCompatActivity() {
     var binding: ActivityRichTextEditorBinding? = null
     private var mToolbar: IARE_Toolbar? = null
 
-    private var mEditText: AREditText? = null
+    var data:String? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityRichTextEditorBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -37,14 +42,15 @@ class RichTextEditor : AppCompatActivity() {
             arEditText.requestFocus()
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(arEditText, InputMethodManager.SHOW_IMPLICIT)
+            data = intent.getStringExtra("data")
+            arEditText.fromHtml(data)
 
-            arEditText.setText(Html.fromHtml(PreferenceManager<String>(applicationContext)["description", ""]))
-
-            Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })?.trim()?.length?.let {
+         /*   Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })
+                ?.trim()?.length?.let {
                 arEditText.setSelection(
                     it
                 )
-            }
+            }*/
 
             navigateBack.setOnClickListener {
                 finish()
@@ -54,9 +60,12 @@ class RichTextEditor : AppCompatActivity() {
             toolbar()
 
             doneTextTv.setOnClickListener {
-
-                    PreferenceManager<String>(applicationContext)["description"] =
-                        arEditText.html.toString()
+                PreferenceManager<String>(applicationContext)["description"] = arEditText.html.toString()
+                val data = Intent()
+                val html = arEditText.html.toString()
+                Log.e("html", html)
+                data.putExtra("result", html)
+                setResult(RESULT_OK, data)
                 SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
                 finish()
             }
