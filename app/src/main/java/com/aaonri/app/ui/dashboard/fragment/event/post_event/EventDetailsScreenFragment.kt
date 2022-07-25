@@ -139,6 +139,26 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
 
+            linear.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    linear.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val hiddenView: View = linear.getChildAt(1)
+                    bottomSheetOuter.peekHeight = hiddenView.top
+                }
+            })
+
+            /* val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+             if (screenDp != null) {
+                 if (screenDp in 900.0..1000.0) {
+                     bottomSheetOuter.peekHeight = 630
+                 } else if (screenDp in 800.0..900.0) {
+                     bottomSheetOuter.peekHeight = 480
+                 }else if (screenDp in 700.0..800.0) {
+                     bottomSheetOuter.peekHeight = 650
+                 } else if (screenDp in 600.0..700.0) {
+                     bottomSheetOuter.peekHeight = 830
+                 }
+             }*/
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -750,7 +770,7 @@ class EventDetailsScreenFragment : Fragment() {
         if (event.fee > 0) {
             val random = event.fee
 
-            val df = DecimalFormat("###.00")
+            val df = DecimalFormat("#,###.00")
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
 

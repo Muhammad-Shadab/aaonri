@@ -470,7 +470,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
         val random = data.askingPrice
 
-        val df = DecimalFormat("###.00")
+        val df = DecimalFormat("#,###.00")
         df.roundingMode = RoundingMode.DOWN
         val roundoff = df.format(random)
         classifiedDetailsBinding?.constraint1?.visibility = View.VISIBLE

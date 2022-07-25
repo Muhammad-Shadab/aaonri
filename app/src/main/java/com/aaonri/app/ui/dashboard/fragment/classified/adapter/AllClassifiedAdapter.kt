@@ -30,7 +30,7 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
         holder.binding.apply {
             val random = data[position].askingPrice
 
-            val df = DecimalFormat("###.00")
+            val df = DecimalFormat("#,###.00")
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
 
@@ -104,7 +104,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
         holder.binding.apply {
             val random = data[position].askingPrice
 
-            val df = DecimalFormat("###.00")
+            val df = DecimalFormat("#,###.00")
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
             like.visibility = View.VISIBLE

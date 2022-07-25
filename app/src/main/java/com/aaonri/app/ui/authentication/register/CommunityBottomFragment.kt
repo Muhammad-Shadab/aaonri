@@ -50,11 +50,11 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${communitiesList.size + selectedCommunitiesSize} communities"
+                    "You have selected ${communitiesList.size + selectedCommunitiesSize} ${if((communitiesList.size + selectedCommunitiesSize)<=1)"community" else "communities" }"
             } else {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected 0 communitie"
+                    "You have selected 0 community"
             }
         }
 
@@ -62,11 +62,11 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             selectedCommunitiesSize = selectedCommunitiesList.size
             if (selectedCommunitiesList.size == 0) {
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected 0 communitie"
+                    "You have selected 0 community"
             } else {
                 communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${selectedCommunitiesList.size} communities"
+                    "You have selected ${selectedCommunitiesList.size} ${if(selectedCommunitiesList.size<=1)"community" else "communities" }"
                 communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
             }
         }

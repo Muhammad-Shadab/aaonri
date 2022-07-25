@@ -120,6 +120,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     findNavController().navigate(action)
                 }
             }
+            nestedScrollViewDescEt.setOnClickListener {
+
+            }
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
