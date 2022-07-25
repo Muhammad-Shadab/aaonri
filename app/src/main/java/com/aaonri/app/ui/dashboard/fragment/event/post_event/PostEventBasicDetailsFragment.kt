@@ -299,10 +299,12 @@ class PostEventBasicDetailsFragment : Fragment() {
                     postEventViewModel.setListOfUploadImagesUri(uploadedImages.distinct() as MutableList<Uri>)
                 }
 
-                eventDetails?.description?.let {
+                description = eventDetails?.description
+
+                /*eventDetails?.description?.let {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set("description", it)
-                }
+                }*/
             }
         }
 

@@ -197,6 +197,8 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.classifiedDescEt?.text =
                     Html.fromHtml(addDetails?.userAds?.adDescription)
 
+                description = addDetails?.userAds?.adDescription
+
                 /*context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set("description", addDetails?.userAds?.adDescription.toString())*/
             }
