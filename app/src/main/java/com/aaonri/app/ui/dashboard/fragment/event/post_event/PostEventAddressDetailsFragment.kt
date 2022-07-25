@@ -264,8 +264,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         }
                                     }
                                 }
-
                             }
+
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
