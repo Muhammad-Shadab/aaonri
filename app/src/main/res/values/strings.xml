@@ -103,7 +103,7 @@
     <string name="category_food_amp_drink"><![CDATA[Category: Food & Drink]]></string>
     <string name="going">Going</string>
     <string name="interested">Interested</string>
-
+    <string name="shop_with_us">Shop\nWith Us</string>
     //for gmail and facebook login
     <string name="gmail_client_id">407216562924-651q4nf7ui96veen3q67utfdnfehi04a.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2100091233496499</string>
