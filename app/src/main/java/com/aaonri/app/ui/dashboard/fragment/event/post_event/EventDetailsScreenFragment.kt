@@ -86,37 +86,59 @@ class EventDetailsScreenFragment : Fragment() {
 
             val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
             if (email != null) {
-                postEventViewModel.getisUserVisitingEventInfo(
-                    email, args.eventId
-                )
-
-                postEventViewModel.getUserisInterested(
-                    email, "Event", args.eventId
-                )
+                postEventViewModel.getisUserVisitingEventInfo(email, args.eventId)
+                postEventViewModel.getUserisInterested(email, "Event", args.eventId)
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
-            linear.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    linear.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    val hiddenView: View = linear.getChildAt(1)
-                    bottomSheetOuter.peekHeight = hiddenView.top
-                }
-            })
+            /* val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
+             if (screenDp != null) {
+                 if (screenDp in 900.0..1000.0) {
+                     bottomSheetOuter.peekHeight = 630
+                 } else if (screenDp in 800.0..900.0) {
+                     bottomSheetOuter.peekHeight = 480
+                 }else if (screenDp in 700.0..800.0) {
+                     bottomSheetOuter.peekHeight = 650
+                 } else if (screenDp in 600.0..700.0) {
+                     bottomSheetOuter.peekHeight = 830
+                 }
+             }*/
 
-           /* val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
-            if (screenDp != null) {
-                if (screenDp in 900.0..1000.0) {
-                    bottomSheetOuter.peekHeight = 630
-                } else if (screenDp in 800.0..900.0) {
-                    bottomSheetOuter.peekHeight = 480
-                }else if (screenDp in 700.0..800.0) {
-                    bottomSheetOuter.peekHeight = 650
-                } else if (screenDp in 600.0..700.0) {
-                    bottomSheetOuter.peekHeight = 830
+            postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        evenDetailsBinding?.progressBar?.visibility = View.GONE
+                        response.data?.let {
+                            setEventdDetails(it)
+                            EventStaticData.updateEventDetails(it)
+                        }
+                        evenDetailsBinding?.linear?.viewTreeObserver?.addOnGlobalLayoutListener(
+                            object :
+                                OnGlobalLayoutListener {
+                                override fun onGlobalLayout() {
+                                    evenDetailsBinding?.linear!!.viewTreeObserver.removeOnGlobalLayoutListener(
+                                        this
+                                    )
+                                    val hiddenView: View =
+                                        evenDetailsBinding?.linear!!.getChildAt(1)
+                                    bottomSheetOuter.peekHeight = hiddenView.top
+                                }
+                            })
+                    }
+                    is Resource.Error -> {
+                        evenDetailsBinding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    else -> {
+                    }
                 }
-            }*/
+            }
+
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -157,7 +179,6 @@ class EventDetailsScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
             interestedBtn.setOnClickListener {
-
                 if (!isGuestUser) {
                     eventViewModel.setCallEventApiAfterDelete(true)
                     val email =
@@ -235,11 +256,11 @@ class EventDetailsScreenFragment : Fragment() {
                     )
                     val uri = Uri.parse(path)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.setType("text/plain")
-                    val shareSub = "${BuildConfig.BASE_URL}/#/events/details/${args.eventId}"
+                    intent.type = "text/plain"
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/events/details/${args.eventId}"
                     intent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     startActivity(intent)
-//                uri.toFile().delete()
                 } catch (e: Exception) {
                 }
             }
@@ -255,9 +276,8 @@ class EventDetailsScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-
                     isVisiting = !response.data.toBoolean()
-                    //Toast.makeText(context, "${response.data?.favourite}", Toast.LENGTH_SHORT).show()
+
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
@@ -318,29 +338,6 @@ class EventDetailsScreenFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-                }
-            }
-        }
-
-        postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
-
-                    response.data?.let {
-                        setEventdDetails(it)
-                        EventStaticData.updateEventDetails(it)
-                    }
-                }
-                is Resource.Error -> {
-                    evenDetailsBinding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -802,7 +799,7 @@ class EventDetailsScreenFragment : Fragment() {
                 LocalTime.parse(event.startTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))
             } ${event.timeZone}"
-            evenDetailsBinding?.postedDate2?.text = "${
+            evenDetailsBinding?.postedDate2?.text = " ${
                 DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0])

@@ -54,7 +54,6 @@ class EventScreenFragment : Fragment() {
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
-
             /*filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
             }*/
@@ -85,15 +84,19 @@ class EventScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-                        selectedFilters.visibility = View.GONE
+                        selectedFilters.visibility = View.INVISIBLE
                     } else {
                         selectedFilters.visibility = View.VISIBLE
                     }
-                    /*if (tab?.position == 1) {
-                        floatingActionBtnEvents.visibility = View.GONE
+                    if (tab?.position == 1) {
+                        eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
+                            if (it) {
+                                floatingActionBtnEvents.visibility = View.GONE
+                            }
+                        }
                     } else {
                         floatingActionBtnEvents.visibility = View.VISIBLE
-                    }*/
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -147,6 +150,7 @@ class EventScreenFragment : Fragment() {
 
         return eventScreenBinding?.root
     }
+
     override fun onStart() {
         super.onStart()
         context?.let { PreferenceManager<String>(it) }

@@ -225,6 +225,7 @@
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:textColor="#333333"
                                 android:textSize="12sp"
+                                android:visibility="visible"
                                 app:layout_constraintEnd_toStartOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/classifiedNameLinear" />
@@ -258,8 +259,7 @@
                                     android:id="@+id/locationClassifiedTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
+                                    android:layout_marginStart="@dimen/_10sdp"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:maxLines="1"
                                     android:textColor="#333333"
@@ -270,9 +270,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_regular"
-                                    android:maxLines="1"
                                     android:textColor="#8d959f"
                                     android:textSize="12sp" />
 
@@ -280,13 +278,13 @@
 
 
                             <LinearLayout
-                                android:layout_marginBottom="@dimen/_5sdp"
                                 android:id="@+id/classifiedPostDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_16sdp"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_marginEnd="@dimen/_16sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
                                 android:orientation="horizontal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -562,30 +560,28 @@
     </LinearLayout>
 
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
-        app:cardCornerRadius="@dimen/_11sdp"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        app:cardElevation="6dp"
-        android:outlineAmbientShadowColor="#291c2839"
-        app:cardBackgroundColor="@color/blueBtnColor"
         android:layout_gravity="start"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_32sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
         android:visibility="gone"
-        >
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
-            android:src="@drawable/navigate_back"
-            />
+            android:src="@drawable/navigate_back" />
     </androidx.cardview.widget.CardView>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

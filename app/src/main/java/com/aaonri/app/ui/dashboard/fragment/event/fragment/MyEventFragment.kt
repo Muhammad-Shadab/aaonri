@@ -41,9 +41,12 @@ class MyEventFragment : Fragment() {
 
         myEventBinding?.apply {
 
-            myEventBtn.setOnClickListener {
+            postEventBtn.setOnClickListener {
+                context?.let { PreferenceManager<String>(it) }
+                    ?.set("description", "")
+
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 2)
             }
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
@@ -59,12 +62,12 @@ class MyEventFragment : Fragment() {
                 is Resource.Success -> {
                     myEventBinding?.progressBar?.visibility = View.GONE
                     if (response.data?.eventList?.isEmpty() == true) {
-                        eventViewModel.setHideFloatingButtonInSecondTab(true)
+                        eventViewModel.setHideFloatingBtn(true)
                         myEventBinding?.nestedScrollView?.visibility = View.VISIBLE
                         myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
                     } else {
                         myEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
-                        eventViewModel.setHideFloatingButtonInSecondTab(false)
+                        eventViewModel.setHideFloatingBtn(false)
                         myEventBinding?.nestedScrollView?.visibility = View.GONE
                         allEventAdapter?.setData(response.data?.eventList)
                     }

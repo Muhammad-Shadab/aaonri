@@ -65,6 +65,7 @@
                         android:textSize="@dimen/_14sdp" />
 
                     <TextView
+                        android:id="@+id/editOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-4dp"
@@ -107,9 +108,7 @@
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -121,6 +120,7 @@
                         android:textSize="@dimen/_14sdp" />
 
                     <TextView
+                        android:id="@+id/deleteOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-4dp"

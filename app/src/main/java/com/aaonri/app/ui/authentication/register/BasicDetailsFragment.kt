@@ -48,6 +48,9 @@ class BasicDetailsFragment : Fragment() {
         basicDetailsBinding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
         var job: Job? = null
 
+        val socialProfile =
+            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+
         val blockCharacterSet = "1234567890~#^|$%&*!@\""
 
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
@@ -63,12 +66,14 @@ class BasicDetailsFragment : Fragment() {
             if (authCommonViewModel.isNewUserRegisterUsingGmail) {
                 firstNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] })
                 lastNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_LAST_NAME, ""] })
+                emailAddressBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] })
+                context?.let { Glide.with(it).load(socialProfile).into(addProfileIv) }
+                if (socialProfile != null) {
+                    profile = socialProfile
+                }
+                passwordBasicDetails.setText("********")
                 emailAddressBasicDetails.isEnabled = false
                 passwordBasicDetails.isEnabled = false
-                emailAddressBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] })
-                passwordBasicDetails.setText("********")
-                isPasswordValid = true
-                isEmailValid = true
             }
 
             firstNameBasicDetails.filters = arrayOf(filter)
@@ -190,7 +195,9 @@ class BasicDetailsFragment : Fragment() {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
-                    if (isEmailValid && isPasswordValid) {
+                    if (authCommonViewModel.isNewUserRegisterUsingGmail) {
+                        findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                    } else if (isEmailValid && isPasswordValid) {
                         authCommonViewModel.addBasicDetails(
                             firstName.toString(),
                             lastName.toString(),

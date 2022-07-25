@@ -65,11 +65,7 @@ class RegistrationActivity : BaseActivity() {
         registrationBinding?.apply {
 
             navigateBack.setOnClickListener {
-                if (authCommonViewModel.isNewUserRegisterUsingGmail) {
-                    finish()
-                } else {
-                    onBackPressed()
-                }
+                onBackPressed()
             }
 
             authCommonViewModel.navigationForStepper.observe(this@RegistrationActivity) { route ->

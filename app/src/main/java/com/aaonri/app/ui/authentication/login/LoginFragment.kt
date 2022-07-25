@@ -277,9 +277,6 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.status == "true") {
-                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                            ?.set(Constant.IS_USER_LOGIN, true)
-
                         context?.let {
                             PreferenceManager<String>(
                                 it
@@ -318,10 +315,15 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.userFlags?.forEach {
                         if (it.flagStatus) {
+                            context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                                ?.set(Constant.IS_USER_LOGIN, true)
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
                             activity?.finish()
                         } else {
+                            FirebaseAuth.getInstance().signOut()
+                            mGoogleSignInClient.signOut()
+                            LoginManager.getInstance().logOut()
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),

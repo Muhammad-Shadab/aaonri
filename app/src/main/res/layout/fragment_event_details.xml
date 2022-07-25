@@ -150,10 +150,10 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_marginBottom="@dimen/_5sdp"
                             android:id="@+id/constraint1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp">
 
                             <ImageView
                                 android:id="@+id/arrowBottomSheet"
@@ -289,8 +289,7 @@
                                     android:id="@+id/locationEventTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
+                                    android:layout_marginStart="@dimen/_10sdp"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:textColor="#333333"
                                     android:textSize="12sp" />
@@ -445,7 +444,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_4sdp"
-                                    android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:maxLines="1"
                                     android:textColor="#154591"
@@ -573,22 +571,22 @@
 
         <ImageView
             android:id="@+id/shareBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:src="@drawable/share" />
 
         <ImageView
             android:id="@+id/calendarBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:layout_marginLeft="@dimen/_6sdp"
             android:layout_marginRight="@dimen/_6sdp"
             android:src="@drawable/bluecalendar" />
 
         <ImageView
             android:id="@+id/moreBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:src="@drawable/bluemore"
             android:visibility="gone" />
     </LinearLayout>

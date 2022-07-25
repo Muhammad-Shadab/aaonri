@@ -75,9 +75,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                     countryFlag = "",
                     countryCode = "US"
                 )
-
-            } else {
-
             }
 
             /*if (!authCommonViewModel.isCountrySelected) {
