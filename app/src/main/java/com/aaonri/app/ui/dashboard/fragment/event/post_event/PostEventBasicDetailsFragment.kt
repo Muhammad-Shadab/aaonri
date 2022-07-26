@@ -242,7 +242,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             eventDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
                 intent.putExtra("data", description)
-                intent.putExtra("placeholder","Please describe about the event?")
+                intent.putExtra("placeholder", "Please describe about the event?")
                 resultLauncher.launch(intent)
             }
         }
@@ -414,8 +414,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
                 if (it[EventConstants.EVENT_DESC]?.isNotEmpty() == true) {
-                    postEventBinding?.eventDescEt?.text =
-                        Html.fromHtml(it[EventConstants.EVENT_DESC])
+                    postEventBinding?.eventDescEt?.fromHtml(it[EventConstants.EVENT_DESC])
                 }
             }
         }

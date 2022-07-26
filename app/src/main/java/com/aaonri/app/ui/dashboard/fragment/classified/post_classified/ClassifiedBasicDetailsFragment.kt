@@ -127,7 +127,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
                 intent.putExtra("data", description)
-                intent.putExtra("placeholder","Please describe what you are selling?")
+                intent.putExtra("placeholder", "Please describe what you are selling?")
                 resultLauncher.launch(intent)
             }
 
@@ -337,8 +337,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
                 classifiedDetailsBinding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
                 if (it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.text =
-                        Html.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
+                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
                 }
             }
         }

@@ -532,7 +532,10 @@ class ClassifiedDetailsFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        classifiedDetailsBinding?.locationClassifiedTv?.setText(spannable, TextView.BufferType.SPANNABLE)
+        classifiedDetailsBinding?.locationClassifiedTv?.setText(
+            spannable,
+            TextView.BufferType.SPANNABLE
+        )
 
 
         if (data.adEmail.isNotEmpty()) {
