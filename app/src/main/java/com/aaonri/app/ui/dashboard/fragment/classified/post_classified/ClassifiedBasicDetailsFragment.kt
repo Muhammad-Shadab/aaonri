@@ -202,8 +202,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     )
                 }
 
-                classifiedDetailsBinding?.classifiedDescEt?.text =
-                    Html.fromHtml(addDetails?.userAds?.adDescription)
+                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription)
 
                 description = addDetails?.userAds?.adDescription
 
