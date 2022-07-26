@@ -267,13 +267,18 @@ class PostEventAddressDetailsFragment : Fragment() {
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
                             postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
                                 if (!uri.toString().startsWith("htt")) {
-                                    when (index) {
+                                    callUploadClassifiedPicApi(
+                                        uri,
+                                        response.data?.id,
+                                        response.data?.id,
+                                    )
+                                    /*when (index) {
                                         0 -> {
                                             callUploadClassifiedPicApi(
                                                 uri,
                                                 response.data?.id,
                                                 response.data?.id,
-                                                imageName = "cover"
+                                                imageName = "cover.png"
                                             )
                                         }
                                         1 -> {
@@ -281,7 +286,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 uri,
                                                 response.data?.id,
                                                 response.data?.id,
-                                                imageName = "first"
+                                                imageName = "first.png"
                                             )
                                         }
                                         2 -> {
@@ -289,7 +294,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 uri,
                                                 response.data?.id,
                                                 response.data?.id,
-                                                imageName = "second"
+                                                imageName = "second.png"
                                             )
                                         }
                                         3 -> {
@@ -297,10 +302,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 uri,
                                                 response.data?.id,
                                                 response.data?.id,
-                                                imageName = "third"
+                                                imageName = "third.png"
                                             )
                                         }
-                                    }
+                                    }*/
                                 }
                             }
 
@@ -332,8 +337,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         callUploadClassifiedPicApi(
                                             uri,
                                             response.data?.id,
-                                            response.data?.id,
-                                            imageName = "cover"
+                                            response.data?.id
                                         )
                                     }
                                     1 -> {
@@ -469,7 +473,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         return postEventAddressBinding?.root
     }
 
-    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?, imageName: String) {
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
 
         val file = File(uri.toString().replace("file:", ""))
 
@@ -478,7 +482,7 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("files", imageName, requestFile)
+        val requestImage = MultipartBody.Part.createFormData("files", "", requestFile)
 
         postEventViewModel.uploadEventPicture(requestImage, addId, delId)
     }

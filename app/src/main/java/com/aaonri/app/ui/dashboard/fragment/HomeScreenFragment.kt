@@ -2,24 +2,22 @@ package com.aaonri.app.ui.dashboard.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.load
-import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
-import com.aaonri.app.data.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.adapter.HomeEventAdapter
-import com.aaonri.app.data.event.model.Image
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
@@ -27,8 +25,6 @@ import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -147,6 +143,7 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
+            //Toast.makeText(context, "${homeNestedScrollView.scaleY}", Toast.LENGTH_SHORT).show()
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
@@ -465,10 +462,9 @@ class HomeScreenFragment : Fragment() {
                 else -> {}
             }
         }
-
-
         return homeScreenBinding?.root
     }
+
 
     private fun setHomeClassifiedData() {
 

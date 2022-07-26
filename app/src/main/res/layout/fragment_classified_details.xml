@@ -370,7 +370,7 @@
                             </LinearLayout>
 
 
-                            <TextView
+                            <com.chinalwb.are.render.AreTextView
                                 android:id="@+id/classifiedDescTv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -548,6 +548,13 @@
             android:layout_marginEnd="@dimen/_2sdp"
             android:src="@drawable/heart_grey"
             android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/shareBtn"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/share" />
 
         <ImageView
             android:id="@+id/moreClassifiedOption"

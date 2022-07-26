@@ -92,7 +92,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                             title = titleClassifiedEt.text.trim().toString(),
                                             price = priceClassifiedEt.text.trim().toString()
                                                 .replace("$", ""),
-                                            adDescription = if (description != null) description!! else "",
+                                            adDescription = if (description != null) description!!.trim() else "",
                                             classifiedCategory = selectCategoryClassifiedSpinner.text.toString(),
                                             classifiedSubCategory = selectSubCategoryClassifiedSpinner.text.toString()
                                         )

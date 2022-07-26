@@ -175,11 +175,6 @@ class EventDetailsScreenFragment : Fragment() {
 
             }
 
-            /* shareBtn.setOnClickListener {
-                 //getScreenShot(view)
-                 *//*context?.let { it1 -> shareImage(it1,  ) }*//*
-            }*/
-
             moreBtn.setOnClickListener {
                 context?.let { PreferenceManager<String>(it) }
                     ?.set("description", "")
@@ -770,7 +765,8 @@ class EventDetailsScreenFragment : Fragment() {
             evenDetailsBinding?.eventPriceTv?.text = "FREE"
         }
         evenDetailsBinding?.eventTitle?.text = event.title
-        evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
+        evenDetailsBinding?.eventDescTv?.textSize = 14F
+        evenDetailsBinding?.eventDescTv?.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 else ""} ${if (!event.city.isNullOrEmpty()) event.city else ""} ${if (!event.state.isNullOrEmpty()) event.state else ""}"
@@ -789,7 +785,7 @@ class EventDetailsScreenFragment : Fragment() {
         //evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
         evenDetailsBinding?.eventDetailsBottom?.visibility = View.VISIBLE
-        if (event.socialMediaLink.isNullOrEmpty()) {
+        if (event.socialMediaLink.isNotBlank()) {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
             //evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
         } else {
@@ -1078,66 +1074,6 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    fun getScreenShot(view: View?): Bitmap? {
-        return if (view != null) {
-            view.isDrawingCacheEnabled = true
-            val bitmap = Bitmap.createBitmap(view.drawingCache)
-            view.isDrawingCacheEnabled = false
-            bitmap
-        } else {
-            null
-        }
-    }
-
-//    fun shareImage(context: Context, file: File, message: String?) {
-//        val apkURI: Uri
-//        val intent = Intent(Intent.ACTION_SEND)
-//        try {
-//            apkURI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                FileProvider.getUriForFile(
-//                    context,
-//                    context.packageName.toString() + ".provider",
-//                    file
-//                )
-//            } else {
-
-
-//                Uri.fromFile(file)
-//            }
-//            intent.putExtra(Intent.EXTRA_TEXT, message)
-//            intent.putExtra(Intent.EXTRA_STREAM, apkURI)
-//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-//            intent.type = "image/png"
-//        } catch (e: java.lang.Exception) {
-//            e.printStackTrace()
-//        }
-//
-//        // Intent inte = Intent.createChooser(intent,"Share file");
-//
-//        // List<ResolveInfo> resolverList = context.getPackageManager().queryIntentActivities(inte, PackageManager.MATCH_DEFAULT_ONLY);
-//        try {
-//            context.startActivity(Intent.createChooser(intent, "Share file"))
-//            //    for(ResolveInfo info:resolverList){
-//            //        String packageName = info.activityInfo.packageName;
-//            //       context.grantUriPermission(packageName,apkURI,Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//            //  }
-//        } catch (e: ActivityNotFoundException) {
-//            Toast.makeText(context, "No app found", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-    fun getScreenWidth(): Int {
-        return Resources.getSystem().getDisplayMetrics().widthPixels
-    }
-
-    fun getScreenHeight(): Int {
-        return Resources.getSystem().getDisplayMetrics().heightPixels
-    }
-
-    fun dpFromPx(context: Context, px: Float): Float {
-        return px / context.getResources().getDisplayMetrics().density
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

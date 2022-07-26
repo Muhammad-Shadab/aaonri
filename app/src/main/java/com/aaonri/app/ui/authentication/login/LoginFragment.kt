@@ -324,6 +324,8 @@ class LoginFragment : Fragment() {
                             FirebaseAuth.getInstance().signOut()
                             mGoogleSignInClient.signOut()
                             LoginManager.getInstance().logOut()
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.PROFILE_USER, "")
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),

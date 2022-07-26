@@ -24,6 +24,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
@@ -121,17 +122,15 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         eventEndTime = endTime.ifEmpty { selectEndTime.text.toString() },
                                                         eventTimeZone = eventTimezone.text.toString(),
                                                         eventFee = askingFee.text.toString(),
-                                                        eventDesc = eventDescEt.text.toString()
+                                                        eventDesc = if (description?.isNotEmpty() == true) description!!.trim() else ""
                                                     )
                                                     findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_uploadEventPicFragment)
                                                 } else {
                                                     showAlert("Please enter valid event description")
                                                 }
-
                                             } else {
                                                 showAlert("Please enter valid fee")
                                             }
-
                                         } else {
                                             showAlert("Please enter valid timezone")
                                         }
@@ -394,7 +393,6 @@ class PostEventBasicDetailsFragment : Fragment() {
 
         postEventViewModel.apply {
             eventBasicDetailMap.let {
-
                 postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
                 postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
                 postEventBinding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
@@ -408,7 +406,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                 } else {
                     postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
-                postEventBinding?.eventDescEt?.text = it[EventConstants.EVENT_DESC]
+                if (it[EventConstants.EVENT_DESC]?.isNotEmpty() == true) {
+                    postEventBinding?.eventDescEt?.text =
+                        Html.fromHtml(it[EventConstants.EVENT_DESC])
+                }
             }
         }
     }

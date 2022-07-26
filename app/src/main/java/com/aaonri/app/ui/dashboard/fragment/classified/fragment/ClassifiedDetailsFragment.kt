@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
@@ -20,6 +22,7 @@ import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -40,6 +43,7 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
@@ -60,7 +64,11 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
@@ -92,25 +100,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
-            /*if (args.isMyClassifiedScreen) {
-                moreClassifiedOption.visibility = View.VISIBLE
-            }*/
-
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
-
-            /*  val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
-
-              if (screenDp != null) {
-                  if (screenDp in 900.0..1000.0) {
-                      bottomSheetOuter.peekHeight = 600
-                  } else if (screenDp in 700.0..9000.0) {
-                      bottomSheetOuter.peekHeight = 450
-                  } else if (screenDp in 600.0..7000.0) {
-                      Toast.makeText(context, "condition ", Toast.LENGTH_SHORT).show()
-                      bottomSheetOuter.peekHeight = 800
-                  }
-              }*/
-
 
             linear.viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
@@ -186,8 +176,31 @@ class ClassifiedDetailsFragment : Fragment() {
                     startActivity(intent)
                 }
             }
-        }
 
+            shareBtn.setOnClickListener {
+                try {
+                    val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+                    val bitmap = addImage.drawable.toBitmap() // your imageView here.
+                    val bytes = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(
+                        requireContext().contentResolver,
+                        bitmap,
+                        "tempimage",
+                        null
+                    )
+                    val uri = Uri.parse(path)
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    intent.type = "text/plain"
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/classified/details/${args.addId}"
+                    intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    startActivity(intent)
+                } catch (e: Exception) {
+                }
+            }
+
+        }
 
 
 
@@ -300,7 +313,9 @@ class ClassifiedDetailsFragment : Fragment() {
     private fun setClassifiedDetails(data: UserAdsXX) {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
-            classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+            if (!data.approved) {
+                classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+            }
             if (ClassifiedStaticData.getCategoryList().isEmpty()) {
                 postClassifiedViewModel.getClassifiedCategory()
             }
@@ -475,7 +490,8 @@ class ClassifiedDetailsFragment : Fragment() {
         classifiedDetailsBinding?.addTitle?.text = data.adTitle
         classifiedDetailsBinding?.addTitle?.visibility = View.VISIBLE
         classifiedDetailsBinding?.navigateBack?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
+        classifiedDetailsBinding?.classifiedDescTv?.textSize = 14F
+        classifiedDetailsBinding?.classifiedDescTv?.fromHtml(data.adDescription)
         classifiedDetailsBinding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
         classifiedDetailsBinding?.sellerName?.text =
