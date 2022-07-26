@@ -15,6 +15,7 @@ object Constant {
     const val USER_STATE = "USER_STATE"
     const val ORIGIN_COUNTRY = "ORIGIN_COUNTRY"
 
+
     // Gmail Login
     const val GMAIL_FIRST_NAME = "GMAIL_FIRST_NAME"
     const val GMAIL_LAST_NAME = "GMAIL_LAST_NAME"

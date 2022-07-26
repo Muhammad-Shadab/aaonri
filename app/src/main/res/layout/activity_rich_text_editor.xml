@@ -68,7 +68,6 @@
         android:layout_margin="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="top|left"
-        android:hint="Please describe what you are selling"
         android:textColor="@color/black"
         android:textSize="50sp" />
   </ScrollView>
