@@ -1,5 +1,8 @@
 package com.aaonri.app.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
+
 object Constant {
 
     const val BASE_URL = "https://aaonri.com"
@@ -16,6 +19,10 @@ object Constant {
     const val GMAIL_FIRST_NAME = "GMAIL_FIRST_NAME"
     const val GMAIL_LAST_NAME = "GMAIL_LAST_NAME"
 
-
+    fun isConnected(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+    }
 
 }

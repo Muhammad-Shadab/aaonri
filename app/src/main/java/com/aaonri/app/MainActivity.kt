@@ -40,8 +40,13 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding?.root)
-        supportActionBar?.hide()
 
+        supportActionBar?.hide()
+        val connectivityReceiver = ConnectivityReceiver()
+        registerReceiver(
+            connectivityReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
         // hiding the status bar and making it transparent
         supportActionBar?.hide()
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -304,12 +309,6 @@ class MainActivity : BaseActivity() {
                 )
             }
         }
-
-        val connectivityReceiver = ConnectivityReceiver()
-        registerReceiver(
-            connectivityReceiver,
-            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
 
     }
 
