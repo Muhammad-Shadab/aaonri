@@ -118,14 +118,6 @@ class EventScreenFragment : Fragment() {
             }
         }
 
-        /*eventViewModel.hideFloatingButtonInSecondTab.observe(viewLifecycleOwner) {
-            if (it) {
-                eventScreenBinding?.floatingActionBtnEvents?.visibility = View.GONE
-            } else {
-                eventScreenBinding?.floatingActionBtnEvents?.visibility = View.VISIBLE
-            }
-        }*/
-
         postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postEventViewModel.navigateToEventDetailScreen) {
                 val action =
