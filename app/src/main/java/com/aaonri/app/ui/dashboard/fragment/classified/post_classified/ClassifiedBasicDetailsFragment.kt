@@ -45,7 +45,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.text = Html.fromHtml(data.trim())
+                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
                     classifiedDetailsBinding?.classifiedDescEt?.text = ""

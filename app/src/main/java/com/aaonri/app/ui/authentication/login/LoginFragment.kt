@@ -89,18 +89,18 @@ class LoginFragment : Fragment() {
 
             loginBtn.setOnClickListener {
 
-                val userEmail = loginEmailEt.text
-                val loginPasswordEt = loginPasswordEt.text
+                val userEmail = loginEmailEt.text.toString().replace(" ", "").trim()
+                val loginPasswordEt = loginPasswordEt.text?.trim()
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (userEmail?.toString()?.isNotEmpty() == true && loginPasswordEt?.toString()
-                        ?.isNotEmpty() == true && isEmailValid && isPasswordValid
+                if (userEmail.isNotEmpty() && loginPasswordEt?.toString()
+                        ?.trim()?.isNotEmpty() == true && isEmailValid && isPasswordValid
                 ) {
                     registrationViewModel.loginUser(
                         Login(
                             changePass = true,
-                            emailId = userEmail.toString(),
+                            emailId = userEmail,
                             isAdmin = 0,
                             massage = "",
                             password = loginPasswordEt.toString(),
@@ -141,8 +141,10 @@ class LoginFragment : Fragment() {
 
         introBinding?.loginEmailEt?.addTextChangedListener { editable ->
             editable?.let {
-                if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
-                    if (Validator.emailValidation(editable.toString())) {
+                if (editable.toString().replace(" ", "").trim()
+                        .isNotEmpty() && editable.toString().length > 8
+                ) {
+                    if (Validator.emailValidation(editable.toString().trim())) {
                         isEmailValid = true
                         //introBinding?.emailValidationTv?.visibility = View.GONE
                     } else {

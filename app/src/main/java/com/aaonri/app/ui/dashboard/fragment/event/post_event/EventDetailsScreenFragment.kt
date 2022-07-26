@@ -769,7 +769,7 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventDescTv?.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
-            "${if (!event.address1.isNullOrEmpty()) event.address1 else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 else ""} ${if (!event.city.isNullOrEmpty()) event.city else ""} ${if (!event.state.isNullOrEmpty()) event.state else ""}"
+            "${if (!event.address1.isNullOrEmpty()) event.address1+", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2+", " else ""} ${if (!event.city.isNullOrEmpty()) event.city+", " else ""} ${if (!event.state.isNullOrEmpty()) event.state+", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
 
         val spannable: Spannable = SpannableString(text2)
