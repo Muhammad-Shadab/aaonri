@@ -180,8 +180,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                     addDetails?.userAds?.isNew == true
 
-                classifiedDetailsBinding?.classifiedDescEt?.text =
-                    Html.fromHtml(addDetails?.userAds?.adDescription.toString())
+                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription.toString())
                 addDetails?.userAds?.userAdsImages?.forEach {
                     uploadedImagesIdList.add(it.imageId)
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())

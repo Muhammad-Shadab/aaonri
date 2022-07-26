@@ -464,25 +464,32 @@
                    android:layout_height="@dimen/_130sdp" />
                </LinearLayout>-->
 
+<androidx.core.widget.NestedScrollView
+    android:fillViewport="true"
+    android:layout_marginStart="@dimen/_32sdp"
+    android:layout_marginTop="@dimen/_16sdp"
+    android:layout_marginEnd="@dimen/_32sdp"
+    android:background="@drawable/multiline_textfield_shape"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_130sdp">
+    <com.chinalwb.are.render.AreTextView
+        android:id="@+id/classifiedDescEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@font/helvetica_regular"
+        android:gravity="left"
+        android:hint="Please describe what you are selling?*"
+        android:includeFontPadding="false"
+        android:inputType="textMultiLine|textCapSentences"
+        android:maxLength="2000"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
+        tools:ignore="RtlHardcoded" />
+</androidx.core.widget.NestedScrollView>
 
-            <com.chinalwb.are.render.AreTextView
-                android:id="@+id/classifiedDescEt"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_marginHorizontal="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/multiline_textfield_shape"
-                android:fontFamily="@font/helvetica_regular"
-                android:gravity="left"
-                android:hint="Please describe what are you selling?"
-                android:includeFontPadding="false"
-                android:inputType="textMultiLine|textCapSentences"
-                android:maxLength="2000"
-                android:paddingHorizontal="@dimen/_12sdp"
-                android:paddingTop="@dimen/_4sdp"
-                android:scrollbars="vertical"
-                android:textSize="2sp"
-                tools:ignore="RtlHardcoded" />
 
 
             <TextView
