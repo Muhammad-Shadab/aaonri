@@ -127,6 +127,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
                 intent.putExtra("data", description)
+                intent.putExtra("placeholder","Please describe what you are selling?")
                 resultLauncher.launch(intent)
             }
 

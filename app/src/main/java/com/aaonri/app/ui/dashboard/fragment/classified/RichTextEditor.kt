@@ -40,6 +40,7 @@ class RichTextEditor : AppCompatActivity() {
         binding?.apply {
 
             arEditText.requestFocus()
+            arEditText.hint = intent.getStringExtra("placeholder")
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(arEditText, InputMethodManager.SHOW_IMPLICIT)
             data = intent.getStringExtra("data")

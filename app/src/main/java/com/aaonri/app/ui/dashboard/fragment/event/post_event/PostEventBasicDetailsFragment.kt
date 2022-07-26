@@ -242,6 +242,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             eventDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
                 intent.putExtra("data", description)
+                intent.putExtra("placeholder","Please describe about the event?")
                 resultLauncher.launch(intent)
             }
         }
