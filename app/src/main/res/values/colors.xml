@@ -25,6 +25,7 @@
     <color name="darkGrayColor">#707070</color>
     <color name="graytxtcolor">#797979</color>
     <color name="grayColor_1">#8d959f</color>
+    <color name="zipcodecolor">#8d959f</color>
 
 
 </resources>

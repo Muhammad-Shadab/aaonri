@@ -278,6 +278,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     eventDetails?.endDate?.split("T")?.get(0)
                 postEventBinding?.selectEndTime?.text = eventDetails?.endTime
                 postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
+                postEventBinding?.eventDescEt?.text = Html.fromHtml(eventDetails?.description)
 
                 if (eventDetails?.fee != null) {
                     if (eventDetails.fee > 0) {
@@ -298,14 +299,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
 
                 description = eventDetails?.description
-                postEventBinding?.eventDescEt?.setText(description)
 
+                postEventBinding?.eventDescEt?.text = description
                 /*eventDetails?.description?.let {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set("description", it)
                 }*/
             }
         }
+
+
 
         if (EventStaticData.getEventCategory().isEmpty()) {
             postEventViewModel.getEventCategory()
@@ -405,8 +408,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 } else {
                     postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
-                postEventBinding?.eventDescEt?.text = it[EventConstants.EVENT_TIMEZONE]
-
+                postEventBinding?.eventDescEt?.text = it[EventConstants.EVENT_DESC]
             }
         }
     }
@@ -513,18 +515,18 @@ class PostEventBasicDetailsFragment : Fragment() {
         mTimePicker.show()
     }
 
-    override fun onResume() {
-        super.onResume()
+    /*  override fun onResume() {
+          super.onResume()
 
-        if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
-                ?.isNotEmpty() == true
-        ) {
-            postEventBinding?.eventDescEt?.text =
-                Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-        } else {
-            postEventBinding?.eventDescEt?.text = ""
-        }
-    }
+          if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
+                  ?.isNotEmpty() == true
+          ) {
+              postEventBinding?.eventDescEt?.text =
+                  Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
+          } else {
+              postEventBinding?.eventDescEt?.text = ""
+          }
+      }*/
 
     /* override fun onResume() {
          super.onResume()

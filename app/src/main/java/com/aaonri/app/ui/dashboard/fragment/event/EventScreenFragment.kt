@@ -128,22 +128,13 @@ class EventScreenFragment : Fragment() {
 
         postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
             if (postEventViewModel.navigateToEventDetailScreen) {
-                if (postEventViewModel.isMyEventScreen) {
-                    val action =
-                        EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
-                            it, true
-                        )
-                    findNavController().navigate(action)
-                } else {
-                    val action =
-                        EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
-                            it, false
-                        )
-                    findNavController().navigate(action)
-                }
+                val action =
+                    EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(
+                        it
+                    )
+                findNavController().navigate(action)
                 postEventViewModel.setNavigateToEventDetailScreen(
-                    value = false,
-                    isMyEventScreen = false
+                    value = false
                 )
             }
         }

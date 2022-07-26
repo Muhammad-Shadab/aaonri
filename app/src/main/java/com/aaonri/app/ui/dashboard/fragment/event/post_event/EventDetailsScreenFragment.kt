@@ -10,11 +10,15 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.webkit.URLUtil
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -147,18 +151,6 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             })
 
-            /* val screenDp = context?.let { dpFromPx(it, getScreenHeight().toFloat()) }
-             if (screenDp != null) {
-                 if (screenDp in 900.0..1000.0) {
-                     bottomSheetOuter.peekHeight = 630
-                 } else if (screenDp in 800.0..900.0) {
-                     bottomSheetOuter.peekHeight = 480
-                 }else if (screenDp in 700.0..800.0) {
-                     bottomSheetOuter.peekHeight = 650
-                 } else if (screenDp in 600.0..700.0) {
-                     bottomSheetOuter.peekHeight = 830
-                 }
-             }*/
             bottomSheetOuter.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetOuter.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -544,7 +536,6 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             } else {
 
-
                 when (index) {
                     0 -> {
                         context?.let {
@@ -781,17 +772,26 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventTitle?.text = event.title
         evenDetailsBinding?.eventDescTv?.text = Html.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
-        try {
-            evenDetailsBinding?.locationEventTv?.text =
-                "${if (!event.address1.isNullOrEmpty()) event.address1 else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 else ""} ${if (!event.city.isNullOrEmpty()) event.city else ""} ${if (!event.state.isNullOrEmpty()) event.state else ""} "
-        } catch (e: Exception) {
-        }
-        evenDetailsBinding?.eventLocationZip?.text = event.zipCode
+        val address =
+            "${if (!event.address1.isNullOrEmpty()) event.address1 else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 else ""} ${if (!event.city.isNullOrEmpty()) event.city else ""} ${if (!event.state.isNullOrEmpty()) event.state else ""}"
+        val text2: String = "$address ${event.zipCode.ifEmpty { "" }}"
+
+        val spannable: Spannable = SpannableString(text2)
+
+        spannable.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.zipcodecolor)),
+            address.length,
+            (text2).length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        evenDetailsBinding?.locationEventTv?.setText(spannable, TextView.BufferType.SPANNABLE)
+        //evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
         evenDetailsBinding?.eventDetailsBottom?.visibility = View.VISIBLE
-        if (event.socialMediaLink.isNotEmpty()) {
+        if (event.socialMediaLink.isNullOrEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
-            evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
+            //evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
         } else {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
         }

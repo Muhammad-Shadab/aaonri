@@ -17,6 +17,8 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.event.adapter.AllEventAdapter
+import com.aaonri.app.data.event.adapter.HomeEventAdapter
 import com.aaonri.app.data.event.model.Image
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
@@ -39,6 +41,7 @@ class HomeScreenFragment : Fragment() {
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var interestAdapter: InterestAdapter? = null
+    var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
 
     override fun onCreateView(
@@ -55,6 +58,12 @@ class HomeScreenFragment : Fragment() {
                     it.id,
                     false
                 )
+            findNavController().navigate(action)
+        }
+
+        homeEventAdapter = HomeEventAdapter {
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(it.id)
             findNavController().navigate(action)
         }
 
@@ -153,7 +162,7 @@ class HomeScreenFragment : Fragment() {
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
             }
 
-            eventImage1.setOnClickListener {
+            /*eventImage1.setOnClickListener {
                 eventId.forEachIndexed { index, i ->
                     if (index == 0) {
                         val action =
@@ -164,9 +173,9 @@ class HomeScreenFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                 }
-            }
+            }*/
 
-            eventImage2.setOnClickListener {
+            /*eventImage2.setOnClickListener {
                 eventId.forEachIndexed { index, i ->
                     if (index == 1) {
                         val action =
@@ -177,9 +186,9 @@ class HomeScreenFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                 }
-            }
+            }*/
 
-            eventImage3.setOnClickListener {
+            /*eventImage3.setOnClickListener {
                 eventId.forEachIndexed { index, i ->
                     if (index == 2) {
                         val action =
@@ -190,9 +199,9 @@ class HomeScreenFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                 }
-            }
+            }*/
 
-            eventImage4.setOnClickListener {
+            /*eventImage4.setOnClickListener {
                 eventId.forEachIndexed { index, i ->
                     if (index == 3) {
                         val action =
@@ -203,11 +212,15 @@ class HomeScreenFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                 }
-            }
+            }*/
 
             interestRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
+
+            eventRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            eventRv.adapter = homeEventAdapter
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
@@ -276,7 +289,17 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                    var images = mutableListOf<Image>()
+
+                    if (response.data?.userEvent?.isNotEmpty() == true) {
+                        if (response.data.userEvent.size >= 4) {
+                            homeEventAdapter?.setData(response.data.userEvent.subList(0, 4))
+                        } else {
+                            homeEventAdapter?.setData(response.data.userEvent)
+                        }
+                    }
+
+
+                    /*var images = mutableListOf<Image>()
                     response.data?.userEvent?.forEachIndexed { index, userEvent ->
                         when (index) {
                             0 -> {
@@ -302,9 +325,9 @@ class HomeScreenFragment : Fragment() {
                                 images.add(image)
                             }
                         }
-                    }
+                    }*/
 
-                    if (images.size > 3) {
+                    /*if (images.size > 3) {
                         images = images.subList(0, 3)
                         when (images.size) {
                             1 -> {
@@ -335,10 +358,10 @@ class HomeScreenFragment : Fragment() {
                                 homeScreenBinding?.eventImage4?.margin(right = 20F)
                             }
                         }
-                    }
+                    }*/
 
 
-                    images.forEachIndexed { index, image ->
+                    /*images.forEachIndexed { index, image ->
                         when (index) {
                             0 -> {
                                 homeScreenBinding?.eventImage1?.visibility = View.VISIBLE
@@ -387,7 +410,7 @@ class HomeScreenFragment : Fragment() {
                                 }
                             }
                         }
-                    }
+                    }*/
 
                 }
                 is Resource.Error -> {

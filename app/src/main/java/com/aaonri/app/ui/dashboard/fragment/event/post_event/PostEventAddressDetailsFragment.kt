@@ -56,6 +56,9 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         if (!postEventViewModel.isEventOffline) {
             postEventAddressBinding?.zipCodeEt?.isEnabled = false
+            postEventAddressBinding?.zipCodeEt?.hint = "Zipcode"
+        } else {
+            postEventAddressBinding?.zipCodeEt?.hint = "Zipcode*"
         }
 
         val text = resources.getString(R.string.if_you_want_event)
@@ -94,6 +97,7 @@ class PostEventAddressDetailsFragment : Fragment() {
             override fun onClick(textView: View) {
 //                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
             }
+
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -108,6 +112,7 @@ class PostEventAddressDetailsFragment : Fragment() {
 //                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
 
             }
+
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -388,7 +393,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                 postEventAddressBinding?.landmarkEt?.setText(eventPlace)
                 postEventAddressBinding?.stateEt?.setText(state)
                 postEventAddressBinding?.socialMediaLinkEt?.setText(socialMediaLink)
-                postEventAddressBinding?.agreeCheckboxClassified?.isChecked = acceptedTermsAndConditions
+                postEventAddressBinding?.agreeCheckboxClassified?.isChecked =
+                    acceptedTermsAndConditions
 
             }
         }

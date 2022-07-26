@@ -32,7 +32,7 @@ class RecentEventFragment : Fragment() {
 
         recentAdapter = RecentEventAdapter {
             postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
-            postEventViewModel.setNavigateToEventDetailScreen(value = true, isMyEventScreen = false)
+            postEventViewModel.setNavigateToEventDetailScreen(value = true)
         }
 
         recentEventBinding?.apply {

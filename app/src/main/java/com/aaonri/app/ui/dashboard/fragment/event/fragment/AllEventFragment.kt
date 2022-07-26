@@ -33,8 +33,7 @@ class AllEventFragment : Fragment() {
         allEventAdapter = AllEventAdapter {
             postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postEventViewModel.setNavigateToEventDetailScreen(
-                value = true,
-                isMyEventScreen = false
+                value = true
             )
         }
 

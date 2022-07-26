@@ -39,9 +39,6 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     var updateEventId = 0
         private set
 
-    var isMyEventScreen = false
-        private set
-
     var sendDataToClassifiedDetailsScreen: MutableLiveData<Int> = MutableLiveData()
         private set
 
@@ -232,9 +229,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         sendDataToClassifiedDetailsScreen.postValue(value)
     }
 
-    fun setNavigateToEventDetailScreen(value: Boolean, isMyEventScreen: Boolean) {
+    fun setNavigateToEventDetailScreen(value: Boolean) {
         navigateToEventDetailScreen = value
-        this.isMyEventScreen = isMyEventScreen
     }
 
     fun setIsUpdateEvent(value: Boolean) {

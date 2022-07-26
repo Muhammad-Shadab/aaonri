@@ -418,7 +418,18 @@
                         app:layout_constraintTop_toTopOf="@id/seeAllEvents"
                         app:tint="@color/blueBtnColor" />
 
-                    <HorizontalScrollView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/eventRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:padding="16dp"
+                        android:clipToPadding = "false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/eventTv"/>
+
+                    <!--<HorizontalScrollView
                         android:id="@+id/eventHorizontalLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -434,7 +445,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <!--<com.google.android.material.card.MaterialCardView
+                            &lt;!&ndash;<com.google.android.material.card.MaterialCardView
                                 android:layout_width="@dimen/_280sdp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/_16sdp"
@@ -442,7 +453,7 @@
                                 android:elevation="0dp"
                                 app:cardCornerRadius="@dimen/_6sdp">
 
-                            </com.google.android.material.card.MaterialCardView>-->
+                            </com.google.android.material.card.MaterialCardView>&ndash;&gt;
 
                             <ImageView
                                 android:id="@+id/eventImage1"
@@ -484,7 +495,7 @@
 
                         </LinearLayout>
 
-                    </HorizontalScrollView>
+                    </HorizontalScrollView>-->
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/myEventsCardView"
@@ -500,7 +511,7 @@
                         app:cardElevation="@dimen/_2sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventHorizontalLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/eventRv"
                         app:strokeColor="#e7e7e7"
                         app:strokeWidth="@dimen/_1sdp">
 

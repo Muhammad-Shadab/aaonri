@@ -348,13 +348,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
-                        postClassifiedViewModel.imageIdGoindToRemove.forEach {
+                       /* postClassifiedViewModel.imageIdGoindToRemove.forEach {
                             callUploadClassifiedPicApi(
                                 "".toUri(),
                                 response.data?.id,
                                 response.data?.id
                             )
-                        }
+                        }*/
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 if (!it.toString().startsWith("htt")) {

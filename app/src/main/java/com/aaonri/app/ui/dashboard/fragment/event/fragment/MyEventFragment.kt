@@ -36,7 +36,7 @@ class MyEventFragment : Fragment() {
 
         allEventAdapter = AllEventAdapter {
             postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
-            postEventViewModel.setNavigateToEventDetailScreen(value = true, isMyEventScreen = true)
+            postEventViewModel.setNavigateToEventDetailScreen(value = true)
         }
 
         myEventBinding?.apply {

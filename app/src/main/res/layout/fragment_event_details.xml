@@ -280,6 +280,7 @@
                                     android:layout_marginTop="@dimen/_2sdp"
                                     android:src="@drawable/ic_location"
                                     android:visibility="gone"
+                                    android:layout_gravity="center_vertical"
                                     app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
                                     app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -290,8 +291,8 @@
                                     android:layout_width="@dimen/_200sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_10sdp"
-                                    android:maxLines="2"
                                     android:fontFamily="@font/sf_pro_semi_bold"
+                                    android:maxLines="2"
                                     android:textColor="#333333"
                                     android:textSize="12sp" />
 
@@ -303,7 +304,8 @@
                                     android:fontFamily="@font/sf_pro_regular"
                                     android:maxLines="2"
                                     android:textColor="#8d959f"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:visibility="gone" />
 
                             </LinearLayout>
 
@@ -447,6 +449,7 @@
                                     android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:maxLines="1"
+                                    android:text="@string/tap_now"
                                     android:textColor="#154591"
                                     android:textSize="12sp" />
 

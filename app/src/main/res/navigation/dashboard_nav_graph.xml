@@ -104,10 +104,6 @@
         <action
             android:id="@+id/action_eventDetailsScreenFragment_to_updateDeleteClassifiedBottom"
             app:destination="@id/updateDeleteClassifiedBottom" />
-        <argument
-            android:name="isMyEvent"
-            app:argType="boolean" />
-
     </fragment>
 
     <dialog

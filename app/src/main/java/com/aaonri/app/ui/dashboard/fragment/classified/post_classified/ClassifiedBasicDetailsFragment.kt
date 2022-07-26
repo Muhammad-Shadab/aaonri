@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
@@ -172,7 +173,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     addDetails?.userAds?.isNew == true
 
                 classifiedDetailsBinding?.classifiedDescEt?.text =
-                    Html.fromHtml(addDetails?.userAds?.adDescription.toString()) as Editable?
+                    Html.fromHtml(addDetails?.userAds?.adDescription.toString())
                 addDetails?.userAds?.userAdsImages?.forEach {
                     uploadedImagesIdList.add(it.imageId)
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
@@ -321,14 +322,16 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.apply {
 
             classifiedBasicDetailsMap.let {
-
                 classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
                     it[ClassifiedConstant.BASIC_DETAILS_CATEGORY]
                 classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
                     it[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]
                 classifiedDetailsBinding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
                 classifiedDetailsBinding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
-                classifiedDetailsBinding?.classifiedDescEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
+                if (it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]?.isNotEmpty() == true) {
+                    classifiedDetailsBinding?.classifiedDescEt?.text =
+                        Html.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
+                }
             }
         }
     }
