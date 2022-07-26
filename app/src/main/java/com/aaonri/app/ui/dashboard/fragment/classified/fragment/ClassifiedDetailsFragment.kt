@@ -9,16 +9,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Html
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -520,8 +519,20 @@ class ClassifiedDetailsFragment : Fragment() {
             "Category: ${data.category}  |  Sub Category: ${data.subCategory}"
         classifiedDetailsBinding?.classifiedLocation?.visibility = View.VISIBLE
         classifiedDetailsBinding?.classifiedPostDate?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.locationClassifiedTv?.text = data.adLocation
-        classifiedDetailsBinding?.adZipCode?.text = data.adZip
+        val address =
+            "${if (!data.adLocation.isNullOrEmpty()) data.adLocation else ""}"
+        val text2: String = "$address ${if (!data.adZip.isNullOrEmpty()) data.adZip else ""}"
+
+        val spannable: Spannable = SpannableString(text2)
+
+        spannable.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.zipcodecolor)),
+            address.length,
+            (text2).length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        classifiedDetailsBinding?.locationClassifiedTv?.setText(spannable, TextView.BufferType.SPANNABLE)
 
 
         if (data.adEmail.isNotEmpty()) {

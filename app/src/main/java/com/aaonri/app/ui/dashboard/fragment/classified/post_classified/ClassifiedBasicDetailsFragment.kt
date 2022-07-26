@@ -30,6 +30,8 @@ import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 @AndroidEntryPoint
@@ -43,7 +45,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(data.trim())
+                    classifiedDetailsBinding?.classifiedDescEt?.text = Html.fromHtml(data.trim())
                     description = data.trim()
                 } else {
                     classifiedDetailsBinding?.classifiedDescEt?.text = ""
@@ -168,7 +170,12 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
                     addDetails?.userAds?.subCategory
                 classifiedDetailsBinding?.titleClassifiedEt?.setText(addDetails?.userAds?.adTitle)
-                classifiedDetailsBinding?.priceClassifiedEt?.setText(addDetails?.userAds?.askingPrice.toString())
+                val random = addDetails?.userAds?.askingPrice
+
+                val df = DecimalFormat("####")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+                classifiedDetailsBinding?.priceClassifiedEt?.setText(roundoff)
                 classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                     addDetails?.userAds?.isNew == true
 

@@ -35,6 +35,8 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -281,7 +283,12 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                 if (eventDetails?.fee != null) {
                     if (eventDetails.fee > 0) {
-                        postEventBinding?.askingFee?.setText(eventDetails.fee.toString())
+                        val random = eventDetails.fee
+
+                        val df = DecimalFormat("####")
+                        df.roundingMode = RoundingMode.DOWN
+                        val roundoff = df.format(random)
+                        postEventBinding?.askingFee?.setText(roundoff)
                     } else {
                         postEventBinding?.isFreeEntryCheckBox?.isChecked = true
                         postEventBinding?.askingFee?.isEnabled = false

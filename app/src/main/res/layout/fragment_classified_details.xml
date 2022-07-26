@@ -257,22 +257,13 @@
 
                                 <TextView
                                     android:id="@+id/locationClassifiedTv"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/_10sdp"
                                     android:fontFamily="@font/sf_pro_semi_bold"
-                                    android:maxLines="1"
                                     android:textColor="#333333"
                                     android:textSize="12sp" />
 
-                                <TextView
-                                    android:id="@+id/adZipCode"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_4sdp"
-                                    android:fontFamily="@font/sf_pro_regular"
-                                    android:textColor="#8d959f"
-                                    android:textSize="12sp" />
 
                             </LinearLayout>
 
@@ -543,9 +534,8 @@
 
         <ImageView
             android:id="@+id/likeDislikeBtn"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
             android:src="@drawable/heart_grey"
             android:visibility="visible" />
 
@@ -554,6 +544,7 @@
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:src="@drawable/share" />
 
         <ImageView
