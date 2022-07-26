@@ -27,4 +27,12 @@ object EventConstants {
     const val ADDRESS_STATE = "ADDRESS_STATE"
     const val ADDRESS_SOCIAL_MEDIA_LINK = "ADDRESS_SOCIAL_MEDIA_LINK"
 
+    //Constants for filter
+    const val MIN_MAX_FILTER = "MIN_MAX_VALUE"
+    const val MIN_VALUE_FILTER = "MIN_VALUE"
+    const val MAX_VALUE_FILTER = "MAX_VALUE"
+    const val ZIPCODE_FILTER = "ZIPCODE"
+    const val MY_LOCATION_CHECKBOX = "MY_LOCATION_CHECKBOX"
+    const val SEARCH_KEYWORD_FILTER = "SEARCH_KEYWORD_FILTER"
+
 }

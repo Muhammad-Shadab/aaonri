@@ -15,6 +15,7 @@ import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,7 +52,18 @@ class AllEventFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     allEventBinding?.progressBar?.visibility = View.GONE
-                    allEventAdapter?.setData(response.data?.eventList)
+                    if (response.data?.eventList?.isNotEmpty() == true) {
+                        allEventAdapter?.setData(response.data.eventList)
+                        allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
+                    } else {
+                        allEventBinding?.recyclerViewEvent?.visibility = View.GONE
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "No result found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     allEventBinding?.progressBar?.visibility = View.GONE

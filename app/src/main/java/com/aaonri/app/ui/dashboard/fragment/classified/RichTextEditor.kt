@@ -27,7 +27,7 @@ class RichTextEditor : AppCompatActivity() {
     var binding: ActivityRichTextEditorBinding? = null
     private var mToolbar: IARE_Toolbar? = null
 
-    var data:String? = ""
+    var data: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityRichTextEditorBinding.inflate(layoutInflater)
@@ -45,12 +45,12 @@ class RichTextEditor : AppCompatActivity() {
             data = intent.getStringExtra("data")
             arEditText.fromHtml(data)
 
-         /*   Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })
-                ?.trim()?.length?.let {
-                arEditText.setSelection(
-                    it
-                )
-            }*/
+            /*   Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })
+                   ?.trim()?.length?.let {
+                   arEditText.setSelection(
+                       it
+                   )
+               }*/
 
             navigateBack.setOnClickListener {
                 finish()
@@ -60,7 +60,8 @@ class RichTextEditor : AppCompatActivity() {
             toolbar()
 
             doneTextTv.setOnClickListener {
-                PreferenceManager<String>(applicationContext)["description"] = arEditText.html.toString()
+                PreferenceManager<String>(applicationContext)["description"] =
+                    arEditText.html.toString()
                 val data = Intent()
                 val html = arEditText.html.toString()
                 Log.e("html", html)
@@ -89,8 +90,6 @@ class RichTextEditor : AppCompatActivity() {
         val left: IARE_ToolItem = ARE_ToolItem_AlignmentLeft()
         val center: IARE_ToolItem = ARE_ToolItem_AlignmentCenter()
         val right: IARE_ToolItem = ARE_ToolItem_AlignmentRight()
-        val image: IARE_ToolItem = ARE_ToolItem_Image()
-        val video: IARE_ToolItem = ARE_ToolItem_Video()
         val at: IARE_ToolItem = ARE_ToolItem_At()
         val fontColor: IARE_ToolItem = ARE_ToolItem_FontColor()
         val backgroundColor: IARE_ToolItem = ARE_ToolItem_BackgroundColor()
@@ -108,8 +107,6 @@ class RichTextEditor : AppCompatActivity() {
         mToolbar?.addToolbarItem(left)
         mToolbar?.addToolbarItem(center)
         mToolbar?.addToolbarItem(right)
-        mToolbar?.addToolbarItem(image)
-        mToolbar?.addToolbarItem(video)
         mToolbar?.addToolbarItem(at)
         mToolbar?.addToolbarItem(fontColor);
         mToolbar?.addToolbarItem(backgroundColor);

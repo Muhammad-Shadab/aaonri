@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.event.EventScreenFragment">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
-        app:cardCornerRadius="@dimen/_11sdp"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        app:cardElevation="6dp"
-        android:outlineAmbientShadowColor="#291c2839"
         android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
         app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/classifiedText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/classifiedText"
@@ -27,9 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
-            android:src="@drawable/navigate_back"
-            />
+            android:src="@drawable/navigate_back" />
     </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/classifiedText"
         android:layout_width="wrap_content"
@@ -103,8 +104,47 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <LinearLayout
+        android:id="@+id/searchViewll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_42sdp"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
 
-    <EditText
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+    </LinearLayout>
+
+    <!--<EditText
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,17 +168,17 @@
         android:paddingEnd="@dimen/_8sdp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classifiedText" />
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText" />-->
 
     <ImageView
         android:id="@+id/filterEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_icons_filter"
-        app:layout_constraintBottom_toBottomOf="@id/searchView"
+        app:layout_constraintBottom_toBottomOf="@id/searchViewll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/searchView"
-        app:layout_constraintTop_toTopOf="@id/searchView" />
+        app:layout_constraintStart_toEndOf="@id/searchViewll"
+        app:layout_constraintTop_toTopOf="@id/searchViewll" />
 
     <HorizontalScrollView
         android:id="@+id/selectedFilters"
@@ -151,7 +191,7 @@
         android:scrollbars="none"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView">
+        app:layout_constraintTop_toBottomOf="@id/searchViewll">
 
         <LinearLayout
             android:layout_width="wrap_content"

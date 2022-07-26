@@ -277,7 +277,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     eventDetails?.endDate?.split("T")?.get(0)
                 postEventBinding?.selectEndTime?.text = eventDetails?.endTime
                 postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
-                postEventBinding?.eventDescEt?.text = Html.fromHtml(eventDetails?.description)
+                postEventBinding?.eventDescEt?.fromHtml(eventDetails?.description)
 
                 if (eventDetails?.fee != null) {
                     if (eventDetails.fee > 0) {
@@ -299,7 +299,6 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                 description = eventDetails?.description
 
-                postEventBinding?.eventDescEt?.text = description
                 /*eventDetails?.description?.let {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set("description", it)

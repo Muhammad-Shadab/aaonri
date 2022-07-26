@@ -38,7 +38,7 @@ class NoInternetConnectionActivity : AppCompatActivity() {
                     finish()
                 } else {
                     val snackbar =
-                        Snackbar.make(mainll!!, "No Internet Connection", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(mainll, "No Internet Connection", Snackbar.LENGTH_SHORT)
                             .setAction(
                                 "OK"
                             ) { }

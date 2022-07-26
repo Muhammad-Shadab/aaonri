@@ -131,8 +131,8 @@ class ClassifiedScreenFragment : Fragment() {
                         )
                     setClassifiedViewPager(true)
                 }
-
             }
+
             deleteFilterIv2.setOnClickListener {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -163,8 +163,6 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-                context?.let { PreferenceManager<String>(it) }
-                    ?.set("description", "")
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                 //intent.putExtra("updateClassified", false)
                 startActivityForResult(intent, 1)

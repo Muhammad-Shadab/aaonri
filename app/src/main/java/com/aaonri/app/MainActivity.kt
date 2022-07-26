@@ -10,9 +10,11 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.compose.runtime.key
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -213,6 +215,70 @@ class MainActivity : BaseActivity() {
                 }
                 else -> {
                 }
+            }
+        }
+
+        dashboardCommonViewModel.isFilterApplied.observe(this) {
+            val keyword =
+                applicationContext?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
+            if (it.equals("callEventApiWithFilter")) {
+                 eventViewModel.getMyEvent(
+                     AllEventRequest(
+                         category = "",
+                         city = "",
+                         from = "",
+                         isPaid = "",
+                         keyword = if (keyword?.isNotEmpty() == true) keyword else "",
+                         maxEntryFee = 0,
+                         minEntryFee = 0,
+                         myEventsOnly = true,
+                         userId = if (email?.isNotEmpty() == true) email else "",
+                         zip = ""
+                     )
+                 )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = if (keyword?.isNotEmpty() == true) keyword else "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
+            } else if (it.equals("callEventApi")) {
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = "",
+                        zip = ""
+                    )
+                )
             }
         }
 

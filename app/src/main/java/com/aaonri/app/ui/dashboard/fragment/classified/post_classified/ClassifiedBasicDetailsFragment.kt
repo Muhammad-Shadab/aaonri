@@ -63,7 +63,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
         classifiedDetailsBinding?.apply {
-            classifiedDescEt.setMovementMethod(ScrollingMovementMethod())
+            classifiedDescEt.movementMethod = ScrollingMovementMethod()
             priceClassifiedEt.stickPrefix("$")
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 

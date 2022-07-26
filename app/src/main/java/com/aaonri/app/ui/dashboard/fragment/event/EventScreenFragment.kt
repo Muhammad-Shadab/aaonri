@@ -2,15 +2,20 @@ package com.aaonri.app.ui.dashboard.fragment.event
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
@@ -57,10 +62,47 @@ class EventScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
             }*/
 
-            floatingActionBtnEvents.setOnClickListener {
-                context?.let { PreferenceManager<String>(it) }
-                    ?.set("description", "")
+            searchView.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    eventsScreenTabLayout.getTabAt(0)?.select()
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            EventConstants.SEARCH_KEYWORD_FILTER, textView.text.toString()
+                        )
+                    dashboardCommonViewModel.setIsFilterApplied("callEventApiWithFilter")
+                }
+                false
+            }
 
+            searchViewIcon.setOnClickListener {
+                eventsScreenTabLayout.getTabAt(0)?.select()
+                if (searchView.text.toString().isNotEmpty()) {
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(
+                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
+                        )
+                    dashboardCommonViewModel.setIsFilterApplied("callEventApiWithFilter")
+                }
+            }
+
+            searchView.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (keyword.toString().isEmpty()) {
+                        dashboardCommonViewModel.setIsFilterApplied("false")
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+            })
+
+            floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
                 startActivityForResult(intent, 2)
             }
@@ -133,10 +175,13 @@ class EventScreenFragment : Fragment() {
         return eventScreenBinding?.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        context?.let { PreferenceManager<String>(it) }
-            ?.set("description", "")
-
+    override fun onDestroy() {
+        super.onDestroy()
+        dashboardCommonViewModel.setIsFilterApplied("callEventApi")
+        context?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(
+                EventConstants.SEARCH_KEYWORD_FILTER,
+                ""
+            )
     }
 }
