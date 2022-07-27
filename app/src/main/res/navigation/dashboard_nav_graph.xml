@@ -75,6 +75,11 @@
         <action
             android:id="@+id/action_classifiedFilterFragmentBottom_to_selectClassifiedCategoryBottom2"
             app:destination="@id/selectClassifiedCategoryBottom2" />
+        <action
+            android:id="@+id/action_classifiedFilterFragmentBottom_to_classifiedScreenFragment"
+            app:destination="@id/classifiedScreenFragment"
+            app:popUpTo="@id/classifiedScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/classifiedDetailsFragment"

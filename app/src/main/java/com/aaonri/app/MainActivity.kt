@@ -68,7 +68,6 @@ class MainActivity : BaseActivity() {
 
         mainActivityBinding?.apply {
 
-
             bottomNavigation.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.classifiedScreenFragment || destination.id == R.id.advertiseScreenFragment ||
@@ -222,20 +221,20 @@ class MainActivity : BaseActivity() {
             val keyword =
                 applicationContext?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
             if (it.equals("callEventApiWithFilter")) {
-                 eventViewModel.getMyEvent(
-                     AllEventRequest(
-                         category = "",
-                         city = "",
-                         from = "",
-                         isPaid = "",
-                         keyword = if (keyword?.isNotEmpty() == true) keyword else "",
-                         maxEntryFee = 0,
-                         minEntryFee = 0,
-                         myEventsOnly = true,
-                         userId = if (email?.isNotEmpty() == true) email else "",
-                         zip = ""
-                     )
-                 )
+                eventViewModel.getMyEvent(
+                    AllEventRequest(
+                        category = "",
+                        city = "",
+                        from = "",
+                        isPaid = "",
+                        keyword = if (keyword?.isNotEmpty() == true) keyword else "",
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = true,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = ""
+                    )
+                )
                 eventViewModel.getAllEvent(
                     AllEventRequest(
                         category = "",

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_32sdp">
+        android:layout_marginTop="@dimen/_40sdp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:background="@drawable/edit_text_shape"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
-        android:hint="Select Category*"
+        android:hint="Select Category"
         android:lines="1"
         android:maxLines="1"
         android:paddingVertical="@dimen/_4sdp"
@@ -60,7 +60,7 @@
         android:background="@drawable/edit_text_shape"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
-        android:hint="Select Sub Category*"
+        android:hint="Select Sub Category"
         android:lines="1"
         android:maxLines="1"
         android:paddingVertical="@dimen/_4sdp"
@@ -202,7 +202,7 @@
         android:textColorHint="@color/hintColor"
         android:textSize="12sp" />
 
-    <!--<TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -226,8 +226,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
@@ -246,7 +245,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <!--<com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -290,20 +289,20 @@
                     android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
@@ -325,8 +324,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
@@ -347,7 +346,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>-->
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

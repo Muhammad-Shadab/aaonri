@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="circle">
         <item name="cornerSize">50%</item>
     </style>
@@ -15,6 +16,7 @@
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
+
 
     You can use styles for modifiy the login button like this
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">

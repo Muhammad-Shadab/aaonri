@@ -177,7 +177,7 @@ class ServicesCategoryFragment : Fragment() {
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
-                 servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
+                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
                 servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)

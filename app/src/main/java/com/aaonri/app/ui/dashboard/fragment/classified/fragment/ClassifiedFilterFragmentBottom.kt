@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +28,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedFilterBinding: FragmentClassifiedFilterBinding? = null
+    var isDatePublishedSelected = false
+    var isPriceLowToHighSelected = false
+    var isPriceHighToLowSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,68 +86,87 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
                         if (minValue.toInt() > 0 && minValue.toInt() < maxValue.toInt() && maxValue.toInt() != minValue.toInt()) {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.MIN_VALUE_FILTER,
-                                    minValue
+
+                            if (zipCodeEt.text.toString().isNotEmpty()) {
+                                if (zipCodeEt.text.toString().length >= 5) {
+
+                                    postClassifiedViewModel.setCategoryFilter(
+                                        selectCategoryClassifiedSpinner.text.toString()
+                                    )
+                                    postClassifiedViewModel.setSubCategoryFilter(
+                                        selectSubCategoryClassifiedSpinner.text.toString()
+                                    )
+                                    postClassifiedViewModel.setMinValue(minValue)
+                                    postClassifiedViewModel.setMaxValue(maxValue)
+                                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(
+                                            ClassifiedConstant.ZIPCODE_FILTER,
+                                            "${zipCodeEt.text}"
+                                        )*/
+                                    postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
+                                    //dismiss()
+                                    val action =
+                                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                                    findNavController().navigate(action)
+                                    postClassifiedViewModel.setClickedOnFilter(true)
+                                } else {
+                                    showAlert("Please enter valid ZipCode")
+                                }
+                            } else {
+                                postClassifiedViewModel.setZipCodeInFilterScreen("")
+                                postClassifiedViewModel.setCategoryFilter(
+                                    selectCategoryClassifiedSpinner.text.toString()
                                 )
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    ClassifiedConstant.MAX_VALUE_FILTER,
-                                    maxValue
+                                postClassifiedViewModel.setSubCategoryFilter(
+                                    selectSubCategoryClassifiedSpinner.text.toString()
                                 )
-                            //dismiss()
-                            postClassifiedViewModel.setClickedOnFilter(true)
+                                postClassifiedViewModel.setMinValue(minValue)
+                                postClassifiedViewModel.setMaxValue(maxValue)
+
+                                val action =
+                                    ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                                findNavController().navigate(action)
+                                postClassifiedViewModel.setClickedOnFilter(true)
+                            }
+
                         } else {
-                            /* dialog?.window?.decorView?.let {
-                                 Snackbar.make(
-                                     it,
-                                     "Please enter valid price range",
-                                     Snackbar.LENGTH_SHORT
-                                 ).show()
-                             }*/
+                            showAlert("Please enter valid price range")
                         }
                     } else {
-                        /*dialog?.window?.decorView?.let {
-                            Snackbar.make(
-                                it,
-                                "Please enter valid price range",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }*/
+                        showAlert("Please enter valid price range")
                     }
-                    /* if (minValue.toDouble() in 10.0..30.0) {
-                         context?.let { it1 -> PreferenceManager<String>(it1) }
-                             ?.set(
-                                 ClassifiedConstant.MIN_VALUE_FILTER,
-                                 "$minValue"
-                             )
-                         dismiss()
-                         postClassifiedViewModel.setClickedOnFilter(true)
-                     } else {
-                         dialog?.window?.decorView?.let {
-                             Snackbar.make(
-                                 it,
-                                 "Please enter valid price range",
-                                 Snackbar.LENGTH_SHORT
-                             ).show()
-                         }
-                     }*/
+                } else if (zipCodeEt.text.toString().isNotEmpty()) {
+                    if (zipCodeEt.text.toString().length >= 5) {
+                        /*context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                ClassifiedConstant.ZIPCODE_FILTER,
+                                "${zipCodeEt.text}"
+                            )*/
+                        postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
+                        //dismiss()
+                        postClassifiedViewModel.setCategoryFilter("")
+                        postClassifiedViewModel.setSubCategoryFilter("")
+                        postClassifiedViewModel.setMinValue("")
+                        postClassifiedViewModel.setMaxValue("")
+                        val action =
+                            ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                        findNavController().navigate(action)
+                        postClassifiedViewModel.setClickedOnFilter(true)
+
+                    } else {
+                        postClassifiedViewModel.setZipCodeInFilterScreen("")
+                        showAlert("Please enter valid ZipCode")
+                    }
                 } else {
-                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(
-                            ClassifiedConstant.MIN_VALUE_FILTER,
-                            ""
-                        )*/
-                    /*dialog?.window?.decorView?.let {
-                        Snackbar.make(
-                            it,
-                            "Please enter valid price range",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }*/
+                    postClassifiedViewModel.setZipCodeInFilterScreen("")
                 }
-                if (minValue.isNotEmpty() && minValue.length < 9) {
+
+                postClassifiedViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
+                postClassifiedViewModel.setIsDatePublishedSelected(isDatePublishedSelected)
+                postClassifiedViewModel.setIsLowToHighSelected(isPriceLowToHighSelected)
+                postClassifiedViewModel.setIsHighToLowSelected(isPriceHighToLowSelected)
+
+                /*if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
                         if (maxValue.toInt() > minValue.toInt() && minValue.toInt() > 0 && maxValue.toInt() != minValue.toInt()) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -156,18 +180,15 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                     maxValue
                                 )
                             //dismiss()
-                            postClassifiedViewModel.setClickedOnFilter(true)
+                           *//* val action =
+                                ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                            findNavController().navigate(action)
+                            postClassifiedViewModel.setClickedOnFilter(true)*//*
                         } else {
-                            /*dialog?.window?.decorView?.let {
-                                Snackbar.make(
-                                    it,
-                                    "Please enter valid price range",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }*/
+                            showAlert("Please enter valid price range")
                         }
                     }
-                    /*if (maxValue.toDouble() in 10.0..30.0) {
+                    *//*if (maxValue.toDouble() in 10.0..30.0) {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.MAX_VALUE_FILTER,
@@ -180,8 +201,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             )
                         dismiss()
                         postClassifiedViewModel.setClickedOnFilter(true)
-                    }*/
-                    /*else {
+                    }*//*
+                    *//*else {
                             dialog?.window?.decorView?.let {
                                 Snackbar.make(
                                     it,
@@ -189,21 +210,21 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                             }
-                        }*/
+                        }*//*
                 } else {
-                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
+                    *//*context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.MAX_VALUE_FILTER,
                             ""
-                        )*/
-                    /*dialog?.window?.decorView?.let {
+                        )*//*
+                    *//*dialog?.window?.decorView?.let {
                         Snackbar.make(
                             it,
                             "Please enter valid price range",
                             Snackbar.LENGTH_SHORT
                         ).show()
-                    }*/
-                }
+                    }*//*
+                }*/
 
                 /*if (myLocationCheckBox.isChecked) {
                     if (zipCodeEt.text.toString()
@@ -227,32 +248,30 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                 }*/
 
-                if (zipCodeEt.text.toString().isNotEmpty()) {
-                    if (zipCodeEt.text.toString().length >= 5) {
-                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                /* if (zipCodeEt.text.toString().isNotEmpty()) {
+                     if (zipCodeEt.text.toString().length >= 5) {
+                         *//*context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(
                                 ClassifiedConstant.ZIPCODE_FILTER,
                                 "${zipCodeEt.text}"
-                            )
+                            )*//*
+                        postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
                         //dismiss()
+                        val action =
+                            ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                        findNavController().navigate(action)
                         postClassifiedViewModel.setClickedOnFilter(true)
                     } else {
-                        /*dialog?.window?.decorView?.let {
-                            Snackbar.make(
-                                it,
-                                "Please enter valid ZipCode",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }*/
+                        showAlert("Please enter valid ZipCode")
                     }
                 } else {
-                    classifiedFilterBinding?.zipCodeEt?.setText("")
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                    //classifiedFilterBinding?.zipCodeEt?.setText("")
+                    *//*context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
                             ClassifiedConstant.ZIPCODE_FILTER,
                             ""
-                        )
-                }
+                        )*//*
+                }*/
 
                 /* context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                      ?.set(
@@ -262,7 +281,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             closeClassifiedBtn.setOnClickListener {
-                //dismiss()
+                findNavController().navigateUp()
             }
 
             clearAllBtn.setOnClickListener {
@@ -272,7 +291,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
             setData()
 
-            /*datePublished.setOnClickListener {
+            datePublished.setOnClickListener {
 
                 if (!isDatePublishedSelected) {
                     context?.let { it1 ->
@@ -288,7 +307,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     context?.getColor(R.color.white)
                         ?.let { it1 -> datePublished.setTextColor(it1) }
 
-                    context?.let { it1 ->
+                    /*context?.let { it1 ->
                         ContextCompat.getColor(
                             it1,
                             R.color.white
@@ -312,7 +331,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         )
                     }
                     context?.getColor(R.color.black)
-                        ?.let { it1 -> distance.setTextColor(it1) }
+                        ?.let { it1 -> distance.setTextColor(it1) }*/
+
                 } else {
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -328,11 +348,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         ?.let { it1 -> datePublished.setTextColor(it1) }
                 }
                 isDatePublishedSelected = !isDatePublishedSelected
-                isRelevanceSelected = false
-                isDistanceSelected = false
+                /* isRelevanceSelected = false
+                 isDistanceSelected = false*/
             }
 
-            relevance.setOnClickListener {
+            /*relevance.setOnClickListener {
 
                 if (!isRelevanceSelected) {
 
@@ -458,7 +478,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isDatePublishedSelected = false
                 isRelevanceSelected = false
 
-            }
+            }*/
+
             priceLowToHigh.setOnClickListener {
 
                 if (!isPriceLowToHighSelected) {
@@ -505,8 +526,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isPriceLowToHighSelected = !isPriceLowToHighSelected
                 isPriceHighToLowSelected = false
             }
-            priceHighToLow.setOnClickListener {
 
+            priceHighToLow.setOnClickListener {
                 if (!isPriceHighToLowSelected) {
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -550,7 +571,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 }
                 isPriceHighToLowSelected = !isPriceHighToLowSelected
                 isPriceLowToHighSelected = false
-            }*/
+            }
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
@@ -594,26 +615,13 @@ class ClassifiedFilterFragmentBottom : Fragment() {
     }
 
     private fun setData() {
-        /*val minMaxValue =
-            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_MAX_FILTER, ""] }*/
-        val minValue =
-            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MIN_VALUE_FILTER, ""] }
-        val maxValue =
-            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.MAX_VALUE_FILTER, ""] }
-        val zipCodeValue =
-            context?.let { PreferenceManager<String>(it)[ClassifiedConstant.ZIPCODE_FILTER, ""] }
-        val myLocationCheckBox =
-            context?.let { PreferenceManager<Boolean>(it)[ClassifiedConstant.MY_LOCATION_CHECKBOX, false] }
 
-        classifiedFilterBinding?.minPriceRange?.setText(minValue?.replace("Range: $", ""))
-        classifiedFilterBinding?.maxPriceRange?.setText(maxValue?.replace("Range: $", ""))
-        classifiedFilterBinding?.zipCodeEt?.setText(zipCodeValue)
-        if (myLocationCheckBox != null) {
-            classifiedFilterBinding?.myLocationCheckBox?.isChecked = myLocationCheckBox
-        }
-        /*if (myLocationCheckBox != null) {
-            classifiedFilterBinding?.myLocationCheckBox?.isChecked = myLocationCheckBox
-        }*/
+        classifiedFilterBinding?.minPriceRange?.setText(postClassifiedViewModel.minValueInFilterScreen)
+        classifiedFilterBinding?.maxPriceRange?.setText(postClassifiedViewModel.maxValueInFilterScreen)
+        classifiedFilterBinding?.zipCodeEt?.setText(postClassifiedViewModel.zipCodeInFilterScreen)
+        classifiedFilterBinding?.myLocationCheckBox?.isChecked =
+            postClassifiedViewModel.isMyLocationCheckedInFilterScreen
+
     }
 
 
@@ -644,19 +652,19 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         postClassifiedViewModel.setClickedOnFilter(false)
 
 
-        /*selectedFilterList.clear()
+        /*selectedFilterList.clear()*/
 
         classifiedFilterBinding?.apply {
 
             myLocationCheckBox.isChecked = false
 
-            zipCode.setText("")
+            /*zipCode.setText("")*/
 
 
             isPriceHighToLowSelected = false
             isPriceLowToHighSelected = false
-            isDistanceSelected = false
-            isRelevanceSelected = false
+            /*isDistanceSelected = false
+            isRelevanceSelected = false*/
             isDatePublishedSelected = false
 
             context?.let { it1 ->
@@ -696,7 +704,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
             context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
 
-            context?.let { it1 ->
+            /*context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
                     R.color.white
@@ -706,19 +714,19 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     it2
                 )
             }
-            context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }
+            context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*/
 
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                distance.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }
+            /* context?.let { it1 ->
+                 ContextCompat.getColor(
+                     it1,
+                     R.color.white
+                 )
+             }?.let { it2 ->
+                 distance.setBackgroundColor(
+                     it2
+                 )
+             }
+             context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*/
 
 
             context?.let { it1 ->
@@ -747,9 +755,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             context?.getColor(R.color.black)
                 ?.let { it1 -> priceHighToLow.setTextColor(it1) }
         }
-    }
 
-    */
 
     }
 

@@ -101,9 +101,6 @@ class PostClassifiedViewModel @Inject constructor(
 
     var clickOnClearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
 
-    /*var minMaxPriceRangeZipCode: MutableLiveData<Triple<String, String, String>> = MutableLiveData()
-        private set*/
-
     var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
         MutableLiveData()
 
@@ -113,19 +110,31 @@ class PostClassifiedViewModel @Inject constructor(
     var imageIdGoindToRemove = mutableListOf<Int>()
         private set
 
-    var minMaxValueInFilter: MutableLiveData<String> = MutableLiveData()
+    var minValueInFilterScreen = ""
         private set
 
-    var minValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+    var maxValueInFilterScreen = ""
         private set
 
-    var maxValueInFilterScreen: MutableLiveData<String> = MutableLiveData()
+    var zipCodeInFilterScreen = ""
         private set
 
-    var zipCodeInFilterScreen: MutableLiveData<String> = MutableLiveData()
+    var categoryFilter = ""
         private set
 
-    var isMyLocationCheckedInFilterScreen: MutableLiveData<Boolean> = MutableLiveData()
+    var subCategoryFilter = ""
+        private set
+
+    var isMyLocationCheckedInFilterScreen = false
+        private set
+
+    var isDatePublishedSelected = false
+        private set
+
+    var isPriceLowToHighSelected = false
+        private set
+
+    var isPriceHighToLowSelected = false
         private set
 
     val classifiedDeleteData: MutableLiveData<Resource<String>> =
@@ -267,23 +276,39 @@ class PostClassifiedViewModel @Inject constructor(
      }*/
 
     fun setMinValue(value: String) {
-        minValueInFilterScreen.postValue(value)
+        minValueInFilterScreen = value
+    }
+
+    fun setCategoryFilter(value: String) {
+        categoryFilter = value
+    }
+
+    fun setSubCategoryFilter(value: String) {
+        subCategoryFilter = value
     }
 
     fun setMaxValue(value: String) {
-        maxValueInFilterScreen.postValue(value)
+        maxValueInFilterScreen = value
     }
 
     fun setZipCodeInFilterScreen(value: String) {
-        zipCodeInFilterScreen.postValue(value)
-    }
-
-    fun setMinMaxValue(value1: String, value2: String) {
-        minMaxValueInFilter.postValue("Range: \$$value1-\$$value2")
+        zipCodeInFilterScreen = value
     }
 
     fun setIsMyLocationChecked(value: Boolean) {
-        isMyLocationCheckedInFilterScreen.postValue(value)
+        isMyLocationCheckedInFilterScreen = value
+    }
+
+    fun setIsDatePublishedSelected(value: Boolean) {
+        isDatePublishedSelected = value
+    }
+
+    fun setIsLowToHighSelected(value: Boolean) {
+        isPriceLowToHighSelected = value
+    }
+
+    fun setIsHighToLowSelected(value: Boolean) {
+        isPriceHighToLowSelected = value
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
