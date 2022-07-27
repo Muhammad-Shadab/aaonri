@@ -8,11 +8,13 @@ import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.post_classified.ClassifiedBasicDetailsFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
@@ -35,13 +37,25 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
-
         classifiedFilterBinding?.apply {
             minPriceRange.stickPrefix("$")
             maxPriceRange.stickPrefix("$")
             minPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
             maxPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
 
+            selectCategoryClassifiedSpinner.setOnClickListener {
+                val action =
+                    ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToSelectClassifiedCategoryBottom2()
+                findNavController().navigate(action)
+            }
+
+            selectSubCategoryClassifiedSpinner.setOnClickListener {
+                if (selectCategoryClassifiedSpinner.text.isNotEmpty()) {
+                    val action =
+                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToSelectClassifiedSubCategoryBottom2()
+                    findNavController().navigate(action)
+                }
+            }
 
             myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {

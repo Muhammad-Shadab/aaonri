@@ -17,11 +17,13 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -76,6 +78,9 @@ class ClassifiedScreenFragment : Fragment() {
                 ""
             )
 
+        if (ClassifiedStaticData.getCategoryList().isEmpty()) {
+            postClassifiedViewModel.getClassifiedCategory()
+        }
 
         classifiedScreenBinding?.apply {
 
@@ -280,6 +285,21 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    response.data?.let { ClassifiedStaticData.updateCategoryList(it) }
+                }
+                is Resource.Error -> {
+                }
+                else -> {
+
+                }
+            }
+        }
+
         return classifiedScreenBinding?.root
     }
 
@@ -346,6 +366,7 @@ class ClassifiedScreenFragment : Fragment() {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
         }
     }
+
     override fun onStart() {
         super.onStart()
         context?.let { PreferenceManager<String>(it) }

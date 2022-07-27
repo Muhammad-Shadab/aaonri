@@ -147,10 +147,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-
-                context?.let { PreferenceManager<String>(it) }
-                    ?.set("description", "")
-
                 val action =
                     ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
                         args.addId,
@@ -283,27 +279,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    /*classifiedDetailsBinding?.progressBarCommunityBottom?.visibility =
-                        View.VISIBLE*/
-                }
-                is Resource.Success -> {
-                    /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
-                        View.GONE*/
-                    response.data?.let { ClassifiedStaticData.updateCategoryList(it) }
-                }
-                is Resource.Error -> {
-                    /*selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
-                        View.GONE*/
-                }
-                else -> {
-
-                }
-            }
-        }
-
         return classifiedDetailsBinding?.root
     }
 
@@ -314,9 +289,6 @@ class ClassifiedDetailsFragment : Fragment() {
         if (data.userId == email) {
             if (!data.approved) {
                 classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
-            }
-            if (ClassifiedStaticData.getCategoryList().isEmpty()) {
-                postClassifiedViewModel.getClassifiedCategory()
             }
         }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
