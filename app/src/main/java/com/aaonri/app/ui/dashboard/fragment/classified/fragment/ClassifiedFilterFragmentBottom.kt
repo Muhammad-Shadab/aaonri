@@ -553,6 +553,18 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }*/
         }
 
+        postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
+            classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = it.title
+            if (postClassifiedViewModel.clearSubCategory) {
+                classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+                postClassifiedViewModel.setClearSubCategory(false)
+            }
+        }
+
+        postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
+            classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
+        }
+
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
