@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,7 @@ class ServicesCategoryFragment : Fragment() {
     var isServicesSelected = false
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
+    var selectedCommunity = mutableListOf<Community>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
@@ -112,6 +114,9 @@ class ServicesCategoryFragment : Fragment() {
                     if (isCompanyEmailCheckboxSelected) {
                         if (Validator.emailValidation(companyEmail.toString()) && companyEmail.toString().length >= 8) {
                             if (aliasName.toString().isNotEmpty()) {
+                                selectedCommunity.forEach {
+                                    Log.i("selectedCommunity", "${it.communityName}")
+                                }
                                 registerUser(
                                     companyEmail.toString(),
                                     aliasName.toString(),
@@ -240,6 +245,13 @@ class ServicesCategoryFragment : Fragment() {
                 }
             }
         }
+
+        authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { communityList ->
+            communityList.forEach { community ->
+                selectedCommunity.add((Community(community.communityId, community.communityName)))
+            }
+        }
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -276,10 +288,7 @@ class ServicesCategoryFragment : Fragment() {
                 aliasName = if (authCommonViewModel.companyEmailAliasName?.value?.second?.isNotEmpty() == true) authCommonViewModel.companyEmailAliasName!!.value!!.second else "",
                 authorized = true,
                 city = authCommonViewModel.locationDetails["city"]!!,
-                community = listOf(
-                    Community(1, "Home Needs"),
-                    Community(2, "Foundation & Donations")
-                ),
+                community = selectedCommunity,
                 companyEmail = if (authCommonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) authCommonViewModel.companyEmailAliasName!!.value!!.first else "",
                 emailId = authCommonViewModel.basicDetailsMap["emailAddress"]!!,
                 firstName = authCommonViewModel.basicDetailsMap["firstName"]!!,
