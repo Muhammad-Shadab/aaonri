@@ -89,7 +89,9 @@ class ClassifiedScreenFragment : Fragment() {
                         ?.set(
                             ClassifiedConstant.SEARCH_KEYWORD_FILTER, textView.text.toString()
                         )*/
-                    setClassifiedViewPager(true)
+
+                    postClassifiedViewModel.setSearchQuery(textView.text.toString())
+                    postClassifiedViewModel.setClickedOnFilter(true)
                 }
                 false
             }
@@ -331,7 +333,7 @@ class ClassifiedScreenFragment : Fragment() {
                         category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
                         email = if (email?.isNotEmpty() == true) email else "",
                         fetchCatSubCat = true,
-                        keywords = "",
+                        keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
                         location = "",
                         maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
                         minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
@@ -346,7 +348,7 @@ class ClassifiedScreenFragment : Fragment() {
                         category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
                         email = if (email?.isNotEmpty() == true) email else "",
                         fetchCatSubCat = true,
-                        keywords = "",
+                        keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
                         location = "",
                         maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
                         minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,

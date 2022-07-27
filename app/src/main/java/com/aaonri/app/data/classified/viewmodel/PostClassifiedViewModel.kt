@@ -137,6 +137,9 @@ class PostClassifiedViewModel @Inject constructor(
     var isPriceHighToLowSelected = false
         private set
 
+    var searchQueryFilter = ""
+        private set
+
     val classifiedDeleteData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
@@ -309,6 +312,10 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setIsHighToLowSelected(value: Boolean) {
         isPriceHighToLowSelected = value
+    }
+
+    fun setSearchQuery(value: String) {
+        searchQueryFilter = value
     }
 
     fun setListOfUploadImagesUri(uploadedImagesList: MutableList<Uri>) {
