@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
@@ -18,8 +19,8 @@ import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
-class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
-    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+class ClassifiedFilterFragmentBottom : Fragment() {
+    //override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedFilterBinding: FragmentClassifiedFilterBinding? = null
@@ -28,7 +29,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        isCancelable = false
+        //isCancelable = false
         classifiedFilterBinding =
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
@@ -76,25 +77,25 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                     ClassifiedConstant.MAX_VALUE_FILTER,
                                     maxValue
                                 )
-                            dismiss()
+                            //dismiss()
                             postClassifiedViewModel.setClickedOnFilter(true)
                         } else {
-                            dialog?.window?.decorView?.let {
-                                Snackbar.make(
-                                    it,
-                                    "Please enter valid price range",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
+                            /* dialog?.window?.decorView?.let {
+                                 Snackbar.make(
+                                     it,
+                                     "Please enter valid price range",
+                                     Snackbar.LENGTH_SHORT
+                                 ).show()
+                             }*/
                         }
                     } else {
-                        dialog?.window?.decorView?.let {
+                        /*dialog?.window?.decorView?.let {
                             Snackbar.make(
                                 it,
                                 "Please enter valid price range",
                                 Snackbar.LENGTH_SHORT
                             ).show()
-                        }
+                        }*/
                     }
                     /* if (minValue.toDouble() in 10.0..30.0) {
                          context?.let { it1 -> PreferenceManager<String>(it1) }
@@ -119,13 +120,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ClassifiedConstant.MIN_VALUE_FILTER,
                             ""
                         )*/
-                    dialog?.window?.decorView?.let {
+                    /*dialog?.window?.decorView?.let {
                         Snackbar.make(
                             it,
                             "Please enter valid price range",
                             Snackbar.LENGTH_SHORT
                         ).show()
-                    }
+                    }*/
                 }
                 if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
@@ -140,16 +141,16 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                     ClassifiedConstant.MAX_VALUE_FILTER,
                                     maxValue
                                 )
-                            dismiss()
+                            //dismiss()
                             postClassifiedViewModel.setClickedOnFilter(true)
                         } else {
-                            dialog?.window?.decorView?.let {
+                            /*dialog?.window?.decorView?.let {
                                 Snackbar.make(
                                     it,
                                     "Please enter valid price range",
                                     Snackbar.LENGTH_SHORT
                                 ).show()
-                            }
+                            }*/
                         }
                     }
                     /*if (maxValue.toDouble() in 10.0..30.0) {
@@ -181,13 +182,13 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                             ClassifiedConstant.MAX_VALUE_FILTER,
                             ""
                         )*/
-                    dialog?.window?.decorView?.let {
+                    /*dialog?.window?.decorView?.let {
                         Snackbar.make(
                             it,
                             "Please enter valid price range",
                             Snackbar.LENGTH_SHORT
                         ).show()
-                    }
+                    }*/
                 }
 
                 /*if (myLocationCheckBox.isChecked) {
@@ -219,19 +220,18 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                                 ClassifiedConstant.ZIPCODE_FILTER,
                                 "${zipCodeEt.text}"
                             )
-                        dismiss()
+                        //dismiss()
                         postClassifiedViewModel.setClickedOnFilter(true)
                     } else {
-                        dialog?.window?.decorView?.let {
+                        /*dialog?.window?.decorView?.let {
                             Snackbar.make(
                                 it,
                                 "Please enter valid ZipCode",
                                 Snackbar.LENGTH_SHORT
                             ).show()
-                        }
+                        }*/
                     }
-                }
-                else{
+                } else {
                     classifiedFilterBinding?.zipCodeEt?.setText("")
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(
@@ -245,16 +245,14 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
                          ClassifiedConstant.MY_LOCATION_CHECKBOX,
                          myLocationCheckBox.isChecked
                      )*/
-
-
             }
 
             closeClassifiedBtn.setOnClickListener {
-                dismiss()
+                //dismiss()
             }
 
             clearAllBtn.setOnClickListener {
-                dismiss()
+                //dismiss()
                 clearAllData()
             }
 
@@ -594,7 +592,7 @@ class ClassifiedFilterFragmentBottom : BottomSheetDialogFragment() {
 
 
     private fun clearAllData() {
-         postClassifiedViewModel.setClickOnClearAllFilter(true)
+        postClassifiedViewModel.setClickOnClearAllFilter(true)
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
         classifiedFilterBinding?.zipCodeEt?.setText("")

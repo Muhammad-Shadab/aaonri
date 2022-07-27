@@ -46,27 +46,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterYourEmailToSendLinkTv" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_24sdp"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="@string/if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com"
-        android:textAlignment="center"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:textColor="#333333"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/successful"
 
-        />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bottomLoginBtn"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/textView6"
+        app:layout_constraintTop_toBottomOf="@id/successful"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_28sdp"
         android:layout_gravity="center_horizontal"
