@@ -39,6 +39,32 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
 
         postEventViewModel.addStepViewLastTick(true)
 
+        val text = "If a user wishes to make an ad Popular/Hot\n" +
+                "Please email to admin@aaonri.com"
+
+        val ss = SpannableString(text)
+
+
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "admin@aaonri.com", null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
 
         eventBottomBinding?.apply {
 
@@ -47,7 +73,8 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
             } else {
                 successful.text = "You have successfully posted your Event"
             }
-
+            textView6.text = ss
+            textView6.movementMethod = LinkMovementMethod.getInstance()
             bottomLoginBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callEventApi", true)

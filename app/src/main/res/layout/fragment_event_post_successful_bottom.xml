@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.event.post_event.EventPostSuccessfulBottom">
 
     <ImageView
@@ -31,6 +31,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/successTickIv" />
+
     <TextView
         android:id="@+id/successful"
         android:layout_width="match_parent"
@@ -46,15 +47,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterYourEmailToSendLinkTv" />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="@string/if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com"
+        android:textAlignment="center"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/successful" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bottomLoginBtn"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/successful"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_28sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_28sdp"
         android:layout_marginBottom="@dimen/_32sdp"
         android:background="@drawable/green_btn_shape"
@@ -67,7 +82,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
