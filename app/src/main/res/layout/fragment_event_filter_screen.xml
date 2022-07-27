@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottom">
+    tools:context=".ui.dashboard.fragment.event.fragment.EventFilterScreenFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +38,7 @@
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/edit_text_shape"
+        android:drawableRight="@drawable/arrow_down_spinner"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select Category"
@@ -48,8 +49,7 @@
         android:paddingEnd="@dimen/_8sdp"
         android:textColor="@color/editTextColor"
         android:textColorHint="@color/hintColor"
-        android:textSize="16sp"
-        app:drawableRightCompat="@drawable/arrow_down_spinner" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/selectSubCategoryClassifiedSpinner"
@@ -58,6 +58,7 @@
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/edit_text_shape"
+        android:drawableRight="@drawable/arrow_down_spinner"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select Sub Category"
@@ -68,8 +69,7 @@
         android:paddingEnd="@dimen/_8sdp"
         android:textColor="@color/editTextColor"
         android:textColorHint="@color/hintColor"
-        android:textSize="16sp"
-        app:drawableRightCompat="@drawable/arrow_down_spinner" />
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -390,6 +390,5 @@
             android:textSize="16sp" />
 
     </LinearLayout>
-
 
 </LinearLayout>

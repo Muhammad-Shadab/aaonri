@@ -49,6 +49,7 @@ class ServicesCategoryFragment : Fragment() {
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
     var selectedCommunity = mutableListOf<Community>()
+    var selectedServicesInterest = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
@@ -292,7 +293,7 @@ class ServicesCategoryFragment : Fragment() {
                 companyEmail = if (authCommonViewModel.companyEmailAliasName?.value?.first?.isNotEmpty() == true) authCommonViewModel.companyEmailAliasName!!.value!!.first else "",
                 emailId = authCommonViewModel.basicDetailsMap["emailAddress"]!!,
                 firstName = authCommonViewModel.basicDetailsMap["firstName"]!!,
-                interests = "1,4,19",
+                interests = selectedServicesInterest,
                 isAdmin = 0,
                 isFullNameAsAliasName = authCommonViewModel.companyEmailAliasCheckBoxValue["isAliasNameCheckBox"]!!,
                 isJobRecruiter = authCommonViewModel.companyEmailAliasCheckBoxValue["isRecruiterCheckBox"]!!,

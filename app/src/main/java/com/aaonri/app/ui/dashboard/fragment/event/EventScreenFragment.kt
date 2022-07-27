@@ -58,9 +58,9 @@ class EventScreenFragment : Fragment() {
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
-            /*filterEvent.setOnClickListener {
-                findNavController().navigate(R.id.action_eventScreenFragment_to_classifiedFilterFragmentBottom)
-            }*/
+            filterEvent.setOnClickListener {
+                findNavController().navigate(R.id.eventFilterScreenFragment)
+            }
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
