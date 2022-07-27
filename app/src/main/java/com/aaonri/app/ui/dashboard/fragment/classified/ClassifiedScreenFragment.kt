@@ -53,118 +53,14 @@ class ClassifiedScreenFragment : Fragment() {
         classifiedScreenBinding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
+        val fragment = this
+        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
+
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
-        /*context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-            ?.set(
-                ClassifiedConstant.MY_LOCATION_CHECKBOX, false
-            )
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.MIN_VALUE_FILTER,
-                ""
-            )
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.MAX_VALUE_FILTER,
-                ""
-            )
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.ZIPCODE_FILTER,
-                ""
-            )
-
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.SEARCH_KEYWORD_FILTER,
-                ""
-            )*/
-
-        postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
-            if (isFilterClicked) {
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
-                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
-                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
-                    )
-                )
-                classifiedViewModel.getMyClassified(
-                    GetClassifiedByUserRequest(
-                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = "",
-                        location = "",
-                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
-                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
-                        myAdsOnly = true,
-                        popularOnAoonri = null,
-                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
-                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
-                    )
-                )
-                postClassifiedViewModel.setClickedOnFilter(false)
-
-                noofSelection = 0
-                if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
-
-                    if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text =
-                            "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                    }
-
-                    /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText2?.text =
-                            "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                    } else {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                    }
-*/
-                    if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText3?.text =
-                            "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                    }
-
-                    OnNoOfSelectedFilterItem(noofSelection)
-
-                } else {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-
-                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-                }
-            }
-            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }
-        }
 
 
         if (ClassifiedStaticData.getCategoryList().isEmpty()) {
@@ -281,6 +177,50 @@ class ClassifiedScreenFragment : Fragment() {
                     postClassifiedViewModel.setNavigateToAllClassified(false)
                 }
             }
+
+            classifiedScreenViewPager.isUserInputEnabled = false
+
+            classifiedScreenViewPager.adapter = classifiedPagerAdapter
+            TabLayoutMediator(
+                classifiedScreenTabLayout,
+                classifiedScreenViewPager
+            ) { tab, position ->
+                tab.text = tabTitles[position]
+            }.attach()
+
+            for (i in 0..3) {
+                val textView =
+                    LayoutInflater.from(requireContext())
+                        .inflate(R.layout.tab_title_text, null) as CardView
+                classifiedScreenTabLayout.getTabAt(i)?.customView =
+                    textView
+            }
+
+            classifiedScreenTabLayout.addOnTabSelectedListener(object :
+                TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 2) {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
+                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+                    } else {
+                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                            View.VISIBLE
+                        classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
+                        OnNoOfSelectedFilterItem(noofSelection)
+
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    return
+                }
+            })
+
         }
         postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
@@ -289,6 +229,9 @@ class ClassifiedScreenFragment : Fragment() {
 
             }
         }
+
+
+
         setClassifiedViewPager(false)
 
         /*postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
@@ -381,58 +324,94 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
+        postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+            if (isFilterClicked) {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
+                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
+                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
+                    )
+                )
+                classifiedViewModel.getMyClassified(
+                    GetClassifiedByUserRequest(
+                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
+                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
+                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
+                    )
+                )
+                postClassifiedViewModel.setClickedOnFilter(false)
+
+                noofSelection = 0
+                if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                    classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
+
+                    if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
+                        classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterText1?.text =
+                            "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
+                        noofSelection++
+
+                    } else {
+                        classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                    }
+
+                    /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
+                        classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterText2?.text =
+                            "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
+                    } else {
+                        classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                    }
+*/
+                    if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                        classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                        classifiedScreenBinding?.filterText3?.text =
+                            "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
+                        noofSelection++
+
+                    } else {
+                        classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                    }
+
+                    OnNoOfSelectedFilterItem(noofSelection)
+
+                } else {
+                    classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+
+                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+                }
+            }
+            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+            }
+        }
+
         return classifiedScreenBinding?.root
     }
 
 
     private fun setClassifiedViewPager(isFilterEnabled: Boolean) {
-        val fragment = this
-        val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment, isFilterEnabled)
 
         classifiedScreenBinding?.apply {
-
-            classifiedScreenViewPager.isUserInputEnabled = false
-
-            classifiedScreenViewPager.adapter = classifiedPagerAdapter
-            TabLayoutMediator(
-                classifiedScreenTabLayout,
-                classifiedScreenViewPager
-            ) { tab, position ->
-                tab.text = tabTitles[position]
-            }.attach()
-
-            for (i in 0..3) {
-                val textView =
-                    LayoutInflater.from(requireContext())
-                        .inflate(R.layout.tab_title_text, null) as CardView
-                classifiedScreenTabLayout.getTabAt(i)?.customView =
-                    textView
-            }
-
-            classifiedScreenTabLayout.addOnTabSelectedListener(object :
-                TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    if (tab?.position == 2) {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
-                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
-                    } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
-                            View.VISIBLE
-                        classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
-                        OnNoOfSelectedFilterItem(noofSelection)
-
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    return
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    return
-                }
-            })
 
         }
     }

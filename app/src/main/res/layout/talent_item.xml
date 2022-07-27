@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            >
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/profilePicCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardPreventCornerOverlap="false"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/profilePicIv"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/profile_pic_placeholder" />
+            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/nameTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/jobtxtcolor"
+                    android:text="Dipanshu Singh"/>
+                <TextView
+                    android:id="@+id/jobTitleTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/jobtxtcolor"
+                    android:text="Android Developer"/>
+            </LinearLayout>
+
+        </LinearLayout>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:orientation="vertical">
+          <TextView
+              android:id="@+id/locationTv"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:drawableLeft="@drawable/job_location_icon"
+              android:text="New York, NY, USA"
+              android:textColor="#797979"
+              android:layout_marginHorizontal="16dp"
+              android:drawablePadding="4dp"/>
+          <TextView
+              android:id="@+id/experienceTv"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:drawableLeft="@drawable/experience_icon"
+              android:text="3 to 5 Years"
+              android:textColor="#797979"
+              android:layout_marginHorizontal="16dp"
+              android:layout_marginBottom="4dp"
+              android:drawablePadding="4dp"/>
+              </LinearLayout>
+              <androidx.appcompat.widget.AppCompatButton
+                  android:id="@+id/viewProfileBtn"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom"
+                  android:layout_weight="1"
+                  android:layout_marginHorizontal="10dp"
+                  android:background="@drawable/green_btn_shape"
+                  android:fontFamily="@font/sf_pro_semi_bold"
+                  android:includeFontPadding="false"
+                  android:minHeight="0dp"
+                  android:text="VIEW PROFILE"
+                  android:backgroundTint="#124c94"
+                  android:textColor="@color/white"
+                  android:textSize="16sp" />
+          </LinearLayout>
+          <View
+              android:layout_marginTop="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="2dp"
+              android:layout_marginHorizontal="10dp"
+              android:background="#802f6ca8"/>
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/skillRecyclerview"
+              android:layout_marginTop="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="34dp"
+             />
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

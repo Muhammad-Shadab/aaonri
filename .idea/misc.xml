@@ -12,12 +12,18 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/capsule_shape_with_shadow.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/circle_blue_shape.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/dialog_box_bg.xml" value="0.2695" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/experience_icon.xml" value="0.203" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/gray_btn.xml" value="0.2695" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/green1_btn_shape.xml" value="0.203" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/green_btn_shape.xml" value="0.196" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/hot.xml" value="0.203" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_icon_open_menu.xml" value="0.2035" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_imageview_placeholder.xml" value="0.2375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_more.xml" value="0.2035" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_uplaoded_image.xml" value="0.2375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/job_location_icon.xml" value="0.203" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/light_blue_rectangle_shape.xml" value="0.203" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/point_icon.xml" value="0.203" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/top_rounded_corner_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout-v28/activity_registration.xml" value="0.296195652173913" />
@@ -26,6 +32,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_registration.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_rich_text_editor.xml" value="0.3359375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/all_posted_jobs_item.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/category_card_item.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/classified_card_items.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/community_item.xml" value="0.3359375" />
@@ -156,7 +163,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.2" />
+        <option name="scale" value="0.33" />
       </ProjectState>
     </option>
   </component>
