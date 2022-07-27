@@ -626,31 +626,20 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
 
     private fun clearAllData() {
+
         postClassifiedViewModel.setClickOnClearAllFilter(true)
         classifiedFilterBinding?.minPriceRange?.setText("")
         classifiedFilterBinding?.maxPriceRange?.setText("")
         classifiedFilterBinding?.zipCodeEt?.setText("")
-        /*classifiedFilterBinding?.myLocationCheckBox?.isChecked = false*/
+        classifiedFilterBinding?.myLocationCheckBox?.isChecked = false
+        classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = ""
+        classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
 
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.MIN_VALUE_FILTER, ""
-            )
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.MAX_VALUE_FILTER, ""
-            )
-        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-            ?.set(
-                ClassifiedConstant.MY_LOCATION_CHECKBOX, false
-            )
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(
-                ClassifiedConstant.ZIPCODE_FILTER,
-                ""
-            )
+        postClassifiedViewModel.setMinValue("")
+        postClassifiedViewModel.setMaxValue("")
+        postClassifiedViewModel.setIsMyLocationChecked(false)
+        postClassifiedViewModel.setZipCodeInFilterScreen("")
         postClassifiedViewModel.setClickedOnFilter(false)
-
 
         /*selectedFilterList.clear()*/
 
