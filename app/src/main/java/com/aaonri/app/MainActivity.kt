@@ -203,6 +203,7 @@ class MainActivity : BaseActivity() {
                     response.data?.zipcode?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_ZIP_CODE] = it
                     }
+
                 }
                 is Resource.Error -> {
                     Toast.makeText(
