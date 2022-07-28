@@ -146,6 +146,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                 ClassifiedConstant.ZIPCODE_FILTER,
                                 "${zipCodeEt.text}"
                             )*/
+                        postClassifiedViewModel.setCategoryFilter(
+                            selectCategoryClassifiedSpinner.text.toString()
+                        )
+                        postClassifiedViewModel.setSubCategoryFilter(
+                            selectSubCategoryClassifiedSpinner.text.toString()
+                        )
                         postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
                         //dismiss()
                         postClassifiedViewModel.setCategoryFilter("")
@@ -158,10 +164,25 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         postClassifiedViewModel.setClickedOnFilter(true)
                         postClassifiedViewModel.setIsFilterEnable(true)
 
-                    } else if () {
+                    } else {
                         postClassifiedViewModel.setZipCodeInFilterScreen("")
                         showAlert("Please enter valid ZipCode")
                     }
+                } else if (selectCategoryClassifiedSpinner.text.toString()
+                        .isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString()
+                        .isNotEmpty()
+                ) {
+                    postClassifiedViewModel.setCategoryFilter(
+                        selectCategoryClassifiedSpinner.text.toString()
+                    )
+                    postClassifiedViewModel.setSubCategoryFilter(
+                        selectSubCategoryClassifiedSpinner.text.toString()
+                    )
+                    val action =
+                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                    findNavController().navigate(action)
+                    postClassifiedViewModel.setClickedOnFilter(true)
+
                 } else {
                     postClassifiedViewModel.setZipCodeInFilterScreen("")
                 }
@@ -575,7 +596,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 }
                 isPriceLowToHighSelected = !isPriceLowToHighSelected
                 isPriceHighToLowSelected = false
-                isDatePublishedSelected =false
+                isDatePublishedSelected = false
             }
 
             priceHighToLow.setOnClickListener {
