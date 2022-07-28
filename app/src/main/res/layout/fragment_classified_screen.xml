@@ -312,7 +312,7 @@
 
     </HorizontalScrollView>
 
-    <!--<TextView
+    <TextView
         android:id="@+id/moreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -324,7 +324,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/selectedFilters"
         app:layout_constraintStart_toEndOf="@id/selectedFilters"
-        app:layout_constraintTop_toTopOf="@id/selectedFilters" />-->
+        app:layout_constraintTop_toTopOf="@id/selectedFilters" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"

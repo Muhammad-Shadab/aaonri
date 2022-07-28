@@ -167,9 +167,9 @@ class ClassifiedScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
 
-            /*moreTextView.setOnClickListener {
+            moreTextView.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
-            }*/
+            }
 
             floatingActionBtnClassified.setOnClickListener {
                 val intent = Intent(requireContext(), ClassifiedActivity::class.java)
@@ -414,10 +414,10 @@ class ClassifiedScreenFragment : Fragment() {
     }
 
     fun setFilterVisibility() {
-
         noOfSelection = 0
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() || postClassifiedViewModel.categoryFilter.isNotEmpty() || postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
 
             if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
@@ -459,11 +459,11 @@ class ClassifiedScreenFragment : Fragment() {
 
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-            //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+            classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() && postClassifiedViewModel.categoryFilter.isNotEmpty() && postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+            classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
         }
     }
 
@@ -493,10 +493,13 @@ class ClassifiedScreenFragment : Fragment() {
         if (noOfSelection >= 1) {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
             classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+
         }
     }
 

@@ -156,5 +156,13 @@
             app:destination="@id/eventScreenFragment"
             app:popUpTo="@id/eventScreenFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_eventFilterScreenFragment_to_selectFilterEventCityBottom"
+            app:destination="@id/selectFilterEventCityBottom" />
     </fragment>
+    <dialog
+        android:id="@+id/selectFilterEventCityBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.SelectFilterEventCityBottom"
+        android:label="fragment_select_filter_event_city_bottom"
+        tools:layout="@layout/fragment_select_filter_event_city_bottom" />
 </navigation>
