@@ -284,6 +284,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             closeClassifiedBtn.setOnClickListener {
+                postClassifiedViewModel.setClickedOnFilter(false)
                 findNavController().navigateUp()
             }
 

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -43,7 +42,7 @@ class ClassifiedScreenFragment : Fragment() {
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
 
-    var noofSelection = 0
+    var noOfSelection = 0
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -68,20 +67,6 @@ class ClassifiedScreenFragment : Fragment() {
 
         classifiedScreenBinding?.apply {
 
-            deleteFilterIv1.setOnClickListener {
-                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MIN_VALUE_FILTER, ""
-                    )
-                context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MAX_VALUE_FILTER, ""
-                    )*/
-                postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
-            }
-
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     callGetAllClassifiedApi(searchQuery = textView.text.toString())
@@ -101,16 +86,12 @@ class ClassifiedScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
-                        //setClassifiedViewPager(false)
-                        //Toast.makeText(context, "afterTextChanged", Toast.LENGTH_SHORT).show()
-                        //
+                        callGetAllClassifiedApi()
                     }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-                    if (p0?.isEmpty() == true && p0.isEmpty()) {
-                        callGetAllClassifiedApi()
-                    }
+
                 }
 
             })
@@ -123,8 +104,26 @@ class ClassifiedScreenFragment : Fragment() {
                         ?.set(
                             ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
                         )*/
+                    callGetAllClassifiedApi(searchView.text.toString())
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     //setClassifiedViewPager(true)
                 }
+            }
+
+            deleteFilterIv1.setOnClickListener {
+                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                /*context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MIN_VALUE_FILTER, ""
+                    )
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(
+                        ClassifiedConstant.MAX_VALUE_FILTER, ""
+                    )*/
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "clciked", Toast.LENGTH_SHORT).show()
+                postClassifiedViewModel.setClickedOnFilter(false)
+                onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv2.setOnClickListener {
@@ -134,7 +133,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )*/
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
@@ -145,7 +144,7 @@ class ClassifiedScreenFragment : Fragment() {
                          ""
                      )*/
                 postClassifiedViewModel.setClickedOnFilter(false)
-                onNoOfSelectedFilterItem(--noofSelection)
+                onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             filterClassified.setOnClickListener {
@@ -210,7 +209,7 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
-                        onNoOfSelectedFilterItem(noofSelection)
+                        onNoOfSelectedFilterItem(noOfSelection)
                     }
                     if (tab?.position != 0) {
                         postClassifiedViewModel.setClearAllFilter(true)
@@ -237,8 +236,8 @@ class ClassifiedScreenFragment : Fragment() {
         }
         postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
-                noofSelection = 0
-                onNoOfSelectedFilterItem(noofSelection)
+                noOfSelection = 0
+                onNoOfSelectedFilterItem(noOfSelection)
             }
         }
 
@@ -352,47 +351,42 @@ class ClassifiedScreenFragment : Fragment() {
                 )
 
                 postClassifiedViewModel.setClickedOnFilter(false)
-
-                noofSelection = 0
-                if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
-
-                    if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text =
-                            "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                    }
-
-                    /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText2?.text =
-                            "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                    } else {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                    }
-*/
-                    if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText3?.text =
-                            "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                    }
-
-                    onNoOfSelectedFilterItem(noofSelection)
+                noOfSelection = 0
+            }
+            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+                // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
+                if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
+                    classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                    classifiedScreenBinding?.filterText1?.text =
+                        "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
+                    noOfSelection++
 
                 } else {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-
-                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+                    classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                 }
+
+                /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
+                    classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                    classifiedScreenBinding?.filterText2?.text =
+                        "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
+                } else {
+                    classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                }*/
+
+                if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                    classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                    classifiedScreenBinding?.filterText3?.text =
+                        "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
+                    noOfSelection++
+                } else {
+                    classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                }
+                onNoOfSelectedFilterItem(noOfSelection)
+            } else {
+                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+
+                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }
             if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
