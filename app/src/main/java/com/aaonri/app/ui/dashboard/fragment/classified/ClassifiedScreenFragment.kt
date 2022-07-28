@@ -459,7 +459,6 @@ class ClassifiedScreenFragment : Fragment() {
 
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() && postClassifiedViewModel.categoryFilter.isNotEmpty() && postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
