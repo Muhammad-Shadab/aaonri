@@ -26,7 +26,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
 class ClassifiedFilterFragmentBottom : Fragment() {
-    //override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedFilterBinding: FragmentClassifiedFilterBinding? = null
@@ -38,7 +37,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //isCancelable = false
         classifiedFilterBinding =
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
@@ -100,13 +98,14 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                     )
                                     postClassifiedViewModel.setMinValue(minValue)
                                     postClassifiedViewModel.setMaxValue(maxValue)
-                                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                                        ?.set(
-                                            ClassifiedConstant.ZIPCODE_FILTER,
-                                            "${zipCodeEt.text}"
-                                        )*/
+
                                     postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
-                                    //dismiss()
+                                    postClassifiedViewModel.setChangeSortTripletFilter(
+                                        isDatePublishedSelected,
+                                        isPriceLowToHighSelected,
+                                        isPriceHighToLowSelected
+                                    )
+
                                     val action =
                                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                     findNavController().navigate(action)
@@ -125,7 +124,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                 )
                                 postClassifiedViewModel.setMinValue(minValue)
                                 postClassifiedViewModel.setMaxValue(maxValue)
-
+                                postClassifiedViewModel.setChangeSortTripletFilter(
+                                    isDatePublishedSelected,
+                                    isPriceLowToHighSelected,
+                                    isPriceHighToLowSelected
+                                )
                                 val action =
                                     ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                 findNavController().navigate(action)
@@ -141,11 +144,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                 } else if (zipCodeEt.text.toString().isNotEmpty()) {
                     if (zipCodeEt.text.toString().length >= 5) {
-                        /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                            ?.set(
-                                ClassifiedConstant.ZIPCODE_FILTER,
-                                "${zipCodeEt.text}"
-                            )*/
                         postClassifiedViewModel.setCategoryFilter(
                             selectCategoryClassifiedSpinner.text.toString()
                         )
@@ -153,11 +151,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             selectSubCategoryClassifiedSpinner.text.toString()
                         )
                         postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
-                        //dismiss()
-                        postClassifiedViewModel.setCategoryFilter("")
-                        postClassifiedViewModel.setSubCategoryFilter("")
-                        postClassifiedViewModel.setMinValue("")
-                        postClassifiedViewModel.setMaxValue("")
+
+                        postClassifiedViewModel.setChangeSortTripletFilter(
+                            isDatePublishedSelected,
+                            isPriceLowToHighSelected,
+                            isPriceHighToLowSelected
+                        )
                         val action =
                             ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                         findNavController().navigate(action)
@@ -172,6 +171,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         .isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString()
                         .isNotEmpty()
                 ) {
+                    postClassifiedViewModel.setChangeSortTripletFilter(
+                        isDatePublishedSelected,
+                        isPriceLowToHighSelected,
+                        isPriceHighToLowSelected
+                    )
                     postClassifiedViewModel.setCategoryFilter(
                         selectCategoryClassifiedSpinner.text.toString()
                     )
@@ -182,15 +186,22 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                     findNavController().navigate(action)
                     postClassifiedViewModel.setClickedOnFilter(true)
+                } else if (postClassifiedViewModel.changeSortTriplet.first || postClassifiedViewModel.changeSortTriplet.second || postClassifiedViewModel.changeSortTriplet.third) {
 
-                } else {
-                    postClassifiedViewModel.setZipCodeInFilterScreen("")
+                    postClassifiedViewModel.setChangeSortTripletFilter(
+                        isDatePublishedSelected,
+                        isPriceLowToHighSelected,
+                        isPriceHighToLowSelected
+                    )
+                    val action =
+                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                    findNavController().navigate(action)
+                    postClassifiedViewModel.setClickedOnFilter(true)
+                    //postClassifiedViewModel.setZipCodeInFilterScreen("")
                 }
 
                 postClassifiedViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
-                postClassifiedViewModel.setIsDatePublishedSelected(isDatePublishedSelected)
-                postClassifiedViewModel.setIsLowToHighSelected(isPriceLowToHighSelected)
-                postClassifiedViewModel.setIsHighToLowSelected(isPriceHighToLowSelected)
+
 
                 /*if (minValue.isNotEmpty() && minValue.length < 9) {
                     if (maxValue.isNotEmpty() && maxValue.length < 9) {
@@ -312,8 +323,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             clearAllBtn.setOnClickListener {
-                //dismiss()
                 postClassifiedViewModel.setClearAllFilter(true)
+                postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
             }
 
             setData()
@@ -333,8 +344,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                     context?.getColor(R.color.white)
                         ?.let { it1 -> datePublished.setTextColor(it1) }
-
-
 
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -405,6 +414,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isDatePublishedSelected = !isDatePublishedSelected
                 isPriceHighToLowSelected = false
                 isPriceLowToHighSelected = false
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    isDatePublishedSelected,
+                    isPriceLowToHighSelected,
+                    isPriceHighToLowSelected
+                )
                 /* isRelevanceSelected = false
                  isDistanceSelected = false*/
             }
@@ -597,6 +611,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isPriceLowToHighSelected = !isPriceLowToHighSelected
                 isPriceHighToLowSelected = false
                 isDatePublishedSelected = false
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    isDatePublishedSelected,
+                    isPriceLowToHighSelected,
+                    isPriceHighToLowSelected
+                )
             }
 
             priceHighToLow.setOnClickListener {
@@ -656,6 +675,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isPriceHighToLowSelected = !isPriceHighToLowSelected
                 isPriceLowToHighSelected = false
                 isDatePublishedSelected = false
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    isDatePublishedSelected,
+                    isPriceLowToHighSelected,
+                    isPriceHighToLowSelected
+                )
             }
         }
 
@@ -696,6 +720,14 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 postClassifiedViewModel.setIsMyLocationChecked(false)
                 postClassifiedViewModel.setZipCodeInFilterScreen("")
                 postClassifiedViewModel.setClickedOnFilter(false)
+                postClassifiedViewModel.setCategoryFilter("")
+                postClassifiedViewModel.setSubCategoryFilter("")
+
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    datePublished = false,
+                    priceLowToHigh = false,
+                    priceHighToLow = false
+                )
 
                 postClassifiedViewModel.setSelectedClassifiedCategory(
                     ClassifiedCategoryResponseItem(
@@ -847,6 +879,54 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         classifiedFilterBinding?.zipCodeEt?.setText(postClassifiedViewModel.zipCodeInFilterScreen)
         classifiedFilterBinding?.myLocationCheckBox?.isChecked =
             postClassifiedViewModel.isMyLocationCheckedInFilterScreen
+
+        postClassifiedViewModel.changeSortTriplet.let {
+            if (it.first) {
+                isDatePublishedSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    classifiedFilterBinding?.datePublished?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> classifiedFilterBinding?.datePublished?.setTextColor(it1) }
+            }
+            if (it.second) {
+                isPriceLowToHighSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    classifiedFilterBinding?.priceLowToHigh?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> classifiedFilterBinding?.priceLowToHigh?.setTextColor(it1) }
+            }
+            if (it.third) {
+                isPriceHighToLowSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    classifiedFilterBinding?.priceHighToLow?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> classifiedFilterBinding?.priceHighToLow?.setTextColor(it1) }
+            }
+        }
 
     }
 

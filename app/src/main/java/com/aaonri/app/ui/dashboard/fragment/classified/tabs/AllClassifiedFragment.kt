@@ -47,7 +47,6 @@ class AllClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
-
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -55,9 +54,18 @@ class AllClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     allClassifiedBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let {
-                        allClassifiedAdapter!!.setData(it)
-                        classifiedViewModel.setClassifiedForHomeScreen(it)
+
+                    response.data?.userAdsList?.let { adsList ->
+                        if (postClassifiedViewModel.changeSortTriplet.first) {
+
+                        } else if (postClassifiedViewModel.changeSortTriplet.second) {
+                            allClassifiedAdapter?.setData(adsList.sortedBy { it.askingPrice })
+                        } else if (postClassifiedViewModel.changeSortTriplet.third) {
+                            allClassifiedAdapter?.setData(adsList.sortedByDescending { it.askingPrice })
+                        } else {
+                            allClassifiedAdapter?.setData(adsList)
+                        }
+                        classifiedViewModel.setClassifiedForHomeScreen(adsList)
                     }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
@@ -83,7 +91,7 @@ class AllClassifiedFragment : Fragment() {
         return allClassifiedBinding?.root
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
 
         arguments?.let { bundle ->
@@ -140,7 +148,7 @@ class AllClassifiedFragment : Fragment() {
                         )
                     }
                 } else {
-                    /*if (it) {
+                    *//*if (it) {
                         classifiedViewModel.getClassifiedByUser(
                             GetClassifiedByUserRequest(
                                 category = "",
@@ -172,10 +180,10 @@ class AllClassifiedFragment : Fragment() {
                                 zipCode = ""
                             )
                         )
-                    }*/
+                    }*//*
                 }
             }
         }
-    }
+    }*/
 }
 

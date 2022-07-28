@@ -71,6 +71,9 @@ class PostClassifiedViewModel @Inject constructor(
     var clearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var clearAllFilterBtn: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
@@ -132,16 +135,10 @@ class PostClassifiedViewModel @Inject constructor(
     var isMyLocationCheckedInFilterScreen = false
         private set
 
-    var isDatePublishedSelected = false
-        private set
-
-    var isPriceLowToHighSelected = false
-        private set
-
-    var isPriceHighToLowSelected = false
-        private set
-
     var searchQueryFilter = ""
+        private set
+
+    var changeSortTriplet = Triple<Boolean, Boolean, Boolean>(false, false, false)
         private set
 
     val classifiedDeleteData: MutableLiveData<Resource<String>> =
@@ -306,18 +303,6 @@ class PostClassifiedViewModel @Inject constructor(
         isMyLocationCheckedInFilterScreen = value
     }
 
-    fun setIsDatePublishedSelected(value: Boolean) {
-        isDatePublishedSelected = value
-    }
-
-    fun setIsLowToHighSelected(value: Boolean) {
-        isPriceLowToHighSelected = value
-    }
-
-    fun setIsHighToLowSelected(value: Boolean) {
-        isPriceHighToLowSelected = value
-    }
-
     fun setSearchQuery(value: String) {
         searchQueryFilter = value
     }
@@ -406,6 +391,19 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setIsFilterEnable(value: Boolean) {
         isFilterEnable = value
+    }
+
+    fun setChangeSortTripletFilter(
+        datePublished: Boolean,
+        priceLowToHigh: Boolean,
+        priceHighToLow: Boolean
+    ) {
+        changeSortTriplet = Triple(datePublished, priceLowToHigh, priceHighToLow)
+    }
+
+    //This is also used in different case
+    fun setClickOnClearAllFilterBtn(value: Boolean) {
+        clearAllFilterBtn.postValue(value)
     }
 
 }

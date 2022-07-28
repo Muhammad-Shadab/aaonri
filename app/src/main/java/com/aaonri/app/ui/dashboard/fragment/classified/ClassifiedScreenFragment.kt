@@ -67,6 +67,7 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.getClassifiedCategory()
         }
 
+
         classifiedScreenBinding?.apply {
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
@@ -88,7 +89,7 @@ class ClassifiedScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
-                        callGetAllClassifiedApi()
+                        //callGetAllClassifiedApi()
                     }
                 }
 
@@ -163,6 +164,17 @@ class ClassifiedScreenFragment : Fragment() {
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
+            deleteFilterIv5.setOnClickListener {
+                classifiedScreenBinding?.filterCv5?.visibility = View.GONE
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    datePublished = false,
+                    priceLowToHigh = false,
+                    priceHighToLow = false
+                )
+                postClassifiedViewModel.setClickedOnFilter(true)
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+
             filterClassified.setOnClickListener {
                 findNavController().navigate(R.id.action_classifiedScreenFragment_to_classifiedFilterFragmentBottom)
             }
@@ -231,12 +243,10 @@ class ClassifiedScreenFragment : Fragment() {
                         postClassifiedViewModel.setClearAllFilter(true)
                         if (searchView.text.isNotEmpty()) {
                             searchView.setText("")
+                            postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                         }
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-                        if (postClassifiedViewModel.isFilterEnable) {
-                            callGetAllClassifiedApi()
-                            postClassifiedViewModel.setIsFilterEnable(false)
-                        }
+
                     }
                 }
 
@@ -404,19 +414,33 @@ class ClassifiedScreenFragment : Fragment() {
 
                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }*/
-           /* if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }*/
+            /* if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+             }*/
+        }
+
+        postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
+            if (it) {
+                callGetAllClassifiedApi()
+            }
         }
 
         return classifiedScreenBinding?.root
     }
 
-    fun setFilterVisibility() {
+    private fun setFilterVisibility() {
 
         noOfSelection = 0
-        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() || postClassifiedViewModel.categoryFilter.isNotEmpty() || postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
+        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
+            postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
+            postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
+            postClassifiedViewModel.categoryFilter.isNotEmpty() ||
+            postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
+            postClassifiedViewModel.changeSortTriplet.first ||
+            postClassifiedViewModel.changeSortTriplet.second ||
+            postClassifiedViewModel.changeSortTriplet.third
+        ) {
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
 
             if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
@@ -455,13 +479,37 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.filterCv3?.visibility = View.GONE
             }
 
+            if (postClassifiedViewModel.changeSortTriplet.first) {
+                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText5?.text = "Sort: Date Published"
+                noOfSelection++
+            } else if (postClassifiedViewModel.changeSortTriplet.second) {
+                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText5?.text = "Sort: Low to High"
+                noOfSelection++
+            } else if (postClassifiedViewModel.changeSortTriplet.third) {
+                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText5?.text = "Sort: High to Low"
+                noOfSelection++
+            } else {
+                classifiedScreenBinding?.filterCv5?.visibility = View.GONE
+            }
+
             onNoOfSelectedFilterItem(noOfSelection)
 
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
-        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() && postClassifiedViewModel.categoryFilter.isNotEmpty() && postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
+        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() &&
+            postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() &&
+            postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() &&
+            postClassifiedViewModel.categoryFilter.isNotEmpty() &&
+            postClassifiedViewModel.subCategoryFilter.isNotEmpty() &&
+            postClassifiedViewModel.changeSortTriplet.first &&
+            postClassifiedViewModel.changeSortTriplet.second &&
+            postClassifiedViewModel.changeSortTriplet.third
+        ) {
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
@@ -499,5 +547,6 @@ class ClassifiedScreenFragment : Fragment() {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
         }
     }
+
 
 }
