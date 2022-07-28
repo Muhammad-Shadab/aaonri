@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
+import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -112,38 +114,52 @@ class ClassifiedScreenFragment : Fragment() {
 
             deleteFilterIv1.setOnClickListener {
                 classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MIN_VALUE_FILTER, ""
-                    )
-                context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MAX_VALUE_FILTER, ""
-                    )*/
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
-                Toast.makeText(context, "clciked", Toast.LENGTH_SHORT).show()
-                postClassifiedViewModel.setClickedOnFilter(false)
+
+                postClassifiedViewModel.setMaxValue("")
+                postClassifiedViewModel.setMinValue("")
+                postClassifiedViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv2.setOnClickListener {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(
-                        ClassifiedConstant.MAX_VALUE_FILTER, ""
-                    )*/
-                postClassifiedViewModel.setClickedOnFilter(false)
+
+                postClassifiedViewModel.setSelectedClassifiedCategory(
+                    ClassifiedCategoryResponseItem(
+                        emptyList(),
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+                postClassifiedViewModel.setCategoryFilter("")
+                postClassifiedViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
                 classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                /* context?.let { it1 -> PreferenceManager<String>(it1) }
-                     ?.set(
-                         ClassifiedConstant.ZIPCODE_FILTER,
-                         ""
-                     )*/
-                postClassifiedViewModel.setClickedOnFilter(false)
+
+                postClassifiedViewModel.setZipCodeInFilterScreen("")
+                postClassifiedViewModel.setIsMyLocationChecked(false)
+
+                postClassifiedViewModel.setClickedOnFilter(true)
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+
+            deleteFilterIv4.setOnClickListener {
+                postClassifiedViewModel.setSelectedSubClassifiedCategory(
+                    ClassifiedSubcategoryX(
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+                classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+                postClassifiedViewModel.setSubCategoryFilter("")
+                postClassifiedViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
@@ -349,11 +365,11 @@ class ClassifiedScreenFragment : Fragment() {
                         zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
                     )
                 )
-
                 postClassifiedViewModel.setClickedOnFilter(false)
                 noOfSelection = 0
             }
-            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+            setFilterVisibility()
+            /*if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
                 // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
                 if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
@@ -366,13 +382,13 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenBinding?.filterCv1?.visibility = View.GONE
                 }
 
-                /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
+                *//*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
                     classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
                     classifiedScreenBinding?.filterText2?.text =
                         "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
                 } else {
                     classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                }*/
+                }*//*
 
                 if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                     classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
@@ -387,7 +403,7 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
 
                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }
+            }*/
             if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
@@ -395,6 +411,69 @@ class ClassifiedScreenFragment : Fragment() {
         }
 
         return classifiedScreenBinding?.root
+    }
+
+    fun setFilterVisibility() {
+
+        noOfSelection = 0
+        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() || postClassifiedViewModel.categoryFilter.isNotEmpty() || postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
+            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+
+            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
+                classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText1?.text =
+                    "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
+                noOfSelection++
+
+            } else {
+                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+            }
+            if (postClassifiedViewModel.categoryFilter.isNotEmpty()) {
+                classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText2?.text =
+                    "${postClassifiedViewModel.categoryFilter}"
+                noOfSelection++
+            } else {
+                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+            }
+            if (postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
+                classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText4?.text =
+                    "${postClassifiedViewModel.subCategoryFilter}"
+                noOfSelection++
+            } else {
+                classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+            }
+
+            /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
+                classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText2?.text =
+                    "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
+            } else {
+                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+            }
+    */
+            if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                classifiedScreenBinding?.filterText3?.text =
+                    "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
+                noOfSelection++
+
+            } else {
+                classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+            }
+
+            onNoOfSelectedFilterItem(noOfSelection)
+
+        } else {
+            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+
+            //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+        }
+        if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() && postClassifiedViewModel.categoryFilter.isNotEmpty() && postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
+            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
+        }
     }
 
     private fun callGetAllClassifiedApi(searchQuery: String = "") {
@@ -416,7 +495,6 @@ class ClassifiedScreenFragment : Fragment() {
                 zipCode = ""
             )
         )
-
     }
 
 
