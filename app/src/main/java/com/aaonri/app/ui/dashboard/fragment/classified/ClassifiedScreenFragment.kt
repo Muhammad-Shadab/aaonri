@@ -431,10 +431,4 @@ class ClassifiedScreenFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        context?.let { PreferenceManager<String>(it) }
-            ?.set("description", "")
-
-    }
 }
