@@ -445,14 +445,6 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedScreenBinding?.filterCv4?.visibility = View.GONE
             }
 
-            /*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText2?.text =
-                    "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
-            } else {
-                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-            }
-    */
             if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
                 classifiedScreenBinding?.filterText3?.text =
