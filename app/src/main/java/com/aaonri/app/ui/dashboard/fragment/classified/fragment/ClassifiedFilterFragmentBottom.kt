@@ -158,7 +158,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         postClassifiedViewModel.setClickedOnFilter(true)
                         postClassifiedViewModel.setIsFilterEnable(true)
 
-                    } else {
+                    } else if () {
                         postClassifiedViewModel.setZipCodeInFilterScreen("")
                         showAlert("Please enter valid ZipCode")
                     }
@@ -313,6 +313,34 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     context?.getColor(R.color.white)
                         ?.let { it1 -> datePublished.setTextColor(it1) }
 
+
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        priceLowToHigh.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> priceLowToHigh.setTextColor(it1) }
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        priceHighToLow.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> priceHighToLow.setTextColor(it1) }
+
                     /*context?.let { it1 ->
                         ContextCompat.getColor(
                             it1,
@@ -354,6 +382,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         ?.let { it1 -> datePublished.setTextColor(it1) }
                 }
                 isDatePublishedSelected = !isDatePublishedSelected
+                isPriceHighToLowSelected = false
+                isPriceLowToHighSelected = false
                 /* isRelevanceSelected = false
                  isDistanceSelected = false*/
             }
@@ -515,6 +545,20 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     context?.getColor(R.color.black)
                         ?.let { it1 -> priceHighToLow.setTextColor(it1) }
 
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        datePublished.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> datePublished.setTextColor(it1) }
+
                 } else {
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -531,6 +575,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 }
                 isPriceLowToHighSelected = !isPriceLowToHighSelected
                 isPriceHighToLowSelected = false
+                isDatePublishedSelected =false
             }
 
             priceHighToLow.setOnClickListener {
@@ -560,6 +605,18 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                     context?.getColor(R.color.black)
                         ?.let { it1 -> priceLowToHigh.setTextColor(it1) }
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        datePublished.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> datePublished.setTextColor(it1) }
 
                 } else {
                     context?.let { it1 ->
@@ -577,6 +634,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 }
                 isPriceHighToLowSelected = !isPriceHighToLowSelected
                 isPriceLowToHighSelected = false
+                isDatePublishedSelected = false
             }
         }
 

@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/edit_text_shape"
+        android:background="@drawable/edit_text_inner_shadow"
         android:drawableRight="@drawable/arrow_down_spinner"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
@@ -52,103 +52,11 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/selectSubCategoryClassifiedSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/edit_text_shape"
-        android:drawableRight="@drawable/arrow_down_spinner"
-        android:fontFamily="@font/helvetica_regular"
-        android:gravity="center_vertical"
-        android:hint="Select Sub Category"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingVertical="@dimen/_4sdp"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:textColor="@color/editTextColor"
-        android:textColorHint="@color/hintColor"
-        android:textSize="16sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Price Range"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/capsule_shape_with_shadow"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:strokeColor="@color/lightGrey"
-            app:strokeWidth="1dp">
-
-            <EditText
-                android:id="@+id/minPriceRange"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/capsule_shape_with_shadow"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:hint="Min:$10"
-                android:inputType="number"
-                android:maxLength="9"
-                android:maxLines="1"
-                android:paddingHorizontal="@dimen/_18sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="12sp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:background="@drawable/capsule_shape_with_shadow"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:strokeColor="@color/lightGrey"
-            app:strokeWidth="1dp">
-
-            <EditText
-                android:id="@+id/maxPriceRange"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/capsule_shape_with_shadow"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:hint="Max:$30"
-                android:inputType="number"
-                android:maxLength="9"
-                android:maxLines="1"
-                android:paddingHorizontal="@dimen/_18sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="12sp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-
-    <TextView
         android:id="@+id/locationTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Location"
         android:textColor="@color/black"
@@ -189,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/capsule_shape_with_shadow"
+        android:background="@drawable/edit_text_inner_shadow"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:hint="Enter Zip Code"
         android:inputType="number"
@@ -208,7 +116,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Change Sort"
+        android:text="Fee"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -223,27 +131,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_18sdp"
-                app:strokeColor="@color/lightGrey"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:id="@+id/datePublished"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_6sdp"
-                    android:text="Date Published"
-                    android:textColor="@color/textViewColor"
-                    android:textSize="12sp" />
-
-            </com.google.android.material.card.MaterialCardView>
 
             <!--<com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
@@ -302,20 +189,20 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                app:cardCornerRadius="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/priceLowToHigh"
+                    android:id="@+id/all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingVertical="@dimen/_6sdp"
-                    android:text="Price: Low to High"
+                    android:text="All"
                     android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 
@@ -325,25 +212,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_2sdp"
-                app:cardCornerRadius="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/priceHighToLow"
+                    android:id="@+id/free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingVertical="@dimen/_6sdp"
-                    android:text="Price: High to Low"
+                    android:text="Free"
                     android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingHorizontal="@dimen/_28sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="Paid"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
     </LinearLayout>

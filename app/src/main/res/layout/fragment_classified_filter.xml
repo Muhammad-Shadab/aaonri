@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/edit_text_shape"
+        android:background="@drawable/edit_text_inner_shadow"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select Category"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/edit_text_shape"
+        android:background="@drawable/edit_text_inner_shadow"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select Sub Category"
@@ -100,7 +100,7 @@
                 android:id="@+id/minPriceRange"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/capsule_shape_with_shadow"
+                android:background="@drawable/edit_text_inner_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Min:$10"
                 android:inputType="number"
@@ -127,7 +127,7 @@
                 android:id="@+id/maxPriceRange"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/capsule_shape_with_shadow"
+                android:background="@drawable/edit_text_inner_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Max:$30"
                 android:inputType="number"
@@ -189,7 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/capsule_shape_with_shadow"
+        android:background="@drawable/edit_text_inner_shadow"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:hint="Enter Zip Code"
         android:inputType="number"
@@ -296,7 +296,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginVertical="@dimen/_6sdp"
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
