@@ -404,10 +404,10 @@ class ClassifiedScreenFragment : Fragment() {
 
                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
             }*/
-            if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+           /* if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }
+            }*/
         }
 
         return classifiedScreenBinding?.root

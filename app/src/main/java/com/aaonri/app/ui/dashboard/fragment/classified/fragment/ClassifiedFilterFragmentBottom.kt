@@ -13,6 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
+import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
@@ -615,6 +617,25 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 postClassifiedViewModel.setIsMyLocationChecked(false)
                 postClassifiedViewModel.setZipCodeInFilterScreen("")
                 postClassifiedViewModel.setClickedOnFilter(false)
+
+                postClassifiedViewModel.setSelectedClassifiedCategory(
+                    ClassifiedCategoryResponseItem(
+                        emptyList(),
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+
+                postClassifiedViewModel.setSelectedSubClassifiedCategory(
+                    ClassifiedSubcategoryX(
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
 
                 /*selectedFilterList.clear()*/
 
