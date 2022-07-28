@@ -68,6 +68,9 @@ class PostClassifiedViewModel @Inject constructor(
     var navigateToMyClassifiedScreen = false
         private set
 
+    var clearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
@@ -99,8 +102,6 @@ class PostClassifiedViewModel @Inject constructor(
 
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
 
-    var clickOnClearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
-
     var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
         MutableLiveData()
 
@@ -123,6 +124,9 @@ class PostClassifiedViewModel @Inject constructor(
         private set
 
     var subCategoryFilter = ""
+        private set
+
+    var isFilterEnable = false
         private set
 
     var isMyLocationCheckedInFilterScreen = false
@@ -342,10 +346,6 @@ class PostClassifiedViewModel @Inject constructor(
         clickedOnFilter.postValue(value)
     }
 
-    fun setClickOnClearAllFilter(value: Boolean) {
-        clickOnClearAllFilter.postValue(value)
-    }
-
     fun setSelectedClassifiedCategory(
         value: ClassifiedCategoryResponseItem,
     ) {
@@ -398,6 +398,14 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setClassifiedUploadedImagesIdList(value: MutableList<Int>) {
         classifiedUploadedImagesIdList = value
+    }
+
+    fun setClearAllFilter(value: Boolean) {
+        clearAllFilter.postValue(value)
+    }
+
+    fun setIsFilterEnable(value: Boolean) {
+        isFilterEnable = value
     }
 
 }

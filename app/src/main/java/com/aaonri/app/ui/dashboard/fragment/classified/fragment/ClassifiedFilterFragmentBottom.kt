@@ -109,6 +109,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                     findNavController().navigate(action)
                                     postClassifiedViewModel.setClickedOnFilter(true)
+                                    postClassifiedViewModel.setIsFilterEnable(true)
                                 } else {
                                     showAlert("Please enter valid ZipCode")
                                 }
@@ -127,6 +128,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                                     ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                 findNavController().navigate(action)
                                 postClassifiedViewModel.setClickedOnFilter(true)
+                                postClassifiedViewModel.setIsFilterEnable(true)
                             }
 
                         } else {
@@ -152,6 +154,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                         findNavController().navigate(action)
                         postClassifiedViewModel.setClickedOnFilter(true)
+                        postClassifiedViewModel.setIsFilterEnable(true)
 
                     } else {
                         postClassifiedViewModel.setZipCodeInFilterScreen("")
@@ -286,7 +289,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
             clearAllBtn.setOnClickListener {
                 //dismiss()
-                clearAllData()
+                postClassifiedViewModel.setClearAllFilter(true)
             }
 
             setData()
@@ -596,6 +599,128 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         }
 
+        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+            if (clearAllFilter) {
+
+                classifiedFilterBinding?.minPriceRange?.setText("")
+                classifiedFilterBinding?.maxPriceRange?.setText("")
+                classifiedFilterBinding?.zipCodeEt?.setText("")
+                classifiedFilterBinding?.myLocationCheckBox?.isChecked = false
+                classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = ""
+                classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+
+                postClassifiedViewModel.setMinValue("")
+                postClassifiedViewModel.setMaxValue("")
+                postClassifiedViewModel.setIsMyLocationChecked(false)
+                postClassifiedViewModel.setZipCodeInFilterScreen("")
+                postClassifiedViewModel.setClickedOnFilter(false)
+
+                /*selectedFilterList.clear()*/
+
+                classifiedFilterBinding?.apply {
+
+                    myLocationCheckBox.isChecked = false
+
+                    /*zipCode.setText("")*/
+
+                    isPriceHighToLowSelected = false
+                    isPriceLowToHighSelected = false
+                    /*isDistanceSelected = false
+                    isRelevanceSelected = false*/
+                    isDatePublishedSelected = false
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        minPriceRange.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> minPriceRange.setTextColor(it1) }
+
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        maxPriceRange.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> maxPriceRange.setTextColor(it1) }
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        datePublished.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
+
+                    /*context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        relevance.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*/
+
+                    /* context?.let { it1 ->
+                         ContextCompat.getColor(
+                             it1,
+                             R.color.white
+                         )
+                     }?.let { it2 ->
+                         distance.setBackgroundColor(
+                             it2
+                         )
+                     }
+                     context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*/
+
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        priceLowToHigh.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> priceLowToHigh.setTextColor(it1) }
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        priceHighToLow.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> priceHighToLow.setTextColor(it1) }
+                }
+            }
+            postClassifiedViewModel.setClearAllFilter(false)
+        }
+
         /* postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
              classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
          }*/
@@ -625,7 +750,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
     }
 
 
-    private fun clearAllData() {
+    /*private fun clearAllData() {
 
         postClassifiedViewModel.setClickOnClearAllFilter(true)
         classifiedFilterBinding?.minPriceRange?.setText("")
@@ -641,19 +766,19 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         postClassifiedViewModel.setZipCodeInFilterScreen("")
         postClassifiedViewModel.setClickedOnFilter(false)
 
-        /*selectedFilterList.clear()*/
+        *//*selectedFilterList.clear()*//*
 
         classifiedFilterBinding?.apply {
 
             myLocationCheckBox.isChecked = false
 
-            /*zipCode.setText("")*/
+            *//*zipCode.setText("")*//*
 
 
             isPriceHighToLowSelected = false
             isPriceLowToHighSelected = false
-            /*isDistanceSelected = false
-            isRelevanceSelected = false*/
+            *//*isDistanceSelected = false
+            isRelevanceSelected = false*//*
             isDatePublishedSelected = false
 
             context?.let { it1 ->
@@ -693,7 +818,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
             context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
 
-            /*context?.let { it1 ->
+            *//*context?.let { it1 ->
                 ContextCompat.getColor(
                     it1,
                     R.color.white
@@ -703,9 +828,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     it2
                 )
             }
-            context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*/
+            context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*//*
 
-            /* context?.let { it1 ->
+            *//* context?.let { it1 ->
                  ContextCompat.getColor(
                      it1,
                      R.color.white
@@ -715,7 +840,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                      it2
                  )
              }
-             context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*/
+             context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*//*
 
 
             context?.let { it1 ->
@@ -746,7 +871,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
 
-    }
+    }*/
 
     private fun showAlert(text: String) {
         activity?.let { it1 ->

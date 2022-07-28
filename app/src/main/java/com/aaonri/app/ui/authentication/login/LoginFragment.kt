@@ -119,7 +119,6 @@ class LoginFragment : Fragment() {
 
             createAccountTv.setOnClickListener {
                 val intent = Intent(requireContext(), RegistrationActivity::class.java)
-
                 startActivity(intent)
             }
 

@@ -9,14 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
@@ -27,6 +26,7 @@ import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -62,7 +62,6 @@ class ClassifiedScreenFragment : Fragment() {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-
         if (ClassifiedStaticData.getCategoryList().isEmpty()) {
             postClassifiedViewModel.getClassifiedCategory()
         }
@@ -80,18 +79,17 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )*/
                 postClassifiedViewModel.setClickedOnFilter(false)
-                OnNoOfSelectedFilterItem(--noofSelection)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
-                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(
-                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, textView.text.toString()
-                        )*/
-
+                    callGetAllClassifiedApi(searchQuery = textView.text.toString())
+                    classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setSearchQuery(textView.text.toString())
-                    postClassifiedViewModel.setClickedOnFilter(true)
+                    postClassifiedViewModel.setClearAllFilter(true)
+                    postClassifiedViewModel.setIsFilterEnable(true)
+                    //postClassifiedViewModel.setClickedOnFilter(true)
                 }
                 false
             }
@@ -103,12 +101,16 @@ class ClassifiedScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
-                        setClassifiedViewPager(false)
+                        //setClassifiedViewPager(false)
+                        //Toast.makeText(context, "afterTextChanged", Toast.LENGTH_SHORT).show()
+                        //
                     }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
+                    if (p0?.isEmpty() == true && p0.isEmpty()) {
+                        callGetAllClassifiedApi()
+                    }
                 }
 
             })
@@ -121,7 +123,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ?.set(
                             ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
                         )*/
-                    setClassifiedViewPager(true)
+                    //setClassifiedViewPager(true)
                 }
             }
 
@@ -132,7 +134,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ClassifiedConstant.MAX_VALUE_FILTER, ""
                     )*/
                 postClassifiedViewModel.setClickedOnFilter(false)
-                OnNoOfSelectedFilterItem(--noofSelection)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
 
             deleteFilterIv3.setOnClickListener {
@@ -143,7 +145,7 @@ class ClassifiedScreenFragment : Fragment() {
                          ""
                      )*/
                 postClassifiedViewModel.setClickedOnFilter(false)
-                OnNoOfSelectedFilterItem(--noofSelection)
+                onNoOfSelectedFilterItem(--noofSelection)
             }
 
             filterClassified.setOnClickListener {
@@ -169,7 +171,6 @@ class ClassifiedScreenFragment : Fragment() {
                     classifiedScreenTabLayout.visibility = View.GONE
                     classifiedScreenViewPager.setPadding(0, 40, 0, 0)
                     classifiedScreenViewPager.isUserInputEnabled = false
-
                 }
             }
 
@@ -209,8 +210,18 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                         classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
-                        OnNoOfSelectedFilterItem(noofSelection)
-
+                        onNoOfSelectedFilterItem(noofSelection)
+                    }
+                    if (tab?.position != 0) {
+                        postClassifiedViewModel.setClearAllFilter(true)
+                        if (searchView.text.isNotEmpty()) {
+                            searchView.setText("")
+                        }
+                        SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                        if (postClassifiedViewModel.isFilterEnable) {
+                            callGetAllClassifiedApi()
+                            postClassifiedViewModel.setIsFilterEnable(false)
+                        }
                     }
                 }
 
@@ -224,17 +235,13 @@ class ClassifiedScreenFragment : Fragment() {
             })
 
         }
-        postClassifiedViewModel.clickOnClearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
+        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
                 noofSelection = 0
-                OnNoOfSelectedFilterItem(noofSelection)
-
+                onNoOfSelectedFilterItem(noofSelection)
             }
         }
 
-
-
-        setClassifiedViewPager(false)
 
         /*postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
 
@@ -343,21 +350,7 @@ class ClassifiedScreenFragment : Fragment() {
                         zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
                     )
                 )
-                classifiedViewModel.getMyClassified(
-                    GetClassifiedByUserRequest(
-                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
-                        location = "",
-                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
-                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
-                        myAdsOnly = true,
-                        popularOnAoonri = null,
-                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
-                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
-                    )
-                )
+
                 postClassifiedViewModel.setClickedOnFilter(false)
 
                 noofSelection = 0
@@ -393,7 +386,7 @@ class ClassifiedScreenFragment : Fragment() {
                         classifiedScreenBinding?.filterCv3?.visibility = View.GONE
                     }
 
-                    OnNoOfSelectedFilterItem(noofSelection)
+                    onNoOfSelectedFilterItem(noofSelection)
 
                 } else {
                     classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
@@ -410,19 +403,34 @@ class ClassifiedScreenFragment : Fragment() {
         return classifiedScreenBinding?.root
     }
 
+    private fun callGetAllClassifiedApi(searchQuery: String = "") {
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-    private fun setClassifiedViewPager(isFilterEnabled: Boolean) {
+        classifiedViewModel.getClassifiedByUser(
+            GetClassifiedByUserRequest(
+                category = "",
+                email = if (email?.isNotEmpty() == true) email else "",
+                fetchCatSubCat = true,
+                keywords = searchQuery,
+                location = "",
+                maxPrice = 0,
+                minPrice = 0,
+                myAdsOnly = false,
+                popularOnAoonri = null,
+                subCategory = "",
+                zipCode = ""
+            )
+        )
 
-        classifiedScreenBinding?.apply {
-
-        }
     }
 
-    fun OnNoOfSelectedFilterItem(noofSelection: Int) {
-        if (noofSelection >= 1) {
+
+    fun onNoOfSelectedFilterItem(noOfSelection: Int) {
+        if (noOfSelection >= 1) {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noofSelection.toString())
+            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
