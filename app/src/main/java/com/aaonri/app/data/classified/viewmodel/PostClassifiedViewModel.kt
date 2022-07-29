@@ -144,6 +144,9 @@ class PostClassifiedViewModel @Inject constructor(
     val classifiedDeleteData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
+    var keyClassifiedKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }
@@ -404,6 +407,10 @@ class PostClassifiedViewModel @Inject constructor(
     //This is also used in different case
     fun setClickOnClearAllFilterBtn(value: Boolean) {
         clearAllFilterBtn.postValue(value)
+    }
+
+    fun setKeyClassifiedKeyboardListener(value: Boolean) {
+        keyClassifiedKeyboardListener.postValue(value)
     }
 
 }

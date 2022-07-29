@@ -65,7 +65,7 @@ class AllClassifiedFragment : Fragment() {
                         } else {
                             allClassifiedAdapter?.setData(adsList)
                         }
-                        classifiedViewModel.setClassifiedForHomeScreen(adsList)
+                        //classifiedViewModel.setClassifiedForHomeScreen(adsList)
                     }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
@@ -85,6 +85,13 @@ class AllClassifiedFragment : Fragment() {
                 else -> {
 
                 }
+            }
+        }
+
+        postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+            if (it) {
+                allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
         }
 

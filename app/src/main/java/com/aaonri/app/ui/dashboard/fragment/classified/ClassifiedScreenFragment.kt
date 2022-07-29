@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -89,7 +90,9 @@ class ClassifiedScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
-                        //callGetAllClassifiedApi()
+                        postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
+                    } else {
+                        postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
                     }
                 }
 
@@ -424,6 +427,46 @@ class ClassifiedScreenFragment : Fragment() {
             if (it) {
                 callGetAllClassifiedApi()
             }
+        }
+
+        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+            if (clearAllFilter) {
+
+                postClassifiedViewModel.setMinValue("")
+                postClassifiedViewModel.setMaxValue("")
+                postClassifiedViewModel.setIsMyLocationChecked(false)
+                postClassifiedViewModel.setZipCodeInFilterScreen("")
+                postClassifiedViewModel.setClickedOnFilter(false)
+                postClassifiedViewModel.setCategoryFilter("")
+                postClassifiedViewModel.setSubCategoryFilter("")
+
+                postClassifiedViewModel.setChangeSortTripletFilter(
+                    datePublished = false,
+                    priceLowToHigh = false,
+                    priceHighToLow = false
+                )
+
+                postClassifiedViewModel.setSelectedClassifiedCategory(
+                    ClassifiedCategoryResponseItem(
+                        emptyList(),
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+
+                postClassifiedViewModel.setSelectedSubClassifiedCategory(
+                    ClassifiedSubcategoryX(
+                        0,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+
+            }
+            postClassifiedViewModel.setClearAllFilter(false)
         }
 
         return classifiedScreenBinding?.root

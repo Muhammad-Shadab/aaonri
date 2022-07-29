@@ -2,12 +2,10 @@ package com.aaonri.app.ui.dashboard.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -251,7 +249,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
                     response.data?.userAdsList?.let {
-                        if (classifiedViewModel.classifiedListForHomeScreen.isEmpty()) {
+                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
                             classifiedViewModel.setClassifiedForHomeScreen(it)
                             setHomeClassifiedData()
                         } else {
@@ -468,15 +466,15 @@ class HomeScreenFragment : Fragment() {
 
     private fun setHomeClassifiedData() {
 
-        if (classifiedViewModel.classifiedListForHomeScreen.size > 3) {
+        if (classifiedViewModel.allClassifiedList.size > 3) {
             allClassifiedAdapter?.setData(
-                classifiedViewModel.classifiedListForHomeScreen.subList(
+                classifiedViewModel.allClassifiedList.subList(
                     0,
                     4
                 )
             )
         } else {
-            allClassifiedAdapter?.setData(classifiedViewModel.classifiedListForHomeScreen)
+            allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
         }
 
 

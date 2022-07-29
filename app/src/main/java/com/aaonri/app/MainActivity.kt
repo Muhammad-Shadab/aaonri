@@ -17,6 +17,7 @@ import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity() {
     val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
     val homeViewModel: HomeViewModel by viewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
     val eventViewModel: EventViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +78,20 @@ class MainActivity : BaseActivity() {
                     bottomNavigation.visibility = View.VISIBLE
                 } else {
                     bottomNavigation.visibility = View.GONE
+                }
+                if (destination.id == R.id.homeScreenFragment || destination.id == R.id.shopScreenFragment || destination.id == R.id.advertiseScreenFragment || destination.id == R.id.moreScreenFragment) {
+                    if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
+                        postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
+                        postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
+                        postClassifiedViewModel.categoryFilter.isNotEmpty() ||
+                        postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
+                        postClassifiedViewModel.changeSortTriplet.first ||
+                        postClassifiedViewModel.changeSortTriplet.second ||
+                        postClassifiedViewModel.changeSortTriplet.third
+                    ) {
+                        postClassifiedViewModel.setClearAllFilter(true)
+                        postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+                    }
                 }
             }
         }
@@ -296,6 +312,32 @@ class MainActivity : BaseActivity() {
                 else -> {}
             }
         }
+
+        /*classifiedViewModel.classifiedByUserData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    mainActivityBinding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    response.data?.userAdsList?.let {
+                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
+                            classifiedViewModel.setClassifiedForHomeScreen(it)
+                        } else {
+
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    *//*Toast.makeText(applicationContext, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()*//*
+                }
+                else -> {
+
+                }
+            }
+        }*/
 
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {

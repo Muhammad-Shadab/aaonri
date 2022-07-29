@@ -1,6 +1,5 @@
 package com.aaonri.app.data.classified.viewmodel
 
-import android.content.pm.ResolveInfo
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -44,7 +43,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
         MutableLiveData()
 
-    var classifiedListForHomeScreen = mutableListOf<UserAds>()
+    var allClassifiedList = mutableListOf<UserAds>()
         private set
 
     var isLikedButtonClicked: MutableLiveData<Boolean> = MutableLiveData()
@@ -157,7 +156,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     }
 
     fun setClassifiedForHomeScreen(value: List<UserAds>) {
-        classifiedListForHomeScreen = value as MutableList<UserAds>
+        allClassifiedList = value as MutableList<UserAds>
     }
 
     fun setIsLikedButtonClicked(value: Boolean) {
