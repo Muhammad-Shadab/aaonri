@@ -329,6 +329,8 @@
                         android:id="@+id/acriveServiceRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:clipToPadding = "false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/classifiedRv" />

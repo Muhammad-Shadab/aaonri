@@ -21,6 +21,7 @@ import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class HomeScreenFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
+    var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var interestAdapter: InterestAdapter? = null
     var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
@@ -59,6 +61,10 @@ class HomeScreenFragment : Fragment() {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(it.id)
             findNavController().navigate(action)
+        }
+
+        homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
+
         }
 
         val profile =
@@ -212,6 +218,10 @@ class HomeScreenFragment : Fragment() {
             interestRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
+
+            acriveServiceRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            acriveServiceRv.adapter = homeInterestsServiceAdapter
 
             eventRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -448,10 +458,18 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
+                    val activeServiceList = mutableListOf<String>()
+
                     if (response.data?.isNotEmpty() == true) {
+                        response.data.forEach {
+                            if (!activeServiceList.contains(it.interestDesc) && it.active) {
+                                activeServiceList.add(it.interestDesc)
+                            }
+                        }
                         homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
                         homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
+                        homeInterestsServiceAdapter?.setData(activeServiceList)
                     }
                 }
                 is Resource.Error -> {
