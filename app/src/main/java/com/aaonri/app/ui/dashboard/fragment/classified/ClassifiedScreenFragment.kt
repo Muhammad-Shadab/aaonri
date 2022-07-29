@@ -243,13 +243,27 @@ class ClassifiedScreenFragment : Fragment() {
                         onNoOfSelectedFilterItem(noOfSelection)
                     }
                     if (tab?.position != 0) {
+                        filterClassified.isEnabled = false
+                        filterClassified.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.graycolor
+                            )
+                        )
                         postClassifiedViewModel.setClearAllFilter(true)
                         if (searchView.text.isNotEmpty()) {
                             searchView.setText("")
                             postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                         }
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
+                    } else {
+                        filterClassified.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.white
+                            )
+                        )
+                        filterClassified.isEnabled = true
                     }
                 }
 

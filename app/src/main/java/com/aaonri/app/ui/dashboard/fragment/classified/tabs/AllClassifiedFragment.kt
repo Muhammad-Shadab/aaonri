@@ -57,7 +57,7 @@ class AllClassifiedFragment : Fragment() {
 
                     response.data?.userAdsList?.let { adsList ->
                         if (postClassifiedViewModel.changeSortTriplet.first) {
-
+                            allClassifiedAdapter?.setData(adsList)
                         } else if (postClassifiedViewModel.changeSortTriplet.second) {
                             allClassifiedAdapter?.setData(adsList.sortedBy { it.askingPrice })
                         } else if (postClassifiedViewModel.changeSortTriplet.third) {
@@ -89,7 +89,6 @@ class AllClassifiedFragment : Fragment() {
         }
 
         postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
             if (it) {
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }

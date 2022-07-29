@@ -325,7 +325,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/classifiedTv" />
 
-                    <HorizontalScrollView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/acriveServiceRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/classifiedRv" />
+
+                    <!--<HorizontalScrollView
                         android:id="@+id/eventsJobsHorizontalScroll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -381,7 +389,7 @@
 
                         </LinearLayout>
 
-                    </HorizontalScrollView>
+                    </HorizontalScrollView>-->
 
                     <TextView
                         android:id="@+id/eventTv"
@@ -394,7 +402,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventsJobsHorizontalScroll" />
+                        app:layout_constraintTop_toBottomOf="@+id/acriveServiceRv" />
 
                     <TextView
                         android:id="@+id/seeAllEvents"
@@ -423,12 +431,12 @@
                         android:id="@+id/eventRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"
+                        android:clipToPadding="false"
                         android:padding="16dp"
-                        android:clipToPadding = "false"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/eventTv"/>
+                        app:layout_constraintTop_toBottomOf="@id/eventTv" />
 
                     <!--<HorizontalScrollView
                         android:id="@+id/eventHorizontalLayout"
