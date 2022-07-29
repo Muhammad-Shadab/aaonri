@@ -64,14 +64,14 @@ class AllEventFragment : Fragment() {
                         } else {
                             allEventAdapter?.setData(response.data.eventList)
                         }
-                        if (eventViewModel.eventCityList.isEmpty()) {
-                            response.data?.eventList.forEach {
+                        response.data.eventList.forEach {
+                            if (eventViewModel.eventCityList.isEmpty()) {
                                 if (!listOfCity.contains(it.city) && !it.city.isNullOrEmpty()) {
                                     listOfCity.add(it.city)
                                 }
                             }
-                            eventViewModel.setEventCityList(listOfCity)
                         }
+                        eventViewModel.setEventCityList(listOfCity)
                         allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
                     } else {
                         allEventBinding?.recyclerViewEvent?.visibility = View.GONE

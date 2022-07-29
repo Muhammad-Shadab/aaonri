@@ -185,9 +185,9 @@ class EventScreenFragment : Fragment() {
                             )
                         )
                         eventViewModel.setClearAllFilter(true)
+                        eventViewModel.setClickOnClearAllFilterBtn(true)
                         if (searchView.text.isNotEmpty()) {
                             searchView.setText("")
-                            eventViewModel.setClickOnClearAllFilterBtn(true)
                         }
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     } else {
@@ -322,6 +322,33 @@ class EventScreenFragment : Fragment() {
                     value = false
                 )
             }
+        }
+
+        eventViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+            if (clearAllFilter) {
+
+                eventViewModel.setCategoryFilter("")
+                eventViewModel.setSelectedEventLocation("")
+                eventViewModel.setIsMyLocationChecked(false)
+                eventViewModel.setZipCodeInFilterScreen("")
+                eventViewModel.setSearchQuery("")
+
+                eventViewModel.setIsAllSelected(false)
+                eventViewModel.setIsFreeSelected(false)
+                eventViewModel.setIsPaidSelected(false)
+
+                postEventViewModel.setSelectedEventCategory(
+                    EventCategoryResponseItem(
+                        false,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+
+                eventViewModel.setEventCityList(mutableListOf())
+            }
+            eventViewModel.setClearAllFilter(false)
         }
 
         return eventScreenBinding?.root
