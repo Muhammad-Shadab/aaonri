@@ -90,8 +90,12 @@ class ClassifiedScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
                         postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
                     } else {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
                         postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
                     }
                 }
@@ -101,6 +105,13 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
             })
+
+            cancelbutton.setOnClickListener{
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
+                postClassifiedViewModel.setClearAllFilter(true)
+                postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+            }
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 

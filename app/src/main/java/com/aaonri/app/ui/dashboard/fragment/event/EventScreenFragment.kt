@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -92,13 +93,26 @@ class EventScreenFragment : Fragment() {
                     eventsScreenTabLayout.getTabAt(0)?.select()
                     callEventApi(searchView.text.toString())
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                } else {
+
                 }
+            }
+
+
+            cancelbutton.setOnClickListener {
+                eventViewModel.setClickOnClearAllFilterBtn(true)
+                eventViewModel.setClearAllFilter(true)
+                eventViewModel.setClickedOnFilter(true)
+                eventViewModel.setIsFilterEnable(true)
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
             }
 
             eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
                 if (isFilterClicked) {
                     noOfSelection = 0
                 }
+                searchView.setText("")
                 setFilterVisibility()
             }
 
@@ -109,8 +123,12 @@ class EventScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
                         eventViewModel.setKeyClassifiedKeyboardListener(true)
                     } else {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
                         eventViewModel.setKeyClassifiedKeyboardListener(false)
                     }
                 }
