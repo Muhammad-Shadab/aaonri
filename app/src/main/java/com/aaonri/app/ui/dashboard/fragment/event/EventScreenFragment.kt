@@ -200,6 +200,7 @@ class EventScreenFragment : Fragment() {
                 } else if (eventViewModel.isPaidSelected) {
                     eventViewModel.setIsPaidSelected(false)
                 }
+                eventViewModel.setClickedOnFilter(true)
                 eventScreenBinding?.filterCv3?.visibility = View.GONE
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
