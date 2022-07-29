@@ -223,14 +223,7 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setCityFilter(
                     ""
                 )
-                postEventViewModel.setSelectedEventCategory(
-                    EventCategoryResponseItem(
-                        false,
-                        0,
-                        0,
-                        ""
-                    )
-                )
+                eventViewModel.setSelectedEventLocation("")
                 eventScreenBinding?.filterCv1?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)

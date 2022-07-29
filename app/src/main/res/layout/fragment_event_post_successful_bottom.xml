@@ -47,8 +47,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterYourEmailToSendLinkTv" />
 
-<!--    <TextView
-        android:visibility="gone"
+
+    <!--<TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
