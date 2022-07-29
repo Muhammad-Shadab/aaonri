@@ -44,7 +44,7 @@ class RichTextEditor : AppCompatActivity() {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(arEditText, InputMethodManager.SHOW_IMPLICIT)
             data = intent.getStringExtra("data")
-            arEditText.fromHtml(data)
+            arEditText.setText(Html.fromHtml(data))
 
             /*   Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })
                    ?.trim()?.length?.let {

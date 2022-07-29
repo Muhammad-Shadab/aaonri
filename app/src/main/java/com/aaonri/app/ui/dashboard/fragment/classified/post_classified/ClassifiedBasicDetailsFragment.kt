@@ -45,7 +45,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(data.trim())
+                    classifiedDetailsBinding?.classifiedDescEt?.setText(Html.fromHtml(data.trim()))
                     description = data.trim()
                 } else {
                     classifiedDetailsBinding?.classifiedDescEt?.text = ""
@@ -180,7 +180,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
                     addDetails?.userAds?.isNew == true
 
-                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription.toString())
+                classifiedDetailsBinding?.classifiedDescEt?.setText(Html.fromHtml(addDetails?.userAds?.adDescription.toString()))
                 addDetails?.userAds?.userAdsImages?.forEach {
                     uploadedImagesIdList.add(it.imageId)
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
@@ -202,7 +202,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     )
                 }
 
-                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription)
+                classifiedDetailsBinding?.classifiedDescEt?.setText(Html.fromHtml(addDetails?.userAds?.adDescription))
 
                 description = addDetails?.userAds?.adDescription
 
@@ -335,7 +335,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 classifiedDetailsBinding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
                 classifiedDetailsBinding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
                 if (it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
+                    classifiedDetailsBinding?.classifiedDescEt?.setText(Html.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]))
                 }
             }
         }
