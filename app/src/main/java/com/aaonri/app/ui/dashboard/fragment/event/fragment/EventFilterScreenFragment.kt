@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentEventFilterScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,9 @@ class EventFilterScreenFragment : Fragment() {
         binding = FragmentEventFilterScreenBinding.inflate(layoutInflater, container, false)
 
         binding?.apply {
-
+            selectCategoryClassifiedSpinner.setOnClickListener {
+                findNavController().navigate(R.id.action_eventFilterScreenFragment_to_selectFilterEventCityBottom)
+            }
         }
 
         return binding?.root
