@@ -35,6 +35,7 @@ class EventScreenFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Events", "My Events", "Recent Events")
+    var noOfSelection = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,6 +84,15 @@ class EventScreenFragment : Fragment() {
                         )
                     dashboardCommonViewModel.setIsFilterApplied("callEventApiWithFilter")
                 }
+            }
+
+
+
+            eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+                if (isFilterClicked) {
+                    noOfSelection = 0
+                }
+                setFilterVisibility()
             }
 
             searchView.addTextChangedListener(object : TextWatcher {
@@ -157,6 +167,36 @@ class EventScreenFragment : Fragment() {
                     eventsScreenViewPager.isUserInputEnabled = false
                 }
             }
+            deleteFilterIv1.setOnClickListener {
+                eventViewModel.setSelectedEventCity(
+                    ""
+                )
+                eventScreenBinding?.filterCv1?.visibility = View.GONE
+                eventViewModel.setClickedOnFilter(true)
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+            deleteFilterIv2.setOnClickListener {
+                eventViewModel.setZipCodeInFilterScreen(
+                    ""
+                )
+                eventScreenBinding?.filterCv2?.visibility = View.GONE
+                eventViewModel.setClickedOnFilter(true)
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+            deleteFilterIv3.setOnClickListener {
+
+                if (eventViewModel.isAllSelected) {
+                    eventViewModel.setIsAllSelected(false)
+                } else if (eventViewModel.isFreeSelected) {
+                    eventViewModel.setIsFreeSelected(false)
+                } else if (eventViewModel.isPaidSelected) {
+                    eventViewModel.setIsPaidSelected(false)
+                }
+                onNoOfSelectedFilterItem(--noOfSelection)
+                eventScreenBinding?.filterCv3?.visibility = View.GONE
+
+
+            }
         }
 
         postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
@@ -183,5 +223,67 @@ class EventScreenFragment : Fragment() {
                 EventConstants.SEARCH_KEYWORD_FILTER,
                 ""
             )
+    }
+
+    fun setFilterVisibility() {
+        noOfSelection = 0
+        if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() || eventViewModel.cityFilter.isNotEmpty() || eventViewModel.isFreeSelected || eventViewModel.isPaidSelected || eventViewModel.isAllSelected) {
+            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+
+            if (eventViewModel.cityFilter.isNotEmpty()) {
+                eventScreenBinding?.filterCv1?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText1?.text =
+                    "${eventViewModel.cityFilter}"
+                noOfSelection++
+            } else {
+                eventScreenBinding?.filterCv1?.visibility = View.GONE
+            }
+
+            if (eventViewModel.zipCodeInFilterScreen.isNotEmpty()) {
+                eventScreenBinding?.filterCv2?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText2?.text =
+                    "ZipCode: ${eventViewModel.zipCodeInFilterScreen}"
+                noOfSelection++
+
+            } else {
+                eventScreenBinding?.filterCv2?.visibility = View.GONE
+            }
+            if (eventViewModel.isAllSelected) {
+                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText3?.text = "Fee: All"
+                noOfSelection++
+            } else if (eventViewModel.isFreeSelected) {
+                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText3?.text = "Fee: Free"
+                noOfSelection++
+            } else if (eventViewModel.isPaidSelected) {
+                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText3?.text = "Fee: Paid"
+                noOfSelection++
+            } else {
+                eventScreenBinding?.filterCv3?.visibility = View.GONE
+            }
+
+
+            onNoOfSelectedFilterItem(noOfSelection)
+
+        } else {
+            eventScreenBinding?.selectedFilters?.visibility = View.GONE
+        }
+        if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() && eventViewModel.cityFilter.isNotEmpty()) {
+            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+        }
+    }
+
+    fun onNoOfSelectedFilterItem(noOfSelection: Int) {
+        if (noOfSelection >= 1) {
+            eventScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            eventScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
+        } else {
+            eventScreenBinding?.selectedFilters?.visibility = View.GONE
+            eventScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+
+        }
     }
 }

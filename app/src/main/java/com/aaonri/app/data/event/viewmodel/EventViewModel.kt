@@ -3,6 +3,7 @@ package com.aaonri.app.data.event.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
@@ -19,9 +20,10 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     val allEventData: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
     val myEvent: MutableLiveData<Resource<AllEventResponse>> = MutableLiveData()
     val recentEventData: MutableLiveData<Resource<RecentEventResponse>> = MutableLiveData()
-
+    var clearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
+        private set
     val callEventDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
-
+    var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
     val callEventApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
 
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
@@ -30,6 +32,24 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
 
     var eventCityList: MutableLiveData<List<String>> = MutableLiveData()
+        private set
+    var selectedEventCity: MutableLiveData<String> =
+        MutableLiveData()
+        private set
+    var cityFilter = ""
+        private set
+    var zipCodeInFilterScreen = ""
+        private set
+    var isFilterEnable = false
+        private set
+
+    var isAllSelected = false
+        private set
+
+    var isPaidSelected = false
+        private set
+
+    var isFreeSelected = false
         private set
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
@@ -81,9 +101,45 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         callEventApiAfterDelete.postValue(value)
     }
 
-    fun setEventCityList(value: MutableList<String>){
+    fun setEventCityList(value: MutableList<String>) {
         eventCityList.postValue(value)
     }
 
+    fun setSelectedEventCity(
+        value: String,
+    ) {
+        selectedEventCity.postValue(value)
+    }
 
+    fun setClearAllFilter(value: Boolean) {
+        clearAllFilter.postValue(value)
+    }
+
+    fun setClickedOnFilter(value: Boolean) {
+        clickedOnFilter.postValue(value)
+    }
+
+    fun setCityFilter(value: String) {
+        cityFilter = value
+    }
+
+    fun setZipCodeInFilterScreen(value: String) {
+        zipCodeInFilterScreen = value
+    }
+
+    fun setIsFilterEnable(value: Boolean) {
+        isFilterEnable = value
+    }
+
+    fun setIsAllSelected(value: Boolean) {
+        isAllSelected = value
+    }
+
+    fun setIsPaidSelected(value: Boolean) {
+        isPaidSelected = value
+    }
+
+    fun setIsFreeSelected(value: Boolean) {
+        isFreeSelected = value
+    }
 }

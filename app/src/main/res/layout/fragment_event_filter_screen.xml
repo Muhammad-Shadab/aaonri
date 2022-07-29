@@ -23,7 +23,7 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/closeClassifiedBtn"
+            android:id="@+id/closeEventBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/selectCategoryClassifiedSpinner"
+        android:id="@+id/selectEventCitySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -195,7 +195,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/all"
+                    android:id="@+id/allTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -218,7 +218,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/free"
+                    android:id="@+id/freeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -240,7 +240,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/paid"
+                    android:id="@+id/paidTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
