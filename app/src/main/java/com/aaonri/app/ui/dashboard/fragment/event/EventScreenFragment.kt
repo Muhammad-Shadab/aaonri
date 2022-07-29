@@ -110,13 +110,13 @@ class EventScreenFragment : Fragment() {
                 searchViewIcon.visibility = View.VISIBLE
             }
 
-            eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+            /* eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
                 if (isFilterClicked) {
                     noOfSelection = 0
                 }
                 searchView.setText("")
                 setFilterVisibility()
-            }
+            }*/
 
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -191,6 +191,7 @@ class EventScreenFragment : Fragment() {
                             eventViewModel.setClickOnClearAllFilterBtn(true)
                         }
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                        eventViewModel.clickedOnFilter.postValue(true)
                     } else {
                         filterEvent.setColorFilter(
                             ContextCompat.getColor(
@@ -199,6 +200,8 @@ class EventScreenFragment : Fragment() {
                             )
                         )
                         filterEvent.isEnabled = true
+                        setFilterVisibility()
+
                     }
                 }
 
@@ -425,7 +428,17 @@ class EventScreenFragment : Fragment() {
         } else {
             eventScreenBinding?.selectedFilters?.visibility = View.GONE
             eventScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
-
+            eventViewModel.setZipCodeInFilterScreen("")
+            eventViewModel.setCategoryFilter("")
+            eventViewModel.setIsAllSelected(false)
+            eventViewModel.setIsPaidSelected(false)
+            eventViewModel.setSelectedEventCity("")
+            eventViewModel.setCategoryFilter("")
+            eventViewModel.setSelectedEventLocation("")
+            eventViewModel.setSearchQuery("")
+            eventViewModel.setCityFilter(
+                ""
+            )
         }
     }
 }

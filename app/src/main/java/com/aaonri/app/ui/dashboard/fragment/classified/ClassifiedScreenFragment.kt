@@ -106,7 +106,7 @@ class ClassifiedScreenFragment : Fragment() {
 
             })
 
-            cancelbutton.setOnClickListener{
+            cancelbutton.setOnClickListener {
                 cancelbutton.visibility = View.GONE
                 searchViewIcon.visibility = View.VISIBLE
                 postClassifiedViewModel.setClearAllFilter(true)
@@ -284,12 +284,12 @@ class ClassifiedScreenFragment : Fragment() {
             })
 
         }
-        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
+        /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
                 noOfSelection = 0
                 onNoOfSelectedFilterItem(noOfSelection)
             }
-        }
+        }*/
 
 
         /*postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
@@ -486,7 +486,7 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 )
-
+                postClassifiedViewModel.clickedOnFilter.postValue(true)
             }
             postClassifiedViewModel.setClearAllFilter(false)
         }
@@ -581,8 +581,7 @@ class ClassifiedScreenFragment : Fragment() {
     }
 
     private fun callGetAllClassifiedApi(searchQuery: String = "") {
-        val email =
-            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         classifiedViewModel.getClassifiedByUser(
             GetClassifiedByUserRequest(
@@ -610,6 +609,13 @@ class ClassifiedScreenFragment : Fragment() {
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            postClassifiedViewModel.setMaxValue("")
+            postClassifiedViewModel.setMinValue("")
+            postClassifiedViewModel.setZipCodeInFilterScreen("")
+            postClassifiedViewModel.setIsMyLocationChecked(false)
+            postClassifiedViewModel.setSearchQuery("")
+            postClassifiedViewModel.setCategoryFilter("")
+            postClassifiedViewModel.setSubCategoryFilter("")
         }
     }
 
