@@ -103,11 +103,10 @@ class EventScreenFragment : Fragment() {
 
             cancelbutton.setOnClickListener {
                 eventViewModel.setClearAllFilter(true)
-                eventViewModel.setSearchQuery("")
                 eventViewModel.setClickOnClearAllFilterBtn(true)
+                callEventApi()
                 cancelbutton.visibility = View.GONE
                 searchViewIcon.visibility = View.VISIBLE
-
             }
 
             eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
@@ -223,6 +222,14 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setSelectedEventCity(
                     ""
                 )
+                postEventViewModel.setSelectedEventCategory(
+                    EventCategoryResponseItem(
+                        false,
+                        0,
+                        0,
+                        ""
+                    )
+                )
                 eventScreenBinding?.filterCv1?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
@@ -231,6 +238,7 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setZipCodeInFilterScreen(
                     ""
                 )
+                eventViewModel.setIsMyLocationChecked(false)
                 eventScreenBinding?.filterCv2?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
@@ -326,7 +334,7 @@ class EventScreenFragment : Fragment() {
         return eventScreenBinding?.root
     }
 
-    private fun callEventApi(searchQuery: String) {
+    private fun callEventApi(searchQuery: String = "") {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 

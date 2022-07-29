@@ -339,6 +339,7 @@ class EventFilterScreenFragment : Fragment() {
                 eventViewModel.setSelectedEventLocation("")
                 eventViewModel.setIsMyLocationChecked(false)
                 eventViewModel.setZipCodeInFilterScreen("")
+                eventViewModel.setSearchQuery("")
 
                 eventViewModel.setIsAllSelected(false)
                 eventViewModel.setIsFreeSelected(false)

@@ -715,6 +715,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = ""
                 classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
 
+                postClassifiedViewModel.setSearchQuery("")
                 postClassifiedViewModel.setMinValue("")
                 postClassifiedViewModel.setMaxValue("")
                 postClassifiedViewModel.setIsMyLocationChecked(false)
