@@ -55,7 +55,16 @@ class AllEventFragment : Fragment() {
                     allEventBinding?.progressBar?.visibility = View.GONE
                     val listOfCity = mutableListOf<String>()
                     if (response.data?.eventList?.isNotEmpty() == true) {
-                        allEventAdapter?.setData(response.data.eventList)
+
+                        if (eventViewModel.isAllSelected) {
+                            allEventAdapter?.setData(response.data.eventList)
+                        } else if (eventViewModel.isFreeSelected) {
+                            allEventAdapter?.setData(response.data.eventList.sortedBy { it.isFree == true })
+                        } else if (eventViewModel.isPaidSelected) {
+                            allEventAdapter?.setData(response.data.eventList.sortedByDescending { it.isFree != true })
+                        } else {
+                            allEventAdapter?.setData(response.data.eventList)
+                        }
                         if (eventViewModel.eventCityList.isEmpty()) {
                             response.data?.eventList.forEach {
                                 if (!listOfCity.contains(it.city) && !it.city.isNullOrEmpty()) {
@@ -83,13 +92,14 @@ class AllEventFragment : Fragment() {
 
         }
 
+        eventViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
+            if (it) {
+                allEventAdapter?.setData(eventViewModel.allEventList)
+            }
+        }
+
         return allEventBinding?.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
-
-    }
 
 }

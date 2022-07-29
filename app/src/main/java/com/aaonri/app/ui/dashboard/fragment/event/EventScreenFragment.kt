@@ -14,9 +14,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
+import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
@@ -24,6 +26,7 @@ import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -49,6 +52,9 @@ class EventScreenFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         if (EventStaticData.getEventCategory().isEmpty()) {
             postEventViewModel.getEventCategory()
         }
@@ -72,11 +78,10 @@ class EventScreenFragment : Fragment() {
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     eventsScreenTabLayout.getTabAt(0)?.select()
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(
-                            EventConstants.SEARCH_KEYWORD_FILTER, textView.text.toString()
-                        )
-                    dashboardCommonViewModel.setIsFilterApplied("callEventApiWithFilter")
+                    callEventApi(searchQuery = textView.text.toString())
+                    eventViewModel.setSearchQuery(textView.text.toString())
+                    eventViewModel.setClearAllFilter(true)
+                    eventViewModel.setIsFilterEnable(true)
                 }
                 false
             }
@@ -84,15 +89,11 @@ class EventScreenFragment : Fragment() {
             searchViewIcon.setOnClickListener {
                 eventsScreenTabLayout.getTabAt(0)?.select()
                 if (searchView.text.toString().isNotEmpty()) {
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(
-                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
-                        )
-                    dashboardCommonViewModel.setIsFilterApplied("callEventApiWithFilter")
+                    eventsScreenTabLayout.getTabAt(0)?.select()
+                    callEventApi(searchView.text.toString())
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 }
             }
-
-
 
             eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
                 if (isFilterClicked) {
@@ -108,7 +109,9 @@ class EventScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (keyword.toString().isEmpty()) {
-                        dashboardCommonViewModel.setIsFilterApplied("false")
+                        eventViewModel.setKeyClassifiedKeyboardListener(true)
+                    } else {
+                        eventViewModel.setKeyClassifiedKeyboardListener(false)
                     }
                 }
 
@@ -190,7 +193,6 @@ class EventScreenFragment : Fragment() {
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
             deleteFilterIv3.setOnClickListener {
-
                 if (eventViewModel.isAllSelected) {
                     eventViewModel.setIsAllSelected(false)
                 } else if (eventViewModel.isFreeSelected) {
@@ -198,10 +200,40 @@ class EventScreenFragment : Fragment() {
                 } else if (eventViewModel.isPaidSelected) {
                     eventViewModel.setIsPaidSelected(false)
                 }
-                onNoOfSelectedFilterItem(--noOfSelection)
                 eventScreenBinding?.filterCv3?.visibility = View.GONE
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+        }
 
+        eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+            if (isFilterClicked) {
 
+                eventViewModel.getAllEvent(
+                    AllEventRequest(
+                        category = eventViewModel.categoryFilter.ifEmpty { "" },
+                        city = eventViewModel.cityFilter.ifEmpty { "" },
+                        from = "",
+                        isPaid = eventViewModel.isPaidSelected,
+                        keyword = eventViewModel.searchQueryFilter.ifEmpty { "" },
+                        maxEntryFee = 0,
+                        minEntryFee = 0,
+                        myEventsOnly = false,
+                        userId = if (email?.isNotEmpty() == true) email else "",
+                        zip = eventViewModel.zipCodeInFilterScreen.ifEmpty { "" }
+                    )
+                )
+
+                eventViewModel.setClickedOnFilter(false)
+                noOfSelection = 0
+            }
+            setFilterVisibility()
+
+        }
+
+        eventViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
+            if (isClearAll) {
+                noOfSelection = 0
+                onNoOfSelectedFilterItem(noOfSelection)
             }
         }
 
@@ -234,6 +266,26 @@ class EventScreenFragment : Fragment() {
         }
 
         return eventScreenBinding?.root
+    }
+
+    private fun callEventApi(searchQuery: String) {
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        eventViewModel.getAllEvent(
+            AllEventRequest(
+                category = "",
+                city = "",
+                from = "",
+                isPaid = "",
+                keyword = searchQuery.ifEmpty { "" },
+                maxEntryFee = 0,
+                minEntryFee = 0,
+                myEventsOnly = false,
+                userId = if (email?.isNotEmpty() == true) email else "",
+                zip = ""
+            )
+        )
     }
 
     override fun onDestroy() {

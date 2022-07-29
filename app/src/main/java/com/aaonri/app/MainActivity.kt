@@ -196,7 +196,7 @@ class MainActivity : BaseActivity() {
                         maxEntryFee = 0,
                         minEntryFee = 0,
                         myEventsOnly = false,
-                        userId = "",
+                        userId = if (email?.isNotEmpty() == true) email else "",
                         zip = ""
                     )
                 )
@@ -235,7 +235,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        dashboardCommonViewModel.isFilterApplied.observe(this) {
+        /*dashboardCommonViewModel.isFilterApplied.observe(this) {
             val keyword =
                 applicationContext?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
             if (it.equals("callEventApiWithFilter")) {
@@ -297,7 +297,7 @@ class MainActivity : BaseActivity() {
                     )
                 )
             }
-        }
+        }*/
 
         homeViewModel.popularClassifiedData.observe(this) { response ->
             when (response) {

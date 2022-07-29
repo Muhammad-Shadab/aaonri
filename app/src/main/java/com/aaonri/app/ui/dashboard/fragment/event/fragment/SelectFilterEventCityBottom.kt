@@ -52,7 +52,6 @@ class SelectFilterEventCityBottom : BottomSheetDialogFragment() {
             cityRv.adapter = eventCityAdapter
         }
 
-
         eventCityAdapter?.setData(eventViewModel.eventCityList)
 
         return selectFilterEventCityBottom?.root

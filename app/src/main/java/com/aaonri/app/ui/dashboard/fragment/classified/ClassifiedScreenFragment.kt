@@ -106,13 +106,9 @@ class ClassifiedScreenFragment : Fragment() {
 
             searchViewIcon.setOnClickListener {
                 if (searchView.text.toString().isNotEmpty()) {
-                    /*context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(
-                            ClassifiedConstant.SEARCH_KEYWORD_FILTER, searchView.text.toString()
-                        )*/
+                    classifiedScreenTabLayout.getTabAt(0)?.select()
                     callGetAllClassifiedApi(searchView.text.toString())
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-                    //setClassifiedViewPager(true)
                 }
             }
 

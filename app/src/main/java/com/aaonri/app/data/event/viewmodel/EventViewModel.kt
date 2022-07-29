@@ -72,6 +72,12 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var allEventList = mutableListOf<Event>()
         private set
 
+    var searchQueryFilter = ""
+        private set
+
+    var keyClassifiedKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         myEvent.postValue(Resource.Loading())
         val response = eventRepository.getAllEvent(allEventRequest)
@@ -182,5 +188,13 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     fun setAllEventList(value: List<Event>) {
         allEventList = value as MutableList<Event>
+    }
+
+    fun setSearchQuery(value: String) {
+        searchQueryFilter = value
+    }
+
+    fun setKeyClassifiedKeyboardListener(value: Boolean) {
+        keyClassifiedKeyboardListener.postValue(value)
     }
 }

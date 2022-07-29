@@ -83,9 +83,9 @@ class EventFilterScreenFragment : Fragment() {
                     eventViewModel.setIsFreeSelected(isFreeSelected)
                     eventViewModel.setIsPaidSelected(isPaidSelected)
 
-                    findNavController().navigate(R.id.action_eventFilterScreenFragment_to_eventScreenFragment)
                     eventViewModel.setClickedOnFilter(true)
                     eventViewModel.setIsFilterEnable(true)
+                    findNavController().navigate(R.id.action_eventFilterScreenFragment_to_eventScreenFragment)
 
                 } else {
                     showAlert("Please enter valid ZipCode")
