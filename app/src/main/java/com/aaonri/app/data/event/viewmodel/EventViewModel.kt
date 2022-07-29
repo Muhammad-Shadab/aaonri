@@ -3,6 +3,7 @@ package com.aaonri.app.data.event.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
@@ -31,8 +32,9 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     var hideFloatingButtonInSecondTab: MutableLiveData<Boolean> = MutableLiveData()
 
-    var eventCityList: MutableLiveData<List<String>> = MutableLiveData()
+    var eventCityList = mutableListOf<String>()
         private set
+
     var selectedEventCity: MutableLiveData<String> =
         MutableLiveData()
         private set
@@ -62,6 +64,12 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         private set
 
     var isMyLocationCheckedInFilterScreen = false
+        private set
+
+    var clearAllFilterBtn: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
+    var allEventList = mutableListOf<Event>()
         private set
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
@@ -114,7 +122,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     }
 
     fun setEventCityList(value: MutableList<String>) {
-        eventCityList.postValue(value)
+        eventCityList = value
     }
 
     fun setSelectedEventCity(
@@ -165,5 +173,14 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     fun setIsMyLocationChecked(value: Boolean) {
         isMyLocationCheckedInFilterScreen = value
+    }
+
+    //This is also used in different case
+    fun setClickOnClearAllFilterBtn(value: Boolean) {
+        clearAllFilterBtn.postValue(value)
+    }
+
+    fun setAllEventList(value: List<Event>) {
+        allEventList = value as MutableList<Event>
     }
 }

@@ -28,6 +28,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -338,6 +339,26 @@ class MainActivity : BaseActivity() {
                 }
             }
         }*/
+
+        eventViewModel.allEventData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (response.data?.eventList?.isNotEmpty() == true) {
+                        if (eventViewModel.allEventList.isEmpty()) {
+                            eventViewModel.setAllEventList(response.data.eventList)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+
+        }
 
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {

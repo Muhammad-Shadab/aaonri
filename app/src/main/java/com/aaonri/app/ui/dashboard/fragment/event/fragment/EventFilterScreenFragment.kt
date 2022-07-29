@@ -10,6 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
+import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
+import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventFilterScreenBinding
@@ -101,10 +104,12 @@ class EventFilterScreenFragment : Fragment() {
             closeEventBtn.setOnClickListener {
                 findNavController().navigateUp()
             }
+
             clearAllBtn.setOnClickListener {
-                //dismiss()
+                eventViewModel.setClickOnClearAllFilterBtn(true)
                 eventViewModel.setClearAllFilter(true)
             }
+
             allTv.setOnClickListener {
 
                 if (!isAllSelected) {
@@ -326,6 +331,80 @@ class EventFilterScreenFragment : Fragment() {
         }
         eventViewModel.selectedEventLocationLiveData.observe(viewLifecycleOwner) {
             binding?.selectEventCitySpinner?.text = it
+        }
+
+        eventViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+            if (clearAllFilter) {
+
+                eventViewModel.setCategoryFilter("")
+                eventViewModel.setSelectedEventLocation("")
+                eventViewModel.setIsMyLocationChecked(false)
+                eventViewModel.setZipCodeInFilterScreen("")
+
+                eventViewModel.setIsAllSelected(false)
+                eventViewModel.setIsFreeSelected(false)
+                eventViewModel.setIsPaidSelected(false)
+
+                postEventViewModel.setSelectedEventCategory(
+                    EventCategoryResponseItem(
+                        false,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+
+                eventViewModel.setEventCityList(mutableListOf())
+
+                /*selectedFilterList.clear()*/
+
+                binding?.apply {
+
+                    myLocationCheckBox.isChecked = false
+
+                    isAllSelected = false
+                    isFreeSelected = false
+                    isPaidSelected = false
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        allTv.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> allTv.setTextColor(it1) }
+
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        freeTv.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> freeTv.setTextColor(it1) }
+
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        paidTv.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)?.let { it1 -> paidTv.setTextColor(it1) }
+                }
+            }
+            eventViewModel.setClearAllFilter(false)
         }
 
         return binding?.root

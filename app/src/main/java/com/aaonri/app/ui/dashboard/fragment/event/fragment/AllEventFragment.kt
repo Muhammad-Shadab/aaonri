@@ -56,14 +56,14 @@ class AllEventFragment : Fragment() {
                     val listOfCity = mutableListOf<String>()
                     if (response.data?.eventList?.isNotEmpty() == true) {
                         allEventAdapter?.setData(response.data.eventList)
-                        response.data?.eventList.forEach{
-                            if(!listOfCity.contains(it.city)&&!it.city.isNullOrEmpty())
-                            {
-                                listOfCity.add(it.city)
+                        if (eventViewModel.eventCityList.isEmpty()) {
+                            response.data?.eventList.forEach {
+                                if (!listOfCity.contains(it.city) && !it.city.isNullOrEmpty()) {
+                                    listOfCity.add(it.city)
+                                }
                             }
-
+                            eventViewModel.setEventCityList(listOfCity)
                         }
-                        eventViewModel.setEventCityList(listOfCity)
                         allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
                     } else {
                         allEventBinding?.recyclerViewEvent?.visibility = View.GONE

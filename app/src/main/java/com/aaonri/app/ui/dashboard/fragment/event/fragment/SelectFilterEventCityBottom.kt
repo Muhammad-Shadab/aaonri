@@ -53,10 +53,8 @@ class SelectFilterEventCityBottom : BottomSheetDialogFragment() {
         }
 
 
-        eventViewModel.eventCityList.observe(viewLifecycleOwner) {
-            eventCityAdapter?.setData(it as MutableList<String>)
+        eventCityAdapter?.setData(eventViewModel.eventCityList)
 
-        }
         return selectFilterEventCityBottom?.root
     }
 }
