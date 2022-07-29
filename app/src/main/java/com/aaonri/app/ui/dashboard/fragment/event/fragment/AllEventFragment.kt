@@ -55,13 +55,12 @@ class AllEventFragment : Fragment() {
                     allEventBinding?.progressBar?.visibility = View.GONE
                     val listOfCity = mutableListOf<String>()
                     if (response.data?.eventList?.isNotEmpty() == true) {
-
                         if (eventViewModel.isAllSelected) {
                             allEventAdapter?.setData(response.data.eventList)
                         } else if (eventViewModel.isFreeSelected) {
-                            allEventAdapter?.setData(response.data.eventList.sortedBy { it.isFree == true })
+                            allEventAdapter?.setData(response.data.eventList.filter { it.fee <= 0 })
                         } else if (eventViewModel.isPaidSelected) {
-                            allEventAdapter?.setData(response.data.eventList.sortedByDescending { it.isFree != true })
+                            allEventAdapter?.setData(response.data.eventList.filter { it.fee > 0 })
                         } else {
                             allEventAdapter?.setData(response.data.eventList)
                         }
@@ -94,6 +93,7 @@ class AllEventFragment : Fragment() {
 
         eventViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
+                allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
                 allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }

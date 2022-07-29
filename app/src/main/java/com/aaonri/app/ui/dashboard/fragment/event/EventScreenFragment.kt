@@ -213,12 +213,12 @@ class EventScreenFragment : Fragment() {
                         category = eventViewModel.categoryFilter.ifEmpty { "" },
                         city = eventViewModel.cityFilter.ifEmpty { "" },
                         from = "",
-                        isPaid = eventViewModel.isPaidSelected,
+                        isPaid = "",
                         keyword = eventViewModel.searchQueryFilter.ifEmpty { "" },
                         maxEntryFee = 0,
                         minEntryFee = 0,
                         myEventsOnly = false,
-                        userId = if (email?.isNotEmpty() == true) email else "",
+                        userId = "",
                         zip = eventViewModel.zipCodeInFilterScreen.ifEmpty { "" }
                     )
                 )
