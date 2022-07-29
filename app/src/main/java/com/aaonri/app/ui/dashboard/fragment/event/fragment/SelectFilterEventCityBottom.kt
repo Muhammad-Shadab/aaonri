@@ -36,22 +36,21 @@ class SelectFilterEventCityBottom : BottomSheetDialogFragment() {
             FragmentSelectFilterEventCityBottomBinding.inflate(inflater, container, false)
 
         eventCityAdapter = EventCityAdapter {
-
+            eventViewModel.setSelectedEventLocation(it)
+            dismiss()
         }
 
-            selectFilterEventCityBottom?.apply {
+        selectFilterEventCityBottom?.apply {
 
-                closeCountryBtn.setOnClickListener {
-                    dismiss()
-                }
-                selectCityTv.setOnClickListener {
-
-                }
-                cityRv.layoutManager = LinearLayoutManager(context)
-                cityRv.adapter = eventCityAdapter
+            closeCountryBtn.setOnClickListener {
+                dismiss()
             }
+            selectCityTv.setOnClickListener {
 
-
+            }
+            cityRv.layoutManager = LinearLayoutManager(context)
+            cityRv.adapter = eventCityAdapter
+        }
 
 
         eventViewModel.eventCityList.observe(viewLifecycleOwner) {

@@ -395,20 +395,6 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
-        postEventViewModel.eventCategoryData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    /*categoryBinding?.progressBar?.visibility = View.VISIBLE*/
-                }
-                is Resource.Success -> {
-                    response.data?.let { EventStaticData.updateEventCategory(it) }
-                }
-                is Resource.Error -> {
-
-                }
-                else -> {}
-            }
-        }
 
         return evenDetailsBinding?.root
     }
@@ -427,9 +413,6 @@ class EventDetailsScreenFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (event.createdBy == email) {
             evenDetailsBinding?.moreBtn?.visibility = View.VISIBLE
-            if (EventStaticData.getEventCategory().isEmpty()) {
-                postEventViewModel.getEventCategory()
-            }
         }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
@@ -769,7 +752,7 @@ class EventDetailsScreenFragment : Fragment() {
         evenDetailsBinding?.eventDescTv?.fromHtml(event.description)
         evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
-            "${if (!event.address1.isNullOrEmpty()) event.address1+", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2+", " else ""} ${if (!event.city.isNullOrEmpty()) event.city+", " else ""} ${if (!event.state.isNullOrEmpty()) event.state+", " else ""}"
+            "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
 
         val spannable: Spannable = SpannableString(text2)

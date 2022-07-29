@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventFilterScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottomDirections
 import com.aaonri.app.utils.Constant
@@ -21,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EventFilterScreenFragment : Fragment() {
     var binding: FragmentEventFilterScreenBinding? = null
     val eventViewModel: EventViewModel by activityViewModels()
+    val postEventViewModel: PostEventViewModel by activityViewModels()
     var isAllSelected = false
     var isFreeSelected = false
     var isPaidSelected = false
@@ -28,8 +31,9 @@ class EventFilterScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentEventFilterScreenBinding.inflate(layoutInflater, container, false)
+
+
         var zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
         binding?.apply {
             selectEventCitySpinner.setOnClickListener {
@@ -45,7 +49,12 @@ class EventFilterScreenFragment : Fragment() {
                 }
             }
 
+            selectEventCategorySpinner.setOnClickListener {
+                findNavController().navigate(R.id.action_eventFilterScreenFragment_to_eventCategoryBottom2)
+            }
+
             applyBtn.setOnClickListener {
+
                 if (zipCodeEt.text.toString()
                         .isNotEmpty() && zipCodeEt.text.toString().length >= 5 || zipCodeEt.text.isEmpty()
                 ) {
@@ -54,11 +63,19 @@ class EventFilterScreenFragment : Fragment() {
                                 .isNotEmpty()
                         ) selectEventCitySpinner.text.toString() else ""
                     )
+
+                    eventViewModel.setCategoryFilter(
+                        if (selectEventCategorySpinner.text.toString()
+                                .isNotEmpty()
+                        ) selectEventCategorySpinner.text.toString() else ""
+                    )
+
                     (zipCodeEt.text.toString().ifEmpty { "" })?.let { it1 ->
                         eventViewModel.setZipCodeInFilterScreen(
                             it1
                         )
                     }
+
                     eventViewModel.setIsAllSelected(isAllSelected)
                     eventViewModel.setIsFreeSelected(isFreeSelected)
                     eventViewModel.setIsPaidSelected(isPaidSelected)
@@ -70,10 +87,10 @@ class EventFilterScreenFragment : Fragment() {
                 } else {
                     showAlert("Please enter valid ZipCode")
                 }
+
+                eventViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
+
             }
-
-
-
 
 
             eventViewModel.selectedEventCity.observe(viewLifecycleOwner) {
@@ -300,8 +317,15 @@ class EventFilterScreenFragment : Fragment() {
                 isPaidSelected = false
                 isAllSelected = false
             }
+        }
 
+        setData()
 
+        postEventViewModel.selectedEventCategory.observe(viewLifecycleOwner) {
+            binding?.selectEventCategorySpinner?.text = it.title
+        }
+        eventViewModel.selectedEventLocationLiveData.observe(viewLifecycleOwner) {
+            binding?.selectEventCitySpinner?.text = it
         }
 
         return binding?.root
@@ -315,4 +339,60 @@ class EventFilterScreenFragment : Fragment() {
             ).show()
         }
     }
+
+    private fun setData() {
+
+        binding?.selectEventCategorySpinner?.text = eventViewModel.categoryFilter
+        binding?.selectEventCitySpinner?.text = eventViewModel.cityFilter
+        binding?.myLocationCheckBox?.isChecked = eventViewModel.isMyLocationCheckedInFilterScreen
+
+        if (eventViewModel.isAllSelected) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                binding?.allTv?.setBackgroundColor(
+                    it2
+                )
+            }
+            context?.getColor(R.color.white)
+                ?.let { it1 -> binding?.allTv?.setTextColor(it1) }
+        }
+
+        if (eventViewModel.isFreeSelected) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                binding?.freeTv?.setBackgroundColor(
+                    it2
+                )
+            }
+            context?.getColor(R.color.white)
+                ?.let { it1 -> binding?.freeTv?.setTextColor(it1) }
+        }
+
+        if (eventViewModel.isPaidSelected) {
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.blueBtnColor
+                )
+            }?.let { it2 ->
+                binding?.paidTv?.setBackgroundColor(
+                    it2
+                )
+            }
+            context?.getColor(R.color.white)
+                ?.let { it1 -> binding?.paidTv?.setTextColor(it1) }
+        }
+
+
+    }
+
+
 }

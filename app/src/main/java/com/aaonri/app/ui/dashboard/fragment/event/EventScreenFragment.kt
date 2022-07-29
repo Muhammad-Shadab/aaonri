@@ -16,12 +16,14 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventConstants
+import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -46,6 +48,10 @@ class EventScreenFragment : Fragment() {
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+
+        if (EventStaticData.getEventCategory().isEmpty()) {
+            postEventViewModel.getEventCategory()
+        }
 
         val pagerAdapter = EventPagerAdapter(fragment)
 
@@ -196,6 +202,21 @@ class EventScreenFragment : Fragment() {
                 eventScreenBinding?.filterCv3?.visibility = View.GONE
 
 
+            }
+        }
+
+        postEventViewModel.eventCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    /*categoryBinding?.progressBar?.visibility = View.VISIBLE*/
+                }
+                is Resource.Success -> {
+                    response.data?.let { EventStaticData.updateEventCategory(it) }
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
             }
         }
 

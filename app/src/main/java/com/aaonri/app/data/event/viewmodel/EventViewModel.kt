@@ -3,8 +3,6 @@ package com.aaonri.app.data.event.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.*
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
@@ -23,7 +21,9 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var clearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
         private set
     val callEventDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
+
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
+
     val callEventApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
 
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
@@ -36,10 +36,19 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var selectedEventCity: MutableLiveData<String> =
         MutableLiveData()
         private set
+
     var cityFilter = ""
         private set
+
+    var categoryFilter = ""
+        private set
+
     var zipCodeInFilterScreen = ""
         private set
+
+    var selectedEventLocationLiveData: MutableLiveData<String> = MutableLiveData()
+        private set
+
     var isFilterEnable = false
         private set
 
@@ -50,6 +59,9 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         private set
 
     var isFreeSelected = false
+        private set
+
+    var isMyLocationCheckedInFilterScreen = false
         private set
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
@@ -123,6 +135,10 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         cityFilter = value
     }
 
+    fun setCategoryFilter(value: String) {
+        categoryFilter = value
+    }
+
     fun setZipCodeInFilterScreen(value: String) {
         zipCodeInFilterScreen = value
     }
@@ -141,5 +157,13 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     fun setIsFreeSelected(value: Boolean) {
         isFreeSelected = value
+    }
+
+    fun setSelectedEventLocation(value: String) {
+        selectedEventLocationLiveData.postValue(value)
+    }
+
+    fun setIsMyLocationChecked(value: Boolean) {
+        isMyLocationCheckedInFilterScreen = value
     }
 }

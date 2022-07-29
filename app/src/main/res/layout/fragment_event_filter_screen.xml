@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/selectEventCitySpinner"
+        android:id="@+id/selectEventCategorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -42,6 +42,26 @@
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select Category"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:textColor="@color/editTextColor"
+        android:textColorHint="@color/hintColor"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/selectEventCitySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/edit_text_inner_shadow"
+        android:drawableRight="@drawable/arrow_down_spinner"
+        android:fontFamily="@font/helvetica_regular"
+        android:gravity="center_vertical"
+        android:hint="Select Location"
         android:lines="1"
         android:maxLines="1"
         android:paddingVertical="@dimen/_4sdp"
