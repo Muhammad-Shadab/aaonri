@@ -184,9 +184,7 @@
         android:id="@+id/selectedFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
         android:orientation="horizontal"
         android:scrollbars="none"
         android:visibility="gone"
@@ -433,6 +431,7 @@
             app:shapeAppearanceOverlay="@style/circle"
             app:strokeColor="@color/white"
             app:strokeWidth="@dimen/_4sdp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
