@@ -73,8 +73,8 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
             } else {
                 successful.text = "You have successfully posted your Event"
             }
-            textView6.text = ss
-            textView6.movementMethod = LinkMovementMethod.getInstance()
+//            textView6.text = ss
+//            textView6.movementMethod = LinkMovementMethod.getInstance()
             bottomLoginBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callEventApi", true)

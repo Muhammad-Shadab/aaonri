@@ -101,6 +101,7 @@ class EventScreenFragment : Fragment() {
 
             cancelbutton.setOnClickListener{
                 cancelbutton.visibility = View.GONE
+                searchView.setText("")
                 searchViewIcon.visibility = View.VISIBLE
                 eventViewModel.setClickOnClearAllFilterBtn(true)
                 eventViewModel.setClearAllFilter(true)
@@ -192,7 +193,7 @@ class EventScreenFragment : Fragment() {
                 }
             }
             deleteFilterIv1.setOnClickListener {
-                eventViewModel.setSelectedEventCity(
+                eventViewModel.setCityFilter(
                     ""
                 )
                 eventScreenBinding?.filterCv1?.visibility = View.GONE
@@ -203,6 +204,7 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setZipCodeInFilterScreen(
                     ""
                 )
+
                 eventScreenBinding?.filterCv2?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
