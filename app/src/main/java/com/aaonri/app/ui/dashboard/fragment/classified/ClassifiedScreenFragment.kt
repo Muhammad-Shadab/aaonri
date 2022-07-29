@@ -440,6 +440,7 @@ class ClassifiedScreenFragment : Fragment() {
         postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
             if (it) {
                 callGetAllClassifiedApi()
+                classifiedScreenBinding?.searchView?.setText("")
             }
         }
 
@@ -512,7 +513,7 @@ class ClassifiedScreenFragment : Fragment() {
             if (postClassifiedViewModel.categoryFilter.isNotEmpty()) {
                 classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
                 classifiedScreenBinding?.filterText2?.text =
-                    "${postClassifiedViewModel.categoryFilter}"
+                    "Category: ${postClassifiedViewModel.categoryFilter}"
                 noOfSelection++
             } else {
                 classifiedScreenBinding?.filterCv2?.visibility = View.GONE
@@ -520,7 +521,7 @@ class ClassifiedScreenFragment : Fragment() {
             if (postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
                 classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
                 classifiedScreenBinding?.filterText4?.text =
-                    "${postClassifiedViewModel.subCategoryFilter}"
+                    "Sub Category: ${postClassifiedViewModel.subCategoryFilter}"
                 noOfSelection++
             } else {
                 classifiedScreenBinding?.filterCv4?.visibility = View.GONE

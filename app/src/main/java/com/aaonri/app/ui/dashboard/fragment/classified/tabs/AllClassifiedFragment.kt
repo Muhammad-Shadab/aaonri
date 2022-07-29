@@ -66,9 +66,11 @@ class AllClassifiedFragment : Fragment() {
                             allClassifiedAdapter?.setData(adsList)
                         }
                         //classifiedViewModel.setClassifiedForHomeScreen(adsList)
+                        allClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
                     }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
+                        allClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
