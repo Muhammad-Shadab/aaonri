@@ -106,6 +106,7 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setClickOnClearAllFilterBtn(true)
                 callEventApi()
                 cancelbutton.visibility = View.GONE
+                searchView.setText("")
                 searchViewIcon.visibility = View.VISIBLE
             }
 
@@ -219,7 +220,7 @@ class EventScreenFragment : Fragment() {
                 }
             }
             deleteFilterIv1.setOnClickListener {
-                eventViewModel.setSelectedEventCity(
+                eventViewModel.setCityFilter(
                     ""
                 )
                 eventViewModel.setSelectedEventLocation("")

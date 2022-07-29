@@ -54,7 +54,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    postEventBinding?.eventDescEt?.setText(Html.fromHtml(data.trim()))
+                    postEventBinding?.eventDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
                     postEventBinding?.eventDescEt?.text = ""
@@ -280,7 +280,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     eventDetails?.endDate?.split("T")?.get(0)
                 postEventBinding?.selectEndTime?.text = eventDetails?.endTime
                 postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
-                postEventBinding?.eventDescEt?.setText(Html.fromHtml(eventDetails?.description))
+                postEventBinding?.eventDescEt?.fromHtml(eventDetails?.description)
 
                 if (eventDetails?.fee != null) {
                     if (eventDetails.fee > 0) {
@@ -414,7 +414,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
                 if (it[EventConstants.EVENT_DESC]?.isNotEmpty() == true) {
-                    postEventBinding?.eventDescEt?.setText(Html.fromHtml(it[EventConstants.EVENT_DESC]))
+                    postEventBinding?.eventDescEt?.fromHtml(it[EventConstants.EVENT_DESC])
                 }
             }
         }
