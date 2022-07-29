@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.AllEventRequest
+import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
@@ -100,12 +102,12 @@ class EventScreenFragment : Fragment() {
 
 
             cancelbutton.setOnClickListener {
-                eventViewModel.setClickOnClearAllFilterBtn(true)
                 eventViewModel.setClearAllFilter(true)
-                eventViewModel.setClickedOnFilter(true)
-                eventViewModel.setIsFilterEnable(true)
+                eventViewModel.setSearchQuery("")
+                eventViewModel.setClickOnClearAllFilterBtn(true)
                 cancelbutton.visibility = View.GONE
                 searchViewIcon.visibility = View.VISIBLE
+
             }
 
             eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
@@ -175,6 +177,29 @@ class EventScreenFragment : Fragment() {
                     } else {
                         floatingActionBtnEvents.visibility = View.VISIBLE
                     }
+                    if (tab?.position != 0) {
+                        filterEvent.isEnabled = false
+                        filterEvent.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.graycolor
+                            )
+                        )
+                        eventViewModel.setClearAllFilter(true)
+                        if (searchView.text.isNotEmpty()) {
+                            searchView.setText("")
+                            eventViewModel.setClickOnClearAllFilterBtn(true)
+                        }
+                        SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                    } else {
+                        filterEvent.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.white
+                            )
+                        )
+                        filterEvent.isEnabled = true
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -219,7 +244,21 @@ class EventScreenFragment : Fragment() {
                     eventViewModel.setIsPaidSelected(false)
                 }
                 eventViewModel.setClickedOnFilter(true)
-                eventScreenBinding?.filterCv3?.visibility = View.GONE
+                filterCv3.visibility = View.GONE
+                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+            deleteFilterIv4.setOnClickListener {
+                postEventViewModel.setSelectedEventCategory(
+                    EventCategoryResponseItem(
+                        false,
+                        0,
+                        0,
+                        ""
+                    )
+                )
+                eventViewModel.setCategoryFilter("")
+                filterCv4.visibility = View.GONE
+                eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
         }
@@ -317,10 +356,19 @@ class EventScreenFragment : Fragment() {
             )
     }
 
-    fun setFilterVisibility() {
+    private fun setFilterVisibility() {
         noOfSelection = 0
-        if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() || eventViewModel.cityFilter.isNotEmpty() || eventViewModel.isFreeSelected || eventViewModel.isPaidSelected || eventViewModel.isAllSelected) {
+        if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() || eventViewModel.cityFilter.isNotEmpty() || eventViewModel.isFreeSelected || eventViewModel.isPaidSelected || eventViewModel.isAllSelected || eventViewModel.categoryFilter.isNotEmpty()) {
             eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+
+            if (eventViewModel.categoryFilter.isNotEmpty()) {
+                eventScreenBinding?.filterCv4?.visibility = View.VISIBLE
+                eventScreenBinding?.filterText4?.text =
+                    "Category: ${eventViewModel.categoryFilter}"
+                noOfSelection++
+            } else {
+                eventScreenBinding?.filterCv4?.visibility = View.GONE
+            }
 
             if (eventViewModel.cityFilter.isNotEmpty()) {
                 eventScreenBinding?.filterCv1?.visibility = View.VISIBLE
