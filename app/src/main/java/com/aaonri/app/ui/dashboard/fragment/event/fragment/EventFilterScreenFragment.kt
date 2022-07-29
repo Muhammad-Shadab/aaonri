@@ -36,7 +36,6 @@ class EventFilterScreenFragment : Fragment() {
     ): View? {
         binding = FragmentEventFilterScreenBinding.inflate(layoutInflater, container, false)
 
-
         var zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
         binding?.apply {
             selectEventCitySpinner.setOnClickListener {

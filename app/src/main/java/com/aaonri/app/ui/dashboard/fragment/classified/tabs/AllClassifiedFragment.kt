@@ -47,6 +47,7 @@ class AllClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
+
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -92,6 +93,7 @@ class AllClassifiedFragment : Fragment() {
 
         postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
+                allClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
         }
