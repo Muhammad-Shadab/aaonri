@@ -111,4 +111,6 @@
     <string name="facebook_client_token">220973957b83fc29de946ed796627cf5</string>
     <string name="login_to_view_seller_information">Login to view Seller Information</string>
     <string name="tap_now"><u>Tap Now</u></string>
+    <string name="dashboard_below_text">Dashboard Below Interest Area</string>
+    <string name="our_ad_approval_process_text">Our Ad approval process may take upto 24 hrs. Your Ad will be available on our portal from the next</string>
 </resources>

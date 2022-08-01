@@ -3,11 +3,11 @@ package com.aaonri.app.ui.dashboard.fragment.event.post_event
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -24,15 +24,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.DecimalDigitsInputFilter
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
@@ -166,21 +163,33 @@ class PostEventBasicDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventTimeZoneBottom)
             }
             selectstartDate.setOnClickListener {
+
                 getSelectedDate(selectstartDate, true)
 
             }
             selectEndDate.setOnClickListener {
                 if (selectstartDate.text.isNotEmpty()) {
+                    selectedDate = selectstartDate.text.toString()
                     getSelectedDate(selectEndDate, false)
                 } else {
                     showAlert("Please select start date first")
                 }
             }
             selectStartTime.setOnClickListener {
-                getSelectedTime(selectStartTime, true)
-            }
+                if(selectstartDate.text.isNotEmpty()) {
+                    getSelectedTime(selectStartTime, true)
+                }
+                else {
+                    showAlert("Please select start date first")
+                }            }
             selectEndTime.setOnClickListener {
-                getSelectedTime(selectEndTime, false)
+                if(selectEndDate.text.isNotEmpty()) {
+                    getSelectedTime(selectEndTime, false)
+                }
+                else{
+                    showAlert("Please select end date first")
+                }
+
             }
 
             /*    selectstartDate.addTextChangedListener {
@@ -468,12 +477,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                 day
             )
         }
-        if (isStartdate) {
-            datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
-        } else {
-            val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
-            datepicker?.datePicker?.minDate = date.time - 1000 + (1000 * 60 * 60 * 24)
+        try {
+            if (isStartdate) {
+                datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
+            } else {
+                val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
+                datepicker?.datePicker?.minDate = date.time - 1000 + (1000 * 60 * 60 * 24)
 
+            }
+        } catch (e: Exception) {
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
         datepicker?.show()
     }
@@ -484,13 +497,26 @@ class PostEventBasicDetailsFragment : Fragment() {
         var hoursOfTheDay: Int
         val mTimePicker: TimePickerDialog
         val mcurrentTime = Calendar.getInstance()
-        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
-        val minute = mcurrentTime.get(Calendar.MINUTE)
+        var hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
+        var minute = mcurrentTime.get(Calendar.MINUTE)
+        var getHoursCLock :Int = 30
+        var getMinutesCLock :Int = 0
+        if(postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString()&&getHoursCLock!=30)
+        {
+             hour = getHoursCLock
+             minute = getMinutesCLock
+
+        }
+
         mTimePicker = TimePickerDialog(
             context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
-
+                 if(isStartTime)
+                 {
+                     getHoursCLock = hourOfDay
+                     getMinutesCLock = minute
+                 }
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"
@@ -519,6 +545,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }, hour, minute, false
         )
+
         mTimePicker.show()
     }
 

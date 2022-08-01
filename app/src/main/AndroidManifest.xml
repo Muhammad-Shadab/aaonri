@@ -64,8 +64,8 @@ package="com.aaonri.app">
     <activity
         android:name="com.aaonri.app.ui.authentication.login.LoginActivity"
         android:exported="true"
-        android:launchMode="singleTask"
         android:windowSoftInputMode="adjustPan">
+//  android:launchMode="singleTask"
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />

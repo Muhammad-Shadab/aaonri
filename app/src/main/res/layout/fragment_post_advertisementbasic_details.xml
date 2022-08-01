@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertisementbasicDetailsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/titleAdvertisedEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:hint="Add Title*"
+                android:inputType="textCapSentences"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/dashBoardBelowTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:backgroundTint="#d9d9d9"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:text="@string/dashboard_below_text"
+                android:inputType="textCapSentences"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/selectAdvertiseDaysSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:gravity="center_vertical"
+                android:hint="7 Days"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_down_spinner" />
+            <EditText
+                android:id="@+id/planChargeEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="Plan Charges"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                app:drawableLeftCompat="@drawable/dollor"
+
+                />
+            <EditText
+                android:id="@+id/costOfvalueEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:hint="Cost of Value Added Services"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp"
+                app:drawableLeftCompat="@drawable/dollor"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/isFashionCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:button="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkbox"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:text="Flashing Advertisement"
+                    android:textColor="@color/hintColor"
+                    android:textSize="12sp"
+                    android:drawablePadding="2dp"
+                    android:drawableRight="@drawable/i_btn_icon"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/chooseTemplatell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dotted_ractangle_bg"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:paddingVertical="@dimen/_12sdp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
+                    android:text="Upload Image"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maximum 5 MB (Best view on: 250 x 250)"
+                    android:textSize="12sp"
+                    android:includeFontPadding="false"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/hintColor"/>
+
+            </LinearLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/multiline_textfield_shape"
+                android:fillViewport="true">
+
+                <com.chinalwb.are.render.AreTextView
+                    android:id="@+id/advertiseDescEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="left"
+                    android:hint="Ad description (Max 30 characters)"
+                    android:includeFontPadding="false"
+                    android:maxLength="30"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:scrollbars="vertical"
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded" />
+            </androidx.core.widget.NestedScrollView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/reviewAdvertiseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/green1_btn_shape"
+                android:backgroundTint="@color/blue"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_4sdp"
+                android:paddingHorizontal="@dimen/_28sdp"
+                android:text="PREVIEW"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/advertiseDetailsNextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarBasicDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

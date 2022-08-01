@@ -329,8 +329,8 @@
                         android:id="@+id/acriveServiceRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipToPadding="false"
                         android:padding="16dp"
-                        android:clipToPadding = "false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/classifiedRv" />
@@ -433,7 +433,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
-                        android:padding="16dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1073,7 +1074,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
                         android:background="@color/white"
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@id/immigrationHorizontalLayout">

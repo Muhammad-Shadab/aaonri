@@ -27,6 +27,8 @@
     <color name="grayColor_1">#8d959f</color>
     <color name="zipcodecolor">#8d959f</color>
     <color name="jobtxtcolor">#1b1b1b</color>
+    <color name="light_black_color">#333333</color>
+    <color name="view_bg_color">#d1d1d1</color>
 
 
 </resources>
