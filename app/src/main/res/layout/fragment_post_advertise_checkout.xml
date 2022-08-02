@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_18sdp"
     tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckout">
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -256,6 +261,8 @@
 
     </androidx.cardview.widget.CardView>
     <TextView
+        android:id="@+id/ourAdTv"
+        android:layout_marginTop="@dimen/_24sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
@@ -263,5 +270,41 @@
         android:textColor="@color/light_black_color"
         android:fontFamily="@font/sf_pro_display_light"
         android:text="@string/our_ad_approval_process_text" />
+
+    <TextView
+        android:id="@+id/postingofAdTv"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:paddingVertical="7dp"
+        android:textDirection="anyRtl"
+        android:background="@drawable/blue_radius_shape"
+        app:layout_constraintTop_toBottomOf="@+id/ourAdTv"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="Posting of Advt is free till March 2022" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/checkoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="CHECKOUT"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

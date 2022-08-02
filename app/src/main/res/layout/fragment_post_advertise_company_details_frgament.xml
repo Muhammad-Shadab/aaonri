@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertisementbasicDetailsFragment">
-
+    tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCompanyDetailsFrgament">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,10 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Please provide your business or service details"
+                android:textColor="@color/editTextColor"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/titleAdvertisedEt"
+                android:id="@+id/companyNameEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -29,7 +39,7 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:hint="Add Title*"
+                android:hint="company name"
                 android:inputType="textCapSentences"
                 android:lines="1"
                 android:maxLines="1"
@@ -40,158 +50,108 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/dashBoardBelowTv"
+            <EditText
+                android:id="@+id/companyAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:backgroundTint="#d9d9d9"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:text="@string/dashboard_below_text"
+                android:hint="location"
                 android:inputType="textCapSentences"
+                android:lines="1"
+                android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-            <TextView
-                android:id="@+id/selectAdvertiseDaysSpinner"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/companyMobileEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:gravity="center_vertical"
-                android:hint="7 Days"
+                android:hint="contact number"
+                android:inputType="number"
                 android:lines="1"
+                android:maxLength="15"
                 android:maxLines="1"
-                android:paddingVertical="@dimen/_4sdp"
                 android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_8sdp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableRightCompat="@drawable/arrow_down_spinner" />
-            <EditText
-                android:id="@+id/planChargeEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="Plan Charges"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_12sdp"
                 android:paddingTop="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableLeftCompat="@drawable/dollor"
-
-                />
+                android:textSize="16sp" />
             <EditText
-                android:id="@+id/costOfvalueEt"
+                android:id="@+id/companyGmailEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="Cost of Value Added Services"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/_12sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableLeftCompat="@drawable/dollor"
-
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-               android:layout_marginHorizontal="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:hint="email"
+                android:inputType="textCapSentences"
+                android:lines="1"
 
-                <CheckBox
-                    android:id="@+id/isFashionCheck"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:background="@color/white"
-                    android:button="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkbox"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:text="Flashing Advertisement"
-                    android:textColor="@color/hintColor"
-                    android:textSize="12sp"
-                    android:drawablePadding="2dp"
-                    android:drawableRight="@drawable/i_btn_icon"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/chooseTemplatell"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/companyProfessionfEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/dotted_ractangle_bg"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:paddingVertical="@dimen/_12sdp"
-                android:gravity="center"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica_regular"
-                    android:gravity="center_vertical"
-                    android:text="Upload Image"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Maximum 5 MB (Best view on: 250 x 250)"
-                    android:textSize="12sp"
-                    android:includeFontPadding="false"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:layout_marginTop="3dp"
-                    android:textColor="@color/hintColor"/>
-
-            </LinearLayout>
-
-
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:hint="CoreAgile Technologies Pvt. Ltd"
+                android:inputType="textCapSentences"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/companyLinkfEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape"
+                android:fontFamily="@font/helvetica_regular"
+                android:hint="link"
+                android:inputType="textCapSentences"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
@@ -218,24 +178,7 @@
                     android:textSize="16sp"
                     tools:ignore="RtlHardcoded" />
             </androidx.core.widget.NestedScrollView>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/previewAdvertiseBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/green1_btn_shape"
-                android:backgroundTint="@color/blue"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:minHeight="0dp"
-                android:includeFontPadding="false"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_4sdp"
-                android:paddingHorizontal="@dimen/_28sdp"
-                android:text="PREVIEW"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/advertiseDetailsNextBtn"
                 android:layout_width="match_parent"
@@ -252,12 +195,11 @@
                 android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                />
-
-
+                 />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
 
     <ProgressBar
         android:id="@+id/progressBarBasicDetails"

@@ -69,7 +69,7 @@
     <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your ad, which will be used for search by other users</string>
     <string name="if_you_want">If you want your ad to appear in the \"Featured\" section, please contact us at admin Classfieds@aaonri.com</string>
     <string name="please_review_your_information">Please review your information, you will \n not be able to update the changes once\n the Ad is approved by the aaonri administrator.</string>
-    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms of use and our Privacy Policy</string>
+    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our Terms of use and our Privacy Policy</string>
     <string name="congratulations_you_have_successfully_posted_your_classified">Congratulations \n You have successfully posted your Classified</string>
     <string name="if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com">If a user wishes to make an ad Popular/Hot\n Please email to admin@aaonri.com</string>
     <string name="view_your_classified">VIEW YOUR CLASSIFIEDS</string>
@@ -112,5 +112,16 @@
     <string name="login_to_view_seller_information">Login to view Seller Information</string>
     <string name="tap_now"><u>Tap Now</u></string>
     <string name="dashboard_below_text">Dashboard Below Interest Area</string>
-    <string name="our_ad_approval_process_text">Our Ad approval process may take upto 24 hrs. Your Ad will be available on our portal from the next</string>
+    <string name="our_ad_approval_process_text">Our Ad approval process may take upto 24 hrs. Your Ad will be available on our portal from the next day of submitting an order,From &amp; To dates reflect based upon the time taken for approval and the duration you selected.</string>
+    <string name="your_advertisement_will_text">Your advertisement will be posted on aaonri\nweb &amp; mobile platforms within 24 hrs after the\ncompletion of the approval process!</string>
+    <string name="after_submit_request_text">After submitting the request to post your Ad on aaonri.com, you will have 24 hrs to make edits.</string>
+    <string name="our_ad_approval_process">Our Ad approval process may take upto 24 hrs.</string>
+    <string name="your_ad_will_be_available"><![CDATA[Your Ad will be available on our portal from the next day of submitting an order, From & To dates reflect based upon the time taken for approval and the duration you selected.]]></string>
+    <string name="once_the_ad">Once the Ad is posted on aaonri.com (after 24 hrs) of posting, no edits will be allowed</string>
+    <string name="please_review_details">Please review details that you input carefully, if there is any objectionable content found, the advertisement will not be posted on aaonri.com</string>
+    <string name="all_sales_made">All sales made are final, no refund will be allowed after 24 hrs of posting an advertisement.</string>
+    <string name="payment_option_available">Payment option available is via PayPal.</string>
+    <string name="for_any_other">For any other questions, please contact us at advertise@aaonri.com</string>
+    <string name="post_advertisement">Post Advertisement</string>
+    <string name="search_jobs">Search Jobs by Keyword and Skillset</string>
 </resources>

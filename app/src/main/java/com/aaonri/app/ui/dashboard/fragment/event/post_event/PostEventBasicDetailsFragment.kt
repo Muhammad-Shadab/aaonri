@@ -486,7 +486,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
             }
         } catch (e: Exception) {
-            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
         datepicker?.show()
     }
@@ -543,9 +543,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                     //this is for  endTime
                     endTime = "$hourOfDay:$getMinute"
                 }
+
             }, hour, minute, false
         )
-
         mTimePicker.show()
     }
 

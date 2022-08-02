@@ -65,7 +65,7 @@ package="com.aaonri.app">
         android:name="com.aaonri.app.ui.authentication.login.LoginActivity"
         android:exported="true"
         android:windowSoftInputMode="adjustPan">
-//  android:launchMode="singleTask"
+        // android:launchMode="singleTask"
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -84,7 +84,15 @@ package="com.aaonri.app">
         android:exported="false"
 
         />
+    <activity
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity"
+        android:exported="false"
+        />
+
+    <activity
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
+        android:exported="false"
+        />
 </application>
 
 </manifest>
-
