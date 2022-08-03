@@ -4,8 +4,7 @@ class GetUserInterest {
 
     /*companion object {
         fun getUserInterest(userInterest: String): String {
-            when(userInterest)
+            when ()
         }
-    }
-*/
+    }*/
 }

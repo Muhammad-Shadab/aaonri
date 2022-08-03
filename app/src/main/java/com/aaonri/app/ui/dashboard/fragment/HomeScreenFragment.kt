@@ -20,6 +20,7 @@ import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.utils.*
@@ -36,6 +37,7 @@ class HomeScreenFragment : Fragment() {
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
+    var advertiseAdapter: AdvertiseAdapter? = null
     var interestAdapter: InterestAdapter? = null
     var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
@@ -219,9 +221,9 @@ class HomeScreenFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
 
-            acriveServiceRv.layoutManager =
+            activeServiceRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            acriveServiceRv.adapter = homeInterestsServiceAdapter
+            activeServiceRv.adapter = homeInterestsServiceAdapter
 
             eventRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

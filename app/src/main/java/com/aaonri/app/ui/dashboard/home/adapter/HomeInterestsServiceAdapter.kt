@@ -28,21 +28,26 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            if (data[position] == "Events") {
-                serviceTv.text = data[position]
+
+            if (position == 0) {
+                selectedServices(data[position])
+            }
+
+            holder.itemView.setOnClickListener {
                 serviceTv.setBackgroundDrawable(
                     ContextCompat.getDrawable(
                         context,
                         R.drawable.selected_tab_background
                     )
                 )
-                serviceTv.setTextColor(ContextCompat.getColor(context, R.color.white))
-            } else {
-                serviceTv.text = data[position]
+                serviceTv.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.white
+                    )
+                )
+                selectedServices(data[position])
             }
-        }
-        holder.itemView.setOnClickListener {
-            selectedServices(data[position])
         }
     }
 

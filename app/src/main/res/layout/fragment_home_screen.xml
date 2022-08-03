@@ -326,7 +326,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/classifiedTv" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/acriveServiceRv"
+                        android:id="@+id/activeServiceRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
@@ -403,7 +403,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/acriveServiceRv" />
+                        app:layout_constraintTop_toBottomOf="@+id/eventRv" />
 
                     <TextView
                         android:id="@+id/seeAllEvents"
