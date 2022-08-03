@@ -64,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/chat"
                 android:drawablePadding="4dp"
-                android:drawableBottom="dra"
                 android:maxLines="1"
                 android:background="@drawable/inner_radius_shadow"
                android:paddingHorizontal="@dimen/_10sdp"
