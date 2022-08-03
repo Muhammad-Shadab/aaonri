@@ -20,6 +20,7 @@ object Constant {
     const val USER_EMAIL = "USER_EMAIL"
     const val USER_ZIP_CODE = "USER_ZIP_CODE"
     const val USER_CITY = "USER_CITY"
+    const val USER_INTERESTED_SERVICES = "USER_INTERESTED_SERVICES"
     const val USER_STATE = "USER_STATE"
     const val ORIGIN_COUNTRY = "ORIGIN_COUNTRY"
 
@@ -35,9 +36,6 @@ object Constant {
     }
 
 
-
-
-
     fun convertIntoLocalTime(
         strTime: String, serverTimeZone: String, dateFormat: String?
     ): String? {
@@ -48,7 +46,6 @@ object Constant {
             .withZoneSameInstant(ZoneId.systemDefault())
         return deviceTime.format(formatter)
     }
-
 
 
 }

@@ -10,6 +10,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.aaonri.app.databinding.HomeInterestedServiceItemsBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -27,8 +29,8 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
 
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
-        holder.binding.apply {
 
+        holder.binding.apply {
             serviceTv.text = data[position]
 
             if (position == 0) {

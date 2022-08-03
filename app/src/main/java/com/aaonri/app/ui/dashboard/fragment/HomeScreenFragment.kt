@@ -45,7 +45,7 @@ class HomeScreenFragment : Fragment() {
     var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
     var priorityService = ""
-    var userInterestedService = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +53,11 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
+        val userInterestedService =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
+
+        callApiAccordingToInterest(userInterestedService)
 
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
@@ -233,7 +237,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             seeAllClassified.setOnClickListener {
-                callApiAccordingToInterest(interests = userInterestedService, navigateToAll = true)
+
             }
 
             /*eventImage1.setOnClickListener {
@@ -324,7 +328,7 @@ class HomeScreenFragment : Fragment() {
             homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
         }*/
 
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        /*classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     homeScreenBinding?.progressBar?.visibility = View.VISIBLE
@@ -334,19 +338,19 @@ class HomeScreenFragment : Fragment() {
                     response.data?.userAdsList?.let {
                         if (classifiedViewModel.allClassifiedList.isEmpty()) {
                             classifiedViewModel.setClassifiedForHomeScreen(it)
-                            setHomeClassifiedData()
+                            //setHomeClassifiedData()
                         } else {
-                            setHomeClassifiedData()
+                            //setHomeClassifiedData()
                         }
                     }
                     //homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
-                        /*activity?.let { it1 ->
+                        *//*activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
                                 "No result found", Snackbar.LENGTH_LONG
                             ).show()
-                        }*/
+                        }*//*
                     }
                 }
                 is Resource.Error -> {
@@ -358,7 +362,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
             }
-        }
+        }*/
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -532,11 +536,15 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     val activeServiceList = mutableListOf<String>()
-
                     if (response.data?.isNotEmpty() == true) {
-                        response.data.forEach {
-                            if (!activeServiceList.contains(it.interestDesc) && it.active) {
-                                activeServiceList.add(it.interestDesc)
+                        if (userInterestedService != null) {
+                            response.data.forEach {
+                                if (!activeServiceList.contains(it.interestDesc) && it.active && userInterestedService.contains(
+                                        it.id.toString()
+                                    )
+                                ) {
+                                    activeServiceList.add(it.interestDesc)
+                                }
                             }
                         }
                         homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
@@ -552,204 +560,119 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        classifiedViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    userInterestedService = response.data?.interests.toString()
-                    callApiAccordingToInterest(response.data?.interests)
-                }
-                is Resource.Error -> {
-
-                }
-                else -> {
-                }
-            }
-        }
-
         return homeScreenBinding?.root
     }
 
     private fun callApiAccordingToInterest(
         interests: String? = "",
-        navigateToAll: Boolean? = null
     ) {
+
         if (interests?.isNotEmpty() == true) {
             if (interests.startsWith("27")) {
                 //Advertise With Us
-                if (navigateToAll == true) {
-                    dashboardCommonViewModel.setIsAdvertiseClicked(true)
-                } else {
-                    priorityService = "Advertise With Us"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                    homeScreenBinding?.priorityServiceRv?.adapter = advertiseAdapter
-                }
+                priorityService = "Advertise With Us"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.adapter = advertiseAdapter
+
             } else if (interests.startsWith("2")) {
                 //Classifieds
-                if (navigateToAll == true) {
-                    dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-                } else {
-                    priorityService = "Classifieds"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        GridLayoutManager(context, 2)
-                    homeScreenBinding?.priorityServiceRv?.addItemDecoration(
-                        GridSpacingItemDecoration(
-                            2,
-                            32,
-                            40
-                        )
-                    )
-                }
+                priorityService = "Classifieds"
+                setHomeClassifiedData()
             } else if (interests.startsWith("8")) {
                 //Events
-                if (navigateToAll == true) {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-                } else {
-                    priorityService = "Events"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                    homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
-                }
+                priorityService = "Events"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
+
             } else if (interests.startsWith("3")) {
                 //Immigration
-                if (navigateToAll == true) {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-                } else {
-                    priorityService = "Immigration"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
+                priorityService = "Immigration"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
             } else if (interests.startsWith("17")) {
                 //Jobs
-                if (navigateToAll == true) {
+                priorityService = "Jobs"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
 
-                } else {
-                    priorityService = "Jobs"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                    homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
-                }
             } else if (interests.startsWith("22")) {
                 //Shop With Us
-                if (navigateToAll == true) {
+                priorityService = "Shop With Us"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Shop With Us"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                    //homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
-                }
             } else if (interests.startsWith("4")) {
                 //Astrology
-                if (navigateToAll == true) {
+                priorityService = "Astrology"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Astrology"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("26")) {
                 //Business Needs
-                if (navigateToAll == true) {
+                priorityService = "Business Needs"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Business Needs"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("10")) {
                 //Community Connect
-                if (navigateToAll == true) {
+                priorityService = "Community Connect"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Community Connect"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("13")) {
                 //Foundation & Donations
-                if (navigateToAll == true) {
+                priorityService = "Foundation & Donations"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Foundation & Donations"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("25")) {
                 //Home Needs
-                if (navigateToAll == true) {
-
-                } else {
-                    priorityService = "Home Needs"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
+                priorityService = "Home Needs"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
             } else if (interests.startsWith("18")) {
                 //Legal Services
-                if (navigateToAll == true) {
-
-                } else {
-                    priorityService = "Legal Services"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
+                priorityService = "Legal Services"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
             } else if (interests.startsWith("19")) {
                 //Matrimony & Weddings
-                if (navigateToAll == true) {
+                priorityService = "Matrimony & Weddings"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Matrimony & Weddings"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("20")) {
                 //Medical Care
-                if (navigateToAll == true) {
+                priorityService = "Medical Care"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Medical Care"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("21")) {
                 //Real Estate
-                if (navigateToAll == true) {
+                priorityService = "Real Estate"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Real Estate"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("5")) {
                 //Sports
-                if (navigateToAll == true) {
+                priorityService = "Sports"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Sports"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("16")) {
                 //Student Services
-                if (navigateToAll == true) {
+                priorityService = "Student Services"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
 
-                } else {
-                    priorityService = "Student Services"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
             } else if (interests.startsWith("24")) {
                 //Travel and Stay
-                if (navigateToAll == true) {
-
-                } else {
-                    priorityService = "Travel and Stay"
-                    homeScreenBinding?.priorityServiceRv?.layoutManager =
-                        LinearLayoutManager(context)
-                }
+                priorityService = "Travel and Stay"
+                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context)
             }
         }
         homeScreenBinding?.classifiedTv?.text = priorityService
@@ -758,16 +681,53 @@ class HomeScreenFragment : Fragment() {
 
     private fun setHomeClassifiedData() {
 
-        if (classifiedViewModel.allClassifiedList.size > 3) {
-            allClassifiedAdapter?.setData(
-                classifiedViewModel.allClassifiedList.subList(
-                    0,
-                    4
-                )
+        homeScreenBinding?.priorityServiceRv?.layoutManager =
+            GridLayoutManager(context, 2)
+        homeScreenBinding?.priorityServiceRv?.addItemDecoration(
+            GridSpacingItemDecoration(
+                2,
+                32,
+                40
             )
-        } else {
-            allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
+        )
+        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.userAdsList?.let {
+                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
+                            classifiedViewModel.setClassifiedForHomeScreen(it)
+                                //setHomeClassifiedData()
+                        } else {
+                            //setHomeClassifiedData()
+                        }
+                    }
+                    if (classifiedViewModel.allClassifiedList.size > 3) {
+                        allClassifiedAdapter?.setData(
+                            classifiedViewModel.allClassifiedList.subList(
+                                0,
+                                4
+                            )
+                        )
+                    } else {
+                        allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
+                    }
+                    homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
+                }
+                is Resource.Error -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
+            }
         }
+
+
 
 
     }
