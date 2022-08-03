@@ -699,9 +699,6 @@ class HomeScreenFragment : Fragment() {
                     response.data?.userAdsList?.let {
                         if (classifiedViewModel.allClassifiedList.isEmpty()) {
                             classifiedViewModel.setClassifiedForHomeScreen(it)
-                                //setHomeClassifiedData()
-                        } else {
-                            //setHomeClassifiedData()
                         }
                     }
                     if (classifiedViewModel.allClassifiedList.size > 3) {
@@ -726,8 +723,6 @@ class HomeScreenFragment : Fragment() {
                 }
             }
         }
-
-
 
 
     }
