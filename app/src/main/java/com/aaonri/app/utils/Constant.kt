@@ -1,7 +1,15 @@
 package com.aaonri.app.utils
 
 import android.content.Context
+import android.icu.text.SimpleDateFormat
+import android.icu.util.TimeZone
 import android.net.ConnectivityManager
+import java.text.ParseException
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object Constant {
 
@@ -25,5 +33,22 @@ object Constant {
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
+
+
+
+
+
+    fun convertIntoLocalTime(
+        strTime: String, serverTimeZone: String, dateFormat: String?
+    ): String? {
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat)
+        val serverDateTime: ZonedDateTime = LocalDateTime.parse(strTime, formatter)
+            .atZone(ZoneId.of(serverTimeZone))
+        val deviceTime: ZonedDateTime = serverDateTime
+            .withZoneSameInstant(ZoneId.systemDefault())
+        return deviceTime.format(formatter)
+    }
+
+
 
 }
