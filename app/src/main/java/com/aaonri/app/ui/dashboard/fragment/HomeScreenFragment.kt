@@ -224,13 +224,7 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            //Toast.makeText(context, "${homeNestedScrollView.scaleY}", Toast.LENGTH_SHORT).show()
-
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
-
-            /*openEvent.setOnClickListener {
-                findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            }*/
 
             seeAllEvents.setOnClickListener {
 
@@ -239,58 +233,6 @@ class HomeScreenFragment : Fragment() {
             seeAllClassified.setOnClickListener {
 
             }
-
-            /*eventImage1.setOnClickListener {
-                eventId.forEachIndexed { index, i ->
-                    if (index == 0) {
-                        val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i,
-                                false
-                            )
-                        findNavController().navigate(action)
-                    }
-                }
-            }*/
-
-            /*eventImage2.setOnClickListener {
-                eventId.forEachIndexed { index, i ->
-                    if (index == 1) {
-                        val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i,
-                                false
-                            )
-                        findNavController().navigate(action)
-                    }
-                }
-            }*/
-
-            /*eventImage3.setOnClickListener {
-                eventId.forEachIndexed { index, i ->
-                    if (index == 2) {
-                        val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i,
-                                false
-                            )
-                        findNavController().navigate(action)
-                    }
-                }
-            }*/
-
-            /*eventImage4.setOnClickListener {
-                eventId.forEachIndexed { index, i ->
-                    if (index == 3) {
-                        val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
-                                i,
-                                false
-                            )
-                        findNavController().navigate(action)
-                    }
-                }
-            }*/
 
             interestRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -302,67 +244,10 @@ class HomeScreenFragment : Fragment() {
 
             availableServiceHorizontalRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            //eventRv.adapter = homeEventAdapter
-
-            /*priorityServiceRv.layoutManager = GridLayoutManager(context, 2)
-            priorityServiceRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))*/
 
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
-
-        /*classifiedViewModel.classifiedListForHomeScreen.observe(viewLifecycleOwner) {
-            var homeClassified = mutableListOf<UserAds>()
-            it.forEachIndexed { index, userAds ->
-                if (index <= 3) {
-                    if (homeClassified.contains(userAds)) {
-                        homeClassified.remove(userAds)
-                    } else {
-                        homeClassified.add(userAds)
-                    }
-                }
-            }
-            it.let {
-                allClassifiedAdapter?.setData(homeClassified)
-            }
-            homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
-        }*/
-
-        /*classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let {
-                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
-                            classifiedViewModel.setClassifiedForHomeScreen(it)
-                            //setHomeClassifiedData()
-                        } else {
-                            //setHomeClassifiedData()
-                        }
-                    }
-                    //homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
-                    if (response.data?.userAdsList?.isEmpty() == true) {
-                        *//*activity?.let { it1 ->
-                            Snackbar.make(
-                                it1.findViewById(android.R.id.content),
-                                "No result found", Snackbar.LENGTH_LONG
-                            ).show()
-                        }*//*
-                    }
-                }
-                is Resource.Error -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-
-                }
-            }
-        }*/
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -379,121 +264,6 @@ class HomeScreenFragment : Fragment() {
                             homeEventAdapter?.setData(response.data.userEvent)
                         }
                     }
-
-
-                    /*var images = mutableListOf<Image>()
-                    response.data?.userEvent?.forEachIndexed { index, userEvent ->
-                        when (index) {
-                            0 -> {
-                                eventId.add((userEvent.id))
-                            }
-                            1 -> {
-                                eventId.add((userEvent.id))
-                            }
-                            2 -> {
-                                eventId.add((userEvent.id))
-                            }
-                            3 -> {
-                                eventId.add((userEvent.id))
-                            }
-                        }
-                    }
-
-                    response.data?.userEvent?.forEach { userEvent ->
-                        userEvent.images.forEach { image ->
-                            if (images.contains(image)) {
-                                images.remove(image)
-                            } else {
-                                images.add(image)
-                            }
-                        }
-                    }*/
-
-                    /*if (images.size > 3) {
-                        images = images.subList(0, 3)
-                        when (images.size) {
-                            1 -> {
-                                homeScreenBinding?.eventImage1?.margin(right = 20F)
-                            }
-                            2 -> {
-                                homeScreenBinding?.eventImage2?.margin(right = 20F)
-                            }
-                            3 -> {
-                                homeScreenBinding?.eventImage3?.margin(right = 20F)
-                            }
-                            4 -> {
-                                homeScreenBinding?.eventImage4?.margin(right = 20F)
-                            }
-                        }
-                    } else {
-                        when (images.size) {
-                            1 -> {
-                                homeScreenBinding?.eventImage1?.margin(right = 20F)
-                            }
-                            2 -> {
-                                homeScreenBinding?.eventImage2?.margin(right = 20F)
-                            }
-                            3 -> {
-                                homeScreenBinding?.eventImage3?.margin(right = 20F)
-                            }
-                            4 -> {
-                                homeScreenBinding?.eventImage4?.margin(right = 20F)
-                            }
-                        }
-                    }*/
-
-
-                    /*images.forEachIndexed { index, image ->
-                        when (index) {
-                            0 -> {
-                                homeScreenBinding?.eventImage1?.visibility = View.VISIBLE
-                                context?.let { it1 ->
-                                    homeScreenBinding?.eventImage1?.let { it2 ->
-                                        Glide.with(it1)
-                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(), RoundedCorners(24))
-                                            .into(it2)
-                                    }
-                                }
-                            }
-                            1 -> {
-                                homeScreenBinding?.eventImage2?.visibility = View.VISIBLE
-                                context?.let { it1 ->
-                                    homeScreenBinding?.eventImage2?.let { it2 ->
-                                        Glide.with(it1)
-                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(), RoundedCorners(24))
-                                            .into(it2)
-                                    }
-                                }
-                            }
-                            2 -> {
-                                homeScreenBinding?.eventImage3?.visibility = View.VISIBLE
-                                context?.let { it1 ->
-                                    homeScreenBinding?.eventImage3?.let { it2 ->
-                                        Glide.with(it1)
-                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(), RoundedCorners(24))
-                                            .into(it2)
-                                    }
-                                }
-                            }
-                            3 -> {
-                                context?.let { it1 ->
-                                    homeScreenBinding?.eventImage4?.visibility = View.VISIBLE
-                                    homeScreenBinding?.eventImage4?.let { it2 ->
-                                        Glide.with(it1)
-                                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${image.imagePath}")
-                                            .transform(CenterInside(), RoundedCorners(24))
-                                            .into(
-                                                it2
-                                            )
-                                    }
-                                }
-                            }
-                        }
-                    }*/
-
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
