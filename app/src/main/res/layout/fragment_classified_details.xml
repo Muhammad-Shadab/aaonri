@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment">
 
-    <ImageView
+    <com.ortiz.touchview.TouchImageView
         android:id="@+id/addImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_500sdp"
+        android:src="@drawable/ic_image_placeholder"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
         android:scaleType="centerInside" />

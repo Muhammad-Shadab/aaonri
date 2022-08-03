@@ -13,10 +13,8 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -68,6 +66,7 @@ class ClassifiedDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         classifiedDetailsBinding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
@@ -90,6 +89,7 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.getClassifiedAdDetails(args.addId)
 
         classifiedDetailsBinding?.apply {
+
             loginToViewSellerInfo.text = ss
             loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
 

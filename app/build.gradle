@@ -148,7 +148,8 @@ dependencies {
 
     //Retrofit 
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-
+    // for zoomIn and  zoomOut Image
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
 
 
