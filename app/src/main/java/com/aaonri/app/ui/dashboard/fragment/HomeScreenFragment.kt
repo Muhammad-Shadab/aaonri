@@ -219,9 +219,10 @@ class HomeScreenFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
 
-            acriveServiceRv.layoutManager =
+
+            activeService.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            acriveServiceRv.adapter = homeInterestsServiceAdapter
+            activeService.adapter = homeInterestsServiceAdapter
 
             eventRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
