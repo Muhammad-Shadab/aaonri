@@ -72,65 +72,6 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/locationTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Location"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <LinearLayout
-        android:id="@+id/myLocationLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/myLocationCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:button="@drawable/custom_checkbox"
-            android:buttonTint="@drawable/custom_checkbox"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="My Location"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/zipCodeEt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/edit_text_inner_shadow"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:hint="Enter Zip Code"
-        android:inputType="number"
-        android:maxLength="6"
-        android:maxLines="1"
-        android:paddingVertical="@dimen/_8sdp"
-        android:paddingStart="@dimen/_18sdp"
-        android:paddingEnd="@dimen/_80sdp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/hintColor"
-        android:textSize="12sp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
@@ -150,7 +91,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
 
             <!--<com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
@@ -275,6 +215,66 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/locationTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="Location"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/myLocationLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/myLocationCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:button="@drawable/custom_checkbox"
+            android:buttonTint="@drawable/custom_checkbox"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="My Location"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/zipCodeEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/edit_text_inner_shadow"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:hint="Enter Zip Code"
+        android:inputType="number"
+        android:maxLength="6"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_8sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_80sdp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
+        android:textSize="12sp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
