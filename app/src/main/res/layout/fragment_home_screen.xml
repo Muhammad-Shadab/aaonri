@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -317,7 +318,7 @@
                         app:tint="@color/blueBtnColor" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/classifiedRv"
+                        android:id="@+id/priorityServiceRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="visible"
@@ -326,14 +327,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/classifiedTv" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/acriveServiceRv"
+                        android:id="@+id/activeService"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:padding="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/classifiedRv" />
+                        app:layout_constraintTop_toBottomOf="@id/priorityServiceRv" />
 
                     <!--<HorizontalScrollView
                         android:id="@+id/eventsJobsHorizontalScroll"
@@ -403,7 +404,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/acriveServiceRv" />
+                        app:layout_constraintTop_toBottomOf="@+id/activeService" />
 
                     <TextView
                         android:id="@+id/seeAllEvents"
@@ -429,7 +430,7 @@
                         app:tint="@color/blueBtnColor" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/eventRv"
+                        android:id="@+id/availableServiceHorizontalRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
@@ -522,7 +523,7 @@
                         app:cardElevation="@dimen/_2sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventRv"
+                        app:layout_constraintTop_toBottomOf="@+id/availableServiceHorizontalRv"
                         app:strokeColor="#e7e7e7"
                         app:strokeWidth="@dimen/_1sdp">
 
@@ -968,7 +969,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="@dimen/_250sdp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_12sdp"
+                                android:layout_marginStart="@dimen/_16sdp"
                                 app:cardBackgroundColor="#0fc7a9"
                                 app:cardCornerRadius="@dimen/_10sdp">
 
@@ -1082,7 +1083,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
                             android:orientation="horizontal">
 
                             <TextView
