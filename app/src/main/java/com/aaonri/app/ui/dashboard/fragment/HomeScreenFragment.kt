@@ -120,7 +120,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 "Advertise With Us" -> {
-
+                    dashboardCommonViewModel.setIsAdvertiseClicked(true)
                 }
             }
         }

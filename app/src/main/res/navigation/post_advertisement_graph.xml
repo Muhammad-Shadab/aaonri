@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_advertisement_graph"
+    app:startDestination="@id/postAdvertiseTermConditionFragment2">
+
+    <fragment
+        android:id="@+id/postAdvertiseTermConditionFragment2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseTermConditionFragment"
+        android:label="fragment_post_advertise_term_condition"
+        tools:layout="@layout/fragment_post_advertise_term_condition" >
+        <action
+            android:id="@+id/action_postAdvertiseTermConditionFragment2_to_postAdvertiseCompanyDetailsFrgament2"
+            app:destination="@id/postAdvertiseCompanyDetailsFrgament" />
+    </fragment>
+    <fragment
+        android:id="@+id/postAdvertiseCompanyDetailsFrgament"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCompanyDetailsFrgament"
+        android:label="fragment_post_advertise_company_details_frgament"
+        tools:layout="@layout/fragment_post_advertise_company_details_frgament" >
+        <action
+            android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment"
+            app:destination="@id/postAdvertisementbasicDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postAdvertisementbasicDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertisementbasicDetailsFragment"
+        android:label="fragment_post_advertisementbasic_details"
+        tools:layout="@layout/fragment_post_advertisementbasic_details" >
+        <action
+            android:id="@+id/action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment"
+            app:destination="@id/reviewAdvertiseFragment" />
+        <action
+            android:id="@+id/action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout"
+            app:destination="@id/postAdvertiseCheckout" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewAdvertiseFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.ReviewAdvertiseFragment"
+        android:label="fragment_review_advertise"
+        tools:layout="@layout/fragment_review_advertise" />
+    <fragment
+        android:id="@+id/postAdvertiseCheckout"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckout"
+        android:label="fragment_post_advertise_checkout"
+        tools:layout="@layout/fragment_post_advertise_checkout" >
+        <action
+            android:id="@+id/action_postAdvertiseCheckout_to_advertisePostSuccessFragment"
+            app:destination="@id/advertisePostSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advertisePostSuccessFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisePostSuccessFragment"
+        android:label="fragment_advertise_post_success"
+        tools:layout="@layout/fragment_advertise_post_success" />
+</navigation>

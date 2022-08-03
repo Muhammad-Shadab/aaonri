@@ -6,15 +6,12 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.compose.runtime.key
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -27,8 +24,6 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -365,6 +360,14 @@ class MainActivity : BaseActivity() {
                 mainActivityBinding?.bottomNavigation?.selectedItemId =
                     R.id.classifiedScreenFragment
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
+            }
+        }
+
+        dashboardCommonViewModel.isAdvertiseClicked.observe(this) {
+            if (it) {
+                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                    R.id.advertiseScreenFragment
+                dashboardCommonViewModel.setIsAdvertiseClicked(false)
             }
         }
 

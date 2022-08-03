@@ -52,12 +52,15 @@
     </fragment>
     <fragment
         android:id="@+id/advertiseScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.AdvertiseScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenFragment"
         android:label="fragment_advertise_screen"
         tools:layout="@layout/fragment_advertise_screen">
         <action
             android:id="@+id/action_advertiseScreenFragment_to_moreScreenFragment"
             app:destination="@id/moreScreenFragment" />
+        <action
+            android:id="@+id/action_advertiseScreenFragment_to_advertisementDetailsFragment"
+            app:destination="@id/advertisementDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreScreenFragment"
@@ -173,4 +176,18 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventCategoryBottom"
         android:label="fragment_event_category_bottom"
         tools:layout="@layout/fragment_event_category_bottom" />
+    <fragment
+        android:id="@+id/advertisementDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragment"
+        android:label="fragment_advertisement_details"
+        tools:layout="@layout/fragment_advertisement_details" >
+        <action
+            android:id="@+id/action_advertisementDetailsFragment_to_updateAndDeleteBottomFragment"
+            app:destination="@id/updateAndDeleteBottomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateAndDeleteBottomFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.UpdateAndDeleteBottomFragment"
+        android:label="fragment_update_and_delete_bottom"
+        tools:layout="@layout/fragment_update_and_delete_bottom" />
 </navigation>
