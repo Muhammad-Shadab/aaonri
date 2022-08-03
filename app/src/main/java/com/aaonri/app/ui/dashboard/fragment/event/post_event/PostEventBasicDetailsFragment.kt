@@ -64,7 +64,8 @@ class PostEventBasicDetailsFragment : Fragment() {
     var endTime = ""
     var startDate = ""
     var endDate = ""
-
+    val parseFormat = SimpleDateFormat("HH:mm")
+    val displayFormat = SimpleDateFormat("hh:mm a")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -284,10 +285,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.selectCategoryEvent?.text = eventDetails?.category
                 postEventBinding?.selectstartDate?.text =
                     eventDetails?.startDate?.split("T")?.get(0)
-                postEventBinding?.selectStartTime?.text = eventDetails?.startTime
+                postEventBinding?.selectStartTime?.text =displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
                 postEventBinding?.selectEndDate?.text =
                     eventDetails?.endDate?.split("T")?.get(0)
-                postEventBinding?.selectEndTime?.text = eventDetails?.endTime
+                postEventBinding?.selectEndTime?.text = displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
                 postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
                 postEventBinding?.eventDescEt?.fromHtml(eventDetails?.description)
 
@@ -517,31 +518,35 @@ class PostEventBasicDetailsFragment : Fragment() {
                      getHoursCLock = hourOfDay
                      getMinutesCLock = minute
                  }
-                if (hoursOfTheDay == 0) {
-                    hoursOfTheDay += 12
-                    ampm = "AM"
-                } else if (hoursOfTheDay == 12) {
-                    ampm = "PM"
-                } else if (hoursOfTheDay > 12) {
-                    hoursOfTheDay -= 12
-                    ampm = "PM"
-                } else {
-                    ampm = "AM"
-                }
-                if (hourOfDay < 10) {
-                }
-                if (minute < 10) {
-                    getMinute = "0$minute"
-                } else {
-                    getMinute = "$minute"
-                }
-                selectStartTime.text = "$hoursOfTheDay:$getMinute $ampm"
+
+
+                val date = parseFormat.parse("$hourOfDay:$minute")
+
+//                if (hoursOfTheDay == 0) {
+//                    hoursOfTheDay += 12
+//                    ampm = "AM"
+//                } else if (hoursOfTheDay == 12) {
+//                    ampm = "PM"
+//                } else if (hoursOfTheDay > 12) {
+//                    hoursOfTheDay -= 12
+//                    ampm = "PM"
+//                } else {
+//                    ampm = "AM"
+//                }
+//                if (hourOfDay < 10) {
+//                }
+//                if (minute < 10) {
+//                    getMinute = "0$minute"
+//                } else {
+//                    getMinute = "$minute"
+//                }
+                selectStartTime.text = displayFormat.format(date)
                 if (isStartTime) {
                     //this is for startTime
-                    startTime = "$hourOfDay:$getMinute"
+                    startTime = parseFormat.format(date).toString()
                 } else {
                     //this is for  endTime
-                    endTime = "$hourOfDay:$getMinute"
+                    endTime = parseFormat.format(date).toString()
                 }
 
             }, hour, minute, false
