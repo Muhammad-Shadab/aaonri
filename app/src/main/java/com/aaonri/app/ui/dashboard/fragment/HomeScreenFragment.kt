@@ -224,12 +224,12 @@ class HomeScreenFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             activeService.adapter = homeInterestsServiceAdapter
 
-            eventRv.layoutManager =
+            /*eventRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            eventRv.adapter = homeEventAdapter
+            eventRv.adapter = homeEventAdapter*/
 
-            classifiedRv.layoutManager = GridLayoutManager(context, 2)
-            classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
+            /*classifiedRv.layoutManager = GridLayoutManager(context, 2)
+            classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))*/
 
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
@@ -267,7 +267,7 @@ class HomeScreenFragment : Fragment() {
                             setHomeClassifiedData()
                         }
                     }
-                    homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
+                    //homeScreenBinding?.classifiedRv?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
                         /*activity?.let { it1 ->
                             Snackbar.make(
