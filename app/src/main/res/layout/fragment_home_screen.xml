@@ -968,7 +968,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="@dimen/_250sdp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginStart="@dimen/_12sdp"
                                 app:cardBackgroundColor="#0fc7a9"
                                 app:cardCornerRadius="@dimen/_10sdp">
 
@@ -1082,7 +1082,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="horizontal">
 
                             <TextView

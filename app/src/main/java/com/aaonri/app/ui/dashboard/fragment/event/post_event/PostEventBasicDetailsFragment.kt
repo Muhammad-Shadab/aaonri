@@ -517,6 +517,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                      getHoursCLock = hourOfDay
                      getMinutesCLock = minute
                  }
+
+
+
                 if (hoursOfTheDay == 0) {
                     hoursOfTheDay += 12
                     ampm = "AM"

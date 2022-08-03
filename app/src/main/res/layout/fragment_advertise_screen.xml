@@ -104,7 +104,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/helvetica_regular"
-            android:hint="@string/search_jobs"
+            android:hint="What are you looking?"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
@@ -188,7 +188,11 @@
           android:layout_marginLeft="@dimen/_26sdp"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintRight_toRightOf="parent"
+          android:textColor="@color/black"
+          android:includeFontPadding="false"
           app:layout_constraintLeft_toLeftOf="parent"
+          android:textSize="16sp"
+          android:fontFamily="@font/sf_pro_semi_bold"
           android:text="Yout Avertisement(s)"/>
         <TextView
             android:id="@+id/postingofAdTv"
@@ -207,7 +211,7 @@
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="Posting of Advt is free till March 2022" />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewEvent"
+            android:id="@+id/recyclerViewAdvertise"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_height="wrap_content"
