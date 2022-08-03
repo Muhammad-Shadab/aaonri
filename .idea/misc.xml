@@ -71,6 +71,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/blue_radius_shape.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/bottom_sheet_details_bg_color.xml" value="0.1925" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/circle_blue_shape.xml" value="0.2115" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_inner_shadow.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg1.xml" value="0.1945" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg2.xml" value="0.1945" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg3.xml" value="0.1945" />
@@ -87,6 +88,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_icon_open_menu.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_shop.xml" value="0.2105" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_time_watch.xml" value="0.179" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/inner_radius_shadow.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/navigate_back.xml" value="0.179" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/point_icon.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/posting_add_shape.xml" value="0.2115" />
@@ -146,6 +148,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_event_pic.xml" value="0.25" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_view_event_details.xml" value="0.25" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_item.xml" value="0.33" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/my_posted_jobs_item.xml" value="0.11820652173913043" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/success_register_dialog.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/tab_title_text.xml" value="0.1" />
