@@ -447,7 +447,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun callApiAccordingToInterest(interests: String?) {
-        //Toast.makeText(applicationContext, "$interests", Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
