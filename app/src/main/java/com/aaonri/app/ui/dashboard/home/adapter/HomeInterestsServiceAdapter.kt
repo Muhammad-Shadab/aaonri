@@ -29,6 +29,8 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
         val context = holder.itemView.context
         holder.binding.apply {
 
+            serviceTv.text = data[position]
+
             if (position == 0) {
                 selectedServices(data[position])
             }

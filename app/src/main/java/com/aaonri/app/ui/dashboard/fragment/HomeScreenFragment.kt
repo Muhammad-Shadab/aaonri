@@ -65,8 +65,64 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
+        advertiseAdapter = AdvertiseAdapter {
 
+        }
+
+        homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
+            when (it) {
+                "Classifieds" -> {
+
+                }
+                "Events" -> {
+                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
+                }
+                "Jobs" -> {
+                }
+                "Immigration" -> {
+                }
+                "Astrology" -> {
+                }
+                "Sports" -> {
+                }
+                "Community Connect" -> {
+
+                }
+                "Foundation & Donations" -> {
+
+                }
+                "Student Services" -> {
+
+                }
+                "Legal Services" -> {
+
+                }
+                "Matrimony & Weddings" -> {
+
+                }
+                "Medical Care" -> {
+
+                }
+                "Real Estate" -> {
+
+                }
+                "Shop With Us" -> {
+
+                }
+                "Travel and Stay" -> {
+
+                }
+                "Home Needs" -> {
+
+                }
+                "Business Needs" -> {
+
+                }
+                "Advertise With Us" -> {
+                    advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
+                }
+            }
         }
 
         val profile =
@@ -221,13 +277,13 @@ class HomeScreenFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
 
-            activeServiceRv.layoutManager =
+            activeService.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            activeServiceRv.adapter = homeInterestsServiceAdapter
+            activeService.adapter = homeInterestsServiceAdapter
 
-            eventRv.layoutManager =
+            availableServiceHorizontalRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            eventRv.adapter = homeEventAdapter
+            //eventRv.adapter = homeEventAdapter
 
             classifiedRv.layoutManager = GridLayoutManager(context, 2)
             classifiedRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))

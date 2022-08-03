@@ -326,7 +326,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/classifiedTv" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/activeServiceRv"
+                        android:id="@+id/activeService"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
@@ -403,7 +403,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventRv" />
+                        app:layout_constraintTop_toBottomOf="@+id/activeService" />
 
                     <TextView
                         android:id="@+id/seeAllEvents"
@@ -429,7 +429,7 @@
                         app:tint="@color/blueBtnColor" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/eventRv"
+                        android:id="@+id/availableServiceHorizontalRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
@@ -522,7 +522,7 @@
                         app:cardElevation="@dimen/_2sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventRv"
+                        app:layout_constraintTop_toBottomOf="@+id/availableServiceHorizontalRv"
                         app:strokeColor="#e7e7e7"
                         app:strokeWidth="@dimen/_1sdp">
 
