@@ -22,6 +22,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
@@ -38,6 +39,7 @@ class HomeScreenFragment : Fragment() {
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
+    var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
     var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
@@ -69,6 +71,10 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+        jobAdapter = JobAdapter {
+
+        }
+
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             when (it) {
                 "Classifieds" -> {
@@ -78,6 +84,8 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
                 }
                 "Jobs" -> {
+                    jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
                 }
                 "Immigration" -> {
                 }
