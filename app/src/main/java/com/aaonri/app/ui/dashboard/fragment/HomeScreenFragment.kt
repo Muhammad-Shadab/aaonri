@@ -643,7 +643,6 @@ class HomeScreenFragment : Fragment() {
                 priorityService = "Matrimony & Weddings"
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-
             } else if (interests.startsWith("20")) {
                 //Medical Care
                 priorityService = "Medical Care"
