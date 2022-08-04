@@ -146,6 +146,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                         if (zipCodeEt.text.toString()
                                 .isNotEmpty() && zipCodeEt.text.toString().length >= 5
                         ) {
+                            if(socialMediaLinkEt.text.isNotEmpty()&&socialMediaLinkEt.text.toString().length >= 10)
+                            {
                             if (landmarkEt.text.toString()
                                     .isNotEmpty() && landmarkEt.text.toString().length < 3
                             ) {
@@ -185,6 +187,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         showAlert("Please accept terms & condition")
                                     }
                                 }
+                            }
+                            }
+                            else{
+                                showAlert("Please enter valid  ticket link")
                             }
                         } else {
                             showAlert("Please enter valid zip code")

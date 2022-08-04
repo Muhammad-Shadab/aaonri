@@ -20,7 +20,7 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
     RecyclerView.Adapter<HomeInterestsServiceAdapter.ClassifiedViewHolder>() {
 
     private var data = listOf<String>()
-
+    var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = HomeInterestedServiceItemsBinding.inflate(inflater, parent, false)
@@ -33,11 +33,15 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
         holder.binding.apply {
             serviceTv.text = data[position]
 
-            if (position == 0) {
-                selectedServices(data[position])
-            }
 
             holder.itemView.setOnClickListener {
+               rowIndex = position
+               notifyDataSetChanged()
+            }
+
+
+            if(rowIndex == position) {
+                selectedServices(data[position])
                 serviceTv.setBackgroundDrawable(
                     ContextCompat.getDrawable(
                         context,
@@ -50,7 +54,21 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
                         R.color.white
                     )
                 )
-                selectedServices(data[position])
+            }
+            else{
+                serviceTv.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.tab_background
+                    )
+                )
+                serviceTv.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.darkGrayColor
+                    )
+                )
+
             }
         }
     }

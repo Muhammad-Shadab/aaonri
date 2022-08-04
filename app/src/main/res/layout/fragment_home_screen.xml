@@ -434,8 +434,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
-                        android:paddingHorizontal="16dp"
-                        android:paddingTop="16dp"
+                        android:paddingHorizontal="@dimen/_16sdp"
+                        android:paddingTop="@dimen/_10sdp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1083,7 +1083,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:orientation="horizontal">
 
                             <TextView

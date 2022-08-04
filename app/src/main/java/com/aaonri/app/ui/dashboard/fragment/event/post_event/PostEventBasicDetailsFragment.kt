@@ -45,6 +45,8 @@ class PostEventBasicDetailsFragment : Fragment() {
     var description: String? = ""
 
     var isDateValid = false
+    var startHour: Int ? = null
+    var startMin: Int ? = null
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -417,6 +419,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
                 postEventBinding?.selectEndTime?.text = it[EventConstants.EVENT_END_TIME]
                 postEventBinding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
+
                 if (isEventFree) {
                     postEventBinding?.isFreeEntryCheckBox?.isChecked = true
                     postEventBinding?.askingFee?.isEnabled = false
@@ -507,6 +510,7 @@ class PostEventBasicDetailsFragment : Fragment() {
              hour = getHoursCLock
              minute = getMinutesCLock
 
+
         }
 
         mTimePicker = TimePickerDialog(
@@ -517,36 +521,45 @@ class PostEventBasicDetailsFragment : Fragment() {
                  {
                      getHoursCLock = hourOfDay
                      getMinutesCLock = minute
+                     startHour =hourOfDay
+                     startMin = minute
                  }
 
 
                 val date = parseFormat.parse("$hourOfDay:$minute")
 
-//                if (hoursOfTheDay == 0) {
-//                    hoursOfTheDay += 12
-//                    ampm = "AM"
-//                } else if (hoursOfTheDay == 12) {
-//                    ampm = "PM"
-//                } else if (hoursOfTheDay > 12) {
-//                    hoursOfTheDay -= 12
-//                    ampm = "PM"
-//                } else {
-//                    ampm = "AM"
-//                }
-//                if (hourOfDay < 10) {
-//                }
-//                if (minute < 10) {
-//                    getMinute = "0$minute"
-//                } else {
-//                    getMinute = "$minute"
-//                }
-                selectStartTime.text = displayFormat.format(date)
+          /*      if (hoursOfTheDay == 0) {
+                    hoursOfTheDay += 12
+                    ampm = "AM"
+                } else if (hoursOfTheDay == 12) {
+                    ampm = "PM"
+                } else if (hoursOfTheDay > 12) {
+                    hoursOfTheDay -= 12
+                    ampm = "PM"
+                } else {
+                    ampm = "AM"
+                }
+                if (hourOfDay < 10) {
+                }
+                if (minute < 10) {
+                    getMinute = "0$minute"
+                } else {
+                    getMinute = "$minute"
+                }*/
+
                 if (isStartTime) {
                     //this is for startTime
+                    selectStartTime.text = displayFormat.format(date)
                     startTime = parseFormat.format(date).toString()
                 } else {
                     //this is for  endTime
-                    endTime = parseFormat.format(date).toString()
+                    if(hourOfDay> startHour!!||hourOfDay ==startHour && startMin!! >minute) {
+                        selectStartTime.text = displayFormat.format(date)
+                        endTime = parseFormat.format(date).toString()
+                    }
+                    else{
+                        showAlert("Please select valid time")
+                    }
                 }
 
             }, hour, minute, false
