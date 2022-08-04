@@ -116,17 +116,23 @@ class HomeScreenFragment : Fragment() {
                 "Classifieds" -> {
 
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
+                        GridLayoutManager(context, 2)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter =
                         allClassifiedAdapterForHorizontal
                 }
                 "Events" -> {
+                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
                 }
                 "Jobs" -> {
+                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
                 }
                 "Immigration" -> {
+                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
                 }
                 "Astrology" -> {
