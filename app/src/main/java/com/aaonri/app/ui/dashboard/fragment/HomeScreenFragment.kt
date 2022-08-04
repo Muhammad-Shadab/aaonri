@@ -18,6 +18,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.adapter.HomeEventAdapter
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
+import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
@@ -51,6 +52,7 @@ class HomeScreenFragment : Fragment() {
     var homeEventAdapter: HomeEventAdapter? = null
     val eventId = mutableListOf<Int>()
     var priorityService = ""
+    var navigationFromHorizontalSeeAll = ""
 
 
     override fun onCreateView(
@@ -105,6 +107,7 @@ class HomeScreenFragment : Fragment() {
 
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             homeScreenBinding?.eventTv?.text = it
+            navigationFromHorizontalSeeAll = it
             when (it) {
                 "Classifieds" -> {
 
@@ -256,7 +259,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             seeAllEvents.setOnClickListener {
-                navigateToTheSpecificScreen(userInterestedService)
+                navigateToTheSpecificScreen(navigationFromHorizontalSeeAll)
             }
 
             interestRecyclerView.layoutManager =
@@ -332,15 +335,15 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    val activeServiceList = mutableListOf<String>()
+                    val activeServiceList = mutableListOf<InterestResponseItem>()
                     if (response.data?.isNotEmpty() == true) {
                         if (userInterestedService != null) {
                             response.data.forEach {
-                                if (!activeServiceList.contains(it.interestDesc) && it.active && userInterestedService.contains(
+                                if (!activeServiceList.contains(it) && it.active && userInterestedService.contains(
                                         it.id.toString()
                                     )
                                 ) {
-                                    activeServiceList.add(it.interestDesc)
+                                    activeServiceList.add(it)
                                 }
                             }
                         }
@@ -362,58 +365,58 @@ class HomeScreenFragment : Fragment() {
 
     private fun navigateToTheSpecificScreen(interests: String?) {
         if (interests?.isNotEmpty() == true) {
-            if (interests.startsWith("27")) {
+            if (interests.startsWith("27") || interests == "Advertise With Us") {
                 //Advertise With Us
                 dashboardCommonViewModel.setIsAdvertiseClicked(true)
-            } else if (interests.startsWith("2")) {
+            } else if (interests.startsWith("2") || interests == "Classifieds") {
                 //Classifieds
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-            } else if (interests.startsWith("8")) {
+            } else if (interests.startsWith("8") || interests == "Events") {
                 //Events
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            } else if (interests.startsWith("3")) {
+            } else if (interests.startsWith("3") || interests == "Immigration") {
                 //Immigration
 
-            } else if (interests.startsWith("17")) {
+            } else if (interests.startsWith("17") || interests == "Jobs") {
                 //Jobs
 
-            } else if (interests.startsWith("22")) {
+            } else if (interests.startsWith("22") || interests == "Shop With Us") {
                 //Shop With Us
 
-            } else if (interests.startsWith("4")) {
+            } else if (interests.startsWith("4") || interests == "Astrology") {
                 //Astrology
 
-            } else if (interests.startsWith("26")) {
+            } else if (interests.startsWith("26") || interests == "Business Needs") {
                 //Business Needs
 
-            } else if (interests.startsWith("10")) {
+            } else if (interests.startsWith("10") || interests == "Community Connect") {
                 //Community Connect
 
-            } else if (interests.startsWith("13")) {
+            } else if (interests.startsWith("13") || interests == "Foundation & Donations") {
                 //Foundation & Donations
 
-            } else if (interests.startsWith("25")) {
+            } else if (interests.startsWith("25") || interests == "Home Needs") {
                 //Home Needs
 
-            } else if (interests.startsWith("18")) {
+            } else if (interests.startsWith("18") || interests == "Legal Services") {
                 //Legal Services
 
-            } else if (interests.startsWith("19")) {
+            } else if (interests.startsWith("19") || interests == "Matrimony & Weddings") {
                 //Matrimony & Weddings
 
-            } else if (interests.startsWith("20")) {
+            } else if (interests.startsWith("20") || interests == "Medical Care") {
                 //Medical Care
 
-            } else if (interests.startsWith("21")) {
+            } else if (interests.startsWith("21") || interests == "Real Estate") {
                 //Real Estate
 
-            } else if (interests.startsWith("5")) {
+            } else if (interests.startsWith("5") || interests == "Sports") {
                 //Sports
 
-            } else if (interests.startsWith("16")) {
+            } else if (interests.startsWith("16") || interests == "Student Services") {
                 //Student Services
 
-            } else if (interests.startsWith("24")) {
+            } else if (interests.startsWith("24") || interests == "Travel and Stay") {
                 //Travel and Stay
 
             }

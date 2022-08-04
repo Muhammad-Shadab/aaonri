@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.aaonri.app.databinding.HomeInterestedServiceItemsBinding
 import com.aaonri.app.utils.Constant
@@ -19,7 +20,7 @@ import java.text.DecimalFormat
 class HomeInterestsServiceAdapter(private var selectedServices: ((value: String) -> Unit)) :
     RecyclerView.Adapter<HomeInterestsServiceAdapter.ClassifiedViewHolder>() {
 
-    private var data = listOf<String>()
+    private var data = listOf<InterestResponseItem>()
     var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +32,7 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
         val context = holder.itemView.context
 
         holder.binding.apply {
-            serviceTv.text = data[position]
+            serviceTv.text = data[position].interestDesc
 
 
             holder.itemView.setOnClickListener {
@@ -41,7 +42,7 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
 
 
             if(rowIndex == position) {
-                selectedServices(data[position])
+                selectedServices(data[position].interestDesc)
                 serviceTv.setBackgroundDrawable(
                     ContextCompat.getDrawable(
                         context,
@@ -68,13 +69,12 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
                         R.color.darkGrayColor
                     )
                 )
-
             }
         }
     }
 
     @JvmName("setData1")
-    fun setData(data: List<String>) {
+    fun setData(data: MutableList<InterestResponseItem>) {
         this.data = data
         notifyDataSetChanged()
     }
