@@ -105,7 +105,6 @@ class ServicesCategoryFragment : Fragment() {
             }
 
             serviceSubmitBtn.setOnClickListener {
-                Toast.makeText(context, authCommonViewModel.selectedServicesList.value.toString(), Toast.LENGTH_SHORT).show()
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (isServicesSelected) {
@@ -175,13 +174,13 @@ class ServicesCategoryFragment : Fragment() {
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
             adapter?.savedCategoriesList = serviceResponseItem
-            selectedServicesInterest=""
+            selectedServicesInterest = ""
             var i = 0
-            var len : Int = serviceResponseItem.size
+            var len: Int = serviceResponseItem.size
             serviceResponseItem.forEach {
                 i++
                 isJobSelected = it.interestDesc == "Jobs"
-               selectedServicesInterest += "${it.id}${if(i!=len)"," else ""}"
+                selectedServicesInterest += "${it.id}${if (i != len) "," else ""}"
             }
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 authCommonViewModel.addStepViewLastTick(true)

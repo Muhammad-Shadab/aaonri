@@ -2,7 +2,6 @@ package com.aaonri.app.ui.dashboard.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +23,13 @@ import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapterForHorizontal
+import com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
-import com.aaonri.app.utils.*
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.GridSpacingItemDecoration
+import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,6 +45,7 @@ class HomeScreenFragment : Fragment() {
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
+    var immigrationAdapter: ImmigrationAdapter? = null
     var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
     var homeEventAdapter: HomeEventAdapter? = null
@@ -58,8 +62,6 @@ class HomeScreenFragment : Fragment() {
         val userInterestedService =
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
-
-        callApiAccordingToInterest(userInterestedService)
 
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
@@ -88,10 +90,18 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+        immigrationAdapter = ImmigrationAdapter {
+
+        }
+
+        immigrationAdapter?.setData(listOf("Test 1", "Test 2"))
+        advertiseAdapter?.setData(listOf("Test 1", "Test 2"))
+
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             homeScreenBinding?.eventTv?.text = it
             when (it) {
                 "Classifieds" -> {
+
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter =
@@ -101,11 +111,10 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
                 }
                 "Jobs" -> {
-                    jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
                 }
                 "Immigration" -> {
-
+                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
                 }
                 "Astrology" -> {
 
@@ -147,7 +156,6 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 "Advertise With Us" -> {
-                    advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
@@ -253,12 +261,14 @@ class HomeScreenFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             activeService.adapter = homeInterestsServiceAdapter
 
-            availableServiceHorizontalRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            /*availableServiceHorizontalRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)*/
 
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
+
+        callApiAccordingToInterest(userInterestedService)
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -375,8 +385,8 @@ class HomeScreenFragment : Fragment() {
             } else if (interests.startsWith("17")) {
                 //Jobs
                 priorityService = "Jobs"
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+                jobAdapter?.setData(listOf("Test 1", "Test 2"))
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
 
             } else if (interests.startsWith("22")) {
