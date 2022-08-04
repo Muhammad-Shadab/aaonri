@@ -376,6 +376,14 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        dashboardCommonViewModel.isShopWithUsClicked.observe(this) {
+            if (it) {
+                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                    R.id.shopScreenFragment
+                dashboardCommonViewModel.setIsShopWithUsClickedClicked(false)
+            }
+        }
+
         classifiedViewModel.callClassifiedApiAfterDelete.observe(this) {
             classifiedViewModel.getClassifiedByUser(
                 GetClassifiedByUserRequest(

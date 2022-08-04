@@ -106,7 +106,11 @@ class HomeScreenFragment : Fragment() {
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
-            homeScreenBinding?.eventTv?.text = it
+            if (it == "Shop With Us") {
+                dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
+            } else {
+                homeScreenBinding?.eventTv?.text = it
+            }
             navigationFromHorizontalSeeAll = it
             when (it) {
                 "Classifieds" -> {
@@ -382,7 +386,7 @@ class HomeScreenFragment : Fragment() {
 
             } else if (interests.startsWith("22") || interests == "Shop With Us") {
                 //Shop With Us
-
+                dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
             } else if (interests.startsWith("4") || interests == "Astrology") {
                 //Astrology
 

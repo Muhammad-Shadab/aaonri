@@ -14,6 +14,9 @@ class DashboardCommonViewModel : ViewModel() {
     var isAdvertiseClicked: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var isShopWithUsClicked: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var isFilterApplied: MutableLiveData<String> = MutableLiveData()
 
     fun setGuestUser(value: Boolean) {
@@ -30,6 +33,10 @@ class DashboardCommonViewModel : ViewModel() {
 
     fun setIsAdvertiseClicked(value: Boolean) {
         isAdvertiseClicked.postValue(value)
+    }
+
+    fun setIsShopWithUsClickedClicked(value: Boolean) {
+        isShopWithUsClicked.postValue(value)
     }
 
 }
