@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +15,6 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.*
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
@@ -174,6 +175,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 try {
+                    val bitmap1 = classifiedDetailsBinding?.addImage?.drawable?.toBitmap()
+                    createDarkPaletteAsync(bitmap1)
                     val intent = Intent(Intent.ACTION_SEND).setType("image/*")
                     val bitmap = addImage.drawable.toBitmap() // your imageView here.
                     val bytes = ByteArrayOutputStream()
@@ -303,6 +306,7 @@ class ClassifiedDetailsFragment : Fragment() {
                                 .into(it)
                         }
                     }
+
                 }
                 1 -> {
                     classifiedDetailsBinding?.addImage?.let {
@@ -331,7 +335,9 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                 }
+
             }
+
 
             if (userAdsImage.sequenceNumber == 1) {
                 classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
@@ -450,6 +456,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
         }
+
+
+
+
 
         val random = data.askingPrice
 
@@ -807,5 +817,51 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
     }
+
+
+    fun createDarkPaletteAsync(bitmap: Bitmap?) {
+
+        // on below line we are calling a palette
+        // method from bitmap to get colors from our image.
+        Palette.from(bitmap!!).setRegion(2,2,2,2).maximumColorCount(0x000000)
+        Palette.from(bitmap!!).generate { p -> // Use generated instance
+            // on below line we are passing
+
+            // a default value to it.
+            val defaultValue = 0x000000
+
+            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
+//            // on below line we are adding colors to our different views.
+//            headTV.setTextColor(p!!.getLightVibrantColor(defaultValue))
+//            gfgTV.setTextColor(p.getLightVibrantColor(defaultValue))
+//            backRL.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+//            changeBtn.setTextColor(p.getDarkVibrantColor(defaultValue))
+//            changeBtn.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+//            changeBtn2.setTextColor(p.getDarkVibrantColor(defaultValue))
+//            changeBtn2.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+        }
+    }
+
+    fun createPaletteAsync(bitmap: Bitmap?) {
+        // on below line we are calling a palette method
+        // from bitmap to get colors from our image.
+        Palette.from(bitmap!!).generate { p -> // Use generated instance
+            // on below line we are passing
+            // a default value to it.
+            val defaultValue = 0x000000
+
+            // on below line we are adding colors to our different views.
+
+            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
+//            gfgTV.setTextColor(p.getDominantColor(defaultValue))
+//            backRL.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+//            changeBtn.setTextColor(p.getLightMutedColor(defaultValue))
+//            changeBtn.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+//            changeBtn2.setTextColor(p.getLightMutedColor(defaultValue))
+//            changeBtn2.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+        }
+    }
+
+
 
 }
