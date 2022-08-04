@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
 <item>
      <shape>
@@ -12,86 +12,26 @@
         </shape>
     </item>
 
+</layer-list>-->
 
-<!-- &lt;!&ndash; left shadow &ndash;&gt;-->
-
-
-<!-- <item>-->
-
-
-<!-- <shape android:shape="rectangle">-->
-
-
-<!-- <gradient-->
-
-
-<!-- android:angle="180"-->
-
-
-<!-- android:centerColor="#00FF0000"-->
-
-
-<!-- android:centerX="0.9"-->
-
-
-<!-- android:endColor="#2C5E5E5E"-->
-
-
-<!-- android:startColor="#00FF0000" />-->
-
-
-<!-- <corners android:radius="60dp" />-->
-
-
-<!-- </shape>-->
-
-
-<!-- </item>-->
-
-
-<!-- &lt;!&ndash; right shadow &ndash;&gt;-->
-
-
-<!-- <item>-->
-
-
-<!-- <shape android:shape="rectangle">-->
-
-
-<!-- <gradient-->
-
-
-<!-- android:angle="360"-->
-
-
-<!-- android:centerColor="#00FF0000"-->
-
-
-<!-- android:centerX="0.9"-->
-
-
-<!-- android:endColor="#2C5E5E5E"-->
-
-
-<!-- android:startColor="#00FF0000" />-->
-
-
-<!-- <corners android:radius="60dp" />-->
-
-
-<!-- </shape>-->
-
-
-<!-- </item>-->
-
-
-<!-- top shadow -->
-
-
-
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape>
+            <corners android:topLeftRadius="@dimen/_32sdp" android:topRightRadius="@dimen/_32sdp" />
+            <gradient android:angle="90"
+                android:startColor="@color/white"
+                android:endColor="#efefef"
+                android:type="linear"/>
+        </shape>
+    </item>
+    <item android:top="2dp" android:left="1dp" android:right="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:topLeftRadius="@dimen/_32sdp" android:topRightRadius="@dimen/_32sdp" />
+            <gradient android:angle="90"
+                android:endColor="#FDFDFD"
+                android:startColor="#EFEFEF"
+                android:type="linear"/>
+        </shape>
+    </item>
 </layer-list>
-<!--
-<gradient android:angle="90"
-android:endColor="#FDFDFD"
-android:startColor="#EFEFEF"
-android:type="linear"/>-->
