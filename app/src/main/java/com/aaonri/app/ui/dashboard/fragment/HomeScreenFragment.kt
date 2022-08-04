@@ -251,7 +251,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             seeAllEvents.setOnClickListener {
-
+                navigateToTheSpecificScreen(userInterestedService)
             }
 
             interestRecyclerView.layoutManager =
@@ -359,13 +359,13 @@ class HomeScreenFragment : Fragment() {
         if (interests?.isNotEmpty() == true) {
             if (interests.startsWith("27")) {
                 //Advertise With Us
-
+                dashboardCommonViewModel.setIsAdvertiseClicked(true)
             } else if (interests.startsWith("2")) {
                 //Classifieds
-
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
             } else if (interests.startsWith("8")) {
                 //Events
-
+                findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             } else if (interests.startsWith("3")) {
                 //Immigration
 
