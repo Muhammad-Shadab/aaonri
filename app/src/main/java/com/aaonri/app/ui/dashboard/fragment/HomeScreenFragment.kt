@@ -386,7 +386,6 @@ class HomeScreenFragment : Fragment() {
                 //Jobs
                 priorityService = "Jobs"
                 homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
-                jobAdapter?.setData(listOf("Test 1", "Test 2"))
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
 
             } else if (interests.startsWith("22")) {
