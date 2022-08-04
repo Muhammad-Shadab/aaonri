@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -605,7 +604,7 @@ class ClassifiedScreenFragment : Fragment() {
         if (noOfSelection >= 1) {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
+            classifiedScreenBinding?.numberOfSelectedFilterTv?.text = noOfSelection.toString()
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
