@@ -94,8 +94,9 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        immigrationAdapter?.setData(listOf("Test 1", "Test 2"))
-        advertiseAdapter?.setData(listOf("Test 1", "Test 2"))
+        immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+        advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+        jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             homeScreenBinding?.eventTv?.text = it
@@ -245,11 +246,11 @@ class HomeScreenFragment : Fragment() {
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
-            seeAllEvents.setOnClickListener {
-
+            seeAllClassified.setOnClickListener {
+                navigateToTheSpecificScreen(userInterestedService)
             }
 
-            seeAllClassified.setOnClickListener {
+            seeAllEvents.setOnClickListener {
 
             }
 
@@ -354,10 +355,69 @@ class HomeScreenFragment : Fragment() {
         return homeScreenBinding?.root
     }
 
+    private fun navigateToTheSpecificScreen(interests: String?) {
+        if (interests?.isNotEmpty() == true) {
+            if (interests.startsWith("27")) {
+                //Advertise With Us
+
+            } else if (interests.startsWith("2")) {
+                //Classifieds
+
+            } else if (interests.startsWith("8")) {
+                //Events
+
+            } else if (interests.startsWith("3")) {
+                //Immigration
+
+            } else if (interests.startsWith("17")) {
+                //Jobs
+
+            } else if (interests.startsWith("22")) {
+                //Shop With Us
+
+            } else if (interests.startsWith("4")) {
+                //Astrology
+
+            } else if (interests.startsWith("26")) {
+                //Business Needs
+
+            } else if (interests.startsWith("10")) {
+                //Community Connect
+
+            } else if (interests.startsWith("13")) {
+                //Foundation & Donations
+
+            } else if (interests.startsWith("25")) {
+                //Home Needs
+
+            } else if (interests.startsWith("18")) {
+                //Legal Services
+
+            } else if (interests.startsWith("19")) {
+                //Matrimony & Weddings
+
+            } else if (interests.startsWith("20")) {
+                //Medical Care
+
+            } else if (interests.startsWith("21")) {
+                //Real Estate
+
+            } else if (interests.startsWith("5")) {
+                //Sports
+
+            } else if (interests.startsWith("16")) {
+                //Student Services
+
+            } else if (interests.startsWith("24")) {
+                //Travel and Stay
+
+            }
+        }
+    }
+
     private fun callApiAccordingToInterest(
         interests: String? = "",
     ) {
-
         if (interests?.isNotEmpty() == true) {
             if (interests.startsWith("27")) {
                 //Advertise With Us
@@ -382,6 +442,7 @@ class HomeScreenFragment : Fragment() {
                 priorityService = "Immigration"
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests.startsWith("17")) {
                 //Jobs
                 priorityService = "Jobs"
@@ -465,6 +526,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
         homeScreenBinding?.classifiedTv?.text = priorityService
+        homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
     }
 
 
