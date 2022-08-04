@@ -23,6 +23,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapterForHorizontal
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.utils.*
@@ -37,6 +38,7 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
+    var allClassifiedAdapterForHorizontal: AllClassifiedAdapterForHorizontal? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
@@ -82,11 +84,18 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+        allClassifiedAdapterForHorizontal = AllClassifiedAdapterForHorizontal {
+
+        }
+
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             homeScreenBinding?.eventTv?.text = it
             when (it) {
                 "Classifieds" -> {
-
+                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
+                    homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                        allClassifiedAdapterForHorizontal
                 }
                 "Events" -> {
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
@@ -139,6 +148,8 @@ class HomeScreenFragment : Fragment() {
                 }
                 "Advertise With Us" -> {
                     advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
                 }
             }
@@ -477,8 +488,15 @@ class HomeScreenFragment : Fragment() {
                                 4
                             )
                         )
+                        allClassifiedAdapterForHorizontal?.setData(
+                            classifiedViewModel.allClassifiedList.subList(
+                                0,
+                                4
+                            )
+                        )
                     } else {
                         allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
+                        allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
                     }
                     homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
                 }
