@@ -87,7 +87,12 @@ class HomeScreenFragment : Fragment() {
         }
 
         allClassifiedAdapterForHorizontal = AllClassifiedAdapterForHorizontal {
-
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
+                    it.id,
+                    false
+                )
+            findNavController().navigate(action)
         }
 
         immigrationAdapter = ImmigrationAdapter {
