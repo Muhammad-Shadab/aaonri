@@ -326,7 +326,6 @@ class HomeScreenFragment : Fragment() {
                     val yourArray: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
                     yourArray?.removeAt(0)
-
                     setUserInterestedServiceRow(yourArray)
                 }
                 is Resource.Error -> {
