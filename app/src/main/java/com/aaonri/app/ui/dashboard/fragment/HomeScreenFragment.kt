@@ -287,7 +287,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        callApiAccordingToInterest(/*userInterestedService*/"2")
+        callApiAccordingToInterest(userInterestedService)
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
