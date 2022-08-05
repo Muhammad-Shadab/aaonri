@@ -549,7 +549,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 if (isStartTime) {
                     //this is for startTime
                     selectStartTime.text = displayFormat.format(date)
-
+                    postEventBinding?.selectEndTime?.text = ""
 
                 } else {
                     var  time =parseFormat.format(displayFormat.parse(postEventBinding?.selectStartTime?.text.toString()))
