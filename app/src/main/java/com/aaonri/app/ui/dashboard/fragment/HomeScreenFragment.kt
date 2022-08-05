@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.adapter.HomeEventAdapter
@@ -53,7 +54,7 @@ class HomeScreenFragment : Fragment() {
     val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
-
+    var authViewModel: AuthCommonViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,72 +106,77 @@ class HomeScreenFragment : Fragment() {
         advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
+
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
-            homeScreenBinding?.eventTv?.text = it
-            navigationFromHorizontalSeeAll = it
-            when (it) {
-                "Classifieds" -> {
 
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter =
-                        allClassifiedAdapterForHorizontal
-                }
-                "Events" -> {
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
-                }
-                "Jobs" -> {
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
-                }
-                "Immigration" -> {
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
-                }
-                "Astrology" -> {
+                homeScreenBinding?.eventTv?.text = it
+                navigationFromHorizontalSeeAll = it
 
-                }
-                "Sports" -> {
+                when (it) {
+                    "Classifieds" -> {
 
-                }
-                "Community Connect" -> {
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                            allClassifiedAdapterForHorizontal
+                    }
+                    "Events" -> {
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
+                    }
+                    "Jobs" -> {
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
+                    }
+                    "Immigration" -> {
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
+                    }
+                    "Astrology" -> {
 
-                }
-                "Foundation & Donations" -> {
+                    }
+                    "Sports" -> {
 
-                }
-                "Student Services" -> {
+                    }
+                    "Community Connect" -> {
 
-                }
-                "Legal Services" -> {
+                    }
+                    "Foundation & Donations" -> {
 
-                }
-                "Matrimony & Weddings" -> {
+                    }
+                    "Student Services" -> {
 
-                }
-                "Medical Care" -> {
+                    }
+                    "Legal Services" -> {
 
-                }
-                "Real Estate" -> {
+                    }
+                    "Matrimony & Weddings" -> {
 
-                }
-                "Shop With Us" -> {
+                    }
+                    "Medical Care" -> {
 
-                }
-                "Travel and Stay" -> {
+                    }
+                    "Real Estate" -> {
 
-                }
-                "Home Needs" -> {
+                    }
+                    "Shop With Us" -> {
 
-                }
-                "Business Needs" -> {
+                    }
+                    "Travel and Stay" -> {
 
+                    }
+                    "Home Needs" -> {
+
+                    }
+                    "Business Needs" -> {
+
+                    }
+                    "Advertise With Us" -> {
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
+                    }
                 }
-                "Advertise With Us" -> {
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
-                }
-            }
+
         }
+
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
@@ -230,6 +236,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
+
         popularClassifiedAdapter = PoplarClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
@@ -277,7 +284,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        callApiAccordingToInterest(userInterestedService)
+        callApiAccordingToInterest("27")
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -307,7 +314,9 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+
         homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
+
             when (response) {
                 is Resource.Loading -> {
                     homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
@@ -328,6 +337,7 @@ class HomeScreenFragment : Fragment() {
                 else -> {}
             }
         }
+
 
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
             when (response) {

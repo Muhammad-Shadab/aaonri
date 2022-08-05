@@ -67,6 +67,9 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    var isSelectedServices: Boolean? = false
+
+
     var isNewUserRegisterUsingGmail = false
         private set
 
@@ -216,6 +219,11 @@ class AuthCommonViewModel @Inject constructor(
 
     fun setIsNewUserRegisterUsingGmail(value: Boolean) {
         isNewUserRegisterUsingGmail = value
+    }
+
+    fun setSelectedServices(value: Boolean) {
+        isSelectedServices = value
+//        slectedServicesPosition.value = value1
     }
 
 }

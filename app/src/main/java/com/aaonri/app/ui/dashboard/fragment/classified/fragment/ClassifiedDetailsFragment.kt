@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.palette.graphics.Palette
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
@@ -175,8 +174,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 try {
-                    val bitmap1 = classifiedDetailsBinding?.addImage?.drawable?.toBitmap()
-                    createDarkPaletteAsync(bitmap1)
                     val intent = Intent(Intent.ACTION_SEND).setType("image/*")
                     val bitmap = addImage.drawable.toBitmap() // your imageView here.
                     val bytes = ByteArrayOutputStream()
@@ -195,6 +192,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     intent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     startActivity(intent)
                 } catch (e: Exception) {
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -819,49 +817,49 @@ class ClassifiedDetailsFragment : Fragment() {
     }
 
 
-    fun createDarkPaletteAsync(bitmap: Bitmap?) {
+//    fun createDarkPaletteAsync(bitmap: Bitmap?) {
+//
+//        // on below line we are calling a palette
+//        // method from bitmap to get colors from our image.
+//        Palette.from(bitmap!!).setRegion(2,2,2,2).maximumColorCount(0x000000)
+//        Palette.from(bitmap!!).generate { p -> // Use generated instance
+//            // on below line we are passing
+//
+//            // a default value to it.
+//            val defaultValue = 0x000000
+//
+//            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
+////            // on below line we are adding colors to our different views.
+////            headTV.setTextColor(p!!.getLightVibrantColor(defaultValue))
+////            gfgTV.setTextColor(p.getLightVibrantColor(defaultValue))
+////            backRL.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+////            changeBtn.setTextColor(p.getDarkVibrantColor(defaultValue))
+////            changeBtn.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+////            changeBtn2.setTextColor(p.getDarkVibrantColor(defaultValue))
+////            changeBtn2.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+//        }
+//    }
 
-        // on below line we are calling a palette
-        // method from bitmap to get colors from our image.
-        Palette.from(bitmap!!).setRegion(2,2,2,2).maximumColorCount(0x000000)
-        Palette.from(bitmap!!).generate { p -> // Use generated instance
-            // on below line we are passing
-
-            // a default value to it.
-            val defaultValue = 0x000000
-
-            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
+//    fun createPaletteAsync(bitmap: Bitmap?) {
+//        // on below line we are calling a palette method
+//        // from bitmap to get colors from our image.
+//        Palette.from(bitmap!!).generate { p -> // Use generated instance
+//            // on below line we are passing
+//            // a default value to it.
+//            val defaultValue = 0x000000
+//
 //            // on below line we are adding colors to our different views.
-//            headTV.setTextColor(p!!.getLightVibrantColor(defaultValue))
-//            gfgTV.setTextColor(p.getLightVibrantColor(defaultValue))
-//            backRL.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-//            changeBtn.setTextColor(p.getDarkVibrantColor(defaultValue))
-//            changeBtn.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-//            changeBtn2.setTextColor(p.getDarkVibrantColor(defaultValue))
-//            changeBtn2.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-        }
-    }
-
-    fun createPaletteAsync(bitmap: Bitmap?) {
-        // on below line we are calling a palette method
-        // from bitmap to get colors from our image.
-        Palette.from(bitmap!!).generate { p -> // Use generated instance
-            // on below line we are passing
-            // a default value to it.
-            val defaultValue = 0x000000
-
-            // on below line we are adding colors to our different views.
-
-            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
-//            gfgTV.setTextColor(p.getDominantColor(defaultValue))
-//            backRL.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-//            changeBtn.setTextColor(p.getLightMutedColor(defaultValue))
-//            changeBtn.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-//            changeBtn2.setTextColor(p.getLightMutedColor(defaultValue))
-//            changeBtn2.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-        }
-    }
-
+//
+//            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
+////            gfgTV.setTextColor(p.getDominantColor(defaultValue))
+////            backRL.setBackgroundColor(p.getLightVibrantColor(defaultValue))
+////            changeBtn.setTextColor(p.getLightMutedColor(defaultValue))
+////            changeBtn.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+////            changeBtn2.setTextColor(p.getLightMutedColor(defaultValue))
+////            changeBtn2.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
+//        }
+//    }
+//
 
 
 }

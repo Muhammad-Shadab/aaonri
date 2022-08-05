@@ -3,6 +3,7 @@ package com.aaonri.app.data.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.home.model.PoplarClassifiedResponseItem
@@ -23,7 +24,6 @@ class PoplarClassifiedAdapter(private var selectedServices: ((value: PoplarClass
     override fun onBindViewHolder(holder: ClassifiedViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-
             if (data[position].favorite) {
                 like.visibility = View.VISIBLE
             }

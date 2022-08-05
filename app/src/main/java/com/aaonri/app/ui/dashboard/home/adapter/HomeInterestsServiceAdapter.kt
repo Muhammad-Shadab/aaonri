@@ -3,10 +3,12 @@ package com.aaonri.app.ui.dashboard.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
@@ -21,6 +23,7 @@ class HomeInterestsServiceAdapter(private var selectedServices: ((value: String)
     RecyclerView.Adapter<HomeInterestsServiceAdapter.ClassifiedViewHolder>() {
 
     private var data = listOf<InterestResponseItem>()
+    var autViewModel : AuthCommonViewModel? = null
     var rowIndex = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
