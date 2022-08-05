@@ -202,8 +202,6 @@ class AllClassifiedAdapterForHorizontal(private var selectedServices: ((value: U
             val day = date.subSequence(8, 10)
             classifiedPostDateTv.text = "Posted On: $month-$day-$year"
 
-            holder.itemView.layoutParams.width = getScreenWidth(context) / 2;
-
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
@@ -223,12 +221,4 @@ class AllClassifiedAdapterForHorizontal(private var selectedServices: ((value: U
             binding.root
         )
 
-}
-
-fun getScreenWidth(context: Context): Int {
-    val wm: WindowManager = context
-        .getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val dm = DisplayMetrics()
-    wm.getDefaultDisplay().getMetrics(dm)
-    return dm.widthPixels
 }

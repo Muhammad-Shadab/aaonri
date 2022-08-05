@@ -130,8 +130,8 @@ class MainActivity : BaseActivity() {
                 classifiedViewModel.setIsLikedButtonClicked(true)
 
                 if (email != null) {
-                    eventViewModel.getRecentEvent(email)
                     classifiedViewModel.findByEmail(email)
+                    eventViewModel.getRecentEvent(email)
                 }
 
                 classifiedViewModel.getClassifiedByUser(
@@ -373,6 +373,14 @@ class MainActivity : BaseActivity() {
                 mainActivityBinding?.bottomNavigation?.selectedItemId =
                     R.id.advertiseScreenFragment
                 dashboardCommonViewModel.setIsAdvertiseClicked(false)
+            }
+        }
+
+        dashboardCommonViewModel.isShopWithUsClicked.observe(this) {
+            if (it) {
+                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                    R.id.shopScreenFragment
+                dashboardCommonViewModel.setIsShopWithUsClickedClicked(false)
             }
         }
 

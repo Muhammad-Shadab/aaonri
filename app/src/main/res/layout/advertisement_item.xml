@@ -8,12 +8,12 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width='match_parent'
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_5sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_32sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:elevation="10dp"
         app:cardCornerRadius="@dimen/_12sdp"
-
-        android:layout_margin="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -68,6 +67,14 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.getClassifiedCategory()
         }
 
+        /*if (postClassifiedViewModel.categoryFilter.isNotEmpty() ||
+            postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
+                postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
+                postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
+                postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
+                ) {
+            postClassifiedViewModel.setClickedOnFilter(true)
+        }*/
 
         classifiedScreenBinding?.apply {
 
@@ -89,14 +96,16 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if (keyword.toString().isEmpty()) {
-                        cancelbutton.visibility = View.GONE
-                        searchViewIcon.visibility = View.VISIBLE
-                        postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
-                    } else {
-                        cancelbutton.visibility = View.VISIBLE
-                        searchViewIcon.visibility = View.GONE
-                        postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
+                    if (searchView.hasFocus()) {
+                        if (keyword.toString().isEmpty()) {
+                            cancelbutton.visibility = View.GONE
+                            searchViewIcon.visibility = View.VISIBLE
+                            postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
+                        } else {
+                            cancelbutton.visibility = View.VISIBLE
+                            searchViewIcon.visibility = View.GONE
+                            postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
+                        }
                     }
                 }
 
@@ -605,7 +614,7 @@ class ClassifiedScreenFragment : Fragment() {
         if (noOfSelection >= 1) {
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            classifiedScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
+            classifiedScreenBinding?.numberOfSelectedFilterTv?.text = noOfSelection.toString()
         } else {
             classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
             classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE

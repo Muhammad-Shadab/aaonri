@@ -482,6 +482,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             )
         }
         try {
+
             if (isStartdate) {
                 datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
             } else {
