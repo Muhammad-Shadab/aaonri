@@ -67,6 +67,14 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.getClassifiedCategory()
         }
 
+        /*if (postClassifiedViewModel.categoryFilter.isNotEmpty() ||
+            postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
+                postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
+                postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
+                postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
+                ) {
+            postClassifiedViewModel.setClickedOnFilter(true)
+        }*/
 
         classifiedScreenBinding?.apply {
 
