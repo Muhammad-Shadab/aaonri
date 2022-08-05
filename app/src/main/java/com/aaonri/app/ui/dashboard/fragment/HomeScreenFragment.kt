@@ -42,7 +42,7 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
-    var allClassifiedAdapterForHorizontal: AllClassifiedAdapterForHorizontal? = null
+    var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
@@ -88,7 +88,7 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        allClassifiedAdapterForHorizontal = AllClassifiedAdapterForHorizontal {
+        allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
                     it.id,
@@ -287,7 +287,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        callApiAccordingToInterest(userInterestedService)
+        callApiAccordingToInterest(/*userInterestedService*/"3")
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -440,6 +440,7 @@ class HomeScreenFragment : Fragment() {
             if (interests.startsWith("27")) {
                 //Advertise With Us
                 priorityService = "Advertise With Us"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = advertiseAdapter
@@ -451,6 +452,7 @@ class HomeScreenFragment : Fragment() {
             } else if (interests.startsWith("8")) {
                 //Events
                 priorityService = "Events"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
@@ -458,87 +460,102 @@ class HomeScreenFragment : Fragment() {
             } else if (interests.startsWith("3")) {
                 //Immigration
                 priorityService = "Immigration"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 16f, right = 16f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests.startsWith("17")) {
                 //Jobs
                 priorityService = "Jobs"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
 
             } else if (interests.startsWith("22")) {
                 //Shop With Us
                 priorityService = "Shop With Us"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("4")) {
                 //Astrology
                 priorityService = "Astrology"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("26")) {
                 //Business Needs
                 priorityService = "Business Needs"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("10")) {
                 //Community Connect
                 priorityService = "Community Connect"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("13")) {
                 //Foundation & Donations
                 priorityService = "Foundation & Donations"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("25")) {
                 //Home Needs
                 priorityService = "Home Needs"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests.startsWith("18")) {
                 //Legal Services
                 priorityService = "Legal Services"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests.startsWith("19")) {
                 //Matrimony & Weddings
                 priorityService = "Matrimony & Weddings"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests.startsWith("20")) {
                 //Medical Care
                 priorityService = "Medical Care"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("21")) {
                 //Real Estate
                 priorityService = "Real Estate"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("5")) {
                 //Sports
                 priorityService = "Sports"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("16")) {
                 //Student Services
                 priorityService = "Student Services"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests.startsWith("24")) {
                 //Travel and Stay
                 priorityService = "Travel and Stay"
+                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             }
