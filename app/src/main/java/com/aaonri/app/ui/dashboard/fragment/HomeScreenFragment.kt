@@ -53,6 +53,7 @@ class HomeScreenFragment : Fragment() {
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService = ""
+    var guestUser = false
 
 
     override fun onCreateView(
@@ -335,6 +336,14 @@ class HomeScreenFragment : Fragment() {
                 }
             }
         }
+        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            guestUser = it
+            if (it) {
+                setHomeClassifiedData()
+                homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
+                setUserInterestedServiceRow()
+            }
+        }
 
         homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -401,7 +410,7 @@ class HomeScreenFragment : Fragment() {
         return homeScreenBinding?.root
     }
 
-    private fun setUserInterestedServiceRow(interests: MutableList<String>?) {
+    private fun setUserInterestedServiceRow(interests: MutableList<String>? = null) {
 
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -424,7 +433,11 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
                         homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
-                        homeInterestsServiceAdapter?.setData(activeServiceList)
+                        if (interests.isNullOrEmpty()) {
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" } as MutableList<InterestResponseItem>)
+                        } else {
+                            homeInterestsServiceAdapter?.setData(activeServiceList)
+                        }
                     }
                 }
                 is Resource.Error -> {
@@ -620,6 +633,8 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
+            } else if (interests.isBlank()) {
+                Toast.makeText(context, "blank", Toast.LENGTH_SHORT).show()
             }
         }
         homeScreenBinding?.classifiedTv?.text = priorityService
