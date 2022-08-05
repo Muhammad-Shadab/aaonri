@@ -819,7 +819,7 @@ class EventDetailsScreenFragment : Fragment() {
                     .format(DateTimeFormatter.ofPattern("h:mma"))
             } ${event.timeZone}"
         } catch (e: Exception) {
-            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+
         }
 
 //        itemId = data.id
