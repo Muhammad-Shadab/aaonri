@@ -350,7 +350,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    callApiAccordingToInterest("17")
+                    callApiAccordingToInterest(response.data?.interests)
                     setUserInterestedServiceRow(response.data?.interests)
                 }
                 is Resource.Error -> {
