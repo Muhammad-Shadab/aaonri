@@ -45,8 +45,7 @@ class PostEventBasicDetailsFragment : Fragment() {
     var description: String? = ""
 
     var isDateValid = false
-    var startHour: Int ? = null
-    var startMin: Int ? = null
+
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -288,6 +287,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.selectstartDate?.text =
                     eventDetails?.startDate?.split("T")?.get(0)
                 postEventBinding?.selectStartTime?.text =displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
+                startTime = eventDetails?.startTime.toString()
                 postEventBinding?.selectEndDate?.text =
                     eventDetails?.endDate?.split("T")?.get(0)
                 postEventBinding?.selectEndTime?.text = displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
@@ -419,7 +419,6 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
                 postEventBinding?.selectEndTime?.text = it[EventConstants.EVENT_END_TIME]
                 postEventBinding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
-
                 if (isEventFree) {
                     postEventBinding?.isFreeEntryCheckBox?.isChecked = true
                     postEventBinding?.askingFee?.isEnabled = false
@@ -473,6 +472,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                         startDate = selectedDate
                     } else {
                         endDate = selectedDate
+                        postEventBinding?.selectEndTime?.text = ""
                     }
 
                 },
@@ -522,8 +522,6 @@ class PostEventBasicDetailsFragment : Fragment() {
                  {
                      getHoursCLock = hourOfDay
                      getMinutesCLock = minute
-                     startHour =hourOfDay
-                     startMin = minute
                  }
 
 
@@ -551,15 +549,26 @@ class PostEventBasicDetailsFragment : Fragment() {
                 if (isStartTime) {
                     //this is for startTime
                     selectStartTime.text = displayFormat.format(date)
-                    startTime = parseFormat.format(date).toString()
+
+
                 } else {
+                    var  time =parseFormat.format(displayFormat.parse(postEventBinding?.selectStartTime?.text.toString()))
+                    var startHour: Int ? = time?.split(":")?.get(0)?.toInt()
+                    var startMin: Int ? = time?.split(":")?.get(1)?.toInt()
                     //this is for  endTime
-                    if(hourOfDay> startHour!!||hourOfDay ==startHour && startMin!! >minute) {
+                    if(postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString())
+                    {
+                    if(hourOfDay> startHour!!||hourOfDay ==startHour && minute!! > startMin!!) {
                         selectStartTime.text = displayFormat.format(date)
                         endTime = parseFormat.format(date).toString()
                     }
                     else{
                         showAlert("Please select valid time")
+                    }
+                    }
+                    else{
+                        selectStartTime.text = displayFormat.format(date)
+                        endTime = parseFormat.format(date).toString()
                     }
                 }
 
