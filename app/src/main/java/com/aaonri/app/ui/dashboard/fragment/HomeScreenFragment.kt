@@ -23,7 +23,6 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapterForHorizontal
 import com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
@@ -324,9 +323,11 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     callApiAccordingToInterest(response.data?.interests)
-                    val strs = response.data?.interests?.split(",")?.toTypedArray()
+                    val yourArray: MutableList<String>? =
+                        response.data?.interests?.split(",") as MutableList<String>?
+                    yourArray?.removeAt(0)
 
-                    setUserInterestedServiceRow(response.data?.interests)
+                    setUserInterestedServiceRow(yourArray)
                 }
                 is Resource.Error -> {
 
@@ -401,7 +402,8 @@ class HomeScreenFragment : Fragment() {
         return homeScreenBinding?.root
     }
 
-    private fun setUserInterestedServiceRow(interests: String?) {
+    private fun setUserInterestedServiceRow(interests: MutableList<String>?) {
+
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
