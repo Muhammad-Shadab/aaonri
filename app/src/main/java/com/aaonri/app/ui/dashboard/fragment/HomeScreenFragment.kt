@@ -324,6 +324,8 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     callApiAccordingToInterest(response.data?.interests)
+                    val strs = response.data?.interests?.split(",")?.toTypedArray()
+
                     setUserInterestedServiceRow(response.data?.interests)
                 }
                 is Resource.Error -> {
