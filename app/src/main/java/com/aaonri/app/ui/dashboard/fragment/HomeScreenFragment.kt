@@ -481,7 +481,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" } as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string"} as MutableList<InterestResponseItem>)
                         } else {
                             homeInterestsServiceAdapter?.setData(activeServiceList)
                         }
