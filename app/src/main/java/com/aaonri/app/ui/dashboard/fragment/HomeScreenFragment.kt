@@ -122,16 +122,21 @@ class HomeScreenFragment : Fragment() {
             when (it) {
                 "Classifieds" -> {
                     var itemDecoration: RecyclerView.ItemDecoration? = null
-                    while ( homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && ( homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(0)?.let { itemDecoration = it }) != null) {
+                    while (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(
+                            0
+                        )?.let { itemDecoration = it }) != null
+                    ) {
                         itemDecoration?.let { it1 ->
                             homeScreenBinding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
                                 it1
                             )
                         }
                     }
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.VISIBLE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.GONE
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager = GridLayoutManager(context, 2)
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager =
+                        GridLayoutManager(context, 2)
                     homeScreenBinding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
                         GridSpacingItemDecoration(
                             2,
@@ -139,25 +144,29 @@ class HomeScreenFragment : Fragment() {
                             40
                         )
                     )
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter = allClassifiedAdapterForHorizontal
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
+                        allClassifiedAdapterForHorizontal
 
                 }
                 "Events" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
                 }
                 "Jobs" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
                 }
                 "Immigration" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -203,7 +212,8 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 "Advertise With Us" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -216,7 +226,7 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         interestAdapter = InterestAdapter {
-            when (it.interestDesc) {
+            /*when (it.interestDesc) {
                 "Classifieds" -> {
                     dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
                 }
@@ -253,7 +263,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 "Shop With Us" -> {
-
+                    dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
                 }
                 "Travel and Stay" -> {
 
@@ -267,7 +277,8 @@ class HomeScreenFragment : Fragment() {
                 "Advertise With Us" -> {
                     dashboardCommonViewModel.setIsAdvertiseClicked(true)
                 }
-            }
+            }*/
+            navigateToTheSpecificScreen(it.interestDesc)
         }
 
         popularClassifiedAdapter = PoplarClassifiedAdapter {
@@ -644,15 +655,13 @@ class HomeScreenFragment : Fragment() {
                 //Sports
                 priorityService = "Sports"
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
 
             } else if (interests.startsWith("16")) {
                 //Student Services
                 priorityService = "Student Services"
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
 
             } else if (interests.startsWith("24")) {
                 //Travel and Stay
