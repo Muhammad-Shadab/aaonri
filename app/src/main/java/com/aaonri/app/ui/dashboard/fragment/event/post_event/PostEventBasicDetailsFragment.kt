@@ -118,9 +118,9 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         eventTitle = titleEvent.text.toString(),
                                                         eventCategory = selectCategoryEvent.text.toString(),
                                                         eventStartDate = startDate.ifEmpty { selectstartDate.text.toString() },
-                                                        eventStartTime = startTime.ifEmpty { selectStartTime.text.toString() },
+                                                        eventStartTime = parseFormat.format(displayFormat.parse(selectStartTime.text.toString())),
                                                         eventEndDate = endDate.ifEmpty { selectEndDate.text.toString() },
-                                                        eventEndTime = endTime.ifEmpty { selectEndTime.text.toString() },
+                                                        eventEndTime = parseFormat.format(displayFormat.parse(selectEndTime.text.toString())),
                                                         eventTimeZone = eventTimezone.text.toString(),
                                                         eventFee = askingFee.text.toString(),
                                                         eventDesc = if (description?.isNotEmpty() == true) description!!.trim() else ""
@@ -415,9 +415,15 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
                 postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
                 postEventBinding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
-                postEventBinding?.selectStartTime?.text = it[EventConstants.EVENT_START_TIME]
+                if(!it[EventConstants.EVENT_START_TIME].isNullOrEmpty()){
+                    postEventBinding?.selectStartTime?.text =  displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_START_TIME])).toString()
+
+                }
+                if(!it[EventConstants.EVENT_END_TIME].isNullOrEmpty()){
+                    postEventBinding?.selectEndTime?.text = displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_END_TIME])).toString()
+
+                }
                 postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
-                postEventBinding?.selectEndTime?.text = it[EventConstants.EVENT_END_TIME]
                 postEventBinding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
                 if (isEventFree) {
                     postEventBinding?.isFreeEntryCheckBox?.isChecked = true
