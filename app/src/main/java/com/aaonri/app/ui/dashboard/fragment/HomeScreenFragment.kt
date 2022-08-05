@@ -53,6 +53,7 @@ class HomeScreenFragment : Fragment() {
     val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
+    var userInterestedService = ""
 
 
     override fun onCreateView(
@@ -61,9 +62,10 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val userInterestedService =
-            context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
+
+        userInterestedService =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }.toString()
 
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
@@ -287,8 +289,6 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        callApiAccordingToInterest(userInterestedService)
-
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -314,7 +314,22 @@ class HomeScreenFragment : Fragment() {
 
                 }
             }
+        }
 
+        classifiedViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    callApiAccordingToInterest(response.data?.interests)
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {
+                }
+            }
         }
 
         homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
@@ -347,7 +362,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     val activeServiceList = mutableListOf<InterestResponseItem>()
                     if (response.data?.isNotEmpty() == true) {
-                        if (userInterestedService != null) {
+                        if (userInterestedService.isNotEmpty()) {
                             response.data.forEach {
                                 if (!activeServiceList.contains(it) && it.active && userInterestedService.contains(
                                         it.id.toString()
@@ -507,7 +522,7 @@ class HomeScreenFragment : Fragment() {
             } else if (interests.startsWith("17")) {
                 //Jobs
                 priorityService = "Jobs"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                homeScreenBinding?.priorityServiceRv?.margin(left = 16f, right = 16f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
 

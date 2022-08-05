@@ -66,6 +66,9 @@ class MoreScreenFragment : Fragment() {
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.GMAIL_LAST_NAME, "")
 
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
                     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.gmail_client_id))
                         .requestEmail()
