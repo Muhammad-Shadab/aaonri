@@ -56,7 +56,6 @@ class HomeScreenFragment : Fragment() {
     var userInterestedService = ""
     var guestUser = false
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -105,6 +104,8 @@ class HomeScreenFragment : Fragment() {
 
         }
 
+
+
         immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
@@ -115,9 +116,9 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                 dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
             } else {
-
                 homeScreenBinding?.eventTv?.text = it
             }
+            classifiedViewModel.setSelectedServiceRow(it)
             navigationFromHorizontalSeeAll = it
             when (it) {
                 "Classifieds" -> {

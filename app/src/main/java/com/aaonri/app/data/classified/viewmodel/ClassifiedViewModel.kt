@@ -49,6 +49,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     var isLikedButtonClicked: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var selectedServiceRow: String = ""
+        private set
+
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.getAllUserAdsClassified(email)
@@ -169,6 +172,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun setCallClassifiedApiAfterDelete(value: Boolean) {
         callClassifiedApiAfterDelete.postValue(value)
+    }
+
+    fun setSelectedServiceRow(value: String) {
+        selectedServiceRow = value
     }
 
 }
