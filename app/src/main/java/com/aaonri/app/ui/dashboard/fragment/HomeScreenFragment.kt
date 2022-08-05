@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -110,30 +111,54 @@ class HomeScreenFragment : Fragment() {
 
         homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
             if (it == "Shop With Us") {
+                homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                 dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
             } else {
+
                 homeScreenBinding?.eventTv?.text = it
             }
             navigationFromHorizontalSeeAll = it
             when (it) {
                 "Classifieds" -> {
+                    var itemDecoration: RecyclerView.ItemDecoration? = null
+                    while ( homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && ( homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(0)?.let { itemDecoration = it }) != null) {
+                        itemDecoration?.let { it1 ->
+                            homeScreenBinding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
+                                it1
+                            )
+                        }
+                    }
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.VISIBLE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager = GridLayoutManager(context, 2)
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
+                        GridSpacingItemDecoration(
+                            2,
+                            32,
+                            40
+                        )
+                    )
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter = allClassifiedAdapterForHorizontal
 
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        GridLayoutManager(context, 2)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter =
-                        allClassifiedAdapterForHorizontal
                 }
                 "Events" -> {
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
                 }
                 "Jobs" -> {
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
                 }
                 "Immigration" -> {
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
@@ -178,6 +203,8 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 "Advertise With Us" -> {
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
@@ -656,6 +683,7 @@ class HomeScreenFragment : Fragment() {
         homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
 
     }
+
 
     fun View.margin(
         left: Float? = null,
