@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/_8sdp"
     android:layout_marginTop="@dimen/_4sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_32sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,10 +143,11 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/applyBtn"
                         android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_height="@dimen/_28sdp"
                         android:layout_gravity="bottom"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
+                        android:elevation="@dimen/_10sdp"
                         android:background="@drawable/green1_btn_shape"
                         android:backgroundTint="#124c94"
                         android:fontFamily="@font/sf_pro_semi_bold"
@@ -153,7 +155,7 @@
                         android:minHeight="0dp"
                         android:text="Apply Now"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <View
