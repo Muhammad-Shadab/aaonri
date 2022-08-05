@@ -130,8 +130,8 @@ class MainActivity : BaseActivity() {
                 classifiedViewModel.setIsLikedButtonClicked(true)
 
                 if (email != null) {
-                    eventViewModel.getRecentEvent(email)
                     classifiedViewModel.findByEmail(email)
+                    eventViewModel.getRecentEvent(email)
                 }
 
                 classifiedViewModel.getClassifiedByUser(

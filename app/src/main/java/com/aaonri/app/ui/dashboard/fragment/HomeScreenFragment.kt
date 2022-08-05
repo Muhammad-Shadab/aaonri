@@ -65,7 +65,8 @@ class HomeScreenFragment : Fragment() {
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
         userInterestedService =
-            context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }.toString()
+            context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
+                .toString()
 
         allClassifiedAdapter = AllClassifiedAdapter {
             val action =
@@ -323,6 +324,7 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     callApiAccordingToInterest(response.data?.interests)
+                    setUserInterestedServiceRow(response.data?.interests)
                 }
                 is Resource.Error -> {
 
@@ -349,37 +351,6 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Error -> {
                     homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
                     homeScreenBinding?.progressBar?.visibility = View.GONE
-                }
-                else -> {}
-            }
-        }
-
-        homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    val activeServiceList = mutableListOf<InterestResponseItem>()
-                    if (response.data?.isNotEmpty() == true) {
-                        if (userInterestedService.isNotEmpty()) {
-                            response.data.forEach {
-                                if (!activeServiceList.contains(it) && it.active && userInterestedService.contains(
-                                        it.id.toString()
-                                    )
-                                ) {
-                                    activeServiceList.add(it)
-                                }
-                            }
-                        }
-                        homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
-                        homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
-                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
-                        homeInterestsServiceAdapter?.setData(activeServiceList)
-                    }
-                }
-                is Resource.Error -> {
-
                 }
                 else -> {}
             }
@@ -426,6 +397,39 @@ class HomeScreenFragment : Fragment() {
         }
 
         return homeScreenBinding?.root
+    }
+
+    private fun setUserInterestedServiceRow(interests: String?) {
+        homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val activeServiceList = mutableListOf<InterestResponseItem>()
+                    if (response.data?.isNotEmpty() == true) {
+                        if (interests?.isNotEmpty() == true) {
+                            response.data.forEach {
+                                if (!activeServiceList.contains(it) && it.active && interests.contains(
+                                        it.id.toString()
+                                    )
+                                ) {
+                                    activeServiceList.add(it)
+                                }
+                            }
+                        }
+                        homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
+                        homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
+                        homeInterestsServiceAdapter?.setData(activeServiceList)
+                    }
+                }
+                is Resource.Error -> {
+
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun navigateToTheSpecificScreen(interests: String?) {
