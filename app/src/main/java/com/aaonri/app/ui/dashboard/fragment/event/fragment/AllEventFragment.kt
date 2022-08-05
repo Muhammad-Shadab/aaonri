@@ -89,13 +89,12 @@ class AllEventFragment : Fragment() {
                 }
                 else -> {}
             }
-
         }
 
         eventViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
                 allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
-                allEventAdapter?.setData(eventViewModel.allEventList)
+                //allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }
 
