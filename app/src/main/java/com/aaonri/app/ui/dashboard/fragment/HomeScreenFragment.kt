@@ -287,7 +287,7 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
         }
 
-        callApiAccordingToInterest(/*userInterestedService*/"3")
+        callApiAccordingToInterest(/*userInterestedService*/"2")
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -367,6 +367,46 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 else -> {}
+            }
+        }
+
+        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.userAdsList?.let {
+                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
+                            classifiedViewModel.setClassifiedForHomeScreen(it)
+                        }
+                    }
+                    if (classifiedViewModel.allClassifiedList.size > 3) {
+                        allClassifiedAdapter?.setData(
+                            classifiedViewModel.allClassifiedList.subList(
+                                0,
+                                4
+                            )
+                        )
+                        allClassifiedAdapterForHorizontal?.setData(
+                            classifiedViewModel.allClassifiedList.subList(
+                                0,
+                                4
+                            )
+                        )
+                    } else {
+                        allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
+                        allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
+                    }
+                }
+                is Resource.Error -> {
+                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {
+
+                }
             }
         }
 
@@ -576,47 +616,7 @@ class HomeScreenFragment : Fragment() {
                 40
             )
         )
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    response.data?.userAdsList?.let {
-                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
-                            classifiedViewModel.setClassifiedForHomeScreen(it)
-                        }
-                    }
-                    if (classifiedViewModel.allClassifiedList.size > 3) {
-                        allClassifiedAdapter?.setData(
-                            classifiedViewModel.allClassifiedList.subList(
-                                0,
-                                4
-                            )
-                        )
-                        allClassifiedAdapterForHorizontal?.setData(
-                            classifiedViewModel.allClassifiedList.subList(
-                                0,
-                                4
-                            )
-                        )
-                    } else {
-                        allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
-                        allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
-                    }
-                    homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
-                }
-                is Resource.Error -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-
-                }
-            }
-        }
-
+        homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
 
     }
 
