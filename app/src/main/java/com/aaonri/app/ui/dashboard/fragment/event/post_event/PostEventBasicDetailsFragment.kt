@@ -67,6 +67,7 @@ class PostEventBasicDetailsFragment : Fragment() {
     var endDate = ""
     val parseFormat = SimpleDateFormat("HH:mm")
     val displayFormat = SimpleDateFormat("hh:mm a")
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -178,17 +179,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             }
             selectStartTime.setOnClickListener {
-                if(selectstartDate.text.isNotEmpty()) {
+                if (selectstartDate.text.isNotEmpty()) {
                     getSelectedTime(selectStartTime, true)
-                }
-                else {
+                } else {
                     showAlert("Please select start date first")
-                }            }
-            selectEndTime.setOnClickListener {
-                if(selectEndDate.text.isNotEmpty()) {
-                    getSelectedTime(selectEndTime, false)
                 }
-                else{
+            }
+            selectEndTime.setOnClickListener {
+                if (selectEndDate.text.isNotEmpty()) {
+                    getSelectedTime(selectEndTime, false)
+                } else {
                     showAlert("Please select end date first")
                 }
 
@@ -286,11 +286,13 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.selectCategoryEvent?.text = eventDetails?.category
                 postEventBinding?.selectstartDate?.text =
                     eventDetails?.startDate?.split("T")?.get(0)
-                postEventBinding?.selectStartTime?.text =displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
+                postEventBinding?.selectStartTime?.text =
+                    displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
                 startTime = eventDetails?.startTime.toString()
                 postEventBinding?.selectEndDate?.text =
                     eventDetails?.endDate?.split("T")?.get(0)
-                postEventBinding?.selectEndTime?.text = displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
+                postEventBinding?.selectEndTime?.text =
+                    displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
                 postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
                 postEventBinding?.eventDescEt?.fromHtml(eventDetails?.description)
 
@@ -504,47 +506,42 @@ class PostEventBasicDetailsFragment : Fragment() {
         val mcurrentTime = Calendar.getInstance()
         var hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
         var minute = mcurrentTime.get(Calendar.MINUTE)
-        var getHoursCLock :Int = 30
-        var getMinutesCLock :Int = 0
-        if(postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString()&&getHoursCLock!=30)
-        {
-             hour = getHoursCLock
-             minute = getMinutesCLock
-
-
+        var getHoursCLock: Int = 30
+        var getMinutesCLock: Int = 0
+        if (postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString() && getHoursCLock != 30) {
+            hour = getHoursCLock
+            minute = getMinutesCLock
         }
 
         mTimePicker = TimePickerDialog(
             context,
             { view, hourOfDay, minute ->
                 hoursOfTheDay = hourOfDay
-                 if(isStartTime)
-                 {
-                     getHoursCLock = hourOfDay
-                     getMinutesCLock = minute
-                 }
-
+                if (isStartTime) {
+                    getHoursCLock = hourOfDay
+                    getMinutesCLock = minute
+                }
 
                 val date = parseFormat.parse("$hourOfDay:$minute")
 
-          /*      if (hoursOfTheDay == 0) {
-                    hoursOfTheDay += 12
-                    ampm = "AM"
-                } else if (hoursOfTheDay == 12) {
-                    ampm = "PM"
-                } else if (hoursOfTheDay > 12) {
-                    hoursOfTheDay -= 12
-                    ampm = "PM"
-                } else {
-                    ampm = "AM"
-                }
-                if (hourOfDay < 10) {
-                }
-                if (minute < 10) {
-                    getMinute = "0$minute"
-                } else {
-                    getMinute = "$minute"
-                }*/
+                /*      if (hoursOfTheDay == 0) {
+                          hoursOfTheDay += 12
+                          ampm = "AM"
+                      } else if (hoursOfTheDay == 12) {
+                          ampm = "PM"
+                      } else if (hoursOfTheDay > 12) {
+                          hoursOfTheDay -= 12
+                          ampm = "PM"
+                      } else {
+                          ampm = "AM"
+                      }
+                      if (hourOfDay < 10) {
+                      }
+                      if (minute < 10) {
+                          getMinute = "0$minute"
+                      } else {
+                          getMinute = "$minute"
+                      }*/
 
                 if (isStartTime) {
                     //this is for startTime
@@ -552,21 +549,19 @@ class PostEventBasicDetailsFragment : Fragment() {
                     postEventBinding?.selectEndTime?.text = ""
 
                 } else {
-                    var  time =parseFormat.format(displayFormat.parse(postEventBinding?.selectStartTime?.text.toString()))
-                    var startHour: Int ? = time?.split(":")?.get(0)?.toInt()
-                    var startMin: Int ? = time?.split(":")?.get(1)?.toInt()
+                    var time =
+                        parseFormat.format(displayFormat.parse(postEventBinding?.selectStartTime?.text.toString()))
+                    var startHour: Int? = time?.split(":")?.get(0)?.toInt()
+                    var startMin: Int? = time?.split(":")?.get(1)?.toInt()
                     //this is for  endTime
-                    if(postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString())
-                    {
-                    if(hourOfDay> startHour!!||hourOfDay ==startHour && minute!! > startMin!!) {
-                        selectStartTime.text = displayFormat.format(date)
-                        endTime = parseFormat.format(date).toString()
-                    }
-                    else{
-                        showAlert("Please select valid time")
-                    }
-                    }
-                    else{
+                    if (postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString()) {
+                        if (hourOfDay > startHour!! || hourOfDay == startHour && minute!! > startMin!!) {
+                            selectStartTime.text = displayFormat.format(date)
+                            endTime = parseFormat.format(date).toString()
+                        } else {
+                            showAlert("Please select valid time")
+                        }
+                    } else {
                         selectStartTime.text = displayFormat.format(date)
                         endTime = parseFormat.format(date).toString()
                     }

@@ -818,7 +818,9 @@ class EventDetailsScreenFragment : Fragment() {
                     .format(DateTimeFormatter.ofPattern("h:mma"))
             } ${event.timeZone}"
         } catch (e: Exception) {
+
         }
+
 
 //        itemId = data.id
 

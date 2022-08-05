@@ -104,15 +104,17 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        Toast.makeText(context, "${classifiedViewModel.selectedServiceRow}", Toast.LENGTH_SHORT)
-            .show()
+        /*Toast.makeText(context, "${classifiedViewModel.selectedServiceRow}", Toast.LENGTH_SHORT)
+            .show()*/
 
         immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
+
         homeInterestsServiceAdapter =
             HomeInterestsServiceAdapter {
+                classifiedViewModel.setSelectedServiceRow(it)
                 if (it == "Shop With Us") {
                     homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                         View.GONE
@@ -121,7 +123,6 @@ class HomeScreenFragment : Fragment() {
                 } else {
                     homeScreenBinding?.eventTv?.text = it
                 }
-                classifiedViewModel.setSelectedServiceRow(it)
                 navigationFromHorizontalSeeAll = it
                 when (it) {
                     "Classifieds" -> {
@@ -226,6 +227,9 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
             }
+
+
+        homeInterestsServiceAdapter?.setSelectedTab(classifiedViewModel.selectedServiceRow)
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
