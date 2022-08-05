@@ -416,6 +416,7 @@ class EventDetailsScreenFragment : Fragment() {
         eventname = event.title
         eventTimeZone = event.timeZone
         evenDetailsBinding?.ll1?.visibility = View.VISIBLE
+
         startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
         eventTitleName = event.title
@@ -818,9 +819,8 @@ class EventDetailsScreenFragment : Fragment() {
                     .format(DateTimeFormatter.ofPattern("h:mma"))
             } ${event.timeZone}"
         } catch (e: Exception) {
-
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
-
 
 //        itemId = data.id
 
