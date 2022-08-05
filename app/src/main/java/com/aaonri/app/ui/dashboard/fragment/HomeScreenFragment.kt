@@ -111,118 +111,121 @@ class HomeScreenFragment : Fragment() {
         advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
-        homeInterestsServiceAdapter = HomeInterestsServiceAdapter {
-            if (it == "Shop With Us") {
-                homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
-                homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
-            } else {
-                homeScreenBinding?.eventTv?.text = it
-            }
-            classifiedViewModel.setSelectedServiceRow(it)
-            navigationFromHorizontalSeeAll = it
-            when (it) {
-                "Classifieds" -> {
-                    var itemDecoration: RecyclerView.ItemDecoration? = null
-                    while (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(
-                            0
-                        )?.let { itemDecoration = it }) != null
-                    ) {
-                        itemDecoration?.let { it1 ->
-                            homeScreenBinding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
-                                it1
-                            )
+        homeInterestsServiceAdapter =
+            HomeInterestsServiceAdapter {
+                if (it == "Shop With Us") {
+                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        View.GONE
+                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                    dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
+                } else {
+                    homeScreenBinding?.eventTv?.text = it
+                }
+                classifiedViewModel.setSelectedServiceRow(it)
+                navigationFromHorizontalSeeAll = it
+                when (it) {
+                    "Classifieds" -> {
+                        var itemDecoration: RecyclerView.ItemDecoration? = null
+                        while (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(
+                                0
+                            )?.let { itemDecoration = it }) != null
+                        ) {
+                            itemDecoration?.let { it1 ->
+                                homeScreenBinding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
+                                    it1
+                                )
+                            }
                         }
-                    }
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                        View.VISIBLE
-                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.GONE
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager =
-                        GridLayoutManager(context, 2)
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
-                        GridSpacingItemDecoration(
-                            2,
-                            32,
-                            40
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                            View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.GONE
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager =
+                            GridLayoutManager(context, 2)
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
+                            GridSpacingItemDecoration(
+                                2,
+                                32,
+                                40
+                            )
                         )
-                    )
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
-                        allClassifiedAdapterForHorizontal
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
+                            allClassifiedAdapterForHorizontal
 
-                }
-                "Events" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                        View.GONE
-                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
-                }
-                "Jobs" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                        View.GONE
-                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
-                }
-                "Immigration" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                        View.GONE
-                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
-                }
-                "Astrology" -> {
+                    }
+                    "Events" -> {
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                            View.GONE
+                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
+                    }
+                    "Jobs" -> {
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                            View.GONE
+                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
+                    }
+                    "Immigration" -> {
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                            View.GONE
+                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                            immigrationAdapter
+                    }
+                    "Astrology" -> {
 
-                }
-                "Sports" -> {
+                    }
+                    "Sports" -> {
 
-                }
-                "Community Connect" -> {
+                    }
+                    "Community Connect" -> {
 
-                }
-                "Foundation & Donations" -> {
+                    }
+                    "Foundation & Donations" -> {
 
-                }
-                "Student Services" -> {
+                    }
+                    "Student Services" -> {
 
-                }
-                "Legal Services" -> {
+                    }
+                    "Legal Services" -> {
 
-                }
-                "Matrimony & Weddings" -> {
+                    }
+                    "Matrimony & Weddings" -> {
 
-                }
-                "Medical Care" -> {
+                    }
+                    "Medical Care" -> {
 
-                }
-                "Real Estate" -> {
+                    }
+                    "Real Estate" -> {
 
-                }
-                "Shop With Us" -> {
+                    }
+                    "Shop With Us" -> {
 
-                }
-                "Travel and Stay" -> {
+                    }
+                    "Travel and Stay" -> {
 
-                }
-                "Home Needs" -> {
+                    }
+                    "Home Needs" -> {
 
-                }
-                "Business Needs" -> {
+                    }
+                    "Business Needs" -> {
 
-                }
-                "Advertise With Us" -> {
-                    homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                        View.GONE
-                    homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                    homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
+                    }
+                    "Advertise With Us" -> {
+                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                            View.GONE
+                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
+                    }
                 }
             }
-        }
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }

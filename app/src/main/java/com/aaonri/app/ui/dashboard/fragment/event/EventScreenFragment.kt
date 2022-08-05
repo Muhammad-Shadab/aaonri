@@ -407,7 +407,7 @@ class EventScreenFragment : Fragment() {
             if (eventViewModel.cityFilter.isNotEmpty()) {
                 eventScreenBinding?.filterCv1?.visibility = View.VISIBLE
                 eventScreenBinding?.filterText1?.text =
-                    "${eventViewModel.cityFilter}"
+                    "Location: ${eventViewModel.cityFilter}"
                 noOfSelection++
             } else {
                 eventScreenBinding?.filterCv1?.visibility = View.GONE
