@@ -428,18 +428,33 @@
                         app:layout_constraintStart_toEndOf="@id/seeAllEvents"
                         app:layout_constraintTop_toTopOf="@id/seeAllEvents"
                         app:tint="@color/blueBtnColor" />
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:id="@+id/ll2"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/eventTv"
+               android:orientation="vertical"
+              >
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/availableServiceHorizontalRv"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clipToPadding="false"
+                   android:paddingHorizontal="@dimen/_16sdp"
+                   android:paddingTop="@dimen/_10sdp"
+                   android:visibility="visible"
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/availableServiceHorizontalRv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingHorizontal="@dimen/_16sdp"
-                        android:paddingTop="@dimen/_10sdp"
-                        android:visibility="visible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/eventTv" />
+                   />
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/availableServiceHorizontalClassifiedRv"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:visibility="visible" />
+           </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                     <!--<HorizontalScrollView
                         android:id="@+id/eventHorizontalLayout"
@@ -523,7 +538,7 @@
                         app:cardElevation="@dimen/_2sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/availableServiceHorizontalRv"
+                        app:layout_constraintTop_toBottomOf="@+id/ll2"
                         app:strokeColor="#e7e7e7"
                         app:strokeWidth="@dimen/_1sdp">
 
