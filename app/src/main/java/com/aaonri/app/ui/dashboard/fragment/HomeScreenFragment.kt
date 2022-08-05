@@ -104,7 +104,8 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-
+        Toast.makeText(context, "${classifiedViewModel.selectedServiceRow}", Toast.LENGTH_SHORT)
+            .show()
 
         immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
