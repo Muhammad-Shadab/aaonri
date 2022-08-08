@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -35,6 +36,7 @@ class MainActivity : BaseActivity() {
     val classifiedViewModel: ClassifiedViewModel by viewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
     val eventViewModel: EventViewModel by viewModels()
+    val advertiseViewModel: AdvertiseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,6 +197,11 @@ class MainActivity : BaseActivity() {
                         zip = ""
                     )
                 )
+
+                if (email != null) {
+                    advertiseViewModel.getAllAdvertise(email)
+                }
+
             }
         }
 

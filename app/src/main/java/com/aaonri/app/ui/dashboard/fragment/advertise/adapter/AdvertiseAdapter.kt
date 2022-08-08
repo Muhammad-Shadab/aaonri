@@ -3,12 +3,15 @@ package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
+import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.databinding.AdvertisementItemBinding
+import com.bumptech.glide.Glide
 
-class AdvertiseAdapter(private var selectedServices: ((value: String) -> Unit)) :
+class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseResponseItem) -> Unit)) :
     RecyclerView.Adapter<AdvertiseAdapter.AdvertiseViewHolder>() {
 
-    private var data = listOf<String>()
+    private var data = listOf<AllAdvertiseResponseItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,12 +22,18 @@ class AdvertiseAdapter(private var selectedServices: ((value: String) -> Unit)) 
     override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-            advertiseNameTv.text = data[position]
+            advertiseNameTv.text = data[position].title
+            advertiseLocationTv.text = data[position].fromDate
+
+            //Glide.with(context).load(advertisemntImage).into(advertisemntImage)
+        }
+        holder.itemView.setOnClickListener {
+            selectedServices(data[position])
         }
     }
 
     @JvmName("setData1")
-    fun setData(data: List<String>) {
+    fun setData(data: List<AllAdvertiseResponseItem>) {
         this.data = data
         notifyDataSetChanged()
     }

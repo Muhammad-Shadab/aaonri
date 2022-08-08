@@ -180,43 +180,47 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewll">
-      <TextView
-          android:id="@+id/yourText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/_26sdp"
-          android:layout_marginLeft="@dimen/_26sdp"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          android:textColor="@color/black"
-          android:includeFontPadding="false"
-          app:layout_constraintLeft_toLeftOf="parent"
-          android:textSize="16sp"
-          android:fontFamily="@font/sf_pro_semi_bold"
-          android:text="Yout Avertisement(s)"/>
+
         <TextView
-            android:id="@+id/postingofAdTv"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:id="@+id/yourText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:paddingVertical="7dp"
+            android:layout_marginLeft="@dimen/_26sdp"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:includeFontPadding="false"
+            android:text="Yout Avertisement(s)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/postingofAdTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_28sdp"
-            android:textDirection="anyRtl"
+            android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/posting_add_shape"
-            app:layout_constraintTop_toBottomOf="@+id/yourText"
-            android:textColor="@color/white"
+            android:fontFamily="@font/sf_pro_semi_bold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Posting of Advt is free till March 2022" />
+            android:paddingVertical="7dp"
+            android:text="Posting of Advt is free till March 2022"
+            android:textColor="@color/white"
+            android:textDirection="anyRtl"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/yourText" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAdvertise"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"
             tools:listitem="@layout/advertisement_item" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/floatingActionBtnEvents"
             android:layout_width="@dimen/_40sdp"
@@ -241,6 +245,17 @@
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

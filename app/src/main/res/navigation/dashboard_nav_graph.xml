@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/advertiseScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
 
     <fragment
         android:id="@+id/homeScreenFragment"
@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_eventDetailsScreenFragment"
             app:destination="@id/eventDetailsScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_advertisementDetailsFragment"
+            app:destination="@id/advertisementDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -184,6 +187,9 @@
         <action
             android:id="@+id/action_advertisementDetailsFragment_to_updateAndDeleteBottomFragment"
             app:destination="@id/updateAndDeleteBottomFragment" />
+        <argument
+            android:name="advertiseId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/updateAndDeleteBottomFragment"

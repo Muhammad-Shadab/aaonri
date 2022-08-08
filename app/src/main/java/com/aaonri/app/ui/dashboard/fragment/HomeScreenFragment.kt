@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.adapter.HomeEventAdapter
@@ -41,6 +42,7 @@ class HomeScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
+    val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
@@ -84,7 +86,11 @@ class HomeScreenFragment : Fragment() {
         }
 
         advertiseAdapter = AdvertiseAdapter {
-
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToAdvertisementDetailsFragment(
+                    it.advertisementId
+                )
+            findNavController().navigate(action)
         }
 
         jobAdapter = JobAdapter {
@@ -108,7 +114,7 @@ class HomeScreenFragment : Fragment() {
             .show()*/
 
         immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
-        advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+        //advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
 
@@ -450,6 +456,27 @@ class HomeScreenFragment : Fragment() {
                 }
                 else -> {
 
+                }
+            }
+        }
+
+        advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.let { advertiseAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
                 }
             }
         }

@@ -2,21 +2,20 @@ package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
-import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PostAdvertisementBasicDetailsFragment : Fragment() {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     var templateImage = ""
@@ -31,7 +30,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
         advertiseBinding?.apply {
 
             chooseTemplatell.setOnClickListener {
-                if (profile.isEmpty()) {
+                if (templateImage.isEmpty()) {
                     ImagePicker.with(requireActivity())
                         .compress(1024)
                         .crop()
@@ -40,7 +39,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
                             startForProfileImageResult.launch(intent)
                             progressBarBasicDetails.visibility = View.VISIBLE
                         }
-                } else {
+                } /*else {
                     val materialAlertDialogBuilder =
                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
                     materialAlertDialogBuilder?.setTitle("Profile Photo")
@@ -60,7 +59,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
                             dialog.dismiss()
                         }
                         ?.show()
-                }
+                }*/
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
