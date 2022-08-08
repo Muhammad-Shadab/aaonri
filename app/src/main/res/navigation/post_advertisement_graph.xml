@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/postAdvertiseCompanyDetailsFrgament"
-        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCompanyDetailsFrgament"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCompanyDetailsFragment"
         android:label="fragment_post_advertise_company_details_frgament"
         tools:layout="@layout/fragment_post_advertise_company_details_frgament" >
         <action

@@ -35,7 +35,7 @@ class DashboardCommonViewModel : ViewModel() {
         isAdvertiseClicked.postValue(value)
     }
 
-    fun setIsShopWithUsClickedClicked(value: Boolean) {
+    fun setIsShopWithUsClicked(value: Boolean) {
         isShopWithUsClicked.postValue(value)
     }
 

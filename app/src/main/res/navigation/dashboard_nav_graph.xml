@@ -180,7 +180,7 @@
         android:id="@+id/advertisementDetailsFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragment"
         android:label="fragment_advertisement_details"
-        tools:layout="@layout/fragment_advertisement_details" >
+        tools:layout="@layout/fragment_advertisement_details">
         <action
             android:id="@+id/action_advertisementDetailsFragment_to_updateAndDeleteBottomFragment"
             app:destination="@id/updateAndDeleteBottomFragment" />

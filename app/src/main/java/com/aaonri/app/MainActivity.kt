@@ -379,7 +379,7 @@ class MainActivity : BaseActivity() {
             if (it) {
                 mainActivityBinding?.bottomNavigation?.selectedItemId =
                     R.id.shopScreenFragment
-                dashboardCommonViewModel.setIsShopWithUsClickedClicked(false)
+                dashboardCommonViewModel.setIsShopWithUsClicked(false)
             }
         }
 

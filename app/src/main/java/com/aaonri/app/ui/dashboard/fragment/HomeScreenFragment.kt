@@ -119,7 +119,7 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                         View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                    dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
+                    dashboardCommonViewModel.setIsShopWithUsClicked(true)
                 } else {
                     homeScreenBinding?.eventTv?.text = it
                 }
@@ -481,7 +481,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string"} as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" } as MutableList<InterestResponseItem>)
                         } else {
                             homeInterestsServiceAdapter?.setData(activeServiceList)
                         }
@@ -514,7 +514,7 @@ class HomeScreenFragment : Fragment() {
 
             } else if (interests.startsWith("22") || interests == "Shop With Us") {
                 //Shop With Us
-                dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
+                dashboardCommonViewModel.setIsShopWithUsClicked(true)
             } else if (interests.startsWith("4") || interests == "Astrology") {
                 //Astrology
 

@@ -20,6 +20,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/top_rounded_corner_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout-v28/activity_registration.xml" value="0.296195652173913" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_advertise_screen.xml" value="0.25" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_auth.xml" value="0.25" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_classified_screen.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -34,6 +35,7 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details.xml" value="0.22" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertise_screen.xml" value="0.1734375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertisement_details.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_all_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_all_event.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_basic_details.xml" value="0.33" />
@@ -56,6 +58,8 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_more_screen.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_my_classified.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_my_event.xml" value="0.5" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertise_company_details_frgament.xml" value="0.3359375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertise_term_condition.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_event_address_details.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_event_basic_details.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_recent_event.xml" value="0.3359375" />
