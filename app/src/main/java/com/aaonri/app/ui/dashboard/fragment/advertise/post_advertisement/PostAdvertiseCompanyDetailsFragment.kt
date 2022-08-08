@@ -16,6 +16,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCompanyDetailsFrgamentBinding
+import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -27,6 +28,7 @@ import com.aaonri.app.utils.Validator
 class PostAdvertiseCompanyDetailsFragment : Fragment() {
     var detailsBinding: FragmentPostAdvertiseCompanyDetailsFrgamentBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
+
     var description: String? = ""
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -54,7 +56,9 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         val phone =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
 
-        findNavController().navigate(R.id.action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment)
+        val action =
+            PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
+        findNavController().navigate(action)
 
         detailsBinding?.apply {
 
@@ -90,7 +94,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                                 description = it1
                                             )
                                         }
-                                        findNavController().navigate(R.id.action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment)
+
                                     } else {
                                         showAlert("Please enter valid Advertise Description")
                                     }
@@ -108,6 +112,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                     }
                 }
             }
+
         }
 
         setData()

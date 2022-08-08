@@ -20,8 +20,8 @@
         android:label="fragment_post_advertise_company_details_frgament"
         tools:layout="@layout/fragment_post_advertise_company_details_frgament">
         <action
-            android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment"
-            app:destination="@id/postAdvertisementbasicDetailsFragment" />
+            android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_selectAdvertiseTemplate"
+            app:destination="@id/selectAdvertiseTemplate" />
     </fragment>
     <fragment
         android:id="@+id/postAdvertisementbasicDetailsFragment"
@@ -62,4 +62,13 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertiseValidityDateBottom"
         android:label="fragment_event_validity_bottom_sheet"
         tools:layout="@layout/fragment_event_validity_bottom_sheet" />
+    <fragment
+        android:id="@+id/selectAdvertiseTemplate"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.SelectAdvertiseTemplateFragment"
+        android:label="fragment_select_advertise_template"
+        tools:layout="@layout/fragment_select_advertise_template" >
+        <action
+            android:id="@+id/action_selectAdvertiseTemplate_to_postAdvertisementbasicDetailsFragment"
+            app:destination="@id/postAdvertisementbasicDetailsFragment" />
+    </fragment>
 </navigation>

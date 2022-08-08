@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_4sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_160sdp"
+            android:src="@drawable/demo" />
+
+        <ImageView
+            android:id="@+id/successTick"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_success_tick"
+            android:visibility="gone" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</FrameLayout>
