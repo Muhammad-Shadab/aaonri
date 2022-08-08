@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.classified.ClassifiedActivity">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"

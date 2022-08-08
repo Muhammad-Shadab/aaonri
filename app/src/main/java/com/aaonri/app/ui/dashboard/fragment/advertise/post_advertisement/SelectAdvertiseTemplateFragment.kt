@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.databinding.FragmentSelectAdvertiseTemplateBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateAdapter
@@ -32,7 +33,15 @@ class SelectAdvertiseTemplateFragment : Fragment() {
 
         binding?.apply {
 
-            horizontalRv1.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            advertiseTemplatesNextBtn.setOnClickListener {
+                val action =
+                    SelectAdvertiseTemplateFragmentDirections.actionSelectAdvertiseTemplateToPostAdvertisementbasicDetailsFragment()
+                findNavController().navigate(action)
+            }
+
+            horizontalRv1.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             horizontalRv2.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
