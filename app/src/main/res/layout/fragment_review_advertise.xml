@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.advertise.fragment.ReviewAdvertiseFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_12sdp"
-        >
+        android:paddingBottom="@dimen/_12sdp">
+
         <LinearLayout
             android:id="@+id/mainll"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_26sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Preview"
                 android:layout_weight="1"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:textSize="18sp"
+                android:text="Preview"
                 android:textColor="@color/editTextColor"
-                />
+                android:textSize="18sp" />
+
             <ImageView
                 android:id="@+id/closeCommunityBtn"
                 android:layout_width="wrap_content"
@@ -37,92 +38,97 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_close" />
         </LinearLayout>
+
         <ImageView
-            app:layout_constraintTop_toBottomOf="@+id/mainll"
             android:id="@+id/advertisemntImage"
-            android:layout_marginTop="@dimen/_16sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_310sdp"
-            android:background="@drawable/ic_image_placeholder"/>
-        <TextView
-            android:id="@+id/advertiseNameTv"
-            app:layout_constraintTop_toBottomOf="@+id/advertisemntImage"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:textColor="#333333"
-            android:text="Yoga &amp; Fitness Classes"/>
-        <TextView
-            android:id="@+id/advertiseLocationTv"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:fontFamily="@font/sf_pro_display_light"
-            android:textSize="12sp"
-            android:includeFontPadding="false"
-            android:textColor="#707070"
-            android:drawableLeft="@drawable/ic_location"
-            android:text="New York 0852"
-            android:drawablePadding="5dp"/>
-        <TextView
-            android:id="@+id/advertiseDateTv"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/sf_pro_display_light"
-            android:textSize="12sp"
-            android:includeFontPadding="false"
-            android:textColor="#707070"
-            android:drawableLeft="@drawable/ic_time_watch"
-            android:text="From Mar 15,2022 To Mar 21,2022"
-            android:drawablePadding="5dp"/>
-        <TextView
-            android:id="@+id/advertiseLinkTv"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_medium"
-            android:textSize="12sp"
-            android:includeFontPadding="false"
-            android:textColor="#124c94"
-            android:drawableLeft="@drawable/link_icon"
-            android:gravity="center_vertical"
-            android:text="https://yogafitness.com/"
-            android:drawablePadding="5dp"/>
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/ic_image_placeholder"
+            app:layout_constraintTop_toBottomOf="@+id/mainll" />
 
         <TextView
-            app:layout_constraintTop_toBottomOf="@+id/advertiseLinkTv"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:id="@+id/advertiseNameTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/helvetica_regular"
-            android:lineSpacingExtra="5dp"
-            android:textSize="14sp"
-            android:textColor="@color/darkGrayColor"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Yoga &amp; Fitness Classes"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/advertisemntImage" />
+
+        <TextView
+            android:id="@+id/advertiseLocationTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_display_light"
             android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="New York 0852"
+            android:textColor="#707070"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
+
+        <TextView
+            android:id="@+id/advertiseDateTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawableLeft="@drawable/ic_time_watch"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_display_light"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="From Mar 15,2022 To Mar 21,2022"
+            android:textColor="#707070"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+        <TextView
+            android:id="@+id/advertiseLinkTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:drawableLeft="@drawable/link_icon"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_medium"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="https://yogafitness.com/"
+            android:textColor="#124c94"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/helvetica_regular"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="5dp"
             android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
-            android:drawablePadding="5dp"/>
+            android:textColor="@color/darkGrayColor"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseLinkTv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

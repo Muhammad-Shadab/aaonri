@@ -21,6 +21,8 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         termConditionBinding =
             FragmentPostAdvertiseTermConditionBinding.inflate(inflater, container, false)
 
+        findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCompanyDetailsFrgament2)
+
         termConditionBinding?.apply {
             advertisePostNextBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCompanyDetailsFrgament2)

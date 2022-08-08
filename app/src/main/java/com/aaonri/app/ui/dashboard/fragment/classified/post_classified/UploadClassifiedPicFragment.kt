@@ -77,8 +77,6 @@ class UploadClassifiedPicFragment : Fragment() {
                             progressBarPicUpload.visibility = View.VISIBLE
 
                         }
-                } else {
-
                 }
             }
 

@@ -7,7 +7,6 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
-import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

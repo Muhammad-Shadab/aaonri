@@ -91,10 +91,8 @@ class BasicDetailsFragment : Fragment() {
                             progressBarBasicDetails.visibility = View.VISIBLE
                         }
                 } else {
-                    var materialAlertDialogBuilder =
+                    val materialAlertDialogBuilder =
                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
-
-
                     materialAlertDialogBuilder?.setTitle("Profile Photo")
                         ?.setMessage("Change profile photo? ")
                         ?.setPositiveButton("CHANGE") { dialog, _ ->
@@ -115,25 +113,6 @@ class BasicDetailsFragment : Fragment() {
                             dialog.dismiss()
                         }
                         ?.show()
-//                    val builder = AlertDialog.Builder(context)
-//                    builder.setTitle("Select")
-//                    builder.setMessage("Change profile photo")
-//                    builder.setPositiveButton("Change") { dialog, which ->
-//                        ImagePicker.with(requireActivity())
-//                            .compress(1024)
-//                            .maxResultSize(1080, 1080)
-//                            .crop()
-//                            .createIntent { intent ->
-//                                progressBarBasicDetails.visibility=View.VISIBLE
-//                                startForProfileImageResult.launch(intent)
-//                            }
-//                    }
-//                    builder.setNegativeButton("Remove") { dialog, which ->
-//                        profile = ""
-//                        setImage()
-//                        addProfileBtn.visibility = View.VISIBLE
-//                    }
-//                    builder.show()
                 }
             }
 

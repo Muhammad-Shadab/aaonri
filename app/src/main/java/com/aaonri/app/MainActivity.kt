@@ -219,6 +219,10 @@ class MainActivity : BaseActivity() {
                     response.data?.zipcode?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_ZIP_CODE] = it
                     }
+                    response.data?.phoneNo?.let {
+                        PreferenceManager<String>(applicationContext)[Constant.USER_PHONE_NUMBER] =
+                            it
+                    }
 
                 }
                 is Resource.Error -> {

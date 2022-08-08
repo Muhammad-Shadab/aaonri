@@ -19,6 +19,7 @@ object Constant {
     const val PROFILE_USER = "PROFILE_USER"
     const val USER_EMAIL = "USER_EMAIL"
     const val USER_ZIP_CODE = "USER_ZIP_CODE"
+    const val USER_PHONE_NUMBER = "USER_PHONE_NUMBER"
     const val USER_CITY = "USER_CITY"
     const val USER_STATE = "USER_STATE"
     const val USER_INTERESTED_SERVICES = "USER_INTERESTED_SERVICES"

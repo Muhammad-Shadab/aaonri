@@ -19,6 +19,9 @@ class AdvertiseScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+        startActivityForResult(intent, 3)
+
         advertiseBinding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         advertiseBinding?.apply {
             floatingActionBtnEvents.setOnClickListener {
