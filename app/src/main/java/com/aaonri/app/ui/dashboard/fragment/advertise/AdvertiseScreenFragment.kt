@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
@@ -31,15 +33,24 @@ class AdvertiseScreenFragment : Fragment() {
 
 
         advertiseAdapter = AdvertiseAdapter {
-
+            val action =
+                AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToAdvertisementDetailsFragment(
+                    it.advertisementId
+                )
+            findNavController().navigate(action)
         }
 
         advertiseBinding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         advertiseBinding?.apply {
+
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 startActivityForResult(intent, 3)
             }
+
+            recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
+            recyclerViewAdvertise.adapter = advertiseAdapter
+
         }
 
         advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
@@ -49,7 +60,7 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-
+                    response.data?.let { advertiseAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE

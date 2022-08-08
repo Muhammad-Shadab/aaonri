@@ -466,7 +466,13 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    response.data?.let { advertiseAdapter?.setData(it) }
+                    if (response.data?.isNotEmpty() == true) {
+                        if (response.data.size >= 4) {
+                            advertiseAdapter?.setData(response.data.subList(0, 4))
+                        } else {
+                            advertiseAdapter?.setData(response.data)
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(
