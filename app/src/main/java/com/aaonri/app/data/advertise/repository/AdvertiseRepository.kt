@@ -11,6 +11,9 @@ class AdvertiseRepository @Inject constructor(
 
     suspend fun getAllAdvertise(userEmail: String) = advertiseApi.getAllAdvertise(userEmail)
 
+    suspend fun getAdvertiseDetailsById(advertiseId: Int) =
+        advertiseApi.getAdvertiseDetailsById(advertiseId)
+
     suspend fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) =
         advertiseApi.postAdvertisement(postAdvertiseRequest)
 

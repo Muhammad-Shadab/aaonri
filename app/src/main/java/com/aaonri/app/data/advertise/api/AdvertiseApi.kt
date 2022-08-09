@@ -1,5 +1,6 @@
 package com.aaonri.app.data.advertise.api
 
+import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
@@ -13,6 +14,11 @@ interface AdvertiseApi {
     suspend fun getAllAdvertise(
         @Query("emailId") userEmail: String
     ): Response<AllAdvertiseResponse>
+
+    @GET("/api/v1/avd/findById/{advertiseId}")
+    suspend fun getAdvertiseDetailsById(
+        @Path("advertiseId") advertiseId: Int
+    ): Response<AdvertiseDetailsResponse>
 
     @POST("/api/v1/avd/add")
     suspend fun postAdvertisement(
