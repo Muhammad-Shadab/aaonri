@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.model.dashboardLocationTemplate
 import com.aaonri.app.data.advertise.model.landingPageLocationTemplate
 import com.aaonri.app.data.advertise.model.productDetailsLocationTemplate
@@ -38,6 +39,8 @@ class SelectTemplateLocation : Fragment() {
         }
 
         binding?.apply {
+
+            postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION)
 
             advertiseTemplatesNextBtn.setOnClickListener {
                 if (postAdvertiseViewModel.selectTemplateLocation.isNotEmpty()) {

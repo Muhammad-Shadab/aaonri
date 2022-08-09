@@ -241,58 +241,7 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         interestAdapter = InterestAdapter {
-            /*when (it.interestDesc) {
-                "Classifieds" -> {
-                    dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-                }
-                "Events" -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-                }
-                "Jobs" -> {
-                }
-                "Immigration" -> {
-                }
-                "Astrology" -> {
-                }
-                "Sports" -> {
-                }
-                "Community Connect" -> {
 
-                }
-                "Foundation & Donations" -> {
-
-                }
-                "Student Services" -> {
-
-                }
-                "Legal Services" -> {
-
-                }
-                "Matrimony & Weddings" -> {
-
-                }
-                "Medical Care" -> {
-
-                }
-                "Real Estate" -> {
-
-                }
-                "Shop With Us" -> {
-                    dashboardCommonViewModel.setIsShopWithUsClickedClicked(true)
-                }
-                "Travel and Stay" -> {
-
-                }
-                "Home Needs" -> {
-
-                }
-                "Business Needs" -> {
-
-                }
-                "Advertise With Us" -> {
-                    dashboardCommonViewModel.setIsAdvertiseClicked(true)
-                }
-            }*/
             navigateToTheSpecificScreen(it.interestDesc)
         }
 

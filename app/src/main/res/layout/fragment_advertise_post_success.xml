@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.dashboard.fragment.advertise.post_advertisement.AdvertisePostSuccessFragment">
+
     <ImageView
         android:id="@+id/successTickIv"
         android:layout_width="wrap_content"
@@ -25,12 +26,13 @@
         android:textSize="16sp" />
 
     <TextView
-        android:layout_marginTop="15dp"
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:fontFamily="@font/sf_pro_regular"
+        android:lineSpacingExtra="@dimen/_4sdp"
         android:text="@string/your_advertisement_will_text"
         android:textAlignment="center"
         android:textColor="#5d5d5d"
@@ -52,7 +54,6 @@
         android:text="VIEW YOUR ADVERTISEMENT"
         android:textColor="@color/white"
         android:textSize="17sp" />
-
 
 
 </LinearLayout>

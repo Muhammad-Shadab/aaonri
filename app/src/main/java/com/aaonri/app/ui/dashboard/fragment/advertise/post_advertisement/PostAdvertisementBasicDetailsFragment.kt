@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.bumptech.glide.Glide
@@ -32,6 +33,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
         advertiseBinding?.apply {
+
+            postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
             selectedTemplateTv.text = postAdvertiseViewModel.selectTemplateName
             chooseTemplateTv.text = postAdvertiseViewModel.selectTemplateLocation

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.model.homeTemplates
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectAdvertiseTemplateBinding
@@ -37,6 +38,8 @@ class SelectAdvertiseTemplateFragment : Fragment() {
         }
 
         binding?.apply {
+
+            postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE)
 
             advertiseTemplatesNextBtn.setOnClickListener {
                 if (postAdvertiseViewModel.selectTemplateName.isNotEmpty()) {

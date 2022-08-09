@@ -2,6 +2,15 @@ package com.aaonri.app.data.advertise
 
 object AdvertiseConstant {
 
+    // Route Constant
+    const val ADVERTISE_TERMS_AND_CONDITION = "ADVERTISE_TERMS_AND_CONDITION"
+    const val ADVERTISE_COMPANY_DETAILS = "ADVERTISE_COMPANY_DETAILS"
+    const val ADVERTISE_TEMPLATE = "ADVERTISE_TEMPLATE"
+    const val ADVERTISE_TEMPLATE_LOCATION = "ADVERTISE_TEMPLATE_LOCATION"
+    const val ADVERTISE_BASIC_DETAILS = "ADVERTISE_BASIC_DETAILS"
+    const val ADVERTISE_CHECKOUT = "ADVERTISE_CHECKOUT"
+
+
     //Advertise company Contact details constant
     const val ADVERTISE_COMPANY_NAME = "ADVERTISE_COMPANY_NAME"
     const val ADVERTISE_LOCATION = "ADVERTISE_LOCATION"

@@ -1,296 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseTermConditionFragment">
 
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Post &amp; manage advertisements for your\nBusiness Or Services"
-            android:textColor="@color/editTextColor"
-            android:textSize="14sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/editTextColor"
-            android:fontFamily="@font/sf_pro_display_light"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="Its easy &amp; simple"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            app:cardBackgroundColor="#EFEFEF"
-            app:cardCornerRadius="10dp"
-            app:strokeColor="#e1e1e1"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/_18sdp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/after_submit_request_text"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/our_ad_approval_process"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/your_ad_will_be_available"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/once_the_ad"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/please_review_details"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/all_sales_made"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/payment_option_available"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:src="@drawable/bullet_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/for_any_other"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_26sdp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/agreeCheckboxClassified"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:background="@color/white"
-                android:button="@drawable/custom_checkbox"
-                android:buttonTint="@drawable/custom_checkbox"
-                android:minWidth="0dp"
-                android:minHeight="0dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginStart="@dimen/_8sdp"
-                android:id="@+id/privacyTextTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:gravity="center"
+                android:text="Post &amp; manage advertisements for your\nBusiness Or Services"
+                android:textColor="@color/editTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_display_light"
+                android:includeFontPadding="false"
+                android:text="Its easy &amp; simple"
+                android:textColor="@color/editTextColor"
+                android:textSize="14sp" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_regular"
-                android:text="@string/by_posting_an_ad"
-                android:textColor="@color/textViewColor"
-                android:textSize="12sp" />
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:cardBackgroundColor="#EFEFEF"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="#e1e1e1"
+                app:strokeWidth="1dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/_18sdp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/after_submit_request_text"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/our_ad_approval_process"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/your_ad_will_be_available"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/once_the_ad"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/please_review_details"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/all_sales_made"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/payment_option_available"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:src="@drawable/bullet_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:text="@string/for_any_other"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_26sdp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/agreeCheckboxClassified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:button="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkbox"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
+
+                <TextView
+                    android:id="@+id/privacyTextTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:text="@string/by_posting_an_ad"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/advertisePostNextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/green_btn_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/submit_event"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/advertisePostNextBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_28sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/green_btn_shape"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:minHeight="0dp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:text="@string/submit_event"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

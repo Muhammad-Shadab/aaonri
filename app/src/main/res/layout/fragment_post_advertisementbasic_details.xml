@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,13 +20,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/advertisement_details"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/titleAdvertisedEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"

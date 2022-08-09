@@ -4,306 +4,328 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_18sdp"
     tools:context=".ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckout">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#f2efef"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            <TextView
+                android:id="@+id/bookingSummaryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/booking_summary_payment"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:cardBackgroundColor="#f2efef"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bookingSummaryTv">
 
-                <TextView
-                    android:gravity="start"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Add on Page" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/addPageTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="DashBoard" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
 
-         <View
-             android:layout_width="match_parent"
-             android:layout_height="1dp"
-             android:background="@color/view_bg_color"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Add on Page"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/addPageTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="DashBoard"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
 
 
-            <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Add Page Location"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/addPageLocationTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:maxLines="1"
+                            android:text="DashBoard Below Interest Area"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Start Date"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/startdDateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="Mar 15,2022"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="End Date"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/endDateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="Mar 21,2022"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Cost of Primary Advertisement"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/costOfPrimaryTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="$0"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Cost of Value Added Services"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/costOfvalueTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="$0"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#d9d9d9"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_12sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:gravity="start"
+                            android:text="Total Amount Payable"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/toatalPayableTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:text="$0"
+                            android:textColor="@color/light_black_color"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_bg_color" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/ourAdTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:fontFamily="@font/sf_pro_display_light"
+                android:text="@string/our_ad_approval_process_text"
+                android:textColor="@color/light_black_color"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-                <TextView
-
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Add Page Location" />
-
-                <TextView
-                    android:id="@+id/addPageLocationTv"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="DashBoard Below Interest Area" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/postingofAdTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/blue_radius_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingVertical="7dp"
+                android:text="Posting of Advt is free till March 2022"
+                android:textColor="@color/white"
+                android:textDirection="anyRtl"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/ourAdTv" />
 
-                <TextView
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Start Date" />
-
-                <TextView
-                    android:id="@+id/startdDateTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="Mar 15,2022" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/checkoutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="End Date" />
-
-                <TextView
-                    android:id="@+id/endDateTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="Mar 21,2022" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Cost of Primary Advertisement" />
-
-                <TextView
-                    android:id="@+id/costOfPrimaryTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="$0" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Cost of Value Added Services" />
-
-                <TextView
-                    android:id="@+id/costOfvalueTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="$0" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#d9d9d9"
-                android:padding="@dimen/_12sdp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_display_light"
-                    android:text="Total Amount Payable" />
-
-                <TextView
-                    android:id="@+id/toatalPayableTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/light_black_color"
-                    android:fontFamily="@font/sf_pro_medium"
-                    android:text="$0" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/view_bg_color"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/ourAdTv"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:textColor="@color/light_black_color"
-        android:fontFamily="@font/sf_pro_display_light"
-        android:text="@string/our_ad_approval_process_text" />
-
-    <TextView
-        android:id="@+id/postingofAdTv"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:paddingVertical="7dp"
-        android:textDirection="anyRtl"
-        android:background="@drawable/blue_radius_shape"
-        app:layout_constraintTop_toBottomOf="@+id/ourAdTv"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Posting of Advt is free till March 2022" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/checkoutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_28sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_28sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/green_btn_shape"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:minHeight="0dp"
-        android:paddingTop="@dimen/_4sdp"
-        android:paddingBottom="@dimen/_4sdp"
-        android:text="CHECKOUT"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"/>
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/green_btn_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="CHECKOUT"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postingofAdTv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

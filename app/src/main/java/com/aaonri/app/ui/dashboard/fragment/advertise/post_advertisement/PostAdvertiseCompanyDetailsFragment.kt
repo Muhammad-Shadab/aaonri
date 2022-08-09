@@ -54,11 +54,9 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         val phone =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
 
-        val action =
-            PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
-        findNavController().navigate(action)
-
         detailsBinding?.apply {
+
+            postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_COMPANY_DETAILS)
 
             companyEmailEt.setText(email)
             companyMobileEt.setText(phone)
@@ -71,6 +69,11 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
+
+                val action =
+                    PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
+                findNavController().navigate(action)
+
                 if (companyProfessionEt.text.toString().length < 3) {
                     showAlert("Please enter valid Product / Services")
                 } else if (companyLinkEt.text.toString().length < 10) {

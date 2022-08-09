@@ -24,7 +24,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: String) ->
 
         holder.binding.apply {
             holder.itemView.setOnClickListener {
-
+                selectedServices(data[position].moduleName)
                 notifyDataSetChanged()
             }
             Glide.with(context).load(data[position].templateLink).into(imageView)

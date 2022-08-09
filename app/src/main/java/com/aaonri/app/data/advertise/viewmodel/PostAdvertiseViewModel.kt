@@ -18,6 +18,12 @@ import javax.inject.Inject
 class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository: AdvertiseRepository) :
     ViewModel() {
 
+    var navigationForStepper: MutableLiveData<String> = MutableLiveData()
+        private set
+
+    var stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var companyContactDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
@@ -106,6 +112,14 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     fun setTemplateLocation(value: String) {
         selectTemplateLocation = value
+    }
+
+    fun setStepViewLastTick(value: Boolean) {
+        stepViewLastTick.postValue(value)
+    }
+
+    fun setNavigationForStepper(value: String) {
+        navigationForStepper.postValue(value)
     }
 
 

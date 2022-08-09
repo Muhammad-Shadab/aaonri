@@ -477,6 +477,7 @@ class MainActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
+            val callAdvertiseApi = data?.getBooleanExtra("callAdvertiseApi", false)
 
             if (callClassifiedApi == true) {
 
