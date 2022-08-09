@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragment">
 
     <ImageView
@@ -24,8 +24,8 @@
             android:id="@+id/classifiedDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
             android:background="@drawable/top_rounded_corner_shape"
+            android:paddingTop="5dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <LinearLayout
@@ -40,75 +40,78 @@
                         android:id="@+id/linear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingHorizontal="@dimen/_18sdp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_18sdp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/_12sdp"
-                            >
+                            android:paddingBottom="@dimen/_12sdp">
+
                             <TextView
                                 android:id="@+id/advertiseNameTv"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:layout_marginTop="@dimen/_8sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/sf_pro_semi_bold"
-                                android:textSize="18sp"
                                 android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:text="Movers &amp; Packers"
                                 android:textColor="#333333"
-                                android:text="Movers &amp; Packers"/>
+                                android:textSize="18sp"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <TextView
                                 android:id="@+id/advertiseLocationTv"
-                                app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv"
-                                android:layout_marginTop="@dimen/_8sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/sf_pro_display_light"
-                                android:textSize="12sp"
-                                android:includeFontPadding="false"
-                                android:textColor="#707070"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:drawableLeft="@drawable/ic_location"
+                                android:drawablePadding="5dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_display_light"
+                                android:gravity="center_vertical"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
                                 android:text="New York 0852"
-                                android:drawablePadding="5dp"/>
+                                android:textColor="#707070"
+                                android:textSize="12sp"
+                                app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
+
                             <TextView
                                 android:id="@+id/advertiseDateTv"
-                                app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv"
-                                android:layout_marginTop="@dimen/_8sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"
-                                android:ellipsize="end"
                                 android:layout_gravity="center_vertical"
-                                android:fontFamily="@font/sf_pro_display_light"
-                                android:textSize="12sp"
-                                android:includeFontPadding="false"
-                                android:textColor="#707070"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:drawableLeft="@drawable/ic_time_watch"
+                                android:drawablePadding="5dp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_display_light"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
                                 android:text="From Mar 15,2022 To Mar 21,2022"
-                                android:drawablePadding="5dp"/>
+                                android:textColor="#707070"
+                                android:textSize="12sp"
+                                app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
                             <TextView
                                 android:id="@+id/advertiseLinkTv"
-                                app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv"
-                                android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:drawableLeft="@drawable/link_icon"
+                                android:drawablePadding="5dp"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/sf_pro_medium"
-                                android:textSize="12sp"
-                                android:includeFontPadding="false"
-                                android:textColor="#124c94"
-                                android:drawableLeft="@drawable/link_icon"
                                 android:gravity="center_vertical"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
                                 android:text="https://yogafitness.com/"
-                                android:drawablePadding="5dp"/>
+                                android:textColor="#124c94"
+                                android:textSize="12sp"
+                                app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,490 +137,549 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/sf_pro_regular"
+                                android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
                                 android:textColor="#333333"
                                 android:textSize="12sp"
-                                android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
                                 app:layout_constraintEnd_toEndOf="@id/compnyDetails"
                                 app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="@id/compnyDetails"
                                 app:layout_constraintTop_toBottomOf="@id/compnyDetails" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width='match_parent'
-                            app:cardCornerRadius="@dimen/_12sdp"
-                            android:elevation="10dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/_18sdp"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:orientation="vertical"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            android:orientation="vertical"
-                            app:cardBackgroundColor="#f2efef"
-                            android:layout_height="wrap_content">
+                            app:layout_constraintTop_toTopOf="parent">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:background="@drawable/gray_radius_shape"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Company Name   "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Company Name   "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyNameTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="CoreAgile Technologies Pvt. Ltd"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/companyNameTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/sf_pro_medium"
-                                        android:text="Location                   "
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="CoreAgile Technologies Pvt. Ltd"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyLocationTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Park Street , New York"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
 
                                 </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Location                   "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
                                     <TextView
+                                        android:id="@+id/companyLocationTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Contact No              "
-                                        android:textSize="13sp"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Park Street , New York"
                                         android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyContactTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="+1-202-555-012"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
+                                        android:textSize="13sp" />
 
                                 </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Email                           "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyEmailTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="info@grocery.com"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Product/Services "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyServicesTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Development &amp; Technology Services"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Uri                                "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyUriTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="https://coreagiletech.com/"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Ad Page                    "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyAdPageTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Dashboard"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Location Name     "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyPageLocationNameTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Dashboard Below Interest Area"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Ad Start Date        "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyStartDateTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Mar 15, 2022"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Ad End Date          "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyEndDateTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Mar 21, 2022"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Plan in days           "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyPlanTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="7"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="VAS Details            "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyVasTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="-"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Ad Title                    "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyAdTitleTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Old Memory Camera"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="@dimen/_12sdp"
-                                    android:background="@color/white"
-                                    android:orientation="horizontal">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Template                 "
-                                        android:textSize="13sp"
-                                        android:textColor="@color/editTextColor"
-                                        android:fontFamily="@font/sf_pro_medium"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:layout_marginLeft="@dimen/_28sdp"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/companyTemplateTv"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="13sp"
-                                            android:text="Image Only"
-                                            android:textColor="@color/editTextColor"
-                                            android:fontFamily="@font/sf_pro_display_light" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/view_bg_color"
-                                    android:layout_height="1dp"/>
 
                             </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Contact No              "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyContactTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="+1-202-555-012"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Email                           "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyEmailTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="info@grocery.com"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Product/Services "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyServicesTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Development &amp; Technology Services"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Uri                                "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyUriTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="https://coreagiletech.com/"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Ad Page                    "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyAdPageTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Dashboard"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Location Name     "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyPageLocationNameTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Dashboard Below Interest Area"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Ad Start Date        "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyStartDateTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Mar 15, 2022"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Ad End Date          "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyEndDateTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Mar 21, 2022"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Plan in days           "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyPlanTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="7"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="VAS Details            "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyVasTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="-"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/advertiseTextBgCOlor"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Ad Title                    "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyAdTitleTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Old Memory Camera"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:text="Template                 "
+                                    android:textColor="@color/editTextColor"
+                                    android:textSize="13sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_28sdp"
+                                    android:gravity="right"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/companyTemplateTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sf_pro_display_light"
+                                        android:text="Image Only"
+                                        android:textColor="@color/editTextColor"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </androidx.core.widget.NestedScrollView>
@@ -630,14 +692,14 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-        <ImageView
-            android:id="@+id/moreClassifiedOption"
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:src="@drawable/ic_more" />
+    <ImageView
+        android:id="@+id/moreClassifiedOption"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:src="@drawable/ic_more" />
 
 
     <androidx.cardview.widget.CardView

@@ -66,14 +66,18 @@ class AdvertisementDetailsFragment : Fragment() {
             }
 
         }
-        detailsBinding?.advertiseNameTv?.text =  data?.advertisementDetails?.adTitle
-        detailsBinding?.advertiseDateTv?.text = "From ${DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                .parse(data?.fromDate?.split("T")?.get(0))
-        ) } To ${DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                .parse(data?.toDate?.split("T")?.get(0))
-        ) }"
+        detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
+        detailsBinding?.advertiseDateTv?.text = "From ${
+            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data?.fromDate?.split("T")?.get(0))
+            )
+        } To ${
+            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data?.toDate?.split("T")?.get(0))
+            )
+        }"
         detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
         detailsBinding?.advertiseLinkTv?.text = data?.advertisementDetails?.url
         detailsBinding?.companyDescTv?.text = data?.advertisementDetails?.companyDescription
@@ -83,10 +87,11 @@ class AdvertisementDetailsFragment : Fragment() {
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
         detailsBinding?.companyServicesTv?.text = data?.advertisementDetails?.productServices
         detailsBinding?.companyUriTv?.text = data?.advertisementDetails?.url
-        detailsBinding?.companyStartDateTv?.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                .parse(data?.fromDate?.split("T")?.get(0))
-        )
+        detailsBinding?.companyStartDateTv?.text =
+            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data?.fromDate?.split("T")?.get(0))
+            )
         detailsBinding?.companyEndDateTv?.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.toDate?.split("T")?.get(0))
@@ -95,8 +100,10 @@ class AdvertisementDetailsFragment : Fragment() {
         detailsBinding?.companyVasTv?.text = data?.advertisementVasMap.toString()
         detailsBinding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
         detailsBinding?.companyTemplateTv?.text = data?.template?.name
-        detailsBinding?.companyAdPageTv?.text = data?.advertisementPageLocation?.advertisementPage?.pageName
-        detailsBinding?.companyPageLocationNameTv?.text = data?.advertisementPageLocation?.locationName
+        detailsBinding?.companyAdPageTv?.text =
+            data?.advertisementPageLocation?.advertisementPage?.pageName
+        detailsBinding?.companyPageLocationNameTv?.text =
+            data?.advertisementPageLocation?.locationName
 
     }
 

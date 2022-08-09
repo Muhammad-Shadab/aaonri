@@ -130,4 +130,11 @@
     <string name="select_a_location_on_the_selected_page_for_your_advertisement_display">Select a location on the selected page,\n for your advertisement display</string>
     <string name="advertisement_details">Advertisement Details</string>
     <string name="booking_summary_payment">Booking Summary &amp; Payment</string>
+
+
+        <string-array name="days_list">
+            <item>7 Days</item>
+            <item>15 Days</item>
+            <item>30 Days</item>
+        </string-array>
 </resources>

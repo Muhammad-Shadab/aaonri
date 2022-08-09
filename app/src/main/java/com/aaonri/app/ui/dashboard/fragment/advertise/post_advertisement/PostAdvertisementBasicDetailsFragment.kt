@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,10 +23,13 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostAdvertisementBasicDetailsFragment : Fragment() {
+class PostAdvertisementBasicDetailsFragment : Fragment() , AdapterView.OnItemClickListener  {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var templateImage = ""
+    var  daysSpinner:Spinner ? = null
+    var daysAdapter: ArrayAdapter<String>? = null
+//    var daysList = arrayOf("7 Days" , "15 Days" , "30 Days")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,6 +92,9 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
 
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
+//            daysAdapter = context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_item,daysList) }
+//            selectAdvertiseDaysSpinner?.adapter = daysAdapter
+//            selectAdvertiseDaysSpinner?.onItemClickListener = this
 
         }
         return advertiseBinding?.root
@@ -115,6 +124,13 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
             }
         }
 
+    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//        Toast.makeText(context, p0?.getItemAtPosition(p2).toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    /*private fun setImage() {
+        if (profile.isNotEmpty()) {
+            advertiseBinding?.addProfileIv?.let {
     private fun setImage() {
         if (templateImage.isNotEmpty()) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
