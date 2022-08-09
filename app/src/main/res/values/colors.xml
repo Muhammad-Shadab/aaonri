@@ -30,6 +30,7 @@
     <color name="light_black_color">#333333</color>
     <color name="view_bg_color">#d1d1d1</color>
     <color name="immigaration_text_color">#696161</color>
+    <color name="advertiseTextBgCOlor">#f2efef</color>
 
 
 </resources>

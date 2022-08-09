@@ -29,13 +29,17 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
         holder.binding.apply {
             advertiseNameTv.text = data[position].title
 //            advertiseLocationTv.text  = data[position].advertisementDetails?.location
-            advertiseDateTv.text = "From ${DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .parse(data[position]?.fromDate?.split("T")?.get(0))
-            ) } To ${DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .parse(data[position]?.toDate?.split("T")?.get(0))
-            ) }"
+            advertiseDateTv.text = "From ${
+                DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(data[position]?.fromDate?.split("T")?.get(0))
+                )
+            } To ${
+                DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(data[position]?.toDate?.split("T")?.get(0))
+                )
+            }"
 
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)
         }
