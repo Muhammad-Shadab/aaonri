@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.advertise.AdvertiseConstant
-import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
@@ -19,14 +18,23 @@ import javax.inject.Inject
 class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository: AdvertiseRepository) :
     ViewModel() {
 
+    var companyContactDetailsMap: MutableMap<String, String> = mutableMapOf()
+        private set
+
     var companyBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
+        private set
+
+    var selectTemplateName = ""
+        private set
+
+    var selectTemplateLocation = ""
         private set
 
     val postedAdvertiseData: MutableLiveData<Resource<PostAdvertiseResponse>> = MutableLiveData()
 
     val uploadAdvertiseImageData: MutableLiveData<Resource<String>> = MutableLiveData()
 
-    fun advertiseBasicDetails(
+    fun addCompanyContactDetails(
         companyName: String,
         location: String,
         phoneNumber: String,
@@ -35,13 +43,31 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         link: String,
         description: String,
     ) {
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME] = companyName
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION] = location
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER] = phoneNumber
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL] = email
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS] = services
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_LINK] = link
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] = description
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME] = companyName
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION] = location
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER] = phoneNumber
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL] = email
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS] = services
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK] = link
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] = description
+    }
+
+    fun addCompanyBasicDetailsMap(
+        addTitle: String,
+        location: String,
+        phoneNumber: String,
+        email: String,
+        services: String,
+        link: String,
+        description: String,
+    ) {
+        //companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME] = companyName
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION] = location
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER] = phoneNumber
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL] = email
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS] = services
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK] = link
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] = description
     }
 
     fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) = viewModelScope.launch {
@@ -63,7 +89,6 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         uploadAdvertiseImageData.postValue(Resource.Loading())
         val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
         uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
-
     }
 
     private fun handleUploadImageResponse(response: Response<String>): Resource<String>? {
@@ -74,5 +99,14 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         }
         return Resource.Error(response.message())
     }
+
+    fun setTemplateName(value: String) {
+        selectTemplateName = value
+    }
+
+    fun setTemplateLocation(value: String) {
+        selectTemplateLocation = value
+    }
+
 
 }

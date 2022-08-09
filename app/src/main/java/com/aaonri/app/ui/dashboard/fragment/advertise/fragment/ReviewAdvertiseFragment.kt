@@ -10,6 +10,7 @@ import com.aaonri.app.databinding.FragmentReviewAdvertiseBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ReviewAdvertiseFragment  : BottomSheetDialogFragment() {
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
   var reviewBinding : FragmentReviewAdvertiseBinding? = null
 
     override fun onCreateView(

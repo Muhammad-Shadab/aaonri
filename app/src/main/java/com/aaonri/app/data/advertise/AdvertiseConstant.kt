@@ -2,7 +2,7 @@ package com.aaonri.app.data.advertise
 
 object AdvertiseConstant {
 
-    //Advertise basic details constant
+    //Advertise company Contact details constant
     const val ADVERTISE_COMPANY_NAME = "ADVERTISE_COMPANY_NAME"
     const val ADVERTISE_LOCATION = "ADVERTISE_LOCATION"
     const val ADVERTISE_PHONE_NUMBER = "ADVERTISE_PHONE_NUMBER"
@@ -10,5 +10,12 @@ object AdvertiseConstant {
     const val ADVERTISE_PRODUCT_SERVICES_DETAILS = "ADVERTISE_PRODUCT_SERVICES_DETAILS"
     const val ADVERTISE_LINK = "ADVERTISE_LINK"
     const val ADVERTISE_DESCRIPTION = "ADVERTISE_DESCRIPTION"
+
+    //Advertise basic details constant
+    const val ADVERTISE_ADD_TITLE = "ADVERTISE_ADD_TITLE"
+    const val ADVERTISE_ADD_VALIDITY = "ADVERTISE_ADD_VALIDITY"
+    const val ADVERTISE_PLAN_CHARGES = "ADVERTISE_PLAN_CHARGES"
+    const val ADVERTISE_COST_OF_VALUE = "ADVERTISE_COST_OF_VALUE"
+    const val IS_FLASHING_ADVERTISE = "IS_FLASHING_ADVERTISE"
 
 }

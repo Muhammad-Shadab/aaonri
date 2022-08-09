@@ -4,16 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.fragment.advertise.post_advertisement.SelectAdvertiseTemplateFragment">
+    tools:context=".ui.dashboard.fragment.advertise.post_advertisement.SelectTemplateLocation">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +22,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/select_a_page_on_the_website_mobile_to_display_your_advertisement"
+                android:text="@string/select_a_location_on_the_selected_page_for_your_advertisement_display"
                 android:textAlignment="center"
                 android:textColor="#333333"
                 android:textSize="14sp" />
@@ -70,22 +65,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="Dashboard"
+                android:text="Dashboard Below Interest Area"
                 android:textAlignment="center"
                 android:textColor="#333333"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:text="@string/your_advertisement_will_be_displayed_on_users_personal_dashboard_section_which_provides_more_visibility_of_your_ad_to_the_users_when_they_login_to_aaonri"
-                android:textAlignment="center"
-                android:textColor="#333333"
-                android:textSize="13sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/advertiseTemplatesNextBtn"

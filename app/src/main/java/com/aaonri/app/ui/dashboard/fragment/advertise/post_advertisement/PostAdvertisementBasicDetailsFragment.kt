@@ -9,15 +9,19 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostAdvertisementBasicDetailsFragment : Fragment() {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
+    val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var templateImage = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,9 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
         advertiseBinding?.apply {
+
+            selectedTemplateTv.text = postAdvertiseViewModel.selectTemplateName
+            chooseTemplateTv.text = postAdvertiseViewModel.selectTemplateLocation
 
             chooseTemplatell.setOnClickListener {
                 if (templateImage.isEmpty()) {
@@ -62,17 +69,27 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
                 }*/
             }
 
+            selectAdvertiseDaysSpinner.setOnClickListener {
+
+            }
+
             advertiseDetailsNextBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
             }
 
             previewAdvertiseBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
 
+                saveDataToViewModel()
+
+                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
 
         }
         return advertiseBinding?.root
+    }
+
+    private fun saveDataToViewModel() {
+        postAdvertiseViewModel
     }
 
     private val startForProfileImageResult =
@@ -86,7 +103,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
 
                 templateImage = fileUri.toString()
                 advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
-                //setImage()
+                setImage()
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
@@ -96,19 +113,24 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
             }
         }
 
-    /*private fun setImage() {
-        if (profile.isNotEmpty()) {
-            advertiseBinding?.addProfileIv?.let {
+    private fun setImage() {
+        if (templateImage.isNotEmpty()) {
+            advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
+            advertiseBinding?.uploadImageTv?.visibility = View.GONE
+            advertiseBinding?.sizeLimitTv?.visibility = View.GONE
+
+            advertiseBinding?.advertiseIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
-                        .load(profile)
-                        .circleCrop()
+                        .load(templateImage)
                         .into(it)
                 }
             }
         } else {
-
+            advertiseBinding?.advertiseIv?.visibility = View.GONE
+            advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
+            advertiseBinding?.sizeLimitTv?.visibility = View.VISIBLE
         }
-    }*/
+    }
 
 }

@@ -12,11 +12,9 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCompanyDetailsFrgamentBinding
-import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -84,7 +82,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                 if (Validator.emailValidation(companyEmailEt.text.toString())) {
                                     if (advertiseDescEt.text.toString().length >= 3) {
                                         description?.let { it1 ->
-                                            postAdvertiseViewModel.advertiseBasicDetails(
+                                            postAdvertiseViewModel.addCompanyContactDetails(
                                                 companyName = companyNameEt.text.toString(),
                                                 location = companyAddress.text.toString(),
                                                 phoneNumber = companyMobileEt.text.toString(),
@@ -154,7 +152,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
     }
 
     private fun setData() {
-        detailsBinding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] else "")
+        detailsBinding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] else "")
 
     }
 

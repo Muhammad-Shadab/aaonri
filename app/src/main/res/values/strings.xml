@@ -127,4 +127,5 @@
     <string name="select_a_page_on_the_website_mobile_to_display_your_advertisement">Select a page on the website &amp; mobile\n to display your advertisement</string>
     <string name="the_highlighted_areas_in_red_are_the_places_where_you_can_place_your_ad">The highlighted areas in red, are the places where you\n can place your Ad</string>
     <string name="your_advertisement_will_be_displayed_on_users_personal_dashboard_section_which_provides_more_visibility_of_your_ad_to_the_users_when_they_login_to_aaonri">Your advertisement will be displayed on users\n Personal Dashboard” section, which provides more\n visibility of your ad to the users\n when they login to aaonri.</string>
+    <string name="select_a_location_on_the_selected_page_for_your_advertisement_display">Select a location on the selected page,\n for your advertisement display</string>
 </resources>
