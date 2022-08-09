@@ -12,7 +12,7 @@
         android:layout_height="@dimen/_500sdp"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
-        android:scaleType="centerInside" />
+        android:scaleType="fitXY" />
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,6 +24,7 @@
             android:id="@+id/classifiedDetailsBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:background="@drawable/top_rounded_corner_shape"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -50,7 +51,7 @@
                             <TextView
                                 android:id="@+id/advertiseNameTv"
                                 app:layout_constraintTop_toTopOf="parent"
-                                android:layout_marginTop="@dimen/_12sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:maxLines="1"
@@ -176,6 +177,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
+                                            android:id="@+id/companyNameTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -207,7 +209,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstlocationTv"
+                                            android:id="@+id/companyLocationTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -241,7 +243,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstContactTv"
+                                            android:id="@+id/companyContactTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -272,7 +274,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstEmailTv"
+                                            android:id="@+id/companyEmailTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -306,7 +308,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstServicesTv"
+                                            android:id="@+id/companyServicesTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -337,7 +339,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstUriTv"
+                                            android:id="@+id/companyUriTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -371,7 +373,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstAdPageTv"
+                                            android:id="@+id/companyAdPageTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -402,7 +404,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstLocationNameTv"
+                                            android:id="@+id/companyPageLocationNameTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -436,7 +438,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstStartDateTv"
+                                            android:id="@+id/companyStartDateTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -467,6 +469,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
+                                            android:id="@+id/companyEndDateTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -500,7 +503,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstPlanTv"
+                                            android:id="@+id/companyPlanTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -531,7 +534,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/advrstVasTv"
+                                            android:id="@+id/companyVasTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -565,6 +568,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
+                                            android:id="@+id/companyAdTitleTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
@@ -595,7 +599,7 @@
                                         android:layout_marginLeft="@dimen/_28sdp"
                                         android:orientation="vertical">
                                         <TextView
-                                            android:id="@+id/avrstTemplateTv"
+                                            android:id="@+id/companyTemplateTv"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="13sp"
