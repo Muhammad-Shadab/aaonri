@@ -60,16 +60,6 @@ class SelectAdvertiseTemplateFragment : Fragment() {
 
             advertiseTemplateAdapter1?.setData(homeTemplates.listOfModule)
 
-            /*advertiseTemplateAdapter2?.setData(
-                listOf(
-                    "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/dashboard-just-above-footer-image-only.png",
-                    "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/dashboard-just-above-footer-text-only.png",
-                    "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/dashboard-top-banner.png",
-                    "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/dashboard-below-discover-aaonri.png",
-                    "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/dashboard-below-interest-area.png",
-                )
-            )*/
-
             horizontalRv1.adapter = advertiseTemplateAdapter1
             horizontalRv2.adapter = advertiseTemplateAdapter2
 

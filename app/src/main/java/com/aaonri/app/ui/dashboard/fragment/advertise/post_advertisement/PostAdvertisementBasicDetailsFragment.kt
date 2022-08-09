@@ -104,7 +104,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment() {
                 templateImage = fileUri.toString()
                 advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
                 setImage()
-                //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()

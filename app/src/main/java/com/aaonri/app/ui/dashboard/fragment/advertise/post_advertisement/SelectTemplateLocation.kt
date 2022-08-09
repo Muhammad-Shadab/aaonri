@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.dashboardLocationTemplate
 import com.aaonri.app.data.advertise.model.landingPageLocationTemplate
+import com.aaonri.app.data.advertise.model.productDetailsLocationTemplate
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectTemplateLocationBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateLocationAdapter
@@ -66,10 +68,10 @@ class SelectTemplateLocation : Fragment() {
                 advertiseTemplateLocationAdapter?.setData(landingPageLocationTemplate.listOfModule)
             }
             "Product Details" -> {
-
+                advertiseTemplateLocationAdapter?.setData(productDetailsLocationTemplate.listOfModule)
             }
             "Dashboard" -> {
-
+                advertiseTemplateLocationAdapter?.setData(dashboardLocationTemplate.listOfModule)
             }
         }
 

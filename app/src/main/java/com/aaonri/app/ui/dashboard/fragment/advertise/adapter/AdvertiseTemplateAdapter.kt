@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.ModuleTemplate
-import com.aaonri.app.data.advertise.model.ModuleWiseTemplate
 import com.aaonri.app.databinding.AdvertiseTemplateItemBinding
 import com.bumptech.glide.Glide
 
@@ -13,7 +12,6 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: String) ->
     RecyclerView.Adapter<AdvertiseTemplateAdapter.AdvertiseViewHolder>() {
 
     private var data = listOf<ModuleTemplate>()
-    var rowIndex = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,22 +22,14 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: String) ->
     override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
         val context = holder.itemView.context
 
-        holder.itemView.setOnClickListener {
-            rowIndex = position
-            notifyDataSetChanged()
-        }
         holder.binding.apply {
+            holder.itemView.setOnClickListener {
+
+                notifyDataSetChanged()
+            }
             Glide.with(context).load(data[position].templateLink).into(imageView)
 
-            if (rowIndex == position) {
-                successTick.visibility = View.VISIBLE
-                selectedServices(data[position].moduleName)
-            } else {
-                successTick.visibility = View.GONE
-            }
         }
-
-
     }
 
     @JvmName("setData1")
@@ -55,6 +45,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: String) ->
             binding.root
         )
 }
+
 
 class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: String) -> Unit)) :
     RecyclerView.Adapter<AdvertiseTemplateLocationAdapter.AdvertiseViewHolder>() {
