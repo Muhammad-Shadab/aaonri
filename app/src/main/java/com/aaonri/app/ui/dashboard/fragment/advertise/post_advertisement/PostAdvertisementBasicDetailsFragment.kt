@@ -23,18 +23,15 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostAdvertisementBasicDetailsFragment : Fragment() , AdapterView.OnItemClickListener  {
+class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var templateImage = ""
-    var  daysSpinner:Spinner ? = null
-    var daysAdapter: ArrayAdapter<String>? = null
-//    var daysList = arrayOf("7 Days" , "15 Days" , "30 Days")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
@@ -55,31 +52,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment() , AdapterView.OnItemCli
                             startForProfileImageResult.launch(intent)
                             progressBarBasicDetails.visibility = View.VISIBLE
                         }
-                } /*else {
-                    val materialAlertDialogBuilder =
-                        context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
-                    materialAlertDialogBuilder?.setTitle("Profile Photo")
-                        ?.setMessage("Change profile photo? ")
-                        ?.setPositiveButton("CHANGE") { dialog, _ ->
-                            ImagePicker.with(requireActivity())
-                                .compress(1024)
-                                .maxResultSize(1080, 1080)
-                                .crop()
-                                .createIntent { intent ->
-                                    progressBarBasicDetails.visibility = View.VISIBLE
-                                    startForProfileImageResult.launch(intent)
-                                }
-                            dialog.dismiss()
-                        }
-                        ?.setNegativeButton("REMOVE") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        ?.show()
-                }*/
-            }
-
-            selectAdvertiseDaysSpinner.setOnClickListener {
-
+                }
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
@@ -92,9 +65,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment() , AdapterView.OnItemCli
 
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
-//            daysAdapter = context?.let { ArrayAdapter(it,android.R.layout.simple_spinner_item,daysList) }
-//            selectAdvertiseDaysSpinner?.adapter = daysAdapter
-//            selectAdvertiseDaysSpinner?.onItemClickListener = this
 
         }
         return advertiseBinding?.root
@@ -128,9 +98,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment() , AdapterView.OnItemCli
 //        Toast.makeText(context, p0?.getItemAtPosition(p2).toString(), Toast.LENGTH_SHORT).show()
     }
 
-    /*private fun setImage() {
-        if (profile.isNotEmpty()) {
-            advertiseBinding?.addProfileIv?.let {
     private fun setImage() {
         if (templateImage.isNotEmpty()) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
