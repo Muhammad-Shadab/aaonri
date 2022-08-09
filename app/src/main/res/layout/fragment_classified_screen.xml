@@ -113,12 +113,13 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/_2sdp"
             android:id="@+id/cancelbutton"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:background="@drawable/cancel_btn" />
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/cancel_btn"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/searchViewIcon"
             android:layout_width="@dimen/_20sdp"
