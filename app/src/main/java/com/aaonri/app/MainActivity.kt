@@ -533,6 +533,10 @@ class MainActivity : BaseActivity() {
                         zip = ""
                     )
                 )
+            } else if (callAdvertiseApi == true) {
+                if (email != null) {
+                    advertiseViewModel.getAllAdvertise(email)
+                }
             }
         }
     }

@@ -56,13 +56,30 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
+                saveDataToViewModel(
+                    titleAdvertisedEt.text.toString(),
+                    selectedTemplateTv.text.toString(),
+                    selectAdvertiseDaysSpinner.toString(),
+                    planChargeEt.text.toString(),
+                    costOfvalueEt.text.toString(),
+                    isFashionCheck.isChecked,
+                    chooseTemplateTv.text.toString(),
+                    templateImage
+                )
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
             }
 
             previewAdvertiseBtn.setOnClickListener {
-
-                saveDataToViewModel()
-
+                saveDataToViewModel(
+                    titleAdvertisedEt.text.toString(),
+                    selectedTemplateTv.text.toString(),
+                    selectAdvertiseDaysSpinner.toString(),
+                    planChargeEt.text.toString(),
+                    costOfvalueEt.text.toString(),
+                    isFashionCheck.isChecked,
+                    chooseTemplateTv.text.toString(),
+                    templateImage
+                )
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
 
@@ -70,8 +87,26 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         return advertiseBinding?.root
     }
 
-    private fun saveDataToViewModel() {
-        postAdvertiseViewModel
+    private fun saveDataToViewModel(
+        addTitle: String,
+        templateName: String,
+        advertiseValidity: String,
+        planCharges: String,
+        costOfValue: String,
+        isFlashingAdvertisement: Boolean,
+        templateLocation: String,
+        advertiseImageUri: String
+    ) {
+        postAdvertiseViewModel.addCompanyBasicDetailsMap(
+            addTitle,
+            templateName,
+            advertiseValidity,
+            planCharges,
+            costOfValue,
+            isFlashingAdvertisement,
+            templateLocation,
+            advertiseImageUri
+        )
     }
 
     private val startForProfileImageResult =

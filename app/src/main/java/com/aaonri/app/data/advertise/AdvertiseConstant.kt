@@ -10,7 +10,6 @@ object AdvertiseConstant {
     const val ADVERTISE_BASIC_DETAILS = "ADVERTISE_BASIC_DETAILS"
     const val ADVERTISE_CHECKOUT = "ADVERTISE_CHECKOUT"
 
-
     //Advertise company Contact details constant
     const val ADVERTISE_COMPANY_NAME = "ADVERTISE_COMPANY_NAME"
     const val ADVERTISE_LOCATION = "ADVERTISE_LOCATION"
@@ -26,5 +25,6 @@ object AdvertiseConstant {
     const val ADVERTISE_PLAN_CHARGES = "ADVERTISE_PLAN_CHARGES"
     const val ADVERTISE_COST_OF_VALUE = "ADVERTISE_COST_OF_VALUE"
     const val IS_FLASHING_ADVERTISE = "IS_FLASHING_ADVERTISE"
+    const val ADVERTISE_IMAGE_URI = "ADVERTISE_IMAGE_URI"
 
 }

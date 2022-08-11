@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.advertise.fragment.UpdateAndDeleteBottomFragment">
+
     <View
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_3sdp"

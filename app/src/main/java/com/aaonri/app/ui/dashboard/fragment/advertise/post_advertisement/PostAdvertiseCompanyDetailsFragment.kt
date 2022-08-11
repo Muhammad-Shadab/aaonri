@@ -70,10 +70,6 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
             advertiseDetailsNextBtn.setOnClickListener {
 
-                val action =
-                    PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
-                findNavController().navigate(action)
-
                 if (companyProfessionEt.text.toString().length < 3) {
                     showAlert("Please enter valid Product / Services")
                 } else if (companyLinkEt.text.toString().length < 10) {
@@ -95,7 +91,9 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                                 description = it1
                                             )
                                         }
-
+                                        val action =
+                                            PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
+                                        findNavController().navigate(action)
                                     } else {
                                         showAlert("Please enter valid Advertise Description")
                                     }

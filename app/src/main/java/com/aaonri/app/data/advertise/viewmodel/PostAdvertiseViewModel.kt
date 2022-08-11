@@ -11,6 +11,7 @@ import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -60,20 +61,23 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     fun addCompanyBasicDetailsMap(
         addTitle: String,
-        location: String,
-        phoneNumber: String,
-        email: String,
-        services: String,
-        link: String,
-        description: String,
+        templateName: String,
+        advertiseValidity: String,
+        planCharges: String,
+        costOfValue: String,
+        isFlashingAdvertisement: Boolean,
+        templateLocation: String,
+        advertiseImageUri: String,
     ) {
-        //companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME] = companyName
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION] = location
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER] = phoneNumber
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL] = email
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS] = services
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK] = link
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] = description
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE] = addTitle
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE] = templateName
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_VALIDITY] = advertiseValidity
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_PLAN_CHARGES] = planCharges
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_COST_OF_VALUE] = costOfValue
+        companyBasicDetailsMap[AdvertiseConstant.IS_FLASHING_ADVERTISE] =
+            isFlashingAdvertisement.toString()
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION] = templateLocation
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI] = advertiseImageUri
     }
 
     fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) = viewModelScope.launch {
@@ -91,7 +95,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
-    fun uploadAdvertiseImage(advertiseId: Int, file: MultipartBody.Part) = viewModelScope.launch {
+    fun uploadAdvertiseImage(advertiseId: RequestBody, file: MultipartBody.Part) = viewModelScope.launch {
         uploadAdvertiseImageData.postValue(Resource.Loading())
         val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
         uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))

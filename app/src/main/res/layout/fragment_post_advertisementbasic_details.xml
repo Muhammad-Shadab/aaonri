@@ -84,6 +84,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/arrow_down_spinner"/>
+
     <Spinner
         android:id="@+id/selectAdvertiseDaysSpinner"
         android:layout_width="match_parent"
