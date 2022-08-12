@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
+import com.aaonri.app.data.advertise.model.RenewAdvertiseRequest
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,7 +38,15 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var selectTemplateLocation = ""
         private set
 
+    var isRenewAdvertise = false
+        private set
+
+    var isUpdateAdvertise = false
+        private set
+
     val postedAdvertiseData: MutableLiveData<Resource<PostAdvertiseResponse>> = MutableLiveData()
+
+    val renewAdvertiseData: MutableLiveData<Resource<String>> = MutableLiveData()
 
     val uploadAdvertiseImageData: MutableLiveData<Resource<String>> = MutableLiveData()
 
@@ -95,13 +104,29 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
-    fun uploadAdvertiseImage(advertiseId: RequestBody, file: MultipartBody.Part) = viewModelScope.launch {
-        uploadAdvertiseImageData.postValue(Resource.Loading())
-        val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
-        uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
-    }
+    fun uploadAdvertiseImage(advertiseId: RequestBody, file: MultipartBody.Part) =
+        viewModelScope.launch {
+            uploadAdvertiseImageData.postValue(Resource.Loading())
+            val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
+            uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
+        }
 
     private fun handleUploadImageResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun renewAdvertise(renewAdvertiseRequest: RenewAdvertiseRequest) = viewModelScope.launch {
+        renewAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.renewAdvertise(renewAdvertiseRequest)
+        renewAdvertiseData.postValue(handleRenewAdvertiseResponse(response))
+    }
+
+    private fun handleRenewAdvertiseResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -126,5 +151,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         navigationForStepper.postValue(value)
     }
 
+    fun setIsUpdateOrRenewAdvertise(renewAdvertise: Boolean, updateAdvertise: Boolean) {
+        isRenewAdvertise = renewAdvertise
+        isUpdateAdvertise = updateAdvertise
+    }
 
 }

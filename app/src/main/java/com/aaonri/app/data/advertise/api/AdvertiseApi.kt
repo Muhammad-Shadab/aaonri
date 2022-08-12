@@ -1,9 +1,6 @@
 package com.aaonri.app.data.advertise.api
 
-import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
-import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
-import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
-import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
+import com.aaonri.app.data.advertise.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -32,6 +29,5 @@ interface AdvertiseApi {
         @Part("avdId") adId: RequestBody,
         @Part file: MultipartBody.Part,
     ): Response<String>
-
 
 }

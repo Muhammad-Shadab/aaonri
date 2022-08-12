@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.advertise
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.AdvertiseConstant
@@ -22,6 +23,14 @@ class AdvertiseScreenActivity : BaseActivity() {
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
+
+        val isRenewAdvertise = intent.getBooleanExtra("isRenewAdvertise", false)
+        val isUpdateAdvertise = intent.getBooleanExtra("isUpdateAdvertise", false)
+
+        postAdvertiseViewModel.setIsUpdateOrRenewAdvertise(
+            renewAdvertise = isRenewAdvertise,
+            updateAdvertise = isUpdateAdvertise
+        )
 
         binding?.apply {
 

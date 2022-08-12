@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.fragment
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentUpdateAndDeleteBottomBinding
+import com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity
 import com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragmentArgs
+import com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -45,6 +48,21 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
                 builder.show()
                 //
             }
+
+            renevAdvrstBtn.setOnClickListener {
+                dismiss()
+                val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+                intent.putExtra("isRenewAdvertise", true)
+                startActivity(intent)
+            }
+
+            updateAdvrst.setOnClickListener {
+                dismiss()
+                val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+                intent.putExtra("isUpdateAdvertise", true)
+                startActivity(intent)
+            }
+
         }
 
         advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_postAdvertiseTermConditionFragment2_to_postAdvertiseCompanyDetailsFrgament2"
             app:destination="@id/postAdvertiseCompanyDetailsFrgament" />
+        <action
+            android:id="@+id/action_postAdvertiseTermConditionFragment2_to_postAdvertiseCheckout"
+            app:destination="@id/postAdvertiseCheckout" />
     </fragment>
     <fragment
         android:id="@+id/postAdvertiseCompanyDetailsFrgament"

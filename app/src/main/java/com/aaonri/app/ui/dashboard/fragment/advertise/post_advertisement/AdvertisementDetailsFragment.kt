@@ -2,17 +2,16 @@ package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
-import com.aaonri.app.R
+import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
@@ -58,6 +57,7 @@ class AdvertisementDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     setData(response.data)
+                    AdvertiseStaticData.updateAdvertiseDetails(response.data)
                     detailsBinding?.classifiedDetailsBottom?.visibility = View.VISIBLE
                     detailsBinding?.progressBar?.visibility = View.GONE
                 }

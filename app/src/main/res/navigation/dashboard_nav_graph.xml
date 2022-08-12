@@ -199,5 +199,13 @@
         <argument
             android:name="advertiseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_updateAndDeleteBottomFragment_to_postAdvertiseCheckout2"
+            app:destination="@id/postAdvertiseCheckout2" />
     </dialog>
+    <fragment
+        android:id="@+id/postAdvertiseCheckout2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckout"
+        android:label="fragment_post_advertise_checkout"
+        tools:layout="@layout/fragment_post_advertise_checkout" />
 </navigation>
