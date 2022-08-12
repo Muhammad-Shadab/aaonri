@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.advertise.AdvertiseConstant
+import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCompanyDetailsFrgamentBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
@@ -70,9 +71,13 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
             advertiseDetailsNextBtn.setOnClickListener {
 
-                if (companyProfessionEt.text.toString().length < 3) {
+                if (companyProfessionEt.text.toString()
+                        .isNotEmpty() && companyProfessionEt.text.toString().length < 3
+                ) {
                     showAlert("Please enter valid Product / Services")
-                } else if (companyLinkEt.text.toString().length < 10) {
+                } else if (companyLinkEt.text.toString()
+                        .isNotEmpty() && companyLinkEt.text.toString().length < 10
+                ) {
                     showAlert("Please enter valid Link")
                 } else {
                     if (companyNameEt.text.toString().length >= 3) {
@@ -111,10 +116,13 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                     }
                 }
             }
-
         }
 
         setData()
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            setDataForUpdating()
+        }
 
         detailsBinding?.companyMobileEt?.addTextChangedListener(object :
             TextWatcher {
@@ -150,6 +158,20 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         })
 
         return detailsBinding?.root
+    }
+
+    private fun setDataForUpdating() {
+        val advertiseData = AdvertiseStaticData.getAddDetails()
+        detailsBinding?.apply {
+            companyNameEt.setText(advertiseData?.advertisementDetails?.companyName)
+            companyAddress.setText(advertiseData?.advertisementDetails?.location)
+            companyMobileEt.setText(advertiseData?.advertisementDetails?.contactNo)
+            companyEmailEt.setText(advertiseData?.advertisementDetails?.emailId)
+            companyProfessionEt.setText(advertiseData?.advertisementDetails?.productServices)
+            companyLinkEt.setText(advertiseData?.advertisementDetails?.url)
+            advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.companyDescription)
+
+        }
     }
 
     private fun setData() {

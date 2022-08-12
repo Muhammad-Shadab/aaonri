@@ -67,41 +67,43 @@
                 android:text="@string/dashboard_below_text"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_marginStart="@dimen/_28sdp"
-    android:layout_marginTop="@dimen/_20sdp"
-    android:layout_marginEnd="@dimen/_28sdp"
-    android:background="@drawable/edit_text_shape"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:paddingVertical="@dimen/_4sdp"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/arrow_down_spinner"/>
 
-    <Spinner
-        android:id="@+id/selectAdvertiseDaysSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/helvetica_regular"
-        android:gravity="center_vertical"
-        android:paddingVertical="@dimen/_4sdp"
-        android:paddingStart="@dimen/_12sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textColor="@color/black"
-        android:entries="@array/days_list"
-        android:textSize="16sp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:background="@drawable/edit_text_shape">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:src="@drawable/arrow_down_spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/selectAdvertiseDaysSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/days_list"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/planChargeEt"

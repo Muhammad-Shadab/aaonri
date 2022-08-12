@@ -61,7 +61,7 @@
         android:id="@+id/selectAdvertiseTemplate"
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.SelectAdvertiseTemplateFragment"
         android:label="fragment_select_advertise_template"
-        tools:layout="@layout/fragment_select_advertise_template" >
+        tools:layout="@layout/fragment_select_advertise_template">
         <action
             android:id="@+id/action_selectAdvertiseTemplate_to_selectTemplateLocation"
             app:destination="@id/selectTemplateLocation" />
@@ -70,7 +70,7 @@
         android:id="@+id/selectTemplateLocation"
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.SelectTemplateLocation"
         android:label="fragment_select_template_location"
-        tools:layout="@layout/fragment_select_template_location" >
+        tools:layout="@layout/fragment_select_template_location">
         <action
             android:id="@+id/action_selectTemplateLocation_to_postAdvertisementbasicDetailsFragment"
             app:destination="@id/postAdvertisementbasicDetailsFragment" />

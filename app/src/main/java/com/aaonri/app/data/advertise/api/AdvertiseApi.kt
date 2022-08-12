@@ -30,4 +30,9 @@ interface AdvertiseApi {
         @Part file: MultipartBody.Part,
     ): Response<String>
 
+    @POST("/api/v1/avd/renewAvd")
+    suspend fun renewAdvertise(
+        @Body renewAdvertiseRequest: RenewAdvertiseRequest
+    ): Response<String>
+
 }

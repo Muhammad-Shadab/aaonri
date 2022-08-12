@@ -1,12 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
@@ -44,13 +43,13 @@ class PostAdvertiseCheckout : Fragment() {
 
                     if (postAdvertiseViewModel.isRenewAdvertise) {
                         val advertiseData = AdvertiseStaticData.getAddDetails()
-                        advertiseData?.advertisementId?.let { it1 ->
-                            advertiseData.locationPlanRate.days.let { it2 ->
-                                RenewAdvertiseRequest(
-                                    it1, it2
-                                )
-                            }
-                        }?.let { it2 -> postAdvertiseViewModel.renewAdvertise(it2) }
+                        findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                        /*postAdvertiseViewModel.renewAdvertise(
+                            RenewAdvertiseRequest(
+                                advertiseData?.advertisementId!!,
+                                advertiseData.locationPlanRate.days
+                            )
+                        )*/
                     } else {
                         postAdvertiseViewModel.postAdvertise(
                             PostAdvertiseRequest(
@@ -82,7 +81,33 @@ class PostAdvertiseCheckout : Fragment() {
 
         }
 
+        setDataForUpdating()
+
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
+                          response.data?.advertisementId?.let {
+                              callUploadAdvertisePicApi(it)
+                          }
+                      } else {
+
+                      }*/
+                }
+                is Resource.Empty -> {
+
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
+
+        postAdvertiseViewModel.renewAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -136,6 +161,15 @@ class PostAdvertiseCheckout : Fragment() {
             })
 
         return checkoutBinding?.root
+    }
+
+    private fun setDataForUpdating() {
+        val advertiseData = AdvertiseStaticData.getAddDetails()
+        checkoutBinding?.apply {
+            addPageLocationTv.text = advertiseData?.advertisementPageLocation?.locationName
+            startdDateTv.text = advertiseData?.fromDate
+            endDateTv.text = advertiseData?.toDate
+        }
     }
 
     private fun callUploadAdvertisePicApi(id: Int) {

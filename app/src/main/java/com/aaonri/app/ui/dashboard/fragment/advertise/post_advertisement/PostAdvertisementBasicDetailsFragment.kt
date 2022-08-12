@@ -14,8 +14,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
+import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.bumptech.glide.Glide
@@ -82,9 +84,45 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 )
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
-
         }
+
+        setDataForUpdating()
+
         return advertiseBinding?.root
+    }
+
+    private fun setDataForUpdating() {
+        val advertiseData = AdvertiseStaticData.getAddDetails()
+        advertiseBinding?.apply {
+            titleAdvertisedEt.setText(advertiseData?.advertisementDetails?.adTitle)
+            selectedTemplateTv.text = advertiseData?.advertisementPageLocation?.locationName
+            when (advertiseData?.locationPlanRate?.days) {
+                7 -> {
+                    selectAdvertiseDaysSpinner.setSelection(0)
+                }
+                15 -> {
+                    selectAdvertiseDaysSpinner.setSelection(1)
+                }
+                30 -> {
+                    selectAdvertiseDaysSpinner.setSelection(2)
+                }
+            }
+            //planChargeEt.setText()
+            if (advertiseData?.advertisementDetails?.adImage.isNullOrEmpty()) {
+                advertiseBinding?.advertiseIv?.visibility = View.GONE
+                advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
+                advertiseBinding?.sizeLimitTv?.visibility = View.VISIBLE
+            } else {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}")
+                        .into(advertiseIv)
+                }
+                advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
+                advertiseBinding?.uploadImageTv?.visibility = View.GONE
+                advertiseBinding?.sizeLimitTv?.visibility = View.GONE
+            }
+        }
     }
 
     private fun saveDataToViewModel(
