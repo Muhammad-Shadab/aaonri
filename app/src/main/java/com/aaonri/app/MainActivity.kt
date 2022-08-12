@@ -465,9 +465,18 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        advertiseViewModel.callAdvertiseApi.observe(this) {
+            if (it) {
+                if (email != null) {
+                    advertiseViewModel.getAllAdvertise(email)
+                }
+            }
+        }
+
     }
 
     private fun callApiAccordingToInterest(interests: String?) {
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

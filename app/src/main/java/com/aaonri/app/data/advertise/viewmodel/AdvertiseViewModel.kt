@@ -18,8 +18,12 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     val allAdvertiseData: MutableLiveData<Resource<AllAdvertiseResponse>> = MutableLiveData()
 
+    val cancelAdvertiseData: MutableLiveData<Resource<String>> = MutableLiveData()
+
     val advertiseDetailsData: MutableLiveData<Resource<AdvertiseDetailsResponse>> =
         MutableLiveData()
+
+    val callAdvertiseApi: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getAllAdvertise(userEmail: String) = viewModelScope.launch {
         allAdvertiseData.postValue(Resource.Loading())
@@ -49,6 +53,25 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun cancelAdvertise(advertiseId: Int) = viewModelScope.launch {
+        cancelAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.cancelAdvertise(advertiseId)
+        cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))
+    }
+
+    private fun handleCancelAdvertiseResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun callAdvertiseApiAfterCancel(value: Boolean) {
+        callAdvertiseApi.postValue(value)
     }
 
 }

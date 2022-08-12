@@ -40,6 +40,14 @@ class AdvertisementDetailsFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
+            moreClassifiedOption.setOnClickListener {
+                val action =
+                    AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
+                        args.advertiseId
+                    )
+                findNavController().navigate(action)
+            }
+
         }
 
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
@@ -55,6 +63,22 @@ class AdvertisementDetailsFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     detailsBinding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
+
+        advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigateUp()
+                    advertiseViewModel.callAdvertiseApiAfterCancel(true)
+                }
+                is Resource.Error -> {
+
                 }
                 else -> {}
             }
@@ -114,13 +138,10 @@ class AdvertisementDetailsFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         advertiseViewModel.advertiseDetailsData.value = null
+        advertiseViewModel.cancelAdvertiseData.value = null
     }
 
 }

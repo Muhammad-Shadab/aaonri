@@ -1,6 +1,7 @@
 package com.aaonri.app.data.advertise.di
 
 import com.aaonri.app.data.advertise.api.AdvertiseApi
+import com.aaonri.app.data.advertise.api.CancelAdvertiseApi
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
 import com.aaonri.app.data.classified.api.PostClassifiedApi
 import dagger.Module
@@ -24,8 +25,16 @@ object AdvertiseModule {
 
     @Provides
     @Singleton
+    fun provideCancelAdvertiseApi(
+        @Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder
+    ): CancelAdvertiseApi =
+        retrofit.build().create(CancelAdvertiseApi::class.java)
+
+    @Provides
+    @Singleton
     fun provideAdvertiseRepository(
-        advertiseApi: AdvertiseApi
-    ) = AdvertiseRepository(advertiseApi)
+        advertiseApi: AdvertiseApi,
+        cancelAdvertiseApi: CancelAdvertiseApi
+    ) = AdvertiseRepository(advertiseApi, cancelAdvertiseApi)
 
 }
