@@ -51,7 +51,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/selectedTemplateTv"
+                android:id="@+id/selectedPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
@@ -91,7 +91,7 @@
                     android:id="@+id/selectAdvertiseDaysSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/days_list"
+                    android:entries="@array/advertiseValidity"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="center_vertical"
                     android:paddingVertical="@dimen/_4sdp"
@@ -164,7 +164,39 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/isFashionCheck"
+                    android:id="@+id/emailPromotionalCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:button="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkbox"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:drawableRight="@drawable/i_btn_icon"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:text="Email Promotional Ads"
+                    android:textColor="@color/hintColor"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/flashingAdvertiseCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
@@ -187,26 +219,43 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/chooseTemplateTv"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/helvetica_regular"
-                android:gravity="center_vertical"
-                android:hint="Choose Template"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/_4sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_8sdp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableRightCompat="@drawable/arrow_down_spinner" />
+                android:background="@drawable/edit_text_shape">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:src="@drawable/arrow_down_spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/selectAdvertiseTemplateSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/advertiseTemplate"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/chooseTemplatell"

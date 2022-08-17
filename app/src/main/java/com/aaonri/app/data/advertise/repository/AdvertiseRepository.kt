@@ -20,6 +20,11 @@ class AdvertiseRepository @Inject constructor(
 
     suspend fun cancelAdvertise(advertiseId: Int) = cancelAdvertiseApi.cancelAdvertise(advertiseId)
 
+    suspend fun getAllActiveAdvertisePage() = advertiseApi.getAllActiveAdvertisePage()
+
+    suspend fun getAdvertisePageLocationById(advertisePageId: Int) =
+        advertiseApi.getAdvertisePageLocationById(advertisePageId)
+
     suspend fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) =
         advertiseApi.postAdvertisement(postAdvertiseRequest)
 

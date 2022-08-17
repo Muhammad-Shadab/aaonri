@@ -13,16 +13,16 @@ data class ModuleTemplate(
 val homeTemplates = ModuleWiseTemplate(
     listOf(
         ModuleTemplate(
+            "Home",
+            "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/Dashboard%20Step%2001.png"
+        ),
+        ModuleTemplate(
             "Landing Page",
             "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/Landing%20Page%20Step%2001.png"
         ),
         ModuleTemplate(
             "Product Details",
             "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/Product%20Details%20Step%2001.png"
-        ),
-        ModuleTemplate(
-            "Dashboard",
-            "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/Dashboard%20Step%2001.png"
         )
     )
 )
@@ -94,8 +94,6 @@ val landingPageLocationTemplate = ModuleWiseTemplate(
             "Event top banner",
             "http://aaonridevnew.aaonri.com/assets/img/advertisingpage/event-top-baner1.png"
         )
-
-
     )
 )
 

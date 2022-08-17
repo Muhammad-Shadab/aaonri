@@ -32,6 +32,8 @@ class AdvertiseScreenActivity : BaseActivity() {
             updateAdvertise = isUpdateAdvertise
         )
 
+        postAdvertiseViewModel.getAllActiveAdvertisePage()
+
         binding?.apply {
 
             navigateBack.setOnClickListener {

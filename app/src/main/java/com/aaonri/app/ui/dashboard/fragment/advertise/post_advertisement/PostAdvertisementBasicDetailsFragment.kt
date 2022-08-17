@@ -1,13 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,8 +19,10 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +30,20 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var templateImage = ""
+    var description: String? = ""
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    advertiseBinding?.advertiseDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    advertiseBinding?.advertiseDescEt?.text = ""
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +56,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
-            selectedTemplateTv.text = postAdvertiseViewModel.selectTemplateName
-            chooseTemplateTv.text = postAdvertiseViewModel.selectTemplateLocation
+            selectedPage.text = postAdvertiseViewModel.selectedTemplatePageName?.pageName
+            description?.let {
+                advertiseDescEt.fromHtml(it)
+            }
 
             chooseTemplatell.setOnClickListener {
                 if (templateImage.isEmpty()) {
@@ -58,35 +75,56 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
-                saveDataToViewModel(
-                    titleAdvertisedEt.text.toString(),
-                    selectedTemplateTv.text.toString(),
-                    selectAdvertiseDaysSpinner.toString(),
-                    planChargeEt.text.toString(),
-                    costOfvalueEt.text.toString(),
-                    isFashionCheck.isChecked,
-                    chooseTemplateTv.text.toString(),
-                    templateImage
-                )
-                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                if (titleAdvertisedEt.text.toString().length >= 3) {
+                    saveDataToViewModel(
+                        titleAdvertisedEt.text.toString(),
+                        selectedPage.text.toString(),
+                        selectAdvertiseDaysSpinner.toString(),
+                        planChargeEt.text.toString(),
+                        costOfvalueEt.text.toString(),
+                        emailPromotionalCheckbox.isChecked,
+                        flashingAdvertiseCheckbox.isChecked,
+                        selectAdvertiseTemplateSpinner.toString(),
+                        templateImage
+                    )
+                    findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                } else {
+                    showAlert("Please enter valid ad title")
+                }
             }
 
             previewAdvertiseBtn.setOnClickListener {
-                saveDataToViewModel(
-                    titleAdvertisedEt.text.toString(),
-                    selectedTemplateTv.text.toString(),
-                    selectAdvertiseDaysSpinner.toString(),
-                    planChargeEt.text.toString(),
-                    costOfvalueEt.text.toString(),
-                    isFashionCheck.isChecked,
-                    chooseTemplateTv.text.toString(),
-                    templateImage
-                )
-                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
+                if (titleAdvertisedEt.text.toString().length >= 3) {
+                    saveDataToViewModel(
+                        titleAdvertisedEt.text.toString(),
+                        selectedPage.text.toString(),
+                        selectAdvertiseDaysSpinner.toString(),
+                        planChargeEt.text.toString(),
+                        costOfvalueEt.text.toString(),
+                        emailPromotionalCheckbox.isChecked,
+                        flashingAdvertiseCheckbox.isChecked,
+                        selectAdvertiseTemplateSpinner.toString(),
+                        templateImage
+                    )
+                    findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
+                } else {
+                    showAlert("Please enter valid ad title")
+                }
+
             }
+
+            advertiseDescEt.setOnClickListener {
+                val intent = Intent(context, RichTextEditor::class.java)
+                intent.putExtra("data", description)
+                intent.putExtra("placeholder", "Ad description")
+                resultLauncher.launch(intent)
+            }
+
         }
 
-        setDataForUpdating()
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            setDataForUpdating()
+        }
 
         return advertiseBinding?.root
     }
@@ -95,7 +133,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         val advertiseData = AdvertiseStaticData.getAddDetails()
         advertiseBinding?.apply {
             titleAdvertisedEt.setText(advertiseData?.advertisementDetails?.adTitle)
-            selectedTemplateTv.text = advertiseData?.advertisementPageLocation?.locationName
+            selectedPage.text = advertiseData?.advertisementPageLocation?.locationName
             when (advertiseData?.locationPlanRate?.days) {
                 7 -> {
                     selectAdvertiseDaysSpinner.setSelection(0)
@@ -122,6 +160,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 advertiseBinding?.uploadImageTv?.visibility = View.GONE
                 advertiseBinding?.sizeLimitTv?.visibility = View.GONE
             }
+            advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.companyDescription)
         }
     }
 
@@ -131,20 +170,25 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         advertiseValidity: String,
         planCharges: String,
         costOfValue: String,
+        isEmailPromotional: Boolean,
         isFlashingAdvertisement: Boolean,
         templateLocation: String,
         advertiseImageUri: String
     ) {
-        postAdvertiseViewModel.addCompanyBasicDetailsMap(
-            addTitle,
-            templateName,
-            advertiseValidity,
-            planCharges,
-            costOfValue,
-            isFlashingAdvertisement,
-            templateLocation,
-            advertiseImageUri
-        )
+        description?.let {
+            postAdvertiseViewModel.addCompanyBasicDetailsMap(
+                addTitle = addTitle,
+                templateName = templateName,
+                advertiseValidity = advertiseValidity,
+                planCharges = planCharges,
+                costOfValue = costOfValue,
+                isEmailPromotional = isEmailPromotional,
+                isFlashingAdvertisement = isFlashingAdvertisement,
+                templateLocation = templateLocation,
+                advertiseImageUri = advertiseImageUri,
+                description = it
+            )
+        }
     }
 
     private val startForProfileImageResult =
@@ -188,6 +232,15 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             advertiseBinding?.advertiseIv?.visibility = View.GONE
             advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
             advertiseBinding?.sizeLimitTv?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 

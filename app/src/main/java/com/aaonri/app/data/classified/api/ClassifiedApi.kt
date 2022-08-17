@@ -45,6 +45,4 @@ interface ClassifiedApi {
     ): Response<LikeDislikeClassifiedResponse>
 
 
-
-
 }

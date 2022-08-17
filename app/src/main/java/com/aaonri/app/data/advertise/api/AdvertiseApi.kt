@@ -18,6 +18,14 @@ interface AdvertiseApi {
         @Path("advertiseId") advertiseId: Int
     ): Response<AdvertiseDetailsResponse>
 
+    @GET("/api/v1/avdPage/findAllActive")
+    suspend fun getAllActiveAdvertisePage(): Response<AdvertiseActivePageResponse>
+
+    @GET("/api/v1/avdPageLocation/getAllPageLocationByPageId")
+    suspend fun getAdvertisePageLocationById(
+        @Query("pageId") pageId: Int
+    ): Response<AdvertisePageLocationResponse>
+
     @POST("/api/v1/avd/add")
     suspend fun postAdvertisement(
         @Body postAdvertiseRequest: PostAdvertiseRequest
@@ -35,4 +43,8 @@ interface AdvertiseApi {
         @Body renewAdvertiseRequest: RenewAdvertiseRequest
     ): Response<String>
 
+    /*@POST("/api/v1/avd/update")
+    suspend fun updateAdvertise(
+        @Body updateAdvertiseRequest: UpdateAdvertiseRequest
+    ): Response<PostAdvertiseResponse>*/
 }

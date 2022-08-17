@@ -170,12 +170,11 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             companyProfessionEt.setText(advertiseData?.advertisementDetails?.productServices)
             companyLinkEt.setText(advertiseData?.advertisementDetails?.url)
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.companyDescription)
-
         }
     }
 
     private fun setData() {
-        detailsBinding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] else "")
+        detailsBinding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] else "")
 
     }
 

@@ -132,9 +132,15 @@
     <string name="booking_summary_payment">Booking Summary &amp; Payment</string>
 
 
-        <string-array name="days_list">
-            <item>7 Days</item>
-            <item>15 Days</item>
-            <item>30 Days</item>
-        </string-array>
+    <string-array name="advertiseValidity">
+        <item>7 Days</item>
+        <item>15 Days</item>
+        <item>30 Days</item>
+    </string-array>
+
+    <string-array name="advertiseTemplate">
+        <item>Image Only</item>
+        <item>Image with text on bottom</item>
+        <item>Image with text on left side</item>
+    </string-array>
 </resources>

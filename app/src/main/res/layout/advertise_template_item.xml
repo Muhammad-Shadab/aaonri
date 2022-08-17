@@ -8,6 +8,8 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:strokeWidth="@dimen/_2sdp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white">
 
@@ -15,6 +17,7 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_160sdp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
             android:src="@drawable/demo" />
 
         <ImageView

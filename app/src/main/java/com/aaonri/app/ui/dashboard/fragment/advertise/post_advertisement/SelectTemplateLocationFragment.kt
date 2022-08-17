@@ -9,15 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.advertise.AdvertiseConstant
-import com.aaonri.app.data.advertise.model.dashboardLocationTemplate
-import com.aaonri.app.data.advertise.model.landingPageLocationTemplate
-import com.aaonri.app.data.advertise.model.productDetailsLocationTemplate
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectTemplateLocationBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateLocationAdapter
+import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 
-class SelectTemplateLocation : Fragment() {
+class SelectTemplateLocationFragment : Fragment() {
     var binding: FragmentSelectTemplateLocationBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertiseTemplateLocationAdapter: AdvertiseTemplateLocationAdapter? = null
@@ -33,7 +31,7 @@ class SelectTemplateLocation : Fragment() {
         )
 
         advertiseTemplateLocationAdapter = AdvertiseTemplateLocationAdapter {
-            binding?.tv3?.text = it
+            binding?.tv3?.text = it.title
             binding?.tv3?.visibility = View.VISIBLE
             postAdvertiseViewModel.setTemplateLocation(it)
         }
@@ -43,9 +41,9 @@ class SelectTemplateLocation : Fragment() {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION)
 
             advertiseTemplatesNextBtn.setOnClickListener {
-                if (postAdvertiseViewModel.selectTemplateLocation.isNotEmpty()) {
+                if (postAdvertiseViewModel.selectedTemplateLocation?.title?.isNotEmpty() == true) {
                     val action =
-                        SelectTemplateLocationDirections.actionSelectTemplateLocationToPostAdvertisementbasicDetailsFragment()
+                        SelectTemplateLocationFragmentDirections.actionSelectTemplateLocationToPostAdvertisementbasicDetailsFragment()
                     findNavController().navigate(action)
                 } else {
                     activity?.let { it1 ->
@@ -63,10 +61,33 @@ class SelectTemplateLocation : Fragment() {
 
             horizontalRv2.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            horizontalRv2.adapter = advertiseTemplateLocationAdapter
 
         }
 
-        when (postAdvertiseViewModel.selectTemplateName) {
+        postAdvertiseViewModel.selectedTemplatePageName?.pageId?.let {
+            postAdvertiseViewModel.getAdvertisePageLocationById(
+                it
+            )
+        }
+
+        postAdvertiseViewModel.advertisePageLocationData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    response.data?.let { advertiseTemplateLocationAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
+
+        /*when (postAdvertiseViewModel.selectedTemplatePageName) {
             "Landing Page" -> {
                 advertiseTemplateLocationAdapter?.setData(landingPageLocationTemplate.listOfModule)
             }
@@ -76,7 +97,7 @@ class SelectTemplateLocation : Fragment() {
             "Dashboard" -> {
                 advertiseTemplateLocationAdapter?.setData(dashboardLocationTemplate.listOfModule)
             }
-        }
+        }*/
 
         return binding?.root
     }

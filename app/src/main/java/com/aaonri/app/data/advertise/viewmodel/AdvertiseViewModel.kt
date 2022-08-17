@@ -3,6 +3,7 @@ package com.aaonri.app.data.advertise.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.advertise.model.AdvertiseActivePageResponse
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository

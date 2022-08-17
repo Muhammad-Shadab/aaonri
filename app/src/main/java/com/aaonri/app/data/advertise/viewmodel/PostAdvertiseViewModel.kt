@@ -4,9 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.advertise.AdvertiseConstant
-import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
-import com.aaonri.app.data.advertise.model.PostAdvertiseResponse
-import com.aaonri.app.data.advertise.model.RenewAdvertiseRequest
+import com.aaonri.app.data.advertise.model.*
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,10 +30,10 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var companyBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectTemplateName = ""
+    var selectedTemplatePageName: AdvertiseActivePageResponseItem? = null
         private set
 
-    var selectTemplateLocation = ""
+    var selectedTemplateLocation: AdvertisePageLocationResponseItem? = null
         private set
 
     var isRenewAdvertise = false
@@ -44,11 +42,19 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var isUpdateAdvertise = false
         private set
 
+    var vasList = mutableListOf<String>()
+
     val postedAdvertiseData: MutableLiveData<Resource<PostAdvertiseResponse>> = MutableLiveData()
 
     val renewAdvertiseData: MutableLiveData<Resource<String>> = MutableLiveData()
 
     val uploadAdvertiseImageData: MutableLiveData<Resource<String>> = MutableLiveData()
+
+    val advertisePageData: MutableLiveData<Resource<AdvertiseActivePageResponse>> =
+        MutableLiveData()
+
+    val advertisePageLocationData: MutableLiveData<Resource<AdvertisePageLocationResponse>> =
+        MutableLiveData()
 
     fun addCompanyContactDetails(
         companyName: String,
@@ -65,7 +71,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL] = email
         companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS] = services
         companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK] = link
-        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_DESCRIPTION] = description
+        companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] = description
     }
 
     fun addCompanyBasicDetailsMap(
@@ -74,19 +80,60 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         advertiseValidity: String,
         planCharges: String,
         costOfValue: String,
+        isEmailPromotional: Boolean,
         isFlashingAdvertisement: Boolean,
         templateLocation: String,
         advertiseImageUri: String,
+        description: String,
     ) {
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE] = addTitle
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE] = templateName
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_VALIDITY] = advertiseValidity
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_PLAN_CHARGES] = planCharges
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_COST_OF_VALUE] = costOfValue
-        companyBasicDetailsMap[AdvertiseConstant.IS_FLASHING_ADVERTISE] =
-            isFlashingAdvertisement.toString()
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION] = templateLocation
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI] = advertiseImageUri
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION] = description
+        if (isEmailPromotional) {
+            if (!vasList.contains("")) {
+                vasList.add("EPAD")
+            }
+        }
+        if (isFlashingAdvertisement) {
+            if (!vasList.contains("")) {
+                vasList.add("FLAD")
+            }
+        }
+    }
+
+    fun getAllActiveAdvertisePage() = viewModelScope.launch {
+        advertisePageData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAllActiveAdvertisePage()
+        advertisePageData.postValue(handleActivePageResponse(response))
+    }
+
+    private fun handleActivePageResponse(response: Response<AdvertiseActivePageResponse>): Resource<AdvertiseActivePageResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getAdvertisePageLocationById(advertiseId: Int) = viewModelScope.launch {
+        advertisePageLocationData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAdvertisePageLocationById(advertiseId)
+        advertisePageLocationData.postValue(handleAdvertisePageLocationResponse(response))
+    }
+
+    private fun handleAdvertisePageLocationResponse(response: Response<AdvertisePageLocationResponse>): Resource<AdvertisePageLocationResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
     fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) = viewModelScope.launch {
@@ -135,12 +182,12 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
-    fun setTemplateName(value: String) {
-        selectTemplateName = value
+    fun setTemplateName(value: AdvertiseActivePageResponseItem) {
+        selectedTemplatePageName = value
     }
 
-    fun setTemplateLocation(value: String) {
-        selectTemplateLocation = value
+    fun setTemplateLocation(value: AdvertisePageLocationResponseItem) {
+        selectedTemplateLocation = value
     }
 
     fun setStepViewLastTick(value: Boolean) {

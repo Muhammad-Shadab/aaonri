@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
@@ -30,6 +31,8 @@ class AdvertiseScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+        startActivityForResult(intent, 3)
 
         advertiseAdapter = AdvertiseAdapter {
             val action =
@@ -52,6 +55,7 @@ class AdvertiseScreenFragment : Fragment() {
 
         }
 
+
         advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -59,6 +63,10 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
+                    /*response.data?.forEach {
+                        Toast.makeText(context, "${it.advertisementId}", Toast.LENGTH_SHORT).show()
+                        advertiseViewModel.getAdvertiseDetailsById(it.advertisementId)
+                    }*/
                     response.data?.let { advertiseAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
@@ -72,6 +80,27 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 else -> {
                 }
+            }
+        }
+
+        advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    advertiseBinding?.progressBar?.visibility = View.VISIBLE
+
+                }
+                is Resource.Success -> {
+                    advertiseBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(
+                        context,
+                        "${response.data?.advertisementDetails?.adImage}.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Error -> {
+                    advertiseBinding?.progressBar?.visibility = View.GONE
+                }
+                else -> {}
             }
         }
 
