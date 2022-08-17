@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_26sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,11 +40,10 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/advertisemntImage"
+            android:id="@+id/advertisementImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_310sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/ic_image_placeholder"
             app:layout_constraintTop_toBottomOf="@+id/mainll" />
 
         <TextView
@@ -60,7 +59,10 @@
             android:text="Yoga &amp; Fitness Classes"
             android:textColor="#333333"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/advertisemntImage" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/advertisementImage" />
 
         <TextView
             android:id="@+id/advertiseLocationTv"
@@ -78,6 +80,9 @@
             android:text="New York 0852"
             android:textColor="#707070"
             android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
 
         <TextView
@@ -96,6 +101,9 @@
             android:text="From Mar 15,2022 To Mar 21,2022"
             android:textColor="#707070"
             android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
 
         <TextView
@@ -114,6 +122,9 @@
             android:text="https://yogafitness.com/"
             android:textColor="#124c94"
             android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
 
         <TextView
@@ -128,6 +139,9 @@
             android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
             android:textColor="@color/darkGrayColor"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertiseLinkTv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
