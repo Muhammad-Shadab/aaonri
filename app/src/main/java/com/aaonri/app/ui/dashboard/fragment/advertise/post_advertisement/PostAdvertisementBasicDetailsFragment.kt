@@ -234,14 +234,17 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                                 templateName.add(it.name)
                             }
                         }
+                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "TXTONLY") {
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
                         }
+                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
                     } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "IMGONLY") {
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
                         }
+                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
                     }
 
                     val arrayAdapter = context?.let {
