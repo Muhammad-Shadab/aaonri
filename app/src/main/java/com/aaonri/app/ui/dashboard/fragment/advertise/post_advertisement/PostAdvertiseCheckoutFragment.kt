@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,7 +13,6 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertisementDetails
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
-import com.aaonri.app.data.advertise.model.RenewAdvertiseRequest
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCheckoutBinding
 import com.aaonri.app.utils.Resource
@@ -67,12 +65,14 @@ class PostAdvertiseCheckout : Fragment() {
                                     url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
                                 ),
                                 emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
-                                locationId = 14,
+                                locationId = if (postAdvertiseViewModel.selectedTemplateLocation?.locationId.toString()
+                                        .isNotEmpty()
+                                ) postAdvertiseViewModel.selectedTemplateLocation!!.locationId else 0,
                                 paymentStatus = "SUCCESS",
                                 planId = 1,
                                 rate = 0,
-                                templateCode = "IMON",
-                                vasCodes = listOf()
+                                templateCode = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]!! else "",
+                                vasCodes = postAdvertiseViewModel.vasList
                             )
                         )
                     }
@@ -82,6 +82,10 @@ class PostAdvertiseCheckout : Fragment() {
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
             setDataForUpdating()
+        }
+
+        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) {
+
         }
 
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->

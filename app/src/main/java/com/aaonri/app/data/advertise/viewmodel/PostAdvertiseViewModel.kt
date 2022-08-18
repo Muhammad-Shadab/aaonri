@@ -51,6 +51,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     val uploadAdvertiseImageData: MutableLiveData<Resource<String>> = MutableLiveData()
 
+    val activeTemplateDataForSpinner: MutableLiveData<Resource<ActiveTemplateResponse>> =
+        MutableLiveData()
+
     val advertiseActiveVasData: MutableLiveData<Resource<AdvertiseActiveVasResponse>> =
         MutableLiveData()
 
@@ -86,7 +89,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         costOfValue: String,
         isEmailPromotional: Boolean,
         isFlashingAdvertisement: Boolean,
-        templateLocation: String,
+        templateCode: String,
         advertiseImageUri: String,
         description: String,
     ) {
@@ -95,7 +98,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_VALIDITY] = advertiseValidity
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_PLAN_CHARGES] = planCharges
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_COST_OF_VALUE] = costOfValue
-        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION] = templateLocation
+        companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE] = templateCode
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI] = advertiseImageUri
         companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION] = description
         if (isEmailPromotional) {
@@ -104,7 +107,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             }
         }
         if (isFlashingAdvertisement) {
-            if (!vasList.contains("")) {
+            if (!vasList.contains("FLAD")) {
                 vasList.add("FLAD")
             }
         }
@@ -147,6 +150,21 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     private fun handleActiveVasResponse(response: Response<AdvertiseActiveVasResponse>): Resource<AdvertiseActiveVasResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getActiveTemplateForSpinner() = viewModelScope.launch {
+        activeTemplateDataForSpinner.postValue(Resource.Loading())
+        val response = advertiseRepository.getActiveTemplateForSpinner()
+        activeTemplateDataForSpinner.postValue(handleAdvertiseTemplateResponse(response))
+    }
+
+    private fun handleAdvertiseTemplateResponse(response: Response<ActiveTemplateResponse>): Resource<ActiveTemplateResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

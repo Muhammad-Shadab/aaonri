@@ -105,7 +105,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
+            <TextView
                 android:id="@+id/planChargeEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,9 +113,9 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
+                android:backgroundTint="#f2f2f2"
                 android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="Plan Charges"
+                android:fontFamily="@font/helvetica_regular"
                 android:inputType="numberDecimal"
                 android:lines="1"
                 android:maxLines="1"
@@ -123,14 +123,12 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableLeftCompat="@drawable/dollor"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:drawableLeftCompat="@drawable/dollor" />
 
-                />
-
-            <EditText
+            <TextView
                 android:id="@+id/costOfvalueEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,9 +136,9 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
+                android:backgroundTint="#f2f2f2"
                 android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:hint="Cost of Value Added Services"
+                android:fontFamily="@font/helvetica_regular"
                 android:inputType="numberDecimal"
                 android:lines="1"
                 android:maxLines="1"
@@ -148,18 +146,16 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_6sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableLeftCompat="@drawable/dollor"
-
-                />
+                android:text="Cost of Value Added Services"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:drawableLeftCompat="@drawable/dollor" />
 
             <LinearLayout
                 android:id="@+id/emailPromotionalLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginHorizontal="@dimen/_32sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -194,7 +190,7 @@
                 android:id="@+id/flashingAdvertiseLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_28sdp"
+                android:layout_marginHorizontal="@dimen/_32sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -248,7 +244,6 @@
                     android:id="@+id/selectAdvertiseTemplateSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/advertiseTemplate"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="center_vertical"
                     android:paddingVertical="@dimen/_4sdp"
@@ -327,14 +322,14 @@
                     android:layout_margin="@dimen/_2sdp"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="left"
-                    android:hint="Ad description (Max 30 characters)"
+                    android:hint="@string/advertise_basic_details_desc"
                     android:includeFontPadding="false"
                     android:maxLength="30"
                     android:padding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingTop="@dimen/_4sdp"
                     android:scrollbars="vertical"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:ignore="RtlHardcoded" />
             </androidx.core.widget.NestedScrollView>
 
@@ -362,7 +357,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/green_btn_shape"

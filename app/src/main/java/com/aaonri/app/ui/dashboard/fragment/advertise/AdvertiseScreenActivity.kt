@@ -32,6 +32,7 @@ class AdvertiseScreenActivity : BaseActivity() {
         )
 
         postAdvertiseViewModel.getAllActiveAdvertisePage()
+        postAdvertiseViewModel.getActiveTemplateForSpinner()
 
         binding?.apply {
 

@@ -28,6 +28,8 @@ class AdvertiseRepository @Inject constructor(
     suspend fun getAdvertiseActiveVas(locationCode: String) =
         advertiseApi.getAdvertiseActiveVas(locationCode)
 
+    suspend fun getActiveTemplateForSpinner() = advertiseApi.getActiveTemplateForSpinner()
+
     suspend fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) =
         advertiseApi.postAdvertisement(postAdvertiseRequest)
 

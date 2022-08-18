@@ -31,6 +31,9 @@ interface AdvertiseApi {
         @Query("locationCode") locationCode: String
     ): Response<AdvertiseActiveVasResponse>
 
+    @GET("/api/v1/template/findAllActive")
+    suspend fun getActiveTemplateForSpinner(): Response<ActiveTemplateResponse>
+
     @POST("/api/v1/avd/add")
     suspend fun postAdvertisement(
         @Body postAdvertiseRequest: PostAdvertiseRequest

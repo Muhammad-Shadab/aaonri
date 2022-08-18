@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +36,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var description: String? = ""
     var flashingAdvertiseDesc: String? = ""
     var emailPromotionalDesc: String? = ""
+    var spinnerTemplateCode: String? = ""
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -66,7 +68,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
-            //selectedPage.text = postAdvertiseViewModel.selectedTemplatePageName?.pageName
             description?.let {
                 advertiseDescEt.fromHtml(it)
             }
@@ -86,17 +87,19 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             advertiseDetailsNextBtn.setOnClickListener {
                 if (titleAdvertisedEt.text.toString().length >= 3) {
-                    saveDataToViewModel(
-                        titleAdvertisedEt.text.toString(),
-                        selectedPage.text.toString(),
-                        selectAdvertiseDaysSpinner.toString(),
-                        planChargeEt.text.toString(),
-                        costOfvalueEt.text.toString(),
-                        emailPromotionalCheckbox.isChecked,
-                        flashingAdvertiseCheckbox.isChecked,
-                        selectAdvertiseTemplateSpinner.toString(),
-                        templateImage
-                    )
+                    spinnerTemplateCode?.let { it1 ->
+                        saveDataToViewModel(
+                            titleAdvertisedEt.text.toString(),
+                            selectedPage.text.toString(),
+                            selectAdvertiseDaysSpinner.toString(),
+                            planChargeEt.text.toString(),
+                            costOfvalueEt.text.toString(),
+                            emailPromotionalCheckbox.isChecked,
+                            flashingAdvertiseCheckbox.isChecked,
+                            it1,
+                            templateImage
+                        )
+                    }
                     findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
                 } else {
                     showAlert("Please enter valid ad title")
@@ -105,17 +108,19 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             previewAdvertiseBtn.setOnClickListener {
                 if (titleAdvertisedEt.text.toString().length >= 3) {
-                    saveDataToViewModel(
-                        titleAdvertisedEt.text.toString(),
-                        selectedPage.text.toString(),
-                        selectAdvertiseDaysSpinner.toString(),
-                        planChargeEt.text.toString(),
-                        costOfvalueEt.text.toString(),
-                        emailPromotionalCheckbox.isChecked,
-                        flashingAdvertiseCheckbox.isChecked,
-                        selectAdvertiseTemplateSpinner.toString(),
-                        templateImage
-                    )
+                    spinnerTemplateCode?.let { it1 ->
+                        saveDataToViewModel(
+                            titleAdvertisedEt.text.toString(),
+                            selectedPage.text.toString(),
+                            selectAdvertiseDaysSpinner.toString(),
+                            planChargeEt.text.toString(),
+                            costOfvalueEt.text.toString(),
+                            emailPromotionalCheckbox.isChecked,
+                            flashingAdvertiseCheckbox.isChecked,
+                            it1,
+                            templateImage
+                        )
+                    }
                     findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
                 } else {
                     showAlert("Please enter valid ad title")
@@ -149,6 +154,35 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
                 builder.show()
             }
+
+            selectAdvertiseTemplateSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
+                        when (selectAdvertiseTemplateSpinner.selectedItem.toString()) {
+                            "Image Only" -> {
+                                spinnerTemplateCode = "IMON"
+                            }
+                            "Image with text on bottom" -> {
+                                spinnerTemplateCode = "IMTB"
+                            }
+                            "Image with text on left side" -> {
+                                spinnerTemplateCode = "IMTL"
+                            }
+                            "Text Only" -> {
+                                spinnerTemplateCode = "TXON"
+                            }
+                        }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>) {
+
+                    }
+                }
 
         }
 
@@ -185,6 +219,50 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
                 }
             }
+        }
+
+        postAdvertiseViewModel.activeTemplateDataForSpinner.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val templateName = mutableListOf<String>()
+                    if (postAdvertiseViewModel.selectedTemplateLocation?.type == "BOTH") {
+                        response.data?.forEach {
+                            if (!templateName.contains(it.name)) {
+                                templateName.add(it.name)
+                            }
+                        }
+                    } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "TXTONLY") {
+                        if (!templateName.contains("Text Only")) {
+                            templateName.add("Text Only")
+                        }
+                    } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "IMGONLY") {
+                        if (!templateName.contains("Image Only")) {
+                            templateName.add("Image Only")
+                        }
+                    }
+
+                    val arrayAdapter = context?.let {
+                        ArrayAdapter(
+                            it,
+                            android.R.layout.simple_spinner_item,
+                            templateName
+                        )
+                    }
+                    arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    advertiseBinding?.selectAdvertiseTemplateSpinner?.adapter = arrayAdapter
+                }
+                is Resource.Error -> {
+
+                }
+            }
+
+        }
+
+        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { advertisePage ->
+            advertiseBinding?.selectedPage?.text = advertisePage.pageName
         }
 
         return advertiseBinding?.root
@@ -233,7 +311,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         costOfValue: String,
         isEmailPromotional: Boolean,
         isFlashingAdvertisement: Boolean,
-        templateLocation: String,
+        templateCode: String,
         advertiseImageUri: String
     ) {
         description?.let {
@@ -245,7 +323,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 costOfValue = costOfValue,
                 isEmailPromotional = isEmailPromotional,
                 isFlashingAdvertisement = isFlashingAdvertisement,
-                templateLocation = templateLocation,
+                templateCode = templateCode,
                 advertiseImageUri = advertiseImageUri,
                 description = it
             )
