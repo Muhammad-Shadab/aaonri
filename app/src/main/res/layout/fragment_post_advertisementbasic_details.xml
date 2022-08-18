@@ -156,12 +156,14 @@
                 />
 
             <LinearLayout
+                android:id="@+id/emailPromotionalLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <CheckBox
                     android:id="@+id/emailPromotionalCheckbox"
@@ -175,6 +177,7 @@
                     android:minHeight="0dp" />
 
                 <TextView
+                    android:id="@+id/emailPromotionalTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
@@ -188,12 +191,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/flashingAdvertiseLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <CheckBox
                     android:id="@+id/flashingAdvertiseCheckbox"
@@ -207,6 +212,7 @@
                     android:minHeight="0dp" />
 
                 <TextView
+                    android:id="@+id/flashingAdvertiseTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
@@ -223,7 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape">
 

@@ -320,7 +320,7 @@ class ServicesCategoryFragment : Fragment() {
     private fun getServicesInterestList() {
         registrationViewModel.getServices()
         lifecycleScope.launchWhenCreated {
-            registrationViewModel.service.collect { response ->
+            registrationViewModel.service.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
                         servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE

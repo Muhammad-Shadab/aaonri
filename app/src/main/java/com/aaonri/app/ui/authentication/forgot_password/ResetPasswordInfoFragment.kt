@@ -52,7 +52,6 @@ class ResetPasswordInfoFragment : Fragment() {
                         ).show()
                     }
                 }
-                is Resource.Empty -> { }
                 is Resource.Error -> {
                     resetPasswordBinding?.progressBar?.visibility = View.GONE
                 }

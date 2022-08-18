@@ -26,6 +26,11 @@ interface AdvertiseApi {
         @Query("pageId") pageId: Int
     ): Response<AdvertisePageLocationResponse>
 
+    @GET("/api/v1/valueAddedServices/findAllActiveVasByAdvLocationCode")
+    suspend fun getAdvertiseActiveVas(
+        @Query("locationCode") locationCode: String
+    ): Response<AdvertiseActiveVasResponse>
+
     @POST("/api/v1/avd/add")
     suspend fun postAdvertisement(
         @Body postAdvertiseRequest: PostAdvertiseRequest

@@ -99,9 +99,6 @@ class PostAdvertiseCheckout : Fragment() {
 
                       }*/
                 }
-                is Resource.Empty -> {
-
-                }
                 is Resource.Error -> {
 
                 }
@@ -123,9 +120,6 @@ class PostAdvertiseCheckout : Fragment() {
 
                       }*/
                 }
-                is Resource.Empty -> {
-
-                }
                 is Resource.Error -> {
 
                 }
@@ -139,9 +133,6 @@ class PostAdvertiseCheckout : Fragment() {
                 }
                 is Resource.Success -> {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
-                }
-                is Resource.Empty -> {
-
                 }
                 is Resource.Error -> {
 

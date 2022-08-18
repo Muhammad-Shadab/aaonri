@@ -50,6 +50,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     val uploadAdvertiseImageData: MutableLiveData<Resource<String>> = MutableLiveData()
 
+    val advertiseActiveVasData: MutableLiveData<Resource<AdvertiseActiveVasResponse>> =
+        MutableLiveData()
+
     val advertisePageData: MutableLiveData<Resource<AdvertiseActivePageResponse>> =
         MutableLiveData()
 
@@ -128,6 +131,21 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     private fun handleAdvertisePageLocationResponse(response: Response<AdvertisePageLocationResponse>): Resource<AdvertisePageLocationResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getAdvertiseActiveVas(locationCode: String) = viewModelScope.launch {
+        advertiseActiveVasData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAdvertiseActiveVas(locationCode)
+        advertiseActiveVasData.postValue(handleActiveVasResponse(response))
+    }
+
+    private fun handleActiveVasResponse(response: Response<AdvertiseActiveVasResponse>): Resource<AdvertiseActiveVasResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

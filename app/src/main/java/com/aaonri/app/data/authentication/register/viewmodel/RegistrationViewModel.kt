@@ -27,9 +27,7 @@ class RegistrationViewModel
     private val repository: RegistrationRepository,
 ) : ViewModel() {
 
-    private var mutableServices: MutableStateFlow<Resource<ServicesResponse>> =
-        MutableStateFlow(Resource.Empty())
-    val service: StateFlow<Resource<ServicesResponse>> = mutableServices
+    var service: MutableLiveData<Resource<ServicesResponse>> = MutableLiveData()
 
     val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
         MutableLiveData()
@@ -41,14 +39,19 @@ class RegistrationViewModel
 
     val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
-
     fun getServices() = viewModelScope.launch {
-        mutableServices.value = Resource.Loading()
-        repository.getServicesInterest().catch { e ->
-            mutableServices.value = Resource.Error(e.localizedMessage)
-        }.collect { response ->
-            mutableServices.value = Resource.Success(response)
+        service.postValue(Resource.Loading())
+        val response = repository.getServicesInterest()
+        service.postValue(handleServiceResponse(response))
+    }
+
+    private fun handleServiceResponse(response: Response<ServicesResponse>): Resource<ServicesResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
         }
+        return Resource.Error(response.message())
     }
 
 

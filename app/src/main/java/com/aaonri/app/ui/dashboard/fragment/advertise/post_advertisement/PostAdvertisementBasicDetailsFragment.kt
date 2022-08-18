@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +33,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var templateImage = ""
     var description: String? = ""
+    var flashingAdvertiseDesc: String? = ""
+    var emailPromotionalDesc: String? = ""
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -51,6 +55,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     ): View? {
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
+
+        postAdvertiseViewModel.selectedTemplateLocation?.locationCode?.let {
+            postAdvertiseViewModel.getAdvertiseActiveVas(
+                it
+            )
+        }
 
         advertiseBinding?.apply {
 
@@ -120,10 +130,61 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 resultLauncher.launch(intent)
             }
 
+            flashingAdvertiseTv.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Flashing Advertisement")
+                builder.setMessage(flashingAdvertiseDesc)
+                builder.setPositiveButton("OK") { dialog, which ->
+
+                }
+                builder.show()
+            }
+
+            emailPromotionalTv.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Email Promotional Ads")
+                builder.setMessage(emailPromotionalDesc)
+                builder.setPositiveButton("OK") { dialog, which ->
+
+                }
+                builder.show()
+            }
+
         }
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
             setDataForUpdating()
+        }
+
+        postAdvertiseViewModel.advertiseActiveVasData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (!response.data.isNullOrEmpty()) {
+                        response.data.forEach {
+                            when (it.code) {
+                                "EPAD" -> {
+                                    // Email Promotional Ads
+                                    advertiseBinding?.emailPromotionalLl?.visibility = View.VISIBLE
+                                    advertiseBinding?.emailPromotionalTv?.text = it.name
+                                    emailPromotionalDesc = it.description
+                                }
+                                "FLAD" -> {
+                                    // Flashing Advertisement
+                                    advertiseBinding?.flashingAdvertiseLl?.visibility = View.VISIBLE
+                                    advertiseBinding?.flashingAdvertiseTv?.text = it.name
+                                    flashingAdvertiseDesc = it.description
+                                }
+                            }
+                        }
+                    }
+                }
+                is Resource.Error -> {
+
+                }
+            }
         }
 
         return advertiseBinding?.root

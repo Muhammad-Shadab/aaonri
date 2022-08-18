@@ -25,6 +25,9 @@ class AdvertiseRepository @Inject constructor(
     suspend fun getAdvertisePageLocationById(advertisePageId: Int) =
         advertiseApi.getAdvertisePageLocationById(advertisePageId)
 
+    suspend fun getAdvertiseActiveVas(locationCode: String) =
+        advertiseApi.getAdvertiseActiveVas(locationCode)
+
     suspend fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) =
         advertiseApi.postAdvertisement(postAdvertiseRequest)
 

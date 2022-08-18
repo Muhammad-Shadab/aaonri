@@ -26,9 +26,7 @@ class RegistrationRepository @Inject constructor(
 
     suspend fun getCountries() = countriesApi.getCountriesList()
 
-    fun getServicesInterest(): Flow<ServicesResponse> = flow {
-        emit(registrationApi.getAllServicesInterest())
-    }.flowOn(Dispatchers.IO)
+    suspend fun getServicesInterest() = registrationApi.getAllServicesInterest()
 
     suspend fun findByEmail(email: String) = registrationApi.findByEmail(email)
 

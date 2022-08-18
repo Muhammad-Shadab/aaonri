@@ -309,7 +309,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
                 }
-                is Resource.Empty -> TODO()
             }
         }
     }

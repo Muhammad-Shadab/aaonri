@@ -19,7 +19,7 @@ interface RegistrationApi {
     suspend fun getAllCommunities(): Response<CommunitiesListResponse>
 
     @GET("api/v1/interests/all")
-    suspend fun getAllServicesInterest(): ServicesResponse
+    suspend fun getAllServicesInterest(): Response<ServicesResponse>
 
     @GET("/api/v1/user/findByEmail")
     suspend fun findByEmail(

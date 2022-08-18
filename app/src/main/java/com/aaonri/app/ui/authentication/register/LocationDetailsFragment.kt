@@ -182,7 +182,6 @@ class LocationDetailsFragment : Fragment() {
                         Log.i("location", "onCreateView: ${e.localizedMessage}")
                     }
                 }
-                is Resource.Empty -> TODO()
             }
         }
     }
