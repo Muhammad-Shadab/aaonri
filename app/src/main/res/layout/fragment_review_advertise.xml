@@ -111,10 +111,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_4sdp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -122,11 +122,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_regular"
+                        android:fontFamily="@font/sf_pro_medium"
                         android:includeFontPadding="false"
                         android:maxLines="1"
                         android:text="From"
-                        android:textColor="#8d959f"
+                        android:textColor="#484747"
                         android:textSize="12sp" />
 
                     <TextView
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
                         android:maxLines="2"
                         android:textColor="#333333"
@@ -143,19 +143,20 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_regular"
+                        android:fontFamily="@font/sf_pro_medium"
                         android:includeFontPadding="false"
                         android:maxLines="1"
                         android:text="To"
-                        android:textColor="#8d959f"
+                        android:textColor="#484747"
                         android:textSize="12sp" />
 
                     <TextView
@@ -164,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
                         android:maxLines="2"
                         android:textColor="#333333"
@@ -173,27 +174,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <!--<TextView
-            android:id="@+id/advertiseDateTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:drawableLeft="@drawable/ic_time_watch"
-            android:drawablePadding="5dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/sf_pro_display_light"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:text="From Mar 15,2022 To Mar 21,2022"
-            android:textColor="#707070"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />-->
 
         <TextView
             android:id="@+id/advertiseLinkTv"

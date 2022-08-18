@@ -3,12 +3,10 @@ package com.aaonri.app.ui.dashboard.fragment.advertise
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.databinding.ActivityAdvertiseScreenBinding
 
 class AdvertiseScreenActivity : BaseActivity() {
@@ -72,6 +70,13 @@ class AdvertiseScreenActivity : BaseActivity() {
             }
         }
 
+        postAdvertiseViewModel.selectedTemplatePageName.observe(this) { advertiseActivePage ->
+            advertiseActivePage.pageId.let {
+                postAdvertiseViewModel.getAdvertisePageLocationById(
+                    it
+                )
+            }
+        }
 
     }
 }

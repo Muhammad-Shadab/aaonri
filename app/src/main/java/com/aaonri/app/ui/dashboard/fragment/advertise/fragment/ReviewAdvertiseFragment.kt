@@ -32,7 +32,7 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
         val calender = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MM/dd/yyyy")
         val date = dateFormat.format(calender.time)
-        val myDate = dateFormat.parse(date)
+
 
         reviewBinding?.apply {
 
@@ -53,6 +53,8 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
                 postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]
 
             postedDate1.text = date
+            advertiseLinkTv.text =
+                postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]
 
         }
 

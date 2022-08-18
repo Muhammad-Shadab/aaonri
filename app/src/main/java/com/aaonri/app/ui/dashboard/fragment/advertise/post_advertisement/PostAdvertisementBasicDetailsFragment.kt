@@ -66,7 +66,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
-            selectedPage.text = postAdvertiseViewModel.selectedTemplatePageName?.pageName
+            //selectedPage.text = postAdvertiseViewModel.selectedTemplatePageName?.pageName
             description?.let {
                 advertiseDescEt.fromHtml(it)
             }
@@ -126,7 +126,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             advertiseDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditor::class.java)
                 intent.putExtra("data", description)
-                intent.putExtra("placeholder", "Ad description")
+                intent.putExtra("placeholder", "Ad description (Max 30 characters)")
                 resultLauncher.launch(intent)
             }
 

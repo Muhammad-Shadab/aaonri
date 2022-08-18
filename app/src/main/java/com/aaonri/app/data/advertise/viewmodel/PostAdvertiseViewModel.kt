@@ -30,7 +30,8 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var companyBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedTemplatePageName: AdvertiseActivePageResponseItem? = null
+    var selectedTemplatePageName: MutableLiveData<AdvertiseActivePageResponseItem> =
+        MutableLiveData()
         private set
 
     var selectedTemplateLocation: AdvertisePageLocationResponseItem? = null
@@ -200,8 +201,8 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
-    fun setTemplateName(value: AdvertiseActivePageResponseItem) {
-        selectedTemplatePageName = value
+    fun setTemplatePageName(value: AdvertiseActivePageResponseItem) {
+        selectedTemplatePageName.postValue(value)
     }
 
     fun setTemplateLocation(value: AdvertisePageLocationResponseItem) {

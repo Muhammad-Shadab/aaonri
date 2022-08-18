@@ -61,12 +61,6 @@ class SelectTemplateLocationFragment : Fragment() {
 
         }
 
-        postAdvertiseViewModel.selectedTemplatePageName?.pageId?.let {
-            postAdvertiseViewModel.getAdvertisePageLocationById(
-                it
-            )
-        }
-
         postAdvertiseViewModel.advertisePageLocationData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {

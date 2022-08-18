@@ -1,22 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.R
-import com.aaonri.app.data.advertise.model.AdvertiseActivePageResponse
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.advertise.model.AdvertiseActivePageResponseItem
 import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
-import com.aaonri.app.data.advertise.model.ModuleTemplate
 import com.aaonri.app.databinding.AdvertiseTemplateItemBinding
 import com.bumptech.glide.Glide
 
 class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseActivePageResponseItem) -> Unit)) :
     RecyclerView.Adapter<AdvertiseTemplateAdapter.AdvertiseViewHolder>() {
 
-    private var data = listOf<ModuleTemplate>()
     private var advertisePageList = listOf<AdvertiseActivePageResponseItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
@@ -51,8 +46,13 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                  successTick.visibility = View.GONE
              }*/
 
+            Glide.with(context)
+                .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
+                .into(websiteTemplateIv)
 
-            //Glide.with(context).load(data[position].templateLink).into(imageView)
+            Glide.with(context)
+                .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
+                .into(mobileTemplateImageView)
 
         }
     }
@@ -75,9 +75,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
 class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: AdvertisePageLocationResponseItem) -> Unit)) :
     RecyclerView.Adapter<AdvertiseTemplateLocationAdapter.AdvertiseViewHolder>() {
 
-    private var data = listOf<ModuleTemplate>()
     private var advertisePageList = listOf<AdvertisePageLocationResponseItem>()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -111,9 +109,15 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                   successTick.visibility = View.GONE
               }*/
 
-
             //Glide.with(context).load(data[position].templateLink).into(imageView)
 
+            Glide.with(context)
+                .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
+                .into(websiteTemplateIv)
+
+            Glide.with(context)
+                .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
+                .into(mobileTemplateImageView)
         }
 
     }

@@ -32,7 +32,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
         binding = FragmentSelectAdvertiseTemplateBinding.inflate(inflater, container, false)
 
         advertiseTemplateAdapter1 = AdvertiseTemplateAdapter {
-            postAdvertiseViewModel.setTemplateName(it)
+            postAdvertiseViewModel.setTemplatePageName(it)
             binding?.pageNameTv?.text = it.pageName
             binding?.selectedPageDescTv?.text = it.description
             binding?.pageNameTv?.visibility = View.VISIBLE
@@ -48,7 +48,10 @@ class SelectAdvertiseTemplateFragment : Fragment() {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE)
 
             advertiseTemplatesNextBtn.setOnClickListener {
-                if (postAdvertiseViewModel.selectedTemplatePageName?.pageName?.isNotEmpty() == true) {
+                val action =
+                    SelectAdvertiseTemplateFragmentDirections.actionSelectAdvertiseTemplateToSelectTemplateLocation()
+                findNavController().navigate(action)
+                /*if (postAdvertiseViewModel.selectedTemplatePageName?.pageName?.isNotEmpty() == true) {
                     val action =
                         SelectAdvertiseTemplateFragmentDirections.actionSelectAdvertiseTemplateToSelectTemplateLocation()
                     findNavController().navigate(action)
@@ -59,7 +62,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
                             "Please choose template", Snackbar.LENGTH_LONG
                         ).show()
                     }
-                }
+                }*/
             }
 
             horizontalRv1.layoutManager =
