@@ -14,5 +14,4 @@ data class AdvertisePageLocationResponseItem(
     val title: String,
     val type: String,
     val width: Int,
-    var isSelected: Boolean
 )

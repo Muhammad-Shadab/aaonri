@@ -1,12 +1,16 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.AdvertiseActivePageResponseItem
 import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.databinding.AdvertiseTemplateItemBinding
+import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
 
 class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseActivePageResponseItem) -> Unit)) :
@@ -26,25 +30,11 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
         holder.binding.apply {
 
             holder.itemView.setOnClickListener {
+                context?.let { it1 -> PreferenceManager<Int>(it1) }
+                    ?.set("selectedTemplatePage", position)
                 selectedServices(advertisePageList[position])
-                advertisePageList[position].isSelected = true
                 notifyDataSetChanged()
             }
-
-            /* if (advertisePageList[position].isSelected) {
-                 successTick.visibility = View.VISIBLE
-                 context?.let { it1 ->
-                     ContextCompat.getColor(
-                         it1,
-                         R.color.selectedAdvertiseTemplateStroke
-                     )
-                 }?.let { it2 ->
-                     cardView.strokeColor = it2
-                 }
-                 selectedServices(advertisePageList[position])
-             } else {
-                 successTick.visibility = View.GONE
-             }*/
 
             Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
@@ -53,6 +43,48 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
             Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(mobileTemplateImageView)
+
+            if (context?.let { PreferenceManager<Int>(it)["selectedTemplatePage", -1] } == position) {
+                websiteTemplateSuccessTick.visibility = View.VISIBLE
+                mobileTemplateSuccessTick.visibility = View.VISIBLE
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.selectedAdvertiseTemplateStroke
+                    )
+                }.let { it2 ->
+                    websiteTemplateCv.strokeColor = it2
+                }
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.selectedAdvertiseTemplateStroke
+                    )
+                }.let { it2 ->
+                    mobileTemplateCv.strokeColor = it2
+                }
+                selectedServices(advertisePageList[position])
+            } else {
+                websiteTemplateSuccessTick.visibility = View.GONE
+                mobileTemplateSuccessTick.visibility = View.GONE
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }.let { it2 ->
+                    websiteTemplateCv.strokeColor = it2
+                }
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }.let { it2 ->
+                    mobileTemplateCv.strokeColor = it2
+                }
+            }
+
 
         }
     }
@@ -89,27 +121,11 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
         holder.binding.apply {
 
             holder.itemView.setOnClickListener {
+                context?.let { it1 -> PreferenceManager<Int>(it1) }
+                    ?.set("selectedTemplateLocation", position)
                 selectedServices(advertisePageList[position])
-                advertisePageList[position].isSelected = true
                 notifyDataSetChanged()
             }
-
-            /*  if (advertisePageList[position].isSelected) {
-                  successTick.visibility = View.VISIBLE
-                  selectedServices(advertisePageList[position])
-                  context?.let { it1 ->
-                      ContextCompat.getColor(
-                          it1,
-                          R.color.selectedAdvertiseTemplateStroke
-                      )
-                  }?.let { it2 ->
-                      cardView.strokeColor = it2
-                  }
-              } else {
-                  successTick.visibility = View.GONE
-              }*/
-
-            //Glide.with(context).load(data[position].templateLink).into(imageView)
 
             Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
@@ -118,6 +134,47 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
             Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(mobileTemplateImageView)
+
+            if (context?.let { PreferenceManager<Int>(it)["selectedTemplateLocation", -1] } == position) {
+                websiteTemplateSuccessTick.visibility = View.VISIBLE
+                mobileTemplateSuccessTick.visibility = View.VISIBLE
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.selectedAdvertiseTemplateStroke
+                    )
+                }.let { it2 ->
+                    websiteTemplateCv.strokeColor = it2
+                }
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.selectedAdvertiseTemplateStroke
+                    )
+                }.let { it2 ->
+                    mobileTemplateCv.strokeColor = it2
+                }
+                selectedServices(advertisePageList[position])
+            } else {
+                websiteTemplateSuccessTick.visibility = View.GONE
+                mobileTemplateSuccessTick.visibility = View.GONE
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }.let { it2 ->
+                    websiteTemplateCv.strokeColor = it2
+                }
+                context.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.white
+                    )
+                }.let { it2 ->
+                    mobileTemplateCv.strokeColor = it2
+                }
+            }
         }
 
     }

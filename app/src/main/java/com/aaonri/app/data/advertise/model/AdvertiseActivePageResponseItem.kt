@@ -9,5 +9,4 @@ data class AdvertiseActivePageResponseItem(
     val pageId: Int,
     val pageName: String,
     val title: String,
-    var isSelected: Boolean
 )
