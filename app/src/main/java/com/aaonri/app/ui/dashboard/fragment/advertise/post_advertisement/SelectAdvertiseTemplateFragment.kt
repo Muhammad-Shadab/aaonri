@@ -1,10 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +12,7 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectAdvertiseTemplateBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateAdapter
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,10 +49,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE)
 
             advertiseTemplatesNextBtn.setOnClickListener {
-                val action =
-                    SelectAdvertiseTemplateFragmentDirections.actionSelectAdvertiseTemplateToSelectTemplateLocation()
-                findNavController().navigate(action)
-                /*if (postAdvertiseViewModel.selectedTemplatePageName?.pageName?.isNotEmpty() == true) {
+                if (context?.let { PreferenceManager<Int>(it)["selectedTemplatePage", -1] } != -1) {
                     val action =
                         SelectAdvertiseTemplateFragmentDirections.actionSelectAdvertiseTemplateToSelectTemplateLocation()
                     findNavController().navigate(action)
@@ -62,7 +60,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
                             "Please choose template", Snackbar.LENGTH_LONG
                         ).show()
                     }
-                }*/
+                }
             }
 
             horizontalRv1.layoutManager =

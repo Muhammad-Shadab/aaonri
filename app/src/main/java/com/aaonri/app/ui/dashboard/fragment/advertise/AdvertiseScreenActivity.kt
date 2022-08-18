@@ -79,6 +79,14 @@ class AdvertiseScreenActivity : BaseActivity() {
                 )
             }
         }
+
+        postAdvertiseViewModel.selectedTemplateLocation.observe(this) { advertiseTemplateLocation ->
+            advertiseTemplateLocation.locationCode.let {
+                postAdvertiseViewModel.getAdvertiseActiveVas(
+                    it
+                )
+            }
+        }
     }
 
     override fun onDestroy() {

@@ -12,6 +12,7 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectTemplateLocationBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateLocationAdapter
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 
@@ -41,7 +42,7 @@ class SelectTemplateLocationFragment : Fragment() {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION)
 
             advertiseTemplatesNextBtn.setOnClickListener {
-                if (postAdvertiseViewModel.selectedTemplateLocation?.title?.isNotEmpty() == true) {
+                if (context?.let { PreferenceManager<Int>(it)["selectedTemplateLocation", -1] } != -1) {
                     val action =
                         SelectTemplateLocationFragmentDirections.actionSelectTemplateLocationToPostAdvertisementbasicDetailsFragment()
                     findNavController().navigate(action)

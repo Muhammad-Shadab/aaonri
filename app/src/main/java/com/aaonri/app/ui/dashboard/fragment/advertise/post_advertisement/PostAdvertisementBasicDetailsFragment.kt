@@ -19,6 +19,7 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
+import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
@@ -37,6 +38,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var flashingAdvertiseDesc: String? = ""
     var emailPromotionalDesc: String? = ""
     var spinnerTemplateCode: String? = ""
+    var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -57,12 +59,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     ): View? {
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
-
-        postAdvertiseViewModel.selectedTemplateLocation?.locationCode?.let {
-            postAdvertiseViewModel.getAdvertiseActiveVas(
-                it
-            )
-        }
 
         advertiseBinding?.apply {
 
@@ -221,6 +217,14 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         }
 
+        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { advertisePage ->
+            advertiseBinding?.selectedPage?.text = advertisePage.pageName
+        }
+
+        postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
+            advertisePageLocationResponseItem = it
+        }
+
         postAdvertiseViewModel.activeTemplateDataForSpinner.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -228,19 +232,24 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
                 is Resource.Success -> {
                     val templateName = mutableListOf<String>()
-                    if (postAdvertiseViewModel.selectedTemplateLocation?.type == "BOTH") {
+                    Toast.makeText(
+                        context,
+                        "${advertisePageLocationResponseItem?.type}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    if (advertisePageLocationResponseItem?.type == "BOTH" ) {
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
                                 templateName.add(it.name)
                             }
                         }
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
-                    } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "TXTONLY") {
+                    } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
                         }
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
-                    } else if (postAdvertiseViewModel.selectedTemplateLocation?.type == "IMGONLY") {
+                    } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
                         }
@@ -261,11 +270,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
                 }
             }
-
-        }
-
-        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { advertisePage ->
-            advertiseBinding?.selectedPage?.text = advertisePage.pageName
         }
 
         return advertiseBinding?.root

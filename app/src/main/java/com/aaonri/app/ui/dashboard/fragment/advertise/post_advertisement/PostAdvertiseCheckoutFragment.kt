@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
+import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.data.advertise.model.AdvertisementDetails
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
@@ -28,6 +29,8 @@ import java.io.File
 class PostAdvertiseCheckout : Fragment() {
     var checkoutBinding: FragmentPostAdvertiseCheckoutBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
+    var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,9 +68,9 @@ class PostAdvertiseCheckout : Fragment() {
                                     url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
                                 ),
                                 emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
-                                locationId = if (postAdvertiseViewModel.selectedTemplateLocation?.locationId.toString()
+                                locationId = if (advertisePageLocationResponseItem?.locationId.toString()
                                         .isNotEmpty()
-                                ) postAdvertiseViewModel.selectedTemplateLocation!!.locationId else 0,
+                                ) advertisePageLocationResponseItem!!.locationId else 0,
                                 paymentStatus = "SUCCESS",
                                 planId = 1,
                                 rate = 0,
@@ -142,6 +145,10 @@ class PostAdvertiseCheckout : Fragment() {
 
                 }
             }
+        }
+
+        postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
+            advertisePageLocationResponseItem = it
         }
 
         requireActivity()

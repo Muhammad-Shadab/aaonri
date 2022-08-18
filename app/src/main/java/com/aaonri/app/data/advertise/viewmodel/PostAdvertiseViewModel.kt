@@ -34,7 +34,8 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         MutableLiveData()
         private set
 
-    var selectedTemplateLocation: AdvertisePageLocationResponseItem? = null
+    var selectedTemplateLocation: MutableLiveData<AdvertisePageLocationResponseItem> =
+        MutableLiveData()
         private set
 
     var isRenewAdvertise = false
@@ -224,7 +225,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun setTemplateLocation(value: AdvertisePageLocationResponseItem) {
-        selectedTemplateLocation = value
+        selectedTemplateLocation.postValue(value)
     }
 
     fun setStepViewLastTick(value: Boolean) {
