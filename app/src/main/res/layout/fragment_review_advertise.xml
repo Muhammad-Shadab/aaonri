@@ -43,7 +43,7 @@
             android:id="@+id/advertisementImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_310sdp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintTop_toBottomOf="@+id/mainll" />
 
         <TextView
@@ -85,7 +85,96 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/advertisePostDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_time_watch"
+                app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="From"
+                        android:textColor="#8d959f"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/postedDate1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:textColor="#333333"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="To"
+                        android:textColor="#8d959f"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/postedDate2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:textColor="#333333"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<TextView
             android:id="@+id/advertiseDateTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +193,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+            app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />-->
 
         <TextView
             android:id="@+id/advertiseLinkTv"
@@ -125,7 +214,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
+            app:layout_constraintTop_toBottomOf="@+id/advertisePostDate" />
 
         <TextView
             android:layout_width="match_parent"

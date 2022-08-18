@@ -1,10 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,10 +59,6 @@ class SelectTemplateLocationFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             horizontalRv1.adapter = advertiseTemplateLocationAdapter
 
-            horizontalRv2.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            horizontalRv2.adapter = advertiseTemplateLocationAdapter
-
         }
 
         postAdvertiseViewModel.selectedTemplatePageName?.pageId?.let {
@@ -87,17 +83,6 @@ class SelectTemplateLocationFragment : Fragment() {
             }
         }
 
-        /*when (postAdvertiseViewModel.selectedTemplatePageName) {
-            "Landing Page" -> {
-                advertiseTemplateLocationAdapter?.setData(landingPageLocationTemplate.listOfModule)
-            }
-            "Product Details" -> {
-                advertiseTemplateLocationAdapter?.setData(productDetailsLocationTemplate.listOfModule)
-            }
-            "Dashboard" -> {
-                advertiseTemplateLocationAdapter?.setData(dashboardLocationTemplate.listOfModule)
-            }
-        }*/
 
         return binding?.root
     }

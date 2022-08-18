@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/_4sdp">
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
+        android:id="@+id/websiteTemplateCv"
         android:layout_width="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:strokeWidth="@dimen/_2sdp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white">
+        android:layout_margin="@dimen/_4sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:strokeWidth="@dimen/_2sdp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/websiteTemplateIv"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_160sdp"
             android:layout_marginHorizontal="@dimen/_2sdp"
             android:src="@drawable/demo" />
 
         <ImageView
-            android:id="@+id/successTick"
+            android:id="@+id/websiteTemplateSuccessTick"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:layout_gravity="center"
@@ -30,5 +32,35 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mobileTemplateCv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:strokeWidth="@dimen/_2sdp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/mobileTemplateImageView"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:src="@drawable/demo" />
+
+        <ImageView
+            android:id="@+id/mobileTemplateSuccessTick"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_success_tick"
+            android:visibility="gone" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

@@ -64,11 +64,8 @@ class SelectAdvertiseTemplateFragment : Fragment() {
 
             horizontalRv1.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            horizontalRv2.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
             horizontalRv1.adapter = advertiseTemplateAdapter1
-            horizontalRv2.adapter = advertiseTemplateAdapter1
 
         }
 

@@ -36,20 +36,20 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                 notifyDataSetChanged()
             }
 
-            if (advertisePageList[position].isSelected) {
-                successTick.visibility = View.VISIBLE
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.selectedAdvertiseTemplateStroke
-                    )
-                }?.let { it2 ->
-                    cardView.strokeColor = it2
-                }
-                selectedServices(advertisePageList[position])
-            } else {
-                successTick.visibility = View.GONE
-            }
+            /* if (advertisePageList[position].isSelected) {
+                 successTick.visibility = View.VISIBLE
+                 context?.let { it1 ->
+                     ContextCompat.getColor(
+                         it1,
+                         R.color.selectedAdvertiseTemplateStroke
+                     )
+                 }?.let { it2 ->
+                     cardView.strokeColor = it2
+                 }
+                 selectedServices(advertisePageList[position])
+             } else {
+                 successTick.visibility = View.GONE
+             }*/
 
 
             //Glide.with(context).load(data[position].templateLink).into(imageView)
@@ -96,20 +96,20 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                 notifyDataSetChanged()
             }
 
-            if (advertisePageList[position].isSelected) {
-                successTick.visibility = View.VISIBLE
-                selectedServices(advertisePageList[position])
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.selectedAdvertiseTemplateStroke
-                    )
-                }?.let { it2 ->
-                    cardView.strokeColor = it2
-                }
-            } else {
-                successTick.visibility = View.GONE
-            }
+            /*  if (advertisePageList[position].isSelected) {
+                  successTick.visibility = View.VISIBLE
+                  selectedServices(advertisePageList[position])
+                  context?.let { it1 ->
+                      ContextCompat.getColor(
+                          it1,
+                          R.color.selectedAdvertiseTemplateStroke
+                      )
+                  }?.let { it2 ->
+                      cardView.strokeColor = it2
+                  }
+              } else {
+                  successTick.visibility = View.GONE
+              }*/
 
 
             //Glide.with(context).load(data[position].templateLink).into(imageView)

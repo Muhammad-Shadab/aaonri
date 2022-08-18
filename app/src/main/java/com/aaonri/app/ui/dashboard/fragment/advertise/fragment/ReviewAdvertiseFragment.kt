@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +9,18 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
-import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentReviewAdvertiseBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     var reviewBinding: FragmentReviewAdvertiseBinding? = null
-    val postClassifiedViewModel: PostAdvertiseViewModel by activityViewModels()
+    val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +28,11 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
     ): View? {
         isCancelable = false
         reviewBinding = FragmentReviewAdvertiseBinding.inflate(inflater, container, false)
+
+        val calender = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+        val date = dateFormat.format(calender.time)
+        val myDate = dateFormat.parse(date)
 
         reviewBinding?.apply {
 
@@ -37,10 +42,17 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
 
             context?.let {
                 Glide.with(it)
-                    .load(postClassifiedViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI])
+                    .load(postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI])
                     .into(advertisementImage)
             }
 
+            advertiseNameTv.text =
+                postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]
+
+            advertiseLocationTv.text =
+                postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]
+
+            postedDate1.text = date
 
         }
 

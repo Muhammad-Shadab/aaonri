@@ -48,20 +48,13 @@
                 android:id="@+id/horizontalRv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/horizontalRv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/horizontalRv1" />
+                app:layout_constraintTop_toBottomOf="@id/tv2"
+                tools:listitem="@layout/advertise_template_item" />
 
             <TextView
                 android:id="@+id/pageNameTv"
