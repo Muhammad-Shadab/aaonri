@@ -8,6 +8,7 @@ import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.ActivityAdvertiseScreenBinding
+import com.aaonri.app.utils.PreferenceManager
 
 class AdvertiseScreenActivity : BaseActivity() {
     var binding: ActivityAdvertiseScreenBinding? = null
@@ -77,7 +78,16 @@ class AdvertiseScreenActivity : BaseActivity() {
                 )
             }
         }
-
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedTemplatePage", -1)
+
+        applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedTemplateLocation", -1)
+    }
+
 }
 
