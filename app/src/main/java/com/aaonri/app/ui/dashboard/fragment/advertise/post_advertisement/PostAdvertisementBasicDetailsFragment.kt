@@ -232,17 +232,14 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
                 is Resource.Success -> {
                     val templateName = mutableListOf<String>()
-                    Toast.makeText(
-                        context,
-                        "${advertisePageLocationResponseItem?.type}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    if (advertisePageLocationResponseItem?.type == "BOTH" ) {
+
+                    if (advertisePageLocationResponseItem?.type == "BOTH") {
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
                                 templateName.add(it.name)
                             }
                         }
+                        templateName.remove("Text Only")
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
                         if (!templateName.contains("Text Only")) {
