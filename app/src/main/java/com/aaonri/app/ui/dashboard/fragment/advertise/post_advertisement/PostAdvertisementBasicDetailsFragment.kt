@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
-    var templateImage = ""
+    var advertiseImage = ""
     var description: String? = ""
     var flashingAdvertiseDesc: String? = ""
     var emailPromotionalDesc: String? = ""
@@ -69,59 +70,86 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             chooseTemplatell.setOnClickListener {
-                if (templateImage.isEmpty()) {
-                    ImagePicker.with(requireActivity())
-                        .compress(1024)
-                        .crop()
-                        .maxResultSize(1080, 1080)
-                        .createIntent { intent ->
-                            startForProfileImageResult.launch(intent)
-                            progressBarBasicDetails.visibility = View.VISIBLE
-                        }
+
+                if (advertisePageLocationResponseItem?.type != "TXTONLY") {
+                    if (advertiseImage.isEmpty()) {
+                        ImagePicker.with(requireActivity())
+                            .compress(1024)
+                            .crop()
+                            .maxResultSize(1080, 1080)
+                            .createIntent { intent ->
+                                startForProfileImageResult.launch(intent)
+                                progressBarBasicDetails.visibility = View.VISIBLE
+                            }
+                    }
                 }
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
                 if (titleAdvertisedEt.text.toString().length >= 3) {
-                    spinnerTemplateCode?.let { it1 ->
-                        saveDataToViewModel(
-                            titleAdvertisedEt.text.toString(),
-                            selectedPage.text.toString(),
-                            selectAdvertiseDaysSpinner.toString(),
-                            planChargeEt.text.toString(),
-                            costOfvalueEt.text.toString(),
-                            emailPromotionalCheckbox.isChecked,
-                            flashingAdvertiseCheckbox.isChecked,
-                            it1,
-                            templateImage
-                        )
+                    if (advertisePageLocationResponseItem?.type != "TXTONLY") {
+                        if (advertiseImage.isNotEmpty()) {
+                            spinnerTemplateCode?.let { it1 ->
+                                saveDataToViewModel(
+                                    titleAdvertisedEt.text.toString(),
+                                    selectedPage.text.toString(),
+                                    selectAdvertiseDaysSpinner.toString(),
+                                    planChargeEt.text.toString(),
+                                    costOfvalueEt.text.toString(),
+                                    emailPromotionalCheckbox.isChecked,
+                                    flashingAdvertiseCheckbox.isChecked,
+                                    it1,
+                                    advertiseImage
+                                )
+                            }
+                            findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                        } else {
+                            showAlert("Please upload advertise photo")
+                        }
+                    } else {
+                        spinnerTemplateCode?.let { it1 ->
+                            saveDataToViewModel(
+                                titleAdvertisedEt.text.toString(),
+                                selectedPage.text.toString(),
+                                selectAdvertiseDaysSpinner.toString(),
+                                planChargeEt.text.toString(),
+                                costOfvalueEt.text.toString(),
+                                emailPromotionalCheckbox.isChecked,
+                                flashingAdvertiseCheckbox.isChecked,
+                                it1,
+                                advertiseImage
+                            )
+                        }
+                        findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
                     }
-                    findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+
+
                 } else {
                     showAlert("Please enter valid ad title")
                 }
             }
 
-            previewAdvertiseBtn.setOnClickListener {
-                if (titleAdvertisedEt.text.toString().length >= 3) {
-                    spinnerTemplateCode?.let { it1 ->
-                        saveDataToViewModel(
-                            titleAdvertisedEt.text.toString(),
-                            selectedPage.text.toString(),
-                            selectAdvertiseDaysSpinner.toString(),
-                            planChargeEt.text.toString(),
-                            costOfvalueEt.text.toString(),
-                            emailPromotionalCheckbox.isChecked,
-                            flashingAdvertiseCheckbox.isChecked,
-                            it1,
-                            templateImage
-                        )
-                    }
-                    findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
-                } else {
-                    showAlert("Please enter valid ad title")
+            titleAdvertisedEt.addTextChangedListener { editable ->
+                if (editable.toString().length >= 3 && advertisePageLocationResponseItem?.type != "TXTONLY") {
+                    previewAdvertiseBtn.isEnabled = advertiseImage.isNotEmpty()
                 }
+            }
 
+            previewAdvertiseBtn.setOnClickListener {
+                spinnerTemplateCode?.let { it1 ->
+                    saveDataToViewModel(
+                        titleAdvertisedEt.text.toString(),
+                        selectedPage.text.toString(),
+                        selectAdvertiseDaysSpinner.toString(),
+                        planChargeEt.text.toString(),
+                        costOfvalueEt.text.toString(),
+                        emailPromotionalCheckbox.isChecked,
+                        flashingAdvertiseCheckbox.isChecked,
+                        it1,
+                        advertiseImage
+                    )
+                }
+                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
 
             advertiseDescEt.setOnClickListener {
@@ -343,7 +371,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
                 val fileUri = data?.data!!
 
-                templateImage = fileUri.toString()
+                advertiseImage = fileUri.toString()
                 advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
                 setImage()
 
@@ -359,7 +387,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     }
 
     private fun setImage() {
-        if (templateImage.isNotEmpty()) {
+        if (advertiseImage.isNotEmpty()) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
             advertiseBinding?.uploadImageTv?.visibility = View.GONE
             advertiseBinding?.sizeLimitTv?.visibility = View.GONE
@@ -367,7 +395,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             advertiseBinding?.advertiseIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
-                        .load(templateImage)
+                        .load(advertiseImage)
                         .into(it)
                 }
             }
