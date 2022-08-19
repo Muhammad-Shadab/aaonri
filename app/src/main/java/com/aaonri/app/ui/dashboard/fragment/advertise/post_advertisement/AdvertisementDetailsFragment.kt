@@ -161,7 +161,6 @@ class AdvertisementDetailsFragment : Fragment() {
             data?.advertisementPageLocation?.advertisementPage?.pageName
         detailsBinding?.companyPageLocationNameTv?.text =
             data?.advertisementPageLocation?.locationName
-
     }
 
     override fun onDestroy() {

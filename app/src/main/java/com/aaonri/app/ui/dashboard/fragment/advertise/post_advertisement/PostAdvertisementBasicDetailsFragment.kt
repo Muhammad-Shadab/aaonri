@@ -43,6 +43,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var spinnerTemplateCode: String? = ""
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
     var openPreview = false
+    var openRichTextEditor = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -181,10 +182,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDescEt.setOnClickListener {
-                val intent = Intent(context, RichTextEditor::class.java)
-                intent.putExtra("data", description)
-                intent.putExtra("placeholder", "Ad description (Max 30 characters)")
-                resultLauncher.launch(intent)
+                if (openRichTextEditor) {
+                    val intent = Intent(context, RichTextEditor::class.java)
+                    intent.putExtra("data", description)
+                    intent.putExtra("placeholder", "Ad description (Max 30 characters)")
+                    resultLauncher.launch(intent)
+                }
             }
 
             flashingAdvertiseTv.setOnClickListener {
@@ -262,6 +265,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     val templateName = mutableListOf<String>()
 
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
+                        openRichTextEditor = true
+                        advertiseBinding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
                                 templateName.add(it.name)
@@ -271,12 +276,16 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
+                        openRichTextEditor = true
+                        advertiseBinding?.advertiseDescEt?.isEnabled = true
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
                         }
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
                         advertiseBinding?.chooseTemplatell?.visibility = View.GONE
                     } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
+                        openRichTextEditor = false
+                        advertiseBinding?.advertiseDescEt?.isEnabled = false
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
                         }

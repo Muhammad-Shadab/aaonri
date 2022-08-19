@@ -81,7 +81,9 @@ class PostAdvertiseCheckout : Fragment() {
                                         .isNotEmpty()
                                 ) advertisePageLocationResponseItem!!.locationId else 0,
                                 paymentStatus = "SUCCESS",
-                                planId = 1,
+                                planId = if (advertisePageLocationResponseItem?.locationPlanRate?.planId.toString()
+                                        .isNotEmpty()
+                                ) advertisePageLocationResponseItem!!.locationPlanRate.planId else 0,
                                 rate = 0,
                                 templateCode = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]!! else "",
                                 vasCodes = postAdvertiseViewModel.vasList
