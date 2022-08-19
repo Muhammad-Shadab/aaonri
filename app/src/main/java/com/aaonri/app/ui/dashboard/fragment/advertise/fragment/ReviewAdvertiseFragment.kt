@@ -53,8 +53,13 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
                 postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]
 
             postedDate1.text = date
-            advertiseLinkTv.text =
-                postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]
+
+            if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) {
+                advertiseLinkTv.text =
+                    postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]
+                advertiseLinkTv.visibility = View.VISIBLE
+            }
+
 
         }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_advertisement_graph"
-    app:startDestination="@id/postAdvertiseCompanyDetailsFrgament">
+    app:startDestination="@id/selectAdvertiseTemplate">
 
     <fragment
         android:id="@+id/postAdvertiseTermConditionFragment2"

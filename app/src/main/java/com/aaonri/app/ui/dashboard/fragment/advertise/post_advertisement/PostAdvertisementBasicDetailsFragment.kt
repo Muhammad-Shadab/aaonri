@@ -3,16 +3,17 @@ package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -34,12 +35,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
-    var advertiseImage = ""
+    var advertiseImage: String? = ""
     var description: String? = ""
     var flashingAdvertiseDesc: String? = ""
     var emailPromotionalDesc: String? = ""
     var spinnerTemplateCode: String? = ""
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
+    var openPreview = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -63,6 +65,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
         advertiseBinding?.apply {
 
+            selectAdvertiseDaysSpinner.isEnabled = false
+
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
             description?.let {
@@ -72,7 +76,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             chooseTemplatell.setOnClickListener {
 
                 if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                    if (advertiseImage.isEmpty()) {
+                    if (advertiseImage?.isEmpty() == true) {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
                             .crop()
@@ -88,7 +92,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             advertiseDetailsNextBtn.setOnClickListener {
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                        if (advertiseImage.isNotEmpty()) {
+                        if (advertiseImage?.isNotEmpty() == true) {
                             spinnerTemplateCode?.let { it1 ->
                                 saveDataToViewModel(
                                     titleAdvertisedEt.text.toString(),
@@ -99,7 +103,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                                     emailPromotionalCheckbox.isChecked,
                                     flashingAdvertiseCheckbox.isChecked,
                                     it1,
-                                    advertiseImage
                                 )
                             }
                             findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
@@ -117,39 +120,54 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                                 emailPromotionalCheckbox.isChecked,
                                 flashingAdvertiseCheckbox.isChecked,
                                 it1,
-                                advertiseImage
                             )
                         }
                         findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
                     }
-
-
                 } else {
                     showAlert("Please enter valid ad title")
                 }
             }
 
-            titleAdvertisedEt.addTextChangedListener { editable ->
-                if (editable.toString().length >= 3 && advertisePageLocationResponseItem?.type != "TXTONLY") {
-                    previewAdvertiseBtn.isEnabled = advertiseImage.isNotEmpty()
-                }
-            }
+            /* titleAdvertisedEt.addTextChangedListener { editable ->
+                 if (editable.toString().length >= 3) {
+                     postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                         if (it.isNotEmpty()) {
+                             openPreview = true
+                             previewAdvertiseBtn.isEnabled = true
+                             previewAdvertiseBtn.backgroundTintList =
+                                 ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                         } else {
+                             openPreview = false
+                             previewAdvertiseBtn.isEnabled = false
+                             previewAdvertiseBtn.backgroundTintList =
+                                 ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                         }
+                     }
+                 } else {
+                     openPreview = false
+                     previewAdvertiseBtn.isEnabled = false
+                     previewAdvertiseBtn.backgroundTintList =
+                         ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                 }
+             }*/
 
             previewAdvertiseBtn.setOnClickListener {
-                spinnerTemplateCode?.let { it1 ->
-                    saveDataToViewModel(
-                        titleAdvertisedEt.text.toString(),
-                        selectedPage.text.toString(),
-                        selectAdvertiseDaysSpinner.toString(),
-                        planChargeEt.text.toString(),
-                        costOfvalueEt.text.toString(),
-                        emailPromotionalCheckbox.isChecked,
-                        flashingAdvertiseCheckbox.isChecked,
-                        it1,
-                        advertiseImage
-                    )
+                if (openPreview) {
+                    spinnerTemplateCode?.let { it1 ->
+                        saveDataToViewModel(
+                            titleAdvertisedEt.text.toString(),
+                            selectedPage.text.toString(),
+                            selectAdvertiseDaysSpinner.toString(),
+                            planChargeEt.text.toString(),
+                            costOfvalueEt.text.toString(),
+                            emailPromotionalCheckbox.isChecked,
+                            flashingAdvertiseCheckbox.isChecked,
+                            it1,
+                        )
+                    }
+                    findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
                 }
-                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_reviewAdvertiseFragment)
             }
 
             advertiseDescEt.setOnClickListener {
@@ -179,34 +197,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 builder.show()
             }
 
-            selectAdvertiseTemplateSpinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>,
-                        view: View,
-                        position: Int,
-                        id: Long
-                    ) {
-                        when (selectAdvertiseTemplateSpinner.selectedItem.toString()) {
-                            "Image Only" -> {
-                                spinnerTemplateCode = "IMON"
-                            }
-                            "Image with text on bottom" -> {
-                                spinnerTemplateCode = "IMTB"
-                            }
-                            "Image with text on left side" -> {
-                                spinnerTemplateCode = "IMTL"
-                            }
-                            "Text Only" -> {
-                                spinnerTemplateCode = "TXON"
-                            }
-                        }
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>) {
-
-                    }
-                }
+            advertiseDetailsNextBtn.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
 
         }
 
@@ -297,6 +289,68 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         }
 
+        advertiseBinding?.selectAdvertiseTemplateSpinner?.customSetOnItemSelectedListener(object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                    "Image Only" -> {
+                        spinnerTemplateCode = "IMON"
+                    }
+                    "Image with text on bottom" -> {
+                        spinnerTemplateCode = "IMTB"
+                    }
+                    "Image with text on left side" -> {
+                        spinnerTemplateCode = "IMTL"
+                    }
+                    "Text Only" -> {
+                        spinnerTemplateCode = "TXON"
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        })
+
+        /* advertiseBinding?.selectAdvertiseTemplateSpinner?.onItemSelectedListener =
+             object : AdapterView.OnItemSelectedListener {
+                 override fun onItemSelected(
+                     parent: AdapterView<*>,
+                     view: View,
+                     position: Int,
+                     id: Long
+                 ) {
+                     when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                         "Image Only" -> {
+                             spinnerTemplateCode = "IMON"
+                         }
+                         "Image with text on bottom" -> {
+                             spinnerTemplateCode = "IMTB"
+                         }
+                         "Image with text on left side" -> {
+                             spinnerTemplateCode = "IMTL"
+                         }
+                         "Text Only" -> {
+                             spinnerTemplateCode = "TXON"
+                         }
+                     }
+                 }
+
+                 override fun onNothingSelected(parent: AdapterView<*>) {
+
+                 }
+             }*/
+
+        /* postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+             if (it.isNotEmpty() && )
+         }*/
+
         return advertiseBinding?.root
     }
 
@@ -344,7 +398,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         isEmailPromotional: Boolean,
         isFlashingAdvertisement: Boolean,
         templateCode: String,
-        advertiseImageUri: String
     ) {
         description?.let {
             postAdvertiseViewModel.addCompanyBasicDetailsMap(
@@ -356,7 +409,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 isEmailPromotional = isEmailPromotional,
                 isFlashingAdvertisement = isFlashingAdvertisement,
                 templateCode = templateCode,
-                advertiseImageUri = advertiseImageUri,
+                advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
                 description = it
             )
         }
@@ -373,6 +426,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
                 advertiseImage = fileUri.toString()
                 advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                postAdvertiseViewModel.setAdvertiseImage(if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "")
                 setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
@@ -387,11 +441,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     }
 
     private fun setImage() {
-        if (advertiseImage.isNotEmpty()) {
+        if (advertiseImage?.isNotEmpty() == true) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
             advertiseBinding?.uploadImageTv?.visibility = View.GONE
             advertiseBinding?.sizeLimitTv?.visibility = View.GONE
-
             advertiseBinding?.advertiseIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
@@ -413,6 +466,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    fun Spinner.customSetOnItemSelectedListener(listener: AdapterView.OnItemSelectedListener) {
+        onItemSelectedListener = listener
     }
 
 }

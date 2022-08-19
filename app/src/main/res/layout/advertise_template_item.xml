@@ -13,6 +13,7 @@
         android:elevation="@dimen/_10sdp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp"
         app:strokeWidth="@dimen/_2sdp">
 
         <ImageView
@@ -44,6 +45,7 @@
         android:elevation="@dimen/_10sdp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp"
         app:strokeWidth="@dimen/_2sdp">
 
         <ImageView

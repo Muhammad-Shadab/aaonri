@@ -130,7 +130,8 @@
     <string name="select_a_location_on_the_selected_page_for_your_advertisement_display">Select a location on the selected page,\n for your advertisement display</string>
     <string name="advertisement_details">Advertisement Details</string>
     <string name="booking_summary_payment">Booking Summary &amp; Payment</string>
-    <string name="advertise_basic_details_desc"><font size="18">Ad description (Max 30 characters)</font></string>
+    <string name="advertise_basic_details_desc"><font size="16">Ad description (Max 30 characters)</font></string>
+    <string name="company_brief_desc"><font size="16">Brief Description*</font></string>
 
 
     <string-array name="advertiseValidity">

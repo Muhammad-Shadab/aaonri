@@ -175,7 +175,7 @@
                     android:layout_margin="@dimen/_2sdp"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="left"
-                    android:hint="Brief Description*"
+                    android:hint="@string/company_brief_desc"
                     android:includeFontPadding="false"
                     android:maxLength="30"
                     android:padding="@dimen/_5sdp"
