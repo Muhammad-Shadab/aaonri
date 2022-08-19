@@ -3,7 +3,10 @@ package com.aaonri.app.ui.dashboard.fragment.advertise
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.navigation.fragment.NavHostFragment
+import com.aaonri.app.R
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
@@ -23,6 +26,10 @@ class AdvertiseScreenActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.postAdvertiseNavHost) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val isRenewAdvertise = intent.getBooleanExtra("isRenewAdvertise", false)
         val isUpdateAdvertise = intent.getBooleanExtra("isUpdateAdvertise", false)
 
@@ -33,6 +40,23 @@ class AdvertiseScreenActivity : BaseActivity() {
 
         postAdvertiseViewModel.getAllActiveAdvertisePage()
         postAdvertiseViewModel.getActiveTemplateForSpinner()
+        onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (navController.currentDestination?.id == R.id.postAdvertiseCheckout) {
+                        if (postAdvertiseViewModel.isRenewAdvertise) {
+                            finish()
+                        } else {
+                            navController.navigateUp()
+                        }
+                    } else if (navController.currentDestination?.id == R.id.postAdvertiseTermConditionFragment2) {
+                        finish()
+                    } else {
+                        navController.navigateUp()
+                    }
+                }
+            })
+
 
         binding?.apply {
 

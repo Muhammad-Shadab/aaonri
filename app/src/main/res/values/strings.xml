@@ -136,8 +136,8 @@
 
     <string-array name="advertiseValidity">
         <item>7 Days</item>
-        <item>15 Days</item>
-        <item>30 Days</item>
+        <!--<item>15 Days</item>
+        <item>30 Days</item>-->
     </string-array>
 
 </resources>

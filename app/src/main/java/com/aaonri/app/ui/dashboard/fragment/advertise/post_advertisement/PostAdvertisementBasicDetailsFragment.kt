@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var spinnerTemplateCode: String? = ""
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
     var openPreview = false
+    var navigateToNextScreen = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -64,8 +66,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
         advertiseBinding?.apply {
-
-            selectAdvertiseDaysSpinner.isEnabled = false
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
@@ -129,28 +129,41 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
             }
 
-            /* titleAdvertisedEt.addTextChangedListener { editable ->
-                 if (editable.toString().length >= 3) {
-                     postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-                         if (it.isNotEmpty()) {
-                             openPreview = true
-                             previewAdvertiseBtn.isEnabled = true
-                             previewAdvertiseBtn.backgroundTintList =
-                                 ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                         } else {
-                             openPreview = false
-                             previewAdvertiseBtn.isEnabled = false
-                             previewAdvertiseBtn.backgroundTintList =
-                                 ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                         }
-                     }
-                 } else {
-                     openPreview = false
-                     previewAdvertiseBtn.isEnabled = false
-                     previewAdvertiseBtn.backgroundTintList =
-                         ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                 }
-             }*/
+            titleAdvertisedEt.addTextChangedListener { editable ->
+                if (editable.toString().length >= 3) {
+                    if (advertisePageLocationResponseItem?.type == "TXTONLY") {
+                        navigateToNextScreen = true
+                        advertiseDetailsNextBtn.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                    } else {
+                        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                            if (it.isNotEmpty()) {
+                                openPreview = true
+                                previewAdvertiseBtn.isEnabled = true
+                                previewAdvertiseBtn.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                                advertiseDetailsNextBtn.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                            } else {
+                                openPreview = false
+                                previewAdvertiseBtn.isEnabled = false
+                                advertiseDetailsNextBtn.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                                previewAdvertiseBtn.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                            }
+                        }
+                    }
+                } else {
+                    openPreview = false
+                    previewAdvertiseBtn.isEnabled = false
+                    navigateToNextScreen = false
+                    advertiseDetailsNextBtn.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                    previewAdvertiseBtn.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                }
+            }
 
             previewAdvertiseBtn.setOnClickListener {
                 if (openPreview) {
@@ -197,8 +210,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 builder.show()
             }
 
-            advertiseDetailsNextBtn.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
 
         }
 

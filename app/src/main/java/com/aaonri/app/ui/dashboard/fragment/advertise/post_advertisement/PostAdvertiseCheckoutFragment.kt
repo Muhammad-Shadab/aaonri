@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
@@ -18,6 +19,7 @@ import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCheckoutBinding
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -151,17 +153,21 @@ class PostAdvertiseCheckout : Fragment() {
             advertisePageLocationResponseItem = it
         }
 
-        requireActivity()
+        /*requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (postAdvertiseViewModel.isRenewAdvertise) {
-                        activity?.finish()
+                        lifecycleScope.launch {
+                            activity?.finish()
+                        }
                     } else {
-                        findNavController().navigateUp()
+                        lifecycleScope.launch {
+                            findNavController().navigateUp()
+                        }
                     }
                 }
-            })
+            })*/
 
         return checkoutBinding?.root
     }
