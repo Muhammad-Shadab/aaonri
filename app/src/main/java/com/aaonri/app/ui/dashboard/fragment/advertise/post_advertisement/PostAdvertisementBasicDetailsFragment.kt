@@ -93,18 +93,21 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (advertisePageLocationResponseItem?.type != "TXTONLY") {
                         if (advertiseImage?.isNotEmpty() == true) {
-                            spinnerTemplateCode?.let { it1 ->
-                                saveDataToViewModel(
-                                    titleAdvertisedEt.text.toString(),
-                                    selectedPage.text.toString(),
-                                    selectAdvertiseDaysSpinner.toString(),
-                                    planChargeEt.text.toString(),
-                                    costOfvalueEt.text.toString(),
-                                    emailPromotionalCheckbox.isChecked,
-                                    flashingAdvertiseCheckbox.isChecked,
-                                    it1,
-                                )
-                            }
+                            /*if (advertisePageLocationResponseItem?.type == "BOTH"){
+
+                            }*/
+                                spinnerTemplateCode?.let { it1 ->
+                                    saveDataToViewModel(
+                                        titleAdvertisedEt.text.toString(),
+                                        selectedPage.text.toString(),
+                                        selectAdvertiseDaysSpinner.toString(),
+                                        planChargeEt.text.toString(),
+                                        costOfvalueEt.text.toString(),
+                                        emailPromotionalCheckbox.isChecked,
+                                        flashingAdvertiseCheckbox.isChecked,
+                                        it1,
+                                    )
+                                }
                             findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
                         } else {
                             showAlert("Please upload advertise photo")
