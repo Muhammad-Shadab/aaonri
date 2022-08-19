@@ -43,7 +43,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var spinnerTemplateCode: String? = ""
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
     var openPreview = false
-    var navigateToNextScreen = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -132,7 +131,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             titleAdvertisedEt.addTextChangedListener { editable ->
                 if (editable.toString().length >= 3) {
                     if (advertisePageLocationResponseItem?.type == "TXTONLY") {
-                        navigateToNextScreen = true
                         advertiseDetailsNextBtn.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                     } else {
@@ -157,7 +155,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 } else {
                     openPreview = false
                     previewAdvertiseBtn.isEnabled = false
-                    navigateToNextScreen = false
                     advertiseDetailsNextBtn.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
                     previewAdvertiseBtn.backgroundTintList =
@@ -271,17 +268,20 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                             }
                         }
                         templateName.remove("Text Only")
+                        advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
                         }
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
+                        advertiseBinding?.chooseTemplatell?.visibility = View.GONE
                     } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
                         }
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
+                        advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                     }
 
                     val arrayAdapter = context?.let {

@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectTemplateLocationBinding
@@ -32,6 +34,8 @@ class SelectTemplateLocationFragment : Fragment() {
         )
 
         advertiseTemplateLocationAdapter = AdvertiseTemplateLocationAdapter {
+            binding?.advertiseTemplatesNextBtn?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
             binding?.tv3?.text = it.title
             binding?.tv3?.visibility = View.VISIBLE
             postAdvertiseViewModel.setTemplateLocation(it)

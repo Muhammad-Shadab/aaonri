@@ -33,7 +33,6 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
         val dateFormat = SimpleDateFormat("MM/dd/yyyy")
         val date = dateFormat.format(calender.time)
 
-
         reviewBinding?.apply {
 
             closeCommunityBtn.setOnClickListener {
@@ -53,17 +52,28 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
                 postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]
 
             postedDate1.text = date
+            postedDate2.text = getCalculatedDate("MM-dd-yyyy", 7)
 
             if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) {
                 advertiseLinkTv.text =
                     postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]
                 advertiseLinkTv.visibility = View.VISIBLE
             }
+            advertiseDesc.textSize = 12f
+
+            advertiseDesc.fromHtml(postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION])
 
 
         }
 
         return reviewBinding?.root
+    }
+
+    fun getCalculatedDate(dateFormat: String?, days: Int): String? {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 
 }

@@ -110,10 +110,15 @@ class AdvertisementDetailsFragment : Fragment() {
             )
         }"
         detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
-        detailsBinding?.advertiseLinkTv?.text = data?.advertisementDetails?.url
-        detailsBinding?.companyDescTv?.text = data?.advertisementDetails?.companyDescription
+        if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
+            detailsBinding?.advertiseLinkTv?.text = data.advertisementDetails.url
+            detailsBinding?.advertiseLinkTv?.visibility = View.VISIBLE
+        } else {
+            detailsBinding?.advertiseLinkTv?.visibility = View.GONE
+        }
+        detailsBinding?.companyDescTv?.textSize = 14f
+        detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription)
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
-//        detailsBinding?.companyLocationTv?.text = data?.advertisementDetails?.
         detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
         detailsBinding?.companyServicesTv?.text = data?.advertisementDetails?.productServices

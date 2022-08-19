@@ -197,7 +197,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/advertisePostDate" />
 
-        <TextView
+
+        <com.chinalwb.are.render.AreTextView
+            android:id="@+id/advertiseDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
@@ -208,7 +210,6 @@
             android:lineSpacingExtra="5dp"
             android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
             android:textColor="@color/darkGrayColor"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

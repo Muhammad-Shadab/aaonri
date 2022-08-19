@@ -162,9 +162,9 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
-                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginStart="@dimen/_32sdp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginEnd="@dimen/_32sdp"
                 android:background="@drawable/multiline_textfield_shape"
                 android:fillViewport="true">
 
@@ -177,7 +177,6 @@
                     android:gravity="left"
                     android:hint="@string/company_brief_desc"
                     android:includeFontPadding="false"
-                    android:maxLength="30"
                     android:padding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingTop="@dimen/_4sdp"

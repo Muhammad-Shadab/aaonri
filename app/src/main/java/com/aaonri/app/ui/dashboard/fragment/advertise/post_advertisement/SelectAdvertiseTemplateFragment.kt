@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectAdvertiseTemplateBinding
@@ -33,6 +35,8 @@ class SelectAdvertiseTemplateFragment : Fragment() {
         binding = FragmentSelectAdvertiseTemplateBinding.inflate(inflater, container, false)
 
         advertiseTemplateAdapter1 = AdvertiseTemplateAdapter {
+            binding?.advertiseTemplatesNextBtn?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
             postAdvertiseViewModel.setTemplatePageName(it)
             binding?.pageNameTv?.text = it.pageName
             binding?.selectedPageDescTv?.text = it.description
