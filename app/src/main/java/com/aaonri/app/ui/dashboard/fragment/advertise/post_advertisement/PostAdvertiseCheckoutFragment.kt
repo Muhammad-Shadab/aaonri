@@ -23,6 +23,8 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class PostAdvertiseCheckout : Fragment() {
@@ -36,8 +38,16 @@ class PostAdvertiseCheckout : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         checkoutBinding = FragmentPostAdvertiseCheckoutBinding.inflate(inflater, container, false)
+
+        val calender = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+        val date = dateFormat.format(calender.time)
+
         checkoutBinding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
+
+            startdDateTv.text = date
+            endDateTv.text = getCalculatedDate("MM/dd/yyyy", 7)
 
             checkoutBtn.setOnClickListener {
                 postAdvertiseViewModel.apply {
@@ -86,8 +96,8 @@ class PostAdvertiseCheckout : Fragment() {
             setDataForUpdating()
         }
 
-        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) {
-
+        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { activePageResponse ->
+            checkoutBinding?.addPageTv?.text = activePageResponse.pageName
         }
 
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
@@ -97,13 +107,13 @@ class PostAdvertiseCheckout : Fragment() {
                 }
                 is Resource.Success -> {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
-                    /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
-                          response.data?.advertisementId?.let {
-                              callUploadAdvertisePicApi(it)
-                          }
-                      } else {
-
-                      }*/
+                    /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
+                        response.data?.advertisementId?.let {
+                            callUploadAdvertisePicApi(it)
+                        }
+                    } else {
+                        findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    }*/
                 }
                 is Resource.Error -> {
 
@@ -117,14 +127,13 @@ class PostAdvertiseCheckout : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                     /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
-                          response.data?.advertisementId?.let {
-                              callUploadAdvertisePicApi(it)
-                          }
-                      } else {
-
-                      }*/
+                          *//*response.data?.advertisementId?.let {
+                            callUploadAdvertisePicApi(it)
+                        }*//*
+                    } else {
+                    }*/
+                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
 
@@ -148,6 +157,7 @@ class PostAdvertiseCheckout : Fragment() {
 
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
+            checkoutBinding?.addPageLocationTv?.text = it.locationName
         }
 
         return checkoutBinding?.root
@@ -175,7 +185,14 @@ class PostAdvertiseCheckout : Fragment() {
 
         val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
 
-        postAdvertiseViewModel.uploadAdvertiseImage(addId, requestImage)
+        postAdvertiseViewModel.uploadAdvertiseImage(id, requestImage)
+    }
+
+    fun getCalculatedDate(dateFormat: String?, days: Int): String? {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 
 }

@@ -2,7 +2,6 @@ package com.aaonri.app.data.advertise.api
 
 import com.aaonri.app.data.advertise.model.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -42,7 +41,7 @@ interface AdvertiseApi {
     @Multipart
     @POST("/api/v1/common/uploadAvdImage")
     suspend fun uploadAdvertiseImage(
-        @Part("avdId") adId: RequestBody,
+        @Query("avdId") adId: Int,
         @Part file: MultipartBody.Part,
     ): Response<String>
 

@@ -84,7 +84,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:hint="Contact Number*"
-                android:inputType="number"
+                android:inputType="phone"
                 android:lines="1"
                 android:maxLength="12"
                 android:maxLines="1"

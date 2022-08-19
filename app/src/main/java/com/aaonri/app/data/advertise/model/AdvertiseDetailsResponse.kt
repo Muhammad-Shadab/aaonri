@@ -5,7 +5,7 @@ data class AdvertiseDetailsResponse(
     val advertisementDetails: AdvertisementDetailsXX,
     val advertisementId: Int,
     val advertisementPageLocation: AdvertisementPageLocationX,
-    val advertisementVasMap: List<Any>,
+    val advertisementVasMap: List<AdvertiseVas>,
     val approved: Boolean,
     val createdOn: String,
     val emailId: String,

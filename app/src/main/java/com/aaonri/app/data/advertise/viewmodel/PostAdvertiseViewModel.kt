@@ -191,7 +191,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
-    fun uploadAdvertiseImage(advertiseId: RequestBody, file: MultipartBody.Part) =
+    fun uploadAdvertiseImage(advertiseId: Int, file: MultipartBody.Part) =
         viewModelScope.launch {
             uploadAdvertiseImageData.postValue(Resource.Loading())
             val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)

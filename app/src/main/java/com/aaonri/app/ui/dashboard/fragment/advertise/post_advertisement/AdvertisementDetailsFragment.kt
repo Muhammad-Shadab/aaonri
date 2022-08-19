@@ -89,6 +89,9 @@ class AdvertisementDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setData(data: AdvertiseDetailsResponse?) {
+
+        val vasCodes = mutableListOf<String>()
+
         detailsBinding?.addImage?.let {
             context?.let { it1 ->
                 Glide.with(it1)
@@ -121,8 +124,16 @@ class AdvertisementDetailsFragment : Fragment() {
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
         detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
-        detailsBinding?.companyServicesTv?.text = data?.advertisementDetails?.productServices
-        detailsBinding?.companyUriTv?.text = data?.advertisementDetails?.url
+        if (data?.advertisementDetails?.productServices?.isNotEmpty() == true) {
+            detailsBinding?.companyServicesTv?.text = data.advertisementDetails.productServices
+        } else {
+            detailsBinding?.companyServicesTv?.text = "-"
+        }
+        if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
+            detailsBinding?.companyUriTv?.text = data.advertisementDetails.url
+        } else {
+            detailsBinding?.companyUriTv?.text = "-"
+        }
         detailsBinding?.companyStartDateTv?.text =
             DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -133,7 +144,17 @@ class AdvertisementDetailsFragment : Fragment() {
                 .parse(data?.toDate?.split("T")?.get(0))
         )
         detailsBinding?.companyPlanTv?.text = data?.locationPlanRate?.days.toString()
-        detailsBinding?.companyVasTv?.text = data?.advertisementVasMap.toString()
+        data?.advertisementVasMap?.forEach {
+            if (!vasCodes.contains(it.code)) {
+                vasCodes.add(it.code)
+            }
+        }
+        if (vasCodes.isNotEmpty()) {
+            detailsBinding?.companyVasTv?.text = vasCodes.toString()
+        } else {
+            detailsBinding?.companyVasTv?.text = "-"
+        }
+        detailsBinding?.companyLocationTv?.text = data?.advertisementDetails?.location
         detailsBinding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
         detailsBinding?.companyTemplateTv?.text = data?.template?.name
         detailsBinding?.companyAdPageTv?.text =

@@ -1,6 +1,5 @@
 package com.aaonri.app.ui.authentication.register
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
