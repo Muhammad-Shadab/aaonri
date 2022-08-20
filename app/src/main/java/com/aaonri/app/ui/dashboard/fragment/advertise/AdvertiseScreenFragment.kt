@@ -2,23 +2,21 @@ package com.aaonri.app.ui.dashboard.fragment.advertise
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aaonri.app.R
-import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
-import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,8 +29,8 @@ class AdvertiseScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
-        startActivityForResult(intent, 3)
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 
         advertiseAdapter = AdvertiseAdapter {
             val action =
@@ -49,6 +47,8 @@ class AdvertiseScreenFragment : Fragment() {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 startActivityForResult(intent, 3)
             }
+
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
             recyclerViewAdvertise.adapter = advertiseAdapter

@@ -44,6 +44,9 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
     var openPreview = false
     var openRichTextEditor = false
+    var isImageOnly = false
+    var isTextOnly = false
+    var isBoth = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -90,12 +93,11 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
-                if (titleAdvertisedEt.text.toString().length >= 3) {
-                    if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                        if (advertiseImage?.isNotEmpty() == true) {
-                            /*if (advertisePageLocationResponseItem?.type == "BOTH"){
 
-                            }*/
+                if (titleAdvertisedEt.text.toString().length >= 3) {
+                    if (isBoth) {
+                        if (advertiseImage?.isNotEmpty() == true) {
+                            if (advertiseDescEt.text.toString().length >= 3) {
                                 spinnerTemplateCode?.let { it1 ->
                                     saveDataToViewModel(
                                         titleAdvertisedEt.text.toString(),
@@ -108,28 +110,105 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                                         it1,
                                     )
                                 }
+                                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                            } else {
+                                showAlert("Please enter valid description")
+                            }
+                        } else {
+                            showAlert("Please upload ad photo")
+                        }
+                    } else if (isTextOnly) {
+                        if (advertiseDescEt.text.toString().length >= 3) {
+                            spinnerTemplateCode?.let { it1 ->
+                                saveDataToViewModel(
+                                    titleAdvertisedEt.text.toString(),
+                                    selectedPage.text.toString(),
+                                    selectAdvertiseDaysSpinner.toString(),
+                                    planChargeEt.text.toString(),
+                                    costOfvalueEt.text.toString(),
+                                    emailPromotionalCheckbox.isChecked,
+                                    flashingAdvertiseCheckbox.isChecked,
+                                    it1,
+                                )
+                            }
                             findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                        } else {
+                            showAlert("Please enter valid description")
+                        }
+                    } else if (isImageOnly) {
+                        if (advertiseImage?.isNotEmpty() == true) {
+                            spinnerTemplateCode?.let { it1 ->
+                                saveDataToViewModel(
+                                    titleAdvertisedEt.text.toString(),
+                                    selectedPage.text.toString(),
+                                    selectAdvertiseDaysSpinner.toString(),
+                                    planChargeEt.text.toString(),
+                                    costOfvalueEt.text.toString(),
+                                    emailPromotionalCheckbox.isChecked,
+                                    flashingAdvertiseCheckbox.isChecked,
+                                    it1,
+                                )
+                            }
+                            findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                        } else {
+                            showAlert("Please upload ad photo")
+                        }
+                    }
+                } else {
+                    showAlert("Please enter valid title")
+                }
+
+                /*if (titleAdvertisedEt.text.toString().length >= 3) {
+                    if (isBoth) {
+                        if (advertiseImage?.isNotEmpty() == true) {
+                            if () {
+                                if (advertiseDescEt.text.toString().length >= 3) {
+
+                                } else {
+                                    showAlert("Please enter valid description")
+                                }
+                            } else {
+                                // image only case
+                                spinnerTemplateCode?.let { it1 ->
+                                    saveDataToViewModel(
+                                        titleAdvertisedEt.text.toString(),
+                                        selectedPage.text.toString(),
+                                        selectAdvertiseDaysSpinner.toString(),
+                                        planChargeEt.text.toString(),
+                                        costOfvalueEt.text.toString(),
+                                        emailPromotionalCheckbox.isChecked,
+                                        flashingAdvertiseCheckbox.isChecked,
+                                        it1,
+                                    )
+                                }
+                                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                            }
                         } else {
                             showAlert("Please upload advertise photo")
                         }
                     } else {
-                        spinnerTemplateCode?.let { it1 ->
-                            saveDataToViewModel(
-                                titleAdvertisedEt.text.toString(),
-                                selectedPage.text.toString(),
-                                selectAdvertiseDaysSpinner.toString(),
-                                planChargeEt.text.toString(),
-                                costOfvalueEt.text.toString(),
-                                emailPromotionalCheckbox.isChecked,
-                                flashingAdvertiseCheckbox.isChecked,
-                                it1,
-                            )
+
+                        if (advertiseDescEt.text.toString().length >= 3) {
+                            spinnerTemplateCode?.let { it1 ->
+                                saveDataToViewModel(
+                                    titleAdvertisedEt.text.toString(),
+                                    selectedPage.text.toString(),
+                                    selectAdvertiseDaysSpinner.toString(),
+                                    planChargeEt.text.toString(),
+                                    costOfvalueEt.text.toString(),
+                                    emailPromotionalCheckbox.isChecked,
+                                    flashingAdvertiseCheckbox.isChecked,
+                                    it1,
+                                )
+                            }
+                            findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+                        } else {
+                            showAlert("Please enter valid description")
                         }
-                        findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
                     }
                 } else {
                     showAlert("Please enter valid ad title")
-                }
+                }*/
             }
 
             titleAdvertisedEt.addTextChangedListener { editable ->
@@ -212,8 +291,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
                 builder.show()
             }
-
-
         }
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
@@ -257,6 +334,37 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
+            if (advertiseBinding?.titleAdvertisedEt?.text?.isNotEmpty() == true) {
+                if (it?.type == "TXTONLY") {
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                } else {
+                    postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                        if (it.isNotEmpty()) {
+                            openPreview = true
+                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                        } else {
+                            openPreview = false
+                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                        }
+                    }
+                }
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
         }
 
         postAdvertiseViewModel.activeTemplateDataForSpinner.observe(viewLifecycleOwner) { response ->
@@ -268,7 +376,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     val templateName = mutableListOf<String>()
 
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
-                        openRichTextEditor = true
+
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
@@ -279,7 +387,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
-                        openRichTextEditor = true
+
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
@@ -287,7 +395,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
                         advertiseBinding?.chooseTemplatell?.visibility = View.GONE
                     } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
-                        openRichTextEditor = false
+
                         advertiseBinding?.advertiseDescEt?.isEnabled = false
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
@@ -323,15 +431,31 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
                         spinnerTemplateCode = "IMON"
+                        openRichTextEditor = false
+                        isImageOnly = true
+                        isBoth = false
+                        isTextOnly = false
                     }
                     "Image with text on bottom" -> {
                         spinnerTemplateCode = "IMTB"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
                     }
                     "Image with text on left side" -> {
                         spinnerTemplateCode = "IMTL"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
                     }
                     "Text Only" -> {
                         spinnerTemplateCode = "TXON"
+                        openRichTextEditor = true
+                        isTextOnly = true
+                        isImageOnly = false
+                        isBoth = false
                     }
                 }
             }
@@ -340,39 +464,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
 
             }
         })
-
-        /* advertiseBinding?.selectAdvertiseTemplateSpinner?.onItemSelectedListener =
-             object : AdapterView.OnItemSelectedListener {
-                 override fun onItemSelected(
-                     parent: AdapterView<*>,
-                     view: View,
-                     position: Int,
-                     id: Long
-                 ) {
-                     when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
-                         "Image Only" -> {
-                             spinnerTemplateCode = "IMON"
-                         }
-                         "Image with text on bottom" -> {
-                             spinnerTemplateCode = "IMTB"
-                         }
-                         "Image with text on left side" -> {
-                             spinnerTemplateCode = "IMTL"
-                         }
-                         "Text Only" -> {
-                             spinnerTemplateCode = "TXON"
-                         }
-                     }
-                 }
-
-                 override fun onNothingSelected(parent: AdapterView<*>) {
-
-                 }
-             }*/
-
-        /* postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-             if (it.isNotEmpty() && )
-         }*/
 
         return advertiseBinding?.root
     }
@@ -391,6 +482,17 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
                 30 -> {
                     selectAdvertiseDaysSpinner.setSelection(2)
+                }
+            }
+            when (advertiseData?.advertisementPageLocation?.type) {
+                "IMGONLY" -> {
+                    selectAdvertiseTemplateSpinner.setSelection(0)
+                }
+                "TXTONLY" -> {
+                    selectAdvertiseTemplateSpinner.setSelection(3)
+                }
+                "BOTH" -> {
+                    selectAdvertiseTemplateSpinner.setSelection(1)
                 }
             }
             //planChargeEt.setText()
