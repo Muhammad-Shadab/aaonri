@@ -20,6 +20,8 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
+import com.aaonri.app.data.main.MainStaticData
+import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -37,6 +39,7 @@ class MainActivity : BaseActivity() {
     val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
     val eventViewModel: EventViewModel by viewModels()
     val advertiseViewModel: AdvertiseViewModel by viewModels()
+    val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,8 @@ class MainActivity : BaseActivity() {
 
         val email =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        mainViewModel.getAllActiveAdvertise()
 
         mainActivityBinding?.apply {
 
@@ -316,10 +321,10 @@ class MainActivity : BaseActivity() {
 
                 }
                 is Resource.Success -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
+
                 }
                 is Resource.Error -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
+
                 }
                 else -> {}
             }
@@ -368,7 +373,21 @@ class MainActivity : BaseActivity() {
                 }
                 else -> {}
             }
+        }
 
+        mainViewModel.allActiveAdvertise.observe(this@MainActivity) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    MainStaticData.updateActiveAdvertiseDetails(response.data)
+                }
+                is Resource.Error -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                }
+            }
         }
 
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {

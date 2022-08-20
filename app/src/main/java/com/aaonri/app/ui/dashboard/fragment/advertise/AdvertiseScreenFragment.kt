@@ -24,6 +24,7 @@ class AdvertiseScreenFragment : Fragment() {
     var advertiseBinding: FragmentAdvertiseScreenBinding? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
+    var advertiseIdList = mutableListOf<Int>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,10 +64,11 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-                    /*response.data?.forEach {
-                        Toast.makeText(context, "${it.advertisementId}", Toast.LENGTH_SHORT).show()
-                        advertiseViewModel.getAdvertiseDetailsById(it.advertisementId)
-                    }*/
+                    response.data?.forEach {
+                        if (!advertiseIdList.contains(it.advertisementId)) {
+                            advertiseIdList.add(it.advertisementId)
+                        }
+                    }
                     response.data?.let { advertiseAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
@@ -91,16 +93,24 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-                    /*Toast.makeText(
+                    Toast.makeText(
                         context,
                         "${response.data?.advertisementDetails?.adImage}.",
                         Toast.LENGTH_SHORT
-                    ).show()*/
+                    ).show()
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
+            }
+        }
+
+        if (advertiseIdList.isNotEmpty()) {
+            advertiseIdList.forEachIndexed { index, i ->
+                if (index == 0) {
+                    advertiseViewModel.getAdvertiseDetailsById(i)
+                }
             }
         }
 

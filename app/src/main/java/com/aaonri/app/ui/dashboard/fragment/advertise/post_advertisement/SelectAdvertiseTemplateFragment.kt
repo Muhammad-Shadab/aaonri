@@ -81,7 +81,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { data -> advertiseTemplateAdapter1?.setData(data.filter { it.pageName != "Dashboard" }) }
+                    response.data?.let { data -> advertiseTemplateAdapter1?.setData(data) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

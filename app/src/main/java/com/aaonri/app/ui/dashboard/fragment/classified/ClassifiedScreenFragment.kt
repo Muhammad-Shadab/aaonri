@@ -67,6 +67,16 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.getClassifiedCategory()
         }
 
+        /*MainStaticData.getClassifiedFooterTextOnly().forEach {
+            Toast.makeText(
+                context,
+                it.advertisementPageLocation.locationName,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }*/
+
+
         /*if (postClassifiedViewModel.categoryFilter.isNotEmpty() ||
             postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
                 postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||

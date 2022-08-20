@@ -40,7 +40,6 @@ class SelectTemplateLocationFragment : Fragment() {
             binding?.tv3?.visibility = View.VISIBLE
             postAdvertiseViewModel.setTemplateLocation(it)
             postAdvertiseViewModel.setAdvertiseImage("")
-
         }
 
         binding?.apply {
