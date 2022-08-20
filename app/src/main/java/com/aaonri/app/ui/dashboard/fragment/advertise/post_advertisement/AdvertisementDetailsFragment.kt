@@ -56,8 +56,10 @@ class AdvertisementDetailsFragment : Fragment() {
                     detailsBinding?.classifiedDetailsBottom?.visibility = View.GONE
                 }
                 is Resource.Success -> {
-                    setData(response.data)
                     AdvertiseStaticData.updateAdvertiseDetails(response.data)
+
+                    setData(response.data)
+
                     detailsBinding?.classifiedDetailsBottom?.visibility = View.VISIBLE
                     detailsBinding?.progressBar?.visibility = View.GONE
                 }

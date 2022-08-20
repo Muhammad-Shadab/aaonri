@@ -160,6 +160,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
     private fun setDataForUpdating() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
+
         detailsBinding?.apply {
             companyNameEt.setText(advertiseData?.advertisementDetails?.companyName)
             companyAddress.setText(advertiseData?.advertisementDetails?.location)
