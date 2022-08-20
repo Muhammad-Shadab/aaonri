@@ -1,5 +1,7 @@
 package com.aaonri.app.data.advertise.model
 
+import com.aaonri.app.data.main.adapter.CheckViewType
+
 data class FindAllActiveAdvertiseResponseItem(
     val active: Boolean,
     val advertisementDetails: AdvertisementDetailsXXXXX,
@@ -16,5 +18,6 @@ data class FindAllActiveAdvertiseResponseItem(
     val rejectionReason: Any,
     val status: String,
     val template: TemplateXX,
-    val toDate: String
+    val toDate: String,
+    var checkViewType: CheckViewType
 )

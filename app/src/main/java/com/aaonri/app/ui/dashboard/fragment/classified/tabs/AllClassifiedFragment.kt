@@ -8,16 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.aaonri.app.data.classified.ClassifiedConstant
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.main.MainStaticData
+import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
+    var homeRecyclerViewAdapter1: HomeRecyclerViewAdapter? = null
+    var homeRecyclerViewAdapter2: HomeRecyclerViewAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
@@ -42,6 +43,9 @@ class AllClassifiedFragment : Fragment() {
                 isMyClassifiedScreen = false
             )
         }
+
+        homeRecyclerViewAdapter1 = HomeRecyclerViewAdapter()
+        homeRecyclerViewAdapter2 = HomeRecyclerViewAdapter()
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
@@ -97,6 +101,19 @@ class AllClassifiedFragment : Fragment() {
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
         }
+
+        allClassifiedBinding?.topAdvertiseRv?.adapter = homeRecyclerViewAdapter1
+        allClassifiedBinding?.topAdvertiseRv?.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        allClassifiedBinding?.bottomAdvertise?.adapter = homeRecyclerViewAdapter2
+        allClassifiedBinding?.bottomAdvertise?.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        homeRecyclerViewAdapter1?.items = MainStaticData.getClassifiedTopBanner()
+
+        homeRecyclerViewAdapter2?.items =
+            MainStaticData.getClassifiedJustAboveFooterImageOnly() + MainStaticData.getClassifiedJustAboveBottomTabBOTH() + MainStaticData.getClassifiedJustAboveFooterTextOnly()
 
         return allClassifiedBinding?.root
     }
