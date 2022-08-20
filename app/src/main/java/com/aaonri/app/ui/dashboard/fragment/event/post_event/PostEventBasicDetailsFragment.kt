@@ -88,8 +88,7 @@ class PostEventBasicDetailsFragment : Fragment() {
 
             addressDetailsNextBtn.setOnClickListener {
 
-                if (titleEvent.text.toString().isNotEmpty() && titleEvent.text.trim()
-                        .toString().length >= 3
+                if (titleEvent.text.trim().toString().length >= 3
                 ) {
                     if (selectCategoryEvent.text.toString().isNotEmpty()) {
 

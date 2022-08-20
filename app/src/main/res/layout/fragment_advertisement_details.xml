@@ -278,7 +278,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/sf_pro_medium"
-                                    android:text="Email                           "
+                                    android:text="Email Id                           "
                                     android:textColor="@color/editTextColor"
                                     android:textSize="13sp" />
 
@@ -353,7 +353,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/sf_pro_medium"
-                                    android:text="Uri                                "
+                                    android:text="Url                                "
                                     android:textColor="@color/editTextColor"
                                     android:textSize="13sp" />
 
