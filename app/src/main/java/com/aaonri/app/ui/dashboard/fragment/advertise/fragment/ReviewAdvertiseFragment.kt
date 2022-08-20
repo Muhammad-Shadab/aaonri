@@ -61,7 +61,7 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
             }
             advertiseDesc.textSize = 12f
 
-            advertiseDesc.fromHtml(postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION])
+            advertiseDesc.fromHtml(postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION])
 
 
         }
