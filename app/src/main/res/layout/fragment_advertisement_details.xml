@@ -370,8 +370,10 @@
                                         android:id="@+id/companyUriTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
-                                        android:text="https://coreagiletech.com/"
+                                        android:maxLines="1"
+                                        android:text="https://coreagiletech.com/uidhfsiudfhsiudfhsuidfhsdufsdfsdfsdfsdfsdfs"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
 

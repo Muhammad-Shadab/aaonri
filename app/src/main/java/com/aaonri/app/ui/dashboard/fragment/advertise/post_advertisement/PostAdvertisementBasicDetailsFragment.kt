@@ -511,7 +511,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 advertiseBinding?.uploadImageTv?.visibility = View.GONE
                 advertiseBinding?.sizeLimitTv?.visibility = View.GONE
             }
-            advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.companyDescription)
+            advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
         }
     }
 
