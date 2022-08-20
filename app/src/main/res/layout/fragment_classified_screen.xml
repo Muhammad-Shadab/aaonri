@@ -417,12 +417,12 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/floatingActionBtnClassified"
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             app:cardBackgroundColor="@color/greenBtnColor"
-            app:cardElevation="0dp"
+            app:cardElevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/circle"
@@ -435,7 +435,6 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/_6sdp"
                 android:src="@drawable/plus" />
-
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
