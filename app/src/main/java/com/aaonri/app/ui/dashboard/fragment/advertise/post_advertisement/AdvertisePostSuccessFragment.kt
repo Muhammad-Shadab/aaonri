@@ -31,6 +31,10 @@ class AdvertisePostSuccessFragment : BottomSheetDialogFragment() {
 
             postAdvertiseViewModel.setStepViewLastTick(true)
 
+            if (postAdvertiseViewModel.isUpdateAdvertise){
+                textView6.text = "Your advertisement will be posted on aaonri\nweb & mobile platforms within 24 hrs after the \n completion of the approval process!"
+            }
+
             viewYourAdvertiseBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callAdvertiseApi", true)

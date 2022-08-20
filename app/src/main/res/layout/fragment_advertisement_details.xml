@@ -108,7 +108,7 @@
                                 android:gravity="center_vertical"
                                 android:includeFontPadding="false"
                                 android:maxLines="1"
-                                android:text="https://yogafitness.com/"
+                                android:text="@string/tap_now"
                                 android:textColor="#124c94"
                                 android:textSize="12sp"
                                 app:layout_constraintEnd_toEndOf="parent"

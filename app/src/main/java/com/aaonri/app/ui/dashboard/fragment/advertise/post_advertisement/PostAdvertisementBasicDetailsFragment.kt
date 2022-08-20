@@ -329,11 +329,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         }
 
         postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { advertisePage ->
-            advertiseBinding?.selectedPage?.text = advertisePage.pageName
+            //advertiseBinding?.selectedPage?.text = advertisePage.pageName
         }
 
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
+            advertiseBinding?.selectedPage?.text = it.title
             if (advertiseBinding?.titleAdvertisedEt?.text?.isNotEmpty() == true) {
                 if (it?.type == "TXTONLY") {
                     advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =

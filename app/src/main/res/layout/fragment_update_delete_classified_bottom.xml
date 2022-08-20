@@ -33,7 +33,9 @@
             android:layout_marginTop="@dimen/_4sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +64,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="UPDATE"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/editOption"
@@ -72,7 +74,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want to edit my Classified"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -87,7 +89,9 @@
             android:layout_marginBottom="@dimen/_24sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +121,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="DELETE"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/deleteOption"
@@ -127,7 +131,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want to remove this Classified"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>

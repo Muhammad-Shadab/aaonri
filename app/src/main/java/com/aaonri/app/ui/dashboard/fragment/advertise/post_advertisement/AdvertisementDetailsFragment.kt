@@ -1,10 +1,13 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,6 +20,7 @@ import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
 
@@ -122,12 +126,33 @@ class AdvertisementDetailsFragment : Fragment() {
             )
         }"
         detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
+
         if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
-            detailsBinding?.advertiseLinkTv?.text = data.advertisementDetails.url
+            //detailsBinding?.advertiseLinkTv?.text = data.advertisementDetails.url
             detailsBinding?.advertiseLinkTv?.visibility = View.VISIBLE
         } else {
             detailsBinding?.advertiseLinkTv?.visibility = View.GONE
         }
+
+        detailsBinding?.advertiseLinkTv?.setOnClickListener {
+            if (URLUtil.isValidUrl(data?.advertisementDetails?.url)) {
+                activity?.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(data?.advertisementDetails?.url)
+                    )
+                )
+            } else {
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Invalid link", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
+
         detailsBinding?.companyDescTv?.textSize = 14f
         detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription)
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName

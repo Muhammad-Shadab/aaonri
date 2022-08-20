@@ -142,7 +142,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:paddingVertical="7dp"
-            android:text="Posting of Advt is free till March 2022"
+            android:text="Posting of Advt is free till August 2022"
             android:textColor="@color/white"
             android:textDirection="anyRtl"
             android:textSize="14sp"

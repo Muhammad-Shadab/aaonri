@@ -48,7 +48,7 @@ class PostAdvertiseCheckout : Fragment() {
         checkoutBinding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
 
-            startdDateTv.text =DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            startdDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
                     .parse(date)
             )
@@ -73,7 +73,7 @@ class PostAdvertiseCheckout : Fragment() {
                         postAdvertiseViewModel.updateAdvertise(
                             UpdateAdvertiseRequest(
                                 AdvertisementDetailsXXXX(
-                                    adDescription = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
+                                    adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
                                     adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
                                     advertisementDetailsId = postAdvertiseViewModel.advertiseId,
                                     companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
@@ -93,7 +93,7 @@ class PostAdvertiseCheckout : Fragment() {
                             PostAdvertiseRequest(
                                 active = true,
                                 advertisementDetails = AdvertisementDetails(
-                                    adDescription = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
+                                    adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
                                     adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
                                     companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
                                     companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
@@ -218,7 +218,7 @@ class PostAdvertiseCheckout : Fragment() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
         checkoutBinding?.apply {
             addPageLocationTv.text = advertiseData?.advertisementPageLocation?.locationName
-            startdDateTv.text =  DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            startdDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(advertiseData?.fromDate?.split("T")?.get(0))
             )

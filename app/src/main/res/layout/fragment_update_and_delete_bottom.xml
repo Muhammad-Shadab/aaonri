@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.advertise.fragment.UpdateAndDeleteBottomFragment">
 
     <View
@@ -24,15 +24,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cancelAdvrstBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +47,7 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/renew_icon" />
+                    android:background="@drawable/cancel_icon" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +64,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="CANCEL"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -70,7 +73,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want to Stop this advertisement"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -80,11 +83,13 @@
             android:id="@+id/renevAdvrstBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +118,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="RENEW"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -122,7 +127,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want continue visible this ad in app"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -132,11 +137,13 @@
             android:id="@+id/updateAdvrst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -165,7 +172,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="UPDATE"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/editOption"
@@ -175,7 +182,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want edit my advertisement"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -190,7 +197,9 @@
             android:layout_marginBottom="@dimen/_24sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp">
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPaddingBottom="@dimen/_6sdp"
+            app:contentPaddingTop="@dimen/_6sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -220,7 +229,7 @@
                         android:fontFamily="@font/sf_pro_medium"
                         android:text="DELETE"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/deleteOption"
@@ -230,7 +239,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want remove this advertisement from this app"
                         android:textColor="#333333"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
             </LinearLayout>

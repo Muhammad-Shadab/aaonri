@@ -93,11 +93,11 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        context,
-                        "${response.data?.advertisementDetails?.adImage}.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    /* Toast.makeText(
+                         context,
+                         "${response.data?.advertisementDetails?.adImage}.",
+                         Toast.LENGTH_SHORT
+                     ).show()*/
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
@@ -109,7 +109,7 @@ class AdvertiseScreenFragment : Fragment() {
         if (advertiseIdList.isNotEmpty()) {
             advertiseIdList.forEachIndexed { index, i ->
                 if (index == 0) {
-                    advertiseViewModel.getAdvertiseDetailsById(i)
+                    //advertiseViewModel.getAdvertiseDetailsById(i)
                 }
             }
         }
