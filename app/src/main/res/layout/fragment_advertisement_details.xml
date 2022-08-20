@@ -333,7 +333,9 @@
                                         android:id="@+id/companyServicesTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
+                                        android:maxLines="1"
                                         android:text="Development &amp; Technology Services"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
@@ -443,6 +445,7 @@
                                         android:id="@+id/companyPageLocationNameTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
                                         android:maxLines="1"
                                         android:text="Dashboard Below Interessdfsdft Area"
@@ -594,7 +597,9 @@
                                         android:id="@+id/companyVasTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
+                                        android:maxLines="1"
                                         android:text="-"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />

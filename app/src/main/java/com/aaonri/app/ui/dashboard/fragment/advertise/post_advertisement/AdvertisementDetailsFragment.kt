@@ -179,12 +179,22 @@ class AdvertisementDetailsFragment : Fragment() {
         )
         detailsBinding?.companyPlanTv?.text = data?.locationPlanRate?.days.toString()
         data?.advertisementVasMap?.forEach {
-            if (!vasCodes.contains(it.code)) {
-                vasCodes.add(it.code)
+            when (it.code) {
+                "EPAD" -> {
+                    if (!vasCodes.contains("Email Promotional Ads")) {
+                        vasCodes.add("Email Promotional Ads")
+                    }
+                }
+                "FLAD" -> {
+                    if (!vasCodes.contains("Flashing Advertisement")) {
+                        vasCodes.add("Flashing Advertisement")
+                    }
+                }
             }
         }
         if (vasCodes.isNotEmpty()) {
-            detailsBinding?.companyVasTv?.text = vasCodes.toString()
+            detailsBinding?.companyVasTv?.text =
+                vasCodes.toString().replace("[", "").replace("]", "")
         } else {
             detailsBinding?.companyVasTv?.text = "-"
         }
