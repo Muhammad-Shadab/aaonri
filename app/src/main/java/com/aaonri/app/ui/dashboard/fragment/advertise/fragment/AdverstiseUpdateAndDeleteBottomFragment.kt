@@ -14,7 +14,6 @@ import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentUpdateAndDeleteBottomBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity
 import com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragmentArgs
-import com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -53,6 +52,7 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
                 dismiss()
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 intent.putExtra("isRenewAdvertise", true)
+                intent.putExtra("advertiseId", args.advertiseId)
                 startActivity(intent)
             }
 
@@ -60,6 +60,7 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
                 dismiss()
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 intent.putExtra("isUpdateAdvertise", true)
+                intent.putExtra("advertiseId", args.advertiseId)
                 startActivity(intent)
             }
 

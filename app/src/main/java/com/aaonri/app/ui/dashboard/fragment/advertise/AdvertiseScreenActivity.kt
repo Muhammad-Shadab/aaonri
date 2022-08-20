@@ -32,11 +32,14 @@ class AdvertiseScreenActivity : BaseActivity() {
 
         val isRenewAdvertise = intent.getBooleanExtra("isRenewAdvertise", false)
         val isUpdateAdvertise = intent.getBooleanExtra("isUpdateAdvertise", false)
+        val advertiseId = intent.getIntExtra("advertiseId", 0)
 
         postAdvertiseViewModel.setIsUpdateOrRenewAdvertise(
             renewAdvertise = isRenewAdvertise,
             updateAdvertise = isUpdateAdvertise
         )
+
+        postAdvertiseViewModel.setAdvertiseId(advertiseId)
 
         postAdvertiseViewModel.getAllActiveAdvertisePage()
         postAdvertiseViewModel.getActiveTemplateForSpinner()

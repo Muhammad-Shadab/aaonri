@@ -198,8 +198,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
         }
 
-
-
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {

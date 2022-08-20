@@ -4,8 +4,8 @@ import com.aaonri.app.data.advertise.api.AdvertiseApi
 import com.aaonri.app.data.advertise.api.CancelAdvertiseApi
 import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
 import com.aaonri.app.data.advertise.model.RenewAdvertiseRequest
+import com.aaonri.app.data.advertise.model.UpdateAdvertiseRequest
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 class AdvertiseRepository @Inject constructor(
@@ -38,5 +38,8 @@ class AdvertiseRepository @Inject constructor(
 
     suspend fun renewAdvertise(renewAdvertiseRequest: RenewAdvertiseRequest) =
         advertiseApi.renewAdvertise(renewAdvertiseRequest)
+
+    suspend fun updateAdvertise(updateAdvertiseRequest: UpdateAdvertiseRequest) =
+        advertiseApi.updateAdvertise(updateAdvertiseRequest)
 
 }

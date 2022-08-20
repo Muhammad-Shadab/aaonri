@@ -10,7 +10,6 @@ import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -44,6 +43,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var isUpdateAdvertise = false
         private set
 
+    var advertiseId = 0
+        private set
+
     var vasList = mutableListOf<String>()
 
     val postedAdvertiseData: MutableLiveData<Resource<PostAdvertiseResponse>> = MutableLiveData()
@@ -65,6 +67,8 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         MutableLiveData()
 
     val advertiseImage: MutableLiveData<String> = MutableLiveData()
+
+    val updateAdvertiseData: MutableLiveData<Resource<UpdateAdvertiseResponse>> = MutableLiveData()
 
     fun addCompanyContactDetails(
         companyName: String,
@@ -222,6 +226,21 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         return Resource.Error(response.message())
     }
 
+    fun updateAdvertise(updateAdvertiseRequest: UpdateAdvertiseRequest) = viewModelScope.launch {
+        updateAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.updateAdvertise(updateAdvertiseRequest)
+        updateAdvertiseData.postValue(handlerUpdateAdvertiseResponse(response))
+    }
+
+    private fun handlerUpdateAdvertiseResponse(response: Response<UpdateAdvertiseResponse>): Resource<UpdateAdvertiseResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     fun setTemplatePageName(value: AdvertiseActivePageResponseItem) {
         selectedTemplatePageName.postValue(value)
     }
@@ -245,6 +264,10 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     fun setAdvertiseImage(value: String) {
         advertiseImage.postValue(value)
+    }
+
+    fun setAdvertiseId(value: Int) {
+        advertiseId = value
     }
 
 }

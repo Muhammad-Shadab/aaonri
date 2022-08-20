@@ -10,9 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
-import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
-import com.aaonri.app.data.advertise.model.AdvertisementDetails
-import com.aaonri.app.data.advertise.model.PostAdvertiseRequest
+import com.aaonri.app.data.advertise.model.*
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCheckoutBinding
 import com.aaonri.app.utils.Resource
@@ -61,6 +59,25 @@ class PostAdvertiseCheckout : Fragment() {
                                 advertiseData.locationPlanRate.days
                             )
                         )*/
+                    } else if (postAdvertiseViewModel.isUpdateAdvertise) {
+                        postAdvertiseViewModel.updateAdvertise(
+                            UpdateAdvertiseRequest(
+                                AdvertisementDetailsXXXX(
+                                    adDescription = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
+                                    adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
+                                    advertisementDetailsId = postAdvertiseViewModel.advertiseId,
+                                    companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
+                                    companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
+                                    contactNo = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER]!!,
+                                    emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
+                                    location = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]!!,
+                                    productServices = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]!! else "",
+                                    url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
+                                ),
+                                advertisementId = postAdvertiseViewModel.advertiseId,
+                                codes = postAdvertiseViewModel.vasList
+                            )
+                        )
                     } else {
                         postAdvertiseViewModel.postAdvertise(
                             PostAdvertiseRequest(
@@ -103,6 +120,27 @@ class PostAdvertiseCheckout : Fragment() {
         }
 
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
+                        response.data?.advertisementId?.let {
+                            callUploadAdvertisePicApi(it)
+                        }
+                    } else {
+                        findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    }*/
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
+
+        postAdvertiseViewModel.updateAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 

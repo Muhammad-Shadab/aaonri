@@ -50,8 +50,8 @@ interface AdvertiseApi {
         @Body renewAdvertiseRequest: RenewAdvertiseRequest
     ): Response<String>
 
-    /*@POST("/api/v1/avd/update")
+    @POST("/api/v1/avd/update")
     suspend fun updateAdvertise(
         @Body updateAdvertiseRequest: UpdateAdvertiseRequest
-    ): Response<PostAdvertiseResponse>*/
+    ): Response<UpdateAdvertiseResponse>
 }
