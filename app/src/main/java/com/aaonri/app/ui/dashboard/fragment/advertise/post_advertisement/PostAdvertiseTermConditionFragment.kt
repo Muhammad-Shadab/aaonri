@@ -33,8 +33,6 @@ class PostAdvertiseTermConditionFragment : Fragment() {
             findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCheckout)
         }
 
-        Toast.makeText(context, "${postAdvertiseViewModel.advertiseId}", Toast.LENGTH_SHORT).show()
-
         termConditionBinding?.apply {
             advertisePostNextBtn.setOnClickListener {
                 if (agreeCheckboxClassified.isChecked) {
