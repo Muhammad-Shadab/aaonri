@@ -132,6 +132,7 @@
     <string name="booking_summary_payment">Booking Summary &amp; Payment</string>
     <string name="advertise_basic_details_desc"><font size="16">Ad description (Max 30 characters)</font></string>
     <string name="company_brief_desc"><font size="16">Brief Description*</font></string>
+    <string name="by_posting_an_ad_on_aaonri_advertise"><![CDATA[By posting an Ad on aaonri, I have read & agree to the Terms & Conditions above]]></string>
 
 
     <string-array name="advertiseValidity">

@@ -70,6 +70,7 @@
                             android:src="@drawable/bullet_blue" />
 
                         <TextView
+                            android:id="@+id/textTv1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_regular"
@@ -142,6 +143,7 @@
                             android:src="@drawable/bullet_blue" />
 
                         <TextView
+                            android:id="@+id/textTv2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_regular"
@@ -166,6 +168,7 @@
                             android:src="@drawable/bullet_blue" />
 
                         <TextView
+                            android:id="@+id/textTv3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_regular"
@@ -238,6 +241,7 @@
                             android:src="@drawable/bullet_blue" />
 
                         <TextView
+                            android:id="@+id/textTv4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_regular"
@@ -275,8 +279,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:text="@string/by_posting_an_ad"
-                    android:textColor="#333333"
+                    android:text="@string/by_posting_an_ad_on_aaonri_advertise"
+                    android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -295,7 +299,7 @@
                 android:minHeight="0dp"
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_4sdp"
-                android:text="CONTINUE"
+                android:text="@string/submit_event"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
