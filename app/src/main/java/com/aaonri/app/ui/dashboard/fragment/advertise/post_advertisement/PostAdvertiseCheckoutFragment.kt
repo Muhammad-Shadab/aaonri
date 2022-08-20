@@ -1,9 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,6 +24,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
@@ -30,6 +33,7 @@ class PostAdvertiseCheckout : Fragment() {
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,8 +48,14 @@ class PostAdvertiseCheckout : Fragment() {
         checkoutBinding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
 
-            startdDateTv.text = date
-            endDateTv.text = getCalculatedDate("MM/dd/yyyy", 7)
+            startdDateTv.text =DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                    .parse(date)
+            )
+            endDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                    .parse(getCalculatedDate("MM/dd/yyyy", 7))
+            )
 
             checkoutBtn.setOnClickListener {
                 postAdvertiseViewModel.apply {
@@ -203,12 +213,19 @@ class PostAdvertiseCheckout : Fragment() {
         return checkoutBinding?.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataForUpdating() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
         checkoutBinding?.apply {
             addPageLocationTv.text = advertiseData?.advertisementPageLocation?.locationName
-            startdDateTv.text = advertiseData?.fromDate
-            endDateTv.text = advertiseData?.toDate
+            startdDateTv.text =  DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(advertiseData?.fromDate?.split("T")?.get(0))
+            )
+            endDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(advertiseData?.toDate?.split("T")?.get(0))
+            )
         }
     }
 
