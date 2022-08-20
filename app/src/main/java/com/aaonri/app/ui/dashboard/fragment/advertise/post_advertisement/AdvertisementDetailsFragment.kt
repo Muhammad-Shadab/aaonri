@@ -84,6 +84,13 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
 
+        advertiseViewModel.callAdvertiseDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
+            if (it) {
+                advertiseViewModel.getAdvertiseDetailsById(args.advertiseId)
+                advertiseViewModel.setCallAdvertiseDetailsApiAfterUpdating(false)
+            }
+        }
+
         return detailsBinding?.root
     }
 

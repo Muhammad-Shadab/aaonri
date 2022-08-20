@@ -53,7 +53,7 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 intent.putExtra("isRenewAdvertise", true)
                 intent.putExtra("advertiseId", args.advertiseId)
-                startActivity(intent)
+                startActivityForResult(intent, 4)
             }
 
             updateAdvrst.setOnClickListener {
@@ -61,7 +61,7 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 intent.putExtra("isUpdateAdvertise", true)
                 intent.putExtra("advertiseId", args.advertiseId)
-                startActivity(intent)
+                startActivityForResult(intent, 5)
             }
 
         }

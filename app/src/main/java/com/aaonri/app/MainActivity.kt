@@ -489,8 +489,6 @@ class MainActivity : BaseActivity() {
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
             val callAdvertiseApi = data?.getBooleanExtra("callAdvertiseApi", false)
 
-            Toast.makeText(applicationContext, "$callAdvertiseApi", Toast.LENGTH_SHORT).show()
-
             if (callClassifiedApi == true) {
 
                 classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
@@ -546,6 +544,7 @@ class MainActivity : BaseActivity() {
                     )
                 )
             } else if (callAdvertiseApi == true) {
+                advertiseViewModel.setCallAdvertiseDetailsApiAfterUpdating(true)
                 if (email != null) {
                     advertiseViewModel.getAllAdvertise(email)
                 }

@@ -3,7 +3,6 @@ package com.aaonri.app.data.advertise.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.advertise.model.AdvertiseActivePageResponse
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponse
 import com.aaonri.app.data.advertise.repository.AdvertiseRepository
@@ -25,6 +24,8 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
         MutableLiveData()
 
     val callAdvertiseApi: MutableLiveData<Boolean> = MutableLiveData()
+
+    val callAdvertiseDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getAllAdvertise(userEmail: String) = viewModelScope.launch {
         allAdvertiseData.postValue(Resource.Loading())
@@ -73,6 +74,10 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     fun callAdvertiseApiAfterCancel(value: Boolean) {
         callAdvertiseApi.postValue(value)
+    }
+
+    fun setCallAdvertiseDetailsApiAfterUpdating(value: Boolean) {
+        callAdvertiseDetailsApiAfterUpdating.postValue(value)
     }
 
 }
