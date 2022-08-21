@@ -154,7 +154,7 @@ class AdvertisementDetailsFragment : Fragment() {
 
 
         detailsBinding?.companyDescTv?.textSize = 14f
-        detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription)
+        detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.adDescription)
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
         detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId

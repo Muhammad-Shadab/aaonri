@@ -525,20 +525,20 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         isFlashingAdvertisement: Boolean,
         templateCode: String,
     ) {
-        description?.let {
-            postAdvertiseViewModel.addCompanyBasicDetailsMap(
-                addTitle = addTitle,
-                templateName = templateName,
-                advertiseValidity = advertiseValidity,
-                planCharges = planCharges,
-                costOfValue = costOfValue,
-                isEmailPromotional = isEmailPromotional,
-                isFlashingAdvertisement = isFlashingAdvertisement,
-                templateCode = templateCode,
-                advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
-                description = it
-            )
-        }
+
+        postAdvertiseViewModel.addCompanyBasicDetailsMap(
+            addTitle = addTitle,
+            templateName = templateName,
+            advertiseValidity = advertiseValidity,
+            planCharges = planCharges,
+            costOfValue = costOfValue,
+            isEmailPromotional = isEmailPromotional,
+            isFlashingAdvertisement = isFlashingAdvertisement,
+            templateCode = templateCode,
+            advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
+            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString()
+        )
+
     }
 
     private val startForProfileImageResult =

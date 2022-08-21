@@ -87,17 +87,16 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                             if (phoneNumber.length == 10) {
                                 if (Validator.emailValidation(companyEmailEt.text.toString())) {
                                     if (advertiseDescEt.text.toString().length >= 3) {
-                                        description?.let { it1 ->
-                                            postAdvertiseViewModel.addCompanyContactDetails(
-                                                companyName = companyNameEt.text.toString(),
-                                                location = companyAddress.text.toString(),
-                                                phoneNumber = phoneNumber,
-                                                email = companyEmailEt.text.toString(),
-                                                services = companyProfessionEt.text.toString(),
-                                                link = companyLinkEt.text.toString(),
-                                                description = it1
-                                            )
-                                        }
+                                        postAdvertiseViewModel.addCompanyContactDetails(
+                                            companyName = companyNameEt.text.toString(),
+                                            location = companyAddress.text.toString(),
+                                            phoneNumber = phoneNumber,
+                                            email = companyEmailEt.text.toString(),
+                                            services = companyProfessionEt.text.toString(),
+                                            link = companyLinkEt.text.toString(),
+                                            description = if (description?.isNotEmpty() == true) description!! else advertiseDescEt.text.toString()
+                                        )
+
                                         val action =
                                             PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
                                         findNavController().navigate(action)
