@@ -8,6 +8,7 @@ object MainStaticData {
 
     private var activeAdvertiseResponse: FindAllActiveAdvertiseResponse? = null
 
+    /** classified landing page data **/
     private var classifiedJustAboveFooterTextOnly =
         mutableListOf<FindAllActiveAdvertiseResponseItem>()
 
@@ -20,53 +21,70 @@ object MainStaticData {
     private var classifiedTopBanner =
         mutableListOf<FindAllActiveAdvertiseResponseItem>()
 
+    /** classified details screen advertise **/
+    private var classifiedAdvertiseDetails =
+        mutableListOf<FindAllActiveAdvertiseResponseItem>()
+
+
     fun updateActiveAdvertiseDetails(value: FindAllActiveAdvertiseResponse?) {
         activeAdvertiseResponse = value
         addClassifiedData()
     }
 
     fun addClassifiedData() {
-        activeAdvertiseResponse?.forEach { data ->
+        activeAdvertiseResponse?.forEachIndexed { index, data ->
+            /** classified landing page data **/
             if (data.advertisementPageLocation.locationId == 19) {
-                if (!classifiedJustAboveFooterTextOnly.contains(data)) {
-                    classifiedJustAboveFooterTextOnly.add(data)
-                }
-                classifiedJustAboveFooterTextOnly.forEach {
-                    it.checkViewType = CheckViewType.TEXT_ONLY
+                if (!classifiedJustAboveFooterTextOnly.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.TEXT_ONLY
+                    classifiedJustAboveFooterTextOnly.add(activeAdvertiseResponse!![index])
                 }
             }
             if (data.advertisementPageLocation.locationId == 18) {
-                if (!classifiedJustAboveFooterImageOnly.contains(data)) {
-                    classifiedJustAboveFooterImageOnly.add(data)
-                }
-                classifiedJustAboveFooterImageOnly.forEach {
-                    it.checkViewType = CheckViewType.IMAGE_ONLY
+                if (!classifiedJustAboveFooterImageOnly.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.IMAGE_ONLY
+                    classifiedJustAboveFooterImageOnly.add(activeAdvertiseResponse!![index])
                 }
             }
             if (data.advertisementPageLocation.locationId == 17) {
-                if (!classifiedJustAboveBottomTabBOTH.contains(data)) {
-                    classifiedJustAboveBottomTabBOTH.add(data)
-                }
-                classifiedJustAboveBottomTabBOTH.forEach {
-                    it.checkViewType = CheckViewType.BOTH
+                if (!classifiedJustAboveBottomTabBOTH.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.BOTH
+                    classifiedJustAboveBottomTabBOTH.add(activeAdvertiseResponse!![index])
                 }
             }
             if (data.advertisementPageLocation.locationId == 16) {
-                if (!classifiedTopBanner.contains(data)) {
-                    classifiedTopBanner.add(data)
+                if (!classifiedTopBanner.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.BOTH
+                    classifiedTopBanner.add(activeAdvertiseResponse!![index])
                 }
-                classifiedTopBanner.forEach {
-                    it.checkViewType = CheckViewType.BOTH
+            }
+
+            /** classified details screen advertise **/
+            if (data.advertisementPageLocation.locationId == 32 || data.advertisementPageLocation.locationId == 33) {
+                if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.BOTH
+                }
+            }
+            if (data.advertisementPageLocation.locationId == 34) {
+                if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.IMAGE_ONLY
+                }
+            }
+            if (data.advertisementPageLocation.locationId == 35) {
+                if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
+                    activeAdvertiseResponse!![index].checkViewType = CheckViewType.TEXT_ONLY
                 }
             }
         }
     }
 
+    fun getActiveAdvertiseDetails() = activeAdvertiseResponse
+
     fun getClassifiedJustAboveFooterTextOnly() = classifiedJustAboveFooterTextOnly
     fun getClassifiedJustAboveFooterImageOnly() = classifiedJustAboveFooterImageOnly
     fun getClassifiedJustAboveBottomTabBOTH() = classifiedJustAboveBottomTabBOTH
-    fun getClassifiedTopBanner() = classifiedTopBanner
+    fun getClassifiedAdvertiseDetails() = classifiedAdvertiseDetails
 
-    fun getActiveAdvertiseDetails() = activeAdvertiseResponse
+    fun getClassifiedTopBanner() = classifiedTopBanner
 
 }
