@@ -60,13 +60,13 @@ class MyEventFragment : Fragment() {
             homeRecyclerViewAdapter2?.items =
                 ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
 
-            /*topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
             bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
             bottomAdvertiseRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)*/
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         }
 
@@ -83,6 +83,8 @@ class MyEventFragment : Fragment() {
                         if (keyword?.isNotEmpty() == true) {
                             myEventBinding?.nestedScrollView?.visibility = View.GONE
                             myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
+                            myEventBinding?.topAdvertiseRv?.visibility = View.GONE
+                            myEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
                             myEventBinding?.noResultFound?.visibility = View.VISIBLE
                             /* activity?.let { it1 ->
                                  Snackbar.make(
@@ -94,10 +96,14 @@ class MyEventFragment : Fragment() {
                             myEventBinding?.noResultFound?.visibility = View.GONE
                             myEventBinding?.nestedScrollView?.visibility = View.VISIBLE
                             myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
+                            myEventBinding?.topAdvertiseRv?.visibility = View.GONE
+                            myEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
                         }
                     } else {
                         myEventBinding?.noResultFound?.visibility = View.GONE
                         myEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
+                        myEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        myEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                         eventViewModel.setHideFloatingBtn(false)
                         myEventBinding?.nestedScrollView?.visibility = View.GONE
                         allEventAdapter?.setData(response.data?.eventList)
