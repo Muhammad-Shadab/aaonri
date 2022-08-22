@@ -115,12 +115,12 @@ class AdvertisementDetailsFragment : Fragment() {
         }
         detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
         detailsBinding?.advertiseDateTv?.text = "From ${
-            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.fromDate?.split("T")?.get(0))
             )
         } To ${
-            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.toDate?.split("T")?.get(0))
             )
@@ -169,11 +169,11 @@ class AdvertisementDetailsFragment : Fragment() {
             detailsBinding?.companyUriTv?.text = "-"
         }
         detailsBinding?.companyStartDateTv?.text =
-            DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.fromDate?.split("T")?.get(0))
             )
-        detailsBinding?.companyEndDateTv?.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+        detailsBinding?.companyEndDateTv?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.toDate?.split("T")?.get(0))
         )
