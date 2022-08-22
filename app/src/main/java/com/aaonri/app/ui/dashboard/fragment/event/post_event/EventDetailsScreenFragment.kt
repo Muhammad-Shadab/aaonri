@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -34,6 +35,8 @@ import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
+import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -58,6 +61,7 @@ class EventDetailsScreenFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
+    var homeRecyclerViewAdapter: HomeRecyclerViewAdapter? = null
     var eventPremiumLink: String = ""
     var isGuestUser = false
     var startDate = ""
@@ -80,6 +84,8 @@ class EventDetailsScreenFragment : Fragment() {
 
         postEventViewModel.getEventDetails(args.eventId)
 
+        homeRecyclerViewAdapter = HomeRecyclerViewAdapter()
+
         evenDetailsBinding?.apply {
 
             /*if (args.isMyEvent) {
@@ -91,6 +97,12 @@ class EventDetailsScreenFragment : Fragment() {
                 postEventViewModel.getisUserVisitingEventInfo(email, args.eventId)
                 postEventViewModel.getUserisInterested(email, "Event", args.eventId)
             }
+
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter
+            bottomAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            homeRecyclerViewAdapter?.items =
+                ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 

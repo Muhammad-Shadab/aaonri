@@ -1,19 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.event.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.event.adapter.AllEventAdapter
-import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
+import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +23,8 @@ class AllEventFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var allEventBinding: FragmentAllEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
+    var homeRecyclerViewAdapter1: HomeRecyclerViewAdapter? = null
+    var homeRecyclerViewAdapter2: HomeRecyclerViewAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,10 +39,26 @@ class AllEventFragment : Fragment() {
             )
         }
 
+        homeRecyclerViewAdapter1 = HomeRecyclerViewAdapter()
+        homeRecyclerViewAdapter2 = HomeRecyclerViewAdapter()
+
         allEventBinding?.apply {
 
             recyclerViewEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewEvent.adapter = allEventAdapter
+
+            homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
+
+            homeRecyclerViewAdapter2?.items =
+                ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
+
+            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         }
 

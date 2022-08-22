@@ -51,12 +51,17 @@ class AllClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
+            homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
+
+            homeRecyclerViewAdapter2?.items =
+                ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
+
             topAdvertiseRv.adapter = homeRecyclerViewAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertise.adapter = homeRecyclerViewAdapter2
-            bottomAdvertise.layoutManager =
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
@@ -109,11 +114,6 @@ class AllClassifiedFragment : Fragment() {
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
         }
-
-        homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
-
-        homeRecyclerViewAdapter2?.items =
-            ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
 
         return allClassifiedBinding?.root
     }

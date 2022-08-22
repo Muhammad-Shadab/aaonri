@@ -114,7 +114,7 @@ class ClassifiedDetailsFragment : Fragment() {
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             homeRecyclerViewAdapter?.items =
-                ActiveAdvertiseStaticData.getClassifiedAdvertiseDetails()
+                ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
