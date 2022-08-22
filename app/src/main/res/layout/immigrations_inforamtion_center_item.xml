@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_marginTop="@dimen/_6sdp"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <androidx.cardview.widget.CardView
     app:cardBackgroundColor="#f2f0f0"
@@ -11,13 +10,14 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
     app:cardCornerRadius="6dp">
     <LinearLayout
         android:padding="@dimen/_12sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_gravity="center"
         >
 
             <TextView
@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="B1 B2 Visa Discussion"
                 android:textSize="13sp"
+                android:includeFontPadding="false"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:textColor="@color/black"/>
             <TextView
@@ -37,7 +38,7 @@
                 android:layout_marginTop="6dp"
                 android:includeFontPadding="false"
                 android:textColor="@color/immigaration_text_color"
-                android:text="Posted by: Mannan Kumar on Mar 09, 2022"/>
+                android:text="B-1, B-2, E-1, E-2, E-3, H-1B, H-1B1, H-3, J-1, L-1, O &amp;TNisas"/>
 
 
     </LinearLayout>

@@ -140,5 +140,9 @@
         <!--<item>15 Days</item>
         <item>30 Days</item>-->
     </string-array>
-
+    <string-array name="allImmigrationcat">
+        <item>B1/B2 Visitor Visa</item>
+        <item>Green Card</item>
+        <item>H1B VISA</item>
+    </string-array>
 </resources>
