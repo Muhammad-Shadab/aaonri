@@ -18,7 +18,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -38,7 +38,8 @@
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topAdvertiseRv" />
+            app:layout_constraintTop_toBottomOf="@id/topAdvertiseRv"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bottomAdvertiseRv"
@@ -48,9 +49,11 @@
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:paddingBottom="6dp"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewClassified"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewClassified"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
