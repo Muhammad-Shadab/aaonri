@@ -30,12 +30,12 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
             advertiseNameTv.text = data[position].title
 //            advertiseLocationTv.text  = data[position].advertisementDetails?.location
             advertiseDateTv.text = "From ${
-                DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         .parse(data[position]?.fromDate?.split("T")?.get(0))
                 )
             } To ${
-                DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         .parse(data[position]?.toDate?.split("T")?.get(0))
                 )

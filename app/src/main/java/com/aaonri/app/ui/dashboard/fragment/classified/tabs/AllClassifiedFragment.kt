@@ -55,8 +55,8 @@ class AllClassifiedFragment : Fragment() {
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertise.adapter = homeRecyclerViewAdapter2
-            bottomAdvertise.layoutManager =
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 

@@ -48,11 +48,11 @@ class PostAdvertiseCheckout : Fragment() {
         checkoutBinding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
 
-            startdDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            startdDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
                     .parse(date)
             )
-            endDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            endDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
                     .parse(getCalculatedDate("MM/dd/yyyy", 7))
             )
@@ -218,11 +218,11 @@ class PostAdvertiseCheckout : Fragment() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
         checkoutBinding?.apply {
             addPageLocationTv.text = advertiseData?.advertisementPageLocation?.locationName
-            startdDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            startdDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(advertiseData?.fromDate?.split("T")?.get(0))
             )
-            endDateTv.text = DateTimeFormatter.ofPattern("MMM dd,yyyy").format(
+            endDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(advertiseData?.toDate?.split("T")?.get(0))
             )

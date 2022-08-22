@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
+import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.utils.Constant
@@ -18,6 +21,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class AdvertiseScreenFragment : Fragment() {
@@ -25,6 +29,7 @@ class AdvertiseScreenFragment : Fragment() {
     var advertiseAdapter: AdvertiseAdapter? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     var advertiseIdList = mutableListOf<Int>()
+    var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +48,9 @@ class AdvertiseScreenFragment : Fragment() {
 
         advertiseBinding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         advertiseBinding?.apply {
+
+
+
 
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
@@ -70,6 +78,7 @@ class AdvertiseScreenFragment : Fragment() {
                         }
                     }
                     response.data?.let { advertiseAdapter?.setData(it) }
+                    response.data?.let { searchAdvertisement(it) }
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
@@ -115,5 +124,27 @@ class AdvertiseScreenFragment : Fragment() {
         }
 
         return advertiseBinding?.root
+    }
+
+
+    private fun searchAdvertisement(data: List<AllAdvertiseResponseItem>) {
+        advertiseBinding?.searchView?.addTextChangedListener { editable ->
+            advertisementList.clear()
+            val searchText = editable.toString().lowercase(Locale.getDefault())
+            if (searchText.isNotEmpty()) {
+                data.forEach {
+                    if (it.title.lowercase(Locale.getDefault()).contains(searchText)) {
+                        advertisementList.add(it)
+                    }
+                }
+                advertiseAdapter?.setData(advertisementList)
+                advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
+            } else {
+                advertisementList.clear()
+                data.let { advertisementList.addAll(it) }
+                advertiseAdapter?.setData(advertisementList)
+            }
+            advertiseAdapter?.setData(advertisementList)
+        }
     }
 }
