@@ -10,10 +10,10 @@
         android:id="@+id/addImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_500sdp"
-        android:src="@drawable/ic_image_placeholder"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_image_placeholder" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -497,6 +497,16 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/bottomAdvertiseRv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:clipToPadding="false"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:paddingBottom="6dp" />
+
                         <TextView
                             android:id="@+id/loginToViewSellerInfo"
                             android:layout_width="match_parent"
@@ -510,10 +520,10 @@
                             android:textSize="14sp"
                             android:visibility="gone" />
 
-                        <View
+                        <!--<View
                             android:id="@+id/bottomViewForSpace"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_16sdp" />
+                            android:layout_height="@dimen/_16sdp" />-->
 
                     </LinearLayout>
 

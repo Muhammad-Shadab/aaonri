@@ -4,7 +4,7 @@ import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponse
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.main.adapter.CheckViewType
 
-object MainStaticData {
+object ActiveAdvertiseStaticData {
 
     private var activeAdvertiseResponse: FindAllActiveAdvertiseResponse? = null
 
@@ -63,16 +63,19 @@ object MainStaticData {
             if (data.advertisementPageLocation.locationId == 32 || data.advertisementPageLocation.locationId == 33) {
                 if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
                     activeAdvertiseResponse!![index].checkViewType = CheckViewType.BOTH
+                    classifiedAdvertiseDetails.add(activeAdvertiseResponse!![index])
                 }
             }
             if (data.advertisementPageLocation.locationId == 34) {
                 if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
                     activeAdvertiseResponse!![index].checkViewType = CheckViewType.IMAGE_ONLY
+                    classifiedAdvertiseDetails.add(activeAdvertiseResponse!![index])
                 }
             }
             if (data.advertisementPageLocation.locationId == 35) {
                 if (!classifiedAdvertiseDetails.contains(activeAdvertiseResponse!![index])) {
                     activeAdvertiseResponse!![index].checkViewType = CheckViewType.TEXT_ONLY
+                    classifiedAdvertiseDetails.add(activeAdvertiseResponse!![index])
                 }
             }
         }

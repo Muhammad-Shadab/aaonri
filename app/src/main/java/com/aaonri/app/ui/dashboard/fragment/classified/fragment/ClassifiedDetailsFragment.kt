@@ -5,16 +5,21 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.*
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,6 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
@@ -33,6 +39,8 @@ import com.aaonri.app.data.classified.model.UserAdsXX
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
+import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -53,6 +61,7 @@ class ClassifiedDetailsFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val args: ClassifiedDetailsFragmentArgs by navArgs()
+    var homeRecyclerViewAdapter: HomeRecyclerViewAdapter? = null
     var isClassifiedLike = false
     var isGuestUser = false
     var itemId = 0
@@ -88,6 +97,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.getClassifiedAdDetails(args.addId)
 
+        homeRecyclerViewAdapter = HomeRecyclerViewAdapter()
+
         classifiedDetailsBinding?.apply {
 
             loginToViewSellerInfo.text = ss
@@ -98,6 +109,12 @@ class ClassifiedDetailsFragment : Fragment() {
             if (email != null) {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
+
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter
+            bottomAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            homeRecyclerViewAdapter?.items =
+                ActiveAdvertiseStaticData.getClassifiedAdvertiseDetails()
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -195,7 +212,6 @@ class ClassifiedDetailsFragment : Fragment() {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
 
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
@@ -331,7 +347,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         }
                     }
                 }
-
             }
 
 
@@ -454,9 +469,6 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-
-
-
         val random = data.askingPrice
 
         val df = DecimalFormat("#,###.00")
@@ -531,12 +543,12 @@ class ClassifiedDetailsFragment : Fragment() {
             if (it) {
                 isGuestUser = true
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
-                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+                //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
                 classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
             } else {
                 isGuestUser = false
                 classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
-                classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
+                //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
         }
 
@@ -813,51 +825,6 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
     }
-
-
-//    fun createDarkPaletteAsync(bitmap: Bitmap?) {
-//
-//        // on below line we are calling a palette
-//        // method from bitmap to get colors from our image.
-//        Palette.from(bitmap!!).setRegion(2,2,2,2).maximumColorCount(0x000000)
-//        Palette.from(bitmap!!).generate { p -> // Use generated instance
-//            // on below line we are passing
-//
-//            // a default value to it.
-//            val defaultValue = 0x000000
-//
-//            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
-////            // on below line we are adding colors to our different views.
-////            headTV.setTextColor(p!!.getLightVibrantColor(defaultValue))
-////            gfgTV.setTextColor(p.getLightVibrantColor(defaultValue))
-////            backRL.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-////            changeBtn.setTextColor(p.getDarkVibrantColor(defaultValue))
-////            changeBtn.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-////            changeBtn2.setTextColor(p.getDarkVibrantColor(defaultValue))
-////            changeBtn2.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-//        }
-//    }
-
-//    fun createPaletteAsync(bitmap: Bitmap?) {
-//        // on below line we are calling a palette method
-//        // from bitmap to get colors from our image.
-//        Palette.from(bitmap!!).generate { p -> // Use generated instance
-//            // on below line we are passing
-//            // a default value to it.
-//            val defaultValue = 0x000000
-//
-//            // on below line we are adding colors to our different views.
-//
-//            classifiedDetailsBinding?.addImage?.setBackgroundColor(p!!.getDarkVibrantColor(defaultValue))
-////            gfgTV.setTextColor(p.getDominantColor(defaultValue))
-////            backRL.setBackgroundColor(p.getLightVibrantColor(defaultValue))
-////            changeBtn.setTextColor(p.getLightMutedColor(defaultValue))
-////            changeBtn.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-////            changeBtn2.setTextColor(p.getLightMutedColor(defaultValue))
-////            changeBtn2.setBackgroundColor(p.getDarkVibrantColor(defaultValue))
-//        }
-//    }
-//
 
 
 }

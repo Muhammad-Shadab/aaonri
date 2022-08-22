@@ -20,7 +20,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
-import com.aaonri.app.data.main.MainStaticData
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
@@ -382,7 +382,7 @@ class MainActivity : BaseActivity() {
                 }
                 is Resource.Success -> {
                     mainActivityBinding?.progressBar?.visibility = View.GONE
-                    MainStaticData.updateActiveAdvertiseDetails(response.data)
+                    ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
                 }
                 is Resource.Error -> {
                     mainActivityBinding?.progressBar?.visibility = View.GONE

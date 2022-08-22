@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
-import com.aaonri.app.data.main.MainStaticData
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
@@ -50,6 +50,14 @@ class AllClassifiedFragment : Fragment() {
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
+
+            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            bottomAdvertise.adapter = homeRecyclerViewAdapter2
+            bottomAdvertise.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -102,18 +110,10 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-        allClassifiedBinding?.topAdvertiseRv?.adapter = homeRecyclerViewAdapter1
-        allClassifiedBinding?.topAdvertiseRv?.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        allClassifiedBinding?.bottomAdvertise?.adapter = homeRecyclerViewAdapter2
-        allClassifiedBinding?.bottomAdvertise?.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        homeRecyclerViewAdapter1?.items = MainStaticData.getClassifiedTopBanner()
+        homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
 
         homeRecyclerViewAdapter2?.items =
-            MainStaticData.getClassifiedJustAboveFooterImageOnly() + MainStaticData.getClassifiedJustAboveBottomTabBOTH() + MainStaticData.getClassifiedJustAboveFooterTextOnly()
+            ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
 
         return allClassifiedBinding?.root
     }
