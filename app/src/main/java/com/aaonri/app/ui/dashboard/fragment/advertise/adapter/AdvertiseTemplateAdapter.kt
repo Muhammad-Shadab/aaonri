@@ -32,7 +32,6 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
             holder.itemView.setOnClickListener {
                 context?.let { it1 -> PreferenceManager<Int>(it1) }
                     ?.set("selectedTemplatePage", position)
-                selectedServices(advertisePageList[position])
                 notifyDataSetChanged()
             }
 

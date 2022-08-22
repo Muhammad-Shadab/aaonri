@@ -13,12 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
-import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -49,8 +49,9 @@ class AdvertiseScreenFragment : Fragment() {
         advertiseBinding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         advertiseBinding?.apply {
 
-
-
+            searchViewIcon.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+            }
 
             floatingActionBtnEvents.setOnClickListener {
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
