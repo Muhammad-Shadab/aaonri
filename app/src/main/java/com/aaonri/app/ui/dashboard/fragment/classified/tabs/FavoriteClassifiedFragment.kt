@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
+import com.aaonri.app.data.main.ActiveAdvertiseStaticData
+import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
 import com.aaonri.app.databinding.FragmentFavoriteClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.FavoriteClassifiedAdapter
 import com.aaonri.app.utils.Constant
@@ -25,6 +28,9 @@ FavoriteClassifiedFragment : Fragment() {
     var favoriteClassifiedAdapter: FavoriteClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
+    var homeRecyclerViewAdapter1: HomeRecyclerViewAdapter? = null
+    var homeRecyclerViewAdapter2: HomeRecyclerViewAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +46,9 @@ FavoriteClassifiedFragment : Fragment() {
             )
         }
 
+        homeRecyclerViewAdapter1 = HomeRecyclerViewAdapter()
+        homeRecyclerViewAdapter2 = HomeRecyclerViewAdapter()
+
         favoriteClassifiedBinding?.apply {
 
             loginBtn.setOnClickListener {
@@ -48,6 +57,20 @@ FavoriteClassifiedFragment : Fragment() {
 
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
+
+            homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
+
+            homeRecyclerViewAdapter2?.items =
+                ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
+
+            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
         }
 
 
@@ -62,9 +85,13 @@ FavoriteClassifiedFragment : Fragment() {
                     if (response.data?.classifieds?.isNotEmpty() == true) {
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
                         favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
+                        favoriteClassifiedBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        favoriteClassifiedBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                         response.data.classifieds.let { favoriteClassifiedAdapter!!.setData(it) }
                     } else {
                         favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
+                        favoriteClassifiedBinding?.topAdvertiseRv?.visibility = View.GONE
+                        favoriteClassifiedBinding?.bottomAdvertiseRv?.visibility = View.GONE
                         favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 
