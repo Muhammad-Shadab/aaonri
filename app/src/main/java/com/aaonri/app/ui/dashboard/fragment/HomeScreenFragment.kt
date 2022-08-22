@@ -25,7 +25,7 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationAdapter
+import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.utils.Constant

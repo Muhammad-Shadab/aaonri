@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.immigration
+package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
