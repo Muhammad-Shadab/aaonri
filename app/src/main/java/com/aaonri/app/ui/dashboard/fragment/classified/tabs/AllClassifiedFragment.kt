@@ -51,6 +51,11 @@ class AllClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
+            recyclerViewClassified.setHasFixedSize(true)
+            recyclerViewClassified.isNestedScrollingEnabled = false
+            topAdvertiseRv.isNestedScrollingEnabled = false
+            bottomAdvertiseRv.isNestedScrollingEnabled = false
+
             homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
 
             homeRecyclerViewAdapter2?.items =
