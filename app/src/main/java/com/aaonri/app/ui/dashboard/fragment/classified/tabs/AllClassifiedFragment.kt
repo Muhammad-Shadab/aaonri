@@ -85,10 +85,14 @@ class AllClassifiedFragment : Fragment() {
                         }
                         //classifiedViewModel.setClassifiedForHomeScreen(adsList)
                         allClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
+                        allClassifiedBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        allClassifiedBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                     }
                     allClassifiedBinding?.recyclerViewClassified?.adapter = allClassifiedAdapter
                     if (response.data?.userAdsList?.isEmpty() == true) {
                         allClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
+                        allClassifiedBinding?.topAdvertiseRv?.visibility = View.GONE
+                        allClassifiedBinding?.bottomAdvertiseRv?.visibility = View.GONE
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
@@ -111,6 +115,8 @@ class AllClassifiedFragment : Fragment() {
         postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
                 allClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
+                allClassifiedBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                allClassifiedBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
         }

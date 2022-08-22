@@ -88,10 +88,13 @@ class AllEventFragment : Fragment() {
                         if (eventViewModel.eventCityList.isEmpty()) {
                             eventViewModel.setEventCityList(listOfCity)
                         }
-
                         allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
+                        allEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        allEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                     } else {
                         allEventBinding?.recyclerViewEvent?.visibility = View.GONE
+                        allEventBinding?.topAdvertiseRv?.visibility = View.GONE
+                        allEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
@@ -110,6 +113,8 @@ class AllEventFragment : Fragment() {
         eventViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
                 allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
+                allEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
+                allEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                 //allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }
