@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -223,13 +224,17 @@ class MainActivity : BaseActivity() {
                     )
                 }
                 is Resource.Success -> {
-
+                    val abovePopularItemAds = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     mainActivityBinding?.progressBar?.visibility = View.GONE
                     response.data?.forEach {
+                        /** one ad for classified grid**/
                         if (it.advertisementPageLocation.locationId == 2) {
-                        homeViewModel.setHomeClassifiedInlineAds(it)
-                    }
+                            homeViewModel.setHomeClassifiedInlineAds(it)
+                        }
+
+                        /** all advertise for above popular item**/
+
                     }
                     ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
                 }
