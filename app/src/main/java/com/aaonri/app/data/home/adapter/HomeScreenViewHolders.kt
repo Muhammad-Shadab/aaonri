@@ -1,0 +1,117 @@
+package com.aaonri.app.data.home.adapter
+
+import android.text.Html
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
+import com.aaonri.app.BuildConfig
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
+import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.databinding.ClassifiedAdvertiseItemBinding
+import com.aaonri.app.databinding.ClassifiedCardItemsBinding
+import com.bumptech.glide.Glide
+import java.math.RoundingMode
+import java.text.DecimalFormat
+
+sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    class ClassifiedViewHolder(private val binding: ClassifiedCardItemsBinding) :
+        HomeScreenViewHolders(binding) {
+        val context = binding.classifiedCardView.context
+        fun bind(userAds: UserAds) {
+            binding.apply {
+                val random = userAds.askingPrice
+
+                val df = DecimalFormat("#,###.00")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
+                if (userAds.favorite) {
+                    like.visibility = View.VISIBLE
+                }
+
+                if (userAds.userAdsImages.isEmpty()) {
+
+                    classifiedPriceTv.text = "$$roundoff"
+
+                    classifiedTitleTv.text = userAds.adTitle
+                    locationClassifiedTv.text =
+                        userAds.adLocation + " - " + userAds.adZip
+                    popularTv.visibility =
+                        if (userAds.popularOnAaonri) View.VISIBLE else View.GONE
+                } else {
+                    Glide.with(context)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
+                        .into(classifiedItemIv)
+                    /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
+                        placeholder(R.drawable.ic_image_placeholder)
+                    }*/
+                    classifiedPriceTv.text = "$$roundoff"
+                    classifiedTitleTv.text = userAds.adTitle
+                    locationClassifiedTv.text =
+                        userAds.adLocation + " - " + userAds.adZip
+                    popularTv.visibility =
+                        if (userAds.popularOnAaonri) View.VISIBLE else View.GONE
+                }
+
+                val date = userAds.createdOn.subSequence(0, 10)
+                val year = date.subSequence(0, 4)
+                val month = date.subSequence(5, 7)
+                val day = date.subSequence(8, 10)
+                classifiedPostDateTv.text = "Posted On: $month-$day-$year"
+            }
+        }
+    }
+
+    class ClassifiedAdvertiseViewHolder(private val binding: ClassifiedAdvertiseItemBinding) :
+        HomeScreenViewHolders(binding) {
+        val context = binding.classifiedImageWithTextAdCv.context
+        fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
+
+            when (findAllActiveAdvertiseResponseItem.advertisementPageLocation.type) {
+                "TXTONLY" -> {
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.isNullOrEmpty()) {
+                        binding.classifiedOnlyTextTitle.text =
+                            findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
+                    }
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isNullOrEmpty()) {
+                        binding.classifiedOnlyTextDesc.text =
+                            Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                    }
+                    binding.classifiedOnlyTextAdCv.visibility = View.VISIBLE
+                }
+                "IMGONLY" -> {
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adImage.isNullOrEmpty()) {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .into(binding.classifiedImageOnlyItemIv)
+                        }
+                    }
+                    binding.classifiedImageOnlyAdCv.visibility = View.VISIBLE
+                }
+                "BOTH" -> {
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.isNullOrEmpty()) {
+                        binding.classifiedImageWithTextTitle.text =
+                            findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
+                    }
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isNullOrEmpty()) {
+                        binding.classifiedImageWithTextDesc.text =
+                            Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                    }
+                    if (!findAllActiveAdvertiseResponseItem.advertisementDetails.adImage.isNullOrEmpty()) {
+                        context?.let { it1 ->
+                            Glide.with(it1)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .into(binding.classifiedImageWithTextIv)
+                        }
+                    }
+                    binding.classifiedImageWithTextAdCv.visibility = View.VISIBLE
+                }
+            }
+
+        }
+    }
+
+
+}

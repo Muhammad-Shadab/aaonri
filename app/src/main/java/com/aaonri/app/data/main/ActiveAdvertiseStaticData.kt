@@ -8,6 +8,10 @@ object ActiveAdvertiseStaticData {
 
     private var activeAdvertiseResponse: FindAllActiveAdvertiseResponse? = null
 
+    /** classified home screen advertise **/
+    private var advertiseOnClassifiedHomeScreen =
+        mutableListOf<FindAllActiveAdvertiseResponseItem>()
+
     /** classified landing page data **/
     private var classifiedJustAboveFooterTextOnly =
         mutableListOf<FindAllActiveAdvertiseResponseItem>()
@@ -47,8 +51,14 @@ object ActiveAdvertiseStaticData {
         addClassifiedData()
     }
 
-    fun addClassifiedData() {
+    private fun addClassifiedData() {
         activeAdvertiseResponse?.forEachIndexed { index, data ->
+            /** classified home screen advertise **/
+            if (data.advertisementPageLocation.locationId == 2) {
+                if (!advertiseOnClassifiedHomeScreen.contains(activeAdvertiseResponse!![index])) {
+                    advertiseOnClassifiedHomeScreen.add(activeAdvertiseResponse!![index])
+                }
+            }
             /** classified landing page data **/
             if (data.advertisementPageLocation.locationId == 19) {
                 if (!classifiedJustAboveFooterTextOnly.contains(activeAdvertiseResponse!![index])) {
@@ -146,6 +156,7 @@ object ActiveAdvertiseStaticData {
     fun getActiveAdvertiseDetails() = activeAdvertiseResponse
 
     /** classified data advertise **/
+    fun getAdvertiseOnClassifiedHomeScreen() = advertiseOnClassifiedHomeScreen
     fun getClassifiedJustAboveFooterTextOnly() = classifiedJustAboveFooterTextOnly
     fun getClassifiedJustAboveFooterImageOnly() = classifiedJustAboveFooterImageOnly
     fun getClassifiedJustAboveBottomTabBOTH() = classifiedJustAboveBottomTabBOTH

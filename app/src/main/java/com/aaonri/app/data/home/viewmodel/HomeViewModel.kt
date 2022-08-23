@@ -3,9 +3,7 @@ package com.aaonri.app.data.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
-import com.aaonri.app.data.classified.model.GetClassifiedsByUserResponse
-import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.model.EventResponse
 import com.aaonri.app.data.home.model.InterestResponse
 import com.aaonri.app.data.home.model.PoplarClassifiedResponse
@@ -25,6 +23,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     var allInterestData: MutableLiveData<Resource<InterestResponse>> = MutableLiveData()
         private set
+
+    var homeClassifiedInlineAds: MutableLiveData<FindAllActiveAdvertiseResponseItem> =
+        MutableLiveData()
 
     /*val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()*/
@@ -91,6 +92,11 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             }
         }
         return Resource.Error(response.message())
+    }
+
+    @JvmName("setHomeClassifiedInlineAds1")
+    fun setHomeClassifiedInlineAds(value: FindAllActiveAdvertiseResponseItem) {
+        homeClassifiedInlineAds.postValue(value)
     }
 
 

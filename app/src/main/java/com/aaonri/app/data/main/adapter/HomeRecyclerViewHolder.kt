@@ -11,7 +11,7 @@ import com.aaonri.app.databinding.TextOnlyItemBinding
 import com.bumptech.glide.Glide
 
 sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    /** Advertise ViewHolder for multiView Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         HomeRecyclerViewHolder(binding) {
 
@@ -23,6 +23,7 @@ sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHol
         }
     }
 
+    /** Advertise ViewHolder for multiView Type**/
     class ImageOnlyViewHolder(private val binding: ImageOnlyViewHolderBinding) :
         HomeRecyclerViewHolder(binding) {
         val context = binding.imageView.context
@@ -35,6 +36,7 @@ sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHol
         }
     }
 
+    /** Advertise ViewHolder for multiView Type**/
     class ImageAndTextViewHolder(private val binding: ImageWithTextBinding) :
         HomeRecyclerViewHolder(binding) {
         val context = binding.imageView.context
@@ -49,7 +51,6 @@ sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHol
                     .into(binding.imageView)
             }
         }
-
     }
 
 }

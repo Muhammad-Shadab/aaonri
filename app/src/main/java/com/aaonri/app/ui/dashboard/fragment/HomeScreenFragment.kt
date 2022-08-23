@@ -18,13 +18,13 @@ import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.adapter.HomeEventAdapter
+import com.aaonri.app.data.home.adapter.GenericAdapter
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
-import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
@@ -43,8 +43,9 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
-    var allClassifiedAdapter: AllClassifiedAdapter? = null
-    var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
+
+    //var allClassifiedAdapter: AllClassifiedAdapter? = null
+    //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
@@ -52,11 +53,13 @@ class HomeScreenFragment : Fragment() {
     var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
     var homeEventAdapter: HomeEventAdapter? = null
+    var genericAdapter: GenericAdapter? = null
     val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService = ""
     var guestUser = false
+    var homeClassifiedWithAd = mutableListOf<Any>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,14 +73,16 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
                 .toString()
 
-        allClassifiedAdapter = AllClassifiedAdapter {
+        /*allClassifiedAdapter = AllClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
                     it.id,
                     false
                 )
             findNavController().navigate(action)
-        }
+        }*/
+
+        genericAdapter = GenericAdapter()
 
         homeEventAdapter = HomeEventAdapter {
             val action =
@@ -97,14 +102,14 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
+        /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
                     it.id,
                     false
                 )
             findNavController().navigate(action)
-        }
+        }*/
 
         immigrationAdapter = ImmigrationAdapter {
 
@@ -155,8 +160,10 @@ class HomeScreenFragment : Fragment() {
                                 40
                             )
                         )
+                        /*homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
+                            allClassifiedAdapterForHorizontal*/
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
-                            allClassifiedAdapterForHorizontal
+                            genericAdapter
 
                     }
                     "Events" -> {
@@ -326,10 +333,10 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     callApiAccordingToInterest(response.data?.interests)
-                    val yourArray: MutableList<String>? =
+                    val list: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
-                    yourArray?.removeAt(0)
-                    setUserInterestedServiceRow(yourArray)
+                    list?.removeAt(0)
+                    setUserInterestedServiceRow(list)
                 }
                 is Resource.Error -> {
 
@@ -375,28 +382,40 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
+
                     response.data?.userAdsList?.let {
                         if (classifiedViewModel.allClassifiedList.isEmpty()) {
                             classifiedViewModel.setClassifiedForHomeScreen(it)
                         }
                     }
+
                     if (classifiedViewModel.allClassifiedList.size > 3) {
-                        allClassifiedAdapter?.setData(
+                        /*allClassifiedAdapter?.setData(
                             classifiedViewModel.allClassifiedList.subList(
                                 0,
                                 4
                             )
-                        )
-                        allClassifiedAdapterForHorizontal?.setData(
+                        )*/
+                        homeClassifiedWithAd =
+                            classifiedViewModel.allClassifiedList.subList(0, 4).toMutableList()
+
+                        //genericAdapter?.items = classifiedViewModel.allClassifiedList.subList(0, 4)
+                        /*allClassifiedAdapterForHorizontal?.setData(
                             classifiedViewModel.allClassifiedList.subList(
                                 0,
                                 4
                             )
-                        )
+                        )*/
                     } else {
-                        allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
-                        allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
+                        homeClassifiedWithAd =
+                            classifiedViewModel.allClassifiedList.toMutableList()
+                        //genericAdapter?.items = classifiedViewModel.allClassifiedList
+                        //allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
+                        //allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
                     }
+
+                    genericAdapter?.items = homeClassifiedWithAd
+
                 }
                 is Resource.Error -> {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
@@ -408,6 +427,12 @@ class HomeScreenFragment : Fragment() {
                 }
             }
         }
+
+        homeViewModel.homeClassifiedInlineAds.observe(viewLifecycleOwner) {
+            homeClassifiedWithAd.add(index = 2, it)
+            genericAdapter?.items = homeClassifiedWithAd
+        }
+
 
         /*advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -680,7 +705,8 @@ class HomeScreenFragment : Fragment() {
                 40
             )
         )
-        homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
+        //homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
+        homeScreenBinding?.priorityServiceRv?.adapter = genericAdapter
 
     }
 

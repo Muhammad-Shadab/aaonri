@@ -214,6 +214,31 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        mainViewModel.allActiveAdvertise.observe(this@MainActivity) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
+                }
+                is Resource.Success -> {
+
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    response.data?.forEach {
+                        if (it.advertisementPageLocation.locationId == 2) {
+                        homeViewModel.setHomeClassifiedInlineAds(it)
+                    }
+                    }
+                    ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
+                }
+                is Resource.Error -> {
+                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                }
+            }
+        }
+
         homeViewModel.getAllInterest()
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
@@ -376,25 +401,6 @@ class MainActivity : BaseActivity() {
 
                 }
                 else -> {}
-            }
-        }
-
-        mainViewModel.allActiveAdvertise.observe(this@MainActivity) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
-                }
-                is Resource.Success -> {
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
-                    ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
-                }
-                is Resource.Error -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
-                }
             }
         }
 
