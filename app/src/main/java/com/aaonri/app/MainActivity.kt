@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -68,6 +69,9 @@ class MainActivity : BaseActivity() {
 
         val email =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedHomeServiceRow", -1)
 
         mainViewModel.getAllActiveAdvertise()
 
@@ -378,9 +382,13 @@ class MainActivity : BaseActivity() {
         mainViewModel.allActiveAdvertise.observe(this@MainActivity) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                 }
                 is Resource.Success -> {
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     mainActivityBinding?.progressBar?.visibility = View.GONE
                     ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
                 }
@@ -569,5 +577,11 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedHomeServiceRow", -1)
     }
 }

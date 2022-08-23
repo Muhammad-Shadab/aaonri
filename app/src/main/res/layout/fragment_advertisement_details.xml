@@ -131,6 +131,7 @@
                                 android:text="Company Description"
                                 android:textColor="#888282"
                                 android:textSize="12sp"
+                                android:visibility="gone"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -143,6 +144,7 @@
                                 android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
                                 android:textColor="#333333"
                                 android:textSize="12sp"
+                                android:visibility="gone"
                                 app:layout_constraintEnd_toEndOf="@id/compnyDetails"
                                 app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="@id/compnyDetails"

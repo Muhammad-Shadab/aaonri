@@ -29,6 +29,8 @@ class AdvertisementDetailsFragment : Fragment() {
     var detailsBinding: FragmentAdvertisementDetailsBinding? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val args: AdvertisementDetailsFragmentArgs by navArgs()
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,7 +113,6 @@ class AdvertisementDetailsFragment : Fragment() {
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${data?.advertisementDetails?.adImage}")
                     .into(it)
             }
-
         }
         detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
         detailsBinding?.advertiseDateTv?.text = "From ${
@@ -128,7 +129,6 @@ class AdvertisementDetailsFragment : Fragment() {
         detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
 
         if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
-            //detailsBinding?.advertiseLinkTv?.text = data.advertisementDetails.url
             detailsBinding?.advertiseLinkTv?.visibility = View.VISIBLE
         } else {
             detailsBinding?.advertiseLinkTv?.visibility = View.GONE
@@ -154,7 +154,11 @@ class AdvertisementDetailsFragment : Fragment() {
 
 
         detailsBinding?.companyDescTv?.textSize = 14f
-        detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.adDescription)
+        if (!data?.advertisementDetails?.adDescription.isNullOrEmpty()) {
+            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.adDescription)
+            detailsBinding?.compnyDetails?.visibility = View.VISIBLE
+            detailsBinding?.companyDescTv?.visibility = View.VISIBLE
+        }
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
         detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
@@ -193,8 +197,7 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
         if (vasCodes.isNotEmpty()) {
-            detailsBinding?.companyVasTv?.text =
-                vasCodes.toString().replace("[", "").replace("]", "")
+            //detailsBinding?.companyVasTv?.text = vasCodes.toString().replace("[", "").replace("]", "")
         } else {
             detailsBinding?.companyVasTv?.text = "-"
         }

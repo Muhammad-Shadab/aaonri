@@ -224,12 +224,12 @@ class HomeScreenFragment : Fragment() {
 
                     }
                     "Advertise With Us" -> {
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        /*homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter*/
                     }
                 }
             }
@@ -409,7 +409,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
+        /*advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -434,7 +434,7 @@ class HomeScreenFragment : Fragment() {
                 else -> {
                 }
             }
-        }
+        }*/
 
         return homeScreenBinding?.root
     }
@@ -453,7 +453,7 @@ class HomeScreenFragment : Fragment() {
                             response.data.forEach {
                                 if (!activeServiceList.contains(it) && it.active && interests.contains(
                                         it.id.toString()
-                                    )
+                                    ) && it.interestDesc != "Advertise With Us"
                                 ) {
                                     activeServiceList.add(it)
                                 }
@@ -463,7 +463,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" } as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" } as MutableList<InterestResponseItem>)
                         } else {
                             homeInterestsServiceAdapter?.setData(activeServiceList)
                         }

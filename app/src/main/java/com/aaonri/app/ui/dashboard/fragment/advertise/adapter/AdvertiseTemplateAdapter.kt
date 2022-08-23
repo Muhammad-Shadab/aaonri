@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
         return AdvertiseViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
         val context = holder.itemView.context
 

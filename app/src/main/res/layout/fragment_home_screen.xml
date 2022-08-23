@@ -444,9 +444,7 @@
                    android:clipToPadding="false"
                    android:paddingHorizontal="@dimen/_16sdp"
                    android:paddingTop="@dimen/_10sdp"
-                   android:visibility="visible"
-
-                   />
+                   android:visibility="visible" />
 
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/availableServiceHorizontalClassifiedRv"
