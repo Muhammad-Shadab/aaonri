@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentUpdateAndDeleteBottomBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity
@@ -33,11 +34,16 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
 
         binding?.apply {
 
+            if (AdvertiseStaticData.getAddDetails()?.approved == true) {
+                updateAdvrst.visibility = View.GONE
+                cancelAdvrstBtn.visibility = View.GONE
+                renevAdvrstBtn.visibility = View.VISIBLE
+            }
+
             cancelAdvrstBtn.setOnClickListener {
-                //dismiss()
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Delete?")
+                builder.setMessage("Are you sure you want to Cancel?")
                 builder.setPositiveButton("OK") { dialog, which ->
                     advertiseViewModel.cancelAdvertise(args.advertiseId)
                 }

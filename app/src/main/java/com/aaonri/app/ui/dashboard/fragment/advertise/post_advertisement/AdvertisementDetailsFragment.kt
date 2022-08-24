@@ -29,6 +29,7 @@ class AdvertisementDetailsFragment : Fragment() {
     var detailsBinding: FragmentAdvertisementDetailsBinding? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val args: AdvertisementDetailsFragmentArgs by navArgs()
+    var isAdApproved: Boolean? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -106,6 +107,8 @@ class AdvertisementDetailsFragment : Fragment() {
     private fun setData(data: AdvertiseDetailsResponse?) {
 
         val vasCodes = mutableListOf<String>()
+
+        isAdApproved = data?.approved
 
         detailsBinding?.addImage?.let {
             context?.let { it1 ->

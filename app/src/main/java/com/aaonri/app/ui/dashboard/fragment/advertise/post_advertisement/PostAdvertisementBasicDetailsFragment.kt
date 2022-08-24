@@ -68,6 +68,9 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
+        Toast.makeText(context, "${advertisePageLocationResponseItem?.type}", Toast.LENGTH_SHORT)
+            .show()
+
         advertiseBinding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
@@ -446,7 +449,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                             isTextOnly = false
                         }
                         "Text Only" -> {
-
                             spinnerTemplateCode = "TXON"
                             openRichTextEditor = true
                             isTextOnly = true

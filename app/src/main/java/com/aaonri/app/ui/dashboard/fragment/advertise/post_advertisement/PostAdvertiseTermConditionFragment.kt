@@ -42,6 +42,8 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         }
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
+            Toast.makeText(context, "true", Toast.LENGTH_SHORT).show()
+
             val action =
                 PostAdvertiseTermConditionFragmentDirections.actionPostAdvertiseTermConditionFragment2ToPostAdvertiseCompanyDetailsFrgament2()
             findNavController().navigate(action)
