@@ -47,14 +47,15 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var isImageOnly = false
     var isTextOnly = false
     var isBoth = false
+    var data:String? = null
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data?.getStringExtra("result")
+                 data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    advertiseBinding?.advertiseDescEt?.fromHtml(data.trim())
-                    description = data.trim()
+                    advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
+                    description = data?.trim()
                 } else {
                     advertiseBinding?.advertiseDescEt?.text = ""
                 }
@@ -377,7 +378,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     val templateName = mutableListOf<String>()
 
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
-
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
@@ -388,7 +388,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
-
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
@@ -431,6 +430,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             ) {
                 when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
+                        advertiseBinding?.advertiseDescEt?.text = ""
                         spinnerTemplateCode = "IMON"
                         openRichTextEditor = false
                         isImageOnly = true
@@ -438,6 +438,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         isTextOnly = false
                     }
                     "Image with text on bottom" -> {
+                        if (data?.isNotEmpty() == true) {
+                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
+                            description = data?.trim()
+                        } else {
+                            advertiseBinding?.advertiseDescEt?.text = ""
+                        }
                         spinnerTemplateCode = "IMTB"
                         openRichTextEditor = true
                         isBoth = true
@@ -445,6 +451,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         isTextOnly = false
                     }
                     "Image with text on left side" -> {
+                        if (data?.isNotEmpty() == true) {
+                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
+                            description = data?.trim()
+                        } else {
+                            advertiseBinding?.advertiseDescEt?.text = ""
+                        }
                         spinnerTemplateCode = "IMTL"
                         openRichTextEditor = true
                         isBoth = true
@@ -452,6 +464,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         isTextOnly = false
                     }
                     "Text Only" -> {
+                        if (data?.isNotEmpty() == true) {
+                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
+                            description = data?.trim()
+                        } else {
+                            advertiseBinding?.advertiseDescEt?.text = ""
+                        }
                         spinnerTemplateCode = "TXON"
                         openRichTextEditor = true
                         isTextOnly = true
@@ -486,6 +504,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 }
             }
             when (advertiseData?.advertisementPageLocation?.type) {
+
                 "IMGONLY" -> {
                     selectAdvertiseTemplateSpinner.setSelection(0)
                 }
