@@ -54,8 +54,6 @@
         app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />
-
-
     <LinearLayout
         android:id="@+id/searchViewll"
         android:layout_width="match_parent"
@@ -115,7 +113,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewll">
-
         <TextView
             android:id="@+id/yourText"
             android:layout_width="match_parent"
@@ -130,7 +127,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/postingofAdTv"
             android:layout_width="match_parent"
@@ -150,6 +146,35 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourText" />
+        <LinearLayout
+            android:id="@+id/noResultFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.312"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:src="@drawable/empty_my_classified"
+                />
+            <TextView
+                android:id="@+id/emptyTextVew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/no_result_found"
+                android:textAlignment="center"
+                android:textColor="#333333"
+                android:textSize="16sp"
+              />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAdvertise"
@@ -164,7 +189,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"
             tools:listitem="@layout/advertisement_item" />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/floatingActionBtnEvents"
             android:layout_width="@dimen/_40sdp"

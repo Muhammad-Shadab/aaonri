@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
@@ -73,13 +74,27 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-                    response.data?.forEach {
-                        if (!advertiseIdList.contains(it.advertisementId)) {
-                            advertiseIdList.add(it.advertisementId)
-                        }
+
+                    if(response.data?.isEmpty() == true)
+                    {
+                        advertiseBinding?.noResultFound?.visibility = View.VISIBLE
+                        advertiseBinding?.emptyTextVew?.text = "You haven't listed anything yet"
+                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
                     }
-                    response.data?.let { advertiseAdapter?.setData(it) }
-                    response.data?.let { searchAdvertisement(it) }
+                    else{
+                        response.data?.forEach {
+                            if (!advertiseIdList.contains(it.advertisementId)) {
+                                advertiseIdList.add(it.advertisementId)
+                            }
+                        }
+                        response.data?.let { advertiseAdapter?.setData(it) }
+                        response.data?.let { searchAdvertisement(it) }
+                        advertiseBinding?.noResultFound?.visibility = View.GONE
+                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                    }
+
+
+
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
@@ -138,14 +153,24 @@ class AdvertiseScreenFragment : Fragment() {
                         advertisementList.add(it)
                     }
                 }
-                advertiseAdapter?.setData(advertisementList)
-                advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
+
+
             } else {
                 advertisementList.clear()
                 data.let { advertisementList.addAll(it) }
-                advertiseAdapter?.setData(advertisementList)
             }
+            if(advertisementList.isEmpty())
+            {
+                advertiseBinding?.noResultFound?.visibility = View.VISIBLE
+                advertiseBinding?.emptyTextVew?.text = "Results not found"
+                advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
+             }
+            else{
+                advertiseBinding?.noResultFound?.visibility = View.GONE
+                advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                }
             advertiseAdapter?.setData(advertisementList)
+            advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
     }
 }
