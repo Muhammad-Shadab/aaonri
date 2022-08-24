@@ -13,7 +13,7 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
+import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.GridSpacingItemDecoration
@@ -25,8 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class AllClassifiedFragment : Fragment() {
     var allClassifiedBinding: FragmentAllClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
-    var homeRecyclerViewAdapter1: HomeRecyclerViewAdapter? = null
-    var homeRecyclerViewAdapter2: HomeRecyclerViewAdapter? = null
+    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
+    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
@@ -44,8 +44,8 @@ class AllClassifiedFragment : Fragment() {
             )
         }
 
-        homeRecyclerViewAdapter1 = HomeRecyclerViewAdapter()
-        homeRecyclerViewAdapter2 = HomeRecyclerViewAdapter()
+        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
+        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
@@ -56,16 +56,16 @@ class AllClassifiedFragment : Fragment() {
             topAdvertiseRv.isNestedScrollingEnabled = false
             bottomAdvertiseRv.isNestedScrollingEnabled = false
 
-            homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
+            advertiseGenericAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
 
-            homeRecyclerViewAdapter2?.items =
+            advertiseGenericAdapter2?.items =
                 ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
 
-            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.adapter = advertiseGenericAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.adapter = advertiseGenericAdapter2
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }

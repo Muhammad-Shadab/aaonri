@@ -10,10 +10,10 @@ import com.aaonri.app.databinding.ImageWithTextBinding
 import com.aaonri.app.databinding.TextOnlyItemBinding
 import com.bumptech.glide.Glide
 
-sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
+sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
     /** Advertise ViewHolder for multiView Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
-        HomeRecyclerViewHolder(binding) {
+        AdvertiseViewHolder(binding) {
 
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
             binding.textView.text =
@@ -25,7 +25,7 @@ sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHol
 
     /** Advertise ViewHolder for multiView Type**/
     class ImageOnlyViewHolder(private val binding: ImageOnlyViewHolderBinding) :
-        HomeRecyclerViewHolder(binding) {
+        AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
             context?.let { it1 ->
@@ -38,7 +38,7 @@ sealed class HomeRecyclerViewHolder(binding: ViewBinding) : RecyclerView.ViewHol
 
     /** Advertise ViewHolder for multiView Type**/
     class ImageAndTextViewHolder(private val binding: ImageWithTextBinding) :
-        HomeRecyclerViewHolder(binding) {
+        AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
             binding.textView.text =

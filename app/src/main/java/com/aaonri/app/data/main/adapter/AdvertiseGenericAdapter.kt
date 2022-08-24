@@ -9,7 +9,7 @@ import com.aaonri.app.databinding.ImageOnlyViewHolderBinding
 import com.aaonri.app.databinding.ImageWithTextBinding
 import com.aaonri.app.databinding.TextOnlyItemBinding
 
-class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewHolder>() {
+class AdvertiseGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
 
     var items = listOf<FindAllActiveAdvertiseResponseItem>()
         set(value) {
@@ -17,10 +17,10 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewHolder>() {
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
         return when (viewType) {
             R.layout.text_only_item -> {
-                HomeRecyclerViewHolder.TextOnlyViewHolder(
+                AdvertiseViewHolder.TextOnlyViewHolder(
                     TextOnlyItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -29,7 +29,7 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewHolder>() {
                 )
             }
             R.layout.image_only_view_holder -> {
-                HomeRecyclerViewHolder.ImageOnlyViewHolder(
+                AdvertiseViewHolder.ImageOnlyViewHolder(
                     ImageOnlyViewHolderBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -38,7 +38,7 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewHolder>() {
                 )
             }
             R.layout.image_with_text -> {
-                HomeRecyclerViewHolder.ImageAndTextViewHolder(
+                AdvertiseViewHolder.ImageAndTextViewHolder(
                     ImageWithTextBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -50,21 +50,24 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewHolder>() {
         }
     }
 
-    override fun onBindViewHolder(holder: HomeRecyclerViewHolder, position: Int) {
-        when(holder){
-            is HomeRecyclerViewHolder.ImageAndTextViewHolder -> holder.bind(items[position])
-            is HomeRecyclerViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
-            is HomeRecyclerViewHolder.TextOnlyViewHolder -> holder.bind(items[position])
+    override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
+        when (holder) {
+            is AdvertiseViewHolder.ImageAndTextViewHolder -> holder.bind(items[position])
+            is AdvertiseViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
+            is AdvertiseViewHolder.TextOnlyViewHolder -> holder.bind(items[position])
         }
     }
 
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int): Int {
-        return when (items[position].checkViewType) {
-            CheckViewType.TEXT_ONLY -> R.layout.text_only_item
-            CheckViewType.IMAGE_ONLY -> R.layout.image_only_view_holder
-            CheckViewType.BOTH -> R.layout.image_with_text
+        return when (items[position].advertisementPageLocation.type) {
+            "TXTONLY" -> R.layout.text_only_item
+            "IMGONLY" -> R.layout.image_only_view_holder
+            "BOTH" -> R.layout.image_with_text
+            else -> {
+                0
+            }
         }
     }
 

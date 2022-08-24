@@ -17,12 +17,13 @@ import com.aaonri.app.R
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
-import com.aaonri.app.data.event.adapter.HomeEventAdapter
-import com.aaonri.app.data.home.adapter.GenericAdapter
+import com.aaonri.app.data.home.adapter.ClassifiedGenericAdapter
+import com.aaonri.app.data.home.adapter.EventGenericAdapter
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
+import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -43,6 +44,8 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
+    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
+    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
 
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
@@ -52,14 +55,17 @@ class HomeScreenFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
-    var homeEventAdapter: HomeEventAdapter? = null
-    var genericAdapter: GenericAdapter? = null
+
+    //var homeEventAdapter: HomeEventAdapter? = null
+    var genericAdapterForClassified: ClassifiedGenericAdapter? = null
+    var genericAdapterForEvent: EventGenericAdapter? = null
     val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService = ""
     var guestUser = false
-    var homeClassifiedWithAd = mutableListOf<Any>()
+    var homeClassifiedWithAdList = mutableListOf<Any>()
+    var homeEventWithAdList = mutableListOf<Any>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,13 +88,16 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }*/
 
-        genericAdapter = GenericAdapter()
+        genericAdapterForClassified = ClassifiedGenericAdapter()
+        genericAdapterForEvent = EventGenericAdapter()
+        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
+        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
 
-        homeEventAdapter = HomeEventAdapter {
+        /*homeEventAdapter = HomeEventAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(it.id)
             findNavController().navigate(action)
-        }
+        }*/
 
         advertiseAdapter = AdvertiseAdapter {
             val action =
@@ -163,7 +172,7 @@ class HomeScreenFragment : Fragment() {
                         /*homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
                             allClassifiedAdapterForHorizontal*/
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
-                            genericAdapter
+                            genericAdapterForClassified
 
                     }
                     "Events" -> {
@@ -172,7 +181,9 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
+                        //homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
+                        homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                            genericAdapterForEvent
                     }
                     "Jobs" -> {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
@@ -297,6 +308,14 @@ class HomeScreenFragment : Fragment() {
 
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
+
+            adsBelowFirstSectionRv.adapter = advertiseGenericAdapter1
+            adsBelowFirstSectionRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            adsAbovePopularSectionRv.adapter = advertiseGenericAdapter2
+            adsAbovePopularSectionRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
@@ -308,11 +327,12 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
 
                     if (response.data?.userEvent?.isNotEmpty() == true) {
-                        if (response.data.userEvent.size >= 4) {
-                            homeEventAdapter?.setData(response.data.userEvent.subList(0, 4))
+                        /*if (response.data.userEvent.size >= 4) {
+                            //homeEventAdapter?.setData(response.data.userEvent.subList(0, 4))
                         } else {
-                            homeEventAdapter?.setData(response.data.userEvent)
-                        }
+                            //homeEventAdapter?.setData(response.data.userEvent)
+                        }*/
+                        homeEventWithAdList = response.data.userEvent.subList(0, 4).toMutableList()
                     }
                 }
                 is Resource.Error -> {
@@ -389,32 +409,31 @@ class HomeScreenFragment : Fragment() {
                         }
                     }
 
-                    if (classifiedViewModel.allClassifiedList.size > 3) {
-                        /*allClassifiedAdapter?.setData(
+                    /*if (classifiedViewModel.allClassifiedList.size > 3) {
+                        *//*allClassifiedAdapter?.setData(
                             classifiedViewModel.allClassifiedList.subList(
                                 0,
                                 4
                             )
-                        )*/
-                        homeClassifiedWithAd =
+                        )*//*
+                        homeClassifiedWithAdList =
                             classifiedViewModel.allClassifiedList.subList(0, 4).toMutableList()
 
                         //genericAdapter?.items = classifiedViewModel.allClassifiedList.subList(0, 4)
-                        /*allClassifiedAdapterForHorizontal?.setData(
+                        *//*allClassifiedAdapterForHorizontal?.setData(
                             classifiedViewModel.allClassifiedList.subList(
                                 0,
                                 4
                             )
-                        )*/
+                        )*//*
                     } else {
-                        homeClassifiedWithAd =
-                            classifiedViewModel.allClassifiedList.toMutableList()
+
                         //genericAdapter?.items = classifiedViewModel.allClassifiedList
                         //allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
                         //allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
-                    }
-
-                    genericAdapter?.items = homeClassifiedWithAd
+                    }*/
+                    homeClassifiedWithAdList = classifiedViewModel.allClassifiedList.toMutableList()
+                    genericAdapterForClassified?.items = homeClassifiedWithAdList
 
                 }
                 is Resource.Error -> {
@@ -429,8 +448,29 @@ class HomeScreenFragment : Fragment() {
         }
 
         homeViewModel.homeClassifiedInlineAds.observe(viewLifecycleOwner) {
-            homeClassifiedWithAd.add(index = 2, it)
-            genericAdapter?.items = homeClassifiedWithAd
+            if (homeClassifiedWithAdList.size >= 4) {
+                homeClassifiedWithAdList.add(index = 2, it)
+            } else {
+                homeClassifiedWithAdList.add(it)
+            }
+            genericAdapterForClassified?.items = homeClassifiedWithAdList
+        }
+
+        homeViewModel.homeEventInlineAds.observe(viewLifecycleOwner) {
+            if (homeEventWithAdList.size >= 4) {
+                homeEventWithAdList.add(index = 2, it)
+            } else {
+                homeEventWithAdList.add(it)
+            }
+            genericAdapterForEvent?.items = homeEventWithAdList
+        }
+
+        homeViewModel.adsBelowFirstSection.observe(viewLifecycleOwner) {
+            advertiseGenericAdapter1?.items = it
+        }
+
+        homeViewModel.adsAbovePopularItem.observe(viewLifecycleOwner) {
+            advertiseGenericAdapter2?.items = it
         }
 
 
@@ -584,7 +624,8 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
+                //homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
+                homeScreenBinding?.priorityServiceRv?.adapter = genericAdapterForEvent
 
             } else if (interests.startsWith("3")) {
                 //Immigration
@@ -706,7 +747,7 @@ class HomeScreenFragment : Fragment() {
             )
         )
         //homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
-        homeScreenBinding?.priorityServiceRv?.adapter = genericAdapter
+        homeScreenBinding?.priorityServiceRv?.adapter = genericAdapterForClassified
 
     }
 

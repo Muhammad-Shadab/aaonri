@@ -11,7 +11,7 @@ import com.aaonri.app.data.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.HomeRecyclerViewAdapter
+import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -23,8 +23,8 @@ class AllEventFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var allEventBinding: FragmentAllEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
-    var homeRecyclerViewAdapter1: HomeRecyclerViewAdapter? = null
-    var homeRecyclerViewAdapter2: HomeRecyclerViewAdapter? = null
+    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
+    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,24 +39,24 @@ class AllEventFragment : Fragment() {
             )
         }
 
-        homeRecyclerViewAdapter1 = HomeRecyclerViewAdapter()
-        homeRecyclerViewAdapter2 = HomeRecyclerViewAdapter()
+        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
+        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
 
         allEventBinding?.apply {
 
             recyclerViewEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewEvent.adapter = allEventAdapter
 
-            homeRecyclerViewAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
+            advertiseGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
 
-            homeRecyclerViewAdapter2?.items =
+            advertiseGenericAdapter2?.items =
                 ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
 
-            topAdvertiseRv.adapter = homeRecyclerViewAdapter1
+            topAdvertiseRv.adapter = advertiseGenericAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertiseRv.adapter = homeRecyclerViewAdapter2
+            bottomAdvertiseRv.adapter = advertiseGenericAdapter2
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

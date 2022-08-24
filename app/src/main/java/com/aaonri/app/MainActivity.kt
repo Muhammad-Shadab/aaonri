@@ -224,18 +224,48 @@ class MainActivity : BaseActivity() {
                     )
                 }
                 is Resource.Success -> {
-                    val abovePopularItemAds = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val adsAbovePopularItem = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val adsBelowFirstSection = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     mainActivityBinding?.progressBar?.visibility = View.GONE
-                    response.data?.forEach {
+                    response.data?.forEach { data ->
+
                         /** one ad for classified grid**/
-                        if (it.advertisementPageLocation.locationId == 2) {
-                            homeViewModel.setHomeClassifiedInlineAds(it)
+                        if (data.advertisementPageLocation.locationId == 2) {
+                            homeViewModel.setHomeClassifiedInlineAds(data)
+                        }
+                        /** one ad for event **/
+                        if (data.advertisementPageLocation.locationId == 3) {
+                            homeViewModel.setHomeEventInlineAds(data)
+                        }
+
+                        /** below first section location id **/
+                        if (data.advertisementPageLocation.locationId == 1 ||
+                            data.advertisementPageLocation.locationId == 6 ||
+                            data.advertisementPageLocation.locationId == 7 ||
+                            data.advertisementPageLocation.locationId == 8 ||
+                            data.advertisementPageLocation.locationId == 11 ||
+                            data.advertisementPageLocation.locationId == 13
+                        ) {
+                            if (!adsBelowFirstSection.contains(data)) {
+                                adsBelowFirstSection.add(data)
+                            }
                         }
 
                         /** all advertise for above popular item**/
-
+                        if (data.advertisementPageLocation.locationId == 9 ||
+                            data.advertisementPageLocation.locationId == 10 ||
+                            data.advertisementPageLocation.locationId == 12 ||
+                            data.advertisementPageLocation.locationId == 14 ||
+                            data.advertisementPageLocation.locationId == 15
+                        ) {
+                            if (!adsAbovePopularItem.contains(data)) {
+                                adsAbovePopularItem.add(data)
+                            }
+                        }
                     }
+                    homeViewModel.setAdsBelowFirstSection(adsBelowFirstSection)
+                    homeViewModel.setAdsAbovePopularItem(adsAbovePopularItem)
                     ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
                 }
                 is Resource.Error -> {

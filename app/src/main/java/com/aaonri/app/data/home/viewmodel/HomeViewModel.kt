@@ -27,10 +27,19 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     var homeClassifiedInlineAds: MutableLiveData<FindAllActiveAdvertiseResponseItem> =
         MutableLiveData()
 
+    var homeEventInlineAds: MutableLiveData<FindAllActiveAdvertiseResponseItem> =
+        MutableLiveData()
+
     /*val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()*/
 
     val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
+        MutableLiveData()
+
+    var adsBelowFirstSection: MutableLiveData<MutableList<FindAllActiveAdvertiseResponseItem>> =
+        MutableLiveData()
+
+    var adsAbovePopularItem: MutableLiveData<MutableList<FindAllActiveAdvertiseResponseItem>> =
         MutableLiveData()
 
     fun getAllInterest() = viewModelScope.launch {
@@ -97,6 +106,18 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     @JvmName("setHomeClassifiedInlineAds1")
     fun setHomeClassifiedInlineAds(value: FindAllActiveAdvertiseResponseItem) {
         homeClassifiedInlineAds.postValue(value)
+    }
+
+    fun setAdsBelowFirstSection(value: MutableList<FindAllActiveAdvertiseResponseItem>) {
+        adsBelowFirstSection.postValue(value)
+    }
+
+    fun setAdsAbovePopularItem(value: MutableList<FindAllActiveAdvertiseResponseItem>) {
+        adsAbovePopularItem.postValue(value)
+    }
+
+    fun setHomeEventInlineAds(value: FindAllActiveAdvertiseResponseItem) {
+        homeEventInlineAds.postValue(value)
     }
 
 
