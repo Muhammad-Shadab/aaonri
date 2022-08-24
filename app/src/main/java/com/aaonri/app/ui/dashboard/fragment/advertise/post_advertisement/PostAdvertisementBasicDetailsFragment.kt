@@ -47,15 +47,14 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     var isImageOnly = false
     var isTextOnly = false
     var isBoth = false
-    var data:String? = null
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                 data = result.data?.getStringExtra("result")
+                val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
-                    description = data?.trim()
+                    advertiseBinding?.advertiseDescEt?.fromHtml(data.trim())
+                    description = data.trim()
                 } else {
                     advertiseBinding?.advertiseDescEt?.text = ""
                 }
@@ -72,6 +71,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         advertiseBinding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
+
+            if (postAdvertiseViewModel.isUpdateAdvertise) {
+                selectAdvertiseTemplateSpinner.visibility = View.GONE
+            }
 
             description?.let {
                 advertiseDescEt.fromHtml(it)
@@ -158,58 +161,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 } else {
                     showAlert("Please enter valid title")
                 }
-
-                /*if (titleAdvertisedEt.text.toString().length >= 3) {
-                    if (isBoth) {
-                        if (advertiseImage?.isNotEmpty() == true) {
-                            if () {
-                                if (advertiseDescEt.text.toString().length >= 3) {
-
-                                } else {
-                                    showAlert("Please enter valid description")
-                                }
-                            } else {
-                                // image only case
-                                spinnerTemplateCode?.let { it1 ->
-                                    saveDataToViewModel(
-                                        titleAdvertisedEt.text.toString(),
-                                        selectedPage.text.toString(),
-                                        selectAdvertiseDaysSpinner.toString(),
-                                        planChargeEt.text.toString(),
-                                        costOfvalueEt.text.toString(),
-                                        emailPromotionalCheckbox.isChecked,
-                                        flashingAdvertiseCheckbox.isChecked,
-                                        it1,
-                                    )
-                                }
-                                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
-                            }
-                        } else {
-                            showAlert("Please upload advertise photo")
-                        }
-                    } else {
-
-                        if (advertiseDescEt.text.toString().length >= 3) {
-                            spinnerTemplateCode?.let { it1 ->
-                                saveDataToViewModel(
-                                    titleAdvertisedEt.text.toString(),
-                                    selectedPage.text.toString(),
-                                    selectAdvertiseDaysSpinner.toString(),
-                                    planChargeEt.text.toString(),
-                                    costOfvalueEt.text.toString(),
-                                    emailPromotionalCheckbox.isChecked,
-                                    flashingAdvertiseCheckbox.isChecked,
-                                    it1,
-                                )
-                            }
-                            findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
-                        } else {
-                            showAlert("Please enter valid description")
-                        }
-                    }
-                } else {
-                    showAlert("Please enter valid ad title")
-                }*/
             }
 
             titleAdvertisedEt.addTextChangedListener { editable ->
@@ -293,6 +244,9 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 builder.show()
             }
         }
+
+        /** This method is for setting filled data again when user goes next screen and navigate back  **/
+        setData()
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
             setDataForUpdating()
@@ -428,55 +382,80 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 position: Int,
                 id: Long
             ) {
-                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
-                    "Image Only" -> {
-                        advertiseBinding?.advertiseDescEt?.text = ""
-                        spinnerTemplateCode = "IMON"
-                        openRichTextEditor = false
-                        isImageOnly = true
-                        isBoth = false
-                        isTextOnly = false
-                    }
-                    "Image with text on bottom" -> {
-                        if (data?.isNotEmpty() == true) {
-                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
-                            description = data?.trim()
-                        } else {
-                            advertiseBinding?.advertiseDescEt?.text = ""
+                Toast.makeText(
+                    context,
+                    "${postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
+                    when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                        "Image Only" -> {
+                            spinnerTemplateCode = "IMON"
+                            openRichTextEditor = false
+                            isImageOnly = true
+                            isBoth = false
+                            isTextOnly = false
                         }
-                        spinnerTemplateCode = "IMTB"
-                        openRichTextEditor = true
-                        isBoth = true
-                        isImageOnly = false
-                        isTextOnly = false
-                    }
-                    "Image with text on left side" -> {
-                        if (data?.isNotEmpty() == true) {
-                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
-                            description = data?.trim()
-                        } else {
-                            advertiseBinding?.advertiseDescEt?.text = ""
+                        "Image with text on bottom" -> {
+                            spinnerTemplateCode = "IMTB"
+                            openRichTextEditor = true
+                            isBoth = true
+                            isImageOnly = false
+                            isTextOnly = false
                         }
-                        spinnerTemplateCode = "IMTL"
-                        openRichTextEditor = true
-                        isBoth = true
-                        isImageOnly = false
-                        isTextOnly = false
-                    }
-                    "Text Only" -> {
-                        if (data?.isNotEmpty() == true) {
-                            advertiseBinding?.advertiseDescEt?.fromHtml(data?.trim())
-                            description = data?.trim()
-                        } else {
-                            advertiseBinding?.advertiseDescEt?.text = ""
+                        "Image with text on left side" -> {
+
+                            spinnerTemplateCode = "IMTL"
+                            openRichTextEditor = true
+                            isBoth = true
+                            isImageOnly = false
+                            isTextOnly = false
                         }
-                        spinnerTemplateCode = "TXON"
-                        openRichTextEditor = true
-                        isTextOnly = true
-                        isImageOnly = false
-                        isBoth = false
+                        "Text Only" -> {
+
+                            spinnerTemplateCode = "TXON"
+                            openRichTextEditor = true
+                            isTextOnly = true
+                            isImageOnly = false
+                            isBoth = false
+                        }
+                    }
+                } else {
+                    when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
+                        "Image Only" -> {
+                            spinnerTemplateCode = "IMON"
+                            openRichTextEditor = false
+                            isImageOnly = true
+                            isBoth = false
+                            isTextOnly = false
+                        }
+                        "Image with text on bottom" -> {
+                            spinnerTemplateCode = "IMTB"
+                            openRichTextEditor = true
+                            isBoth = true
+                            isImageOnly = false
+                            isTextOnly = false
+                        }
+                        "Image with text on left side" -> {
+
+                            spinnerTemplateCode = "IMTL"
+                            openRichTextEditor = true
+                            isBoth = true
+                            isImageOnly = false
+                            isTextOnly = false
+                        }
+                        "Text Only" -> {
+
+                            spinnerTemplateCode = "TXON"
+                            openRichTextEditor = true
+                            isTextOnly = true
+                            isImageOnly = false
+                            isBoth = false
+                        }
                     }
                 }
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -485,6 +464,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         })
 
         return advertiseBinding?.root
+    }
+
+    private fun setData() {
+
     }
 
     private fun setDataForUpdating() {
@@ -503,19 +486,32 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     selectAdvertiseDaysSpinner.setSelection(2)
                 }
             }
-            when (advertiseData?.advertisementPageLocation?.type) {
-
-                "IMGONLY" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(0)
+            if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
+                when (advertiseData?.advertisementPageLocation?.type) {
+                    "IMGONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(0)
+                    }
+                    "TXTONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(3)
+                    }
+                    "BOTH" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(1)
+                    }
                 }
-                "TXTONLY" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(3)
-                }
-                "BOTH" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(1)
+            } else {
+                when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
+                    "IMGONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(0)
+                    }
+                    "TXTONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(3)
+                    }
+                    "BOTH" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(1)
+                    }
                 }
             }
-            //planChargeEt.setText()
+
             if (advertiseData?.advertisementDetails?.adImage.isNullOrEmpty()) {
                 advertiseBinding?.advertiseIv?.visibility = View.GONE
                 advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
@@ -531,6 +527,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 advertiseBinding?.sizeLimitTv?.visibility = View.GONE
             }
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
+            description = advertiseData?.advertisementDetails?.adDescription
         }
     }
 

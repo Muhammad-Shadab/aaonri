@@ -77,8 +77,9 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                         .isNotEmpty() && companyProfessionEt.text.toString().length < 3
                 ) {
                     showAlert("Please enter valid Product / Services")
-                } else if (companyLinkEt.text.toString()
-                        .isNotEmpty() && companyLinkEt.text.toString().length < 10
+                } else if (companyLinkEt.text.toString().isNotEmpty() && !Validator.urlValidation(
+                        companyLinkEt.text.toString()
+                    )
                 ) {
                     showAlert("Please enter valid Link")
                 } else {
@@ -97,9 +98,16 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                             description = if (description?.isNotEmpty() == true) description!! else advertiseDescEt.text.toString()
                                         )
 
-                                        val action =
-                                            PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
-                                        findNavController().navigate(action)
+                                        if (postAdvertiseViewModel.isUpdateAdvertise) {
+                                            val action =
+                                                PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToPostAdvertisementbasicDetailsFragment()
+                                            findNavController().navigate(action)
+                                        } else {
+                                            val action =
+                                                PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
+                                            findNavController().navigate(action)
+                                        }
+
                                     } else {
                                         showAlert("Please enter valid Advertise Description")
                                     }
@@ -168,6 +176,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             companyProfessionEt.setText(advertiseData?.advertisementDetails?.productServices)
             companyLinkEt.setText(advertiseData?.advertisementDetails?.url)
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.companyDescription)
+            description = advertiseData?.advertisementDetails?.companyDescription
         }
     }
 

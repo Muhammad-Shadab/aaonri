@@ -74,6 +74,7 @@ object ActiveAdvertiseStaticData {
                     classifiedJustAboveBottomTabBOTH.add(activeAdvertiseResponse!![index])
                 }
             }
+
             if (data.advertisementPageLocation.locationId == 16) {
                 if (!classifiedTopBanner.contains(activeAdvertiseResponse!![index])) {
                     classifiedTopBanner.add(activeAdvertiseResponse!![index])

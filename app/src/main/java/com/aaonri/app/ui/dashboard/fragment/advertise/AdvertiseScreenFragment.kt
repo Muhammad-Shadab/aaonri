@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
@@ -29,8 +29,11 @@ class AdvertiseScreenFragment : Fragment() {
     var advertiseBinding: FragmentAdvertiseScreenBinding? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
-    var advertiseIdList = mutableListOf<Int>()
+
+    //var advertiseIdList = mutableListOf<Int>()
     var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
+
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,24 +78,25 @@ class AdvertiseScreenFragment : Fragment() {
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
 
-                    if(response.data?.isEmpty() == true)
-                    {
+                    advertiseBinding?.yourText?.text =
+                        "Yout Avertisement(${response.data?.size})"
+
+                    if (response.data?.isEmpty() == true) {
                         advertiseBinding?.noResultFound?.visibility = View.VISIBLE
                         advertiseBinding?.emptyTextVew?.text = "You haven't listed anything yet"
                         advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
-                    }
-                    else{
-                        response.data?.forEach {
+
+                    } else {
+                        /*response.data?.forEach {
                             if (!advertiseIdList.contains(it.advertisementId)) {
                                 advertiseIdList.add(it.advertisementId)
                             }
-                        }
+                        }*/
                         response.data?.let { advertiseAdapter?.setData(it) }
                         response.data?.let { searchAdvertisement(it) }
                         advertiseBinding?.noResultFound?.visibility = View.GONE
                         advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
                     }
-
 
 
                 }
@@ -131,13 +135,13 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }
 
-        if (advertiseIdList.isNotEmpty()) {
+        /*if (advertiseIdList.isNotEmpty()) {
             advertiseIdList.forEachIndexed { index, i ->
                 if (index == 0) {
                     //advertiseViewModel.getAdvertiseDetailsById(i)
                 }
             }
-        }
+        }*/
 
         return advertiseBinding?.root
     }
@@ -159,16 +163,14 @@ class AdvertiseScreenFragment : Fragment() {
                 advertisementList.clear()
                 data.let { advertisementList.addAll(it) }
             }
-            if(advertisementList.isEmpty())
-            {
+            if (advertisementList.isEmpty()) {
                 advertiseBinding?.noResultFound?.visibility = View.VISIBLE
                 advertiseBinding?.emptyTextVew?.text = "Results not found"
                 advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
-             }
-            else{
+            } else {
                 advertiseBinding?.noResultFound?.visibility = View.GONE
                 advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                }
+            }
             advertiseAdapter?.setData(advertisementList)
             advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }

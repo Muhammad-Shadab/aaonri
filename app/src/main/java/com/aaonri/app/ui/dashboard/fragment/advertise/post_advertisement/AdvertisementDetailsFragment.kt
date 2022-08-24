@@ -115,12 +115,12 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
         detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
-        detailsBinding?.advertiseDateTv?.text = "From ${
+        detailsBinding?.advertiseDateTv?.text = "Posted On ${
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.fromDate?.split("T")?.get(0))
             )
-        } To ${
+        } Valid Upto ${
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.toDate?.split("T")?.get(0))

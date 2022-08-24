@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_advertisement_graph"
-    app:startDestination="@id/postAdvertiseTermConditionFragment2">
+    app:startDestination="@id/postAdvertisementbasicDetailsFragment">
 
     <fragment
         android:id="@+id/postAdvertiseTermConditionFragment2"
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_selectAdvertiseTemplate"
             app:destination="@id/selectAdvertiseTemplate" />
+        <action
+            android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment"
+            app:destination="@id/postAdvertisementbasicDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/postAdvertisementbasicDetailsFragment"
