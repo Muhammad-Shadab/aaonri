@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
+import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentFavoriteClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.FavoriteClassifiedAdapter
 import com.aaonri.app.utils.Constant
@@ -28,8 +28,8 @@ FavoriteClassifiedFragment : Fragment() {
     var favoriteClassifiedAdapter: FavoriteClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
-    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
+    var adsGenericAdapter1: AdsGenericAdapter? = null
+    var adsGenericAdapter2: AdsGenericAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +46,8 @@ FavoriteClassifiedFragment : Fragment() {
             )
         }
 
-        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
-        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
+        adsGenericAdapter1 = AdsGenericAdapter()
+        adsGenericAdapter2 = AdsGenericAdapter()
 
         favoriteClassifiedBinding?.apply {
 
@@ -58,16 +58,16 @@ FavoriteClassifiedFragment : Fragment() {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
 
-            advertiseGenericAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
+            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
 
-            advertiseGenericAdapter2?.items =
+            adsGenericAdapter2?.items =
                 ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
 
-            topAdvertiseRv.adapter = advertiseGenericAdapter1
+            topAdvertiseRv.adapter = adsGenericAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertiseRv.adapter = advertiseGenericAdapter2
+            bottomAdvertiseRv.adapter = adsGenericAdapter2
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

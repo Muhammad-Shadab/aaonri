@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.model.UserAds
-import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.UserEvent
 import com.aaonri.app.databinding.ClassifiedAdvertiseItemBinding
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding

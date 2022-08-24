@@ -23,7 +23,7 @@ import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
-import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
+import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -44,8 +44,8 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
-    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
-    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
+    var adsGenericAdapter1: AdsGenericAdapter? = null
+    var adsGenericAdapter2: AdsGenericAdapter? = null
 
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
@@ -90,8 +90,8 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
-        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
-        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
+        adsGenericAdapter1 = AdsGenericAdapter()
+        adsGenericAdapter2 = AdsGenericAdapter()
 
         /*homeEventAdapter = HomeEventAdapter {
             val action =
@@ -309,11 +309,11 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
-            adsBelowFirstSectionRv.adapter = advertiseGenericAdapter1
+            adsBelowFirstSectionRv.adapter = adsGenericAdapter1
             adsBelowFirstSectionRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            adsAbovePopularSectionRv.adapter = advertiseGenericAdapter2
+            adsAbovePopularSectionRv.adapter = adsGenericAdapter2
             adsAbovePopularSectionRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -466,11 +466,11 @@ class HomeScreenFragment : Fragment() {
         }
 
         homeViewModel.adsBelowFirstSection.observe(viewLifecycleOwner) {
-            advertiseGenericAdapter1?.items = it
+            adsGenericAdapter1?.items = it
         }
 
         homeViewModel.adsAbovePopularItem.observe(viewLifecycleOwner) {
-            advertiseGenericAdapter2?.items = it
+            adsGenericAdapter2?.items = it
         }
 
 

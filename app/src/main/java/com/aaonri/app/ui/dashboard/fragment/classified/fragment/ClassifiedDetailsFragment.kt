@@ -40,7 +40,7 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
+import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -61,7 +61,7 @@ class ClassifiedDetailsFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val args: ClassifiedDetailsFragmentArgs by navArgs()
-    var advertiseGenericAdapter: AdvertiseGenericAdapter? = null
+    var adsGenericAdapter: AdsGenericAdapter? = null
     var isClassifiedLike = false
     var isGuestUser = false
     var itemId = 0
@@ -97,7 +97,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
         postClassifiedViewModel.getClassifiedAdDetails(args.addId)
 
-        advertiseGenericAdapter = AdvertiseGenericAdapter()
+        adsGenericAdapter = AdsGenericAdapter()
 
         classifiedDetailsBinding?.apply {
 
@@ -110,10 +110,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
-            bottomAdvertiseRv.adapter = advertiseGenericAdapter
+            bottomAdvertiseRv.adapter = adsGenericAdapter
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            advertiseGenericAdapter?.items =
+            adsGenericAdapter?.items =
                 ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)

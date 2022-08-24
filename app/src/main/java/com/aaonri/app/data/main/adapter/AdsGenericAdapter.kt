@@ -9,7 +9,7 @@ import com.aaonri.app.databinding.ImageOnlyViewHolderBinding
 import com.aaonri.app.databinding.ImageWithTextBinding
 import com.aaonri.app.databinding.TextOnlyItemBinding
 
-class AdvertiseGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
+class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
 
     var items = listOf<FindAllActiveAdvertiseResponseItem>()
         set(value) {

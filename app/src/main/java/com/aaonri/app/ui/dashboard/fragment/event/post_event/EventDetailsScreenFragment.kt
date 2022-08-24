@@ -36,7 +36,7 @@ import com.aaonri.app.data.event.model.EventDetailsResponse
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
+import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -61,7 +61,7 @@ class EventDetailsScreenFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
-    var advertiseGenericAdapter: AdvertiseGenericAdapter? = null
+    var adsGenericAdapter: AdsGenericAdapter? = null
     var eventPremiumLink: String = ""
     var isGuestUser = false
     var startDate = ""
@@ -84,7 +84,7 @@ class EventDetailsScreenFragment : Fragment() {
 
         postEventViewModel.getEventDetails(args.eventId)
 
-        advertiseGenericAdapter = AdvertiseGenericAdapter()
+        adsGenericAdapter = AdsGenericAdapter()
 
         evenDetailsBinding?.apply {
 
@@ -98,10 +98,10 @@ class EventDetailsScreenFragment : Fragment() {
                 postEventViewModel.getUserisInterested(email, "Event", args.eventId)
             }
 
-            bottomAdvertiseRv.adapter = advertiseGenericAdapter
+            bottomAdvertiseRv.adapter = adsGenericAdapter
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            advertiseGenericAdapter?.items =
+            adsGenericAdapter?.items =
                 ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)

@@ -11,7 +11,7 @@ import com.aaonri.app.data.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
-import com.aaonri.app.data.main.adapter.AdvertiseGenericAdapter
+import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentRecentEventBinding
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -23,8 +23,8 @@ class RecentEventFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var recentEventBinding: FragmentRecentEventBinding? = null
     var recentAdapter: RecentEventAdapter? = null
-    var advertiseGenericAdapter1: AdvertiseGenericAdapter? = null
-    var advertiseGenericAdapter2: AdvertiseGenericAdapter? = null
+    var adsGenericAdapter1: AdsGenericAdapter? = null
+    var adsGenericAdapter2: AdsGenericAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,24 +36,24 @@ class RecentEventFragment : Fragment() {
             postEventViewModel.setNavigateToEventDetailScreen(value = true)
         }
 
-        advertiseGenericAdapter1 = AdvertiseGenericAdapter()
-        advertiseGenericAdapter2 = AdvertiseGenericAdapter()
+        adsGenericAdapter1 = AdsGenericAdapter()
+        adsGenericAdapter2 = AdsGenericAdapter()
 
         recentEventBinding?.apply {
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewMyEvent.adapter = recentAdapter
 
-            advertiseGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
+            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
 
-            advertiseGenericAdapter2?.items =
+            adsGenericAdapter2?.items =
                 ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
 
-            topAdvertiseRv.adapter = advertiseGenericAdapter1
+            topAdvertiseRv.adapter = adsGenericAdapter1
             topAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            bottomAdvertiseRv.adapter = advertiseGenericAdapter2
+            bottomAdvertiseRv.adapter = adsGenericAdapter2
             bottomAdvertiseRv.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
