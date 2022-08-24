@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
+import com.aaonri.app.data.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
-import com.aaonri.app.data.home.adapter.ClassifiedGenericAdapter
-import com.aaonri.app.data.home.adapter.EventGenericAdapter
+import com.aaonri.app.data.event.adapter.EventGenericAdapter
 import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem

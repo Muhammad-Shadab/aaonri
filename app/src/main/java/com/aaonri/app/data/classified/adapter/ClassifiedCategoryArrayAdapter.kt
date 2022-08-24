@@ -14,7 +14,7 @@ import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.databinding.SpinnerItemBinding
 
 
-class ClassifiedCategoryArrayAdapter(
+/*class ClassifiedCategoryArrayAdapter(
     context: Context,
     classifiedCategory: List<ClassifiedCategoryResponseItem>
 ) : ArrayAdapter<ClassifiedCategoryResponseItem>(context, 0, classifiedCategory) {
@@ -67,8 +67,6 @@ class ClassifiedSubCategoryArrayAdapter(
         } else {
             binding.spinnerText.text = classifiedCategory?.title
         }
-
-
         return binding.root
     }
-}
+}*/
