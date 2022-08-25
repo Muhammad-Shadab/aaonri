@@ -77,7 +77,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
             if (postAdvertiseViewModel.isUpdateAdvertise) {
-                selectAdvertiseTemplateSpinner.visibility = View.GONE
+                templateSpinnerConstraintLayout.visibility = View.GONE
+                previewAdvertiseBtn.visibility = View.GONE
             }
 
             description?.let {
@@ -87,7 +88,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             chooseTemplatell.setOnClickListener {
 
                 if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                    if (advertiseImage?.isEmpty() == true) {
+                    if (advertiseImage?.isEmpty() == true || postAdvertiseViewModel.isUpdateAdvertise) {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
                             .crop()
@@ -101,8 +102,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
-
-                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
 
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (isBoth) {
@@ -171,7 +170,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             titleAdvertisedEt.addTextChangedListener { editable ->
                 if (editable.toString().length >= 3) {
-                    if (advertisePageLocationResponseItem?.type == "TXTONLY") {
+                    if (advertisePageLocationResponseItem?.type == "TXTONLY" || AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
                         advertiseDetailsNextBtn.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                     } else {
@@ -419,8 +418,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         isBoth = false
                     }
                 }
-
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -460,16 +457,13 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
             when (advertiseData?.advertisementPageLocation?.type) {
                 "IMGONLY" -> {
-
+                    advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"
                     spinnerTemplateCode = "IMON"
                     openRichTextEditor = false
                     isImageOnly = true
                     isBoth = false
                     isTextOnly = false
-
-                    advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"
-                    setImage()
                 }
                 "TXTONLY" -> {
                     spinnerTemplateCode = "TXON"
@@ -479,17 +473,19 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     isTextOnly = true
                 }
                 else -> {
+                    advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"
                     //spinnerTemplateCode = "IMON"
                     openRichTextEditor = true
                     isImageOnly = false
                     isBoth = true
                     isTextOnly = false
-
-                    advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"
-                    setImage()
                 }
             }
+
+            advertiseImage?.let { postAdvertiseViewModel.setAdvertiseImage(it) }
+            setImage()
+
             /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
                 when (advertiseData?.advertisementPageLocation?.type) {
                     "IMGONLY" -> {
