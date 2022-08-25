@@ -197,6 +197,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.adsAbovePopularSectionRv?.margin(0F,10F,0F,0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter =
