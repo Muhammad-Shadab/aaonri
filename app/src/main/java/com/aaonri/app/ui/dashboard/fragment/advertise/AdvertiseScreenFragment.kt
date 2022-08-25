@@ -39,6 +39,9 @@ class AdvertiseScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+        startActivityForResult(intent, 3)
+
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
 

@@ -68,8 +68,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
-        Toast.makeText(context, "${advertisePageLocationResponseItem?.type}", Toast.LENGTH_SHORT)
-            .show()
+        /*Toast.makeText(context, "${advertisePageLocationResponseItem?.type}", Toast.LENGTH_SHORT)
+            .show()*/
 
         advertiseBinding?.apply {
 
@@ -100,6 +100,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
+
+                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+
+                postAdvertiseViewModel.setSelectedSpinner(selectAdvertiseTemplateSpinner.selectedItem.toString())
 
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (isBoth) {
@@ -248,13 +252,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         }
 
-        /** This method is for setting filled data again when user goes next screen and navigate back  **/
-        setData()
-
-        if (postAdvertiseViewModel.isUpdateAdvertise) {
-            setDataForUpdating()
-        }
-
         postAdvertiseViewModel.advertiseActiveVasData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -385,78 +382,38 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 position: Int,
                 id: Long
             ) {
-                Toast.makeText(
-                    context,
-                    "${postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
-                    when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
-                        "Image Only" -> {
-                            spinnerTemplateCode = "IMON"
-                            openRichTextEditor = false
-                            isImageOnly = true
-                            isBoth = false
-                            isTextOnly = false
-                        }
-                        "Image with text on bottom" -> {
-                            spinnerTemplateCode = "IMTB"
-                            openRichTextEditor = true
-                            isBoth = true
-                            isImageOnly = false
-                            isTextOnly = false
-                        }
-                        "Image with text on left side" -> {
-
-                            spinnerTemplateCode = "IMTL"
-                            openRichTextEditor = true
-                            isBoth = true
-                            isImageOnly = false
-                            isTextOnly = false
-                        }
-                        "Text Only" -> {
-
-                            spinnerTemplateCode = "TXON"
-                            openRichTextEditor = true
-                            isTextOnly = true
-                            isImageOnly = false
-                            isBoth = false
-                        }
+                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                    "Image Only" -> {
+                        spinnerTemplateCode = "IMON"
+                        openRichTextEditor = false
+                        isImageOnly = true
+                        isBoth = false
+                        isTextOnly = false
                     }
-                } else {
-                    when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
-                        "Image Only" -> {
-                            spinnerTemplateCode = "IMON"
-                            openRichTextEditor = false
-                            isImageOnly = true
-                            isBoth = false
-                            isTextOnly = false
-                        }
-                        "Image with text on bottom" -> {
-                            spinnerTemplateCode = "IMTB"
-                            openRichTextEditor = true
-                            isBoth = true
-                            isImageOnly = false
-                            isTextOnly = false
-                        }
-                        "Image with text on left side" -> {
+                    "Image with text on bottom" -> {
+                        spinnerTemplateCode = "IMTB"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
+                    }
+                    "Image with text on left side" -> {
 
-                            spinnerTemplateCode = "IMTL"
-                            openRichTextEditor = true
-                            isBoth = true
-                            isImageOnly = false
-                            isTextOnly = false
-                        }
-                        "Text Only" -> {
-                            spinnerTemplateCode = "TXON"
-                            openRichTextEditor = true
-                            isTextOnly = true
-                            isImageOnly = false
-                            isBoth = false
-                        }
+                        spinnerTemplateCode = "IMTL"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
+                    }
+                    "Text Only" -> {
+                        spinnerTemplateCode = "TXON"
+                        openRichTextEditor = true
+                        isTextOnly = true
+                        isImageOnly = false
+                        isBoth = false
                     }
                 }
+
 
             }
 
@@ -465,11 +422,51 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         })
 
+        /** This method is for setting filled data again when user goes next screen and navigate back  **/
+        setData()
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            setDataForUpdating()
+        }
+
         return advertiseBinding?.root
     }
 
     private fun setData() {
-
+        when (postAdvertiseViewModel.selectedSpinnerItem) {
+            "Image Only" -> {
+                spinnerTemplateCode = "IMON"
+                openRichTextEditor = false
+                isImageOnly = true
+                isBoth = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(0)
+            }
+            "Image with text on bottom" -> {
+                spinnerTemplateCode = "IMTB"
+                openRichTextEditor = true
+                isBoth = true
+                isImageOnly = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(1)
+            }
+            "Image with text on left side" -> {
+                spinnerTemplateCode = "IMTL"
+                openRichTextEditor = true
+                isBoth = true
+                isImageOnly = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(2)
+            }
+            "Text Only" -> {
+                spinnerTemplateCode = "TXON"
+                openRichTextEditor = true
+                isTextOnly = true
+                isImageOnly = false
+                isBoth = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(3)
+            }
+        }
     }
 
     private fun setDataForUpdating() {
@@ -543,7 +540,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         isFlashingAdvertisement: Boolean,
         templateCode: String,
     ) {
-
         postAdvertiseViewModel.addCompanyBasicDetailsMap(
             addTitle = addTitle,
             templateName = templateName,
@@ -554,7 +550,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             isFlashingAdvertisement = isFlashingAdvertisement,
             templateCode = templateCode,
             advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
-            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString()
+            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString(),
         )
 
     }

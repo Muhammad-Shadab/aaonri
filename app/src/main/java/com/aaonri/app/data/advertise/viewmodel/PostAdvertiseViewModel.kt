@@ -29,6 +29,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     var companyBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
+    var selectedSpinnerItem: String = ""
+        private set
+
     var selectedTemplatePageName: MutableLiveData<AdvertiseActivePageResponseItem> =
         MutableLiveData()
         private set
@@ -268,6 +271,10 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     fun setAdvertiseId(value: Int) {
         advertiseId = value
+    }
+
+    fun setSelectedSpinner(value: String) {
+        selectedSpinnerItem = value
     }
 
 }
