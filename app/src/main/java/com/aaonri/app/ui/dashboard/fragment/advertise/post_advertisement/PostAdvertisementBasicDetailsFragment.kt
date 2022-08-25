@@ -539,7 +539,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
             description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString(),
         )
-
     }
 
     private val startForProfileImageResult =
