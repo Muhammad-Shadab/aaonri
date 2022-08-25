@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -14,9 +15,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -103,6 +106,7 @@ class AdvertisementDetailsFragment : Fragment() {
         return detailsBinding?.root
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setData(data: AdvertiseDetailsResponse?) {
 
@@ -206,6 +210,16 @@ class AdvertisementDetailsFragment : Fragment() {
         }
         detailsBinding?.companyLocationTv?.text = data?.advertisementDetails?.location
         detailsBinding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
+        if(data?.approved == true)
+        {
+
+        detailsBinding?.verifiedTv?.visibility = View.VISIBLE
+            detailsBinding?.pendingTv?.visibility = View.GONE
+        }else{
+            detailsBinding?.verifiedTv?.visibility = View.GONE
+            detailsBinding?.pendingTv?.visibility = View.VISIBLE
+        }
+
         detailsBinding?.companyTemplateTv?.text = data?.template?.name
         detailsBinding?.companyAdPageTv?.text =
             data?.advertisementPageLocation?.advertisementPage?.pageName

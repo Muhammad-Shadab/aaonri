@@ -33,6 +33,7 @@
     <color name="immigaration_text_color">#696161</color>
     <color name="advertiseTextBgCOlor">#f2efef</color>
     <color name="selectedAdvertiseTemplateStroke">#20b8a1</color>
+    <color name="orangeColor">#FFA500</color>
 
 
 </resources>
