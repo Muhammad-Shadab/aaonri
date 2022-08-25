@@ -26,6 +26,7 @@ import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -33,7 +34,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
+open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
     var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertiseImage: String? = ""
@@ -102,8 +103,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             advertiseDetailsNextBtn.setOnClickListener {
 
                 findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
-
-                postAdvertiseViewModel.setSelectedSpinner(selectAdvertiseTemplateSpinner.selectedItem.toString())
 
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (isBoth) {
@@ -203,6 +202,12 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                 }
             }
+
+            Toast.makeText(context, "${getPersistedItem()}", Toast.LENGTH_SHORT).show()
+
+            selectAdvertiseTemplateSpinner.setSelection(2)
+
+            getPersistedItem()?.let { selectAdvertiseTemplateSpinner.setSelection(it) }
 
             previewAdvertiseBtn.setOnClickListener {
                 if (openPreview) {
@@ -382,6 +387,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 position: Int,
                 id: Long
             ) {
+                setPersistedItem(position)
                 when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
                         spinnerTemplateCode = "IMON"
@@ -433,40 +439,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     }
 
     private fun setData() {
-        when (postAdvertiseViewModel.selectedSpinnerItem) {
-            "Image Only" -> {
-                spinnerTemplateCode = "IMON"
-                openRichTextEditor = false
-                isImageOnly = true
-                isBoth = false
-                isTextOnly = false
-                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(0)
-            }
-            "Image with text on bottom" -> {
-                spinnerTemplateCode = "IMTB"
-                openRichTextEditor = true
-                isBoth = true
-                isImageOnly = false
-                isTextOnly = false
-                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(1)
-            }
-            "Image with text on left side" -> {
-                spinnerTemplateCode = "IMTL"
-                openRichTextEditor = true
-                isBoth = true
-                isImageOnly = false
-                isTextOnly = false
-                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(2)
-            }
-            "Text Only" -> {
-                spinnerTemplateCode = "TXON"
-                openRichTextEditor = true
-                isTextOnly = true
-                isImageOnly = false
-                isBoth = false
-                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(3)
-            }
-        }
+
     }
 
     private fun setDataForUpdating() {
@@ -485,7 +458,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     selectAdvertiseDaysSpinner.setSelection(2)
                 }
             }
-            if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
+            /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
                 when (advertiseData?.advertisementPageLocation?.type) {
                     "IMGONLY" -> {
                         selectAdvertiseTemplateSpinner.setSelection(0)
@@ -509,7 +482,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         selectAdvertiseTemplateSpinner.setSelection(1)
                     }
                 }
-            }
+            }*/
 
             if (advertiseData?.advertisementDetails?.adImage.isNullOrEmpty()) {
                 advertiseBinding?.advertiseIv?.visibility = View.GONE
@@ -611,5 +584,18 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
     fun Spinner.customSetOnItemSelectedListener(listener: AdapterView.OnItemSelectedListener) {
         onItemSelectedListener = listener
     }
+
+    private fun getPersistedItem(): Int? {
+        return context?.let { PreferenceManager<Int>(it)["selectedSpinnerItem", 0] }
+    }
+
+    protected fun setPersistedItem(position: Int) {
+        context?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedSpinnerItem", position)
+    }
+
+    /*private fun makePersistedItemKeyName(): String {
+        return currentUserName.toString() + "_your_key"
+    }*/
 
 }
