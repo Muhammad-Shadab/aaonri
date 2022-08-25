@@ -1,10 +1,12 @@
 package com.aaonri.app.data.main.adapter
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.text.Html
+import android.util.DisplayMetrics
 import android.webkit.URLUtil
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
@@ -15,10 +17,17 @@ import com.aaonri.app.databinding.TextOnlyItemBinding
 import com.bumptech.glide.Glide
 
 sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
     /** Advertise ViewHolder for multiView Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.textOnlyFl.context
+        val displayMetrics = DisplayMetrics()
+
+
+        var width = displayMetrics.widthPixels
+        var height = displayMetrics.heightPixels
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
 
             binding.textView.text =
@@ -30,7 +39,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
                 }
             }
-
+            binding.textOnlyFl.layoutParams.width = getScreenWidth()/2-50
         }
     }
 
@@ -45,11 +54,12 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .into(binding.imageView)
             }
 
-            binding.imageOnlyCv.setOnClickListener{
+            binding.textOnlyFl.setOnClickListener{
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
                  context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
                 }
             }
+            binding.textOnlyFl.layoutParams.width = getScreenWidth()/2-50
         }
     }
 
@@ -68,12 +78,16 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .into(binding.imageView)
             }
 
-            binding.imageOnlyCv.setOnClickListener{
+            binding.textOnlyCl.setOnClickListener{
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
                     context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
                 }
             }
+            binding.textOnlyCl.layoutParams.width = getScreenWidth()/2-50
         }
+    }
+    fun getScreenWidth(): Int {
+        return Resources.getSystem().displayMetrics.widthPixels
     }
 
 }

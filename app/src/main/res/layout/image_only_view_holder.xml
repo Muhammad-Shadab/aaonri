@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/_120sdp"
     android:layout_height="@dimen/_100sdp"
+    android:id="@+id/textOnlyFl"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="10dp"
     android:background="@drawable/image_with_text_border">
