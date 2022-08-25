@@ -28,13 +28,15 @@ class AdvertisePostSuccessFragment : BottomSheetDialogFragment() {
             FragmentAdvertisePostSuccessBinding.inflate(inflater, container, false)
 
         binding?.apply {
+            if(postAdvertiseViewModel.isUpdateAdvertise)
+            {
+                successfulTv?.text = R.string.your_advertisement_will_posted_text.toString()
+            }
+            else{
+                successfulTv?.text = R.string.your_advertisement_will_updates_text.toString()
+            }
 
             postAdvertiseViewModel.setStepViewLastTick(true)
-
-            if (postAdvertiseViewModel.isUpdateAdvertise) {
-                textView6.text =
-                    "Your advertisement will be updated on aaonri\nweb & mobile platforms within 24 hrs after the \n completion of the approval process!"
-            }
 
             viewYourAdvertiseBtn.setOnClickListener {
                 val intent = Intent()

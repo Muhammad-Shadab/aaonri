@@ -270,4 +270,6 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         advertiseId = value
     }
 
+
+
 }
