@@ -47,20 +47,55 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="@dimen/_12sdp">
+<LinearLayout
+    android:id="@+id/titlell"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/advertiseNameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Movers &amp; Packers"
+        android:textColor="#333333"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/verifiedTv"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:background="@drawable/green_capsule_shape"
+        android:text="Approved"
+        android:visibility="gone"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        />
+    <TextView
+        android:id="@+id/pendingTv"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:background="@drawable/orange_capsule_shape"
+        android:text="Pending"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        />
+</LinearLayout>
 
-                            <TextView
-                                android:id="@+id/advertiseNameTv"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_8sdp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/sf_pro_semi_bold"
-                                android:includeFontPadding="false"
-                                android:maxLines="1"
-                                android:text="Movers &amp; Packers"
-                                android:textColor="#333333"
-                                android:textSize="18sp"
-                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/advertiseLocationTv"
@@ -77,7 +112,7 @@
                                 android:text="New York 0852"
                                 android:textColor="#707070"
                                 android:textSize="12sp"
-                                app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
+                                app:layout_constraintTop_toBottomOf="@+id/titlell" />
 
                             <TextView
                                 android:id="@+id/advertiseDateTv"
