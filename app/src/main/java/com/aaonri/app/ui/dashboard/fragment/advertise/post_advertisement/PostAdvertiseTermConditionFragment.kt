@@ -40,6 +40,15 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         if (postAdvertiseViewModel.isRenewAdvertise) {
             findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCheckout)
         }
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            Toast.makeText(context, "true", Toast.LENGTH_SHORT).show()
+
+            val action =
+                PostAdvertiseTermConditionFragmentDirections.actionPostAdvertiseTermConditionFragment2ToPostAdvertiseCompanyDetailsFrgament2()
+            findNavController().navigate(action)
+        }
+
         val text1 = SpannableString(
             resources.getString(R.string.after_submit_request_text)
         )
@@ -71,8 +80,8 @@ class PostAdvertiseTermConditionFragment : Fragment() {
 
 
         text1.setSpan(aoonrilink, 48, 58, 0)
-        text2.setSpan(aoonrilink,25,35,0)
-        text3.setSpan(aoonrilink,133,143,0)
+        text2.setSpan(aoonrilink, 25, 35, 0)
+        text3.setSpan(aoonrilink, 133, 143, 0)
         val advertiseLink: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
 //                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
@@ -88,7 +97,7 @@ class PostAdvertiseTermConditionFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-        text4.setSpan(advertiseLink,46,66,0)
+        text4.setSpan(advertiseLink, 46, 66, 0)
 
 
 

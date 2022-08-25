@@ -68,9 +68,16 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
+        /*Toast.makeText(context, "${advertisePageLocationResponseItem?.type}", Toast.LENGTH_SHORT)
+            .show()*/
+
         advertiseBinding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
+
+            if (postAdvertiseViewModel.isUpdateAdvertise) {
+                selectAdvertiseTemplateSpinner.visibility = View.GONE
+            }
 
             description?.let {
                 advertiseDescEt.fromHtml(it)
@@ -93,6 +100,10 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
 
             advertiseDetailsNextBtn.setOnClickListener {
+
+                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
+
+                postAdvertiseViewModel.setSelectedSpinner(selectAdvertiseTemplateSpinner.selectedItem.toString())
 
                 if (titleAdvertisedEt.text.toString().length >= 3) {
                     if (isBoth) {
@@ -157,58 +168,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 } else {
                     showAlert("Please enter valid title")
                 }
-
-                /*if (titleAdvertisedEt.text.toString().length >= 3) {
-                    if (isBoth) {
-                        if (advertiseImage?.isNotEmpty() == true) {
-                            if () {
-                                if (advertiseDescEt.text.toString().length >= 3) {
-
-                                } else {
-                                    showAlert("Please enter valid description")
-                                }
-                            } else {
-                                // image only case
-                                spinnerTemplateCode?.let { it1 ->
-                                    saveDataToViewModel(
-                                        titleAdvertisedEt.text.toString(),
-                                        selectedPage.text.toString(),
-                                        selectAdvertiseDaysSpinner.toString(),
-                                        planChargeEt.text.toString(),
-                                        costOfvalueEt.text.toString(),
-                                        emailPromotionalCheckbox.isChecked,
-                                        flashingAdvertiseCheckbox.isChecked,
-                                        it1,
-                                    )
-                                }
-                                findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
-                            }
-                        } else {
-                            showAlert("Please upload advertise photo")
-                        }
-                    } else {
-
-                        if (advertiseDescEt.text.toString().length >= 3) {
-                            spinnerTemplateCode?.let { it1 ->
-                                saveDataToViewModel(
-                                    titleAdvertisedEt.text.toString(),
-                                    selectedPage.text.toString(),
-                                    selectAdvertiseDaysSpinner.toString(),
-                                    planChargeEt.text.toString(),
-                                    costOfvalueEt.text.toString(),
-                                    emailPromotionalCheckbox.isChecked,
-                                    flashingAdvertiseCheckbox.isChecked,
-                                    it1,
-                                )
-                            }
-                            findNavController().navigate(R.id.action_postAdvertisementbasicDetailsFragment_to_postAdvertiseCheckout)
-                        } else {
-                            showAlert("Please enter valid description")
-                        }
-                    }
-                } else {
-                    showAlert("Please enter valid ad title")
-                }*/
             }
 
             titleAdvertisedEt.addTextChangedListener { editable ->
@@ -293,10 +252,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         }
 
-        if (postAdvertiseViewModel.isUpdateAdvertise) {
-            setDataForUpdating()
-        }
-
         postAdvertiseViewModel.advertiseActiveVasData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -377,7 +332,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     val templateName = mutableListOf<String>()
 
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
-
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
@@ -388,7 +342,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
                         advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
-
                         advertiseBinding?.advertiseDescEt?.isEnabled = true
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
@@ -445,6 +398,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         isTextOnly = false
                     }
                     "Image with text on left side" -> {
+
                         spinnerTemplateCode = "IMTL"
                         openRichTextEditor = true
                         isBoth = true
@@ -459,6 +413,8 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                         isBoth = false
                     }
                 }
+
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -466,7 +422,51 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             }
         })
 
+        /** This method is for setting filled data again when user goes next screen and navigate back  **/
+        setData()
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            setDataForUpdating()
+        }
+
         return advertiseBinding?.root
+    }
+
+    private fun setData() {
+        when (postAdvertiseViewModel.selectedSpinnerItem) {
+            "Image Only" -> {
+                spinnerTemplateCode = "IMON"
+                openRichTextEditor = false
+                isImageOnly = true
+                isBoth = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(0)
+            }
+            "Image with text on bottom" -> {
+                spinnerTemplateCode = "IMTB"
+                openRichTextEditor = true
+                isBoth = true
+                isImageOnly = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(1)
+            }
+            "Image with text on left side" -> {
+                spinnerTemplateCode = "IMTL"
+                openRichTextEditor = true
+                isBoth = true
+                isImageOnly = false
+                isTextOnly = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(2)
+            }
+            "Text Only" -> {
+                spinnerTemplateCode = "TXON"
+                openRichTextEditor = true
+                isTextOnly = true
+                isImageOnly = false
+                isBoth = false
+                advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(3)
+            }
+        }
     }
 
     private fun setDataForUpdating() {
@@ -485,18 +485,32 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                     selectAdvertiseDaysSpinner.setSelection(2)
                 }
             }
-            when (advertiseData?.advertisementPageLocation?.type) {
-                "IMGONLY" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(0)
+            if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
+                when (advertiseData?.advertisementPageLocation?.type) {
+                    "IMGONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(0)
+                    }
+                    "TXTONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(3)
+                    }
+                    "BOTH" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(1)
+                    }
                 }
-                "TXTONLY" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(3)
-                }
-                "BOTH" -> {
-                    selectAdvertiseTemplateSpinner.setSelection(1)
+            } else {
+                when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
+                    "IMGONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(0)
+                    }
+                    "TXTONLY" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(3)
+                    }
+                    "BOTH" -> {
+                        selectAdvertiseTemplateSpinner.setSelection(1)
+                    }
                 }
             }
-            //planChargeEt.setText()
+
             if (advertiseData?.advertisementDetails?.adImage.isNullOrEmpty()) {
                 advertiseBinding?.advertiseIv?.visibility = View.GONE
                 advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
@@ -512,6 +526,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
                 advertiseBinding?.sizeLimitTv?.visibility = View.GONE
             }
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
+            description = advertiseData?.advertisementDetails?.adDescription
         }
     }
 
@@ -525,7 +540,6 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
         isFlashingAdvertisement: Boolean,
         templateCode: String,
     ) {
-
         postAdvertiseViewModel.addCompanyBasicDetailsMap(
             addTitle = addTitle,
             templateName = templateName,
@@ -536,7 +550,7 @@ class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClic
             isFlashingAdvertisement = isFlashingAdvertisement,
             templateCode = templateCode,
             advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
-            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString()
+            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString(),
         )
 
     }

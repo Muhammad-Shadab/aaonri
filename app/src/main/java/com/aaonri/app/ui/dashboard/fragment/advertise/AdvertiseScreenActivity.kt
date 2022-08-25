@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,8 @@ import com.aaonri.app.utils.PreferenceManager
 class AdvertiseScreenActivity : BaseActivity() {
     var binding: ActivityAdvertiseScreenBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by viewModels()
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdvertiseScreenBinding.inflate(layoutInflater)
@@ -54,6 +57,12 @@ class AdvertiseScreenActivity : BaseActivity() {
                         }
                     } else if (navController.currentDestination?.id == R.id.postAdvertiseTermConditionFragment2) {
                         finish()
+                    } else if (navController.currentDestination?.id == R.id.postAdvertiseCompanyDetailsFrgament) {
+                        if (isUpdateAdvertise) {
+                            finish()
+                        } else {
+                            navController.navigateUp()
+                        }
                     } else {
                         navController.navigateUp()
                     }
@@ -62,6 +71,10 @@ class AdvertiseScreenActivity : BaseActivity() {
 
 
         binding?.apply {
+
+            if (isUpdateAdvertise) {
+                registrationText.text = "Update Advertisement"
+            }
 
             navigateBack.setOnClickListener {
                 onBackPressed()

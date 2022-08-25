@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -37,9 +38,14 @@ class AdvertiseScreenFragment : Fragment() {
     var advertiseAdapter: AdvertiseAdapter? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
-    var advertiseIdList = mutableListOf<Int>()
+
+    //var advertiseIdList = mutableListOf<Int>()
     var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
+
     var isGuestUser = false
+
+
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -170,13 +176,28 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
-                    response.data?.forEach {
-                        if (!advertiseIdList.contains(it.advertisementId)) {
-                            advertiseIdList.add(it.advertisementId)
-                        }
+
+                    advertiseBinding?.yourText?.text =
+                        "Yout Avertisement(${response.data?.size})"
+
+                    if (response.data?.isEmpty() == true) {
+                        advertiseBinding?.noResultFound?.visibility = View.VISIBLE
+                        advertiseBinding?.emptyTextVew?.text = "You haven't listed anything yet"
+                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
+
+                    } else {
+                        /*response.data?.forEach {
+                            if (!advertiseIdList.contains(it.advertisementId)) {
+                                advertiseIdList.add(it.advertisementId)
+                            }
+                        }*/
+                        response.data?.let { advertiseAdapter?.setData(it) }
+                        response.data?.let { searchAdvertisement(it) }
+                        advertiseBinding?.noResultFound?.visibility = View.GONE
+                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
                     }
-                    response.data?.let { advertiseAdapter?.setData(it) }
-                    response.data?.let { searchAdvertisement(it) }
+
+
                 }
                 is Resource.Error -> {
                     advertiseBinding?.progressBar?.visibility = View.GONE
@@ -213,13 +234,13 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }
 
-        if (advertiseIdList.isNotEmpty()) {
+        /*if (advertiseIdList.isNotEmpty()) {
             advertiseIdList.forEachIndexed { index, i ->
                 if (index == 0) {
                     //advertiseViewModel.getAdvertiseDetailsById(i)
                 }
             }
-        }
+        }*/
 
         return advertiseBinding?.root
     }
@@ -236,14 +257,22 @@ class AdvertiseScreenFragment : Fragment() {
                         advertisementList.add(it)
                     }
                 }
-                advertiseAdapter?.setData(advertisementList)
-                advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
+
+
             } else {
                 advertisementList.clear()
                 data.let { advertisementList.addAll(it) }
-                advertiseAdapter?.setData(advertisementList)
+            }
+            if (advertisementList.isEmpty()) {
+                advertiseBinding?.noResultFound?.visibility = View.VISIBLE
+                advertiseBinding?.emptyTextVew?.text = "Results not found"
+                advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
+            } else {
+                advertiseBinding?.noResultFound?.visibility = View.GONE
+                advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
             }
             advertiseAdapter?.setData(advertisementList)
+            advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
     }
 }

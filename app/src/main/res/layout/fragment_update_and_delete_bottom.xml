@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
             app:cardElevation="@dimen/_4sdp"
@@ -84,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:visibility="gone"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
             app:cardElevation="@dimen/_4sdp"
@@ -138,7 +139,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:visibility="visible"
             app:cardBackgroundColor="#e7e7e7"
             app:cardCornerRadius="6dp"
             app:cardElevation="@dimen/_4sdp"
@@ -188,62 +190,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/deleteAdvrst"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_24sdp"
-            app:cardBackgroundColor="#e7e7e7"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="@dimen/_4sdp"
-            app:contentPaddingBottom="@dimen/_6sdp"
-            app:contentPaddingTop="@dimen/_6sdp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/delete_icon" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_2sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="-6dp"
-                        android:fontFamily="@font/sf_pro_medium"
-                        android:text="DELETE"
-                        android:textColor="#333333"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/deleteOption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-4dp"
-                        android:fontFamily="@font/sf_pro_display_light"
-                        android:text="I want remove this advertisement from this app"
-                        android:textColor="#333333"
-                        android:textSize="11sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 

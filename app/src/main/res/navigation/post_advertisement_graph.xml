@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_selectAdvertiseTemplate"
             app:destination="@id/selectAdvertiseTemplate" />
+        <action
+            android:id="@+id/action_postAdvertiseCompanyDetailsFrgament_to_postAdvertisementbasicDetailsFragment"
+            app:destination="@id/postAdvertisementbasicDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/postAdvertisementbasicDetailsFragment"
