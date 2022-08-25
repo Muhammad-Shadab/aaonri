@@ -205,8 +205,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             Toast.makeText(context, "${getPersistedItem()}", Toast.LENGTH_SHORT).show()
 
-            selectAdvertiseTemplateSpinner.setSelection(2)
-
             getPersistedItem()?.let { selectAdvertiseTemplateSpinner.setSelection(it) }
 
             previewAdvertiseBtn.setOnClickListener {
@@ -370,8 +368,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             templateName
                         )
                     }
+
                     arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     advertiseBinding?.selectAdvertiseTemplateSpinner?.adapter = arrayAdapter
+                    advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(2)
                 }
                 is Resource.Error -> {
 
@@ -404,7 +404,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         isTextOnly = false
                     }
                     "Image with text on left side" -> {
-
                         spinnerTemplateCode = "IMTL"
                         openRichTextEditor = true
                         isBoth = true
@@ -434,6 +433,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         if (postAdvertiseViewModel.isUpdateAdvertise) {
             setDataForUpdating()
         }
+
+
 
         return advertiseBinding?.root
     }
