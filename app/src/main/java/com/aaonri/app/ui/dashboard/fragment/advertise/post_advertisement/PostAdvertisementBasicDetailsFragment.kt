@@ -203,10 +203,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }
 
-            Toast.makeText(context, "${getPersistedItem()}", Toast.LENGTH_SHORT).show()
-
-            getPersistedItem()?.let { selectAdvertiseTemplateSpinner.setSelection(it) }
-
             previewAdvertiseBtn.setOnClickListener {
                 if (openPreview) {
                     spinnerTemplateCode?.let { it1 ->
@@ -371,7 +367,12 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
                     arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     advertiseBinding?.selectAdvertiseTemplateSpinner?.adapter = arrayAdapter
-                    advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(2)
+                    getPersistedItem()?.let {
+                        advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(
+                            it,
+                            true
+                        )
+                    }
                 }
                 is Resource.Error -> {
 
@@ -434,13 +435,11 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             setDataForUpdating()
         }
 
-
-
         return advertiseBinding?.root
     }
 
     private fun setData() {
-
+        setImage()
     }
 
     private fun setDataForUpdating() {
@@ -450,13 +449,45 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             selectedPage.text = advertiseData?.advertisementPageLocation?.locationName
             when (advertiseData?.locationPlanRate?.days) {
                 7 -> {
-                    selectAdvertiseDaysSpinner.setSelection(0)
+                    selectAdvertiseDaysSpinner.setSelection(0, true)
                 }
                 15 -> {
-                    selectAdvertiseDaysSpinner.setSelection(1)
+                    selectAdvertiseDaysSpinner.setSelection(1, true)
                 }
                 30 -> {
-                    selectAdvertiseDaysSpinner.setSelection(2)
+                    selectAdvertiseDaysSpinner.setSelection(2, true)
+                }
+            }
+            when (advertiseData?.advertisementPageLocation?.type) {
+                "IMGONLY" -> {
+
+                    spinnerTemplateCode = "IMON"
+                    openRichTextEditor = false
+                    isImageOnly = true
+                    isBoth = false
+                    isTextOnly = false
+
+                    advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"
+                    setImage()
+                }
+                "TXTONLY" -> {
+                    spinnerTemplateCode = "TXON"
+                    openRichTextEditor = true
+                    isImageOnly = false
+                    isBoth = false
+                    isTextOnly = true
+                }
+                else -> {
+                    //spinnerTemplateCode = "IMON"
+                    openRichTextEditor = true
+                    isImageOnly = false
+                    isBoth = true
+                    isTextOnly = false
+
+                    advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"
+                    setImage()
                 }
             }
             /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
@@ -485,20 +516,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }*/
 
-            if (advertiseData?.advertisementDetails?.adImage.isNullOrEmpty()) {
-                advertiseBinding?.advertiseIv?.visibility = View.GONE
-                advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
-                advertiseBinding?.sizeLimitTv?.visibility = View.VISIBLE
-            } else {
-                context?.let { it1 ->
-                    Glide.with(it1)
-                        .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}")
-                        .into(advertiseIv)
-                }
-                advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
-                advertiseBinding?.uploadImageTv?.visibility = View.GONE
-                advertiseBinding?.sizeLimitTv?.visibility = View.GONE
-            }
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
             description = advertiseData?.advertisementDetails?.adDescription
         }
@@ -555,6 +572,11 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
     }
 
     private fun setImage() {
+
+        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+            advertiseImage = it
+        }
+
         if (advertiseImage?.isNotEmpty() == true) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
             advertiseBinding?.uploadImageTv?.visibility = View.GONE
@@ -587,12 +609,12 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
     }
 
     private fun getPersistedItem(): Int? {
-        return context?.let { PreferenceManager<Int>(it)["selectedSpinnerItem", 0] }
+        return context?.let { PreferenceManager<Int>(it)["selectedTemplateSpinnerItem", 0] }
     }
 
     protected fun setPersistedItem(position: Int) {
         context?.let { it1 -> PreferenceManager<Int>(it1) }
-            ?.set("selectedSpinnerItem", position)
+            ?.set("selectedTemplateSpinnerItem", position)
     }
 
     /*private fun makePersistedItemKeyName(): String {

@@ -136,6 +136,10 @@ class AdvertiseScreenActivity : BaseActivity() {
 
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedTemplateLocation", -1)
+
+        applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+            ?.set("selectedTemplateSpinnerItem", 0)
+
     }
 
 }

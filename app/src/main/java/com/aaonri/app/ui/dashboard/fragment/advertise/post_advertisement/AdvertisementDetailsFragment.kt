@@ -15,11 +15,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
-import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
-import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -210,12 +208,11 @@ class AdvertisementDetailsFragment : Fragment() {
         }
         detailsBinding?.companyLocationTv?.text = data?.advertisementDetails?.location
         detailsBinding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
-        if(data?.approved == true)
-        {
+        if (data?.approved == true) {
 
-        detailsBinding?.verifiedTv?.visibility = View.VISIBLE
+            detailsBinding?.verifiedTv?.visibility = View.VISIBLE
             detailsBinding?.pendingTv?.visibility = View.GONE
-        }else{
+        } else {
             detailsBinding?.verifiedTv?.visibility = View.GONE
             detailsBinding?.pendingTv?.visibility = View.VISIBLE
         }
