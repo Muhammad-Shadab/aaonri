@@ -1,15 +1,17 @@
 package com.aaonri.app.data.home.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.webkit.URLUtil
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.model.UserAds
-import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.UserEvent
 import com.aaonri.app.databinding.ClassifiedAdvertiseItemBinding
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
@@ -117,7 +119,16 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                     binding.classifiedImageWithTextAdCv.visibility = View.VISIBLE
                 }
             }
-
+            binding.constraintLayout.setOnClickListener {
+                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
+                    context?.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -257,7 +268,16 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                     binding.imageWithTextCv.visibility = View.VISIBLE
                 }
             }
-
+            binding.constraintLayout.setOnClickListener {
+                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
+                    context?.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
+                        )
+                    )
+                }
+            }
         }
 
     }

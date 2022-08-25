@@ -4,11 +4,13 @@
     android:layout_width="@dimen/_120sdp"
     android:layout_height="@dimen/_100sdp"
     android:layout_marginHorizontal="10dp"
+    android:id="@+id/textOnlyCl"
     android:background="@drawable/image_with_text_border">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/imageOnlyCv"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp">
 
