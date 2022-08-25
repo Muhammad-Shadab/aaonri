@@ -8,6 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/imageOnlyCv"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp">
 

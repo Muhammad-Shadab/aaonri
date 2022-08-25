@@ -1,6 +1,10 @@
 package com.aaonri.app.data.main.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.text.Html
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
@@ -14,12 +18,19 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
     /** Advertise ViewHolder for multiView Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
-
+        val context = binding.textOnlyFl.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
+
             binding.textView.text =
                 findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
             binding.advertiseDesc.text =
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+            binding.textOnlyFl.setOnClickListener {
+                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
+                    context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                }
+            }
+
         }
     }
 
@@ -32,6 +43,12 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
                     .into(binding.imageView)
+            }
+
+            binding.imageOnlyCv.setOnClickListener{
+                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
+                 context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                }
             }
         }
     }
@@ -49,6 +66,12 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
                     .into(binding.imageView)
+            }
+
+            binding.imageOnlyCv.setOnClickListener{
+                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
+                    context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                }
             }
         }
     }
