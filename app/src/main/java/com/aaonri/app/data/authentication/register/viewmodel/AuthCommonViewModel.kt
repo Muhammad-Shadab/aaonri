@@ -160,9 +160,13 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getCommunities() = viewModelScope.launch {
-        communitiesList.postValue(Resource.Loading())
-        val response = registrationRepository.getCommunitiesList()
-        communitiesList.postValue(handleCommunitiesResponse(response))
+        try {
+            communitiesList.postValue(Resource.Loading())
+            val response = registrationRepository.getCommunitiesList()
+            communitiesList.postValue(handleCommunitiesResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleCommunitiesResponse(response: Response<CommunitiesListResponse>): Resource<CommunitiesListResponse>? {
@@ -175,9 +179,13 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getCountries() = viewModelScope.launch {
-        countriesData.postValue(Resource.Loading())
-        val response = registrationRepository.getCountries()
-        countriesData.postValue(handleCountriesResponse(response))
+        try {
+            countriesData.postValue(Resource.Loading())
+            val response = registrationRepository.getCountries()
+            countriesData.postValue(handleCountriesResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleCountriesResponse(response: Response<CountriesResponse>): Resource<CountriesResponse>? {
@@ -190,9 +198,15 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
-        zipCodeData.postValue(Resource.Loading())
-        val response = registrationRepository.getLocationByZipCode(postalCode, countryCode)
-        zipCodeData.postValue(handleZipCodeResponse(response))
+        try {
+            zipCodeData.postValue(Resource.Loading())
+            val response = registrationRepository.getLocationByZipCode(postalCode, countryCode)
+            zipCodeData.postValue(handleZipCodeResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
     }
 
     private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {
