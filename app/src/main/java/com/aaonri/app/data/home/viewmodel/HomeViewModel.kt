@@ -49,6 +49,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             allInterestData.postValue(handleAllInterestResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            allInterestData.postValue(e.message?.let { Resource.Error(it) })
         }
 
     }
@@ -69,6 +70,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             homeEventData.postValue(handleHomeEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            homeEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -104,6 +106,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
             popularClassifiedData.postValue(handlePopularClassifiedResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            popularClassifiedData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 

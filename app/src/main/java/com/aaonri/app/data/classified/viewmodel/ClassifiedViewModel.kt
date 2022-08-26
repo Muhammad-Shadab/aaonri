@@ -74,6 +74,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             favoriteClassifiedData.postValue(handleFavoriteClassifiedResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            favoriteClassifiedData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -95,6 +96,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
                 classifiedByUserData.postValue(handleGetClassifiedUserResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                classifiedByUserData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -105,6 +107,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             myClassified.postValue(handleGetClassifiedUserResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            myClassified.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -127,6 +130,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
                 likeDislikeClassifiedData.postValue(handleLikeDislikeClassifiedResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                likeDislikeClassifiedData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -146,6 +150,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            findByEmailData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -156,6 +161,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             classifiedSellerNameData.postValue(handleClassifiedSellerNameResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            classifiedSellerNameData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -182,6 +188,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
+                classifiedLikeDislikeInfoData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 

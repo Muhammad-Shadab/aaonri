@@ -85,6 +85,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
             myEvent.postValue(handleAllEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            myEvent.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -95,6 +96,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
             recentEventData.postValue(handleRecentEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            recentEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -115,6 +117,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
             allEventData.postValue(handleAllEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            allEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 

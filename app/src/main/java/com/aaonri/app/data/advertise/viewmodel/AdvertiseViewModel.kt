@@ -34,6 +34,7 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
             allAdvertiseData.postValue(handleAllAdvertiseResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            allAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -53,6 +54,7 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
             advertiseDetailsData.postValue(handleAdvertiseDetailsByIdResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            advertiseDetailsData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -72,6 +74,7 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
             cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            cancelAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 

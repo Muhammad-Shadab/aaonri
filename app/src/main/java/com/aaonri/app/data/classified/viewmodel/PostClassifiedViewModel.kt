@@ -162,6 +162,7 @@ class PostClassifiedViewModel @Inject constructor(
             classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            classifiedCategoryData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -218,6 +219,7 @@ class PostClassifiedViewModel @Inject constructor(
             updateClassifiedData.postValue(handlePostClassifiedResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            updateClassifiedData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -228,6 +230,7 @@ class PostClassifiedViewModel @Inject constructor(
             classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            classifiedDeleteData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -248,6 +251,7 @@ class PostClassifiedViewModel @Inject constructor(
             postClassifiedData.postValue(handlePostClassifiedResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            postClassifiedData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -337,6 +341,7 @@ class PostClassifiedViewModel @Inject constructor(
                 uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                uploadClassifiedPics.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -388,6 +393,7 @@ class PostClassifiedViewModel @Inject constructor(
             classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            classifiedAdDetailsData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
