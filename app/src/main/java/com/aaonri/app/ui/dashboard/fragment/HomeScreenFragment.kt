@@ -93,6 +93,23 @@ class HomeScreenFragment : Fragment() {
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
 
+        genericAdapterForClassified?.itemClickListener = { view, item, position ->
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
+                    item.id,
+                    false
+                )
+            findNavController().navigate(action)
+        }
+
+        genericAdapterForEvent?.itemClickListenerEvent = { view, item, position ->
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
+                    item.id
+                )
+            findNavController().navigate(action)
+        }
+
         /*homeEventAdapter = HomeEventAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(it.id)
@@ -124,11 +141,7 @@ class HomeScreenFragment : Fragment() {
 
         }
 
-        /*Toast.makeText(context, "${classifiedViewModel.selectedServiceRow}", Toast.LENGTH_SHORT)
-            .show()*/
-
         immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
-        //advertiseAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
 
@@ -197,7 +210,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.adsAbovePopularSectionRv?.margin(0F,10F,0F,0F)
+                        homeScreenBinding?.adsAbovePopularSectionRv?.margin(0F, 10F, 0F, 0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter =

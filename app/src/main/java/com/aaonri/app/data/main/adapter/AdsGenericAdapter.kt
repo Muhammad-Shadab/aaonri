@@ -66,7 +66,7 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
             "IMGONLY" -> R.layout.image_only_view_holder
             "BOTH" -> R.layout.image_with_text
             else -> {
-                0
+                R.layout.image_only_view_holder
             }
         }
     }

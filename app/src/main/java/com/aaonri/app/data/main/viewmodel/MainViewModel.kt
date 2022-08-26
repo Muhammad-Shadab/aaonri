@@ -19,9 +19,13 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
 
 
     fun getAllActiveAdvertise() = viewModelScope.launch {
-        allActiveAdvertise.postValue(Resource.Loading())
-        val response = mainRepository.getAllActiveAdvertise()
-        allActiveAdvertise.postValue(handleAllActiveAdvertiseResponse(response))
+        try {
+            allActiveAdvertise.postValue(Resource.Loading())
+            val response = mainRepository.getAllActiveAdvertise()
+            allActiveAdvertise.postValue(handleAllActiveAdvertiseResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleAllActiveAdvertiseResponse(response: Response<FindAllActiveAdvertiseResponse>): Resource<FindAllActiveAdvertiseResponse>? {

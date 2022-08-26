@@ -8,7 +8,6 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.*
 import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import com.aaonri.app.utils.Resource
-import com.google.gson.JsonElement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -157,9 +156,13 @@ class PostClassifiedViewModel @Inject constructor(
 
 
     fun getClassifiedCategory() = viewModelScope.launch {
-        classifiedCategoryData.postValue(Resource.Loading())
-        val response = classifiedRepository.getClassifiedCategory()
-        classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
+        try {
+            classifiedCategoryData.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedCategory()
+            classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
@@ -209,15 +212,23 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
-        updateClassifiedData.postValue(Resource.Loading())
-        val response = classifiedRepository.updateClassified(postClassifiedRequest)
-        updateClassifiedData.postValue(handlePostClassifiedResponse(response))
+        try {
+            updateClassifiedData.postValue(Resource.Loading())
+            val response = classifiedRepository.updateClassified(postClassifiedRequest)
+            updateClassifiedData.postValue(handlePostClassifiedResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun deleteClassified(classifiedId: Int) = viewModelScope.launch {
-        classifiedDeleteData.postValue(Resource.Loading())
-        val response = classifiedRepository.deleteClassified(classifiedId)
-        classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
+        try {
+            classifiedDeleteData.postValue(Resource.Loading())
+            val response = classifiedRepository.deleteClassified(classifiedId)
+            classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
@@ -231,9 +242,13 @@ class PostClassifiedViewModel @Inject constructor(
 
 
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
-        postClassifiedData.postValue(Resource.Loading())
-        val response = classifiedRepository.postClassified(postClassifiedRequest)
-        postClassifiedData.postValue(handlePostClassifiedResponse(response))
+        try {
+            postClassifiedData.postValue(Resource.Loading())
+            val response = classifiedRepository.postClassified(postClassifiedRequest)
+            postClassifiedData.postValue(handlePostClassifiedResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
@@ -316,9 +331,13 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
         viewModelScope.launch {
-            uploadClassifiedPics.postValue(Resource.Loading())
-            val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
-            uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
+            try {
+                uploadClassifiedPics.postValue(Resource.Loading())
+                val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
+                uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
     private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
@@ -363,9 +382,13 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun getClassifiedAdDetails(addId: Int) = viewModelScope.launch {
-        classifiedAdDetailsData.postValue(Resource.Loading())
-        val response = classifiedRepository.getClassifiedAddDetails(addId)
-        classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
+        try {
+            classifiedAdDetailsData.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedAddDetails(addId)
+            classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleClassifiedAdDetails(response: Response<ClassifiedAdDetailsResponse>): Resource<ClassifiedAdDetailsResponse>? {

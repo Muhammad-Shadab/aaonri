@@ -79,15 +79,23 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         private set
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
-        myEvent.postValue(Resource.Loading())
-        val response = eventRepository.getAllEvent(allEventRequest)
-        myEvent.postValue(handleAllEventResponse(response))
+        try {
+            myEvent.postValue(Resource.Loading())
+            val response = eventRepository.getAllEvent(allEventRequest)
+            myEvent.postValue(handleAllEventResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun getRecentEvent(userEmail: String) = viewModelScope.launch {
-        recentEventData.postValue(Resource.Loading())
-        val response = eventRepository.getRecentEvent(userEmail)
-        recentEventData.postValue(handleRecentEventResponse(response))
+        try {
+            recentEventData.postValue(Resource.Loading())
+            val response = eventRepository.getRecentEvent(userEmail)
+            recentEventData.postValue(handleRecentEventResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleRecentEventResponse(response: Response<RecentEventResponse>): Resource<RecentEventResponse>? {
@@ -101,9 +109,13 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
 
     fun getAllEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
-        allEventData.postValue(Resource.Loading())
-        val response = eventRepository.getAllEvent(allEventRequest)
-        allEventData.postValue(handleAllEventResponse(response))
+        try {
+            allEventData.postValue(Resource.Loading())
+            val response = eventRepository.getAllEvent(allEventRequest)
+            allEventData.postValue(handleAllEventResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun handleAllEventResponse(response: Response<AllEventResponse>): Resource<AllEventResponse>? {

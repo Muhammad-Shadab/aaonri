@@ -79,6 +79,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             if (postAdvertiseViewModel.isUpdateAdvertise) {
                 templateSpinnerConstraintLayout.visibility = View.GONE
                 previewAdvertiseBtn.visibility = View.GONE
+                emailPromotionalLl.visibility = View.VISIBLE
+                flashingAdvertiseLl.visibility = View.VISIBLE
+                emailPromotionalCheckbox.isChecked = true
+                flashingAdvertiseCheckbox.isChecked = true
             }
 
             description?.let {

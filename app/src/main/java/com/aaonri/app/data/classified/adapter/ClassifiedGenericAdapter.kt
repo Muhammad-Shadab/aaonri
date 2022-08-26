@@ -2,6 +2,7 @@ package com.aaonri.app.data.classified.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,10 @@ class ClassifiedGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
             field = value
             notifyDataSetChanged()
         }
+
+    var itemClickListener: ((view: View, item: UserAds, position: Int) -> Unit)? =
+        null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeScreenViewHolders {
         return when (viewType) {
@@ -46,6 +51,7 @@ class ClassifiedGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: HomeScreenViewHolders, position: Int) {
+        holder.itemClickListenerClassified = itemClickListener
         when (holder) {
             is HomeScreenViewHolders.ClassifiedViewHolder -> {
                 if (items?.get(position) is UserAds) {
@@ -68,7 +74,7 @@ class ClassifiedGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
         return when (items?.get(position)) {
             is UserAds -> R.layout.classified_card_items
             is FindAllActiveAdvertiseResponseItem -> R.layout.classified_advertise_item
-            else -> 0
+            else -> R.layout.classified_card_items
         }
     }
 }

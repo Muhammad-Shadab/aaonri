@@ -2,6 +2,7 @@ package com.aaonri.app.data.event.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,9 @@ class EventGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
             field = value
             notifyDataSetChanged()
         }
+
+    var itemClickListenerEvent: ((view: View, item: UserEvent, position: Int) -> Unit)? =
+        null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeScreenViewHolders {
         return when (viewType) {
@@ -46,6 +50,7 @@ class EventGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: HomeScreenViewHolders, position: Int) {
+        holder.itemClickListenerEvent = itemClickListenerEvent
         when (holder) {
             is HomeScreenViewHolders.EventViewHolder -> {
                 if (items?.get(position) is UserEvent) {
@@ -68,7 +73,7 @@ class EventGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
         return when (items?.get(position)) {
             is UserEvent -> R.layout.event_item
             is FindAllActiveAdvertiseResponseItem -> R.layout.event_advertise_item
-            else -> 0
+            else -> R.layout.event_item
         }
     }
 

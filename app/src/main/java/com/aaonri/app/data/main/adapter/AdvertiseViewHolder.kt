@@ -23,11 +23,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.textOnlyFl.context
-        val displayMetrics = DisplayMetrics()
 
-
-        var width = displayMetrics.widthPixels
-        var height = displayMetrics.heightPixels
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
 
             binding.textView.text =

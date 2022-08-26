@@ -25,6 +25,12 @@ import java.time.format.DateTimeFormatter
 
 sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    var itemClickListenerClassified: ((view: View, item: UserAds, position: Int) -> Unit)? =
+        null
+
+    var itemClickListenerEvent: ((view: View, item: UserEvent, position: Int) -> Unit)? =
+        null
+
     class ClassifiedViewHolder(private val binding: ClassifiedCardItemsBinding) :
         HomeScreenViewHolders(binding) {
         val context = binding.classifiedCardView.context
@@ -69,6 +75,9 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                 val month = date.subSequence(5, 7)
                 val day = date.subSequence(8, 10)
                 classifiedPostDateTv.text = "Posted On: $month-$day-$year"
+                root.setOnClickListener {
+                    itemClickListenerClassified?.invoke(it, userAds, adapterPosition)
+                }
             }
         }
     }
@@ -216,6 +225,9 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                     } else {
                         eventFee.text = "FREE"
                     }
+                }
+                root.setOnClickListener {
+                    itemClickListenerEvent?.invoke(it, data, adapterPosition)
                 }
             }
         }
