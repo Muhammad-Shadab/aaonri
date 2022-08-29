@@ -43,15 +43,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         MutableLiveData()
 
     fun getAllInterest() = viewModelScope.launch {
-        try {
-            allInterestData.postValue(Resource.Loading())
-            val response = homeRepository.getAllInterest()
-            allInterestData.postValue(handleAllInterestResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            allInterestData.postValue(e.message?.let { Resource.Error(it) })
-        }
-
+        allInterestData.postValue(Resource.Loading())
+        val response = homeRepository.getAllInterest()
+        allInterestData.postValue(handleAllInterestResponse(response))
     }
 
     private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
@@ -64,14 +58,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     }
 
     fun getHomeEvent() = viewModelScope.launch {
-        try {
-            homeEventData.postValue(Resource.Loading())
-            val response = homeRepository.getHomeEvents()
-            homeEventData.postValue(handleHomeEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            homeEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        homeEventData.postValue(Resource.Loading())
+        val response = homeRepository.getHomeEvents()
+        homeEventData.postValue(handleHomeEventResponse(response))
     }
 
     private fun handleHomeEventResponse(response: Response<EventResponse>): Resource<EventResponse>? {
@@ -100,14 +89,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     }*/
 
     fun getPopularClassified() = viewModelScope.launch {
-        try {
-            popularClassifiedData.postValue(Resource.Loading())
-            val response = homeRepository.getPopularClassified()
-            popularClassifiedData.postValue(handlePopularClassifiedResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            popularClassifiedData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        popularClassifiedData.postValue(Resource.Loading())
+        val response = homeRepository.getPopularClassified()
+        popularClassifiedData.postValue(handlePopularClassifiedResponse(response))
     }
 
     private fun handlePopularClassifiedResponse(response: Response<PoplarClassifiedResponse>): Resource<PoplarClassifiedResponse>? {

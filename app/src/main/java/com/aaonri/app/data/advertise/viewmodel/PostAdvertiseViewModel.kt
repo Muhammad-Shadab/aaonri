@@ -121,14 +121,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun getAllActiveAdvertisePage() = viewModelScope.launch {
-        try {
-            advertisePageData.postValue(Resource.Loading())
-            val response = advertiseRepository.getAllActiveAdvertisePage()
-            advertisePageData.postValue(handleActivePageResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            advertisePageData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        advertisePageData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAllActiveAdvertisePage()
+        advertisePageData.postValue(handleActivePageResponse(response))
     }
 
     private fun handleActivePageResponse(response: Response<AdvertiseActivePageResponse>): Resource<AdvertiseActivePageResponse>? {
@@ -141,14 +136,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun getAdvertisePageLocationById(advertiseId: Int) = viewModelScope.launch {
-        try {
-            advertisePageLocationData.postValue(Resource.Loading())
-            val response = advertiseRepository.getAdvertisePageLocationById(advertiseId)
-            advertisePageLocationData.postValue(handleAdvertisePageLocationResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            advertisePageLocationData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        advertisePageLocationData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAdvertisePageLocationById(advertiseId)
+        advertisePageLocationData.postValue(handleAdvertisePageLocationResponse(response))
     }
 
     private fun handleAdvertisePageLocationResponse(response: Response<AdvertisePageLocationResponse>): Resource<AdvertisePageLocationResponse>? {
@@ -161,14 +151,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun getAdvertiseActiveVas(locationCode: String) = viewModelScope.launch {
-        try {
-            advertiseActiveVasData.postValue(Resource.Loading())
-            val response = advertiseRepository.getAdvertiseActiveVas(locationCode)
-            advertiseActiveVasData.postValue(handleActiveVasResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            advertiseActiveVasData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        advertiseActiveVasData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAdvertiseActiveVas(locationCode)
+        advertiseActiveVasData.postValue(handleActiveVasResponse(response))
     }
 
     private fun handleActiveVasResponse(response: Response<AdvertiseActiveVasResponse>): Resource<AdvertiseActiveVasResponse>? {
@@ -181,14 +166,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun getActiveTemplateForSpinner() = viewModelScope.launch {
-        try {
-            activeTemplateDataForSpinner.postValue(Resource.Loading())
-            val response = advertiseRepository.getActiveTemplateForSpinner()
-            activeTemplateDataForSpinner.postValue(handleAdvertiseTemplateResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            activeTemplateDataForSpinner.postValue(e.message?.let { Resource.Error(it) })
-        }
+        activeTemplateDataForSpinner.postValue(Resource.Loading())
+        val response = advertiseRepository.getActiveTemplateForSpinner()
+        activeTemplateDataForSpinner.postValue(handleAdvertiseTemplateResponse(response))
     }
 
     private fun handleAdvertiseTemplateResponse(response: Response<ActiveTemplateResponse>): Resource<ActiveTemplateResponse>? {
@@ -201,14 +181,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun postAdvertise(postAdvertiseRequest: PostAdvertiseRequest) = viewModelScope.launch {
-        try {
-            postedAdvertiseData.postValue(Resource.Loading())
-            val response = advertiseRepository.postAdvertise(postAdvertiseRequest)
-            postedAdvertiseData.postValue(handlePostAdvertiseResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            postedAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        postedAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.postAdvertise(postAdvertiseRequest)
+        postedAdvertiseData.postValue(handlePostAdvertiseResponse(response))
     }
 
     private fun handlePostAdvertiseResponse(response: Response<PostAdvertiseResponse>): Resource<PostAdvertiseResponse>? {
@@ -222,14 +197,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
 
     fun uploadAdvertiseImage(advertiseId: Int, file: MultipartBody.Part) =
         viewModelScope.launch {
-            try {
-                uploadAdvertiseImageData.postValue(Resource.Loading())
-                val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
-                uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                uploadAdvertiseImageData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            uploadAdvertiseImageData.postValue(Resource.Loading())
+            val response = advertiseRepository.uploadAdvertiseImage(advertiseId, file)
+            uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
         }
 
     private fun handleUploadImageResponse(response: Response<String>): Resource<String>? {
@@ -242,14 +212,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun renewAdvertise(renewAdvertiseRequest: RenewAdvertiseRequest) = viewModelScope.launch {
-        try {
-            renewAdvertiseData.postValue(Resource.Loading())
-            val response = advertiseRepository.renewAdvertise(renewAdvertiseRequest)
-            renewAdvertiseData.postValue(handleRenewAdvertiseResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            renewAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        renewAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.renewAdvertise(renewAdvertiseRequest)
+        renewAdvertiseData.postValue(handleRenewAdvertiseResponse(response))
     }
 
     private fun handleRenewAdvertiseResponse(response: Response<String>): Resource<String>? {
@@ -262,14 +227,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     }
 
     fun updateAdvertise(updateAdvertiseRequest: UpdateAdvertiseRequest) = viewModelScope.launch {
-        try {
-            updateAdvertiseData.postValue(Resource.Loading())
-            val response = advertiseRepository.updateAdvertise(updateAdvertiseRequest)
-            updateAdvertiseData.postValue(handlerUpdateAdvertiseResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            updateAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        updateAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.updateAdvertise(updateAdvertiseRequest)
+        updateAdvertiseData.postValue(handlerUpdateAdvertiseResponse(response))
     }
 
     private fun handlerUpdateAdvertiseResponse(response: Response<UpdateAdvertiseResponse>): Resource<UpdateAdvertiseResponse>? {

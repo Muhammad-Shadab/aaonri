@@ -37,14 +37,9 @@ class RegistrationViewModel
     val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
     fun getServices() = viewModelScope.launch {
-        try {
-            service.postValue(Resource.Loading())
-            val response = repository.getServicesInterest()
-            service.postValue(handleServiceResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            service.postValue(e.message?.let { Resource.Error(it) })
-        }
+        service.postValue(Resource.Loading())
+        val response = repository.getServicesInterest()
+        service.postValue(handleServiceResponse(response))
     }
 
     private fun handleServiceResponse(response: Response<ServicesResponse>): Resource<ServicesResponse>? {
@@ -58,14 +53,9 @@ class RegistrationViewModel
 
 
     fun loginUser(login: Login) = viewModelScope.launch {
-        try {
-            loginData.postValue(Resource.Loading())
-            val response = repository.loginUser(login)
-            loginData.postValue(handleLoginResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            loginData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        loginData.postValue(Resource.Loading())
+        val response = repository.loginUser(login)
+        loginData.postValue(handleLoginResponse(response))
     }
 
     private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse>? {
@@ -78,14 +68,9 @@ class RegistrationViewModel
     }
 
     fun isEmailAlreadyRegister(emailVerifyRequest: EmailVerifyRequest) = viewModelScope.launch {
-        try {
-            emailAlreadyRegisterData.postValue(Resource.Loading())
-            val response = repository.isEmailAlreadyRegistered(emailVerifyRequest)
-            emailAlreadyRegisterData.postValue(handleIsEmailVerifyResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emailAlreadyRegisterData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        emailAlreadyRegisterData.postValue(Resource.Loading())
+        val response = repository.isEmailAlreadyRegistered(emailVerifyRequest)
+        emailAlreadyRegisterData.postValue(handleIsEmailVerifyResponse(response))
     }
 
     private fun handleIsEmailVerifyResponse(response: Response<EmailVerificationResponse>): Resource<EmailVerificationResponse>? {
@@ -98,14 +83,9 @@ class RegistrationViewModel
     }
 
     fun registerUser(registerRequest: RegisterRequest) = viewModelScope.launch {
-        try {
-            registerData.postValue(Resource.Loading())
-            val response = repository.registerUser(registerRequest)
-            registerData.postValue(handleRegisterResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            registerData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        registerData.postValue(Resource.Loading())
+        val response = repository.registerUser(registerRequest)
+        registerData.postValue(handleRegisterResponse(response))
     }
 
     private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
@@ -118,14 +98,9 @@ class RegistrationViewModel
     }
 
     fun findByEmail(email: String) = viewModelScope.launch {
-        try {
-            findByEmailData.postValue(Resource.Loading())
-            val response = repository.findByEmail(email)
-            findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            findByEmailData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        findByEmailData.postValue(Resource.Loading())
+        val response = repository.findByEmail(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
     private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {

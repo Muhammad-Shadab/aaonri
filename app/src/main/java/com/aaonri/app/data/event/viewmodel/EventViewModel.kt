@@ -79,25 +79,15 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         private set
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
-        try {
-            myEvent.postValue(Resource.Loading())
-            val response = eventRepository.getAllEvent(allEventRequest)
-            myEvent.postValue(handleAllEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            myEvent.postValue(e.message?.let { Resource.Error(it) })
-        }
+        myEvent.postValue(Resource.Loading())
+        val response = eventRepository.getAllEvent(allEventRequest)
+        myEvent.postValue(handleAllEventResponse(response))
     }
 
     fun getRecentEvent(userEmail: String) = viewModelScope.launch {
-        try {
-            recentEventData.postValue(Resource.Loading())
-            val response = eventRepository.getRecentEvent(userEmail)
-            recentEventData.postValue(handleRecentEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            recentEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        recentEventData.postValue(Resource.Loading())
+        val response = eventRepository.getRecentEvent(userEmail)
+        recentEventData.postValue(handleRecentEventResponse(response))
     }
 
     private fun handleRecentEventResponse(response: Response<RecentEventResponse>): Resource<RecentEventResponse>? {
@@ -111,14 +101,9 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
 
     fun getAllEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
-        try {
-            allEventData.postValue(Resource.Loading())
-            val response = eventRepository.getAllEvent(allEventRequest)
-            allEventData.postValue(handleAllEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            allEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        allEventData.postValue(Resource.Loading())
+        val response = eventRepository.getAllEvent(allEventRequest)
+        allEventData.postValue(handleAllEventResponse(response))
     }
 
     private fun handleAllEventResponse(response: Response<AllEventResponse>): Resource<AllEventResponse>? {

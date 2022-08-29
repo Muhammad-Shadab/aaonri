@@ -102,14 +102,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun getEventCategory() = viewModelScope.launch {
-        try {
-            eventCategoryData.postValue(Resource.Loading())
-            val response = eventRepository.getEventCategory()
-            eventCategoryData.postValue(handleEventCategoryResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            eventCategoryData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        eventCategoryData.postValue(Resource.Loading())
+        val response = eventRepository.getEventCategory()
+        eventCategoryData.postValue(handleEventCategoryResponse(response))
     }
 
     private fun handleEventCategoryResponse(response: Response<EventCategoryResponse>): Resource<EventCategoryResponse>? {
@@ -166,25 +161,15 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun postEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
-        try {
-            postEventData.postValue(Resource.Loading())
-            val response = eventRepository.postEvent(postEventRequest)
-            postEventData.postValue(handlePostEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            postEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        postEventData.postValue(Resource.Loading())
+        val response = eventRepository.postEvent(postEventRequest)
+        postEventData.postValue(handlePostEventResponse(response))
     }
 
     fun updateEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
-        try {
-            updateEventData.postValue(Resource.Loading())
-            val response = eventRepository.updateEvent(postEventRequest)
-            postEventData.postValue(handlePostEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            postEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        updateEventData.postValue(Resource.Loading())
+        val response = eventRepository.updateEvent(postEventRequest)
+        postEventData.postValue(handlePostEventResponse(response))
     }
 
     private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
@@ -197,14 +182,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun deleteEvent(eventId: Int) = viewModelScope.launch {
-        try {
-            deleteEventData.postValue(Resource.Loading())
-            val response = eventRepository.deleteEvent(eventId)
-            deleteEventData.postValue(handleDeleteEventResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            deleteEventData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        deleteEventData.postValue(Resource.Loading())
+        val response = eventRepository.deleteEvent(eventId)
+        deleteEventData.postValue(handleDeleteEventResponse(response))
     }
 
     private fun handleDeleteEventResponse(response: Response<EventDeleteResponse>): Resource<EventDeleteResponse>? {
@@ -222,14 +202,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         delImageIds: RequestBody
     ) =
         viewModelScope.launch {
-            try {
-                uploadPictureData.postValue(Resource.Loading())
-                val response = eventRepository.uploadEventPicture(files, eventId, delImageIds)
-                uploadPictureData.postValue(handleUploadPictureResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                uploadPictureData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            uploadPictureData.postValue(Resource.Loading())
+            val response = eventRepository.uploadEventPicture(files, eventId, delImageIds)
+            uploadPictureData.postValue(handleUploadPictureResponse(response))
         }
 
     private fun handleUploadPictureResponse(response: Response<UploadEventPicResponse>): Resource<UploadEventPicResponse>? {
@@ -266,14 +241,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun getEventDetails(eventId: Int) = viewModelScope.launch {
-        try {
-            eventDetailsData.postValue(Resource.Loading())
-            val response = eventRepository.getEventDetails(eventId)
-            eventDetailsData.postValue(handleEventDetailsResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            eventDetailsData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        eventDetailsData.postValue(Resource.Loading())
+        val response = eventRepository.getEventDetails(eventId)
+        eventDetailsData.postValue(handleEventDetailsResponse(response))
     }
 
     private fun handleEventDetailsResponse(response: Response<EventDetailsResponse>): Resource<EventDetailsResponse>? {
@@ -291,15 +261,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun addEventAddInterested(eventAddInterestedRequest: EventAddInterestedRequest) =
         viewModelScope.launch {
-            try {
-                addInterestedData.postValue(Resource.Loading())
-                val response = eventRepository.addEventAddInterested(eventAddInterestedRequest)
-                addInterestedData.postValue(handleEventAddInterestedResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                addInterestedData.postValue(e.message?.let { Resource.Error(it) })
-            }
-
+            addInterestedData.postValue(Resource.Loading())
+            val response = eventRepository.addEventAddInterested(eventAddInterestedRequest)
+            addInterestedData.postValue(handleEventAddInterestedResponse(response))
         }
 
     private fun handleEventAddInterestedResponse(response: Response<EventAddInterestedResponse>): Resource<EventAddInterestedResponse>? {
@@ -312,14 +276,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun addEventGoing(eventAddGoingRequest: EventAddGoingRequest) = viewModelScope.launch {
-        try {
-            addInterestedData.postValue(Resource.Loading())
-            val response = eventRepository.addEventGoing(eventAddGoingRequest)
-            addGoingData.postValue(handleaddEventGoingResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            addGoingData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        addInterestedData.postValue(Resource.Loading())
+        val response = eventRepository.addEventGoing(eventAddGoingRequest)
+        addGoingData.postValue(handleaddEventGoingResponse(response))
     }
 
     private fun handleaddEventGoingResponse(response: Response<EventAddGoingResponse>): Resource<EventAddGoingResponse>? {
@@ -333,14 +292,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun getisUserVisitingEventInfo(email: String, addId: Int) =
         viewModelScope.launch {
-            try {
-                eventuserVisitinginfoData.postValue(Resource.Loading())
-                val response = eventRepository.geisUserVisitingEventInfo(email, addId)
-                eventuserVisitinginfoData.postValue(handleUserVisitingEventInfoResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                eventuserVisitinginfoData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            eventuserVisitinginfoData.postValue(Resource.Loading())
+            val response = eventRepository.geisUserVisitingEventInfo(email, addId)
+            eventuserVisitinginfoData.postValue(handleUserVisitingEventInfoResponse(response))
         }
 
     private fun handleUserVisitingEventInfoResponse(response: String): Resource<String>? {
@@ -352,14 +306,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     fun getUserisInterested(email: String, services: String, addId: Int) =
         viewModelScope.launch {
-            try {
-                eventuserInterestedinfoData.postValue(Resource.Loading())
-                val response = eventRepository.getUserisInterested(email, services, addId)
-                eventuserInterestedinfoData.postValue(handleUserIsInterestedInfoResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                eventuserInterestedinfoData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            eventuserInterestedinfoData.postValue(Resource.Loading())
+            val response = eventRepository.getUserisInterested(email, services, addId)
+            eventuserInterestedinfoData.postValue(handleUserIsInterestedInfoResponse(response))
         }
 
     private fun handleUserIsInterestedInfoResponse(response: String): Resource<String>? {
@@ -370,14 +319,9 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
-        try {
-            zipCodeData.postValue(Resource.Loading())
-            val response = eventRepository.getLocationByZipCode(postalCode, countryCode)
-            zipCodeData.postValue(handleZipCodeResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            zipCodeData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        zipCodeData.postValue(Resource.Loading())
+        val response = eventRepository.getLocationByZipCode(postalCode, countryCode)
+        zipCodeData.postValue(handleZipCodeResponse(response))
     }
 
     private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {

@@ -68,14 +68,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     }*/
 
     fun getFavoriteClassified(userEmail: String) = viewModelScope.launch {
-        try {
-            favoriteClassifiedData.postValue(Resource.Loading())
-            val response = classifiedRepository.getFavoriteClassified(userEmail)
-            favoriteClassifiedData.postValue(handleFavoriteClassifiedResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            favoriteClassifiedData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        favoriteClassifiedData.postValue(Resource.Loading())
+        val response = classifiedRepository.getFavoriteClassified(userEmail)
+        favoriteClassifiedData.postValue(handleFavoriteClassifiedResponse(response))
     }
 
     private fun handleFavoriteClassifiedResponse(response: Response<FavoriteClassifiedResponse>): Resource<FavoriteClassifiedResponse>? {
@@ -90,25 +85,15 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
-            try {
-                classifiedByUserData.postValue(Resource.Loading())
-                val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
-                classifiedByUserData.postValue(handleGetClassifiedUserResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                classifiedByUserData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            classifiedByUserData.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
+            classifiedByUserData.postValue(handleGetClassifiedUserResponse(response))
         }
 
     fun getMyClassified(getClassifiedRequest: GetClassifiedByUserRequest) = viewModelScope.launch {
-        try {
-            myClassified.postValue((Resource.Loading()))
-            val response = classifiedRepository.getClassifiedByUser(getClassifiedRequest)
-            myClassified.postValue(handleGetClassifiedUserResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            myClassified.postValue(e.message?.let { Resource.Error(it) })
-        }
+        myClassified.postValue((Resource.Loading()))
+        val response = classifiedRepository.getClassifiedByUser(getClassifiedRequest)
+        myClassified.postValue(handleGetClassifiedUserResponse(response))
     }
 
 
@@ -123,15 +108,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun likeDislikeClassified(likeDislikeClassifiedRequest: LikeDislikeClassifiedRequest) =
         viewModelScope.launch {
-            try {
-                likeDislikeClassifiedData.postValue(Resource.Loading())
-                val response =
-                    classifiedRepository.likeDislikeClassified(likeDislikeClassifiedRequest)
-                likeDislikeClassifiedData.postValue(handleLikeDislikeClassifiedResponse(response))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                likeDislikeClassifiedData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            likeDislikeClassifiedData.postValue(Resource.Loading())
+            val response =
+                classifiedRepository.likeDislikeClassified(likeDislikeClassifiedRequest)
+            likeDislikeClassifiedData.postValue(handleLikeDislikeClassifiedResponse(response))
         }
 
     private fun handleLikeDislikeClassifiedResponse(response: Response<LikeDislikeClassifiedResponse>): Resource<LikeDislikeClassifiedResponse>? {
@@ -144,25 +124,15 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     }
 
     fun findByEmail(email: String) = viewModelScope.launch {
-        try {
-            findByEmailData.postValue(Resource.Loading())
-            val response = classifiedRepository.getClassifiedSellerName(email)
-            findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            findByEmailData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        findByEmailData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedSellerName(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
     fun getClassifiedSellerName(email: String) = viewModelScope.launch {
-        try {
-            classifiedSellerNameData.postValue(Resource.Loading())
-            val response = classifiedRepository.getClassifiedSellerName(email)
-            classifiedSellerNameData.postValue(handleClassifiedSellerNameResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            classifiedSellerNameData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        classifiedSellerNameData.postValue(Resource.Loading())
+        val response = classifiedRepository.getClassifiedSellerName(email)
+        classifiedSellerNameData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
     private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
@@ -177,19 +147,14 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun getClassifiedLikeDislikeInfo(email: String, addId: Int, service: String) =
         viewModelScope.launch {
-            try {
-                classifiedLikeDislikeInfoData.postValue(Resource.Loading())
-                val response =
-                    classifiedRepository.getClassifiedLikeDislikeInfo(email, addId, service)
-                classifiedLikeDislikeInfoData.postValue(
-                    handleClassifiedLikeDislikeInfoResponse(
-                        response
-                    )
+            classifiedLikeDislikeInfoData.postValue(Resource.Loading())
+            val response =
+                classifiedRepository.getClassifiedLikeDislikeInfo(email, addId, service)
+            classifiedLikeDislikeInfoData.postValue(
+                handleClassifiedLikeDislikeInfoResponse(
+                    response
                 )
-            } catch (e: Exception) {
-                e.printStackTrace()
-                classifiedLikeDislikeInfoData.postValue(e.message?.let { Resource.Error(it) })
-            }
+            )
         }
 
     private fun handleClassifiedLikeDislikeInfoResponse(response: String): Resource<String>? {

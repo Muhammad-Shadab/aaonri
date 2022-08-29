@@ -28,14 +28,9 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
     val callAdvertiseDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getAllAdvertise(userEmail: String) = viewModelScope.launch {
-        try {
-            allAdvertiseData.postValue(Resource.Loading())
-            val response = advertiseRepository.getAllAdvertise(userEmail)
-            allAdvertiseData.postValue(handleAllAdvertiseResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            allAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        allAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAllAdvertise(userEmail)
+        allAdvertiseData.postValue(handleAllAdvertiseResponse(response))
     }
 
     private fun handleAllAdvertiseResponse(response: Response<AllAdvertiseResponse>): Resource<AllAdvertiseResponse>? {
@@ -48,14 +43,9 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
     }
 
     fun getAdvertiseDetailsById(advertiseId: Int) = viewModelScope.launch {
-        try {
-            advertiseDetailsData.postValue(Resource.Loading())
-            val response = advertiseRepository.getAdvertiseDetailsById(advertiseId)
-            advertiseDetailsData.postValue(handleAdvertiseDetailsByIdResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            advertiseDetailsData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        advertiseDetailsData.postValue(Resource.Loading())
+        val response = advertiseRepository.getAdvertiseDetailsById(advertiseId)
+        advertiseDetailsData.postValue(handleAdvertiseDetailsByIdResponse(response))
     }
 
     private fun handleAdvertiseDetailsByIdResponse(response: Response<AdvertiseDetailsResponse>): Resource<AdvertiseDetailsResponse>? {
@@ -68,14 +58,9 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
     }
 
     fun cancelAdvertise(advertiseId: Int) = viewModelScope.launch {
-        try {
-            cancelAdvertiseData.postValue(Resource.Loading())
-            val response = advertiseRepository.cancelAdvertise(advertiseId)
-            cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            cancelAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        cancelAdvertiseData.postValue(Resource.Loading())
+        val response = advertiseRepository.cancelAdvertise(advertiseId)
+        cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))
     }
 
     private fun handleCancelAdvertiseResponse(response: Response<String>): Resource<String>? {

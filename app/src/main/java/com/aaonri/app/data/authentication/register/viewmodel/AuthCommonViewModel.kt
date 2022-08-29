@@ -160,14 +160,9 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getCommunities() = viewModelScope.launch {
-        try {
-            communitiesList.postValue(Resource.Loading())
-            val response = registrationRepository.getCommunitiesList()
-            communitiesList.postValue(handleCommunitiesResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            communitiesList.postValue(e.message?.let { Resource.Error(it) })
-        }
+        communitiesList.postValue(Resource.Loading())
+        val response = registrationRepository.getCommunitiesList()
+        communitiesList.postValue(handleCommunitiesResponse(response))
     }
 
     private fun handleCommunitiesResponse(response: Response<CommunitiesListResponse>): Resource<CommunitiesListResponse>? {
@@ -180,14 +175,9 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getCountries() = viewModelScope.launch {
-        try {
-            countriesData.postValue(Resource.Loading())
-            val response = registrationRepository.getCountries()
-            countriesData.postValue(handleCountriesResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            countriesData.postValue(e.message?.let { Resource.Error(it) })
-        }
+        countriesData.postValue(Resource.Loading())
+        val response = registrationRepository.getCountries()
+        countriesData.postValue(handleCountriesResponse(response))
     }
 
     private fun handleCountriesResponse(response: Response<CountriesResponse>): Resource<CountriesResponse>? {
@@ -200,16 +190,9 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun getLocationByZipCode(postalCode: String, countryCode: String) = viewModelScope.launch {
-        try {
-            zipCodeData.postValue(Resource.Loading())
-            val response = registrationRepository.getLocationByZipCode(postalCode, countryCode)
-            zipCodeData.postValue(handleZipCodeResponse(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            zipCodeData.postValue(e.message?.let { Resource.Error(it) })
-        }
-
-
+        zipCodeData.postValue(Resource.Loading())
+        val response = registrationRepository.getLocationByZipCode(postalCode, countryCode)
+        zipCodeData.postValue(handleZipCodeResponse(response))
     }
 
     private fun handleZipCodeResponse(response: Response<ZipCodeResponse>): Resource<ZipCodeResponse>? {
