@@ -477,7 +477,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 id: Long
             ) {
                 setPersistedItem(position)
-
                 when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
                         advertiseBinding?.advertiseDescEt?.setText("")
