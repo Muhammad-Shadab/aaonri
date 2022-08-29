@@ -461,8 +461,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
             when (advertiseData?.advertisementPageLocation?.type) {
                 "IMGONLY" -> {
-                    advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"
+                    /*advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"*/
                     spinnerTemplateCode = "IMON"
                     openRichTextEditor = false
                     isImageOnly = true
@@ -477,8 +477,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     isTextOnly = true
                 }
                 else -> {
-                    advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"
+                    /*advertiseImage =
+                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"*/
                     //spinnerTemplateCode = "IMON"
                     openRichTextEditor = true
                     isImageOnly = false
@@ -487,8 +487,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }
 
-            advertiseImage?.let { postAdvertiseViewModel.setAdvertiseImage(it) }
-            setImage()
+            //advertiseImage?.let { postAdvertiseViewModel.setAdvertiseImage(it) }
+            //setImage()
 
             /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
                 when (advertiseData?.advertisementPageLocation?.type) {
