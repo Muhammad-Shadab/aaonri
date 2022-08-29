@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +58,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
 
         detailsBinding?.apply {
-
+            advertiseDescEt.movementMethod = ScrollingMovementMethod()
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_COMPANY_DETAILS)
 
             companyEmailEt.setText(email)
