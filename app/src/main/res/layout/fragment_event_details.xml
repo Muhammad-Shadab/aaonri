@@ -566,8 +566,7 @@
                             android:layout_marginTop="@dimen/_6sdp"
                             android:layout_marginBottom="@dimen/_6sdp"
                             android:clipToPadding="false"
-                            android:paddingStart="14dp"
-                            android:paddingEnd="14dp"
+                            android:paddingEnd="15dp"
                             android:paddingBottom="6dp" />
 
                     </LinearLayout>

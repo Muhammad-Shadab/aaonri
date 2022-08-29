@@ -331,9 +331,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="14dp"
                         android:visibility="visible"
+                        android:paddingEnd="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/priorityServiceRv" />
@@ -412,9 +411,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
-                            android:paddingStart="14dp"
-                            android:paddingEnd="14dp"
                             android:visibility="visible"
+                            android:paddingEnd="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
