@@ -28,14 +28,12 @@ class AdvertisePostSuccessFragment : BottomSheetDialogFragment() {
             FragmentAdvertisePostSuccessBinding.inflate(inflater, container, false)
 
         binding?.apply {
-            if(postAdvertiseViewModel.isUpdateAdvertise)
-            {
-                successfulTv?.text = resources.getString(R.string.your_advertisement_will_posted_text)
-            }
-            else{
-
-                successfulTv?.text = resources.getString(R.string.your_advertisement_will_updates_text)
-
+            if (postAdvertiseViewModel.isUpdateAdvertise) {
+                successfulTv.text =
+                    resources.getString(R.string.your_advertisement_will_updates_text)
+            } else {
+                successfulTv.text =
+                    resources.getString(R.string.your_advertisement_will_posted_text)
             }
 
             postAdvertiseViewModel.setStepViewLastTick(true)

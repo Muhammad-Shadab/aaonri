@@ -39,7 +39,7 @@ class SelectTemplateLocationFragment : Fragment() {
             binding?.tv3?.text = it.title
             binding?.tv3?.visibility = View.VISIBLE
             postAdvertiseViewModel.setTemplateLocation(it)
-            postAdvertiseViewModel.setAdvertiseImage("")
+            //postAdvertiseViewModel.setAdvertiseImage("")
         }
 
         binding?.apply {

@@ -66,7 +66,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     val advertisePageLocationData: MutableLiveData<Resource<AdvertisePageLocationResponse>> =
         MutableLiveData()
 
-    val advertiseImage: MutableLiveData<String> = MutableLiveData()
+    //val advertiseImage: MutableLiveData<String> = MutableLiveData()
 
     val updateAdvertiseData: MutableLiveData<Resource<UpdateAdvertiseResponse>> = MutableLiveData()
 
@@ -262,9 +262,9 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
         isUpdateAdvertise = updateAdvertise
     }
 
-    fun setAdvertiseImage(value: String) {
+    /*fun setAdvertiseImage(value: String) {
         advertiseImage.postValue(value)
-    }
+    }*/
 
     fun setAdvertiseId(value: Int) {
         advertiseId = value

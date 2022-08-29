@@ -18,7 +18,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
@@ -178,7 +177,22 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         advertiseDetailsNextBtn.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                     } else {
-                        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                        if (advertiseImage?.isNotEmpty() == true) {
+                            openPreview = true
+                            previewAdvertiseBtn.isEnabled = true
+                            previewAdvertiseBtn.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                            advertiseDetailsNextBtn.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                        } else {
+                            openPreview = false
+                            previewAdvertiseBtn.isEnabled = false
+                            advertiseDetailsNextBtn.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                            previewAdvertiseBtn.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                        }
+                        /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
                             if (it.isNotEmpty()) {
                                 openPreview = true
                                 previewAdvertiseBtn.isEnabled = true
@@ -194,7 +208,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                                 previewAdvertiseBtn.backgroundTintList =
                                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                             }
-                        }
+                        }*/
                     }
                 } else {
                     openPreview = false
@@ -297,7 +311,22 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                 } else {
-                    postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                    if (advertiseImage?.isNotEmpty() == true) {
+                        openPreview = true
+                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                    } else {
+                        openPreview = false
+                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                    }
+                    /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
                         if (it.isNotEmpty()) {
                             openPreview = true
                             advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
@@ -313,7 +342,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
                                 ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                         }
-                    }
+                    }*/
                 }
             } else {
                 openPreview = false
@@ -556,7 +585,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
                 advertiseImage = fileUri.toString()
                 advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
-                postAdvertiseViewModel.setAdvertiseImage(if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "")
                 setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
@@ -571,10 +599,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
     }
 
     private fun setImage() {
-
-        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-            advertiseImage = it
-        }
 
         if (advertiseImage?.isNotEmpty() == true) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
