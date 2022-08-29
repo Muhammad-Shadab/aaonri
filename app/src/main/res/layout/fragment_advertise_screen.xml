@@ -134,8 +134,7 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
-=======
->>>>>>> b1cb9f307b52363cf5a2de4a758eb5572408c339
+
         <TextView
             android:id="@+id/yourText"
             android:layout_width="match_parent"
@@ -144,7 +143,7 @@
             android:layout_marginTop="@dimen/_26sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:includeFontPadding="false"
-            android:text="Yout Avertisement(s)"
+            android:text="Your Avertisement(s)"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"

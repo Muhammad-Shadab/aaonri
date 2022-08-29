@@ -205,7 +205,7 @@
     </dialog>
     <fragment
         android:id="@+id/postAdvertiseCheckout2"
-        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckout"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckoutFragment"
         android:label="fragment_post_advertise_checkout"
         tools:layout="@layout/fragment_post_advertise_checkout" />
 </navigation>

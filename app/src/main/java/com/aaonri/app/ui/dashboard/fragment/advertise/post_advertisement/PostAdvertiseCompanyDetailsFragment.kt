@@ -8,11 +8,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
@@ -55,6 +55,10 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
         val phone =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            postAdvertiseViewModel.setAdvertiseImage("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${AdvertiseStaticData.getAddDetails()?.advertisementDetails?.adImage}")
+        }
 
         detailsBinding?.apply {
 

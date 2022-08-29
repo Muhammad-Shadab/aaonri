@@ -28,7 +28,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
-class PostAdvertiseCheckout : Fragment() {
+class PostAdvertiseCheckoutFragment : Fragment() {
     var checkoutBinding: FragmentPostAdvertiseCheckoutBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
