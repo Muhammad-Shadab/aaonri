@@ -178,7 +178,7 @@ class AdvertiseScreenFragment : Fragment() {
                     advertiseBinding?.progressBar?.visibility = View.GONE
 
                     advertiseBinding?.yourText?.text =
-                        "Yout Avertisement(${response.data?.size})"
+                        "Your Avertisement(${response.data?.size})"
 
                     if (response.data?.isEmpty() == true) {
                         advertiseBinding?.noResultFound?.visibility = View.VISIBLE

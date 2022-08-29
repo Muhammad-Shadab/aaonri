@@ -1,25 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
-import android.R
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.text.Html
 import android.text.InputFilter
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
-import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.ActivityRichTextEditorBinding
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.SystemServiceUtil
-import com.chinalwb.are.AREditText
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
 import com.chinalwb.are.styles.toolitems.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class RichTextEditor : AppCompatActivity() {
     var binding: ActivityRichTextEditorBinding? = null
     private var mToolbar: IARE_Toolbar? = null
-    val postViewModel: PostAdvertiseViewModel by viewModels()
 
     var data: String? = ""
 
@@ -43,24 +32,18 @@ class RichTextEditor : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
         binding?.apply {
 
-            if(postViewModel.isAdvertise)
-            {
-                arEditText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(30))
-            }
-
             arEditText.requestFocus()
             arEditText.hint = intent.getStringExtra("placeholder")
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val isFromAdvertiseBasicDetails =
+                intent.getBooleanExtra("isFromAdvertiseBasicDetails", false)
             imm.showSoftInput(arEditText, InputMethodManager.SHOW_IMPLICIT)
             data = intent.getStringExtra("data")
             arEditText.fromHtml(data)
 
-            /*   Html.fromHtml(applicationContext?.let { PreferenceManager<String>(it)["description", ""] })
-                   ?.trim()?.length?.let {
-                   arEditText.setSelection(
-                       it
-                   )
-               }*/
+            if (isFromAdvertiseBasicDetails) {
+                arEditText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(30))
+            }
 
             navigateBack.setOnClickListener {
                 finish()

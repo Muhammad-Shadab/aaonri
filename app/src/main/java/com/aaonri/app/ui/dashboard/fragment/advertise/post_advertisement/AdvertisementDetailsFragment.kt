@@ -48,13 +48,11 @@ class AdvertisementDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                if (isAdApproved != true) {
-                    val action =
-                        AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
-                            args.advertiseId
-                        )
-                    findNavController().navigate(action)
-                }
+                val action =
+                    AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
+                        args.advertiseId
+                    )
+                findNavController().navigate(action)
             }
         }
 
@@ -112,6 +110,10 @@ class AdvertisementDetailsFragment : Fragment() {
         val vasCodes = mutableListOf<String>()
 
         isAdApproved = data?.approved
+
+        if (isAdApproved == true) {
+            detailsBinding?.moreClassifiedOption?.visibility = View.GONE
+        }
 
         detailsBinding?.addImage?.let {
             context?.let { it1 ->

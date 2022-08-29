@@ -15,9 +15,9 @@ class Validator {
         }
 
         fun urlValidation(url: String): Boolean {
-            val passwordRegex =
-                "^((ftp|http|https):\\/\\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\\.[a-zA-Z]+)+((\\/)[\\w#]+)*(\\/\\w+\\?[a-zA-Z0-9_]+=\\w+(&[a-zA-Z0-9_]+=\\w+)*)?$"
-            return passwordRegex.toRegex().matches(url)
+            val urlRegex =
+                "((https|http)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+"
+            return urlRegex.toRegex().matches(url)
         }
 
     }

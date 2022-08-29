@@ -135,9 +135,9 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
+                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -156,9 +156,12 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
-                    if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
+                    if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
+                            "http:"
+                        ) != true
+                    ) {
                         response.data?.advertisementId?.let {
+                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -197,7 +200,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
 

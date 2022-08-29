@@ -251,6 +251,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 if (openRichTextEditor) {
                     postAdvertiseViewModel.setIsAdvertise(true)
                     val intent = Intent(context, RichTextEditor::class.java)
+                    intent.putExtra("isFromAdvertiseBasicDetails", true)
                     intent.putExtra("data", description)
                     intent.putExtra("placeholder", "Ad description (Max 30 characters)")
                     resultLauncher.launch(intent)
