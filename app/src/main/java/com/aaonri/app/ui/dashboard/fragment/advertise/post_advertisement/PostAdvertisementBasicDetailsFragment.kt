@@ -585,6 +585,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     Glide.with(it1)
                         .load(advertiseImage)
                         .into(it)
+
                 }
             }
         } else {
