@@ -135,14 +135,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
-                    /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
+                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
                         findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
-                    }*/
+                    }
                 }
                 is Resource.Error -> {
 
@@ -240,7 +240,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
+        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
         postAdvertiseViewModel.uploadAdvertiseImage(id, requestImage)
     }

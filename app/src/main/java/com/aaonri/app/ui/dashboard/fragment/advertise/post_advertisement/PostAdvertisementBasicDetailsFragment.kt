@@ -181,6 +181,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         .isNotEmpty()
                 ) {
                     if (advertisePageLocationResponseItem?.type == "TXTONLY" || AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
+                        Toast.makeText(context, "TXTONLY", Toast.LENGTH_SHORT).show()
                         advertiseDetailsNextBtn.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                     } else {
@@ -476,8 +477,11 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 id: Long
             ) {
                 setPersistedItem(position)
+
                 when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
+                        advertiseBinding?.advertiseDescEt?.setText("")
+                        description = ""
                         spinnerTemplateCode = "IMON"
                         openRichTextEditor = false
                         isImageOnly = true
@@ -499,6 +503,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         isTextOnly = false
                     }
                     "Text Only" -> {
+                        advertiseBinding?.advertiseDescEt?.setText("")
+                        description = ""
                         spinnerTemplateCode = "TXON"
                         openRichTextEditor = true
                         isTextOnly = true
@@ -545,8 +551,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
             when (advertiseData?.advertisementPageLocation?.type) {
                 "IMGONLY" -> {
-                    /*advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData.advertisementDetails.adImage}"*/
                     spinnerTemplateCode = "IMON"
                     openRichTextEditor = false
                     isImageOnly = true
@@ -561,8 +565,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     isTextOnly = true
                 }
                 else -> {
-                    /*advertiseImage =
-                        "${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${advertiseData?.advertisementDetails?.adImage}"*/
+
                     //spinnerTemplateCode = "IMON"
                     openRichTextEditor = true
                     isImageOnly = false
@@ -570,35 +573,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     isTextOnly = false
                 }
             }
-
-            //advertiseImage?.let { postAdvertiseViewModel.setAdvertiseImage(it) }
-            //setImage()
-
-            /*if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]?.isEmpty() == true) {
-                when (advertiseData?.advertisementPageLocation?.type) {
-                    "IMGONLY" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(0)
-                    }
-                    "TXTONLY" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(3)
-                    }
-                    "BOTH" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(1)
-                    }
-                }
-            } else {
-                when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
-                    "IMGONLY" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(0)
-                    }
-                    "TXTONLY" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(3)
-                    }
-                    "BOTH" -> {
-                        selectAdvertiseTemplateSpinner.setSelection(1)
-                    }
-                }
-            }*/
 
             advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
             description = advertiseData?.advertisementDetails?.adDescription

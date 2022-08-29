@@ -34,7 +34,7 @@ class AdvertiseRepository @Inject constructor(
         advertiseApi.postAdvertisement(postAdvertiseRequest)
 
     suspend fun uploadAdvertiseImage(advertiseId: Int, file: MultipartBody.Part) =
-        advertiseApi.uploadAdvertiseImage(advertiseId, file)
+        cancelAdvertiseApi.uploadAdvertiseImage(advertiseId, file)
 
     suspend fun renewAdvertise(renewAdvertiseRequest: RenewAdvertiseRequest) =
         advertiseApi.renewAdvertise(renewAdvertiseRequest)

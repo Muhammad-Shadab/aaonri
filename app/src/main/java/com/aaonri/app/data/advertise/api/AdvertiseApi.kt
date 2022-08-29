@@ -38,12 +38,7 @@ interface AdvertiseApi {
         @Body postAdvertiseRequest: PostAdvertiseRequest
     ): Response<PostAdvertiseResponse>
 
-    @Multipart
-    @POST("/api/v1/common/uploadAvdImage")
-    suspend fun uploadAdvertiseImage(
-        @Query("avdId") adId: Int,
-        @Part file: MultipartBody.Part,
-    ): Response<String>
+
 
     @POST("/api/v1/avd/renewAvd")
     suspend fun renewAdvertise(
