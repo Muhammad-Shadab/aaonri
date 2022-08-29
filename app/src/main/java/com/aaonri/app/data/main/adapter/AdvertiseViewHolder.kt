@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.text.Html
+import android.view.Gravity
 import android.webkit.URLUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -72,6 +73,22 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
+            when(findAllActiveAdvertiseResponseItem.template.code)
+            {
+                  "IMTB"->{binding.bothLl.gravity = Gravity.BOTTOM
+                      binding.textView.gravity = Gravity.CENTER
+                      binding.advertiseDesc.gravity = Gravity.CENTER}
+
+                "IMTL"->{binding.bothLl.gravity = Gravity.CENTER
+                         binding.textView.gravity = Gravity.START
+                         binding.advertiseDesc.gravity = Gravity.START }
+
+                else -> {
+                    binding.bothLl.gravity = Gravity.CENTER
+                    binding.textView.gravity = Gravity.CENTER
+                    binding.advertiseDesc.gravity = Gravity.CENTER
+                }
+            }
             binding.textView.text =
                 findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
             binding.advertiseDesc.text =
@@ -82,7 +99,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .into(binding.imageView)
             }
 
-            binding.textOnlyCl.setOnClickListener {
+            binding.imgWithTxtCl.setOnClickListener {
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
                     context?.startActivity(
                         Intent(
@@ -92,7 +109,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     )
                 }
             }
-            binding.textOnlyCl.layoutParams.width = getScreenWidth() / 2 - 50
+            binding.imgWithTxtCl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
 
