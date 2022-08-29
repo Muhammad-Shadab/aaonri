@@ -192,7 +192,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             previewAdvertiseBtn.backgroundTintList =
                                 ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                         }
-                        /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
                             if (it.isNotEmpty()) {
                                 openPreview = true
                                 previewAdvertiseBtn.isEnabled = true
@@ -208,7 +208,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                                 previewAdvertiseBtn.backgroundTintList =
                                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                             }
-                        }*/
+                        }
                     }
                 } else {
                     openPreview = false
@@ -327,14 +327,20 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                     }
-                    /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+                    postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
                         if (it.isNotEmpty()) {
-                            openPreview = true
-                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                            if (advertiseBinding?.titleAdvertisedEt?.text.toString()
+                                    .isNotEmpty() && advertiseBinding?.advertiseDescEt?.toString()
+                                    ?.isNotEmpty() == true
+                            ) {
+                                openPreview = true
+                                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                            }
+
                         } else {
                             openPreview = false
                             advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
@@ -343,7 +349,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
                                 ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                         }
-                    }*/
+                    }
                 }
             } else {
                 openPreview = false
@@ -410,6 +416,24 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 is Resource.Error -> {
 
                 }
+            }
+        }
+
+        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                openPreview = true
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
         }
 
