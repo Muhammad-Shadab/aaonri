@@ -617,8 +617,4 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             ?.set("selectedTemplateSpinnerItem", position)
     }
 
-    /*private fun makePersistedItemKeyName(): String {
-        return currentUserName.toString() + "_your_key"
-    }*/
-
 }

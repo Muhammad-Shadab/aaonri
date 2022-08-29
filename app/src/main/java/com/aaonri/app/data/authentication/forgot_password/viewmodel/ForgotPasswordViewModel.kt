@@ -25,9 +25,14 @@ class ForgotPasswordViewModel
     val newPasswordData: MutableLiveData<Resource<ResponseBody>> = MutableLiveData()
 
     fun sendForgotPasswordLink(userEmail: String) = viewModelScope.launch {
-        forgotPasswordData.postValue(Resource.Loading())
-        val response = forgotPasswordRepository.sendResetPasswordLink(userEmail)
-        forgotPasswordData.postValue(handleSendForgotPassResponse(response))
+        try {
+            forgotPasswordData.postValue(Resource.Loading())
+            val response = forgotPasswordRepository.sendResetPasswordLink(userEmail)
+            forgotPasswordData.postValue(handleSendForgotPassResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            forgotPasswordData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleSendForgotPassResponse(response: Response<ResetPassLinkResponse>): Resource<ResetPassLinkResponse>? {
@@ -40,9 +45,14 @@ class ForgotPasswordViewModel
     }
 
     fun verifyPassword(code: String, email: String, id: String) = viewModelScope.launch {
-        verifyPassword.postValue(Resource.Loading())
-        val response = forgotPasswordRepository.verifyPassword(code, email, id)
-        verifyPassword.postValue(handleVerifyPasswordResponse(response))
+        try {
+            verifyPassword.postValue(Resource.Loading())
+            val response = forgotPasswordRepository.verifyPassword(code, email, id)
+            verifyPassword.postValue(handleVerifyPasswordResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            verifyPassword.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleVerifyPasswordResponse(response: Response<ResponseBody>): Resource<ResponseBody>? {
@@ -55,9 +65,14 @@ class ForgotPasswordViewModel
     }
 
     fun newPasswordRequest(newPasswordRequest: NewPasswordRequest) = viewModelScope.launch {
-        newPasswordData.postValue(Resource.Loading())
-        val response = forgotPasswordRepository.newPasswordRequest(newPasswordRequest)
-        newPasswordData.postValue(handleNewPasswordRequest(response))
+        try {
+            newPasswordData.postValue(Resource.Loading())
+            val response = forgotPasswordRepository.newPasswordRequest(newPasswordRequest)
+            newPasswordData.postValue(handleNewPasswordRequest(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            newPasswordData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleNewPasswordRequest(response: Response<ResponseBody>): Resource<ResponseBody>? {
