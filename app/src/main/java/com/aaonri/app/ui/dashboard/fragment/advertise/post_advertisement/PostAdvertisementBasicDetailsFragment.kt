@@ -68,9 +68,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         advertiseBinding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
-        /*Toast.makeText(context, "${advertisePageLocationResponseItem?.type}", Toast.LENGTH_SHORT)
-            .show()*/
-
         advertiseBinding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
@@ -172,7 +169,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
 
             titleAdvertisedEt.addTextChangedListener { editable ->
-                if (editable.toString().length >= 3) {
+                if (editable.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString()
+                        .isNotEmpty()
+                ) {
                     if (advertisePageLocationResponseItem?.type == "TXTONLY" || AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
                         advertiseDetailsNextBtn.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
@@ -307,12 +306,16 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
             advertiseBinding?.selectedPage?.text = it.title
-            if (advertiseBinding?.titleAdvertisedEt?.text?.isNotEmpty() == true) {
+            if (advertiseBinding?.titleAdvertisedEt?.text?.isNotEmpty() == true && advertiseBinding?.advertiseDescEt?.text.toString()
+                    .isNotEmpty()
+            ) {
                 if (it?.type == "TXTONLY") {
                     advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                 } else {
-                    if (advertiseImage?.isNotEmpty() == true) {
+                    if (advertiseImage?.isNotEmpty() == true && advertiseBinding?.advertiseDescEt?.text.toString()
+                            .isNotEmpty()
+                    ) {
                         openPreview = true
                         advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
                         advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
@@ -328,19 +331,15 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                     }
                     postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()) {
-                            if (advertiseBinding?.titleAdvertisedEt?.text.toString()
-                                    .isNotEmpty() && advertiseBinding?.advertiseDescEt?.toString()
-                                    ?.isNotEmpty() == true
-                            ) {
-                                openPreview = true
-                                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                            }
-
+                        if (it.isNotEmpty() && advertiseBinding?.advertiseDescEt?.text.toString()
+                                .isNotEmpty()
+                        ) {
+                            openPreview = true
+                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                         } else {
                             openPreview = false
                             advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
@@ -420,7 +419,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         }
 
         postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty() && advertiseBinding?.titleAdvertisedEt?.text.toString()
+                    .isNotEmpty() && advertiseBinding?.advertiseDescEt?.text.toString().isNotEmpty()
+            ) {
                 openPreview = true
                 advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
                 advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
@@ -482,24 +483,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             }
         })
-
-        /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                openPreview = true
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-            } else {
-                openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-            }
-        }*/
 
         /** This method is for setting filled data again when user goes next screen and navigate back  **/
         setData()
