@@ -80,7 +80,6 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     val addGoingData: MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
 
-
     val eventuserVisitinginfoData: MutableLiveData<Resource<String>> =
         MutableLiveData()
     val eventuserInterestedinfoData: MutableLiveData<Resource<String>> =
@@ -109,6 +108,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             eventCategoryData.postValue(handleEventCategoryResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            eventCategoryData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -172,6 +172,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             postEventData.postValue(handlePostEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            postEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -182,6 +183,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             postEventData.postValue(handlePostEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            postEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -201,6 +203,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             deleteEventData.postValue(handleDeleteEventResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            deleteEventData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -225,6 +228,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
                 uploadPictureData.postValue(handleUploadPictureResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                uploadPictureData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -268,6 +272,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             eventDetailsData.postValue(handleEventDetailsResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            eventDetailsData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -292,6 +297,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
                 addInterestedData.postValue(handleEventAddInterestedResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                addInterestedData.postValue(e.message?.let { Resource.Error(it) })
             }
 
         }
@@ -312,11 +318,11 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             addGoingData.postValue(handleaddEventGoingResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            addGoingData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
     private fun handleaddEventGoingResponse(response: Response<EventAddGoingResponse>): Resource<EventAddGoingResponse>? {
-
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -333,6 +339,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
                 eventuserVisitinginfoData.postValue(handleUserVisitingEventInfoResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                eventuserVisitinginfoData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -348,13 +355,14 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             try {
                 eventuserInterestedinfoData.postValue(Resource.Loading())
                 val response = eventRepository.getUserisInterested(email, services, addId)
-                eventuserInterestedinfoData.postValue(handleUserisInterestedInfoResponse(response))
+                eventuserInterestedinfoData.postValue(handleUserIsInterestedInfoResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                eventuserInterestedinfoData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
-    private fun handleUserisInterestedInfoResponse(response: String): Resource<String>? {
+    private fun handleUserIsInterestedInfoResponse(response: String): Resource<String>? {
         if (response.isNotEmpty()) {
             return Resource.Success(response)
         }
@@ -368,6 +376,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             zipCodeData.postValue(handleZipCodeResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            zipCodeData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 

@@ -31,6 +31,7 @@ class ForgotPasswordViewModel
             forgotPasswordData.postValue(handleSendForgotPassResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            forgotPasswordData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -50,6 +51,7 @@ class ForgotPasswordViewModel
             verifyPassword.postValue(handleVerifyPasswordResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            verifyPassword.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -69,6 +71,7 @@ class ForgotPasswordViewModel
             newPasswordData.postValue(handleNewPasswordRequest(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            newPasswordData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 

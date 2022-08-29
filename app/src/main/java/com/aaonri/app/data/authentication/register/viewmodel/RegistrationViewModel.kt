@@ -14,9 +14,6 @@ import com.aaonri.app.data.authentication.register.repository.RegistrationReposi
 import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -40,9 +37,14 @@ class RegistrationViewModel
     val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
 
     fun getServices() = viewModelScope.launch {
-        service.postValue(Resource.Loading())
-        val response = repository.getServicesInterest()
-        service.postValue(handleServiceResponse(response))
+        try {
+            service.postValue(Resource.Loading())
+            val response = repository.getServicesInterest()
+            service.postValue(handleServiceResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            service.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleServiceResponse(response: Response<ServicesResponse>): Resource<ServicesResponse>? {
@@ -56,9 +58,14 @@ class RegistrationViewModel
 
 
     fun loginUser(login: Login) = viewModelScope.launch {
-        loginData.postValue(Resource.Loading())
-        val response = repository.loginUser(login)
-        loginData.postValue(handleLoginResponse(response))
+        try {
+            loginData.postValue(Resource.Loading())
+            val response = repository.loginUser(login)
+            loginData.postValue(handleLoginResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            loginData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse>? {
@@ -71,9 +78,14 @@ class RegistrationViewModel
     }
 
     fun isEmailAlreadyRegister(emailVerifyRequest: EmailVerifyRequest) = viewModelScope.launch {
-        emailAlreadyRegisterData.postValue(Resource.Loading())
-        val response = repository.isEmailAlreadyRegistered(emailVerifyRequest)
-        emailAlreadyRegisterData.postValue(handleIsEmailVerifyResponse(response))
+        try {
+            emailAlreadyRegisterData.postValue(Resource.Loading())
+            val response = repository.isEmailAlreadyRegistered(emailVerifyRequest)
+            emailAlreadyRegisterData.postValue(handleIsEmailVerifyResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emailAlreadyRegisterData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleIsEmailVerifyResponse(response: Response<EmailVerificationResponse>): Resource<EmailVerificationResponse>? {
@@ -86,9 +98,14 @@ class RegistrationViewModel
     }
 
     fun registerUser(registerRequest: RegisterRequest) = viewModelScope.launch {
-        registerData.postValue(Resource.Loading())
-        val response = repository.registerUser(registerRequest)
-        registerData.postValue(handleRegisterResponse(response))
+        try {
+            registerData.postValue(Resource.Loading())
+            val response = repository.registerUser(registerRequest)
+            registerData.postValue(handleRegisterResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            registerData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
@@ -101,9 +118,14 @@ class RegistrationViewModel
     }
 
     fun findByEmail(email: String) = viewModelScope.launch {
-        findByEmailData.postValue(Resource.Loading())
-        val response = repository.findByEmail(email)
-        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
+        try {
+            findByEmailData.postValue(Resource.Loading())
+            val response = repository.findByEmail(email)
+            findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            findByEmailData.postValue(e.message?.let { Resource.Error(it) })
+        }
     }
 
     private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {

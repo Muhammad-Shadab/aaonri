@@ -127,6 +127,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             advertisePageData.postValue(handleActivePageResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            advertisePageData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -146,6 +147,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             advertisePageLocationData.postValue(handleAdvertisePageLocationResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            advertisePageLocationData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -165,6 +167,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             advertiseActiveVasData.postValue(handleActiveVasResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            advertiseActiveVasData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -184,6 +187,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             activeTemplateDataForSpinner.postValue(handleAdvertiseTemplateResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            activeTemplateDataForSpinner.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -203,6 +207,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             postedAdvertiseData.postValue(handlePostAdvertiseResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            postedAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -223,6 +228,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
                 uploadAdvertiseImageData.postValue(handleUploadImageResponse(response))
             } catch (e: Exception) {
                 e.printStackTrace()
+                uploadAdvertiseImageData.postValue(e.message?.let { Resource.Error(it) })
             }
         }
 
@@ -242,6 +248,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             renewAdvertiseData.postValue(handleRenewAdvertiseResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            renewAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -261,6 +268,7 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
             updateAdvertiseData.postValue(handlerUpdateAdvertiseResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            updateAdvertiseData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -301,7 +309,6 @@ class PostAdvertiseViewModel @Inject constructor(private val advertiseRepository
     fun setAdvertiseId(value: Int) {
         advertiseId = value
     }
-
 
 
 }

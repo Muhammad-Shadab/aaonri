@@ -166,6 +166,7 @@ class AuthCommonViewModel @Inject constructor(
             communitiesList.postValue(handleCommunitiesResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            communitiesList.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -185,6 +186,7 @@ class AuthCommonViewModel @Inject constructor(
             countriesData.postValue(handleCountriesResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            countriesData.postValue(e.message?.let { Resource.Error(it) })
         }
     }
 
@@ -204,6 +206,7 @@ class AuthCommonViewModel @Inject constructor(
             zipCodeData.postValue(handleZipCodeResponse(response))
         } catch (e: Exception) {
             e.printStackTrace()
+            zipCodeData.postValue(e.message?.let { Resource.Error(it) })
         }
 
 
