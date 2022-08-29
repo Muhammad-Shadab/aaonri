@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +70,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
         advertiseBinding?.apply {
-
+            advertiseDescEt.movementMethod = ScrollingMovementMethod()
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
             if (postAdvertiseViewModel.isUpdateAdvertise) {

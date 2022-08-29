@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/textOnlyCl"
+    android:id="@+id/imgWithTxtCl"
     android:layout_width="@dimen/_120sdp"
     android:layout_height="@dimen/_100sdp"
     android:layout_marginLeft="15dp"
@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/bothLl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -83,7 +84,6 @@
                 android:shadowDy="1"
                 android:shadowRadius="2"
                 android:text="Demzczxczxczxczxasdasdasdasdasdasdasdczxo"
-                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
