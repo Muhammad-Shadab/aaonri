@@ -30,10 +30,12 @@ class AdvertisePostSuccessFragment : BottomSheetDialogFragment() {
         binding?.apply {
             if(postAdvertiseViewModel.isUpdateAdvertise)
             {
-                successfulTv?.text = R.string.your_advertisement_will_posted_text.toString()
+                successfulTv?.text = resources.getString(R.string.your_advertisement_will_posted_text)
             }
             else{
-                successfulTv?.text = R.string.your_advertisement_will_updates_text.toString()
+
+                successfulTv?.text = resources.getString(R.string.your_advertisement_will_updates_text)
+
             }
 
             postAdvertiseViewModel.setStepViewLastTick(true)
