@@ -6,13 +6,16 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.text.InputFilter
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.ActivityRichTextEditorBinding
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.SystemServiceUtil
@@ -26,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class RichTextEditor : AppCompatActivity() {
     var binding: ActivityRichTextEditorBinding? = null
     private var mToolbar: IARE_Toolbar? = null
+    val postViewModel: PostAdvertiseViewModel by viewModels()
 
     var data: String? = ""
 
@@ -38,6 +42,11 @@ class RichTextEditor : AppCompatActivity() {
 //                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
         binding?.apply {
+
+            if(postViewModel.isAdvertise)
+            {
+                arEditText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(30))
+            }
 
             arEditText.requestFocus()
             arEditText.hint = intent.getStringExtra("placeholder")

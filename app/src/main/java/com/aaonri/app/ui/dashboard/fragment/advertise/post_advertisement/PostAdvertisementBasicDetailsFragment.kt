@@ -240,6 +240,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             advertiseDescEt.setOnClickListener {
                 if (openRichTextEditor) {
+                    postAdvertiseViewModel.setIsAdvertise(true)
                     val intent = Intent(context, RichTextEditor::class.java)
                     intent.putExtra("data", description)
                     intent.putExtra("placeholder", "Ad description (Max 30 characters)")
@@ -458,6 +459,24 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
         })
 
+        /*postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                openPreview = true
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
+        }*/
+
         /** This method is for setting filled data again when user goes next screen and navigate back  **/
         setData()
 
@@ -599,6 +618,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
     }
 
     private fun setImage() {
+
+        postAdvertiseViewModel.setAdvertiseImage(if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "")
 
         if (advertiseImage?.isNotEmpty() == true) {
             advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
