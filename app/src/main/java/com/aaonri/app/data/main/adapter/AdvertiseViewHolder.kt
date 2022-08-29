@@ -1,11 +1,9 @@
 package com.aaonri.app.data.main.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.text.Html
-import android.util.DisplayMetrics
 import android.webkit.URLUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -19,7 +17,7 @@ import com.bumptech.glide.Glide
 sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
-    /** Advertise ViewHolder for multiView Type**/
+    /** Advertise ViewHolder for text only Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.textOnlyFl.context
@@ -32,14 +30,19 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
             binding.textOnlyFl.setOnClickListener {
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                    context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                    context?.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
+                        )
+                    )
                 }
             }
-            binding.textOnlyFl.layoutParams.width = getScreenWidth()/2-50
+            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
 
-    /** Advertise ViewHolder for multiView Type**/
+    /** Advertise ViewHolder for image only Type**/
     class ImageOnlyViewHolder(private val binding: ImageOnlyViewHolderBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
@@ -50,16 +53,21 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .into(binding.imageView)
             }
 
-            binding.textOnlyFl.setOnClickListener{
+            binding.textOnlyFl.setOnClickListener {
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                 context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                    context?.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
+                        )
+                    )
                 }
             }
-            binding.textOnlyFl.layoutParams.width = getScreenWidth()/2-50
+            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
 
-    /** Advertise ViewHolder for multiView Type**/
+    /** Advertise ViewHolder for Image with text Type**/
     class ImageAndTextViewHolder(private val binding: ImageWithTextBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
@@ -74,14 +82,20 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .into(binding.imageView)
             }
 
-            binding.textOnlyCl.setOnClickListener{
+            binding.textOnlyCl.setOnClickListener {
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                    context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)))
+                    context?.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
+                        )
+                    )
                 }
             }
-            binding.textOnlyCl.layoutParams.width = getScreenWidth()/2-50
+            binding.textOnlyCl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
+
     fun getScreenWidth(): Int {
         return Resources.getSystem().displayMetrics.widthPixels
     }
