@@ -48,13 +48,14 @@ class AdvertisementDetailsFragment : Fragment() {
             }
 
             moreClassifiedOption.setOnClickListener {
-                val action =
-                    AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
-                        args.advertiseId
-                    )
-                findNavController().navigate(action)
+                if (isAdApproved != true) {
+                    val action =
+                        AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
+                            args.advertiseId
+                        )
+                    findNavController().navigate(action)
+                }
             }
-
         }
 
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->

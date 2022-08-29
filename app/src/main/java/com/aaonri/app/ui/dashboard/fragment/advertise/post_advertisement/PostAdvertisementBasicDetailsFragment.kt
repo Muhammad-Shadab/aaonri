@@ -79,8 +79,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 flashingAdvertiseLl.visibility = View.VISIBLE
                 emailPromotionalCheckbox.isChecked = true
                 flashingAdvertiseCheckbox.isChecked = true
-                
             }
+
             if (AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
                 chooseTemplatell.visibility = View.GONE
             }
@@ -443,6 +443,25 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
                 advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
+            if (postAdvertiseViewModel.isUpdateAdvertise) {
+                if (it.isNotEmpty() && advertiseBinding?.titleAdvertisedEt?.text.toString()
+                        .isNotEmpty()
+                ) {
+                    openPreview = true
+                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                } else {
+                    openPreview = false
+                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                }
             }
             advertiseImage = it
             setImage()
