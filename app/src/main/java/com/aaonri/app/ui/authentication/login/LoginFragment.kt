@@ -501,7 +501,6 @@ class LoginFragment : Fragment() {
                         it
                     )
                 }?.let { registrationViewModel.isEmailAlreadyRegister(it) }
-
             }
         }
     }

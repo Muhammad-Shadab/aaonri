@@ -84,10 +84,20 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             if (AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
                 chooseTemplatell.visibility = View.GONE
+                openPreview = false
+                openRichTextEditor = false
+                isImageOnly = false
+                isTextOnly = true
+                isBoth = false
             }
 
             if (AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "IMGONLY") {
                 advertiseDescEtNestedScroll.visibility = View.GONE
+                openPreview = false
+                openRichTextEditor = false
+                isImageOnly = true
+                isTextOnly = false
+                isBoth = false
             }
 
             description?.let {
