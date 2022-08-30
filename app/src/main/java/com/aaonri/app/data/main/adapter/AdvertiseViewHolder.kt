@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.net.Uri
 import android.text.Html
 import android.view.Gravity
+import android.view.View
 import android.webkit.URLUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -26,9 +27,9 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
 
             binding.textView.text =
-                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
+                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.trim()
             binding.advertiseDesc.text =
-                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
             binding.textOnlyFl.setOnClickListener {
                 if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
                     context?.startActivity(
@@ -89,10 +90,18 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     binding.advertiseDesc.gravity = Gravity.CENTER
                 }
             }
+
             binding.textView.text =
-                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle
+                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.trim()
             binding.advertiseDesc.text =
-                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
+            if(  Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).isEmpty())
+            {
+                binding.advertiseDesc.visibility = View.GONE
+            }
+            else{
+                binding.advertiseDesc.visibility = View.VISIBLE
+            }
             context?.let { it1 ->
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
