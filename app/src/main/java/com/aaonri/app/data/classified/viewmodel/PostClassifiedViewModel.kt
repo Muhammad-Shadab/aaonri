@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -157,18 +156,24 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun getClassifiedCategory() = viewModelScope.launch {
         classifiedCategoryData.postValue(Resource.Loading())
-        val response = classifiedRepository.getClassifiedCategory()
-        classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
+        classifiedRepository.getClassifiedCategory().onSuccess {
+            classifiedCategoryData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                classifiedCategoryData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = classifiedRepository.getClassifiedCategory()
+        classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))*/
     }
 
-    private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
+    /* private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }*/
 
     fun addIsProductNewCheckBox(value: Boolean) {
         isProductNewCheckBox = value
@@ -209,40 +214,58 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         updateClassifiedData.postValue(Resource.Loading())
-        val response = classifiedRepository.updateClassified(postClassifiedRequest)
-        updateClassifiedData.postValue(handlePostClassifiedResponse(response))
+        classifiedRepository.updateClassified(postClassifiedRequest).onSuccess {
+            updateClassifiedData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                updateClassifiedData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = classifiedRepository.updateClassified(postClassifiedRequest)
+        updateClassifiedData.postValue(handlePostClassifiedResponse(response))*/
     }
 
     fun deleteClassified(classifiedId: Int) = viewModelScope.launch {
         classifiedDeleteData.postValue(Resource.Loading())
-        val response = classifiedRepository.deleteClassified(classifiedId)
-        classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))
+        classifiedRepository.deleteClassified(classifiedId).onSuccess {
+            classifiedDeleteData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                classifiedDeleteData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = classifiedRepository.deleteClassified(classifiedId)
+        classifiedDeleteData.postValue(handleClassifiedDeleteResponse(response))*/
     }
 
-    private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
+    /*private fun handleClassifiedDeleteResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
 
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         postClassifiedData.postValue(Resource.Loading())
-        val response = classifiedRepository.postClassified(postClassifiedRequest)
-        postClassifiedData.postValue(handlePostClassifiedResponse(response))
+        classifiedRepository.postClassified(postClassifiedRequest).onSuccess {
+            postClassifiedData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                postClassifiedData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = classifiedRepository.postClassified(postClassifiedRequest)
+        postClassifiedData.postValue(handlePostClassifiedResponse(response))*/
     }
 
-    private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
+    /* private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }*/
 
     fun setSendDataToClassifiedDetailsScreen(value: Int) {
         sendDataToClassifiedDetailsScreen.postValue(value)
@@ -316,18 +339,24 @@ class PostClassifiedViewModel @Inject constructor(
     fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
         viewModelScope.launch {
             uploadClassifiedPics.postValue(Resource.Loading())
-            val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
-            uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))
+            classifiedRepository.uploadClassifiedPics(files, addId, dellId).onSuccess {
+                uploadClassifiedPics.postValue(Resource.Success(it))
+            }
+                .onFailure {
+                    uploadClassifiedPics.postValue(Resource.Error(it.localizedMessage))
+                }
+            /*val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
+            uploadClassifiedPics.postValue(handleClassifiedPicUploadResponse(response))*/
         }
 
-    private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
+    /*private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun setClickedOnFilter(value: Boolean) {
         clickedOnFilter.postValue(value)
@@ -363,17 +392,23 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun getClassifiedAdDetails(addId: Int) = viewModelScope.launch {
         classifiedAdDetailsData.postValue(Resource.Loading())
-        val response = classifiedRepository.getClassifiedAddDetails(addId)
-        classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))
+        classifiedRepository.getClassifiedAddDetails(addId).onSuccess {
+            classifiedAdDetailsData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                classifiedAdDetailsData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = classifiedRepository.getClassifiedAddDetails(addId)
+        classifiedAdDetailsData.postValue(handleClassifiedAdDetails(response))*/
     }
 
-    private fun handleClassifiedAdDetails(response: Response<ClassifiedAdDetailsResponse>): Resource<ClassifiedAdDetailsResponse>? {
+    /*private fun handleClassifiedAdDetails(response: Response<ClassifiedAdDetailsResponse>): Resource<ClassifiedAdDetailsResponse>? {
         if (response.isSuccessful)
             response.body()?.let {
                 return Resource.Success(it)
             }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun setIsNavigateBackToBasicDetails(value: Boolean) {
         isNavigateBackBasicDetails = value

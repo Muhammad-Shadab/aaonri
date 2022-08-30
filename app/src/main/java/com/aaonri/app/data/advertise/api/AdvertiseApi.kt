@@ -10,41 +10,41 @@ interface AdvertiseApi {
     @GET("/api/v1/avd/findMyAvdsByEmail")
     suspend fun getAllAdvertise(
         @Query("emailId") userEmail: String
-    ): Response<AllAdvertiseResponse>
+    ): Result<AllAdvertiseResponse>
 
     @GET("/api/v1/avd/findById/{advertiseId}")
     suspend fun getAdvertiseDetailsById(
         @Path("advertiseId") advertiseId: Int
-    ): Response<AdvertiseDetailsResponse>
+    ): Result<AdvertiseDetailsResponse>
 
     @GET("/api/v1/avdPage/findAllActive")
-    suspend fun getAllActiveAdvertisePage(): Response<AdvertiseActivePageResponse>
+    suspend fun getAllActiveAdvertisePage(): Result<AdvertiseActivePageResponse>
 
     @GET("/api/v1/avdPageLocation/getAllPageLocationByPageId")
     suspend fun getAdvertisePageLocationById(
         @Query("pageId") pageId: Int
-    ): Response<AdvertisePageLocationResponse>
+    ): Result<AdvertisePageLocationResponse>
 
     @GET("/api/v1/valueAddedServices/findAllActiveVasByAdvLocationCode")
     suspend fun getAdvertiseActiveVas(
         @Query("locationCode") locationCode: String
-    ): Response<AdvertiseActiveVasResponse>
+    ): Result<AdvertiseActiveVasResponse>
 
     @GET("/api/v1/template/findAllActive")
-    suspend fun getActiveTemplateForSpinner(): Response<ActiveTemplateResponse>
+    suspend fun getActiveTemplateForSpinner(): Result<ActiveTemplateResponse>
 
     @POST("/api/v1/avd/add")
     suspend fun postAdvertisement(
         @Body postAdvertiseRequest: PostAdvertiseRequest
-    ): Response<PostAdvertiseResponse>
+    ): Result<PostAdvertiseResponse>
 
     @POST("/api/v1/avd/renewAvd")
     suspend fun renewAdvertise(
         @Body renewAdvertiseRequest: RenewAdvertiseRequest
-    ): Response<String>
+    ): Result<String>
 
     @POST("/api/v1/avd/update")
     suspend fun updateAdvertise(
         @Body updateAdvertiseRequest: UpdateAdvertiseRequest
-    ): Response<UpdateAdvertiseResponse>
+    ): Result<UpdateAdvertiseResponse>
 }

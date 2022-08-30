@@ -70,24 +70,30 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                             )
                         )*/
                     } else if (postAdvertiseViewModel.isUpdateAdvertise) {
-                        postAdvertiseViewModel.updateAdvertise(
+                        AdvertiseStaticData.getAddDetails()?.advertisementDetails?.advertisementDetailsId?.let { it1 ->
+                            AdvertisementDetailsXXXX(
+                                adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
+                                adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
+                                advertisementDetailsId = it1,
+                                companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
+                                companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
+                                contactNo = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER]!!,
+                                emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
+                                location = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]!!,
+                                productServices = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]!! else "",
+                                url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
+                            )
+                        }?.let { it2 ->
                             UpdateAdvertiseRequest(
-                                AdvertisementDetailsXXXX(
-                                    adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
-                                    adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
-                                    advertisementDetailsId = postAdvertiseViewModel.advertiseId,
-                                    companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
-                                    companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
-                                    contactNo = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER]!!,
-                                    emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
-                                    location = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]!!,
-                                    productServices = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]!! else "",
-                                    url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
-                                ),
+                                it2,
                                 advertisementId = postAdvertiseViewModel.advertiseId,
                                 codes = postAdvertiseViewModel.vasList
                             )
-                        )
+                        }?.let { it3 ->
+                            postAdvertiseViewModel.updateAdvertise(
+                                it3
+                            )
+                        }
                     } else {
                         postAdvertiseViewModel.postAdvertise(
                             PostAdvertiseRequest(

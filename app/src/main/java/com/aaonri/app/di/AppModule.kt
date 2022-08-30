@@ -1,6 +1,7 @@
 package com.aaonri.app.di
 
 import com.aaonri.app.BuildConfig
+import com.example.errorhandling.exception.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +38,7 @@ object AppModule {
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(ResultCallAdapterFactory())
 
     @Provides
     @Singleton
@@ -46,6 +48,7 @@ object AppModule {
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(ScalarsConverterFactory.create())
+            .addCallAdapterFactory(ResultCallAdapterFactory())
 
 }
 

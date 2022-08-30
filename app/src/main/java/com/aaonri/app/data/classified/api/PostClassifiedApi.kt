@@ -11,7 +11,7 @@ import java.io.File
 interface PostClassifiedApi {
 
     @GET("/api/v1/category/getCategorySubCategoryMapping")
-    suspend fun getClassifiedCategory(): Response<ClassifiedCategoryResponse>
+    suspend fun getClassifiedCategory(): Result<ClassifiedCategoryResponse>
 
     @Multipart
     @POST("/api/v1/asd/uploadImages")
@@ -19,18 +19,18 @@ interface PostClassifiedApi {
         @Part files: MultipartBody.Part,
         @Part("adId") adId: RequestBody,
         @Part("delImageIds") delImageIds: RequestBody
-    ): Response<ClassifiedUploadPicResponse>
+    ): Result<ClassifiedUploadPicResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/add")
     suspend fun postClassified(
         @Body postClassifiedRequest: PostClassifiedRequest
-    ): Response<PostClassifiedRequest>
+    ): Result<PostClassifiedRequest>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/update")
     suspend fun updateClassified(
         @Body postClassifiedRequest: PostClassifiedRequest
-    ): Response<PostClassifiedRequest>
+    ): Result<PostClassifiedRequest>
 
 }

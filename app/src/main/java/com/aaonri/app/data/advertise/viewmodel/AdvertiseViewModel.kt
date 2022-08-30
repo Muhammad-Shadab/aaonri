@@ -9,7 +9,6 @@ import com.aaonri.app.data.advertise.repository.AdvertiseRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,48 +28,66 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     fun getAllAdvertise(userEmail: String) = viewModelScope.launch {
         allAdvertiseData.postValue(Resource.Loading())
-        val response = advertiseRepository.getAllAdvertise(userEmail)
-        allAdvertiseData.postValue(handleAllAdvertiseResponse(response))
+        advertiseRepository.getAllAdvertise(userEmail).onSuccess {
+            allAdvertiseData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                allAdvertiseData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = advertiseRepository.getAllAdvertise(userEmail)
+        allAdvertiseData.postValue(handleAllAdvertiseResponse(response))*/
     }
 
-    private fun handleAllAdvertiseResponse(response: Response<AllAdvertiseResponse>): Resource<AllAdvertiseResponse>? {
+    /*private fun handleAllAdvertiseResponse(response: Response<AllAdvertiseResponse>): Resource<AllAdvertiseResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun getAdvertiseDetailsById(advertiseId: Int) = viewModelScope.launch {
         advertiseDetailsData.postValue(Resource.Loading())
-        val response = advertiseRepository.getAdvertiseDetailsById(advertiseId)
-        advertiseDetailsData.postValue(handleAdvertiseDetailsByIdResponse(response))
+        advertiseRepository.getAdvertiseDetailsById(advertiseId).onSuccess {
+            advertiseDetailsData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                advertiseDetailsData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = advertiseRepository.getAdvertiseDetailsById(advertiseId)
+        advertiseDetailsData.postValue(handleAdvertiseDetailsByIdResponse(response))*/
     }
 
-    private fun handleAdvertiseDetailsByIdResponse(response: Response<AdvertiseDetailsResponse>): Resource<AdvertiseDetailsResponse>? {
+    /*private fun handleAdvertiseDetailsByIdResponse(response: Response<AdvertiseDetailsResponse>): Resource<AdvertiseDetailsResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun cancelAdvertise(advertiseId: Int) = viewModelScope.launch {
         cancelAdvertiseData.postValue(Resource.Loading())
-        val response = advertiseRepository.cancelAdvertise(advertiseId)
-        cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))
+        advertiseRepository.cancelAdvertise(advertiseId).onSuccess {
+            cancelAdvertiseData.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                cancelAdvertiseData.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = advertiseRepository.cancelAdvertise(advertiseId)
+        cancelAdvertiseData.postValue(handleCancelAdvertiseResponse(response))*/
     }
 
-    private fun handleCancelAdvertiseResponse(response: Response<String>): Resource<String>? {
+    /*private fun handleCancelAdvertiseResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun callAdvertiseApiAfterCancel(value: Boolean) {
         callAdvertiseApi.postValue(value)
