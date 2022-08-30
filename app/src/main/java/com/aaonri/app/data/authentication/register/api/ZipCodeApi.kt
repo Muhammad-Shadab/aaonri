@@ -11,6 +11,6 @@ interface ZipCodeApi {
     suspend fun getLocation(
         @Query("postalcode") postalCode: String,
         @Query("countrycode") countryCode: String
-    ): Response<ZipCodeResponse>
+    ): Result<ZipCodeResponse>
 
 }

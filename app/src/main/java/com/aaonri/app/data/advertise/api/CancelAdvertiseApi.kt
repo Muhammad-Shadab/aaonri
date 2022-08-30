@@ -9,13 +9,13 @@ interface CancelAdvertiseApi {
     @DELETE("/api/v1/avd/cancelAvd/{advertiseId}")
     suspend fun cancelAdvertise(
         @Path("advertiseId") advertiseId: Int
-    ): Response<String>
+    ): Result<String>
 
     @Multipart
     @POST("/api/v1/common/uploadAvdImage")
     suspend fun uploadAdvertiseImage(
         @Query("avdId") adId: Int,
         @Part file: MultipartBody.Part,
-    ): Response<String>
+    ): Result<String>
 
 }
