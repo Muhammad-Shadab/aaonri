@@ -187,58 +187,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }
 
-            titleAdvertisedEt.addTextChangedListener { editable ->
-                if (editable.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString()
-                        .isNotEmpty()
-                ) {
-                    if (advertisePageLocationResponseItem?.type == "TXTONLY" || AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
-                        Toast.makeText(context, "TXTONLY", Toast.LENGTH_SHORT).show()
-                        advertiseDetailsNextBtn.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                    } else {
-                        if (advertiseImage?.isNotEmpty() == true) {
-                            openPreview = true
-                            previewAdvertiseBtn.isEnabled = true
-                            previewAdvertiseBtn.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                            advertiseDetailsNextBtn.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                        } else {
-                            openPreview = false
-                            previewAdvertiseBtn.isEnabled = false
-                            advertiseDetailsNextBtn.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                            previewAdvertiseBtn.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                        }
-                        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-                            if (it.isNotEmpty()) {
-                                openPreview = true
-                                previewAdvertiseBtn.isEnabled = true
-                                previewAdvertiseBtn.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                                advertiseDetailsNextBtn.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                            } else {
-                                openPreview = false
-                                previewAdvertiseBtn.isEnabled = false
-                                advertiseDetailsNextBtn.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                                previewAdvertiseBtn.backgroundTintList =
-                                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                            }
-                        }
-                    }
-                } else {
-                    openPreview = false
-                    previewAdvertiseBtn.isEnabled = false
-                    advertiseDetailsNextBtn.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                    previewAdvertiseBtn.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                }
-            }
-
             previewAdvertiseBtn.setOnClickListener {
                 if (openPreview) {
                     spinnerTemplateCode?.let { it1 ->
@@ -287,6 +235,66 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
                 builder.show()
             }
+
+        }
+
+        advertiseBinding?.selectAdvertiseTemplateSpinner?.customSetOnItemSelectedListener(object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                setPersistedItem(position)
+                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                    "Image Only" -> {
+                        advertiseBinding?.advertiseDescEt?.setText("")
+                        description = ""
+                        spinnerTemplateCode = "IMON"
+                        openRichTextEditor = false
+                        isImageOnly = true
+                        isBoth = false
+                        isTextOnly = false
+                    }
+                    "Image with text on bottom" -> {
+                        spinnerTemplateCode = "IMTB"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
+                    }
+                    "Image with text on left side" -> {
+                        spinnerTemplateCode = "IMTL"
+                        openRichTextEditor = true
+                        isBoth = true
+                        isImageOnly = false
+                        isTextOnly = false
+                    }
+                    "Text Only" -> {
+                        advertiseBinding?.advertiseDescEt?.setText("")
+                        description = ""
+                        spinnerTemplateCode = "TXON"
+                        openRichTextEditor = true
+                        isTextOnly = true
+                        isImageOnly = false
+                        isBoth = false
+                    }
+                }
+                enableDisableBtn()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        })
+
+        advertiseBinding?.titleAdvertisedEt?.addTextChangedListener { editable ->
+            enableDisableBtn()
+        }
+
+        advertiseBinding?.advertiseDescEt?.addTextChangedListener { editable ->
+            enableDisableBtn()
         }
 
         postAdvertiseViewModel.advertiseActiveVasData.observe(viewLifecycleOwner) { response ->
@@ -320,65 +328,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
         }
 
-        postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { advertisePage ->
-            //advertiseBinding?.selectedPage?.text = advertisePage.pageName
-        }
-
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
             advertiseBinding?.selectedPage?.text = it.title
-            if (advertiseBinding?.titleAdvertisedEt?.text?.isNotEmpty() == true && advertiseBinding?.advertiseDescEt?.text.toString()
-                    .isNotEmpty()
-            ) {
-                if (it?.type == "TXTONLY") {
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                } else {
-                    if (advertiseImage?.isNotEmpty() == true && advertiseBinding?.advertiseDescEt?.text.toString()
-                            .isNotEmpty()
-                    ) {
-                        openPreview = true
-                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                    } else {
-                        openPreview = false
-                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                    }
-                    postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty() && advertiseBinding?.advertiseDescEt?.text.toString()
-                                .isNotEmpty()
-                        ) {
-                            openPreview = true
-                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                        } else {
-                            openPreview = false
-                            advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                            advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                            advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                        }
-                    }
-                }
-            } else {
-                openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-            }
         }
 
         postAdvertiseViewModel.activeTemplateDataForSpinner.observe(viewLifecycleOwner) { response ->
@@ -439,97 +391,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
         }
 
-        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty() && advertiseBinding?.titleAdvertisedEt?.text.toString()
-                    .isNotEmpty() && advertiseBinding?.advertiseDescEt?.text.toString().isNotEmpty()
-            ) {
-                openPreview = true
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-            } else {
-                openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-            }
-            if (postAdvertiseViewModel.isUpdateAdvertise) {
-                if (it.isNotEmpty() && advertiseBinding?.titleAdvertisedEt?.text.toString()
-                        .isNotEmpty()
-                ) {
-                    openPreview = true
-                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
-                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                } else {
-                    openPreview = false
-                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                }
-            }
-            advertiseImage = it
-            setImage()
-        }
-
-        advertiseBinding?.selectAdvertiseTemplateSpinner?.customSetOnItemSelectedListener(object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                setPersistedItem(position)
-                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
-                    "Image Only" -> {
-                        advertiseBinding?.advertiseDescEt?.setText("")
-                        description = ""
-                        spinnerTemplateCode = "IMON"
-                        openRichTextEditor = false
-                        isImageOnly = true
-                        isBoth = false
-                        isTextOnly = false
-                    }
-                    "Image with text on bottom" -> {
-                        spinnerTemplateCode = "IMTB"
-                        openRichTextEditor = true
-                        isBoth = true
-                        isImageOnly = false
-                        isTextOnly = false
-                    }
-                    "Image with text on left side" -> {
-                        spinnerTemplateCode = "IMTL"
-                        openRichTextEditor = true
-                        isBoth = true
-                        isImageOnly = false
-                        isTextOnly = false
-                    }
-                    "Text Only" -> {
-                        advertiseBinding?.advertiseDescEt?.setText("")
-                        description = ""
-                        spinnerTemplateCode = "TXON"
-                        openRichTextEditor = true
-                        isTextOnly = true
-                        isImageOnly = false
-                        isBoth = false
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        })
-
         /** This method is for setting filled data again when user goes next screen and navigate back  **/
         setData()
 
@@ -538,6 +399,75 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         }
 
         return advertiseBinding?.root
+    }
+
+    private fun enableDisableBtn() {
+        if (isBoth) {
+            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
+                if (advertiseImage?.isNotEmpty() == true) {
+                    if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
+                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
+                        openPreview = true
+                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                    } else {
+                        openPreview = false
+                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                    }
+                }
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
+        } else if (isTextOnly) {
+            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
+                if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                } else {
+                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                }
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
+            openPreview = false
+        } else if (isImageOnly) {
+            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3) {
+                if (advertiseImage?.isNotEmpty() == true) {
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+                } else {
+                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                }
+            } else {
+                openPreview = false
+                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
+                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
+            }
+            openPreview = false
+        }
     }
 
     private fun setData() {
@@ -576,8 +506,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     isTextOnly = true
                 }
                 else -> {
-
-                    //spinnerTemplateCode = "IMON"
                     openRichTextEditor = true
                     isImageOnly = false
                     isBoth = true
@@ -683,4 +611,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             ?.set("selectedTemplateSpinnerItem", position)
     }
 
+    override fun onResume() {
+        super.onResume()
+        enableDisableBtn()
+        setImage()
+    }
 }
