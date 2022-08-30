@@ -391,6 +391,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
         }
 
+        postAdvertiseViewModel.advertiseImage.observe(viewLifecycleOwner) {
+            advertiseImage = it
+        }
+
         /** This method is for setting filled data again when user goes next screen and navigate back  **/
         setData()
 
