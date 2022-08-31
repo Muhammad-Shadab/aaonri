@@ -217,7 +217,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.home_page_ads
+                            R.drawable.home_classified_section_inline
                         )
                     )
                 }
@@ -293,8 +293,8 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         )
                     )
                 }
-                "HPAFT" -> {
-                    //Home Page Just Above Footer Text Only
+                "HPJIA" -> {
+                    //Jobs Section Inline
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
@@ -302,8 +302,9 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         )
                     )
                 }
-                "HPAFT" -> {
-                    //Home Page Just Above Footer Text Only
+                //page 2
+                "DBBDA" -> {
+                    //Dashboard Below Discover Aaonri
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
@@ -311,8 +312,8 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         )
                     )
                 }
-                "HPAFT" -> {
-                    //Home Page Just Above Footer Text Only
+                "DBBIA" -> {
+                    //Dashboard Below Interest Area
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
@@ -320,8 +321,8 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         )
                     )
                 }
-                "HPAFT" -> {
-                    //Home Page Just Above Footer Text Only
+                "DBAFI" -> {
+                    //Dashboard Just Above Footer Image Only
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
@@ -329,8 +330,81 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         )
                     )
                 }
-                "HPAFT" -> {
-                    //Home Page Just Above Footer Text Only
+                "DBAFT" -> {
+                    //Dashboard Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "DBTB" -> {
+                    //Dashboard Top Banner(Below Search Bar)
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                //page 3
+                "LPCAFI" -> {
+                    //Classifieds Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "LPCAFT" -> {
+                    //Classifieds Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "LPCMS" -> {
+                    //Classifieds LHS of Main Section
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "LPCTB" -> {
+                    //Classifieds Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "LPEAFI" -> {
+                    //Events Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "LPEAFT" -> {
+                    //Events Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                else -> {
+                    //Classifieds Top Banner
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
