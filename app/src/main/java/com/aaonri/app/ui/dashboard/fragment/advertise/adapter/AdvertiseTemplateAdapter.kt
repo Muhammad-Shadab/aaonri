@@ -88,7 +88,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
 
             when (advertisePageList[position].pageCode) {
                 "HM" -> {
-                    websiteTemplateIv.setImageDrawable()
+                    //websiteTemplateIv.setImageDrawable()
                 }
                 "DB" -> {
 

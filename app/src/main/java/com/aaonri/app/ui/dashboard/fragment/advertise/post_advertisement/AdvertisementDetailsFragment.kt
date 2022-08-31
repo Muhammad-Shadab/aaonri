@@ -163,7 +163,7 @@ class AdvertisementDetailsFragment : Fragment() {
 
         detailsBinding?.companyDescTv?.textSize = 14f
         if (!data?.advertisementDetails?.companyDescription.isNullOrEmpty()) {
-            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription)
+            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription?.trim())
             detailsBinding?.compnyDetails?.visibility = View.VISIBLE
             detailsBinding?.companyDescTv?.visibility = View.VISIBLE
         }
@@ -175,11 +175,7 @@ class AdvertisementDetailsFragment : Fragment() {
         } else {
             detailsBinding?.companyServicesTv?.text = "-"
         }
-        if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
-            detailsBinding?.companyUriTv?.text = data.advertisementDetails.url
-        } else {
-            detailsBinding?.companyUriTv?.text = "-"
-        }
+
         detailsBinding?.companyStartDateTv?.text =
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
