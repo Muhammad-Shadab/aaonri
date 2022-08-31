@@ -662,7 +662,7 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
-            } else if (interests.startsWith("4")) {
+            } else if (interests.startsWith("4")){
                 //Astrology
                 priorityService = "Astrology"
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
