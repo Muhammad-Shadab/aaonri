@@ -542,7 +542,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/sf_pro_medium"
-                                    android:text="Ad Start Date        "
+                                    android:text="Ad Posted On        "
                                     android:textColor="@color/editTextColor"
                                     android:textSize="13sp" />
 
@@ -582,7 +582,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/sf_pro_medium"
-                                    android:text="Ad End Date          "
+                                    android:text="Ad Valid Up To         "
                                     android:textColor="@color/editTextColor"
                                     android:textSize="13sp" />
 

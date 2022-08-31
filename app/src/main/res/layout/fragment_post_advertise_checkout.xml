@@ -60,21 +60,24 @@
                             android:text="Ad on Page"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/addPageTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="DashBoard"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/addPageTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="DashBoard"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -97,21 +100,24 @@
                             android:text="Ad Page Location"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/addPageLocationTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="DashBoard Belo"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/addPageLocationTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="DashBoard Belo"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -130,24 +136,27 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:gravity="start"
-                            android:text="Start Date"
+                            android:text="Posted On"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/startdDateTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="Mar 15,2022"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/startdDateTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="Mar 15,2022"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -166,24 +175,27 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:gravity="start"
-                            android:text="End Date"
+                            android:text="Valid Up To"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/endDateTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="Mar 21,2022"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/endDateTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="Mar 21,2022"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -205,21 +217,24 @@
                             android:text="Cost of Primary Advertisement"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/costOfPrimaryTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="$0"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/costOfPrimaryTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="$0"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -241,21 +256,24 @@
                             android:text="Cost of Value Added Services"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_28sdp"
                             android:gravity="right"
                             android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/costOfvalueTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:fontFamily="@font/sf_pro_medium"
-                            android:text="$0"
-                            android:textColor="@color/light_black_color"
-                            android:textSize="13sp" /></LinearLayout>
+
+                            <TextView
+                                android:id="@+id/costOfvalueTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="$0"
+                                android:textColor="@color/light_black_color"
+                                android:textSize="13sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
