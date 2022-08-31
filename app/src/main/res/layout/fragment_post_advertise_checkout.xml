@@ -58,7 +58,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:gravity="start"
-                            android:text="Add on Page"
+                            android:text="Ad on Page"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
 
@@ -91,7 +91,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:gravity="start"
-                            android:text="Add Page Location"
+                            android:text="Ad Page Location"
                             android:textColor="@color/light_black_color"
                             android:textSize="13sp" />
 

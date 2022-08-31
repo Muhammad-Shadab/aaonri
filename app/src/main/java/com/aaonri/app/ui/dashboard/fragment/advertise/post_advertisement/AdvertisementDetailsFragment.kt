@@ -162,8 +162,8 @@ class AdvertisementDetailsFragment : Fragment() {
 
 
         detailsBinding?.companyDescTv?.textSize = 14f
-        if (!data?.advertisementDetails?.adDescription.isNullOrEmpty()) {
-            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.adDescription)
+        if (!data?.advertisementDetails?.companyDescription.isNullOrEmpty()) {
+            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription)
             detailsBinding?.compnyDetails?.visibility = View.VISIBLE
             detailsBinding?.companyDescTv?.visibility = View.VISIBLE
         }

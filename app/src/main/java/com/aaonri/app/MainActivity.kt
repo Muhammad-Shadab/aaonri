@@ -232,15 +232,16 @@ class MainActivity : BaseActivity() {
 
                         /** one ad for classified grid**/
                         if (data.advertisementPageLocation.locationId == 2) {
-                            homeViewModel.setHomeClassifiedInlineAds(data)
+                            //homeViewModel.setHomeClassifiedInlineAds(data)
                         }
                         /** one ad for event **/
                         if (data.advertisementPageLocation.locationId == 3) {
-                            homeViewModel.setHomeEventInlineAds(data)
+                            //homeViewModel.setHomeEventInlineAds(data)
                         }
 
                         /** below first section location id **/
                         if (data.advertisementPageLocation.locationId == 1 ||
+                            data.advertisementPageLocation.locationId == 2 ||
                             data.advertisementPageLocation.locationId == 6 ||
                             data.advertisementPageLocation.locationId == 7 ||
                             data.advertisementPageLocation.locationId == 8 ||
@@ -254,6 +255,9 @@ class MainActivity : BaseActivity() {
 
                         /** all advertise for above popular item**/
                         if (data.advertisementPageLocation.locationId == 9 ||
+                            data.advertisementPageLocation.locationId == 3 ||
+                            data.advertisementPageLocation.locationId == 4 ||
+                            data.advertisementPageLocation.locationId == 5 ||
                             data.advertisementPageLocation.locationId == 10 ||
                             data.advertisementPageLocation.locationId == 12 ||
                             data.advertisementPageLocation.locationId == 14 ||

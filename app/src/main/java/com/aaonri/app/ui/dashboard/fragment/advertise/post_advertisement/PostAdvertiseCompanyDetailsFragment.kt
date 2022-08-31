@@ -9,7 +9,6 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -84,39 +83,40 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                         .isNotEmpty() && companyProfessionEt.text.toString().length < 3
                 ) {
                     showAlert("Please enter valid Product / Services")
-                } else if (companyLinkEt.text.toString().isNotEmpty() && !Validator.urlValidation(
-                        companyLinkEt.text.toString()
-                    )
-                ) {
-                    showAlert("Please enter valid Link")
                 } else {
                     if (companyNameEt.text.toString().length >= 3) {
                         if (companyAddress.text.toString().length >= 3) {
                             if (phoneNumber.length == 10) {
                                 if (Validator.emailValidation(companyEmailEt.text.toString())) {
-                                    if (advertiseDescEt.text.toString().length >= 3) {
-                                        postAdvertiseViewModel.addCompanyContactDetails(
-                                            companyName = companyNameEt.text.toString(),
-                                            location = companyAddress.text.toString(),
-                                            phoneNumber = phoneNumber,
-                                            email = companyEmailEt.text.toString(),
-                                            services = companyProfessionEt.text.toString(),
-                                            link = companyLinkEt.text.toString(),
-                                            description = if (description?.isNotEmpty() == true) description!! else advertiseDescEt.text.toString()
-                                        )
+                                    if (companyLinkEt.text.toString()
+                                            .isNotEmpty() && Validator.urlValidation(companyLinkEt.text.toString())
+                                    ) {
+                                        if (advertiseDescEt.text.toString().length >= 3) {
+                                            postAdvertiseViewModel.addCompanyContactDetails(
+                                                companyName = companyNameEt.text.toString(),
+                                                location = companyAddress.text.toString(),
+                                                phoneNumber = phoneNumber,
+                                                email = companyEmailEt.text.toString(),
+                                                services = companyProfessionEt.text.toString(),
+                                                link = companyLinkEt.text.toString(),
+                                                description = if (description?.isNotEmpty() == true) description!! else advertiseDescEt.text.toString()
+                                            )
 
-                                        if (postAdvertiseViewModel.isUpdateAdvertise) {
-                                            val action =
-                                                PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToPostAdvertisementbasicDetailsFragment()
-                                            findNavController().navigate(action)
+                                            if (postAdvertiseViewModel.isUpdateAdvertise) {
+                                                val action =
+                                                    PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToPostAdvertisementbasicDetailsFragment()
+                                                findNavController().navigate(action)
+                                            } else {
+                                                val action =
+                                                    PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
+                                                findNavController().navigate(action)
+                                            }
+
                                         } else {
-                                            val action =
-                                                PostAdvertiseCompanyDetailsFragmentDirections.actionPostAdvertiseCompanyDetailsFrgamentToSelectAdvertiseTemplate()
-                                            findNavController().navigate(action)
+                                            showAlert("Please enter valid Advertise Description")
                                         }
-
                                     } else {
-                                        showAlert("Please enter valid Advertise Description")
+                                        showAlert("Please enter valid URL")
                                     }
                                 } else {
                                     showAlert("Please enter valid Email")
@@ -125,7 +125,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                 showAlert("Please enter valid Mobile Number")
                             }
                         } else {
-                            showAlert("Please enter valid Address")
+                            showAlert("Please enter valid Location")
                         }
                     } else {
                         showAlert("Please enter valid Company Name")

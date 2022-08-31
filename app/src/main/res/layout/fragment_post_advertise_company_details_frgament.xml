@@ -147,7 +147,7 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:hint="URL"
+                android:hint="URL*"
                 android:inputType="textCapSentences"
                 android:lines="1"
                 android:maxLines="1"
@@ -183,7 +183,7 @@
                     android:paddingTop="@dimen/_4sdp"
                     android:scrollbars="vertical"
                     android:textSize="16sp"
-                    tools:ignore="RtlHardcoded"  />
+                    tools:ignore="RtlHardcoded" />
             </androidx.core.widget.NestedScrollView>
 
             <androidx.appcompat.widget.AppCompatButton

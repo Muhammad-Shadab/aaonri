@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.fragment
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,9 +63,20 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
             advertiseDesc.textSize = 12f
 
             advertiseDesc.fromHtml(postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION])
+            companyDesc.fromHtml(postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION])
 
+            when (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_TEMPLATE_CODE]) {
+                "IMTB" -> {
+                    advertiseDesc.gravity = Gravity.CENTER or Gravity.BOTTOM
+                }
+                "IMTL" -> {
+                    advertiseDesc.gravity = Gravity.START or Gravity.BOTTOM
+                }
+            }
 
         }
+
+
 
         return reviewBinding?.root
     }

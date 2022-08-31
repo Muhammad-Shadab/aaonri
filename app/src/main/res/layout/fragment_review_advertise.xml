@@ -39,12 +39,37 @@
                 android:src="@drawable/ic_close" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/advertisementImage"
+        <FrameLayout
+            android:id="@+id/advertisementImageFL"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_310sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@+id/mainll" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainll">
+
+            <ImageView
+                android:id="@+id/advertisementImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_310sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:src="@drawable/image_place_holder"
+                app:layout_constraintTop_toBottomOf="@+id/mainll" />
+
+            <com.chinalwb.are.render.AreTextView
+                android:id="@+id/advertiseDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/helvetica_regular"
+                android:lineSpacingExtra="5dp"
+                android:layout_gravity="bottom"
+                android:textColor="@color/darkGrayColor" />
+
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/advertiseNameTv"
@@ -62,7 +87,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advertisementImage" />
+            app:layout_constraintTop_toBottomOf="@+id/advertisementImageFL" />
 
         <TextView
             android:id="@+id/advertiseLocationTv"
@@ -199,7 +224,7 @@
 
 
         <com.chinalwb.are.render.AreTextView
-            android:id="@+id/advertiseDesc"
+            android:id="@+id/companyDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
@@ -208,7 +233,6 @@
             android:fontFamily="@font/helvetica_regular"
             android:gravity="center_vertical"
             android:lineSpacingExtra="5dp"
-            android:text="Home Packers Movers is a trusted name in Delhi and nearby region in the field of packing and transporting of goods. Our company deals with the business of Packers and movers in Delhi and is supported by a team of professionals with skills in this field."
             android:textColor="@color/darkGrayColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

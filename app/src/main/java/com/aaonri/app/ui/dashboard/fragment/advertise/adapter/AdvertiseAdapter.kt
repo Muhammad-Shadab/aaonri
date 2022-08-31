@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,23 +21,26 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
         return AdvertiseViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
             advertiseNameTv.text = data[position].title
 //            advertiseLocationTv.text  = data[position].advertisementDetails?.location
-            advertiseDateTv.text = "Posted On ${
+            postedOnDate.text = "Posted On  ${
                 DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        .parse(data[position]?.fromDate?.split("T")?.get(0))
-                )
-            } Valid Upto ${
-                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        .parse(data[position]?.toDate?.split("T")?.get(0))
+                        .parse(data[position].fromDate.split("T").get(0))
                 )
             }"
+            validUpToDate.text = "Valid Up To ${
+                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(data[position].toDate.split("T").get(0))
+                )
+            }"
+
 
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)
         }

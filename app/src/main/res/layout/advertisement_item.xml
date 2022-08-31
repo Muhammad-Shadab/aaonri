@@ -27,7 +27,9 @@
                 android:id="@+id/advertisemntImage"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:background="@drawable/packers"
+                android:src="@drawable/ic_image_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -61,26 +63,61 @@
                 android:text="New York 0852"
                 android:textColor="#707070"
                 android:textSize="12sp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
 
-            <TextView
-                android:id="@+id/advertiseDateTv"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/timeIcon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:drawableLeft="@drawable/ic_time_watch"
-                android:drawablePadding="5dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/sf_pro_display_light"
-                android:gravity="center_vertical"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="From Mar 15,2022 To Mar 21,2022"
-                android:textColor="#707070"
-                android:textSize="12sp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/ic_time_watch"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+            <LinearLayout
+                android:id="@+id/advertiseDateLl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/timeIcon"
+                app:layout_constraintStart_toEndOf="@id/timeIcon"
+                app:layout_constraintTop_toTopOf="@+id/timeIcon">
+
+                <TextView
+                    android:id="@+id/postedOnDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Posted On"
+                    android:textColor="#707070"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                <TextView
+                    android:id="@+id/validUpToDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Valid Up To"
+                    android:textColor="#707070"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/advertiseLinkTv"
@@ -98,6 +135,7 @@
                 android:text="https://yogafitness.com/"
                 android:textColor="#124c94"
                 android:textSize="12sp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
 
             <ImageView
