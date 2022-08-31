@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html.fromHtml
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -163,7 +165,7 @@ class AdvertisementDetailsFragment : Fragment() {
 
         detailsBinding?.companyDescTv?.textSize = 14f
         if (!data?.advertisementDetails?.adDescription.isNullOrEmpty()) {
-            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.adDescription)
+            detailsBinding?.companyDescTv?.text = fromHtml(data?.advertisementDetails?.adDescription).trim()
             detailsBinding?.compnyDetails?.visibility = View.VISIBLE
             detailsBinding?.companyDescTv?.visibility = View.VISIBLE
         }
@@ -174,11 +176,6 @@ class AdvertisementDetailsFragment : Fragment() {
             detailsBinding?.companyServicesTv?.text = data.advertisementDetails.productServices
         } else {
             detailsBinding?.companyServicesTv?.text = "-"
-        }
-        if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
-            detailsBinding?.companyUriTv?.text = data.advertisementDetails.url
-        } else {
-            detailsBinding?.companyUriTv?.text = "-"
         }
         detailsBinding?.companyStartDateTv?.text =
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(

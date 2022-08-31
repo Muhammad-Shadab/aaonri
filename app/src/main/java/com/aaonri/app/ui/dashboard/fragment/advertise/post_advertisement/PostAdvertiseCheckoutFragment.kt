@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -218,7 +219,8 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
-            checkoutBinding?.addPageLocationTv?.text = it.locationName
+
+            checkoutBinding?.addPageLocationTv?.text = it.locationName.trim()
         }
 
         return checkoutBinding?.root

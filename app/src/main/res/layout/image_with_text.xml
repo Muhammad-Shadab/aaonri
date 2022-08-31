@@ -30,16 +30,17 @@
             android:id="@+id/ad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:gravity="start"
+            android:gravity="center"
+            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
-            android:textColor="#FC0000"
-            android:textSize="@dimen/_8sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#FC0000"
+            android:textSize="@dimen/_8sdp" />
+
 
         <LinearLayout
             android:id="@+id/bothLl"

@@ -370,9 +370,7 @@
                                         android:id="@+id/companyServicesTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
-                                        android:maxLines="1"
                                         android:text="Development &amp; Technology Services"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
@@ -381,52 +379,11 @@
 
                             </LinearLayout>
 
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:orientation="horizontal"
-                                android:padding="@dimen/_12sdp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/sf_pro_medium"
-                                    android:text="Url                                "
-                                    android:textColor="@color/editTextColor"
-                                    android:textSize="13sp" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_28sdp"
-                                    android:gravity="right"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:id="@+id/companyUriTv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:fontFamily="@font/sf_pro_display_light"
-                                        android:maxLines="1"
-                                        android:text="https://coreagiletech.com/uidhfsiudfhsiudfhsuidfhsdufsdfsdfsdfsdfsdfs"
-                                        android:textColor="@color/editTextColor"
-                                        android:textSize="13sp" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/view_bg_color" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/advertiseTextBgCOlor"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -457,11 +414,14 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
+                                android:background="@color/advertiseTextBgCOlor"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -484,9 +444,7 @@
                                         android:id="@+id/companyPageLocationNameTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
-                                        android:maxLines="1"
                                         android:text="Dashboard Below Interessdfsdft Area"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
@@ -495,15 +453,12 @@
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/view_bg_color" />
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/advertiseTextBgCOlor"
+                                android:background="@color/white"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -534,11 +489,14 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
+                                android:background="@color/advertiseTextBgCOlor"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -570,15 +528,12 @@
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/view_bg_color" />
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/advertiseTextBgCOlor"
+                                android:background="@color/white"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -609,11 +564,14 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
+                                android:background="@color/advertiseTextBgCOlor"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -647,15 +605,12 @@
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/view_bg_color" />
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/advertiseTextBgCOlor"
+                                android:background="@color/white"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -686,11 +641,14 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/view_bg_color" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
+                                android:background="@color/advertiseTextBgCOlor"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_12sdp">
 
@@ -721,11 +679,11 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/view_bg_color" />
+
 
                         </LinearLayout>
                     </LinearLayout>
