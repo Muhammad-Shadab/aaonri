@@ -189,7 +189,6 @@ class HomeScreenFragment : Fragment() {
 
                     }
                     "Events" -> {
-
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
