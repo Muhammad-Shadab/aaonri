@@ -477,7 +477,6 @@ class HomeScreenFragment : Fragment() {
             } else {
                 homeEventWithAdList.add(it)
             }
-
             genericAdapterForEvent?.items = homeEventWithAdList
         }
 

@@ -182,7 +182,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_display_light"
                                     android:gravity="center_vertical"
                                     android:includeFontPadding="false"
@@ -197,12 +196,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:ellipsize="end"
                                     android:fontFamily="@font/sf_pro_display_light"
                                     android:gravity="center_vertical"
                                     android:includeFontPadding="false"
                                     android:maxLines="1"
-                                    android:text="Valid Up To"
                                     android:textColor="#707070"
                                     android:textSize="12sp"
                                     app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
@@ -261,6 +258,7 @@
                                 app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="@id/compnyDetails"
                                 app:layout_constraintTop_toBottomOf="@id/compnyDetails" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
