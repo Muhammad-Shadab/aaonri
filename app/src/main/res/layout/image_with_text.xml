@@ -54,20 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:gravity="center"
-                android:maxLines="2"
-                android:shadowColor="@color/lightGrey"
-                android:shadowRadius="2"
-                android:text="Demo"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/advertiseDesc"

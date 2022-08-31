@@ -7,6 +7,7 @@ import android.text.Html
 import android.view.Gravity
 import android.view.View
 import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
@@ -26,8 +27,6 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
 
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
 
-            binding.textView.text =
-                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.trim()
             binding.advertiseDesc.text =
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
             binding.textOnlyFl.setOnClickListener {
@@ -77,30 +76,26 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             when(findAllActiveAdvertiseResponseItem.template.code)
             {
                   "IMTB"->{binding.bothLl.gravity = Gravity.BOTTOM
-                      binding.textView.gravity = Gravity.CENTER
                       binding.advertiseDesc.gravity = Gravity.CENTER}
 
-                "IMTL"->{binding.bothLl.gravity = Gravity.CENTER
-                         binding.textView.gravity = Gravity.START
+                "IMTL"->{binding.bothLl.gravity = Gravity.BOTTOM
                          binding.advertiseDesc.gravity = Gravity.START }
 
                 else -> {
                     binding.bothLl.gravity = Gravity.CENTER
-                    binding.textView.gravity = Gravity.CENTER
                     binding.advertiseDesc.gravity = Gravity.CENTER
                 }
             }
-            binding.textView.text =
-                findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.trim()
-            binding.advertiseDesc.text =
-                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
 
-            if(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isEmpty())
+
+            if(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isNullOrEmpty())
             {
                 binding.advertiseDesc.visibility = View.GONE
 
             }else{
                 binding.advertiseDesc.visibility = View.VISIBLE
+                binding.advertiseDesc.text =
+                    Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
             }
             context?.let { it1 ->
                 Glide.with(it1)
