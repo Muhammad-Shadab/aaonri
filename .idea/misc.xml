@@ -3,212 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/NovoStack-DELL-010/.gradle/caches/transforms-3/12c8dba7e32fc377ffc91448ae29d3a8/transformed/jetified-android-rteditor-1.7.6/res/layout/rte_toolbar.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/background_gradient.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/blue_btn.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/blue_btn_shape.xml" value="0.196" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/bottom_bar_shape.xml" value="0.2035" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/bottom_nav_bg_shape.xml" value="0.1745" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/bottom_navigtaion_selector.xml" value="0.2375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/circle_blue_shape.xml" value="0.2695" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/gray_btn.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/green_btn_shape.xml" value="0.196" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_icon_open_menu.xml" value="0.2035" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_imageview_placeholder.xml" value="0.2375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_more.xml" value="0.2035" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_success_tick.xml" value="0.2695" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/ic_uplaoded_image.xml" value="0.2375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.2695" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/drawable/top_rounded_corner_shape.xml" value="0.196" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout-v28/activity_registration.xml" value="0.296195652173913" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_advertise_screen.xml" value="0.33" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_auth.xml" value="0.25" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_classified_screen.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_registration.xml" value="0.296195652173913" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/activity_rich_text_editor.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/advertise_template_item.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/advertisement_item.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/all_posted_jobs_item.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/category_card_item.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/classified_card_items.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/event_item.xml" value="0.25" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/filter_card_view_item.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details.xml" value="0.22" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertise_post_success.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertise_screen.xml" value="0.21" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_advertisement_details.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_all_classified.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_all_event.xml" value="0.3359375" />
+        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_address_details.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_basic_details.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.2" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_details.xml" value="0.22" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_filter.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_post_success_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_classified_screen.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_community_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_create_new_password.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_details.xml" value="0.2" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_filter_screen.xml" value="0.1734375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_post_successful_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_screen.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_event_validity_bottom_sheet.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_favorite_classified.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_home_screen.xml" value="0.2" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_intro.xml" value="0.25" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_location_details.xml" value="0.22" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_login.xml" value="0.22" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_more_screen.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_my_classified.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_my_event.xml" value="0.5" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.1" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertise_company_details_frgament.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertise_term_condition.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_event_address_details.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_post_event_basic_details.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_recent_event.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_reset_password_info.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_review_advertise.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_select_advertise_template.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_select_country_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_select_filter_event_city_bottom.xml" value="0.1734375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_select_template_location.xml" value="0.22" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_services_category.xml" value="0.296195652173913" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_update_delete_classified_bottom.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_upload_event_pic.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/home_event_item.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/home_interested_service_items.xml" value="0.1734375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/immigrations_item.xml" value="0.33" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/interest_item.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/my_posted_jobs_item.xml" value="0.1734375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/tab_title_text.xml" value="0.3359375" />
-        <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/onboarding_steps_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/registration_steps.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ad_backdround_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ad_txt_only_bg.xml" value="0.1525" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/blue_btn_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/blue_radius_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/bottom_sheet_details_bg_color.xml" value="0.1925" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/circle_blue_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_shape.xml" value="0.204" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_shape_1.xml" value="0.204" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg1.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg2.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_entryfee_bg3.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant1.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant2.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant3.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant4.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant5.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/gray_btn.xml" value="0.1945" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/gray_radius_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/green_btn_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/green_capsule_shape.xml" value="0.122" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_classified.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_home_1.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_icon_open_menu.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_shop.xml" value="0.2105" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ic_time_watch.xml" value="0.179" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/image_with_text_border.xml" value="0.1245" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/multiline_textfield_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/navigate_back.xml" value="0.179" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/orange_capsule_shape.xml" value="0.122" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/red_right_radius_shape.xml" value="0.2115" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/rounded_bottom_sheet_shape.xml" value="0.1925" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/selected_home_tab_background.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/selected_tab_background.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/share.xml" value="0.179" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/tab_background.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/tab_background_selector.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/tab_background_shape.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/top_rounded_corner_shape.xml" value="0.1925" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/unselected_home_tab_background.xml" value="0.133" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout-land/fragment_view_event_details.xml" value="0.15961199294532627" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_advertise_screen.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_auth.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_classified_screen.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_registration.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/activity_rich_text_editor.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/advertise_template_item.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/advertisement_item.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/classified_advertise_item.xml" value="0.18" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/classified_card_items.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/community_selected_item.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/country_layout_item.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/event_advertise_item.xml" value="0.10326086956521739" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/event_item.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/events_pager_item.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/filter_card_view_item.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertise_post_success.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertise_screen.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertisement_details.xml" value="0.67" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_all_classified.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_all_immigration.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_basic_details.xml" value="0.14990942028985507" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_details.xml" value="0.22" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_filter.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_post_success_bottom.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_rich_text_editor.xml" value="0.2" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_screen.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_community_bottom.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_create_new_password.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_event_details.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_event_post_successful_bottom.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_event_screen.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_favorite_classified.xml" value="0.12681159420289856" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_home_screen.xml" value="0.12" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigartion_screen_frgament.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_details_frgament.xml" value="0.22" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_information.xml" value="0.2" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_reply_bottom.xml" value="0.22" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_screen.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_information_center_immigration.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_location_details.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_login.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_more_screen.xml" value="0.13496376811594202" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_classified.xml" value="0.16757246376811594" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_event.xml" value="0.2" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_password_reset_success_bottom.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_advertise_company_details_frgament.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_advertise_term_condition.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_event_address_details.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_event_basic_details.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_event_upload_image.xml" value="0.16485507246376813" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_immigration.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_review_advertise.xml" value="0.5" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_select_advertise_template.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_services_category.xml" value="0.33" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_update_delete_classified_bottom.xml" value="0.5" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_upload_event_pic.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_view_event_details.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/image_only_view_holder.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/image_with_text.xml" value="1.0" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigration_reply.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigration_reply_item.xml" value="0.67" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_inforamtion_center_item.xml" value="0.3226205191594561" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_item.xml" value="0.67" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/services_grid_item.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/success_register_dialog.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/tab_title_text.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/talent_skill_item.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/text_only_item.xml" value="0.10326086956521739" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.20416666666666666" />
-        <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.223731884057971" />
-        <entry key="app/src/main/res/layout/fragment_event_screen.xml" value="0.28940217391304346" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/event_advertise_item.xml" value="0.36875" />
+        <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.36875" />
+        <entry key="app/src/main/res/layout/fragment_review_advertise.xml" value="0.36875" />
+        <entry key="app/src/main/res/layout/fragment_select_advertise_template.xml" value="0.36875" />
+        <entry key="app/src/main/res/layout/image_with_text.xml" value="0.36875" />
+        <entry key="app/src/main/res/layout/text_only_item.xml" value="0.36875" />
       </map>
     </option>
   </component>
@@ -217,12 +34,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.5" />
-      </ProjectState>
-    </option>
   </component>
 </project>
