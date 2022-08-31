@@ -83,13 +83,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:gravity="start"
+            android:gravity="center"
+            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
             android:textColor="#FC0000"
@@ -133,13 +132,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:gravity="start"
+            android:gravity="center"
+            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
             android:textColor="#FC0000"
@@ -207,13 +205,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/ad"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:gravity="start"
+            android:gravity="center"
+            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
             android:textColor="#FC0000"
