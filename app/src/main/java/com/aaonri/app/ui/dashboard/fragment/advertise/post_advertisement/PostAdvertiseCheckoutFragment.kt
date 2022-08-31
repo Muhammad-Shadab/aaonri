@@ -138,12 +138,12 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
-                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -151,7 +151,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -159,15 +159,15 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.updateAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
                             "http:"
                         ) != true
                     ) {
                         response.data?.advertisementId?.let {
-                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -175,7 +175,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -183,9 +183,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.renewAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                           *//*response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -195,7 +196,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -203,13 +204,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.uploadAdvertiseImageData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }

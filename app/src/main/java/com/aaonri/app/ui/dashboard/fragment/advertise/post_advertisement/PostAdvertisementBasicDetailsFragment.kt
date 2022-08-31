@@ -73,33 +73,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             advertiseDescEt.movementMethod = ScrollingMovementMethod()
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
-            if (postAdvertiseViewModel.isUpdateAdvertise) {
-                templateSpinnerConstraintLayout.visibility = View.GONE
-                previewAdvertiseBtn.visibility = View.GONE
-                emailPromotionalLl.visibility = View.VISIBLE
-                flashingAdvertiseLl.visibility = View.VISIBLE
-                emailPromotionalCheckbox.isChecked = true
-                flashingAdvertiseCheckbox.isChecked = true
-            }
-
-            if (AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "TXTONLY") {
-                chooseTemplatell.visibility = View.GONE
-                openPreview = false
-                openRichTextEditor = false
-                isImageOnly = false
-                isTextOnly = true
-                isBoth = false
-            }
-
-            if (AdvertiseStaticData.getAddDetails()?.advertisementPageLocation?.type == "IMGONLY") {
-                advertiseDescEtNestedScroll.visibility = View.GONE
-                openPreview = false
-                openRichTextEditor = false
-                isImageOnly = true
-                isTextOnly = false
-                isBoth = false
-            }
-
             description?.let {
                 advertiseDescEt.fromHtml(it)
             }
@@ -401,6 +374,36 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         if (postAdvertiseViewModel.isUpdateAdvertise) {
             setDataForUpdating()
         }
+
+        if (postAdvertiseViewModel.isUpdateAdvertise) {
+            advertiseBinding?.templateSpinnerConstraintLayout?.visibility = View.GONE
+            advertiseBinding?.previewAdvertiseBtn?.visibility = View.GONE
+            advertiseBinding?.emailPromotionalLl?.visibility = View.VISIBLE
+            advertiseBinding?.flashingAdvertiseLl?.visibility = View.VISIBLE
+            advertiseBinding?.emailPromotionalCheckbox?.isChecked = true
+            advertiseBinding?.flashingAdvertiseCheckbox?.isChecked = true
+
+            if (AdvertiseStaticData.getAddDetails()?.template?.code == "TXON") {
+                advertiseBinding?.chooseTemplatell?.visibility = View.GONE
+                openPreview = false
+                openRichTextEditor = false
+                isImageOnly = false
+                isTextOnly = true
+                isBoth = false
+            }
+
+            if (AdvertiseStaticData.getAddDetails()?.template?.code == "IMON") {
+                advertiseBinding?.advertiseDescEtNestedScroll?.visibility = View.GONE
+                openPreview = false
+                openRichTextEditor = false
+                isImageOnly = true
+                isTextOnly = false
+                isBoth = false
+            }
+
+        }
+
+
 
         return advertiseBinding?.root
     }
