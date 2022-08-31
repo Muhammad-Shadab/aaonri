@@ -37,13 +37,13 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                 notifyDataSetChanged()
             }
 
-            Glide.with(context)
+            /*Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(websiteTemplateIv)
 
             Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
-                .into(mobileTemplateImageView)
+                .into(mobileTemplateImageView)*/
 
             if (context?.let { PreferenceManager<Int>(it)["selectedTemplatePage", -1] } == position) {
                 websiteTemplateSuccessTick.visibility = View.VISIBLE
@@ -86,6 +86,20 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                 }
             }
 
+            when (advertisePageList[position].pageCode) {
+                "HM" -> {
+                    websiteTemplateIv
+                }
+                "DB" -> {
+
+                }
+                "LP" -> {
+
+                }
+                "PD" -> {
+
+                }
+            }
 
         }
     }

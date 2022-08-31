@@ -28,18 +28,14 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
         holder.binding.apply {
             advertiseNameTv.text = data[position].title
 //            advertiseLocationTv.text  = data[position].advertisementDetails?.location
-            postedOnDate.text = "Posted On  ${
-                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        .parse(data[position].fromDate.split("T").get(0))
-                )
-            }"
-            validUpToDate.text = "Valid Up To ${
-                DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                        .parse(data[position].toDate.split("T").get(0))
-                )
-            }"
+            postedOnDate.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data[position].fromDate.split("T").get(0))
+            )
+            validUpToDate.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data[position].toDate.split("T").get(0))
+            )
 
 
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)
