@@ -90,16 +90,16 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     binding.advertiseDesc.gravity = Gravity.CENTER
                 }
             }
-
             binding.textView.text =
                 findAllActiveAdvertiseResponseItem.advertisementDetails.adTitle.trim()
             binding.advertiseDesc.text =
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
-            if(  Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).isEmpty())
+
+            if(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isEmpty())
             {
                 binding.advertiseDesc.visibility = View.GONE
-            }
-            else{
+
+            }else{
                 binding.advertiseDesc.visibility = View.VISIBLE
             }
             context?.let { it1 ->

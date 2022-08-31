@@ -70,24 +70,30 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                             )
                         )*/
                     } else if (postAdvertiseViewModel.isUpdateAdvertise) {
-                        postAdvertiseViewModel.updateAdvertise(
+                        AdvertiseStaticData.getAddDetails()?.advertisementDetails?.advertisementDetailsId?.let { it1 ->
+                            AdvertisementDetailsXXXX(
+                                adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
+                                adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
+                                advertisementDetailsId = it1,
+                                companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
+                                companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
+                                contactNo = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER]!!,
+                                emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
+                                location = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]!!,
+                                productServices = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]!! else "",
+                                url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
+                            )
+                        }?.let { it2 ->
                             UpdateAdvertiseRequest(
-                                AdvertisementDetailsXXXX(
-                                    adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
-                                    adTitle = companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_ADD_TITLE]!!,
-                                    advertisementDetailsId = postAdvertiseViewModel.advertiseId,
-                                    companyDescription = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]!!,
-                                    companyName = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_NAME]!!,
-                                    contactNo = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PHONE_NUMBER]!!,
-                                    emailId = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_EMAIL]!!,
-                                    location = companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LOCATION]!!,
-                                    productServices = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_PRODUCT_SERVICES_DETAILS]!! else "",
-                                    url = if (companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]?.isNotEmpty() == true) companyContactDetailsMap[AdvertiseConstant.ADVERTISE_LINK]!! else "",
-                                ),
+                                it2,
                                 advertisementId = postAdvertiseViewModel.advertiseId,
                                 codes = postAdvertiseViewModel.vasList
                             )
-                        )
+                        }?.let { it3 ->
+                            postAdvertiseViewModel.updateAdvertise(
+                                it3
+                            )
+                        }
                     } else {
                         postAdvertiseViewModel.postAdvertise(
                             PostAdvertiseRequest(
@@ -132,12 +138,12 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
-                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -145,7 +151,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -153,15 +159,15 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.updateAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
                             "http:"
                         ) != true
                     ) {
                         response.data?.advertisementId?.let {
-                            findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                             callUploadAdvertisePicApi(it)
                         }
                     } else {
@@ -169,7 +175,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -177,9 +183,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.renewAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                     /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                           *//*response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -189,7 +196,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -197,13 +204,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.uploadAdvertiseImageData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    //findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-
+                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
