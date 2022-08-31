@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -167,7 +168,7 @@ class AdvertisementDetailsFragment : Fragment() {
             detailsBinding?.companyDescTv?.visibility = View.VISIBLE
         }
         detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
-        detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo
+        detailsBinding?.companyContactTv?.text = data?.advertisementDetails?.contactNo?.replace("""[(,), ]""".toRegex(), "")?.replace("-","")?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
         detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
         if (data?.advertisementDetails?.productServices?.isNotEmpty() == true) {
             detailsBinding?.companyServicesTv?.text = data.advertisementDetails.productServices
