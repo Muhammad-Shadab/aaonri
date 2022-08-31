@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.event.model.EventResponse
 import com.aaonri.app.data.home.model.InterestResponse
 import com.aaonri.app.data.home.model.PoplarClassifiedResponse
@@ -11,6 +12,7 @@ import com.aaonri.app.data.home.repository.HomeRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,46 +45,33 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun getAllInterest() = viewModelScope.launch {
         allInterestData.postValue(Resource.Loading())
-        homeRepository.getAllInterest().onSuccess {
-            allInterestData.postValue(Resource.Success(it))
-        }
-            .onFailure {
-                allInterestData.postValue(Resource.Error(it.localizedMessage))
-            }
-
-        /*val response = homeRepository.getAllInterest()
-        allInterestData.postValue(handleAllInterestResponse(response))*/
+        val response = homeRepository.getAllInterest()
+        allInterestData.postValue(handleAllInterestResponse(response))
     }
 
-    /*private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
+    private fun handleAllInterestResponse(response: Response<InterestResponse>): Resource<InterestResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }*/
+    }
 
     fun getHomeEvent() = viewModelScope.launch {
         homeEventData.postValue(Resource.Loading())
-        homeRepository.getHomeEvents().onSuccess {
-            homeEventData.postValue(Resource.Success(it))
-        }
-            .onFailure {
-                homeEventData.postValue(Resource.Error(it.localizedMessage))
-            }
-        /*val response = homeRepository.getHomeEvents()
-        homeEventData.postValue(handleHomeEventResponse(response))*/
+        val response = homeRepository.getHomeEvents()
+        homeEventData.postValue(handleHomeEventResponse(response))
     }
 
-    /*private fun handleHomeEventResponse(response: Response<EventResponse>): Resource<EventResponse>? {
+    private fun handleHomeEventResponse(response: Response<EventResponse>): Resource<EventResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }*/
+    }
 
     /*fun getClassifiedByUser(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
         viewModelScope.launch {
@@ -102,24 +91,18 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun getPopularClassified() = viewModelScope.launch {
         popularClassifiedData.postValue(Resource.Loading())
-        homeRepository.getPopularClassified().onSuccess {
-            popularClassifiedData.postValue(Resource.Success(it))
-        }
-            .onFailure {
-                popularClassifiedData.postValue(Resource.Error(it.localizedMessage))
-            }
-        /*val response = homeRepository.getPopularClassified()
-        popularClassifiedData.postValue(handlePopularClassifiedResponse(response))*/
+        val response = homeRepository.getPopularClassified()
+        popularClassifiedData.postValue(handlePopularClassifiedResponse(response))
     }
 
-    /*private fun handlePopularClassifiedResponse(response: Response<PoplarClassifiedResponse>): Resource<PoplarClassifiedResponse>? {
+    private fun handlePopularClassifiedResponse(response: Response<PoplarClassifiedResponse>): Resource<PoplarClassifiedResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }*/
+    }
 
     @JvmName("setHomeClassifiedInlineAds1")
     fun setHomeClassifiedInlineAds(value: FindAllActiveAdvertiseResponseItem) {

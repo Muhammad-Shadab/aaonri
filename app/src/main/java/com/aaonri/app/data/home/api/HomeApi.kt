@@ -9,13 +9,13 @@ import retrofit2.http.GET
 interface HomeApi {
 
     @GET("/api/v1/interests/all")
-    suspend fun getAllInterest(): Result<InterestResponse>
+    suspend fun getAllInterest(): Response<InterestResponse>
 
     @GET("/api/v1/home/event/details")
-    suspend fun getAllEvent(): Result<EventResponse>
+    suspend fun getAllEvent(): Response<EventResponse>
 
     @GET("/api/v1/classified/findallpopularonaaonri")
-    suspend fun getAllPopularClassified(): Result<PoplarClassifiedResponse>
+    suspend fun getAllPopularClassified(): Response<PoplarClassifiedResponse>
 
     /*@Headers("Content-Type:application/json")
     @POST("/api/v1/asd/search")
