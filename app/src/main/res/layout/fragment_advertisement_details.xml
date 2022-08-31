@@ -116,22 +116,98 @@
                                 android:textSize="12sp"
                                 app:layout_constraintTop_toBottomOf="@+id/titlell" />
 
-                            <TextView
-                                android:id="@+id/advertiseDateTv"
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:id="@+id/timeIcon"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
                                 android:layout_marginTop="@dimen/_8sdp"
-                                android:drawableLeft="@drawable/ic_time_watch"
-                                android:drawablePadding="5dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/sf_pro_display_light"
-                                android:includeFontPadding="false"
-                                android:maxLines="1"
-                                android:text="From Mar 15,2022 To Mar 21,2022"
-                                android:textColor="#707070"
-                                android:textSize="12sp"
+                                android:src="@drawable/ic_time_watch"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                            <LinearLayout
+                                android:id="@+id/advertiseDateLl1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="@id/timeIcon"
+                                app:layout_constraintStart_toEndOf="@id/timeIcon"
+                                app:layout_constraintTop_toTopOf="@+id/timeIcon">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:gravity="center_vertical"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Posted On"
+                                    android:textColor="#484747"
+                                    android:textSize="12sp"
+                                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_medium"
+                                    android:gravity="center_vertical"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Valid Up To"
+                                    android:textColor="#484747"
+                                    android:textSize="12sp"
+                                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/advertiseDateLl2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="@id/advertiseDateLl1"
+                                app:layout_constraintStart_toEndOf="@id/advertiseDateLl1"
+                                app:layout_constraintTop_toTopOf="@+id/advertiseDateLl1">
+
+                                <TextView
+                                    android:id="@+id/postedOnDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_display_light"
+                                    android:gravity="center_vertical"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Posted On"
+                                    android:textColor="#707070"
+                                    android:textSize="12sp"
+                                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                                <TextView
+                                    android:id="@+id/validUpToDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sf_pro_display_light"
+                                    android:gravity="center_vertical"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Valid Up To"
+                                    android:textColor="#707070"
+                                    android:textSize="12sp"
+                                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/advertiseLinkTv"
@@ -151,7 +227,7 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/advertiseDateTv" />
+                                app:layout_constraintTop_toBottomOf="@+id/advertiseDateLl2" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -415,10 +491,12 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/view_bg_color" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -455,7 +533,6 @@
                             </LinearLayout>
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -490,10 +567,12 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/view_bg_color" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -530,7 +609,6 @@
                             </LinearLayout>
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -565,10 +643,12 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/view_bg_color" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -607,7 +687,6 @@
                             </LinearLayout>
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -642,10 +721,12 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/view_bg_color" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -680,6 +761,7 @@
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"

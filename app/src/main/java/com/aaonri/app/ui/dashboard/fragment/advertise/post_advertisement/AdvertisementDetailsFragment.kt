@@ -123,17 +123,16 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
         detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
-        detailsBinding?.advertiseDateTv?.text = "Posted On ${
-            DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .parse(data?.fromDate?.split("T")?.get(0))
-            )
-        } Valid Upto ${
-            DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .parse(data?.toDate?.split("T")?.get(0))
-            )
-        }"
+
+        detailsBinding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                .parse(data?.fromDate?.split("T")?.get(0))
+        )
+        detailsBinding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                .parse(data?.toDate?.split("T")?.get(0))
+        )
+
         detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
 
         if (data?.advertisementDetails?.url?.isNotEmpty() == true) {

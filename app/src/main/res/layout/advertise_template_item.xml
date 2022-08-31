@@ -35,25 +35,23 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mobileTemplateCv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_110sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginBottom="@dimen/_2sdp"
-        android:elevation="@dimen/_10sdp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="@dimen/_4sdp"
         app:strokeWidth="@dimen/_2sdp">
 
         <ImageView
             android:id="@+id/mobileTemplateImageView"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_110sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/_2sdp"
-            android:src="@drawable/demo" />
+            android:src="@drawable/home_page_ads" />
 
         <ImageView
             android:id="@+id/mobileTemplateSuccessTick"

@@ -37,11 +37,11 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                 notifyDataSetChanged()
             }
 
-            /*Glide.with(context)
+            Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(websiteTemplateIv)
 
-            Glide.with(context)
+            /*Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(mobileTemplateImageView)*/
 
@@ -88,16 +88,36 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
 
             when (advertisePageList[position].pageCode) {
                 "HM" -> {
-                    //websiteTemplateIv.setImageDrawable()
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
                 }
                 "DB" -> {
-
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
                 }
                 "LP" -> {
-
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
                 }
                 "PD" -> {
-
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
                 }
             }
 
@@ -146,9 +166,9 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
                 .into(websiteTemplateIv)
 
-            Glide.with(context)
+            /*Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
-                .into(mobileTemplateImageView)
+                .into(mobileTemplateImageView)*/
 
             if (context?.let { PreferenceManager<Int>(it)["selectedTemplateLocation", -1] } == position) {
                 websiteTemplateSuccessTick.visibility = View.VISIBLE
@@ -190,6 +210,136 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateCv.strokeColor = it2
                 }
             }
+
+            when (advertisePageList[position].locationCode) {
+                "HPCIA" -> {
+                    //Classifieds Section Inline"
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
+                }
+                "HPEIA" -> {
+                    //Events Section Inline
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
+                }
+                "HPAFI" -> {
+                    //Home Page Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.home_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPLTB" -> {
+                    //Home Page Long Term Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPLTBD" -> {
+                    //Home Page Long Term Bottom Down
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPLTBU" -> {
+                    //Home Page Long Term Bottom Upper
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPTB" -> {
+                    //Home Page Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPIIA" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+                "HPAFT" -> {
+                    //Home Page Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.detail_page_ads
+                        )
+                    )
+                }
+            }
+
         }
 
     }
