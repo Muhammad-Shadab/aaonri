@@ -58,11 +58,13 @@
 
             <com.chinalwb.are.render.AreTextView
                 android:id="@+id/advertiseDesc"
+                android:background="@drawable/ad_txt_only_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:drawablePadding="5dp"
+                android:padding="4dp"
                 android:fontFamily="@font/helvetica_regular"
                 android:lineSpacingExtra="5dp"
                 android:layout_gravity="bottom"

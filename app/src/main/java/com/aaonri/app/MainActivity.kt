@@ -236,7 +236,7 @@ class MainActivity : BaseActivity() {
                         }
                         /** one ad for event **/
                         if (data.advertisementPageLocation.locationId == 3) {
-                            //homeViewModel.setHomeEventInlineAds(data)
+                            homeViewModel.setHomeEventInlineAds(data)
                         }
 
                         /** below first section location id **/

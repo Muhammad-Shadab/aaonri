@@ -189,6 +189,7 @@ class HomeScreenFragment : Fragment() {
 
                     }
                     "Events" -> {
+
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
@@ -476,6 +477,7 @@ class HomeScreenFragment : Fragment() {
             } else {
                 homeEventWithAdList.add(it)
             }
+
             genericAdapterForEvent?.items = homeEventWithAdList
         }
 

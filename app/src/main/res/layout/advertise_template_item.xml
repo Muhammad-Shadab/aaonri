@@ -42,7 +42,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginBottom="@dimen/_2sdp"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_8sdp"
         app:strokeWidth="@dimen/_2sdp">
 
@@ -50,7 +50,8 @@
             android:id="@+id/mobileTemplateImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/_2sdp"
+
+            android:layout_marginHorizontal="@dimen/_1sdp"
             android:src="@drawable/home_page_ads" />
 
         <ImageView
