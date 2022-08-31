@@ -3,8 +3,10 @@ package com.aaonri.app.data.event.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.classified.model.UserAds
-import com.aaonri.app.data.event.model.*
+import com.aaonri.app.data.event.model.AllEventRequest
+import com.aaonri.app.data.event.model.AllEventResponse
+import com.aaonri.app.data.event.model.Event
+import com.aaonri.app.data.event.model.RecentEventResponse
 import com.aaonri.app.data.event.repository.EventRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -98,7 +100,6 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         }
         return Resource.Error(response.message())
     }
-
 
     fun getAllEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         allEventData.postValue(Resource.Loading())

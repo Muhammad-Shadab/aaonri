@@ -8,7 +8,6 @@ import com.aaonri.app.data.main.repository.MainRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,11 +18,17 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
 
     fun getAllActiveAdvertise() = viewModelScope.launch {
         allActiveAdvertise.postValue(Resource.Loading())
-        val response = mainRepository.getAllActiveAdvertise()
-        allActiveAdvertise.postValue(handleAllActiveAdvertiseResponse(response))
+        mainRepository.getAllActiveAdvertise().onSuccess {
+            allActiveAdvertise.postValue(Resource.Success(it))
+        }
+            .onFailure {
+                allActiveAdvertise.postValue(Resource.Error(it.localizedMessage))
+            }
+        /*val response = mainRepository.getAllActiveAdvertise()
+        allActiveAdvertise.postValue(handleAllActiveAdvertiseResponse(response))*/
     }
 
-    private fun handleAllActiveAdvertiseResponse(response: Response<FindAllActiveAdvertiseResponse>): Resource<FindAllActiveAdvertiseResponse>? {
+    /*private fun handleAllActiveAdvertiseResponse(response: Response<FindAllActiveAdvertiseResponse>): Resource<FindAllActiveAdvertiseResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -31,5 +36,5 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         }
         return Resource.Error(response.message())
     }
-
+*/
 }

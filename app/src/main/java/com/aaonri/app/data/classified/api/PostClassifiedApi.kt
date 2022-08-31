@@ -1,12 +1,12 @@
 package com.aaonri.app.data.classified.api
 
-import com.aaonri.app.data.classified.model.*
-import com.google.gson.JsonElement
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponse
+import com.aaonri.app.data.classified.model.ClassifiedUploadPicResponse
+import com.aaonri.app.data.classified.model.PostClassifiedRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
-import java.io.File
 
 interface PostClassifiedApi {
 

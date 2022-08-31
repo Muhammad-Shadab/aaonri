@@ -144,7 +144,6 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         return Resource.Error(response.message())
     }
 
-
     fun getClassifiedLikeDislikeInfo(email: String, addId: Int, service: String) =
         viewModelScope.launch {
             classifiedLikeDislikeInfoData.postValue(Resource.Loading())

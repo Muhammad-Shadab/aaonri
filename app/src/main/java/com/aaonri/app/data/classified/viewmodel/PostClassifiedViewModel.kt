@@ -161,14 +161,14 @@ class PostClassifiedViewModel @Inject constructor(
         classifiedCategoryData.postValue(handleClassifiedCategoryResponse(response))
     }
 
-    private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
+     private fun handleClassifiedCategoryResponse(response: Response<ClassifiedCategoryResponse>): Resource<ClassifiedCategoryResponse>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }
 
     fun addIsProductNewCheckBox(value: Boolean) {
         isProductNewCheckBox = value
@@ -228,21 +228,20 @@ class PostClassifiedViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
-
     fun postClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         postClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.postClassified(postClassifiedRequest)
         postClassifiedData.postValue(handlePostClassifiedResponse(response))
     }
 
-    private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
+     private fun handlePostClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
+         if (response.isSuccessful) {
+             response.body()?.let {
+                 return Resource.Success(it)
+             }
+         }
+         return Resource.Error(response.message())
+     }
 
     fun setSendDataToClassifiedDetailsScreen(value: Int) {
         sendDataToClassifiedDetailsScreen.postValue(value)
