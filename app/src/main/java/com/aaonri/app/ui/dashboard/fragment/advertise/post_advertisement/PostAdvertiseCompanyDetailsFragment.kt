@@ -99,7 +99,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                                 email = companyEmailEt.text.toString(),
                                                 services = companyProfessionEt.text.toString(),
                                                 link = companyLinkEt.text.toString(),
-                                                description = if (description?.isNotEmpty() == true) description!! else advertiseDescEt.text.toString()
+                                                description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseDescEt.text.toString().trim()
                                             )
 
                                             if (postAdvertiseViewModel.isUpdateAdvertise) {

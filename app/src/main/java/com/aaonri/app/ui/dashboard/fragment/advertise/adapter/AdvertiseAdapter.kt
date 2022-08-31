@@ -37,7 +37,6 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
                     .parse(data[position].toDate.split("T").get(0))
             )
 
-
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)
         }
         holder.itemView.setOnClickListener {

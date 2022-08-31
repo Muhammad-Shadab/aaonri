@@ -545,7 +545,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             isFlashingAdvertisement = isFlashingAdvertisement,
             templateCode = templateCode,
             advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
-            description = if (description?.isNotEmpty() == true) description!! else advertiseBinding?.advertiseDescEt?.text.toString(),
+            description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseBinding?.advertiseDescEt?.text.toString()
+                .trim(),
         )
     }
 
