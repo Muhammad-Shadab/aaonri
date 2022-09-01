@@ -370,11 +370,12 @@ class HomeScreenFragment : Fragment() {
                     callApiAccordingToInterest(response.data?.interests)
                     val list: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
-                    if (list != null) {
+                    /*if (list != null) {
                         if (list[0] != "22") {
                             list.removeAt(0)
                         }
-                    }
+                    }*/
+                    list?.removeAt(0)
                     setUserInterestedServiceRow(list)
                 }
                 is Resource.Error -> {
@@ -623,6 +624,7 @@ class HomeScreenFragment : Fragment() {
     private fun callApiAccordingToInterest(
         interests: String? = "",
     ) {
+
         if (interests?.isNotEmpty() == true) {
             if (interests.contains("27")) {
                 //Advertise With Us
@@ -660,13 +662,12 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
                 Toast.makeText(context, "17", Toast.LENGTH_SHORT).show()
             } else if (interests.contains("22")) {
-
-                /*//Shop With Us
+                //Shop With Us
                 priorityService = "Shop With Us"
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.visibility = View.GONE*/
+                homeScreenBinding?.priorityServiceRv?.visibility = View.GONE
             } else if (interests.contains("4")) {
                 //Astrology
                 priorityService = "Astrology"
@@ -749,7 +750,9 @@ class HomeScreenFragment : Fragment() {
                 //Toast.makeText(context, "blank", Toast.LENGTH_SHORT).show()
             }
         }
-        if (interests?.isNotEmpty() == true && interests.contains("22")) {
+        homeScreenBinding?.classifiedTv?.text = priorityService
+        homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
+        /*if (interests?.isNotEmpty() == true && interests.contains("22")) {
             homeScreenBinding?.classifiedTv?.visibility = View.GONE
             homeScreenBinding?.seeAllClassified?.visibility = View.GONE
             homeScreenBinding?.adsBelowFirstSectionRv?.margin(top = 8f)
@@ -757,7 +760,7 @@ class HomeScreenFragment : Fragment() {
             homeScreenBinding?.seeAllClassified?.visibility = View.VISIBLE
             homeScreenBinding?.classifiedTv?.text = priorityService
             homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
-        }
+        }*/
     }
 
 
