@@ -461,9 +461,10 @@ class MainActivity : BaseActivity() {
 
         dashboardCommonViewModel.isShopWithUsClicked.observe(this) {
             if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId =
-                    R.id.shopScreenFragment
+                mainActivityBinding?.bottomNavigation?.selectedItemId = R.id.shopScreenFragment
                 dashboardCommonViewModel.setIsShopWithUsClicked(false)
+                applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+                    ?.set("selectedHomeServiceRow", 0)
             }
         }
 
