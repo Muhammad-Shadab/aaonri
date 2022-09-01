@@ -226,26 +226,26 @@ class MainActivity : BaseActivity() {
                 is Resource.Success -> {
                     val adsAbovePopularItem = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val adsBelowFirstSection = mutableListOf<FindAllActiveAdvertiseResponseItem>()
-                    var classifiedTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val classifiedTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val classifiedAdJustAboveFooter =
                         mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val classifiedAdOnClassifiedDetails =
                         mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventAdJustAboveFooter = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventAdOnDetailsScreen = mutableListOf<FindAllActiveAdvertiseResponseItem>()
-                    var eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     mainActivityBinding?.progressBar?.visibility = View.GONE
                     response.data?.forEach { data ->
 
                         /** one ad for classified grid**/
-                        if (data.advertisementPageLocation.locationId == 2) {
-                            //homeViewModel.setHomeClassifiedInlineAds(data)
+                        /*if (data.advertisementPageLocation.locationId == 2) {
+                            homeViewModel.setHomeClassifiedInlineAds(data)
                         }
-                        /** one ad for event **/
+                        *//** one ad for event **//*
                         if (data.advertisementPageLocation.locationId == 3) {
-                            //homeViewModel.setHomeEventInlineAds(data)
-                        }
+                            homeViewModel.setHomeEventInlineAds(data)
+                        }*/
 
                         /** below first section location id **/
                         if (data.advertisementPageLocation.locationId == 1 ||
@@ -329,7 +329,6 @@ class MainActivity : BaseActivity() {
                                 eventAdOnDetailsScreen.add(data)
                             }
                         }
-
                     }
 
                     homeViewModel.setAdsBelowFirstSection(adsBelowFirstSection)
