@@ -226,6 +226,14 @@ class MainActivity : BaseActivity() {
                 is Resource.Success -> {
                     val adsAbovePopularItem = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val adsBelowFirstSection = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    var classifiedTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val classifiedAdJustAboveFooter =
+                        mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val classifiedAdOnClassifiedDetails =
+                        mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val eventAdJustAboveFooter = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    val eventAdOnDetailsScreen = mutableListOf<FindAllActiveAdvertiseResponseItem>()
+                    var eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     mainActivityBinding?.progressBar?.visibility = View.GONE
                     response.data?.forEach { data ->
@@ -267,10 +275,76 @@ class MainActivity : BaseActivity() {
                                 adsAbovePopularItem.add(data)
                             }
                         }
+
+                        /**classified top banner page data **/
+                        if (data.advertisementPageLocation.locationId == 16) {
+                            if (!classifiedTopBanner.contains(data)) {
+                                classifiedTopBanner.add(data)
+                            }
+                        }
+
+                        /**classified landing page data **/
+                        if (data.advertisementPageLocation.locationId == 17 ||
+                            data.advertisementPageLocation.locationId == 18 ||
+                            data.advertisementPageLocation.locationId == 19
+                        ) {
+                            if (!classifiedAdJustAboveFooter.contains(data)) {
+                                classifiedAdJustAboveFooter.add(data)
+                            }
+                        }
+
+                        /** classified details screen advertise **/
+                        if (data.advertisementPageLocation.locationId == 32 ||
+                            data.advertisementPageLocation.locationId == 33 ||
+                            data.advertisementPageLocation.locationId == 34 ||
+                            data.advertisementPageLocation.locationId == 35
+                        ) {
+                            if (!classifiedAdOnClassifiedDetails.contains(data)) {
+                                classifiedAdOnClassifiedDetails.add(data)
+                            }
+                        }
+
+                        /** event landing page data **/
+                        if (data.advertisementPageLocation.locationId == 21 ||
+                            data.advertisementPageLocation.locationId == 22 ||
+                            data.advertisementPageLocation.locationId == 23
+                        ) {
+                            if (!eventAdJustAboveFooter.contains(data)) {
+                                eventAdJustAboveFooter.add(data)
+                            }
+                        }
+
+                        if (data.advertisementPageLocation.locationId == 20) {
+                            if (!eventTopBanner.contains(data)) {
+                                eventTopBanner.add(data)
+                            }
+                        }
+
+                        /** event details screen advertise **/
+                        if (data.advertisementPageLocation.locationId == 36 ||
+                            data.advertisementPageLocation.locationId == 37 ||
+                            data.advertisementPageLocation.locationId == 38
+                        ) {
+                            if (!eventAdOnDetailsScreen.contains(data)) {
+                                eventAdOnDetailsScreen.add(data)
+                            }
+                        }
+
                     }
+
                     homeViewModel.setAdsBelowFirstSection(adsBelowFirstSection)
                     homeViewModel.setAdsAbovePopularItem(adsAbovePopularItem)
-                    ActiveAdvertiseStaticData.updateActiveAdvertiseDetails(response.data)
+                    ActiveAdvertiseStaticData.setClassifiedAdsData(
+                        topBannerAds = classifiedTopBanner,
+                        bottomAds = classifiedAdJustAboveFooter,
+                        detailsScreenAds = classifiedAdOnClassifiedDetails
+                    )
+                    ActiveAdvertiseStaticData.setEventAdsData(
+                        topBannerAds = eventTopBanner,
+                        bottomAds = eventAdJustAboveFooter,
+                        detailsScreenAds = eventAdOnDetailsScreen
+                    )
+
                 }
                 is Resource.Error -> {
                     mainActivityBinding?.progressBar?.visibility = View.GONE

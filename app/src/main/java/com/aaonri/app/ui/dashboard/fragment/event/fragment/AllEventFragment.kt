@@ -47,10 +47,9 @@ class AllEventFragment : Fragment() {
             recyclerViewEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewEvent.adapter = allEventAdapter
 
-            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
+            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBannerAds()
 
-            adsGenericAdapter2?.items =
-                ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
+            adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getEventBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
             topAdvertiseRv.layoutManager =

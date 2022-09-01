@@ -56,10 +56,9 @@ class AllClassifiedFragment : Fragment() {
             topAdvertiseRv.isNestedScrollingEnabled = false
             bottomAdvertiseRv.isNestedScrollingEnabled = false
 
-            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBanner()
+            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getClassifiedTopBannerAds()
 
-            adsGenericAdapter2?.items =
-                ActiveAdvertiseStaticData.getClassifiedJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getClassifiedJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getClassifiedJustAboveFooterTextOnly()
+            adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getClassifiedBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
             topAdvertiseRv.layoutManager =

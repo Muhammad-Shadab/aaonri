@@ -44,10 +44,9 @@ class RecentEventFragment : Fragment() {
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewMyEvent.adapter = recentAdapter
 
-            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBanner()
+            adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBannerAds()
 
-            adsGenericAdapter2?.items =
-                ActiveAdvertiseStaticData.getEventJustAboveFooterImageOnly() + ActiveAdvertiseStaticData.getEventJustAboveBottomTabBOTH() + ActiveAdvertiseStaticData.getEventJustAboveFooterTextOnly()
+            adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getEventBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
             topAdvertiseRv.layoutManager =
