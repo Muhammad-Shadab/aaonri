@@ -308,7 +308,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_popular_items
                         )
                     )
                 }
@@ -317,7 +317,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_below_first_section
                         )
                     )
                 }
@@ -326,7 +326,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_popular_items
                         )
                     )
                 }
@@ -335,7 +335,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_popular_items
                         )
                     )
                 }
@@ -344,7 +344,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_below_first_section
                         )
                     )
                 }
@@ -354,7 +354,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_bottom
                         )
                     )
                 }
@@ -363,7 +363,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_bottom
                         )
                     )
                 }
@@ -372,7 +372,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_just_above_bottom
                         )
                     )
                 }
@@ -381,7 +381,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_classified_top_listing
                         )
                     )
                 }
@@ -390,7 +390,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_event_bottom_listing
                         )
                     )
                 }
@@ -399,10 +399,206 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.detail_page_ads
+                            R.drawable.ads_event_bottom_listing
                         )
                     )
                 }
+                "LPEMS" -> {
+                    //Events LHS of Main Section
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPETB" -> {
+                    //Events Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_header_top_slider
+                        )
+                    )
+                }
+                "LPIAFI" -> {
+                    //Immigration Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPIAFT" -> {
+                    //Immigration Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPIMS" -> {
+                    //Immigration LHS of Main Section
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPITB" -> {
+                    //Immigration Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_header_top_slider
+                        )
+                    )
+                }
+                "LPJAFI" -> {
+                    //Jobs Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPJAFT" -> {
+                    //Jobs Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPJMS" -> {
+                    //Jobs LHS of Main Section
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "LPJTB" -> {
+                    //Jobs Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_header_top_slider
+                        )
+                    )
+                }
+                //page 4
+                "PDCABH" -> {
+                    //Classifieds Above Browsing History
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_just_above_bottom
+                        )
+                    )
+                }
+                "PDCAFI" -> {
+                    //Classifieds Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_just_above_bottom
+                        )
+                    )
+                }
+                "PDCAFT" -> {
+                    //Classifieds Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_just_above_bottom
+                        )
+                    )
+                }
+                "PDCTB" -> {
+                    //Classifieds Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_just_above_bottom
+                        )
+                    )
+                }
+                "PDEAFI" -> {
+                    //Events Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDEAFT" -> {
+                    //Events Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDETB" -> {
+                    //Events Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDJAFI" -> {
+                    //Jobs Just Above Footer Image Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDJAFT" -> {
+                    //Jobs Just Above Footer Text Only
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDJMS" -> {
+                    //Jobs LHS of Main Section
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+                "PDJTB" -> {
+                    //Jobs Top Banner
+                    mobileTemplateImageView.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                }
+
+
+
+
+
+
                 else -> {
                     //Classifieds Top Banner
                     mobileTemplateImageView.setImageDrawable(
