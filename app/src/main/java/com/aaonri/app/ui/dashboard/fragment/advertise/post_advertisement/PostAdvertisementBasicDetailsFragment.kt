@@ -409,7 +409,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
     private fun enableDisableBtn() {
         if (isBoth) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
+            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.white))
             if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
                     if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
@@ -437,7 +438,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
         } else if (isTextOnly) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
+            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.white))
 
             if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
                 if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
@@ -458,7 +460,8 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
             openPreview = false
         } else if (isImageOnly) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.graycolor))
+            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.graycolor))
             if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
                     advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =

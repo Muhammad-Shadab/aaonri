@@ -623,7 +623,6 @@ class HomeScreenFragment : Fragment() {
     private fun callApiAccordingToInterest(
         interests: String? = "",
     ) {
-        Toast.makeText(context, interests, Toast.LENGTH_SHORT).show()
         if (interests?.isNotEmpty() == true) {
             if (interests == "27") {
                 //Advertise With Us

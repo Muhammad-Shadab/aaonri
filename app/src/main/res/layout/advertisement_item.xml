@@ -27,6 +27,7 @@
                 android:id="@+id/advertisemntImage"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
+                android:background="#ebebeb"
                 android:src="@drawable/ic_image_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
