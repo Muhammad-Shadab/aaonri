@@ -404,7 +404,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         }
 
 
-
         return advertiseBinding?.root
     }
 

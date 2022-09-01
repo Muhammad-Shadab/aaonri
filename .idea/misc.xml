@@ -22,6 +22,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
       </map>
     </option>
