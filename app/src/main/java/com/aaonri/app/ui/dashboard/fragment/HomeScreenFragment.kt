@@ -65,7 +65,7 @@ class HomeScreenFragment : Fragment() {
     var userInterestedService = ""
     var guestUser = false
     var homeClassifiedWithAdList = mutableListOf<Any>()
-    var homeEventWithAdList = mutableListOf<Any>()
+    //var homeEventWithAdList = mutableListOf<Any>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -341,12 +341,14 @@ class HomeScreenFragment : Fragment() {
                     homeScreenBinding?.progressBar?.visibility = View.GONE
 
                     if (response.data?.userEvent?.isNotEmpty() == true) {
-                        /*if (response.data.userEvent.size >= 4) {
+                        if (response.data.userEvent.size >= 4) {
+                            genericAdapterForEvent?.items = response.data.userEvent.subList(0, 4)
                             //homeEventAdapter?.setData(response.data.userEvent.subList(0, 4))
                         } else {
+                            genericAdapterForEvent?.items = response.data.userEvent
                             //homeEventAdapter?.setData(response.data.userEvent)
-                        }*/
-                        homeEventWithAdList = response.data.userEvent.subList(0, 4).toMutableList()
+                        }
+                        //homeEventWithAdList = response.data.userEvent.subList(0, 4).toMutableList()
                     }
                 }
                 is Resource.Error -> {
@@ -470,14 +472,14 @@ class HomeScreenFragment : Fragment() {
             genericAdapterForClassified?.items = homeClassifiedWithAdList
         }
 
-        homeViewModel.homeEventInlineAds.observe(viewLifecycleOwner) {
+        /*homeViewModel.homeEventInlineAds.observe(viewLifecycleOwner) {
             if (homeEventWithAdList.size >= 4) {
                 homeEventWithAdList.add(index = 2, it)
             } else {
                 homeEventWithAdList.add(it)
             }
             genericAdapterForEvent?.items = homeEventWithAdList
-        }
+        }*/
 
         homeViewModel.adsBelowFirstSection.observe(viewLifecycleOwner) {
             adsGenericAdapter1?.items = it
@@ -662,7 +664,7 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
-            } else if (interests.startsWith("4")){
+            } else if (interests.startsWith("4")) {
                 //Astrology
                 priorityService = "Astrology"
                 homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
