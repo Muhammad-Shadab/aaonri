@@ -635,7 +635,7 @@ class HomeScreenFragment : Fragment() {
             } else if (interests.contains("2")) {
                 //Classifieds
                 priorityService = "Classifieds"
-                //setHomeClassifiedData()
+                setHomeClassifiedData()
             } else if (interests.contains("8")) {
                 //Events
                 priorityService = "Events"
