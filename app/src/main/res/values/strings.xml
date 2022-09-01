@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">aaonri</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="BASE_URL" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_to_explore">LOGIN TO EXPLORE ALL SERVICE\n OFFERINGS BY AAONRI</string>
     <string name="register_now">REGISTER NOW</string>
@@ -106,9 +105,12 @@
     <string name="shop_with_us">Shop\nWith Us</string>
     //for gmail and facebook login
     <string name="gmail_client_id">407216562924-651q4nf7ui96veen3q67utfdnfehi04a.apps.googleusercontent.com</string>
-    <string name="facebook_app_id">2100091233496499</string>
+    <!--<string name="facebook_app_id">2100091233496499</string>
     <string name="fb_login_protocol_scheme">fb2100091233496499</string>
-    <string name="facebook_client_token">220973957b83fc29de946ed796627cf5</string>
+    <string name="facebook_client_token">220973957b83fc29de946ed796627cf5</string>-->
+    <string name="facebook_app_id">1277490215989331</string>
+    <string name="fb_login_protocol_scheme">fb1277490215989331</string>
+    <string name="facebook_client_token">5e298f34b642d510ca6eca222d970924</string>
     <string name="login_to_view_seller_information">Login to view Seller Information</string>
     <string name="login_to_view_Advertisement">Login to explore Advertisement</string>
     <string name="tap_now"><u>Tap Now</u></string>

@@ -1,19 +1,12 @@
 package com.aaonri.app.ui.authentication.login
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -37,15 +30,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.util.ClientLibraryUtils.getPackageInfo
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 
 @AndroidEntryPoint
@@ -383,6 +373,8 @@ class LoginFragment : Fragment() {
 
         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
+
+            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
             introBinding?.progressBarCommunityBottom?.visibility = View.GONE
@@ -421,9 +413,6 @@ class LoginFragment : Fragment() {
             /*val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             activity?.finish()*/
-        }.addOnFailureListener {
-            Toast.makeText(context, "something went wrong", Toast.LENGTH_SHORT).show()
-            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
         }
 
         /*   Log.d(TAG, "handleFacebookAccessToken:$accessToken")

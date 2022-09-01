@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -60,6 +61,9 @@ class UploadClassifiedPicFragment : Fragment() {
         /*postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
         }*/
+
+        Toast.makeText(context, "${postClassifiedViewModel.listOfImagesUri.size}", Toast.LENGTH_SHORT)
+            .show()
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 

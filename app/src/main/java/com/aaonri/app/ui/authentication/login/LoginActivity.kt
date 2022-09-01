@@ -22,7 +22,7 @@ class LoginActivity : BaseActivity() {
         setContentView(authBinding?.root)
 
 
-        printKeyHash()
+        //printKeyHash()
         // hiding the status bar and making it transparent
         supportActionBar?.hide()
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -34,7 +34,7 @@ class LoginActivity : BaseActivity() {
     private fun printKeyHash() {
         try {
             val info =
-                packageManager.getPackageInfo("com.aaonri.app", PackageManager.GET_SIGNATURES)
+                packageManager.getPackageInfo("com.aaonri.app.dev", PackageManager.GET_SIGNATURES)
             for (signature in info.signatures) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
@@ -44,7 +44,6 @@ class LoginActivity : BaseActivity() {
         } catch (e: Exception) {
             Log.i("printKeyHash", "printKeyHash: ${e.message}")
         }
-
     }
 
 

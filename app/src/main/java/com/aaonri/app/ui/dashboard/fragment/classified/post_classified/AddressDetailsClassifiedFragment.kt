@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -121,6 +120,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
             override fun onClick(textView: View) {
 //                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
             }
+
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -135,6 +135,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 //                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
 
             }
+
             @RequiresApi(Build.VERSION_CODES.Q)
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -348,13 +349,13 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
-                       /* postClassifiedViewModel.imageIdGoindToRemove.forEach {
-                            callUploadClassifiedPicApi(
-                                "".toUri(),
-                                response.data?.id,
-                                response.data?.id
-                            )
-                        }*/
+                        /* postClassifiedViewModel.imageIdGoindToRemove.forEach {
+                             callUploadClassifiedPicApi(
+                                 "".toUri(),
+                                 response.data?.id,
+                                 response.data?.id
+                             )
+                         }*/
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 if (!it.toString().startsWith("htt")) {
@@ -444,7 +445,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         return addressDetailsBinding?.root
     }
 
-    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
+    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, deleteId: Int?) {
 
         val file = File(uri.toString().replace("file:", ""))
 
