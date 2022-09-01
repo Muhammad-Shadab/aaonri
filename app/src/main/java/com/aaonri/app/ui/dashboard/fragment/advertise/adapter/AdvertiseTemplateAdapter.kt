@@ -217,7 +217,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.home_classified_section_inline
+                            R.drawable.ads_below_first_section
                         )
                     )
                 }
@@ -226,7 +226,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.event_section_inline
+                            R.drawable.ads_just_above_popular_items
                         )
                     )
                 }
@@ -285,7 +285,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     )
                 }
                 "HPIIA" -> {
-                    //Home Page Just Above Footer Text Only
+                    //Immigration  Section Inline
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
@@ -298,7 +298,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.event_job_section_inline
+                            R.drawable.ads_just_above_popular_items
                         )
                     )
                 }
