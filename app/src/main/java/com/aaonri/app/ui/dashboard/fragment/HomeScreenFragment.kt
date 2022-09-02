@@ -573,7 +573,9 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
             } else if (interests.startsWith("3") || interests == "Immigration") {
                 //Immigration
-
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationScreenFragment()
+                findNavController().navigate(action)
             } else if (interests.startsWith("17") || interests == "Jobs") {
                 //Jobs
 

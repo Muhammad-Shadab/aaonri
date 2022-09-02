@@ -364,8 +364,6 @@ class LoginFragment : Fragment() {
                     Toast.makeText(context, "${error.message}", Toast.LENGTH_SHORT).show()
                     introBinding?.progressBarCommunityBottom?.visibility = View.GONE
                 }
-
-
             })
     }
 

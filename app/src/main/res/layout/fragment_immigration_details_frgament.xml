@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFrgament">
+    tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment">
 
 
     <androidx.cardview.widget.CardView

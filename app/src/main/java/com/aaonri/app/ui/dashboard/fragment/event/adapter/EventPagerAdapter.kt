@@ -19,5 +19,4 @@ class EventPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             else -> { throw Resources.NotFoundException("Position not found")}
         }
     }
-
 }

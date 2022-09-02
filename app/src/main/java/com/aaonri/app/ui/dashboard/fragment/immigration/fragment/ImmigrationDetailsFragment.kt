@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.immigration.tabs
+package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import com.aaonri.app.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InformationCenterImmigrationFragment : Fragment() {
+class ImmigrationDetailsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_information_center_immigration, container, false)
+
+        return inflater.inflate(R.layout.fragment_immigration_details_frgament, container, false)
     }
 }

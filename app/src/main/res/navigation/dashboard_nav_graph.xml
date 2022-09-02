@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/immigrationScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_advertisementDetailsFragment"
             app:destination="@id/advertisementDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_immigrationScreenFragment"
+            app:destination="@id/immigrationScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -207,4 +210,18 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckoutFragment"
         android:label="fragment_post_advertise_checkout"
         tools:layout="@layout/fragment_post_advertise_checkout" />
+    <fragment
+        android:id="@+id/immigrationScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationScreenFragment"
+        android:label="fragment_immigartion_screen_frgament"
+        tools:layout="@layout/fragment_immigartion_screen_frgament" >
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationCategoryBottomSheet"
+            app:destination="@id/immigrationCategoryBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/immigrationCategoryBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationCategoryBottomSheet"
+        android:label="fragment_immigration_category_bottom_sheet"
+        tools:layout="@layout/fragment_immigration_category_bottom_sheet" />
 </navigation>
