@@ -77,7 +77,6 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                 classifiedPostDateTv.text = "Posted On: $month-$day-$year"
                 root.setOnClickListener {
                     itemClickListenerClassified?.invoke(it, userAds, adapterPosition)
-
                 }
             }
         }

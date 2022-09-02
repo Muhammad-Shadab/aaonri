@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.immigration.ImmigrationStaticData
+import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigartionScreenFrgamentBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ImmigrationScreenFragment : Fragment() {
     var binding: FragmentImmigartionScreenFrgamentBinding? = null
+    val immigrationViewModel: ImmigrationViewModel by activityViewModels()
 
     private val tabTitles =
         arrayListOf("All Discussions", "My Discussions", "My Discussions")
@@ -57,8 +63,36 @@ class ImmigrationScreenFragment : Fragment() {
                 immigrationScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }
-
         }
+
+        immigrationViewModel.getDiscussionCategory()
+
+        immigrationViewModel.allDiscussionCategoryIsClicked.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet()
+                findNavController().navigate(action)
+                immigrationViewModel.setOnAllDiscussionCategoryIsClicked(false)
+            }
+        }
+
+        immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.get(0)
+                        ?.let { immigrationViewModel.setSelectedAllDiscussionCategory(it) }
+
+                    response.data?.let { ImmigrationStaticData.setImmigrationCategoryData(it) }
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
+
 
 
         return binding?.root

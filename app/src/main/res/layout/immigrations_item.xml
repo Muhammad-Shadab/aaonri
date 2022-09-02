@@ -52,20 +52,22 @@
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/messageTv"
+                        android:id="@+id/discussionDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:ellipsize="end"
                         android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
-                        android:text="How long can you stay in the US with a B1 B2 visa? Can B1 B2 visa holders apply for a green card?"
+                        android:maxLines="2"
+                        android:text="discussion Desc"
                         android:textColor="@color/immigaration_text_color"
                         android:textSize="10sp" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/noOfCahtTv"
+                    android:id="@+id/noOfReply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/inner_radius_shadow"

@@ -24,7 +24,6 @@ class ClassifiedGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
     var itemClickListener: ((view: View, item: UserAds, position: Int) -> Unit)? =
         null
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeScreenViewHolders {
         return when (viewType) {
             R.layout.classified_card_items -> {

@@ -137,11 +137,9 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }*/
 
-        immigrationAdapter = ImmigrationAdapter {
+        immigrationAdapter = ImmigrationAdapter()
 
-        }
-
-        immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+        //immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
         homeInterestsServiceAdapter =
