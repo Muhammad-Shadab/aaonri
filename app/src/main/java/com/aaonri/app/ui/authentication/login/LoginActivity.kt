@@ -22,7 +22,7 @@ class LoginActivity : BaseActivity() {
         setContentView(authBinding?.root)
 
 
-        //printKeyHash()
+        printKeyHash()
         // hiding the status bar and making it transparent
         supportActionBar?.hide()
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
