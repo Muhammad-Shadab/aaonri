@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/advertisement_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
+        <entry key="app/src/main/res/layout/fragment_all_classified.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_all_immigration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_event_details.xml" value="0.3692708333333333" />
@@ -31,13 +32,14 @@
         <entry key="app/src/main/res/layout/fragment_immigartion_screen_frgament.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_immigration_category_bottom_sheet.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_my_event.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
-        <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
       </map>
     </option>
   </component>

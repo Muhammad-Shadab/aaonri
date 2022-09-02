@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
@@ -29,7 +30,9 @@ class AllImmigrationFragment : Fragment() {
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
+            if (item is Discussion) {
 
+            }
         }
 
         binding?.apply {

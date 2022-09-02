@@ -26,7 +26,7 @@ class ImmigrationScreenFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
 
     private val tabTitles =
-        arrayListOf("All Discussions", "My Discussions", "My Discussions")
+        arrayListOf("All Discussions", "My Discussions", "Information center")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +73,15 @@ class ImmigrationScreenFragment : Fragment() {
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet()
                 findNavController().navigate(action)
                 immigrationViewModel.setOnAllDiscussionCategoryIsClicked(false)
+            }
+        }
+
+        immigrationViewModel.myDiscussionCategoryIsClicked.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet()
+                findNavController().navigate(action)
+                immigrationViewModel.setOnMyDiscussionCategoryIsClicked(false)
             }
         }
 

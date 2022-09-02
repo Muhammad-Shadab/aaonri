@@ -26,7 +26,12 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val allDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    val myDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
+
     val selectedAllDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
+        MutableLiveData()
+
+    val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
@@ -69,8 +74,16 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         allDiscussionCategoryIsClicked.postValue(value)
     }
 
+    fun setOnMyDiscussionCategoryIsClicked(value: Boolean) {
+        myDiscussionCategoryIsClicked.postValue(value)
+    }
+
     fun setSelectedAllDiscussionCategory(value: DiscussionCategoryResponseItem) {
         selectedAllDiscussionScreenCategory.postValue(value)
+    }
+
+    fun setSelectedMyDiscussionScreenCategory(value: DiscussionCategoryResponseItem) {
+        selectedMyDiscussionScreenCategory.postValue(value)
     }
 
 }

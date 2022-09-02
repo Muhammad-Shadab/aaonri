@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
+import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
+import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
+import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

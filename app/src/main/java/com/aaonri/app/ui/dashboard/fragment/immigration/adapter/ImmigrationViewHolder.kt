@@ -33,8 +33,17 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             binding.apply {
                 discussionNameTv.text = discussion.discussionTopic
                 discussionDesc.text = discussion.discussionDesc
-                postedByTv.text = "Posted by: ${discussion.createdBy}"
+                postedByTv.text = "Posted by: ${discussion.createdBy}, ${discussion.createdOn}"
                 noOfReply.text = discussion.noOfReplies.toString()
+                if (discussion.latestReply != null) {
+                    latestReply.visibility = View.VISIBLE
+                    latestReply.text =
+                        "Last reply: ${discussion.latestReply.createdByName} ${discussion.latestReply.createdDate}"
+                }
+
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, discussion, adapterPosition)
+                }
             }
         }
     }
