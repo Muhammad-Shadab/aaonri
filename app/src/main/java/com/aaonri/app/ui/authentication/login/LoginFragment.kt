@@ -85,7 +85,8 @@ class LoginFragment : Fragment() {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 if (userEmail.isNotEmpty() && loginPasswordEt?.toString()
-                        ?.trim()?.isNotEmpty() == true && isEmailValid && isPasswordValid
+                        ?.trim()?.isNotEmpty() == true
+                    && isEmailValid && isPasswordValid
                 ) {
                     registrationViewModel.loginUser(
                         Login(
