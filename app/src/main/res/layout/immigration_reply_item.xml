@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_8sdp"
@@ -77,22 +76,23 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/_1sdp"
                 android:src="@drawable/replysolid" />
-
-
         </LinearLayout>
 
-        <TextView
+        <com.borjabravo.readmoretextview.ReadMoreTextView
             android:id="@+id/userReplyDescTv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/sf_pro_regular"
-            android:includeFontPadding="false"
             android:paddingHorizontal="@dimen/_16sdp"
-            android:text="Sed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+            android:text="ed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
             android:textColor="#333333"
             android:textSize="12sp"
-            tools:ignore="MissingConstraints" />
+            app:colorClickableText="#2f6ca8"
+            app:trimCollapsedText="@string/see_more"
+            app:trimExpandedText="@string/see_less"
+            app:trimLines="3"
+            app:trimMode="trimModeLine" />
 
         <View
             android:layout_width="match_parent"
@@ -128,7 +128,6 @@
                 android:text="297"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toRightOf="@+id/totalVisiting"
-
                 app:layout_constraintRight_toLeftOf="@+id/likeTv"
                 app:layout_constraintTop_toTopOf="@+id/totalVisiting" />
 

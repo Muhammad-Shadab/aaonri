@@ -152,5 +152,8 @@ dependencies {
     // for zoomIn and  zoomOut Image
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
+    // expandable text view
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
+
 
 }
