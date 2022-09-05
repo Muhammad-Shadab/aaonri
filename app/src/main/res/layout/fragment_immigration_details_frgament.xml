@@ -6,49 +6,42 @@
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment">
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_20sdp"
+    <androidx.cardview.widget.CardView
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        >
+        android:layout_width="match_parent"
+        app:cardElevation="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white">
         <LinearLayout
-            android:background="@drawable/comment_edittext_shape"
+            android:background="@drawable/edit_text_shape_1"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
-            android:layout_marginRight="@dimen/_16sdp"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/_16sdp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
             android:orientation="horizontal">
             <EditText
                 android:layout_weight="1"
-                android:id="@+id/commentTextET"
+                android:background="@drawable/flag_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sf_pro_regular"
                 android:hint="Add Comment"
-                android:background="#0000000"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_13sdp"
-                 android:paddingHorizontal="@dimen/_17sdp"
-                android:paddingBottom="@dimen/_13sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="11sp" />
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_13sdp"
+                android:gravity="center_vertical"/>
             <ImageView
-                android:id="@+id/sendCommentBtn"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/send_green_shape"
-                android:padding="@dimen/_13sdp"
-                android:src="@drawable/send_icon"/>
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="match_parent"
+                android:paddingVertical="@dimen/_10sdp"
+                android:paddingHorizontal="@dimen/_7sdp"
+                android:src="@drawable/send_icon"
+                android:background="@drawable/send_btn_shape"
+
+                android:backgroundTint="@color/greenBtnColor"/>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <androidx.cardview.widget.CardView
+    </androidx.cardview.widget.CardView>    <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
