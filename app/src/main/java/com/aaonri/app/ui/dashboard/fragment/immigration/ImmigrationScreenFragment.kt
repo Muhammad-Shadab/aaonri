@@ -73,8 +73,12 @@ class ImmigrationScreenFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.get(0)
                         ?.let {
-                            immigrationViewModel.setSelectedAllDiscussionCategory(it)
-                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(it)
+                            /** setting for both category for index 0 for only once **/
+                            if (immigrationViewModel.setCategoryForFirstIndexForOnce) {
+                                immigrationViewModel.setSelectedAllDiscussionCategory(it)
+                                immigrationViewModel.setSelectedMyDiscussionScreenCategory(it)
+                                immigrationViewModel.setCategoryFirstIndexForOnce(false)
+                            }
                         }
 
                     response.data?.let { ImmigrationStaticData.setImmigrationCategoryData(it) }

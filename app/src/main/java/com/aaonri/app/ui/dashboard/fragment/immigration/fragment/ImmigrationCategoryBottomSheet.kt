@@ -9,9 +9,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,13 +36,32 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
         binding =
             FragmentImmigrationCategoryBottomSheetBinding.inflate(layoutInflater, container, false)
 
+        val userId =
+            context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
+
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
             if (item is DiscussionCategoryResponseItem) {
                 if (args.isFromAllImiigratonScreen) {
+                    /*immigrationViewModel.getAllImmigrationDiscussion(
+                        GetAllImmigrationRequest(
+                            categoryId = "${item.discCatId}",
+                            createdById = "",
+                            keywords =
+                            ""
+                        )
+                    )*/
                     immigrationViewModel.setSelectedAllDiscussionCategory(item)
                 } else {
+                    /*immigrationViewModel.getMyImmigrationDiscussion(
+                        GetAllImmigrationRequest(
+                            categoryId = "${item.discCatId}",
+                            createdById = userId.toString(),
+                            keywords =
+                            ""
+                        )
+                    )*/
                     immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
                 }
                 dismiss()

@@ -41,6 +41,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val discussionDetailsData: MutableLiveData<Resource<DiscussionDetailsResponse>> =
         MutableLiveData()
 
+    var setCategoryForFirstIndexForOnce = true
+        private set
+
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionCategory()
@@ -126,6 +129,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun setCategoryFirstIndexForOnce(value: Boolean) {
+        setCategoryForFirstIndexForOnce = value
     }
 
 }
