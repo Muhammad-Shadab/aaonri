@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
 import com.aaonri.app.databinding.CategoryCardItemBinding
+import com.aaonri.app.databinding.ImmigrationReplyItemBinding
 import com.aaonri.app.databinding.ImmigrationsItemBinding
 
 class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
@@ -37,6 +40,15 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     )
                 )
             }
+            R.layout.immigration_reply_item -> {
+                ImmigrationViewHolder.ImmigrationDetailScreenViewHolder(
+                    ImmigrationReplyItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
             else -> throw IllegalArgumentException("Invalid ViewType")
         }
     }
@@ -54,6 +66,11 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     holder.bind(data[position] as Discussion)
                 }
             }
+            is ImmigrationViewHolder.ImmigrationDetailScreenViewHolder -> {
+                if (data[position] is DiscussionDetailsResponseItem) {
+                    holder.bind(data[position] as DiscussionDetailsResponseItem)
+                }
+            }
         }
     }
 
@@ -63,12 +80,14 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
         return when (data[position]) {
             is DiscussionCategoryResponseItem -> R.layout.category_card_item
             is Discussion -> R.layout.immigrations_item
+            is DiscussionDetailsResponseItem -> R.layout.immigration_reply_item
             else -> {
                 R.layout.category_card_item
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Any>) {
         this.data = data
         notifyDataSetChanged()

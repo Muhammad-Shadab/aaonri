@@ -39,7 +39,7 @@ class MyEventFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[EventConstants.SEARCH_KEYWORD_FILTER, ""] }
 
         allEventAdapter = AllEventAdapter {
-            postEventViewModel.setSendDataToClassifiedDetailsScreen(it.id)
+            postEventViewModel.setSendDataToEventDetailsScreen(it.id)
             postEventViewModel.setNavigateToEventDetailScreen(value = true)
         }
 

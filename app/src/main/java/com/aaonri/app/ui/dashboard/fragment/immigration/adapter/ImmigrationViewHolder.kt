@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
 import com.aaonri.app.databinding.CategoryCardItemBinding
+import com.aaonri.app.databinding.ImmigrationReplyItemBinding
 import com.aaonri.app.databinding.ImmigrationsItemBinding
 
 sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -43,6 +45,20 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
                 root.setOnClickListener {
                     itemClickListener?.invoke(it, discussion, adapterPosition)
+                }
+            }
+        }
+    }
+
+    class ImmigrationDetailScreenViewHolder(private val binding: ImmigrationReplyItemBinding) :
+        ImmigrationViewHolder(binding) {
+        fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
+            binding.apply {
+                discussionUserReplyTv.text = discussionDetailsResponseItem.userFullName
+                userReplyDate.text = discussionDetailsResponseItem.createdOn
+                userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, discussionDetailsResponseItem, adapterPosition)
                 }
             }
         }

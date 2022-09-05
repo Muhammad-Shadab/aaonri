@@ -3,10 +3,7 @@ package com.aaonri.app.data.immigration.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponse
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.GetAllDiscussionResponse
-import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
+import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.data.immigration.repository.ImmigrationRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,7 +31,14 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val selectedAllDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
+    val selectedDiscussionItem: MutableLiveData<Discussion> = MutableLiveData()
+
+    val navigateToImmigrationDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
+
     val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
+        MutableLiveData()
+
+    val discussionDetailsData: MutableLiveData<Resource<DiscussionDetailsResponse>> =
         MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
@@ -99,6 +103,29 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setSelectedMyDiscussionScreenCategory(value: DiscussionCategoryResponseItem) {
         selectedMyDiscussionScreenCategory.postValue(value)
+    }
+
+    fun setSelectedDiscussionItem(value: Discussion) {
+        selectedDiscussionItem.postValue(value)
+    }
+
+    fun setNavigateToImmigrationDetailScreen(value: Boolean) {
+        navigateToImmigrationDetailScreen.postValue(value)
+    }
+
+    fun getDiscussionDetailsById(discussionId: String) = viewModelScope.launch {
+        discussionDetailsData.postValue(Resource.Loading())
+        val response = immigrationRepository.getDiscussionDetailsById(discussionId)
+        discussionDetailsData.postValue(handleDiscussionDetailsResponse(response))
+    }
+
+    private fun handleDiscussionDetailsResponse(response: Response<DiscussionDetailsResponse>): Resource<DiscussionDetailsResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

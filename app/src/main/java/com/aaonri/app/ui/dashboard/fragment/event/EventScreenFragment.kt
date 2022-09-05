@@ -317,7 +317,7 @@ class EventScreenFragment : Fragment() {
             }
         }
 
-        postEventViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
+        postEventViewModel.sendDataToEventDetailsScreen.observe(viewLifecycleOwner) {
             if (postEventViewModel.navigateToEventDetailScreen) {
                 val action =
                     EventScreenFragmentDirections.actionEventScreenFragmentToEventDetailsScreenFragment(

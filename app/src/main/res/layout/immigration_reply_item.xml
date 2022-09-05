@@ -1,128 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_6sdp"
-    app:cardBackgroundColor="#f2f0f0"
     android:layout_marginTop="@dimen/_8sdp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/_6sdp"
-    android:layout_height="wrap_content">
-<LinearLayout
-    android:id="@+id/mainll"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/_16sdp"
-    >
-    <ImageView
+    app:cardBackgroundColor="#f2f0f0"
+    app:cardCornerRadius="@dimen/_6sdp">
 
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:padding="@dimen/_1sdp"
-        android:src="@drawable/profile_pic_placeholder" />
-     <LinearLayout
-         android:layout_weight="1"
-         android:layout_width="match_parent"
-         android:orientation="vertical"
-         android:layout_marginLeft="@dimen/_6sdp"
-         android:layout_height="wrap_content">
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:fontFamily="@font/sf_pro_semi_bold"
-             android:text="B1 B2 Visa Discussion"
-             android:includeFontPadding="false"
-             android:textColor="@color/black"
-             android:textSize="13sp" />
-         <TextView
-             android:layout_marginTop="3dp"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:fontFamily="@font/sf_pro_light_italic"
-             android:text="Mar 09,2022"
-             android:includeFontPadding="false"
-             android:textColor="@color/black"
-             android:textSize="13sp" />
-
-
-     </LinearLayout>
-
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/profilePicIv"
-        android:layout_width="@dimen/_16sdp"
-        android:layout_height="@dimen/_16sdp"
-        android:padding="@dimen/_1sdp"
-        android:src="@drawable/replysolid" />
-</LinearLayout>
-    <TextView
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:id="@+id/replyTextTv"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_regular"
-        android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        android:includeFontPadding="false"
-        android:textColor="#333333"
-        android:textSize="12sp"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginTop="@dimen/_6sdp"
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#c4c3c3"
-        android:layout_marginTop="@dimen/_24sdp"
-        />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:paddingVertical="@dimen/_4sdp"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/totalVisiting"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/mainll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:drawableLeft="@drawable/user_icon"
-            android:drawablePadding="@dimen/_2sdp"
-            android:gravity="center_vertical"
-            android:text="297"
-            android:textSize="12sp" />
-        <TextView
-            android:id="@+id/totalShareTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gray_btn"
-            app:layout_constraintLeft_toRightOf="@+id/totalVisiting"
-            app:layout_constraintTop_toTopOf="@+id/totalVisiting"
-            app:layout_constraintRight_toLeftOf="@+id/likeTv"
-            android:drawableLeft="@drawable/replyholo"
-            android:drawablePadding="@dimen/_2sdp"
-
-            android:text="297"
-            android:textSize="12sp" />
-        <TextView
-            android:id="@+id/likeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gray_btn"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:drawableLeft="@drawable/like"
-            android:drawablePadding="@dimen/_2sdp"
-            android:text="297"
-            android:textSize="12sp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/profile_pic_placeholder" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/discussionUserReplyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:includeFontPadding="false"
+                    android:text="B1 B2 Visa Discussion"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/userReplyDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sf_pro_light_italic"
+                    android:includeFontPadding="false"
+                    android:text="Mar 09,2022"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/deleteComment"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/ic_recycle_bin"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/profilePicIv"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/replysolid" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/userReplyDescTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="Sed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="#c4c3c3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_6sdp">
+
+            <TextView
+                android:id="@+id/totalVisiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/user_icon"
+                android:drawablePadding="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/totalShareTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_btn"
+                android:drawableLeft="@drawable/replyholo"
+                android:drawablePadding="@dimen/_2sdp"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toRightOf="@+id/totalVisiting"
+
+                app:layout_constraintRight_toLeftOf="@+id/likeTv"
+                app:layout_constraintTop_toTopOf="@+id/totalVisiting" />
+
+            <TextView
+                android:id="@+id/likeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_btn"
+                android:drawableLeft="@drawable/like"
+                android:drawablePadding="@dimen/_2sdp"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

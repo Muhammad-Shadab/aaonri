@@ -200,6 +200,7 @@ class LoginFragment : Fragment() {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }
+
                         if (response.data?.massage?.isBlank() == true) {
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)

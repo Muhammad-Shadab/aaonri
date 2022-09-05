@@ -218,6 +218,9 @@
         <action
             android:id="@+id/action_immigrationScreenFragment_to_immigrationCategoryBottomSheet"
             app:destination="@id/immigrationCategoryBottomSheet" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationDetailsFragment"
+            app:destination="@id/immigrationDetailsFragment" />
     </fragment>
     <dialog
         android:id="@+id/immigrationCategoryBottomSheet"
@@ -228,4 +231,9 @@
             android:name="isFromAllImiigratonScreen"
             app:argType="boolean" />
     </dialog>
+    <fragment
+        android:id="@+id/immigrationDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment"
+        android:label="fragment_immigration_details_frgament"
+        tools:layout="@layout/fragment_immigration_details_frgament" />
 </navigation>

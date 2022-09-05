@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentMyDiscussionImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,10 +33,16 @@ class MyDiscussionImmigrationFragment : Fragment() {
             false
         )
 
+        val userId =
+            context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
+
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
-
+            if (item is Discussion) {
+                immigrationViewModel.setNavigateToImmigrationDetailScreen(true)
+                immigrationViewModel.setSelectedDiscussionItem(item)
+            }
         }
 
         binding?.apply {
@@ -52,7 +61,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
             immigrationViewModel.getMyImmigrationDiscussion(
                 GetAllImmigrationRequest(
                     categoryId = "${it.discCatId}",
-                    createdById = "",
+                    createdById = userId.toString(),
                     keywords =
                     ""
                 )

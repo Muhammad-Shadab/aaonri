@@ -31,7 +31,8 @@ class AllImmigrationFragment : Fragment() {
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
             if (item is Discussion) {
-
+                immigrationViewModel.setNavigateToImmigrationDetailScreen(true)
+                immigrationViewModel.setSelectedDiscussionItem(item)
             }
         }
 
@@ -70,7 +71,6 @@ class AllImmigrationFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
-
                 }
             }
         }

@@ -65,7 +65,34 @@ class ImmigrationScreenFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.getDiscussionCategory()
+        immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.get(0)
+                        ?.let {
+                            immigrationViewModel.setSelectedAllDiscussionCategory(it)
+                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(it)
+                        }
+
+                    response.data?.let { ImmigrationStaticData.setImmigrationCategoryData(it) }
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
+
+        immigrationViewModel.navigateToImmigrationDetailScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment()
+                findNavController().navigate(action)
+                immigrationViewModel.setNavigateToImmigrationDetailScreen(false)
+            }
+        }
 
         immigrationViewModel.allDiscussionCategoryIsClicked.observe(viewLifecycleOwner) {
             if (it) {
@@ -89,25 +116,6 @@ class ImmigrationScreenFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    response.data?.get(0)
-                        ?.let {
-                            immigrationViewModel.setSelectedAllDiscussionCategory(it)
-                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(it)
-                        }
-
-                    response.data?.let { ImmigrationStaticData.setImmigrationCategoryData(it) }
-                }
-                is Resource.Error -> {
-
-                }
-            }
-        }
 
 
 

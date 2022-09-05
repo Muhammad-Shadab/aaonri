@@ -7,6 +7,10 @@ import javax.inject.Inject
 class ImmigrationRepository @Inject constructor(private val immigrationApi: ImmigrationApi) {
 
     suspend fun getDiscussionCategory() = immigrationApi.getDiscussionCategory()
+
+    suspend fun getDiscussionDetailsById(discussionId: String) =
+        immigrationApi.getDiscussionDetailsById(discussionId)
+
     suspend fun getAllImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
         immigrationApi.getAllImmigrationDiscussion(getAllImmigrationRequest)
 

@@ -22,6 +22,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
+import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
@@ -42,6 +43,7 @@ class MainActivity : BaseActivity() {
     val eventViewModel: EventViewModel by viewModels()
     val advertiseViewModel: AdvertiseViewModel by viewModels()
     val mainViewModel: MainViewModel by viewModels()
+    val immigrationViewModel: ImmigrationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +77,7 @@ class MainActivity : BaseActivity() {
             ?.set("selectedHomeServiceRow", -1)
 
         mainViewModel.getAllActiveAdvertise()
+        immigrationViewModel.getDiscussionCategory()
 
         mainActivityBinding?.apply {
 
@@ -242,7 +245,8 @@ class MainActivity : BaseActivity() {
                         /*if (data.advertisementPageLocation.locationId == 2) {
                             homeViewModel.setHomeClassifiedInlineAds(data)
                         }
-                        *//** one ad for event **//*
+                        */
+                        /** one ad for event **//*
                         if (data.advertisementPageLocation.locationId == 3) {
                             homeViewModel.setHomeEventInlineAds(data)
                         }*/
@@ -365,6 +369,10 @@ class MainActivity : BaseActivity() {
 
                     response.data?.interests?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_INTERESTED_SERVICES] =
+                            it
+                    }
+                    response.data?.userId?.let {
+                        PreferenceManager<Int>(applicationContext)[Constant.USER_ID] =
                             it
                     }
                     response.data?.city?.let {
