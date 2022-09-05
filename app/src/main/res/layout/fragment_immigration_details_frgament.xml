@@ -26,22 +26,23 @@
                 android:layout_weight="1"
                 android:background="@drawable/flag_transparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Add Comment"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:paddingVertical="@dimen/_13sdp"
                 android:gravity="center_vertical"/>
             <ImageView
                 android:layout_width="@dimen/_42sdp"
-                android:layout_height="match_parent"
-                android:paddingVertical="@dimen/_10sdp"
-                android:paddingHorizontal="@dimen/_7sdp"
+                android:layout_height="@dimen/_42sdp"
+                android:paddingVertical="@dimen/_13sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
                 android:src="@drawable/send_icon"
                 android:background="@drawable/send_btn_shape"
 
                 android:backgroundTint="@color/greenBtnColor"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>    <androidx.cardview.widget.CardView
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
@@ -88,7 +89,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
-        android:paddingTop="5dp"
+        android:paddingTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -96,11 +97,12 @@
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
         <LinearLayout
+            android:layout_marginBottom="100dp"
             android:id="@+id/discussionDetailsLl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/_12sdp">
+            android:padding="@dimen/_15sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,11 +174,10 @@
                 tools:listitem="@layout/immigration_reply_item" />
             <TextView
                 android:id="@+id/viewAllComment"
-                android:layout_marginTop="@dimen/_25sdp"
                 android:layout_gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:paddingVertical="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_23sdp"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:fontFamily="@font/sf_pro_light_italic"
