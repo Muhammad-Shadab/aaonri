@@ -12,8 +12,6 @@ import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,9 +32,6 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
 
         binding =
             FragmentImmigrationCategoryBottomSheetBinding.inflate(layoutInflater, container, false)
-
-        val userId =
-            context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
         immigrationAdapter = ImmigrationAdapter()
 
@@ -59,8 +54,6 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
             }
             immigrationCategoryRv.layoutManager = LinearLayoutManager(context)
             immigrationCategoryRv.adapter = immigrationAdapter
-
-
         }
 
         immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->

@@ -1,10 +1,14 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +20,9 @@ import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationPager
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +50,10 @@ class ImmigrationScreenFragment : Fragment() {
 
         binding?.apply {
 
+            floatingActionBtnImmigration.setOnClickListener {
+
+            }
+
             immigrationScreenViewPager.isUserInputEnabled = false
             immigrationScreenViewPager.adapter = pagerAdapter
 
@@ -63,7 +73,92 @@ class ImmigrationScreenFragment : Fragment() {
                 immigrationScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }
+
+            searchView.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    immigrationScreenTabLayout.getTabAt(0)?.select()
+                    immigrationViewModel.setSearchQuery(textView.text.toString())
+                }
+                false
+            }
+
+            searchView.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (searchView.hasFocus()) {
+                        if (keyword.toString().isEmpty()) {
+                            cancelbutton.visibility = View.GONE
+                            searchViewIcon.visibility = View.VISIBLE
+                            immigrationViewModel.setKeyClassifiedKeyboardListener(true)
+                        } else {
+                            cancelbutton.visibility = View.VISIBLE
+                            searchViewIcon.visibility = View.GONE
+                            immigrationViewModel.setKeyClassifiedKeyboardListener(false)
+                        }
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+
+            cancelbutton.setOnClickListener {
+                searchView.setText("")
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
+                immigrationViewModel.setSearchQuery(searchView.text.toString())
+            }
+
+
+            immigrationScreenTabLayout.addOnTabSelectedListener(object :
+                TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 2) {
+                        floatingActionBtnImmigration.visibility = View.GONE
+                        selectedFilters.visibility = View.GONE
+                        numberOfSelectedFilterCv.visibility = View.GONE
+                    } else {
+                        binding?.floatingActionBtnImmigration?.visibility = View.VISIBLE
+                        //binding?.searchViewll?.visibility = View.VISIBLE
+                    }
+
+                    if (tab?.position != 0) {
+                        filterClassified.isEnabled = false
+                        filterClassified.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.graycolor
+                            )
+                        )
+                        SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                    } else {
+                        filterClassified.setColorFilter(
+                            ContextCompat.getColor(
+                                context!!,
+                                R.color.white
+                            )
+                        )
+                        filterClassified.isEnabled = true
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    return
+                }
+            })
+
+
         }
+
+
 
         immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
             when (response) {

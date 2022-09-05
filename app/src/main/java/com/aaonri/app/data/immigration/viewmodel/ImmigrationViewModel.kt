@@ -41,11 +41,16 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val discussionDetailsData: MutableLiveData<Resource<DiscussionDetailsResponse>> =
         MutableLiveData()
 
+    var keyImmigrationKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     var setCategoryForFirstIndexForOnce = true
         private set
 
     var isNavigateBackFromImmigrationDetailScreen = false
         private set
+
+    val immigrationSearchQuery: MutableLiveData<String> = MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
@@ -140,6 +145,14 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setIsNavigateBackFromImmigrationDetailScreen(value: Boolean) {
         isNavigateBackFromImmigrationDetailScreen = value
+    }
+
+    fun setKeyClassifiedKeyboardListener(value: Boolean) {
+        keyImmigrationKeyboardListener.postValue(value)
+    }
+
+    fun setSearchQuery(value: String) {
+        immigrationSearchQuery.postValue(value)
     }
 
 }

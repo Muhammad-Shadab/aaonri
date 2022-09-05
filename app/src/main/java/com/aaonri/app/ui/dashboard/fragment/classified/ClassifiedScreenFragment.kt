@@ -122,7 +122,6 @@ class ClassifiedScreenFragment : Fragment() {
                 override fun afterTextChanged(p0: Editable?) {
 
                 }
-
             })
 
             cancelbutton.setOnClickListener {

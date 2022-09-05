@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.immigration.model.Discussion
+import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
@@ -20,6 +21,7 @@ class AllImmigrationFragment : Fragment() {
     var binding: FragmentAllImmigrationBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
+    var discussionCategoryResponseItem: DiscussionCategoryResponseItem? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +50,7 @@ class AllImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
+            discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
             if (!immigrationViewModel.isNavigateBackFromImmigrationDetailScreen) {
                 immigrationViewModel.getAllImmigrationDiscussion(
@@ -59,6 +62,16 @@ class AllImmigrationFragment : Fragment() {
                     )
                 )
             }
+        }
+
+        immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
+            immigrationViewModel.getAllImmigrationDiscussion(
+                GetAllImmigrationRequest(
+                    categoryId = "${discussionCategoryResponseItem?.discCatId}",
+                    createdById = "",
+                    keywords = it
+                )
+            )
         }
 
 
