@@ -44,6 +44,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     var setCategoryForFirstIndexForOnce = true
         private set
 
+    var isNavigateBackFromImmigrationDetailScreen = false
+        private set
+
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionCategory()
@@ -133,6 +136,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setCategoryFirstIndexForOnce(value: Boolean) {
         setCategoryForFirstIndexForOnce = value
+    }
+
+    fun setIsNavigateBackFromImmigrationDetailScreen(value: Boolean) {
+        isNavigateBackFromImmigrationDetailScreen = value
     }
 
 }

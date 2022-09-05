@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -65,7 +66,14 @@ class ImmigrationDetailsFragment : Fragment() {
 
         }
 
-
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(true)
+                    findNavController().navigateUp()
+                }
+            })
 
 
         return binding?.root

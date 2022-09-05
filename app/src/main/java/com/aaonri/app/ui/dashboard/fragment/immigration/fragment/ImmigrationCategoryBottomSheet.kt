@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -42,26 +41,11 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
+            immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
             if (item is DiscussionCategoryResponseItem) {
                 if (args.isFromAllImiigratonScreen) {
-                    /*immigrationViewModel.getAllImmigrationDiscussion(
-                        GetAllImmigrationRequest(
-                            categoryId = "${item.discCatId}",
-                            createdById = "",
-                            keywords =
-                            ""
-                        )
-                    )*/
                     immigrationViewModel.setSelectedAllDiscussionCategory(item)
                 } else {
-                    /*immigrationViewModel.getMyImmigrationDiscussion(
-                        GetAllImmigrationRequest(
-                            categoryId = "${item.discCatId}",
-                            createdById = userId.toString(),
-                            keywords =
-                            ""
-                        )
-                    )*/
                     immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
                 }
                 dismiss()

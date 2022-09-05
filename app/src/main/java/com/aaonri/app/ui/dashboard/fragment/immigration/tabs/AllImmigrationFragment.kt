@@ -49,14 +49,16 @@ class AllImmigrationFragment : Fragment() {
 
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
-            immigrationViewModel.getAllImmigrationDiscussion(
-                GetAllImmigrationRequest(
-                    categoryId = "${it.discCatId}",
-                    createdById = "",
-                    keywords =
-                    ""
+            if (!immigrationViewModel.isNavigateBackFromImmigrationDetailScreen) {
+                immigrationViewModel.getAllImmigrationDiscussion(
+                    GetAllImmigrationRequest(
+                        categoryId = "${it.discCatId}",
+                        createdById = "",
+                        keywords =
+                        ""
+                    )
                 )
-            )
+            }
         }
 
 
