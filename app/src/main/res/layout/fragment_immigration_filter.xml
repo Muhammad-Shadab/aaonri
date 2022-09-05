@@ -36,8 +36,8 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/selectCategoryClassifiedSpinner"
+    <!--<TextView
+        android:id="@+id/selectCategorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -55,7 +55,7 @@
         android:textColor="@color/editTextColor"
         android:textColorHint="@color/hintColor"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/filterLl" />
+        app:layout_constraintTop_toBottomOf="@id/filterLl" />-->
 
     <TextView
         android:id="@+id/selectStartDate"
@@ -64,10 +64,9 @@
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/edit_text_inner_shadow"
-        android:drawableRight="@drawable/arrow_down_spinner"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
-        android:hint="Select Start Date"
+        android:hint="Start Date"
         android:lines="1"
         android:maxLines="1"
         android:paddingVertical="@dimen/_4sdp"
@@ -76,7 +75,8 @@
         android:textColor="@color/editTextColor"
         android:textColorHint="@color/hintColor"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/selectCategoryClassifiedSpinner" />
+        app:drawableRightCompat="@drawable/calendar"
+        app:layout_constraintTop_toBottomOf="@id/filterLl" />
 
     <TextView
         android:id="@+id/selectEndDate"
@@ -85,7 +85,6 @@
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/edit_text_inner_shadow"
-        android:drawableRight="@drawable/arrow_down_spinner"
         android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
         android:hint="Select End Date"
@@ -97,6 +96,7 @@
         android:textColor="@color/editTextColor"
         android:textColorHint="@color/hintColor"
         android:textSize="16sp"
+        app:drawableRightCompat="@drawable/calendar"
         app:layout_constraintTop_toBottomOf="@id/selectStartDate" />
 
     <LinearLayout
@@ -110,6 +110,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             android:orientation="horizontal">
 
             <!-- <com.google.android.material.card.MaterialCardView

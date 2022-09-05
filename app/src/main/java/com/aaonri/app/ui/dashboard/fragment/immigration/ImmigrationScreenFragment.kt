@@ -221,8 +221,6 @@ class ImmigrationScreenFragment : Fragment() {
         }
 
 
-
-
         return binding?.root
     }
 }

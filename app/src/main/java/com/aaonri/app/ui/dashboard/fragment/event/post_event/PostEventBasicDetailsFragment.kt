@@ -3,7 +3,6 @@ package com.aaonri.app.ui.dashboard.fragment.event.post_event
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -13,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -118,9 +116,13 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                         eventTitle = titleEvent.text.toString(),
                                                         eventCategory = selectCategoryEvent.text.toString(),
                                                         eventStartDate = startDate.ifEmpty { selectstartDate.text.toString() },
-                                                        eventStartTime = parseFormat.format(displayFormat.parse(selectStartTime.text.toString())),
+                                                        eventStartTime = parseFormat.format(
+                                                            displayFormat.parse(selectStartTime.text.toString())
+                                                        ),
                                                         eventEndDate = endDate.ifEmpty { selectEndDate.text.toString() },
-                                                        eventEndTime = parseFormat.format(displayFormat.parse(selectEndTime.text.toString())),
+                                                        eventEndTime = parseFormat.format(
+                                                            displayFormat.parse(selectEndTime.text.toString())
+                                                        ),
                                                         eventTimeZone = eventTimezone.text.toString(),
                                                         eventFee = askingFee.text.toString(),
                                                         eventDesc = if (description?.isNotEmpty() == true) description!!.trim() else ""
@@ -165,9 +167,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventTimeZoneBottom)
             }
             selectstartDate.setOnClickListener {
-
                 getSelectedDate(selectstartDate, true)
-
             }
             selectEndDate.setOnClickListener {
                 if (selectstartDate.text.isNotEmpty()) {
@@ -416,12 +416,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                 postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
                 postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
                 postEventBinding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
-                if(!it[EventConstants.EVENT_START_TIME].isNullOrEmpty()){
-                    postEventBinding?.selectStartTime?.text =  displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_START_TIME])).toString()
+                if (!it[EventConstants.EVENT_START_TIME].isNullOrEmpty()) {
+                    postEventBinding?.selectStartTime?.text =
+                        displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_START_TIME]))
+                            .toString()
 
                 }
-                if(!it[EventConstants.EVENT_END_TIME].isNullOrEmpty()){
-                    postEventBinding?.selectEndTime?.text = displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_END_TIME])).toString()
+                if (!it[EventConstants.EVENT_END_TIME].isNullOrEmpty()) {
+                    postEventBinding?.selectEndTime?.text =
+                        displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_END_TIME]))
+                            .toString()
 
                 }
                 postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
