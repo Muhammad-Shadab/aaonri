@@ -36,13 +36,25 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
-            immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
             if (item is DiscussionCategoryResponseItem) {
-                if (args.isFromAllImiigratonScreen) {
+                when (args.screenName) {
+                    "FromAllDiscussionScreen" -> {
+                        immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
+                        immigrationViewModel.setSelectedAllDiscussionCategory(item)
+                    }
+                    "FromMyDiscussionScreen" -> {
+                        immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
+                        immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
+                    }
+                    "FromFilterScreen" -> {
+
+                    }
+                }
+                /*if (args.isFromAllImiigratonScreen) {
                     immigrationViewModel.setSelectedAllDiscussionCategory(item)
                 } else {
                     immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
-                }
+                }*/
                 dismiss()
             }
         }

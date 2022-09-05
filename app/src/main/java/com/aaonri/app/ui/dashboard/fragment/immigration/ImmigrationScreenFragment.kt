@@ -50,14 +50,19 @@ class ImmigrationScreenFragment : Fragment() {
 
         binding?.apply {
 
-            floatingActionBtnImmigration.setOnClickListener {
-
-            }
-
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
             immigrationScreenViewPager.isUserInputEnabled = false
             immigrationScreenViewPager.adapter = pagerAdapter
 
-            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+            filterImmigration.setOnClickListener {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationFilterFragment()
+                findNavController().navigate(action)
+            }
+
+            floatingActionBtnImmigration.setOnClickListener {
+
+            }
 
             TabLayoutMediator(
                 immigrationScreenTabLayout,
@@ -127,8 +132,8 @@ class ImmigrationScreenFragment : Fragment() {
                     }
 
                     if (tab?.position != 0) {
-                        filterClassified.isEnabled = false
-                        filterClassified.setColorFilter(
+                        filterImmigration.isEnabled = false
+                        filterImmigration.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
                                 R.color.graycolor
@@ -136,13 +141,13 @@ class ImmigrationScreenFragment : Fragment() {
                         )
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     } else {
-                        filterClassified.setColorFilter(
+                        filterImmigration.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
                                 R.color.white
                             )
                         )
-                        filterClassified.isEnabled = true
+                        filterImmigration.isEnabled = true
                     }
                 }
 
@@ -197,7 +202,7 @@ class ImmigrationScreenFragment : Fragment() {
             if (it) {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet(
-                        true
+                        "FromAllDiscussionScreen"
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setOnAllDiscussionCategoryIsClicked(false)
@@ -208,7 +213,7 @@ class ImmigrationScreenFragment : Fragment() {
             if (it) {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet(
-                        false
+                        "FromMyDiscussionScreen"
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setOnMyDiscussionCategoryIsClicked(false)

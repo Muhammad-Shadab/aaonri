@@ -75,7 +75,6 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
             })
 
-
         return binding?.root
     }
 
