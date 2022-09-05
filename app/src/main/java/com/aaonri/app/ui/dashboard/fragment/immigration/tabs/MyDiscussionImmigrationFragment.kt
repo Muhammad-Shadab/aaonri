@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentMyDiscussionImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,10 +38,40 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
         binding?.apply {
 
-            selectMyImmigrationSpinner.setOnClickListener {
+            selectMyImmigrationCategorySpinner.setOnClickListener {
                 immigrationViewModel.setOnMyDiscussionCategoryIsClicked(true)
             }
 
+            myImmigrationRv.layoutManager = LinearLayoutManager(context)
+            myImmigrationRv.adapter = immigrationAdapter
+
+        }
+
+        immigrationViewModel.selectedMyDiscussionScreenCategory.observe(viewLifecycleOwner) {
+            binding?.selectMyImmigrationCategorySpinner?.text = it.discCatValue
+            immigrationViewModel.getMyImmigrationDiscussion(
+                GetAllImmigrationRequest(
+                    categoryId = "${it.discCatId}",
+                    createdById = "",
+                    keywords =
+                    ""
+                )
+            )
+        }
+
+        immigrationViewModel.myImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
         }
 
 

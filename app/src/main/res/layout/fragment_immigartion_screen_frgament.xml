@@ -416,7 +416,7 @@
             android:id="@+id/immigrationScreenTabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/tab_background_shape"
             app:layout_constraintEnd_toEndOf="parent"
@@ -425,7 +425,7 @@
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
+            app:tabMode="auto"
             app:tabPaddingEnd="@dimen/_2sdp"
             app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />

@@ -24,6 +24,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val allImmigrationDiscussionListData: MutableLiveData<Resource<GetAllDiscussionResponse>> =
         MutableLiveData()
 
+    val myImmigrationDiscussionListData: MutableLiveData<Resource<GetAllDiscussionResponse>> =
+        MutableLiveData()
+
     val allDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
     val myDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
@@ -55,6 +58,18 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
             val response =
                 immigrationRepository.getAllImmigrationDiscussion(getAllImmigrationRequest)
             allImmigrationDiscussionListData.postValue(
+                handleAllImmigrationDiscussionResponse(
+                    response
+                )
+            )
+        }
+
+    fun getMyImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
+        viewModelScope.launch {
+            myImmigrationDiscussionListData.postValue(Resource.Loading())
+            val response =
+                immigrationRepository.getAllImmigrationDiscussion(getAllImmigrationRequest)
+            myImmigrationDiscussionListData.postValue(
                 handleAllImmigrationDiscussionResponse(
                     response
                 )

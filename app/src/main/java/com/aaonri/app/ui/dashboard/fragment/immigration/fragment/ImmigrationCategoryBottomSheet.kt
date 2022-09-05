@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
@@ -21,6 +22,7 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
     var binding: FragmentImmigrationCategoryBottomSheetBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
+    val args: ImmigrationCategoryBottomSheetArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,11 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
             if (item is DiscussionCategoryResponseItem) {
-                immigrationViewModel.setSelectedAllDiscussionCategory(item)
+                if (args.isFromAllImiigratonScreen) {
+                    immigrationViewModel.setSelectedAllDiscussionCategory(item)
+                } else {
+                    immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
+                }
                 dismiss()
             }
         }

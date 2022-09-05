@@ -70,7 +70,9 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.allDiscussionCategoryIsClicked.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet()
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet(
+                        true
+                    )
                 findNavController().navigate(action)
                 immigrationViewModel.setOnAllDiscussionCategoryIsClicked(false)
             }
@@ -79,7 +81,9 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.myDiscussionCategoryIsClicked.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet()
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCategoryBottomSheet(
+                        false
+                    )
                 findNavController().navigate(action)
                 immigrationViewModel.setOnMyDiscussionCategoryIsClicked(false)
             }
@@ -92,7 +96,10 @@ class ImmigrationScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     response.data?.get(0)
-                        ?.let { immigrationViewModel.setSelectedAllDiscussionCategory(it) }
+                        ?.let {
+                            immigrationViewModel.setSelectedAllDiscussionCategory(it)
+                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(it)
+                        }
 
                     response.data?.let { ImmigrationStaticData.setImmigrationCategoryData(it) }
                 }
