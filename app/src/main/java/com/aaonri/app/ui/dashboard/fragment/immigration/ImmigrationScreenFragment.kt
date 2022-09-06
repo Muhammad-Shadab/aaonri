@@ -190,12 +190,25 @@ class ImmigrationScreenFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.navigateToImmigrationDetailScreen.observe(viewLifecycleOwner) {
+        immigrationViewModel.navigateFromAllImmigrationToDetailScreen.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment()
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment(
+                        true
+                    )
                 findNavController().navigate(action)
-                immigrationViewModel.setNavigateToImmigrationDetailScreen(false)
+                immigrationViewModel.setNavigateFromAllImmigrationToDetailScreen(false)
+            }
+        }
+
+        immigrationViewModel.navigateFromMyImmigrationToDetailScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment(
+                        false
+                    )
+                findNavController().navigate(action)
+                immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(false)
             }
         }
 

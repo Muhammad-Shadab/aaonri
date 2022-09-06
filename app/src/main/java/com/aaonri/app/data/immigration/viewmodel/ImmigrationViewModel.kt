@@ -33,7 +33,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val selectedDiscussionItem: MutableLiveData<Discussion> = MutableLiveData()
 
-    val navigateToImmigrationDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
+    val navigateFromAllImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
+
+    val navigateFromMyImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
     val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
@@ -125,8 +127,12 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         selectedDiscussionItem.postValue(value)
     }
 
-    fun setNavigateToImmigrationDetailScreen(value: Boolean) {
-        navigateToImmigrationDetailScreen.postValue(value)
+    fun setNavigateFromAllImmigrationToDetailScreen(value: Boolean) {
+        navigateFromAllImmigrationToDetailScreen.postValue(value)
+    }
+
+    fun setNavigateFromMyImmigrationToDetailScreen(value: Boolean) {
+        navigateFromMyImmigrationToDetailScreen.postValue(value)
     }
 
     fun getDiscussionDetailsById(discussionId: String) = viewModelScope.launch {

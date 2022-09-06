@@ -34,7 +34,7 @@ class AllImmigrationFragment : Fragment() {
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
             if (item is Discussion) {
-                immigrationViewModel.setNavigateToImmigrationDetailScreen(true)
+                immigrationViewModel.setNavigateFromAllImmigrationToDetailScreen(true)
                 immigrationViewModel.setSelectedDiscussionItem(item)
             }
         }

@@ -40,7 +40,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
         immigrationAdapter?.itemClickListener = { view, item, position ->
             if (item is Discussion) {
-                immigrationViewModel.setNavigateToImmigrationDetailScreen(true)
+                immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
                 immigrationViewModel.setSelectedDiscussionItem(item)
             }
         }
@@ -62,7 +62,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 immigrationViewModel.getMyImmigrationDiscussion(
                     GetAllImmigrationRequest(
                         categoryId = "${it.discCatId}",
-                        createdById = userId.toString(),
+                        createdById = "339"/*userId.toString()*/,
                         keywords =
                         ""
                     )

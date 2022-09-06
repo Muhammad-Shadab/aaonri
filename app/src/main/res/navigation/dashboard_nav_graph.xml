@@ -242,6 +242,9 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment"
         android:label="fragment_immigration_details_frgament"
         tools:layout="@layout/fragment_immigration_details_frgament" >
+        <argument
+            android:name="isFromAllDiscussionScreen"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/immigrationFilterFragment"

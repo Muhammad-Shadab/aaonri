@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationDetailsFrgamentBinding
@@ -20,7 +21,7 @@ class ImmigrationDetailsFragment : Fragment() {
     var binding: FragmentImmigrationDetailsFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
-
+    val args: ImmigrationDetailsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,7 +70,11 @@ class ImmigrationDetailsFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    //immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(true)
+                    if (args.isFromAllDiscussionScreen) {
+                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
+                    } else {
+                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
+                    }
                     findNavController().navigateUp()
                 }
             })
