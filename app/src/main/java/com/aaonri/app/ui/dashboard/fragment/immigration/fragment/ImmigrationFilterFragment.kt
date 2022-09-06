@@ -68,8 +68,8 @@ class ImmigrationFilterFragment : Fragment() {
             applyBtn.setOnClickListener {
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
-                        startDate = startDate,
-                        endDate = endDate,
+                        startDate = if (startDate.isNotEmpty()) startDate else selectStartDate.text.toString(),
+                        endDate = if (endDate.isNotEmpty()) endDate else selectEndDate.text.toString(),
                         activeDiscussion = isActiveDiscussionSelected,
                         atLeastOnDiscussion = isAtLeastOneDiscussionSelected
                     )
@@ -142,16 +142,74 @@ class ImmigrationFilterFragment : Fragment() {
                         ?.let { it1 -> atLeastOneResponse.setTextColor(it1) }
                 }
             }
+
+            immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) {
+                isActiveDiscussionSelected = it.activeDiscussion
+                isAtLeastOneDiscussionSelected = it.atLeastOnDiscussion
+                if (it.startDate?.isNotEmpty() == true) {
+                    binding?.selectStartDate?.text = it.startDate
+                }
+                if (it.endDate?.isNotEmpty() == true) {
+                    binding?.selectEndDate?.text = it.endDate
+                }
+                if (it.activeDiscussion) {
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.blueBtnColor
+                        )
+                    }?.let { it2 ->
+                        activeDiscussion.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.white)
+                        ?.let { it1 -> activeDiscussion.setTextColor(it1) }
+                } else {
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        activeDiscussion.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> activeDiscussion.setTextColor(it1) }
+                }
+                if (it.atLeastOnDiscussion) {
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.blueBtnColor
+                        )
+                    }?.let { it2 ->
+                        atLeastOneResponse.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.white)
+                        ?.let { it1 -> atLeastOneResponse.setTextColor(it1) }
+                } else {
+                    context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1,
+                            R.color.white
+                        )
+                    }?.let { it2 ->
+                        atLeastOneResponse.setBackgroundColor(
+                            it2
+                        )
+                    }
+                    context?.getColor(R.color.black)
+                        ?.let { it1 -> atLeastOneResponse.setTextColor(it1) }
+                }
+            }
+
         }
 
-        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) {
-            if (it.startDate?.isNotEmpty() == true) {
-                binding?.selectStartDate?.text = it.startDate
-            }
-            if (it.endDate?.isNotEmpty() == true) {
-                binding?.selectEndDate?.text = it.endDate
-            }
-        }
 
         /* immigrationViewModel.selectedImmigrationFilterCategory.observe(viewLifecycleOwner) {
              binding?.selectCategorySpinner?.text = it.discCatValue

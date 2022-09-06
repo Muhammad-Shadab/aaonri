@@ -87,8 +87,8 @@
         android:visibility="gone"
         app:cardBackgroundColor="#14aa9a"
         app:cardCornerRadius="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/filterClassified"
-        app:layout_constraintEnd_toEndOf="@+id/filterClassified">
+        app:layout_constraintBottom_toTopOf="@+id/filterImmigration"
+        app:layout_constraintEnd_toEndOf="@+id/filterImmigration">
 
         <TextView
             android:id="@+id/numberOfSelectedFilterTv"
@@ -181,7 +181,7 @@
             android:scrollbars="none">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv1"
+                android:id="@+id/dateRangeCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -198,7 +198,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText1"
+                    android:id="@+id/dateRangeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -211,7 +211,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv1"
+                    android:id="@+id/deleteDateRangeFilter"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"

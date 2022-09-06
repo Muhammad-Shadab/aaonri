@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +22,7 @@ class AllImmigrationFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
     var discussionCategoryResponseItem: DiscussionCategoryResponseItem? = null
+    var activeDiscussionList = mutableListOf<Discussion>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,6 +84,11 @@ class AllImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                    response.data?.discussionList?.forEach { discussion ->
+                        if (discussion.approved && !activeDiscussionList.contains(discussion)) {
+                            activeDiscussionList.add(discussion)
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -91,8 +96,10 @@ class AllImmigrationFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { immigratioFilterModel ->
+            if (immigratioFilterModel.activeDiscussion) {
+                immigrationAdapter?.setData(activeDiscussionList)
+            }
         }
 
         return binding?.root

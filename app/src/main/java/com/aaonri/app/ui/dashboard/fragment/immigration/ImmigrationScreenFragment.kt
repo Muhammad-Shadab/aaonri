@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.ImmigrationStaticData
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigartionScreenFrgamentBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationPagerAdapter
@@ -30,10 +32,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class ImmigrationScreenFragment : Fragment() {
     var binding: FragmentImmigartionScreenFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
+    var immigrationFilterModel: ImmigrationFilterModel? = null
 
     private val tabTitles =
         arrayListOf("All Discussions", "My Discussions", "Information center")
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,6 +67,18 @@ class ImmigrationScreenFragment : Fragment() {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment()
                 findNavController().navigate(action)
+            }
+
+            deleteDateRangeFilter.setOnClickListener {
+                binding?.dateRangeCv?.visibility = View.GONE
+                immigrationViewModel.setFilterData(
+                    ImmigrationFilterModel(
+                        startDate = null,
+                        endDate = null,
+                        activeDiscussion = immigrationFilterModel!!.activeDiscussion,
+                        atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
+                    )
+                )
             }
 
             TabLayoutMediator(
@@ -231,6 +247,26 @@ class ImmigrationScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setOnMyDiscussionCategoryIsClicked(false)
+            }
+        }
+
+        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+            immigrationFilterModel = filterData
+            if (filterData.startDate?.isNotEmpty() == true || filterData.endDate?.isNotEmpty() == true || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
+                binding?.selectedFilters?.visibility = View.VISIBLE
+            } else {
+                binding?.selectedFilters?.visibility = View.GONE
+            }
+            if (filterData.startDate?.isNotEmpty() == true && filterData.endDate?.isNotEmpty() == true) {
+                binding?.dateRangeCv?.visibility = View.VISIBLE
+                binding?.dateRangeTv?.text =
+                    "Range: ${filterData.startDate} - ${filterData.endDate}"
+            }
+            if (filterData.activeDiscussion) {
+                binding?.filterCv2?.visibility = View.VISIBLE
+            }
+            if (filterData.atLeastOnDiscussion) {
+                binding?.filterCv3?.visibility = View.VISIBLE
             }
         }
 
