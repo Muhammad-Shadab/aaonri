@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +23,7 @@ import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ImmigrationDetailsFragment : Fragment() {
@@ -78,7 +81,9 @@ class ImmigrationDetailsFragment : Fragment() {
                 discussion = it
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                 discussionNameTv.text = it.discussionTopic
-                postedByTv.text = "Posted by: ${it.createdOn}"
+                postedByTv.text = "Posted by: ${
+                    DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))}"
                 discussionDesc.text = it.discussionDesc
                 noOfReply.text = it.noOfReplies.toString()
                 discussionDetailsLl.visibility = View.VISIBLE
