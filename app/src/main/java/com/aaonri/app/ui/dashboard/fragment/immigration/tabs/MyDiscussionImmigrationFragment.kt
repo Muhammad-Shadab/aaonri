@@ -62,7 +62,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 immigrationViewModel.getMyImmigrationDiscussion(
                     GetAllImmigrationRequest(
                         categoryId = "${it.discCatId}",
-                        createdById = "339"/*userId.toString()*/,
+                        createdById = userId.toString(),
                         keywords =
                         ""
                     )

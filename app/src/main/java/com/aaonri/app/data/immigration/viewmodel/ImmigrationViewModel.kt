@@ -59,6 +59,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val immigrationFilterData: MutableLiveData<ImmigrationFilterModel> = MutableLiveData()
 
+    val replyDiscussionData: MutableLiveData<Resource<ReplyDiscussionResponse>> = MutableLiveData()
+
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionCategory()
@@ -172,6 +174,21 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setFilterData(value: ImmigrationFilterModel) {
         immigrationFilterData.postValue(value)
+    }
+
+    fun replyDiscussion(replyDiscussionRequest: ReplyDiscussionRequest) = viewModelScope.launch {
+        replyDiscussionData.postValue(Resource.Loading())
+        val response = immigrationRepository.replyDiscussion(replyDiscussionRequest)
+        replyDiscussionData.postValue(handleReplyDiscussionResponse(response))
+    }
+
+    private fun handleReplyDiscussionResponse(response: Response<ReplyDiscussionResponse>): Resource<ReplyDiscussionResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

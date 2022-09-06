@@ -2,6 +2,7 @@ package com.aaonri.app.data.immigration.repository
 
 import com.aaonri.app.data.immigration.api.ImmigrationApi
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
+import com.aaonri.app.data.immigration.model.ReplyDiscussionRequest
 import javax.inject.Inject
 
 class ImmigrationRepository @Inject constructor(private val immigrationApi: ImmigrationApi) {
@@ -10,6 +11,9 @@ class ImmigrationRepository @Inject constructor(private val immigrationApi: Immi
 
     suspend fun getDiscussionDetailsById(discussionId: String) =
         immigrationApi.getDiscussionDetailsById(discussionId)
+
+    suspend fun replyDiscussion(replyDiscussionRequest: ReplyDiscussionRequest) =
+        immigrationApi.replyDiscussion(replyDiscussionRequest)
 
     suspend fun getAllImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
         immigrationApi.getAllImmigrationDiscussion(getAllImmigrationRequest)

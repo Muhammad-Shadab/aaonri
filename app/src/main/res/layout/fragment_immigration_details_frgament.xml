@@ -6,42 +6,48 @@
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment">
+
     <androidx.cardview.widget.CardView
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
-        app:cardElevation="@dimen/_10sdp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white">
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
         <LinearLayout
-            android:background="@drawable/edit_text_shape_1"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/_16sdp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/edit_text_shape_1"
             android:orientation="horizontal">
+
             <EditText
-                android:layout_weight="1"
-                android:background="@drawable/flag_transparent"
+                android:id="@+id/postReplyEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
                 android:hint="Add Comment"
                 android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingVertical="@dimen/_13sdp"
-                android:gravity="center_vertical"/>
-            <ImageView
-                android:layout_width="@dimen/_42sdp"
-                android:layout_height="@dimen/_42sdp"
-                android:paddingVertical="@dimen/_13sdp"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:src="@drawable/send_icon"
-                android:background="@drawable/send_btn_shape"
+                android:paddingVertical="@dimen/_2sdp" />
 
-                android:backgroundTint="@color/greenBtnColor"/>
+            <ImageView
+                android:id="@+id/postReplyBtn"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:background="@drawable/send_btn_shape"
+                android:backgroundTint="@color/greenBtnColor"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_13sdp"
+                android:src="@drawable/send_icon" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
@@ -83,7 +89,7 @@
         tools:layout_editor_absoluteY="31dp" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/linearLayout"
+        android:id="@+id/immigrationNestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
@@ -97,10 +103,10 @@
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
         <LinearLayout
-            android:layout_marginBottom="100dp"
             android:id="@+id/discussionDetailsLl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
             android:orientation="vertical"
             android:padding="@dimen/_15sdp">
 
@@ -114,31 +120,34 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/discussionNameTv"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:text="B1 B2 Visa Discussion"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/noOfReply"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/inner_radius_shadow"
-                        android:drawableLeft="@drawable/chat"
-                        android:drawablePadding="4dp"
-                        android:fontFamily="@font/sf_pro_bold"
-                        android:maxLines="1"
-                        android:paddingHorizontal="@dimen/_10sdp"
-                        android:text="25" />
-                </LinearLayout>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/discussionNameTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="B1 B2 Visa Discussion"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/noOfReply"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/inner_radius_shadow"
+                            android:drawableLeft="@drawable/chat"
+                            android:drawablePadding="4dp"
+                            android:fontFamily="@font/sf_pro_bold"
+                            android:maxLines="1"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:text="25" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/postedByTv"
@@ -172,21 +181,22 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_10sdp"
                 tools:listitem="@layout/immigration_reply_item" />
+
             <TextView
-                android:visibility="gone"
                 android:id="@+id/viewAllComment"
-                android:layout_gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:fontFamily="@font/sf_pro_light_italic"
-                android:background="@drawable/round_gray_shape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/round_gray_shape"
+                android:fontFamily="@font/sf_pro_light_italic"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="View All Comments"
                 android:textColor="@color/black"
-                android:text="View All Comments"/>
+                android:visibility="gone" />
 
         </LinearLayout>
 

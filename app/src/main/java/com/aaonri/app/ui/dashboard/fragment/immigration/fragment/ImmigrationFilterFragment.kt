@@ -151,8 +151,6 @@ class ImmigrationFilterFragment : Fragment() {
             if (it.endDate?.isNotEmpty() == true) {
                 binding?.selectEndDate?.text = it.endDate
             }
-
-
         }
 
         /* immigrationViewModel.selectedImmigrationFilterCategory.observe(viewLifecycleOwner) {

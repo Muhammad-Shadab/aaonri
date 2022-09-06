@@ -1,9 +1,6 @@
 package com.aaonri.app.data.immigration.api
 
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponse
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponse
-import com.aaonri.app.data.immigration.model.GetAllDiscussionResponse
-import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
+import com.aaonri.app.data.immigration.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,6 +16,11 @@ interface ImmigrationApi {
     suspend fun getDiscussionDetailsById(
         @Path("discussionId") discussionId: String
     ): Response<DiscussionDetailsResponse>
+
+    @POST("/api/v1/discussion/createNewDiscussionReply")
+    suspend fun replyDiscussion(
+        @Body replyDiscussionRequest: ReplyDiscussionRequest
+    ): Response<ReplyDiscussionResponse>
 
     @POST("/api/v1/discussion/search")
     suspend fun getAllImmigrationDiscussion(
