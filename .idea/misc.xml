@@ -18,15 +18,6 @@
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/layout/fragment_services_category.xml" value="0.296195652173913" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/onboarding_steps_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/NovoStack-DELL-010/Aaonri/app/src/main/res/menu/registration_steps.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/arrow_forward.xml" value="0.1325" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_shape_1.xml" value="0.15" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/send_btn_shape.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_bottom_reply_sheet.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_details_frgament.xml" value="0.25" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_information.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_reply_bottom.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_information_center_immigration.xml" value="0.1" />
-        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_immigration.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ad_txt_only_bg.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/ic_image_placeholder.xml" value="0.2445" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
@@ -50,6 +41,7 @@
         <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_post_event_basic_details.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_post_immigration.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />

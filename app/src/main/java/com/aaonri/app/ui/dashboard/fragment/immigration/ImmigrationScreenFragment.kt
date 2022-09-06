@@ -47,7 +47,6 @@ class ImmigrationScreenFragment : Fragment() {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-
         binding?.apply {
 
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
