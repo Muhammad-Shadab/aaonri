@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.data.immigration.model.Discussion
@@ -9,6 +11,7 @@ import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
 import com.aaonri.app.databinding.CategoryCardItemBinding
 import com.aaonri.app.databinding.ImmigrationReplyItemBinding
 import com.aaonri.app.databinding.ImmigrationsItemBinding
+import java.time.format.DateTimeFormatter
 
 sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -31,16 +34,19 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
     class AllImmigrationDiscussionViewHolder(private val binding: ImmigrationsItemBinding) :
         ImmigrationViewHolder(binding) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussion: Discussion) {
             binding.apply {
                 discussionNameTv.text = discussion.discussionTopic
                 discussionDesc.text = discussion.discussionDesc
-                postedByTv.text = "Posted by: ${discussion.createdBy}, ${discussion.createdOn}"
+                postedByTv.text = "Posted by: ${discussion.createdBy}, ${DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                    .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(discussion.createdOn))}"
                 noOfReply.text = discussion.noOfReplies.toString()
                 if (discussion.latestReply != null) {
                     latestReply.visibility = View.VISIBLE
                     latestReply.text =
-                        "Last reply: ${discussion.latestReply.createdByName} ${discussion.latestReply.createdDate}"
+                        "Last reply: ${discussion.latestReply.createdByName} ${ DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(discussion.latestReply.createdDate.split("T")[0]))}"
                 }
 
                 root.setOnClickListener {
@@ -52,10 +58,12 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
     class ImmigrationDetailScreenViewHolder(private val binding: ImmigrationReplyItemBinding) :
         ImmigrationViewHolder(binding) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
             binding.apply {
                 discussionUserReplyTv.text = discussionDetailsResponseItem.userFullName
-                userReplyDate.text = discussionDetailsResponseItem.createdOn
+                userReplyDate.text = "${DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy").parse(discussionDetailsResponseItem.createdOn))}"
                 userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
                 root.setOnClickListener {
                     itemClickListener?.invoke(it, discussionDetailsResponseItem, adapterPosition)

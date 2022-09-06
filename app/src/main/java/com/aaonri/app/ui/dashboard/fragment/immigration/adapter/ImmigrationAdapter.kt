@@ -1,9 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.Discussion
@@ -53,6 +55,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ImmigrationViewHolder, position: Int) {
         holder.itemClickListener = itemClickListener
         when (holder) {

@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +16,7 @@ import com.aaonri.app.databinding.FragmentImmigrationDetailsFrgamentBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ImmigrationDetailsFragment : Fragment() {
@@ -21,6 +24,7 @@ class ImmigrationDetailsFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +47,9 @@ class ImmigrationDetailsFragment : Fragment() {
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                 discussionNameTv.text = it.discussionTopic
-                postedByTv.text = "Posted by: ${it.createdOn}"
+                postedByTv.text = "Posted by: ${
+                    DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))}"
                 discussionDesc.text = it.discussionDesc
                 noOfReply.text = it.noOfReplies.toString()
                 discussionDetailsLl.visibility = View.VISIBLE
