@@ -18,6 +18,7 @@ import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapt
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,6 +60,7 @@ class ImmigrationDetailsFragment : Fragment() {
                         )
                     )
                     postReplyEt.setText("")
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 } else {
                     activity?.let { it1 ->
                         Snackbar.make(
