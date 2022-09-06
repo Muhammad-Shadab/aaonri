@@ -16,7 +16,6 @@ import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.ReplyDiscussionRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationDetailsFrgamentBinding
-import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -29,9 +28,10 @@ import java.time.format.DateTimeFormatter
 class ImmigrationDetailsFragment : Fragment() {
     var binding: FragmentImmigrationDetailsFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
-    var immigrationAdapter: ImmigrationAdapter? = null
+   /* var immigrationAdapter: Immigratio? = null*/
     val args: ImmigrationDetailsFragmentArgs by navArgs()
     var discussion: Discussion? = null
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +40,7 @@ class ImmigrationDetailsFragment : Fragment() {
         binding =
             FragmentImmigrationDetailsFrgamentBinding.inflate(layoutInflater, container, false)
 
-        immigrationAdapter = ImmigrationAdapter()
+        /*immigrationAdapter = ImmigrationAdapter()*/
 
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
@@ -75,7 +75,7 @@ class ImmigrationDetailsFragment : Fragment() {
             }
 
             allReplyRv.layoutManager = LinearLayoutManager(context)
-            allReplyRv.adapter = immigrationAdapter
+            //allReplyRv.adapter = immigrationAdapter
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
                 discussion = it
@@ -83,7 +83,8 @@ class ImmigrationDetailsFragment : Fragment() {
                 discussionNameTv.text = it.discussionTopic
                 postedByTv.text = "Posted by: ${
                     DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                        .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))}"
+                        .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
+                }"
                 discussionDesc.text = it.discussionDesc
                 noOfReply.text = it.noOfReplies.toString()
                 discussionDetailsLl.visibility = View.VISIBLE
@@ -112,7 +113,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { immigrationAdapter?.setData(it) }
+                    //response.data?.let { immigrationAdapter?.setData(it) }
                     binding?.immigrationNestedScroll?.fullScroll(View.FOCUS_DOWN)
                 }
                 is Resource.Error -> {
