@@ -20,25 +20,22 @@ import com.bumptech.glide.Glide
 sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
+    var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? =
+        null
     /** Advertise ViewHolder for text only Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
         val context = binding.textOnlyFl.context
 
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
+            binding.apply {
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
 
-            binding.advertiseDesc.text =
-                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
-            binding.textOnlyFl.setOnClickListener {
-                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                    context?.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
-                        )
-                    )
                 }
             }
+            binding.advertiseDesc.text =
+                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
             binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
@@ -48,21 +45,17 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
+            binding.apply {
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
+
+                }
+            }
+
             context?.let { it1 ->
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
                     .into(binding.imageView)
-            }
-
-            binding.textOnlyFl.setOnClickListener {
-                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                    context?.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
-                        )
-                    )
-                }
             }
             binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 50
         }
@@ -102,17 +95,13 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
                     .into(binding.imageView)
             }
+            binding.apply {
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
 
-            binding.imgWithTxtCl.setOnClickListener {
-                if (URLUtil.isValidUrl(findAllActiveAdvertiseResponseItem.advertisementDetails.url)) {
-                    context?.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(findAllActiveAdvertiseResponseItem.advertisementDetails.url)
-                        )
-                    )
                 }
             }
+
             binding.imgWithTxtCl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }

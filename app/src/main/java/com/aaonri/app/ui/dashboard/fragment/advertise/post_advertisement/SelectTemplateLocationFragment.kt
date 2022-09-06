@@ -45,7 +45,7 @@ class SelectTemplateLocationFragment : Fragment() {
         binding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION)
-
+            tv1.text = "Select a location on the selected ${postAdvertiseViewModel.selectedTemplatePageName.value?.pageName+","+ System.getProperty("line.separator")}for your advertisement display"
             advertiseTemplatesNextBtn.setOnClickListener {
                 if (context?.let { PreferenceManager<Int>(it)["selectedTemplateLocation", -1] } != -1) {
                     val action =
