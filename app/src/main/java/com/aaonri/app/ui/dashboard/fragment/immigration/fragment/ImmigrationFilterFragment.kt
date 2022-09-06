@@ -142,7 +142,6 @@ class ImmigrationFilterFragment : Fragment() {
                         ?.let { it1 -> atLeastOneResponse.setTextColor(it1) }
                 }
             }
-
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) {
