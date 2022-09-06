@@ -69,14 +69,13 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
-
         }
 
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(true)
+                    //immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(true)
                     findNavController().navigateUp()
                 }
             })

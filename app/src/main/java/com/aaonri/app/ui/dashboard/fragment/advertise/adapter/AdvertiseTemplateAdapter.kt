@@ -37,9 +37,9 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                 notifyDataSetChanged()
             }
 
-            Glide.with(context)
+          /*  Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
-                .into(websiteTemplateIv)
+                .into(websiteTemplateIv)*/
 
             /*Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
@@ -94,12 +94,29 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                             R.drawable.home_page_ads
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_home_page_ads
+                        )
+                    )
+
+
+
                 }
                 "DB" -> {
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.home_page_ads
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_dashboard_landing_page
                         )
                     )
                 }
@@ -110,12 +127,24 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                             R.drawable.ads_classified_top_listing
                         )
                     )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_landing_page
+                        )
+                    )
                 }
                 "PD" -> {
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.detail_page_ads
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_details_page_ads
                         )
                     )
                 }
@@ -162,9 +191,9 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                 notifyDataSetChanged()
             }
 
-            Glide.with(context)
+          /*  Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
-                .into(websiteTemplateIv)
+                .into(websiteTemplateIv)*/
 
             /*Glide.with(context)
                 .load("${BuildConfig.BASE_URL}/assets/img/advertisingpage/${advertisePageList[position].imageName}")
@@ -220,6 +249,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_below_first_section
                         )
                     )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
+                        )
+                    )
                 }
                 "HPEIA" -> {
                     //Events Section Inline
@@ -227,6 +262,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_popular_items
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
                         )
                     )
                 }
@@ -238,6 +279,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_popular_items
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
+                        )
+                    )
                 }
                 "HPAFT" -> {
                     //Home Page Just Above Footer Text Only
@@ -245,6 +293,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_popular_items
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
                         )
                     )
                 }
@@ -256,6 +310,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_below_first_section
                         )
                     )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
+                        )
+                    )
                 }
                 "HPLTBD" -> {
                     //Home Page Long Term Bottom Down
@@ -263,6 +323,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_below_first_section
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
                         )
                     )
                 }
@@ -274,6 +340,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_below_first_section
                         )
                     )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
+                        )
+                    )
                 }
                 "HPTB" -> {
                     //Home Page Top Banner
@@ -283,6 +355,15 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_below_first_section
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
+                        )
+                    )
+
+
                 }
                 "HPIIA" -> {
                     //Immigration  Section Inline
@@ -292,6 +373,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_popular_items
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
+                        )
+                    )
                 }
                 "HPJIA" -> {
                     //Jobs Section Inline
@@ -299,6 +387,14 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_popular_items
+                        )
+                    )
+
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
                         )
                     )
                 }
@@ -311,6 +407,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_popular_items
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
+                        )
+                    )
                 }
                 "DBBIA" -> {
                     //Dashboard Below Interest Area
@@ -318,6 +421,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_below_first_section
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
                         )
                     )
                 }
@@ -329,6 +438,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_popular_items
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
+                        )
+                    )
                 }
                 "DBAFT" -> {
                     //Dashboard Just Above Footer Text Only
@@ -338,6 +454,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_popular_items
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_popular_items
+                        )
+                    )
                 }
                 "DBTB" -> {
                     //Dashboard Top Banner(Below Search Bar)
@@ -345,6 +468,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_below_first_section
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_below_first_section
                         )
                     )
                 }
@@ -357,6 +486,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_bottom
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
+                        )
+                    )
                 }
                 "LPCAFT" -> {
                     //Classifieds Just Above Footer Text Only
@@ -364,6 +500,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_bottom
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
                         )
                     )
                 }
@@ -375,6 +518,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_bottom
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
+                        )
+                    )
                 }
                 "LPCTB" -> {
                     //Classifieds Top Banner
@@ -382,6 +532,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_classified_top_listing
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_classified_top_listing
                         )
                     )
                 }
@@ -393,6 +549,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPEAFT" -> {
                     //Events Just Above Footer Text Only
@@ -400,6 +562,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -411,6 +580,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPETB" -> {
                     //Events Top Banner
@@ -418,6 +594,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_header_top_slider
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_header_top_slider
                         )
                     )
                 }
@@ -429,6 +612,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPIAFT" -> {
                     //Immigration Just Above Footer Text Only
@@ -436,6 +626,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -447,6 +643,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPITB" -> {
                     //Immigration Top Banner
@@ -454,6 +657,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_header_top_slider
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_header_top_slider
                         )
                     )
                 }
@@ -465,6 +675,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPJAFT" -> {
                     //Jobs Just Above Footer Text Only
@@ -472,6 +689,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -483,6 +707,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "LPJTB" -> {
                     //Jobs Top Banner
@@ -490,6 +721,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_header_top_slider
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_header_top_slider
                         )
                     )
                 }
@@ -502,6 +740,14 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_bottom
                         )
                     )
+
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
+                        )
+                    )
                 }
                 "PDCAFI" -> {
                     //Classifieds Just Above Footer Image Only
@@ -509,6 +755,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_bottom
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
                         )
                     )
                 }
@@ -520,6 +773,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_just_above_bottom
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
+                        )
+                    )
                 }
                 "PDCTB" -> {
                     //Classifieds Top Banner
@@ -527,6 +787,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_just_above_bottom
+                        )
+                    )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_just_above_bottom
                         )
                     )
                 }
@@ -538,6 +805,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "PDEAFT" -> {
                     //Events Just Above Footer Text Only
@@ -545,6 +819,14 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -556,6 +838,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "PDJAFI" -> {
                     //Jobs Just Above Footer Image Only
@@ -563,6 +852,12 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -574,6 +869,14 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "PDJMS" -> {
                     //Jobs LHS of Main Section
@@ -583,6 +886,13 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                             R.drawable.ads_event_bottom_listing
                         )
                     )
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
+                        )
+                    )
                 }
                 "PDJTB" -> {
                     //Jobs Top Banner
@@ -590,6 +900,14 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ads_event_bottom_listing
+                        )
+                    )
+
+
+                    websiteTemplateIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.web_ads_event_bottom_listing
                         )
                     )
                 }
@@ -609,6 +927,7 @@ class AdvertiseTemplateLocationAdapter(private var selectedServices: ((value: Ad
                     )
                 }
             }
+
 
         }
 

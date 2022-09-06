@@ -60,7 +60,9 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             floatingActionBtnImmigration.setOnClickListener {
-
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment()
+                findNavController().navigate(action)
             }
 
             TabLayoutMediator(

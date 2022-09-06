@@ -37,6 +37,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussion: Discussion) {
             binding.apply {
+                val context = discussionNameTv.context
                 discussionNameTv.text = discussion.discussionTopic
                 discussionDesc.text = discussion.discussionDesc
                 postedByTv.text = "Posted by: ${discussion.createdBy}, ${DateTimeFormatter.ofPattern("MM-dd-yyyy")
