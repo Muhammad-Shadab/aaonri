@@ -46,7 +46,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                 if (discussion.latestReply != null) {
                     latestReply.visibility = View.VISIBLE
                     latestReply.text =
-                        "Last reply: ${discussion.latestReply.createdByName} ${ DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        "Last reply: ${discussion.latestReply.createdByName}  ${ DateTimeFormatter.ofPattern("MM-dd-yyyy")
                             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(discussion.latestReply.createdDate.split("T")[0]))}"
                 }
 

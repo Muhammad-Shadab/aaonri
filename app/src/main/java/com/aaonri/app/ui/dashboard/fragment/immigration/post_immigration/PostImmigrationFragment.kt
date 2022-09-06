@@ -63,7 +63,6 @@ class PostImmigrationFragment : Fragment() {
                                     userId = email ?: ""
                                 )
                             )
-                            findNavController().navigateUp()
                         } else {
                             showAlert("Please enter valid description")
                         }
@@ -91,6 +90,7 @@ class PostImmigrationFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     if (response.data?.discussionId != null) {
                         // success
+                        findNavController().navigateUp()
                     } else {
                         showAlert("Topic already available")
                     }

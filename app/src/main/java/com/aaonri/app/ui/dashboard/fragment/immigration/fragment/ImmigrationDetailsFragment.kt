@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,7 +33,9 @@ class ImmigrationDetailsFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     val args: ImmigrationDetailsFragmentArgs by navArgs()
     var discussion: Discussion? = null
+    var DoNotCallImmigrationApi = true
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +67,7 @@ class ImmigrationDetailsFragment : Fragment() {
                             replyDesc = postReplyEt.text.toString(),
                         )
                     )
+                    DoNotCallImmigrationApi = false
                     postReplyEt.setText("")
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 } else {
@@ -130,9 +134,13 @@ class ImmigrationDetailsFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (args.isFromAllDiscussionScreen) {
-                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
+                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                            DoNotCallImmigrationApi
+                        )
                     } else {
-                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
+                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                            DoNotCallImmigrationApi
+                        )
                     }
                     findNavController().navigateUp()
                 }
