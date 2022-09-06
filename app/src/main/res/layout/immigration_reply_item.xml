@@ -92,7 +92,7 @@
             app:colorClickableText="#2f6ca8"
             app:trimCollapsedText="@string/see_more"
             app:trimExpandedText="@string/see_less"
-            app:trimLines="3"
+            app:trimLines="4"
             app:trimMode="trimModeLine" />
 
         <View
