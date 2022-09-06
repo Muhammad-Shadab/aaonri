@@ -173,6 +173,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 tools:listitem="@layout/immigration_reply_item" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/viewAllComment"
                 android:layout_gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_16sdp"
