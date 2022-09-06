@@ -138,7 +138,7 @@
     <string name="company_brief_desc"><font size="16">Brief Description*</font></string>
     <string name="by_posting_an_ad_on_aaonri_advertise"><![CDATA[By posting an Ad on aaonri, I have read & agree to the Terms & Conditions above]]></string>
     <string name="see_less">\n - See Less</string>
-    <string name="see_more">\n - See More</string>
+    <string name="see_more">\n + See More</string>
 
 
     <string-array name="advertiseValidity">

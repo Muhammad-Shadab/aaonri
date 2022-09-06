@@ -124,11 +124,11 @@ class ImmigrationScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-                        floatingActionBtnImmigration.visibility = View.GONE
+                        //floatingActionBtnImmigration.visibility = View.GONE
                         selectedFilters.visibility = View.GONE
                         numberOfSelectedFilterCv.visibility = View.GONE
                     } else {
-                        binding?.floatingActionBtnImmigration?.visibility = View.VISIBLE
+                        //binding?.floatingActionBtnImmigration?.visibility = View.VISIBLE
                         //binding?.searchViewll?.visibility = View.VISIBLE
                     }
 

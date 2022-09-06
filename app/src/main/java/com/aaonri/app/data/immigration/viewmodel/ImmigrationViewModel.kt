@@ -40,6 +40,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
+    val selectedPostingDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
+        MutableLiveData()
+
     val discussionDetailsData: MutableLiveData<Resource<DiscussionDetailsResponse>> =
         MutableLiveData()
 
@@ -60,6 +63,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val immigrationFilterData: MutableLiveData<ImmigrationFilterModel> = MutableLiveData()
 
     val replyDiscussionData: MutableLiveData<Resource<ReplyDiscussionResponse>> = MutableLiveData()
+
+    val postDiscussionData: MutableLiveData<Resource<PostDiscussionResponse>> = MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
@@ -125,6 +130,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         selectedMyDiscussionScreenCategory.postValue(value)
     }
 
+    fun setSelectedPostingDiscussionScreenCategory(value: DiscussionCategoryResponseItem) {
+        selectedPostingDiscussionScreenCategory.postValue(value)
+    }
+
     fun setSelectedDiscussionItem(value: Discussion) {
         selectedDiscussionItem.postValue(value)
     }
@@ -183,6 +192,21 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     }
 
     private fun handleReplyDiscussionResponse(response: Response<ReplyDiscussionResponse>): Resource<ReplyDiscussionResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun postDiscussion(postDiscussionRequest: PostDiscussionRequest) = viewModelScope.launch {
+        postDiscussionData.postValue(Resource.Loading())
+        val response = immigrationRepository.postDiscussion(postDiscussionRequest)
+        postDiscussionData.postValue(handlePostDiscussionResponse(response))
+    }
+
+    private fun handlePostDiscussionResponse(response: Response<PostDiscussionResponse>): Resource<PostDiscussionResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

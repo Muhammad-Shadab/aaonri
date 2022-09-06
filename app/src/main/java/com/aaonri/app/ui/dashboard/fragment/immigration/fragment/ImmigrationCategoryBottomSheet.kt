@@ -48,9 +48,12 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
                         immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(false)
                         immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
                     }
+                    "PostImmigrationScreen" -> {
+                        immigrationViewModel.setSelectedPostingDiscussionScreenCategory(item)
+                    }
                     /*"FromFilterScreen" -> {
 
-                    }*/
+                        }*/
                 }
                 dismiss()
             }

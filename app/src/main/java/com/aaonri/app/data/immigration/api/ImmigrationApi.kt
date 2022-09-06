@@ -17,14 +17,18 @@ interface ImmigrationApi {
         @Path("discussionId") discussionId: String
     ): Response<DiscussionDetailsResponse>
 
-    @POST("/api/v1/discussion/createNewDiscussionReply")
-    suspend fun replyDiscussion(
-        @Body replyDiscussionRequest: ReplyDiscussionRequest
-    ): Response<ReplyDiscussionResponse>
-
     @POST("/api/v1/discussion/search")
     suspend fun getAllImmigrationDiscussion(
         @Body getAllImmigrationRequest: GetAllImmigrationRequest
     ): Response<GetAllDiscussionResponse>
 
+    @POST("/api/v1/discussion/createNewDiscussionReply")
+    suspend fun replyDiscussion(
+        @Body replyDiscussionRequest: ReplyDiscussionRequest
+    ): Response<ReplyDiscussionResponse>
+
+    @POST("/api/v1/discussion/create")
+    suspend fun postDiscussion(
+        @Body postDiscussionRequest: PostDiscussionRequest
+    ): Response<PostDiscussionResponse>
 }
