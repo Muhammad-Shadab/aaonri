@@ -40,12 +40,12 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
                 when (args.screenName) {
                     "FromAllDiscussionScreen" -> {
                         /**This will call the immigration api with different category or selected category**/
-                        immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
+                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(false)
                         immigrationViewModel.setSelectedAllDiscussionCategory(item)
                     }
                     "FromMyDiscussionScreen" -> {
                         /**This will call the immigration api with different category or selected category**/
-                        immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(false)
+                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(false)
                         immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
                     }
                     /*"FromFilterScreen" -> {

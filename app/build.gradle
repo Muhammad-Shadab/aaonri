@@ -155,6 +155,7 @@ dependencies {
     // expandable text view
     implementation 'com.borjabravo:readmoretextview:2.1.0'
 
+    // Swipe layout my immigration
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 
 }

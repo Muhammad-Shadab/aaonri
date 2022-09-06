@@ -53,7 +53,7 @@ class AllImmigrationFragment : Fragment() {
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
-            if (!immigrationViewModel.isNavigateBackFromImmigrationDetailScreen) {
+            if (!immigrationViewModel.isNavigateBackFromAllImmigrationDetailScreen) {
                 immigrationViewModel.getAllImmigrationDiscussion(
                     GetAllImmigrationRequest(
                         categoryId = "${it.discCatId}",

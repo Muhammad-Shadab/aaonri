@@ -163,7 +163,8 @@ class ImmigrationFilterFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    immigrationViewModel.setIsNavigateBackFromImmigrationDetailScreen(true)
+                    immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
+                    immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
                     findNavController().navigateUp()
                 }
             })
