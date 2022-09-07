@@ -34,4 +34,11 @@ interface ImmigrationApi {
     suspend fun deleteDiscussion(
         @Body deleteDiscussionRequest: DeleteDiscussionRequest
     ): Response<DeleteDiscussionResponse>
+
+    @PUT("/api/v1/discussion/update")
+    suspend fun updateDiscussion(
+        @Body updateDiscussionRequest: UpdateDiscussionRequest
+    ): Response<UpdateDiscussionResponse>
+
+
 }

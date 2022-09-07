@@ -65,7 +65,7 @@ class ImmigrationScreenFragment : Fragment() {
 
             floatingActionBtnImmigration.setOnClickListener {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment()
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(false)
                 findNavController().navigate(action)
             }
 
@@ -252,6 +252,15 @@ class ImmigrationScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(false)
+            }
+        }
+
+        immigrationViewModel.navigateFromMyImmigrationToUpdateScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(true)
+                findNavController().navigate(action)
+                immigrationViewModel.setNavigateFromMyImmigrationToUpdateScreen(false)
             }
         }
 

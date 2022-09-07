@@ -37,6 +37,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val navigateFromMyImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
+    val navigateFromMyImmigrationToUpdateScreen: MutableLiveData<Boolean> = MutableLiveData()
+
     val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
@@ -67,6 +69,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val postDiscussionData: MutableLiveData<Resource<PostDiscussionResponse>> = MutableLiveData()
 
     val deleteDiscussionData: MutableLiveData<Resource<DeleteDiscussionResponse>> =
+        MutableLiveData()
+
+    val updateDiscussionData: MutableLiveData<Resource<UpdateDiscussionResponse>> =
         MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
@@ -231,6 +236,25 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun updateDiscussion(updateDiscussionRequest: UpdateDiscussionRequest) = viewModelScope.launch {
+        updateDiscussionData.postValue(Resource.Loading())
+        val response = immigrationRepository.updateDiscussion(updateDiscussionRequest)
+        updateDiscussionData.postValue(handleUpdateDiscussionResponse(response))
+    }
+
+    private fun handleUpdateDiscussionResponse(response: Response<UpdateDiscussionResponse>): Resource<UpdateDiscussionResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setNavigateFromMyImmigrationToUpdateScreen(value: Boolean) {
+        navigateFromMyImmigrationToUpdateScreen.postValue(value)
     }
 
 }

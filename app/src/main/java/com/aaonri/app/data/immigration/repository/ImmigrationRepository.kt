@@ -1,10 +1,7 @@
 package com.aaonri.app.data.immigration.repository
 
 import com.aaonri.app.data.immigration.api.ImmigrationApi
-import com.aaonri.app.data.immigration.model.DeleteDiscussionRequest
-import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
-import com.aaonri.app.data.immigration.model.PostDiscussionRequest
-import com.aaonri.app.data.immigration.model.ReplyDiscussionRequest
+import com.aaonri.app.data.immigration.model.*
 import javax.inject.Inject
 
 class ImmigrationRepository @Inject constructor(private val immigrationApi: ImmigrationApi) {
@@ -25,5 +22,8 @@ class ImmigrationRepository @Inject constructor(private val immigrationApi: Immi
 
     suspend fun deleteDiscussion(deleteDiscussionRequest: DeleteDiscussionRequest) =
         immigrationApi.deleteDiscussion(deleteDiscussionRequest)
+
+    suspend fun updateDiscussion(updateDiscussionRequest: UpdateDiscussionRequest) =
+        immigrationApi.updateDiscussion(updateDiscussionRequest)
 
 }

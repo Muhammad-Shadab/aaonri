@@ -50,7 +50,10 @@ class MyDiscussionImmigrationFragment : Fragment() {
             { view, item, position, updateImmigration, deleteImmigration ->
                 if (item is Discussion) {
                     if (updateImmigration) {
-
+                        if (!item.approved) {
+                            immigrationViewModel.setNavigateFromMyImmigrationToUpdateScreen(true)
+                            immigrationViewModel.setSelectedDiscussionItem(item)
+                        }
                     } else if (deleteImmigration) {
                         if (!item.approved) {
                             val builder = AlertDialog.Builder(context)
