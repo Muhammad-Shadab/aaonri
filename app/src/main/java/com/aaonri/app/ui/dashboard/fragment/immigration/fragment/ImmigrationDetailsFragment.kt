@@ -143,6 +143,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
+                    binding?.noOfReply?.text = response.data?.size.toString()
                     response.data?.let { immigrationAdapter?.setData(it) }
                     binding?.immigrationNestedScroll?.fullScroll(View.FOCUS_DOWN)
                 }
