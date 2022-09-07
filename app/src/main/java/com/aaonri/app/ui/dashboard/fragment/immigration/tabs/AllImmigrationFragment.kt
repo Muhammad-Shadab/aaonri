@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -22,7 +23,9 @@ class AllImmigrationFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
     var discussionCategoryResponseItem: DiscussionCategoryResponseItem? = null
-    var activeDiscussionList = mutableListOf<Discussion>()
+    var discussionList = mutableListOf<Discussion>()
+    var immigrationFilterModel: ImmigrationFilterModel? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,11 +87,12 @@ class AllImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
-                    response.data?.discussionList?.forEach { discussion ->
+                    /*response.data?.discussionList?.forEach { discussion ->
                         if (discussion.approved && !activeDiscussionList.contains(discussion)) {
                             activeDiscussionList.add(discussion)
                         }
-                    }
+                    }*/
+                    discussionList = response.data?.discussionList as MutableList<Discussion>
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -96,10 +100,38 @@ class AllImmigrationFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { immigratioFilterModel ->
-            if (immigratioFilterModel.activeDiscussion) {
-                immigrationAdapter?.setData(activeDiscussionList)
+        immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+
+            immigrationFilterModel = filterData
+            var filteredList = mutableListOf<Discussion>()
+
+            discussionList.forEach { discussion ->
+
+                if (filterData.startDate?.isNotEmpty() == true && filterData.endDate?.isNotEmpty() == true) {
+
+                }
+
+                if (filterData.activeDiscussion) {
+                    if (discussion.approved && !filteredList.contains(discussion)) {
+                        filteredList.add(discussion)
+                    }
+                }
+
+                if (filterData.atLeastOnDiscussion) {
+                    if (discussion.noOfReplies > 0 && !filteredList.contains(discussion)) {
+                        filteredList.add(discussion)
+                    }
+                }
             }
+
+            if (filterData.startDate == null && filterData.endDate == null && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
+                filteredList = discussionList
+            }
+
+
+            immigrationAdapter?.setData(filteredList)
+
+
         }
 
         return binding?.root

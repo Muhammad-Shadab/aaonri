@@ -4,6 +4,6 @@ data class ImmigrationFilterModel(
     val searchQuery: String? = null,
     val startDate: String? = null,
     val endDate: String? = null,
-    val activeDiscussion: Boolean,
-    val atLeastOnDiscussion: Boolean
+    val activeDiscussion: Boolean = false,
+    val atLeastOnDiscussion: Boolean = false
 )

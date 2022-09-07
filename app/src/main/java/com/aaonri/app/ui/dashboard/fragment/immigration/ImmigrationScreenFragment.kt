@@ -80,25 +80,27 @@ class ImmigrationScreenFragment : Fragment() {
                     )
                 )
             }
+
             deleteActiveDiscussionFilterIv.setOnClickListener {
-                binding?.dateRangeCv?.visibility = View.GONE
+                binding?.activeDiscussionFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         startDate = null,
                         endDate = null,
-                        activeDiscussion = immigrationFilterModel!!.activeDiscussion,
+                        activeDiscussion = false,
                         atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
                     )
                 )
             }
+
             deleteAtLeastOneResponseFilterIv.setOnClickListener {
-                binding?.dateRangeCv?.visibility = View.GONE
+                binding?.atLeastOneResponseFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         startDate = null,
                         endDate = null,
                         activeDiscussion = immigrationFilterModel!!.activeDiscussion,
-                        atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
+                        atLeastOnDiscussion = false
                     )
                 )
             }
@@ -125,6 +127,11 @@ class ImmigrationScreenFragment : Fragment() {
                 }
                 false
             }
+
+            /*searchViewIcon.setOnClickListener {
+                immigrationScreenTabLayout.getTabAt(0)?.select()
+                immigrationViewModel.setSearchQuery(searchView.text.toString())
+            }*/
 
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -198,8 +205,6 @@ class ImmigrationScreenFragment : Fragment() {
                     return
                 }
             })
-
-
         }
 
 
