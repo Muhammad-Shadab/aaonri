@@ -17,6 +17,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
+            android:id="@+id/postReplyEtLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -41,7 +42,7 @@
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:background="@drawable/send_btn_shape"
-                android:backgroundTint="@color/greenBtnColor"
+                android:backgroundTint="@color/lightGreenBtnColor"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_13sdp"
                 android:src="@drawable/send_icon" />

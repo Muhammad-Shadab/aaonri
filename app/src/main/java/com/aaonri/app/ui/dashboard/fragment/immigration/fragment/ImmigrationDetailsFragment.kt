@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -60,7 +60,7 @@ class ImmigrationDetailsFragment : Fragment() {
             }
 
             postReplyBtn.setOnClickListener {
-                if (postReplyEt.text.toString().isNotEmpty()) {
+                if (postReplyEt.text.toString().length >= 3) {
                     immigrationViewModel.replyDiscussion(
                         ReplyDiscussionRequest(
                             createdByUserId = userId ?: 0,
@@ -93,13 +93,10 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.postReplyEt?.isEnabled = false
                     binding?.postReplyEt?.isCursorVisible = false
                     binding?.postReplyEt?.keyListener = null
-                    binding?.postReplyEt?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.black))
-                    /*context?.let { it1 ->
-                        ContextCompat.getColor(
-                            it1, R.color.lightGrey
-                        )
-                    }?.let { it2 -> binding?.postReplyEt?.setBackgroundColor(it2) };*/
+                    binding?.postReplyEtLl?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
+                    binding?.postReplyBtn?.isEnabled = false
+
                 }
                 discussionTitle.text = it.discussionTopic
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
@@ -111,6 +108,16 @@ class ImmigrationDetailsFragment : Fragment() {
                 discussionDesc.text = it.discussionDesc
                 noOfReply.text = it.noOfReplies.toString()
                 discussionDetailsLl.visibility = View.VISIBLE
+            }
+        }
+
+        binding?.postReplyEt?.addTextChangedListener { editable ->
+            if (editable.toString().length >= 3) {
+                binding?.postReplyBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
+            } else {
+                binding?.postReplyBtn?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
             }
         }
 
