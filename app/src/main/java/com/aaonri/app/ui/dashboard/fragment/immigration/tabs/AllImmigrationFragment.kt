@@ -53,6 +53,9 @@ class AllImmigrationFragment : Fragment() {
             allImmigrationRv.layoutManager = LinearLayoutManager(context)
             allImmigrationRv.adapter = immigrationAdapter
 
+
+
+
         }
 
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
@@ -109,10 +112,6 @@ class AllImmigrationFragment : Fragment() {
 
             discussionList.forEach { discussion ->
 
-                if (filterData.startDate?.isNotEmpty() == true && filterData.endDate?.isNotEmpty() == true) {
-
-                }
-
                 if (filterData.activeDiscussion) {
                     if (discussion.approved && !filteredList.contains(discussion)) {
                         filteredList.add(discussion)
@@ -126,15 +125,15 @@ class AllImmigrationFragment : Fragment() {
                 }
             }
 
-            if (filterData.startDate == null && filterData.endDate == null && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
+            /*if (filterData.startDate == null && filterData.endDate == null && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
                 filteredList = discussionList
-            }
+            }*/
 
-
+            filteredList = discussionList
             immigrationAdapter?.setData(filteredList)
-
-
         }
+
+
 
         return binding?.root
 

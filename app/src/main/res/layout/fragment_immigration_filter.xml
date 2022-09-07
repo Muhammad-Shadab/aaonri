@@ -61,31 +61,30 @@
         android:id="@+id/radioGrp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_24sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterLl">
 
         <RadioButton
-            android:id="@+id/twoWeekRadioBtn"
+            android:id="@+id/fifteenDaysRadioBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/custom_radio_btn"
             android:buttonTint="@drawable/custom_radio_btn"
-            android:checked="true"
             android:minWidth="0dp"
             android:minHeight="0dp" />
 
         <TextView
-            android:id="@+id/emailTv"
+            android:id="@+id/fifteenDaysTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:text="15 Days"
-            android:textColor="@color/black"
+            android:textColor="#979797"
             android:textSize="14sp" />
 
         <RadioButton
@@ -99,6 +98,7 @@
             android:minHeight="0dp" />
 
         <TextView
+            android:id="@+id/threeMonthTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -118,7 +118,7 @@
             android:minHeight="0dp" />
 
         <TextView
-            android:id="@+id/phoneTv"
+            android:id="@+id/oneYearTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"

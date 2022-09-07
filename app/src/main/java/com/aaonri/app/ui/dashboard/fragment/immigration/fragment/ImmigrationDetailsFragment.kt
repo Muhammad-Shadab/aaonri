@@ -106,7 +106,6 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.postReplyEtLl?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
                     binding?.postReplyBtn?.isEnabled = false
-
                 }
                 discussionTitle.text = it.discussionTopic
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())

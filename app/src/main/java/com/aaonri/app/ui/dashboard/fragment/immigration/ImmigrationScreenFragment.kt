@@ -65,7 +65,9 @@ class ImmigrationScreenFragment : Fragment() {
 
             floatingActionBtnImmigration.setOnClickListener {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(false)
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(
+                        false
+                    )
                 findNavController().navigate(action)
             }
 
@@ -73,8 +75,9 @@ class ImmigrationScreenFragment : Fragment() {
                 binding?.dateRangeCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
-                        startDate = null,
-                        endDate = null,
+                        fifteenDaysSelected = false,
+                        threeMonthSelected = false,
+                        oneYearSelected = false,
                         activeDiscussion = immigrationFilterModel!!.activeDiscussion,
                         atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
                     )
@@ -83,22 +86,23 @@ class ImmigrationScreenFragment : Fragment() {
 
             deleteActiveDiscussionFilterIv.setOnClickListener {
                 binding?.activeDiscussionFilterCv?.visibility = View.GONE
-                immigrationViewModel.setFilterData(
+                /*immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         startDate = null,
                         endDate = null,
                         activeDiscussion = false,
                         atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
                     )
-                )
+                )*/
             }
 
             deleteAtLeastOneResponseFilterIv.setOnClickListener {
                 binding?.atLeastOneResponseFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
-                        startDate = null,
-                        endDate = null,
+                        fifteenDaysSelected = immigrationFilterModel!!.fifteenDaysSelected,
+                        threeMonthSelected = immigrationFilterModel!!.threeMonthSelected,
+                        oneYearSelected = immigrationFilterModel!!.oneYearSelected,
                         activeDiscussion = immigrationFilterModel!!.activeDiscussion,
                         atLeastOnDiscussion = false
                     )
@@ -168,15 +172,6 @@ class ImmigrationScreenFragment : Fragment() {
             immigrationScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    if (tab?.position == 2) {
-                        //floatingActionBtnImmigration.visibility = View.GONE
-                        selectedFilters.visibility = View.GONE
-                        numberOfSelectedFilterCv.visibility = View.GONE
-                    } else {
-                        //binding?.floatingActionBtnImmigration?.visibility = View.VISIBLE
-                        //binding?.searchViewll?.visibility = View.VISIBLE
-                    }
-
                     if (tab?.position != 0) {
                         filterImmigration.isEnabled = false
                         filterImmigration.setColorFilter(
@@ -185,6 +180,8 @@ class ImmigrationScreenFragment : Fragment() {
                                 R.color.graycolor
                             )
                         )
+                        selectedFilters.visibility = View.GONE
+                        numberOfSelectedFilterCv.visibility = View.GONE
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     } else {
                         filterImmigration.setColorFilter(
@@ -194,6 +191,8 @@ class ImmigrationScreenFragment : Fragment() {
                             )
                         )
                         filterImmigration.isEnabled = true
+                        selectedFilters.visibility = View.VISIBLE
+                        numberOfSelectedFilterCv.visibility = View.VISIBLE
                     }
                 }
 
@@ -258,7 +257,9 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.navigateFromMyImmigrationToUpdateScreen.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(true)
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(
+                        true
+                    )
                 findNavController().navigate(action)
                 immigrationViewModel.setNavigateFromMyImmigrationToUpdateScreen(false)
             }
@@ -288,17 +289,25 @@ class ImmigrationScreenFragment : Fragment() {
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             immigrationFilterModel = filterData
-
-            if (filterData.startDate?.isNotEmpty() == true || filterData.endDate?.isNotEmpty() == true || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
+            if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
                 binding?.selectedFilters?.visibility = View.VISIBLE
             } else {
                 binding?.selectedFilters?.visibility = View.GONE
             }
 
-            if (filterData.startDate?.isNotEmpty() == true && filterData.endDate?.isNotEmpty() == true) {
+            if (filterData.fifteenDaysSelected) {
                 binding?.dateRangeCv?.visibility = View.VISIBLE
-                binding?.dateRangeTv?.text =
-                    "Range: ${filterData.startDate} - ${filterData.endDate}"
+                binding?.dateRangeTv?.text = "Range: 15 Days"
+            }
+
+            if (filterData.threeMonthSelected) {
+                binding?.dateRangeCv?.visibility = View.VISIBLE
+                binding?.dateRangeTv?.text = "Range: 3 Months"
+            }
+
+            if (filterData.oneYearSelected) {
+                binding?.dateRangeCv?.visibility = View.VISIBLE
+                binding?.dateRangeTv?.text = "Range: 1 Year"
             }
 
             if (filterData.activeDiscussion) {
