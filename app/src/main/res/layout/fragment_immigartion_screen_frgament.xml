@@ -262,7 +262,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv3"
+                android:id="@+id/atLeastOneResponseFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -278,7 +278,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText3"
+                    android:id="@+id/atLeastOneResponseFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -291,7 +291,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv3"
+                    android:id="@+id/atLeastOneResponseDeleteFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -301,7 +301,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <!--<com.google.android.material.card.MaterialCardView
                 android:id="@+id/filterCv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -379,7 +379,7 @@
                     android:paddingStart="@dimen/_4sdp"
                     android:src="@drawable/ic_cross" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
 

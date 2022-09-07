@@ -263,10 +263,13 @@ class ImmigrationScreenFragment : Fragment() {
                     "Range: ${filterData.startDate} - ${filterData.endDate}"
             }
             if (filterData.activeDiscussion) {
-                binding?.filterCv2?.visibility = View.VISIBLE
+                binding?.activeDiscussionFilterTv?.text = "Active Discussions"
+                binding?.activeDiscussionFilterCv?.visibility = View.VISIBLE
+
             }
             if (filterData.atLeastOnDiscussion) {
-                binding?.filterCv3?.visibility = View.VISIBLE
+                binding?.atLeastOneResponseFilterTv?.text = ""
+                binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
         }
 
