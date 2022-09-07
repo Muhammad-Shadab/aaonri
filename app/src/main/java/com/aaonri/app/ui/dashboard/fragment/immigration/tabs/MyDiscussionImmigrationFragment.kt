@@ -55,7 +55,22 @@ class MyDiscussionImmigrationFragment : Fragment() {
                             immigrationViewModel.setSelectedDiscussionItem(item)
                         }
                     } else if (deleteImmigration) {
-                        if (!item.approved) {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Confirm")
+                        builder.setMessage("Are you sure you want to Delete?")
+                        builder.setPositiveButton("OK") { dialog, which ->
+                            immigrationViewModel.deleteDiscussion(
+                                DeleteDiscussionRequest(
+                                    discussionId = item.discussionId,
+                                    userId = if (email?.isNotEmpty() == true) email else "",
+                                )
+                            )
+                        }
+                        builder.setNegativeButton("Cancel") { dialog, which ->
+
+                        }
+                        builder.show()
+                        /*if (!item.approved) {
                             val builder = AlertDialog.Builder(context)
                             builder.setTitle("Confirm")
                             builder.setMessage("Are you sure you want to Delete?")
@@ -71,7 +86,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
                             }
                             builder.show()
-                        }
+                        }*/
                     } else {
                         immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
                         immigrationViewModel.setSelectedDiscussionItem(item)

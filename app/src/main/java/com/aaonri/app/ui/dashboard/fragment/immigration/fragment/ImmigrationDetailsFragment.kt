@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.ReplyDiscussionRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -85,6 +88,19 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
                 discussion = it
+                if (discussion?.approved == false) {
+                    binding?.postReplyEt?.isFocusable = false
+                    binding?.postReplyEt?.isEnabled = false
+                    binding?.postReplyEt?.isCursorVisible = false
+                    binding?.postReplyEt?.keyListener = null
+                    binding?.postReplyEt?.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.black))
+                    /*context?.let { it1 ->
+                        ContextCompat.getColor(
+                            it1, R.color.lightGrey
+                        )
+                    }?.let { it2 -> binding?.postReplyEt?.setBackgroundColor(it2) };*/
+                }
                 discussionTitle.text = it.discussionTopic
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                 discussionNameTv.text = it.discussionTopic

@@ -72,9 +72,18 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                 }
 
                 userEmail.let {
-                    swipeLayout.isRightSwipeEnabled =
-                        !discussion.approved && discussion.userId == it
+
+                    /*swipeLayout.isRightSwipeEnabled =
+                        !discussion.approved && discussion.userId == it*/
+
+                    swipeLayout.isRightSwipeEnabled = discussion.noOfReplies == 0
+
+                    if (discussion.approved) {
+                        updateImmigrationBtn.visibility = View.GONE
+                    }
+
                 }
+
 
 
                 immigrationCv.setOnClickListener {
