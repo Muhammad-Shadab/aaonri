@@ -22,7 +22,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/select_a_location_on_the_selected_page_for_your_advertisement_display"
                 android:textAlignment="center"
                 android:textColor="#333333"
                 android:textSize="14sp" />

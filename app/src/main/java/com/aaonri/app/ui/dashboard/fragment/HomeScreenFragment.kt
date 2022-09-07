@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -92,6 +93,13 @@ class HomeScreenFragment : Fragment() {
         genericAdapterForEvent = EventGenericAdapter()
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
+
+        adsGenericAdapter1?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem){
+                val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAdvertiseWebviewFragment(item.advertisementDetails.url)
+                findNavController().navigate(action)
+            }
+        }
 
         genericAdapterForClassified?.itemClickListener = { view, item, position ->
             val action =

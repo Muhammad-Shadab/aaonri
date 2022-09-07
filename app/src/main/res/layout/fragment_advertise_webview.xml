@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/app_background_gradient"
+    tools:context=".ui.dashboard.fragment.advertise.fragment.AdvertiseWebviewFragment">
+
+    <WebView
+        android:id = "@+id/advertiseWebView"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent" />
+     <ImageView
+         android:id="@+id/closeAdvertiseBtn"
+         android:layout_width="@dimen/_30sdp"
+         android:layout_height="@dimen/_30sdp"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintLeft_toLeftOf="parent"
+         android:layout_marginTop="@dimen/_30sdp"
+         android:layout_marginLeft="@dimen/_20sdp"
+         android:backgroundTint="@color/black"
+         android:background="@drawable/ic_close"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

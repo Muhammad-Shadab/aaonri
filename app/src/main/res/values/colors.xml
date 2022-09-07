@@ -34,6 +34,7 @@
     <color name="advertiseTextBgCOlor">#f2efef</color>
     <color name="selectedAdvertiseTemplateStroke">#20b8a1</color>
     <color name="orangeColor">#FFA500</color>
+    <color name="redcolor">#FD1100</color>
 
 
 </resources>

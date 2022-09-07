@@ -23,10 +23,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:cardCornerRadius="@dimen/_32sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
@@ -34,9 +35,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="-50dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
+        <WebView
+            android:id = "@+id/shopWithUsWebView"
+            android:layout_width = "match_parent"
 
-    </LinearLayout>
+             android:paddingBottom="50dp"
+             android:layout_margin="@dimen/_5sdp"
+            android:layout_height = "match_parent" />
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

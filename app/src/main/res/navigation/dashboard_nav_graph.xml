@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_immigrationScreenFragment"
             app:destination="@id/immigrationScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -266,5 +269,16 @@
         <action
             android:id="@+id/action_postImmigrationFragment_to_immigrationCategoryBottomSheet"
             app:destination="@id/immigrationCategoryBottomSheet" />
+    </fragment>
+        tools:layout="@layout/fragment_post_immigration" />
+    <fragment
+        android:id="@+id/advertiseWebviewFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseWebviewFragment"
+        android:label="fragment_advertise_webview"
+        tools:layout="@layout/fragment_advertise_webview" >
+        <argument
+            android:name="advertiseurl"
+            app:argType="string"
+            />
     </fragment>
 </navigation>
