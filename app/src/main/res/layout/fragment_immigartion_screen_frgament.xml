@@ -222,7 +222,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv2"
+                android:id="@+id/activeDiscussionFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -238,7 +238,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText2"
+                    android:id="@+id/activeDiscussionFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -251,7 +251,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv2"
+                    android:id="@+id/deleteActiveDiscussionFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
