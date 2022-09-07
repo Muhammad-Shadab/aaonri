@@ -180,6 +180,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                             if (userAdsImage.imagePath.contains(".cover")) {
                                 val image =
                                     "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data.images[index].imagePath}"
+                                placeholder.visibility = View.GONE
                                 Glide.with(context).load(image)
                                     .into(eventImageView)
                             }
@@ -188,6 +189,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                     } else {
                         val image =
                             "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data.images[0].imagePath}"
+                        placeholder.visibility = View.GONE
                         Glide.with(context).load(image)
                             .into(eventImageView)
                     }
@@ -211,6 +213,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                     }
 
                 } else {
+                    placeholder.visibility = View.VISIBLE
                     eventName.text = data.title
                     totalVisiting.text = data.totalVisiting.toString()
                     totalFavourite.text = data.totalFavourite.toString()

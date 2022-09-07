@@ -10,17 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_155sdp"
         app:cardCornerRadius="@dimen/_10sdp"
+        app:cardBackgroundColor="#ebebeb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <ImageView
+            android:id="@+id/placeholder"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/small_image_placeholder"
+            android:layout_height="wrap_content"
+            />
         <ImageView
             android:id="@+id/eventImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_image_placeholder" />
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"

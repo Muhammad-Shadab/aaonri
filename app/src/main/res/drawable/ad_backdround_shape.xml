@@ -8,7 +8,7 @@
         android:topLeftRadius="@dimen/_5sdp"
         />
 
-    <solid android:color="@color/white" />
+    <solid android:color="#CBFFFFFF" />
     <!--gradient
         android:angle="270"
         android:centerColor="@color/greenBtnColor"

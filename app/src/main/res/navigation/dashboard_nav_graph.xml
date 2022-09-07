@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/immigrationScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen">
+        tools:layout="@layout/activity_event_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_classifiedScreenFragment"
             app:destination="@id/classifiedScreenFragment" />
