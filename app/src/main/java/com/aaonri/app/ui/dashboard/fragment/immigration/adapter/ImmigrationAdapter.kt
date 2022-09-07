@@ -19,7 +19,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
 
     private var data = listOf<Any>()
 
-    var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? =
+    var itemClickListener: ((view: View, item: Any, position: Int, isUpdateImmigration: Boolean, isDeleteImmigration: Boolean) -> Unit)? =
         null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImmigrationViewHolder {

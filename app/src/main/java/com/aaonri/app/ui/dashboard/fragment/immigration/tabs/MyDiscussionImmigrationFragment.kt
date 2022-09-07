@@ -38,12 +38,19 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
         immigrationAdapter = ImmigrationAdapter()
 
-        immigrationAdapter?.itemClickListener = { view, item, position ->
-            if (item is Discussion) {
-                immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
-                immigrationViewModel.setSelectedDiscussionItem(item)
+        immigrationAdapter?.itemClickListener =
+            { view, item, position, updateImmigration, deleteImmigration ->
+                if (item is Discussion) {
+                    if (updateImmigration) {
+
+                    } else if (deleteImmigration) {
+
+                    } else {
+                        immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
+                        immigrationViewModel.setSelectedDiscussionItem(item)
+                    }
+                }
             }
-        }
 
         binding?.apply {
 

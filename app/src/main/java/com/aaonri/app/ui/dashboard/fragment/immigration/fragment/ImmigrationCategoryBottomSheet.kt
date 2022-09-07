@@ -35,29 +35,34 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
 
         immigrationAdapter = ImmigrationAdapter()
 
-        immigrationAdapter?.itemClickListener = { view, item, position ->
-            if (item is DiscussionCategoryResponseItem) {
-                when (args.screenName) {
-                    "FromAllDiscussionScreen" -> {
-                        /**This will call the immigration api with different category or selected category**/
-                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(false)
-                        immigrationViewModel.setSelectedAllDiscussionCategory(item)
-                    }
-                    "FromMyDiscussionScreen" -> {
-                        /**This will call the immigration api with different category or selected category**/
-                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(false)
-                        immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
-                    }
-                    "PostImmigrationScreen" -> {
-                        immigrationViewModel.setSelectedPostingDiscussionScreenCategory(item)
-                    }
-                    /*"FromFilterScreen" -> {
+        immigrationAdapter?.itemClickListener =
+            { _, item, _, _, _ ->
+                if (item is DiscussionCategoryResponseItem) {
+                    when (args.screenName) {
+                        "FromAllDiscussionScreen" -> {
+                            /**This will call the immigration api with different category or selected category**/
+                            immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                false
+                            )
+                            immigrationViewModel.setSelectedAllDiscussionCategory(item)
+                        }
+                        "FromMyDiscussionScreen" -> {
+                            /**This will call the immigration api with different category or selected category**/
+                            immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                                false
+                            )
+                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
+                        }
+                        "PostImmigrationScreen" -> {
+                            immigrationViewModel.setSelectedPostingDiscussionScreenCategory(item)
+                        }
+                        /*"FromFilterScreen" -> {
 
-                        }*/
+                            }*/
+                    }
+                    dismiss()
                 }
-                dismiss()
             }
-        }
 
         binding?.apply {
 
