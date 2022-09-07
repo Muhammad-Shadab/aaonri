@@ -80,6 +80,28 @@ class ImmigrationScreenFragment : Fragment() {
                     )
                 )
             }
+            deleteActiveDiscussionFilterIv.setOnClickListener {
+                binding?.dateRangeCv?.visibility = View.GONE
+                immigrationViewModel.setFilterData(
+                    ImmigrationFilterModel(
+                        startDate = null,
+                        endDate = null,
+                        activeDiscussion = immigrationFilterModel!!.activeDiscussion,
+                        atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
+                    )
+                )
+            }
+            deleteAtLeastOneResponseFilterIv.setOnClickListener {
+                binding?.dateRangeCv?.visibility = View.GONE
+                immigrationViewModel.setFilterData(
+                    ImmigrationFilterModel(
+                        startDate = null,
+                        endDate = null,
+                        activeDiscussion = immigrationFilterModel!!.activeDiscussion,
+                        atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
+                    )
+                )
+            }
 
             TabLayoutMediator(
                 immigrationScreenTabLayout,
@@ -252,23 +274,26 @@ class ImmigrationScreenFragment : Fragment() {
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             immigrationFilterModel = filterData
+
             if (filterData.startDate?.isNotEmpty() == true || filterData.endDate?.isNotEmpty() == true || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
                 binding?.selectedFilters?.visibility = View.VISIBLE
             } else {
                 binding?.selectedFilters?.visibility = View.GONE
             }
+
             if (filterData.startDate?.isNotEmpty() == true && filterData.endDate?.isNotEmpty() == true) {
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text =
                     "Range: ${filterData.startDate} - ${filterData.endDate}"
             }
+
             if (filterData.activeDiscussion) {
                 binding?.activeDiscussionFilterTv?.text = "Active Discussions"
                 binding?.activeDiscussionFilterCv?.visibility = View.VISIBLE
-
             }
+
             if (filterData.atLeastOnDiscussion) {
-                binding?.atLeastOneResponseFilterTv?.text = ""
+                binding?.atLeastOneResponseFilterTv?.text = "Discussion With at Least One Response"
                 binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
         }

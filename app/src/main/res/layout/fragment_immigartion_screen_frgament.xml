@@ -291,7 +291,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/atLeastOneResponseDeleteFilterIv"
+                    android:id="@+id/deleteAtLeastOneResponseFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"

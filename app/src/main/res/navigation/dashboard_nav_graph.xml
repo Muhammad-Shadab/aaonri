@@ -270,7 +270,6 @@
             android:id="@+id/action_postImmigrationFragment_to_immigrationCategoryBottomSheet"
             app:destination="@id/immigrationCategoryBottomSheet" />
     </fragment>
-        tools:layout="@layout/fragment_post_immigration" />
     <fragment
         android:id="@+id/advertiseWebviewFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseWebviewFragment"
