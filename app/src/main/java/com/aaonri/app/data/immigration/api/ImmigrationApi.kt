@@ -2,10 +2,7 @@ package com.aaonri.app.data.immigration.api
 
 import com.aaonri.app.data.immigration.model.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ImmigrationApi {
 
@@ -31,4 +28,10 @@ interface ImmigrationApi {
     suspend fun postDiscussion(
         @Body postDiscussionRequest: PostDiscussionRequest
     ): Response<PostDiscussionResponse>
+
+    //@DELETE("/api/v1/discussion/delete")
+    @HTTP(method = "DELETE", path = "/api/v1/discussion/delete", hasBody = true)
+    suspend fun deleteDiscussion(
+        @Body deleteDiscussionRequest: DeleteDiscussionRequest
+    ): Response<DeleteDiscussionResponse>
 }

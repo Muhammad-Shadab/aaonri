@@ -66,6 +66,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val postDiscussionData: MutableLiveData<Resource<PostDiscussionResponse>> = MutableLiveData()
 
+    val deleteDiscussionData: MutableLiveData<Resource<DeleteDiscussionResponse>> =
+        MutableLiveData()
+
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionCategory()
@@ -207,6 +210,21 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     }
 
     private fun handlePostDiscussionResponse(response: Response<PostDiscussionResponse>): Resource<PostDiscussionResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun deleteDiscussion(deleteDiscussionRequest: DeleteDiscussionRequest) = viewModelScope.launch {
+        deleteDiscussionData.postValue(Resource.Loading())
+        val response = immigrationRepository.deleteDiscussion(deleteDiscussionRequest)
+        deleteDiscussionData.postValue(handleDeleteDiscussionResponse(response))
+    }
+
+    private fun handleDeleteDiscussionResponse(response: Response<DeleteDiscussionResponse>): Resource<DeleteDiscussionResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.tabs
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.immigration.model.DeleteDiscussionRequest
 import com.aaonri.app.data.immigration.model.Discussion
+import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentMyDiscussionImmigrationBinding
@@ -22,6 +25,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
     var binding: FragmentMyDiscussionImmigrationBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
+    var discussionCategoryResponseItem: DiscussionCategoryResponseItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +40,10 @@ class MyDiscussionImmigrationFragment : Fragment() {
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener =
@@ -45,7 +53,21 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
                     } else if (deleteImmigration) {
                         if (!item.approved) {
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Are you sure you want to Delete?")
+                            builder.setPositiveButton("OK") { dialog, which ->
+                                immigrationViewModel.deleteDiscussion(
+                                    DeleteDiscussionRequest(
+                                        discussionId = item.discussionId,
+                                        userId = if (email?.isNotEmpty() == true) email else "",
+                                    )
+                                )
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
 
+                            }
+                            builder.show()
                         }
                     } else {
                         immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
@@ -66,6 +88,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.selectedMyDiscussionScreenCategory.observe(viewLifecycleOwner) {
+            discussionCategoryResponseItem = it
             binding?.selectMyImmigrationCategorySpinner?.text = it.discCatValue
             if (!immigrationViewModel.isNavigateBackFromMyImmigrationDetailScreen) {
                 immigrationViewModel.getMyImmigrationDiscussion(
@@ -87,6 +110,28 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+        }
+
+        immigrationViewModel.deleteDiscussionData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    immigrationViewModel.getMyImmigrationDiscussion(
+                        GetAllImmigrationRequest(
+                            categoryId = "${discussionCategoryResponseItem?.discCatId}",
+                            createdById = userId.toString(),
+                            keywords = ""
+                        )
+                    )
+
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
