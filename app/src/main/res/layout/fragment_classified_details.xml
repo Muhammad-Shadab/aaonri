@@ -383,6 +383,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/sellerInformationLayout"
                             android:layout_width="match_parent"
+                             android:background="@drawable/classified_seller_bg_gradiant"
                             android:layout_height="wrap_content">
 
                             <TextView

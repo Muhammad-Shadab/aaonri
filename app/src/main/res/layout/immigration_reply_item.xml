@@ -73,7 +73,7 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/profilePicIv"
+                android:id="@+id/replyBtn"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:layout_gravity="center"

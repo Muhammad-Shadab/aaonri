@@ -1,15 +1,19 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -54,7 +58,13 @@ class ImmigrationDetailsFragment : Fragment() {
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
         binding?.apply {
+            immigrationAdapter?.itemClickListener =
+                { view, item, position, updateImmigration, deleteImmigration ->
+                    postReplyEt.requestFocus()
+                    val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.showSoftInput( postReplyEt, InputMethodManager.SHOW_IMPLICIT)
 
+                }
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
