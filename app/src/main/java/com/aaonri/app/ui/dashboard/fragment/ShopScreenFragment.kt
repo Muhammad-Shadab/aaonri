@@ -30,10 +30,10 @@ class ShopScreenFragment : Fragment() {
 
 
             // this will enable the javascript settings
-            shopWithUsWebView?.settings?.javaScriptEnabled = true
+            shopWithUsWebView.settings.javaScriptEnabled = true
 
             // if you want to enable zoom feature
-            shopWithUsWebView?.settings?.setSupportZoom(true)
+            shopWithUsWebView.settings.setSupportZoom(true)
             shopWithUsWebView.setOnClickListener {
                 findNavController().navigateUp()
             }

@@ -2,6 +2,7 @@ package com.aaonri.app.data.event.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -64,6 +65,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                         if (userAdsImage.imagePath.contains(".cover")) {
                             val image =
                                 "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[index].imagePath}"
+                            placeholder.visibility = View.GONE
                             Glide.with(context).load(image)
                                 .into(eventImageView)
                         }
@@ -73,6 +75,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 else{
                     val image =
                         "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
+                    placeholder.visibility = View.GONE
                     Glide.with(context).load(image)
                         .into(eventImageView)
                 }
@@ -97,6 +100,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 }
 
             } else {
+                placeholder.visibility = View.VISIBLE
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
