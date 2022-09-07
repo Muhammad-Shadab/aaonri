@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
-import com.aaonri.app.data.immigration.model.Discussion
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
+import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.databinding.CategoryCardItemBinding
 import com.aaonri.app.databinding.ImmigrationReplyItemBinding
+import com.aaonri.app.databinding.ImmigrationsInforamtionCenterItemBinding
 import com.aaonri.app.databinding.ImmigrationsItemBinding
 
 class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
@@ -51,6 +50,17 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     )
                 )
             }
+            R.layout.immigrations_inforamtion_center_item -> {
+                ImmigrationViewHolder.ImmigrationInformationcenterViewHolder(
+                    ImmigrationsInforamtionCenterItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+
+
             else -> throw IllegalArgumentException("Invalid ViewType")
         }
     }
@@ -74,6 +84,13 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     holder.bind(data[position] as DiscussionDetailsResponseItem)
                 }
             }
+
+            is ImmigrationViewHolder.ImmigrationInformationcenterViewHolder -> {
+                if (data[position] is ImmigrationCenterModelItem) {
+                    holder.bind(data[position] as ImmigrationCenterModelItem)
+                }
+            }
+
         }
     }
 
@@ -84,6 +101,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
             is DiscussionCategoryResponseItem -> R.layout.category_card_item
             is Discussion -> R.layout.immigrations_item
             is DiscussionDetailsResponseItem -> R.layout.immigration_reply_item
+            is ImmigrationCenterModelItem -> R.layout.immigrations_inforamtion_center_item
             else -> {
                 R.layout.category_card_item
             }

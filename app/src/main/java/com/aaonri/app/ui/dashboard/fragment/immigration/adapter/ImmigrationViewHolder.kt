@@ -3,14 +3,14 @@ package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.aaonri.app.data.immigration.model.Discussion
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
+import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.databinding.CategoryCardItemBinding
 import com.aaonri.app.databinding.ImmigrationReplyItemBinding
+import com.aaonri.app.databinding.ImmigrationsInforamtionCenterItemBinding
 import com.aaonri.app.databinding.ImmigrationsItemBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -105,7 +105,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                             .parse(discussionDetailsResponseItem.createdOn)
                     )
                 userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
-                root.setOnClickListener {
+                replyBtn.setOnClickListener{
                     itemClickListener?.invoke(
                         it,
                         discussionDetailsResponseItem,
@@ -114,6 +114,30 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                         false
                     )
                 }
+                /*root.setOnClickListener {
+                    itemClickListener?.invoke(
+                        it,
+                        discussionDetailsResponseItem,
+                        adapterPosition,
+                        false,
+                        false
+                    )
+                }*/
+            }
+        }
+    }
+
+    class ImmigrationInformationcenterViewHolder(private val binding: ImmigrationsInforamtionCenterItemBinding) :
+        ImmigrationViewHolder(binding) {
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun bind(immigrationCenterItem: ImmigrationCenterModelItem) {
+            binding.apply {
+                visaNameTv.text = immigrationCenterItem.title
+                classNameTv.text = immigrationCenterItem.subtitle
+                root.setOnClickListener {
+
+                }
+
             }
         }
     }
