@@ -44,7 +44,9 @@ class MyDiscussionImmigrationFragment : Fragment() {
                     if (updateImmigration) {
 
                     } else if (deleteImmigration) {
+                        if (!item.approved) {
 
+                        }
                     } else {
                         immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(true)
                         immigrationViewModel.setSelectedDiscussionItem(item)
