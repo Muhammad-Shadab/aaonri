@@ -233,6 +233,9 @@
         <action
             android:id="@+id/action_immigrationScreenFragment_to_postImmigrationFragment"
             app:destination="@id/postImmigrationFragment" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationCenterDetails"
+            app:destination="@id/immigrationCenterDetails" />
     </fragment>
     <dialog
         android:id="@+id/immigrationCategoryBottomSheet"
@@ -283,4 +286,18 @@
             app:argType="string"
             />
     </fragment>
+    <fragment
+        android:id="@+id/immigrationCenterDetails"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationCenterDetails"
+        android:label="fragment_immigration_center_details"
+        tools:layout="@layout/fragment_immigration_center_details" >
+        <action
+            android:id="@+id/action_immigrationCenterDetails_to_immigrationInfoCenterBottomSheet"
+            app:destination="@id/immigrationInfoCenterBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/immigrationInfoCenterBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationInfoCenterBottomSheet"
+        android:label="fragment_immigration_info_center_bottom_sheet"
+        tools:layout="@layout/fragment_immigration_info_center_bottom_sheet" />
 </navigation>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -259,6 +260,16 @@ class ImmigrationScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setNavigateFromAllImmigrationToDetailScreen(false)
+            }
+        }
+
+
+        immigrationViewModel.navigateFromImmigrationCenterToCenterDetailScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCenterDetails()
+                findNavController().navigate(action)
+                immigrationViewModel.setNavigateFromImmigrationCenterToCenterDetailScreen(false)
             }
         }
 

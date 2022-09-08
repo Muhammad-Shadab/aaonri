@@ -9,10 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.*
-import com.aaonri.app.databinding.CategoryCardItemBinding
-import com.aaonri.app.databinding.ImmigrationReplyItemBinding
-import com.aaonri.app.databinding.ImmigrationsInforamtionCenterItemBinding
-import com.aaonri.app.databinding.ImmigrationsItemBinding
+import com.aaonri.app.databinding.*
 
 class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
 
@@ -26,6 +23,15 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
             R.layout.category_card_item -> {
                 ImmigrationViewHolder.ImmigrationCategoryViewHolder(
                     CategoryCardItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            R.layout.category_card_item1 -> {
+                ImmigrationViewHolder.ImmigrationCenterCategoryViewHolder(
+                    CategoryCardItem1Binding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -74,6 +80,13 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     holder.bind(data[position] as DiscussionCategoryResponseItem)
                 }
             }
+
+            is ImmigrationViewHolder.ImmigrationCenterCategoryViewHolder -> {
+                if (data[position] is Category) {
+                    holder.bind(data[position] as Category)
+                }
+            }
+
             is ImmigrationViewHolder.AllImmigrationDiscussionViewHolder -> {
                 if (data[position] is Discussion) {
                     holder.bind(data[position] as Discussion)
@@ -100,8 +113,10 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
         return when (data[position]) {
             is DiscussionCategoryResponseItem -> R.layout.category_card_item
             is Discussion -> R.layout.immigrations_item
+            is Category -> R.layout.category_card_item1
             is DiscussionDetailsResponseItem -> R.layout.immigration_reply_item
             is ImmigrationCenterModelItem -> R.layout.immigrations_inforamtion_center_item
+
             else -> {
                 R.layout.category_card_item
             }
