@@ -71,7 +71,7 @@ class ImmigrationFilterFragment : Fragment() {
                 isActiveDiscussionSelected = false
                 isAtLeastOneDiscussionSelected = false
 
-                context?.let { it1 ->
+                /*context?.let { it1 ->
                     ContextCompat.getColor(
                         it1,
                         R.color.white
@@ -82,7 +82,7 @@ class ImmigrationFilterFragment : Fragment() {
                     )
                 }
                 context?.getColor(R.color.black)
-                    ?.let { it1 -> activeDiscussion.setTextColor(it1) }
+                    ?.let { it1 -> activeDiscussion.setTextColor(it1) }*/
 
 
                 context?.let { it1 ->

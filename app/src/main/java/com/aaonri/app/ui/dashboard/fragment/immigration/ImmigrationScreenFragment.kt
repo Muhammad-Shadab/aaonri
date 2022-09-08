@@ -188,8 +188,6 @@ class ImmigrationScreenFragment : Fragment() {
             immigrationScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-
-
                     if (tab?.position != 0) {
                         filterImmigration.isEnabled = false
                         filterImmigration.setColorFilter(
@@ -364,13 +362,13 @@ class ImmigrationScreenFragment : Fragment() {
         return binding?.root
     }
 
-    fun numberOfAppliedFilter() {
+    private fun numberOfAppliedFilter() {
         binding?.numberOfSelectedFilterTv?.text = noOfSelectedFilter.toString()
     }
 
-    /*override fun onResume() {
+    override fun onResume() {
         super.onResume()
         noOfSelectedFilter = 0
-    }*/
+    }
 
 }

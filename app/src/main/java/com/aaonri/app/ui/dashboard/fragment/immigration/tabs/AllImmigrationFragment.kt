@@ -9,7 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aaonri.app.data.immigration.model.*
+import com.aaonri.app.data.immigration.model.Discussion
+import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -105,6 +108,7 @@ class AllImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+            immigrationFilterModel = filterData
             val previousFilterDays = getCalculatedDate(
                 "MM-dd-yyyy",
                 if (filterData.fifteenDaysSelected) -15 else if (filterData.threeMonthSelected) -90 else if (filterData.oneYearSelected) -365 else 0
@@ -112,7 +116,6 @@ class AllImmigrationFragment : Fragment() {
 
             val currentDate = getCalculatedDate("MM-dd-yyyy", 0)
 
-            immigrationFilterModel = filterData
             var filteredList = mutableListOf<Discussion>()
 
             discussionList.forEach { discussion ->
@@ -155,7 +158,6 @@ class AllImmigrationFragment : Fragment() {
 
                 }
 
-
                 if (filterData.atLeastOnDiscussion && !filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected) {
                     if (discussion.noOfReplies > 0 && !filteredList.contains(discussion)) {
                         filteredList.add(discussion)
@@ -166,6 +168,8 @@ class AllImmigrationFragment : Fragment() {
             if (!filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
                 filteredList = discussionList
             }
+
+
             immigrationAdapter?.setData(filteredList)
         }
 
