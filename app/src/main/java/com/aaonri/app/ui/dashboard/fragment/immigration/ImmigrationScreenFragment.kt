@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -34,7 +33,7 @@ class ImmigrationScreenFragment : Fragment() {
     var binding: FragmentImmigartionScreenFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationFilterModel: ImmigrationFilterModel? = null
-    var noOfSelectedFilter = 0
+    var noOfSelectedFilter = 2
     var isFilterEnable = false
     private val tabTitles =
         arrayListOf("All Discussions", "My Discussions", "Information center")
@@ -74,8 +73,7 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             deleteDateRangeFilter.setOnClickListener {
-                --noOfSelectedFilter
-                numberOfAppliedFilter()
+                numberOfAppliedFilter(--noOfSelectedFilter)
                 binding?.dateRangeCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -101,8 +99,7 @@ class ImmigrationScreenFragment : Fragment() {
             }*/
 
             deleteAtLeastOneResponseFilterIv.setOnClickListener {
-                --noOfSelectedFilter
-                numberOfAppliedFilter()
+                numberOfAppliedFilter(--noOfSelectedFilter)
                 binding?.atLeastOneResponseFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -225,7 +222,6 @@ class ImmigrationScreenFragment : Fragment() {
         }
 
 
-
         immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -262,7 +258,9 @@ class ImmigrationScreenFragment : Fragment() {
         }
 
 
-        immigrationViewModel.navigateFromImmigrationCenterToCenterDetailScreen.observe(viewLifecycleOwner) {
+        immigrationViewModel.navigateFromImmigrationCenterToCenterDetailScreen.observe(
+            viewLifecycleOwner
+        ) {
             if (it) {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationCenterDetails()
@@ -316,21 +314,22 @@ class ImmigrationScreenFragment : Fragment() {
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+            noOfSelectedFilter = 0
             immigrationFilterModel = filterData
             if (filterData.fifteenDaysSelected) {
-                ++noOfSelectedFilter
+                noOfSelectedFilter++
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 15 Days"
             }
 
             if (filterData.threeMonthSelected) {
-                ++noOfSelectedFilter
+                noOfSelectedFilter++
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 3 Months"
             }
 
             if (filterData.oneYearSelected) {
-                ++noOfSelectedFilter
+                noOfSelectedFilter++
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 1 Year"
             }
@@ -341,12 +340,12 @@ class ImmigrationScreenFragment : Fragment() {
             }*/
 
             if (filterData.atLeastOnDiscussion) {
-                ++noOfSelectedFilter
+                noOfSelectedFilter++
                 binding?.atLeastOneResponseFilterTv?.text = "Discussion With at Least One Response"
                 binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
 
-            if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
+            if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.atLeastOnDiscussion) {
                 isFilterEnable = true
                 binding?.selectedFilters?.visibility = View.VISIBLE
                 binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
@@ -355,20 +354,17 @@ class ImmigrationScreenFragment : Fragment() {
                 binding?.numberOfSelectedFilterCv?.visibility = View.GONE
                 binding?.selectedFilters?.visibility = View.GONE
             }
-            numberOfAppliedFilter()
+
+            numberOfAppliedFilter(noOfSelectedFilter)
         }
 
 
         return binding?.root
     }
 
-    private fun numberOfAppliedFilter() {
-        binding?.numberOfSelectedFilterTv?.text = noOfSelectedFilter.toString()
+    private fun numberOfAppliedFilter(value: Int) {
+        binding?.numberOfSelectedFilterTv?.text = value.toString()
     }
 
-    override fun onResume() {
-        super.onResume()
-        noOfSelectedFilter = 0
-    }
 
 }
