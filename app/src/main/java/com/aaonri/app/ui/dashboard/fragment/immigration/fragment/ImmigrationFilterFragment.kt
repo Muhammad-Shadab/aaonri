@@ -101,7 +101,7 @@ class ImmigrationFilterFragment : Fragment() {
             }
 
             activeDiscussion.setOnClickListener {
-                isActiveDiscussionSelected = !isActiveDiscussionSelected
+                /*isActiveDiscussionSelected = !isActiveDiscussionSelected
                 if (isActiveDiscussionSelected) {
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -128,7 +128,7 @@ class ImmigrationFilterFragment : Fragment() {
                     }
                     context?.getColor(R.color.black)
                         ?.let { it1 -> activeDiscussion.setTextColor(it1) }
-                }
+                }*/
             }
 
             atLeastOneResponse.setOnClickListener {

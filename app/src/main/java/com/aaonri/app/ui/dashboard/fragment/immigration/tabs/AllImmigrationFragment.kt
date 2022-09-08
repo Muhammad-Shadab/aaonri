@@ -1,10 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.tabs
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,9 @@ import com.aaonri.app.databinding.FragmentAllImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @AndroidEntryPoint
 class AllImmigrationFragment : Fragment() {
@@ -27,6 +31,7 @@ class AllImmigrationFragment : Fragment() {
     var discussionList = mutableListOf<Discussion>()
     var immigrationFilterModel: ImmigrationFilterModel? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,9 +57,6 @@ class AllImmigrationFragment : Fragment() {
 
             allImmigrationRv.layoutManager = LinearLayoutManager(context)
             allImmigrationRv.adapter = immigrationAdapter
-
-
-
 
         }
 
@@ -106,30 +108,70 @@ class AllImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+            val previousFilterDays = getCalculatedDate(
+                "MM-dd-yyyy",
+                if (filterData.fifteenDaysSelected) -15 else if (filterData.threeMonthSelected) -90 else if (filterData.oneYearSelected) -365 else 0
+            )
+
+            val currentDate = getCalculatedDate("MM-dd-yyyy", 0)
 
             immigrationFilterModel = filterData
             var filteredList = mutableListOf<Discussion>()
 
             discussionList.forEach { discussion ->
 
-                if (filterData.activeDiscussion) {
-                    if (discussion.approved && !filteredList.contains(discussion)) {
-                        filteredList.add(discussion)
+                if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected) {
+                    val apiDate = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        .format(
+                            DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(discussion.createdOn)
+                        )
+
+                    val d1 = apiDate
+                    val d2 = previousFilterDays
+
+                    val sdf = SimpleDateFormat("MM-dd-yyyy")
+
+                    val firstDate: Date = sdf.parse(d1)
+                    val secondDate: Date = sdf.parse(d2)
+                    val current: Date = sdf.parse(currentDate)
+
+                    val cmp = firstDate.compareTo(secondDate)
+                    val cmp1 = firstDate.compareTo(current)
+                    when {
+                        cmp > 0 && cmp1 < 0 -> {
+                            if (!filteredList.contains(discussion)) {
+                                filteredList.add(discussion)
+                            }
+                        }
+                        cmp < 0 -> {
+                            /*Toast.makeText(context, "before, $apiDate", Toast.LENGTH_SHORT)
+                                .show()*/
+                        }
+                        else -> {
+                            print("Both dates are equal")
+                        }
                     }
+
+                    if (filterData.atLeastOnDiscussion) {
+                        filteredList.filter { discussion.noOfReplies > 0 }
+                    }
+
                 }
 
-                if (filterData.atLeastOnDiscussion) {
+
+
+                if (filterData.atLeastOnDiscussion && !filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected) {
                     if (discussion.noOfReplies > 0 && !filteredList.contains(discussion)) {
                         filteredList.add(discussion)
                     }
                 }
             }
 
-            /*if (filterData.startDate == null && filterData.endDate == null && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
+            if (!filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
                 filteredList = discussionList
-            }*/
+            }
 
-            filteredList = discussionList
+
             immigrationAdapter?.setData(filteredList)
         }
 
@@ -137,5 +179,12 @@ class AllImmigrationFragment : Fragment() {
 
         return binding?.root
 
+    }
+
+    fun getCalculatedDate(dateFormat: String?, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 }
