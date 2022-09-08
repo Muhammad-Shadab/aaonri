@@ -73,7 +73,8 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             deleteDateRangeFilter.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
+                --noOfSelectedFilter
+                numberOfAppliedFilter()
                 binding?.dateRangeCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -86,20 +87,21 @@ class ImmigrationScreenFragment : Fragment() {
                 )
             }
 
-            deleteActiveDiscussionFilterIv.setOnClickListener {
+            /*deleteActiveDiscussionFilterIv.setOnClickListener {
                 binding?.activeDiscussionFilterCv?.visibility = View.GONE
-                /*immigrationViewModel.setFilterData(
+                immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         startDate = null,
                         endDate = null,
                         activeDiscussion = false,
                         atLeastOnDiscussion = immigrationFilterModel!!.atLeastOnDiscussion
                     )
-                )*/
-            }
+                )
+            }*/
 
             deleteAtLeastOneResponseFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
+                --noOfSelectedFilter
+                numberOfAppliedFilter()
                 binding?.atLeastOneResponseFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -306,30 +308,20 @@ class ImmigrationScreenFragment : Fragment() {
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             immigrationFilterModel = filterData
-            if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
-                isFilterEnable = true
-                binding?.selectedFilters?.visibility = View.VISIBLE
-                binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-            } else {
-                isFilterEnable = false
-                binding?.numberOfSelectedFilterCv?.visibility = View.GONE
-                binding?.selectedFilters?.visibility = View.GONE
-            }
-
             if (filterData.fifteenDaysSelected) {
-                numberOfAppliedFilter(++noOfSelectedFilter)
+                ++noOfSelectedFilter
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 15 Days"
             }
 
             if (filterData.threeMonthSelected) {
-                numberOfAppliedFilter(++noOfSelectedFilter)
+                ++noOfSelectedFilter
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 3 Months"
             }
 
             if (filterData.oneYearSelected) {
-                numberOfAppliedFilter(++noOfSelectedFilter)
+                ++noOfSelectedFilter
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 1 Year"
             }
@@ -340,25 +332,34 @@ class ImmigrationScreenFragment : Fragment() {
             }*/
 
             if (filterData.atLeastOnDiscussion) {
-                numberOfAppliedFilter(++noOfSelectedFilter)
+                ++noOfSelectedFilter
                 binding?.atLeastOneResponseFilterTv?.text = "Discussion With at Least One Response"
                 binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
+
+            if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
+                isFilterEnable = true
+                binding?.selectedFilters?.visibility = View.VISIBLE
+                binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            } else {
+                isFilterEnable = false
+                binding?.numberOfSelectedFilterCv?.visibility = View.GONE
+                binding?.selectedFilters?.visibility = View.GONE
+            }
+            numberOfAppliedFilter()
         }
 
 
         return binding?.root
     }
 
-    private fun numberOfAppliedFilter(value: Int) {
-        if (value > 0) {
-            binding?.numberOfSelectedFilterTv?.text = noOfSelectedFilter.toString()
-        }
+    fun numberOfAppliedFilter() {
+        binding?.numberOfSelectedFilterTv?.text = noOfSelectedFilter.toString()
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         noOfSelectedFilter = 0
-    }
+    }*/
 
 }

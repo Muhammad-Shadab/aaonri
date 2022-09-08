@@ -170,7 +170,7 @@ class ImmigrationFilterFragment : Fragment() {
                 threeMonthRadioBtn.isChecked = it.threeMonthSelected
                 oneYearRadioBtn.isChecked = it.oneYearSelected
 
-                if (it.activeDiscussion) {
+                /*if (it.activeDiscussion) {
                     context?.let { it1 ->
                         ContextCompat.getColor(
                             it1,
@@ -196,7 +196,7 @@ class ImmigrationFilterFragment : Fragment() {
                     }
                     context?.getColor(R.color.black)
                         ?.let { it1 -> activeDiscussion.setTextColor(it1) }
-                }
+                }*/
                 if (it.atLeastOnDiscussion) {
                     context?.let { it1 ->
                         ContextCompat.getColor(

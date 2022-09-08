@@ -256,5 +256,4 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     fun setNavigateFromMyImmigrationToUpdateScreen(value: Boolean) {
         navigateFromMyImmigrationToUpdateScreen.postValue(value)
     }
-
 }
