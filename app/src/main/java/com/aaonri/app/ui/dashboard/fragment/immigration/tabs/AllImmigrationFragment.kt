@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -159,7 +160,6 @@ class AllImmigrationFragment : Fragment() {
                 }
 
 
-
                 if (filterData.atLeastOnDiscussion && !filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected) {
                     if (discussion.noOfReplies > 0 && !filteredList.contains(discussion)) {
                         filteredList.add(discussion)
@@ -170,11 +170,14 @@ class AllImmigrationFragment : Fragment() {
             if (!filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
                 filteredList = discussionList
             }
-
-
             immigrationAdapter?.setData(filteredList)
         }
 
+        /*immigrationViewModel.keyImmigrationKeyboardListener.observe(viewLifecycleOwner) {
+            if (it) {
+                immigrationAdapter?.setData(discussionList)
+            }
+        }*/
 
 
         return binding?.root

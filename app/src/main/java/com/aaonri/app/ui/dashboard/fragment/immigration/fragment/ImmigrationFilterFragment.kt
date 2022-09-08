@@ -229,6 +229,8 @@ class ImmigrationFilterFragment : Fragment() {
             fifteenDaysRadioBtn.setOnCheckedChangeListener { p0, p1 ->
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
+                    threeMonthRadioBtn.isChecked = false
+                    oneYearRadioBtn.isChecked = false
                     fifteenDaysTv.setTextColor(Color.parseColor("#333333"))
                 } else {
                     fifteenDaysTv.setTextColor(Color.parseColor("#979797"))
@@ -238,6 +240,8 @@ class ImmigrationFilterFragment : Fragment() {
             threeMonthRadioBtn.setOnCheckedChangeListener { p0, p1 ->
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
+                    fifteenDaysRadioBtn.isChecked = false
+                    oneYearRadioBtn.isChecked = false
                     threeMonthTv.setTextColor(Color.parseColor("#333333"))
                 } else {
                     threeMonthTv.setTextColor(Color.parseColor("#979797"))
@@ -247,13 +251,13 @@ class ImmigrationFilterFragment : Fragment() {
             oneYearRadioBtn.setOnCheckedChangeListener { p0, p1 ->
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
+                    fifteenDaysRadioBtn.isChecked = false
+                    threeMonthRadioBtn.isChecked = false
                     oneYearTv.setTextColor(Color.parseColor("#333333"))
                 } else {
                     oneYearTv.setTextColor(Color.parseColor("#979797"))
                 }
             }
-
-
         }
 
 
@@ -266,7 +270,7 @@ class ImmigrationFilterFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
-                    immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
+                    //immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
                     findNavController().navigateUp()
                 }
             })

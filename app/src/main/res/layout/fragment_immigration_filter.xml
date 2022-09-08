@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Filters"
+            android:text="Immigration Filters"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -62,70 +62,103 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterLl">
 
-        <RadioButton
-            android:id="@+id/fifteenDaysRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/custom_radio_btn"
-            android:buttonTint="@drawable/custom_radio_btn"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
-
         <TextView
-            android:id="@+id/fifteenDaysTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="15 Days"
-            android:textColor="#979797"
-            android:textSize="14sp" />
+            android:text="Date Range"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/threeMonthRadioBtn"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_32sdp"
-            android:button="@drawable/custom_radio_btn"
-            android:buttonTint="@drawable/custom_radio_btn"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
-
-        <TextView
-            android:id="@+id/threeMonthTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_8sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="3 Months"
-            android:textColor="#979797"
-            android:textSize="14sp" />
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/oneYearRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_32sdp"
-            android:button="@drawable/custom_radio_btn"
-            android:buttonTint="@drawable/custom_radio_btn"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
+            <RadioButton
+                android:id="@+id/fifteenDaysRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
 
-        <TextView
-            android:id="@+id/oneYearTv"
+            <TextView
+                android:id="@+id/fifteenDaysTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="15 Days"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_8sdp"
-            android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="1 Year"
-            android:textColor="#979797"
-            android:textSize="14sp" />
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/threeMonthRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <TextView
+                android:id="@+id/threeMonthTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="3 Months"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/oneYearRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <TextView
+                android:id="@+id/oneYearTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="1 Year"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </RadioGroup>
 
@@ -140,8 +173,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_18sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Sort"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <!-- <com.google.android.material.card.MaterialCardView
                  android:layout_width="wrap_content"
@@ -165,10 +207,13 @@
 
              </com.google.android.material.card.MaterialCardView>-->
 
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:backgroundTint="@color/lightGrey"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
@@ -190,8 +235,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 app:cardCornerRadius="@dimen/_18sdp"
                 app:strokeColor="@color/lightGrey"
                 app:strokeWidth="1dp">
@@ -218,6 +263,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -230,7 +276,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:layout_weight="1"
             android:background="@drawable/blue_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"
@@ -247,7 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:layout_weight="1"
             android:background="@drawable/green_btn_shape"
             android:fontFamily="@font/sf_pro_semi_bold"

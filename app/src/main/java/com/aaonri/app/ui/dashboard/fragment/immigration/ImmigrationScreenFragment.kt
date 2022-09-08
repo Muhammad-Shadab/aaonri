@@ -33,7 +33,8 @@ class ImmigrationScreenFragment : Fragment() {
     var binding: FragmentImmigartionScreenFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationFilterModel: ImmigrationFilterModel? = null
-
+    var noOfSelectedFilter = 0
+    var isFilterEnable = false
     private val tabTitles =
         arrayListOf("All Discussions", "My Discussions", "Information center")
 
@@ -72,6 +73,7 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             deleteDateRangeFilter.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
                 binding?.dateRangeCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -97,6 +99,7 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             deleteAtLeastOneResponseFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
                 binding?.atLeastOneResponseFilterCv?.visibility = View.GONE
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
@@ -126,6 +129,15 @@ class ImmigrationScreenFragment : Fragment() {
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
+                    immigrationViewModel.setFilterData(
+                        ImmigrationFilterModel(
+                            fifteenDaysSelected = false,
+                            threeMonthSelected = false,
+                            oneYearSelected = false,
+                            activeDiscussion = false,
+                            atLeastOnDiscussion = false
+                        )
+                    )
                     immigrationScreenTabLayout.getTabAt(0)?.select()
                     immigrationViewModel.setSearchQuery(textView.text.toString())
                 }
@@ -148,6 +160,7 @@ class ImmigrationScreenFragment : Fragment() {
                             cancelbutton.visibility = View.GONE
                             searchViewIcon.visibility = View.VISIBLE
                             immigrationViewModel.setKeyClassifiedKeyboardListener(true)
+                            immigrationViewModel.setSearchQuery(searchView.text.toString())
                         } else {
                             cancelbutton.visibility = View.VISIBLE
                             searchViewIcon.visibility = View.GONE
@@ -172,6 +185,8 @@ class ImmigrationScreenFragment : Fragment() {
             immigrationScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
+
+
                     if (tab?.position != 0) {
                         filterImmigration.isEnabled = false
                         filterImmigration.setColorFilter(
@@ -191,8 +206,10 @@ class ImmigrationScreenFragment : Fragment() {
                             )
                         )
                         filterImmigration.isEnabled = true
-                        selectedFilters.visibility = View.VISIBLE
-                        numberOfSelectedFilterCv.visibility = View.VISIBLE
+                        if (isFilterEnable) {
+                            selectedFilters.visibility = View.VISIBLE
+                            numberOfSelectedFilterCv.visibility = View.VISIBLE
+                        }
                     }
                 }
 
@@ -290,32 +307,40 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             immigrationFilterModel = filterData
             if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected || filterData.activeDiscussion || filterData.atLeastOnDiscussion) {
+                isFilterEnable = true
                 binding?.selectedFilters?.visibility = View.VISIBLE
+                binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
             } else {
+                isFilterEnable = false
+                binding?.numberOfSelectedFilterCv?.visibility = View.GONE
                 binding?.selectedFilters?.visibility = View.GONE
             }
 
             if (filterData.fifteenDaysSelected) {
+                numberOfAppliedFilter(++noOfSelectedFilter)
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 15 Days"
             }
 
             if (filterData.threeMonthSelected) {
+                numberOfAppliedFilter(++noOfSelectedFilter)
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 3 Months"
             }
 
             if (filterData.oneYearSelected) {
+                numberOfAppliedFilter(++noOfSelectedFilter)
                 binding?.dateRangeCv?.visibility = View.VISIBLE
                 binding?.dateRangeTv?.text = "Range: 1 Year"
             }
 
-            if (filterData.activeDiscussion) {
+            /*if (filterData.activeDiscussion) {
                 binding?.activeDiscussionFilterTv?.text = "Active Discussions"
                 binding?.activeDiscussionFilterCv?.visibility = View.VISIBLE
-            }
+            }*/
 
             if (filterData.atLeastOnDiscussion) {
+                numberOfAppliedFilter(++noOfSelectedFilter)
                 binding?.atLeastOneResponseFilterTv?.text = "Discussion With at Least One Response"
                 binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
@@ -324,4 +349,16 @@ class ImmigrationScreenFragment : Fragment() {
 
         return binding?.root
     }
+
+    private fun numberOfAppliedFilter(value: Int) {
+        if (value > 0) {
+            binding?.numberOfSelectedFilterTv?.text = noOfSelectedFilter.toString()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        noOfSelectedFilter = 0
+    }
+
 }
