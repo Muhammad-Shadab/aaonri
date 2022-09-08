@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -157,17 +156,13 @@ class ImmigrationScreenFragment : Fragment() {
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (searchView.hasFocus()) {
-                        Toast.makeText(context, "has focus", Toast.LENGTH_SHORT).show()
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
                             searchViewIcon.visibility = View.VISIBLE
-                            immigrationViewModel.setKeyClassifiedKeyboardListener(true)
                             immigrationViewModel.setSearchQuery(searchView.text.toString())
                         } else {
-                            Toast.makeText(context, "no focus", Toast.LENGTH_SHORT).show()
                             cancelbutton.visibility = View.VISIBLE
                             searchViewIcon.visibility = View.GONE
-                            immigrationViewModel.setKeyClassifiedKeyboardListener(false)
                         }
                     }
                 }
