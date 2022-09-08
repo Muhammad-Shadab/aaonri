@@ -5,7 +5,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,8 +29,8 @@ class ImmigrationCenterDetails : Fragment() {
             }
             detailsTv.textSize = 16F
 
-            immigrationViewModel.SelectedImmigrationCenterItem.observe(viewLifecycleOwner) { it ->
-
+            immigrationViewModel.selectedImmigrationCenterItem.observe(viewLifecycleOwner) { it ->
+                titleTv.text = it.title
                 var category: List<Category> = it.categories
                 immigrationViewModel.setImmigrationCenterDesc(it.categories[0])
                 category.forEach {
@@ -42,8 +41,7 @@ class ImmigrationCenterDetails : Fragment() {
                 immigrationViewModel.setImmigrationList(subTitle)
             }
 
-            immigrationViewModel.immigrationCenterDesc.observe(viewLifecycleOwner)
-            {
+            immigrationViewModel.immigrationCenterDesc.observe(viewLifecycleOwner) {
                 detailsTv.fromHtml(it.description)
                 subtitleTv.text = Html.fromHtml(it.title)
                 selectAllImmigrationSpinner.text = Html.fromHtml(it.title)

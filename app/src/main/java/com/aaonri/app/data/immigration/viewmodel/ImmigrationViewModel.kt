@@ -3,7 +3,6 @@ package com.aaonri.app.data.immigration.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.data.immigration.repository.ImmigrationRepository
 import com.aaonri.app.utils.Resource
@@ -38,7 +37,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val selectedDiscussionItem: MutableLiveData<Discussion> = MutableLiveData()
 
-    val SelectedImmigrationCenterItem: MutableLiveData<ImmigrationCenterModelItem> = MutableLiveData()
+    val selectedImmigrationCenterItem: MutableLiveData<ImmigrationCenterModelItem> = MutableLiveData()
 
     val navigateFromAllImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -153,7 +152,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     }
 
     fun setSelectedImmigrationCenterItem(value: ImmigrationCenterModelItem) {
-        SelectedImmigrationCenterItem.postValue(value)
+        selectedImmigrationCenterItem.postValue(value)
     }
 
     fun setNavigateFromAllImmigrationToDetailScreen(value: Boolean) {
