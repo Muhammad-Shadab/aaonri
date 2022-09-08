@@ -3,6 +3,7 @@ package com.aaonri.app.data.immigration.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.data.immigration.repository.ImmigrationRepository
 import com.aaonri.app.utils.Resource
@@ -26,14 +27,22 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val allDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    val ImmigrationCenterCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
+
     val myDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
+
+    var immigrationCenterDesc: MutableLiveData<Category> = MutableLiveData()
 
     val selectedAllDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
     val selectedDiscussionItem: MutableLiveData<Discussion> = MutableLiveData()
 
+    val SelectedImmigrationCenterItem: MutableLiveData<ImmigrationCenterModelItem> = MutableLiveData()
+
     val navigateFromAllImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
+
+    val navigateFromImmigrationCenterToCenterDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
     val navigateFromMyImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -65,6 +74,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     val replyDiscussionData: MutableLiveData<Resource<ReplyDiscussionResponse>> = MutableLiveData()
 
     val postDiscussionData: MutableLiveData<Resource<PostDiscussionResponse>> = MutableLiveData()
+
+    var immigrationCenterList: MutableLiveData<MutableList<Category>> = MutableLiveData()
 
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
@@ -122,6 +133,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         myDiscussionCategoryIsClicked.postValue(value)
     }
 
+    fun setImmigrationcenterCategoryIsClicked(value: Boolean) {
+        ImmigrationCenterCategoryIsClicked.postValue(value)
+    }
     fun setSelectedAllDiscussionCategory(value: DiscussionCategoryResponseItem) {
         selectedAllDiscussionScreenCategory.postValue(value)
     }
@@ -138,6 +152,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         selectedDiscussionItem.postValue(value)
     }
 
+    fun setSelectedImmigrationCenterItem(value: ImmigrationCenterModelItem) {
+        SelectedImmigrationCenterItem.postValue(value)
+    }
+
     fun setNavigateFromAllImmigrationToDetailScreen(value: Boolean) {
         navigateFromAllImmigrationToDetailScreen.postValue(value)
     }
@@ -146,11 +164,21 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         navigateFromMyImmigrationToDetailScreen.postValue(value)
     }
 
+    fun setNavigateFromImmigrationCenterToCenterDetailScreen(value: Boolean) {
+        navigateFromImmigrationCenterToCenterDetailScreen.postValue(value)
+    }
+    fun setImmigrationList(value:  MutableList<Category>) {
+        immigrationCenterList.value = value
+    }
+
+
     fun getDiscussionDetailsById(discussionId: String) = viewModelScope.launch {
         discussionDetailsData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionDetailsById(discussionId)
         discussionDetailsData.postValue(handleDiscussionDetailsResponse(response))
     }
+
+
 
     private fun handleDiscussionDetailsResponse(response: Response<DiscussionDetailsResponse>): Resource<DiscussionDetailsResponse>? {
         if (response.isSuccessful) {
@@ -214,5 +242,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         }
         return Resource.Error(response.message())
     }
+
+    fun setImmigrationCenterDesc(item: Category) {
+            immigrationCenterDesc.value = item
+    }
+
 
 }
