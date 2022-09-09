@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -107,7 +106,6 @@ class PostImmigrationFragment : Fragment() {
                     descEt.setText(discussion.discussionDesc)
                 }
             }
-
         }
 
         immigrationViewModel.selectedPostingDiscussionScreenCategory.observe(viewLifecycleOwner) {
@@ -116,42 +114,48 @@ class PostImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.postDiscussionData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    if (response.data?.discussionId != null) {
-                        // success
-                        findNavController().navigateUp()
-                    } else {
-                        showAlert("Topic already available")
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        if (response.data?.discussionId != null) {
+                            // success
+                            findNavController().navigateUp()
+                        } else {
+                            showAlert("Topic already available")
+                        }
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
                     }
                 }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                }
+                immigrationViewModel.postDiscussionData.postValue(null)
             }
         }
 
         immigrationViewModel.updateDiscussionData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    if (response.data?.discussionId != null) {
-                        // success
-                        findNavController().navigateUp()
-                    } else {
-                        showAlert("Something went wrong")
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        if (response.data?.discussionId != null) {
+                            // success
+                            findNavController().navigateUp()
+                        } else {
+                            showAlert("Something went wrong")
+                        }
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
                     }
                 }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                }
+                immigrationViewModel.updateDiscussionData.postValue(null)
             }
         }
 

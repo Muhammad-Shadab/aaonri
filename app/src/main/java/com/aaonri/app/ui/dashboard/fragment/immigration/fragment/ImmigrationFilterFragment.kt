@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -35,6 +33,8 @@ class ImmigrationFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentImmigrationFilterBinding.inflate(layoutInflater, container, false)
+
+        immigrationViewModel.setCallImmigrationApi(false)
 
         binding?.apply {
 

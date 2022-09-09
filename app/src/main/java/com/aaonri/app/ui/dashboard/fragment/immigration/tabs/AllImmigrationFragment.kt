@@ -2,6 +2,7 @@ package com.aaonri.app.ui.dashboard.fragment.immigration.tabs
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,26 +64,30 @@ class AllImmigrationFragment : Fragment() {
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
-            immigrationViewModel.getAllImmigrationDiscussion(
-                GetAllImmigrationRequest(
-                    categoryId = "${it.discCatId}",
-                    createdById = "",
-                    keywords =
-                    ""
+            if (immigrationViewModel.callAllImmigrationApi) {
+                immigrationViewModel.getAllImmigrationDiscussion(
+                    GetAllImmigrationRequest(
+                        categoryId = "${it.discCatId}",
+                        createdById = "",
+                        keywords =
+                        ""
+                    )
                 )
-            )
+            }
         }
 
-        /*immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-            immigrationViewModel.getAllImmigrationDiscussion(
-                GetAllImmigrationRequest(
-                    categoryId = "${discussionCategoryResponseItem?.discCatId}",
-                    createdById = "",
-                    keywords = it
+        immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
+            if (it != null) {
+                immigrationViewModel.getAllImmigrationDiscussion(
+                    GetAllImmigrationRequest(
+                        categoryId = "${discussionCategoryResponseItem?.discCatId}",
+                        createdById = "",
+                        keywords = it
+                    )
                 )
-            )
-        }*/
+                immigrationViewModel.immigrationSearchQuery.postValue(null)
+            }
+        }
 
 
         immigrationViewModel.allImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
@@ -99,7 +104,6 @@ class AllImmigrationFragment : Fragment() {
                         binding?.resultsNotFoundLL?.visibility = View.VISIBLE
                     }
 
-
                     /*response.data?.discussionList?.forEach { discussion ->
                         if (discussion.approved && !activeDiscussionList.contains(discussion)) {
                             activeDiscussionList.add(discussion)
@@ -114,7 +118,10 @@ class AllImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
+            Log.i("filterData", "onCreateView: $filterData")
             immigrationFilterModel = filterData
+            var filteredList = mutableListOf<Discussion>()
+
             val previousFilterDays = getCalculatedDate(
                 "MM-dd-yyyy",
                 if (filterData.fifteenDaysSelected) -15 else if (filterData.threeMonthSelected) -90 else if (filterData.oneYearSelected) -365 else 0
@@ -122,14 +129,14 @@ class AllImmigrationFragment : Fragment() {
 
             val currentDate = getCalculatedDate("MM-dd-yyyy", 0)
 
-            var filteredList = mutableListOf<Discussion>()
 
             discussionList.forEach { discussion ->
 
                 if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected) {
                     val apiDate = DateTimeFormatter.ofPattern("MM-dd-yyyy")
                         .format(
-                            DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(discussion.createdOn)
+                            DateTimeFormatter.ofPattern("dd-MMM-yyyy")
+                                .parse(discussion.createdOn)
                         )
 
                     val d1 = apiDate
@@ -174,7 +181,6 @@ class AllImmigrationFragment : Fragment() {
             if (!filterData.fifteenDaysSelected && !filterData.threeMonthSelected && !filterData.oneYearSelected && !filterData.activeDiscussion && !filterData.atLeastOnDiscussion) {
                 filteredList = discussionList
             }
-
 
             immigrationAdapter?.setData(filteredList)
         }

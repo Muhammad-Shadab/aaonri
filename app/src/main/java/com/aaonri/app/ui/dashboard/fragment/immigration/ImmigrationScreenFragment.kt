@@ -160,6 +160,7 @@ class ImmigrationScreenFragment : Fragment() {
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
                             searchViewIcon.visibility = View.VISIBLE
+                            immigrationViewModel.setSearchQuery(searchView.text.toString())
                         } else {
                             cancelbutton.visibility = View.VISIBLE
                             searchViewIcon.visibility = View.GONE
