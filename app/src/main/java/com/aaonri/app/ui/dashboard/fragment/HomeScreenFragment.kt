@@ -109,6 +109,15 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+        adsGenericAdapter2?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToAdvertiseWebviewFragment(
+                        item.advertisementDetails.url
+                    )
+                findNavController().navigate(action)
+            }
+        }
 
         genericAdapterForClassified?.itemClickListener = { view, item, position ->
             val action =

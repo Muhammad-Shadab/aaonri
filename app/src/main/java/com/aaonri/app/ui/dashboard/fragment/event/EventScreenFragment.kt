@@ -25,6 +25,7 @@ import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -355,6 +356,18 @@ class EventScreenFragment : Fragment() {
                 eventViewModel.setEventCityList(mutableListOf())
             }
             eventViewModel.setClearAllFilter(false)
+        }
+
+
+        eventViewModel.navigateFromEventScreenToAdvertiseWebView.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToAdvertiseWebviewFragment(
+                        eventViewModel.eventAdvertiseUrl
+                    )
+                findNavController().navigate(action)
+                eventViewModel.setNavigateFromEventScreenToAdvertiseWebView(false)
+            }
         }
 
         return eventScreenBinding?.root
