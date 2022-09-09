@@ -44,6 +44,7 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
                             /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
                                 false
                             )*/
+                            immigrationViewModel.setCallImmigrationApi(true)
                             immigrationViewModel.setSelectedAllDiscussionCategory(item)
                         }
 

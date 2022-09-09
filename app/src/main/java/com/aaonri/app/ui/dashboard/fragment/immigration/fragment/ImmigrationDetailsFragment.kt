@@ -9,11 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -40,7 +37,7 @@ class ImmigrationDetailsFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     val args: ImmigrationDetailsFragmentArgs by navArgs()
     var discussion: Discussion? = null
-    var DoNotCallImmigrationApi = true
+    var callAllImmigrationApi = false
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -62,7 +59,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 { view, item, position, updateImmigration, deleteImmigration ->
                     postReplyEt.requestFocus()
                     val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.showSoftInput( postReplyEt, InputMethodManager.SHOW_IMPLICIT)
+                    imm.showSoftInput(postReplyEt, InputMethodManager.SHOW_IMPLICIT)
 
                 }
             navigateBack.setOnClickListener {
@@ -80,7 +77,7 @@ class ImmigrationDetailsFragment : Fragment() {
                             replyDesc = postReplyEt.text.toString(),
                         )
                     )
-                    DoNotCallImmigrationApi = false
+                    callAllImmigrationApi = true
                     postReplyEt.setText("")
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 } else {
@@ -154,7 +151,6 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     binding?.noOfReply?.text = response.data?.size.toString()
                     response.data?.let { immigrationAdapter?.setData(it) }
-                    binding?.immigrationNestedScroll?.fullScroll(View.FOCUS_DOWN)
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -162,22 +158,22 @@ class ImmigrationDetailsFragment : Fragment() {
             }
         }
 
-       /* requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (args.isFromAllDiscussionScreen) {
-                        immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
-                            DoNotCallImmigrationApi
-                        )
-                    } else {
-                        immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
-                            DoNotCallImmigrationApi
-                        )
-                    }
-                    findNavController().navigateUp()
-                }
-           })*/
+        /* requireActivity()
+             .onBackPressedDispatcher
+             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                 override fun handleOnBackPressed() {
+                     if (args.isFromAllDiscussionScreen) {
+                         immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                             DoNotCallImmigrationApi
+                         )
+                     } else {
+                         immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                             DoNotCallImmigrationApi
+                         )
+                     }
+                     findNavController().navigateUp()
+                 }
+            })*/
 
         return binding?.root
     }
@@ -185,6 +181,7 @@ class ImmigrationDetailsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         immigrationViewModel.discussionDetailsData.value = null
+        immigrationViewModel.setCallImmigrationApi(callAllImmigrationApi)
     }
 
 }
