@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.databinding.FragmentAdvertiseWebviewBinding
@@ -24,14 +26,40 @@ class AdvertiseWebviewFragment : Fragment() {
 
             // this will load the url of the website
             if (url != null) {
+                binding?.progresShopping?.visibility = View.VISIBLE
                 advertiseWebView?.loadUrl(url)
             }
 
             // this will enable the javascript settings
             advertiseWebView?.settings?.javaScriptEnabled = true
 
-            // if you want to enable zoom feature
-            advertiseWebView?.settings?.setSupportZoom(true)
+           advertiseWebView?.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+
+                    binding?.progresShopping?.visibility = View.GONE
+                    view.loadUrl(url)
+                    return true
+                }
+
+                override fun onPageFinished(view: WebView, url: String) {
+
+                    binding?.progresShopping?.visibility = View.GONE
+
+                }
+
+                override fun onReceivedError(
+                    view: WebView,
+                    errorCode: Int,
+                    description: String,
+                    failingUrl: String
+                ) {
+
+                    binding?.progresShopping?.visibility = View.GONE
+                Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
+                    .show()
+                }
+            }
+
             closeAdvertiseBtn.setOnClickListener {
                 findNavController().navigateUp()
             }

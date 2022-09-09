@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.LikeDislikeClassifiedRequest
 import com.aaonri.app.data.classified.model.UserAdsXX
@@ -42,6 +43,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -98,6 +100,17 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.getClassifiedAdDetails(args.addId)
 
         adsGenericAdapter = AdsGenericAdapter()
+        adsGenericAdapter?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+
+                val action =
+                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToAdvertiseWebviewFragment(
+                        item.advertisementDetails.url
+                    )
+                findNavController().navigate(action)
+            }
+        }
+
 
         classifiedDetailsBinding?.apply {
 

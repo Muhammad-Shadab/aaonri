@@ -27,6 +27,8 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     var clickedOnFilter: MutableLiveData<Boolean> = MutableLiveData()
 
+    var eventAdvertiseUrl: String = ""
+
     val callEventApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
 
     var sendDataToEventDetailsScreen: MutableLiveData<Event> = MutableLiveData()
@@ -79,6 +81,10 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     var keyClassifiedKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
         private set
+
+    val navigateFromEventScreenToAdvertiseWebView: MutableLiveData<Boolean> = MutableLiveData()
+
+
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
         myEvent.postValue(Resource.Loading())
@@ -197,5 +203,14 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
 
     fun setKeyClassifiedKeyboardListener(value: Boolean) {
         keyClassifiedKeyboardListener.postValue(value)
+    }
+
+    fun setEventAdvertiseUrls(url: String) {
+        eventAdvertiseUrl  = url
+
+    }
+
+    fun setNavigateFromEventScreenToAdvertiseWebView(value: Boolean) {
+        navigateFromEventScreenToAdvertiseWebView.postValue(value)
     }
 }
