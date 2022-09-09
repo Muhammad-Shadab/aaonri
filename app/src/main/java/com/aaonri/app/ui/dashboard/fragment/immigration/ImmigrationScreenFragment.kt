@@ -58,6 +58,10 @@ class ImmigrationScreenFragment : Fragment() {
             immigrationScreenViewPager.isUserInputEnabled = false
             immigrationScreenViewPager.adapter = pagerAdapter
 
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             filterImmigration.setOnClickListener {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationFilterFragment()
