@@ -112,6 +112,7 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified?.itemClickListener = { view, item, position ->
             val action =
+
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
                     item.id,
                     false
