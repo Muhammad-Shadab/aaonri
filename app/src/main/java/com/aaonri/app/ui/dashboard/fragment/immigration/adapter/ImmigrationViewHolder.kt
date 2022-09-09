@@ -151,7 +151,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         }
     }
 
-    class ImmigrationInformationcenterViewHolder(private val binding: ImmigrationsInforamtionCenterItemBinding) :
+    class ImmigrationInformationCenterViewHolder(private val binding: ImmigrationsInforamtionCenterItemBinding) :
         ImmigrationViewHolder(binding) {
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(immigrationCenterItem: ImmigrationCenterModelItem) {

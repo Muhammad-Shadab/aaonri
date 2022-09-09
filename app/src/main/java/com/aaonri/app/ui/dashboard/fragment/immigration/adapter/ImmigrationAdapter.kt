@@ -57,7 +57,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                 )
             }
             R.layout.immigrations_inforamtion_center_item -> {
-                ImmigrationViewHolder.ImmigrationInformationcenterViewHolder(
+                ImmigrationViewHolder.ImmigrationInformationCenterViewHolder(
                     ImmigrationsInforamtionCenterItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -98,7 +98,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                 }
             }
 
-            is ImmigrationViewHolder.ImmigrationInformationcenterViewHolder -> {
+            is ImmigrationViewHolder.ImmigrationInformationCenterViewHolder -> {
                 if (data[position] is ImmigrationCenterModelItem) {
                     holder.bind(data[position] as ImmigrationCenterModelItem)
                 }
