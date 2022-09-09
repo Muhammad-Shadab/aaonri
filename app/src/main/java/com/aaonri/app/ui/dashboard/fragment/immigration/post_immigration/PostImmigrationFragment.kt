@@ -160,7 +160,7 @@ class PostImmigrationFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
-                    immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
+                    //immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
                     findNavController().navigateUp()
                 }
             })
