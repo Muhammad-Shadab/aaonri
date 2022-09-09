@@ -134,6 +134,13 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                    if(response.data?.discussionList?.isNotEmpty() == true)
+                    {
+                        binding?.resultsNotFoundLL?.visibility = View.GONE
+                    }
+                    else{
+                        binding?.resultsNotFoundLL?.visibility = View.VISIBLE
+                    }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

@@ -162,7 +162,7 @@ class ImmigrationDetailsFragment : Fragment() {
             }
         }
 
-        /*requireActivity()
+       /* requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -177,7 +177,7 @@ class ImmigrationDetailsFragment : Fragment() {
                     }
                     findNavController().navigateUp()
                 }
-            })*/
+           })*/
 
         return binding?.root
     }

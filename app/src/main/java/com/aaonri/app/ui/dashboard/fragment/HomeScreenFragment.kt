@@ -24,6 +24,8 @@ import com.aaonri.app.data.home.adapter.InterestAdapter
 import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
+import com.aaonri.app.data.immigration.model.ImmigrationCenterModelItem
+import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
@@ -35,7 +37,11 @@ import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
+import java.io.IOException
+import java.nio.charset.Charset
 
 
 @AndroidEntryPoint
@@ -47,7 +53,7 @@ class HomeScreenFragment : Fragment() {
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
-
+    var immigartinList = mutableListOf<ImmigrationCenterModelItem>()
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
@@ -56,7 +62,7 @@ class HomeScreenFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
-
+    val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     //var homeEventAdapter: HomeEventAdapter? = null
     var genericAdapterForClassified: ClassifiedGenericAdapter? = null
     var genericAdapterForEvent: EventGenericAdapter? = null
@@ -149,6 +155,14 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         immigrationAdapter = ImmigrationAdapter()
+        immigrationAdapter?.itemClickListener =
+            { view, item, position, updateImmigration, deleteImmigration ->
+                if (item is ImmigrationCenterModelItem) {
+                    val action =HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationCenterDetails()
+                    findNavController().navigate(action)
+                    immigrationViewModel.setSelectedImmigrationCenterItem(item)
+                }
+            }
 
         //immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
@@ -200,6 +214,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         //homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
@@ -210,6 +225,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
@@ -218,7 +234,26 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.adsAbovePopularSectionRv?.margin(0F, 10F, 0F, 0F)
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,4F)
+                        val userArray = JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
+                        val gson = Gson()
+
+                        for (i in 0 until userArray.length()) {
+                            if(!immigartinList.contains( gson.fromJson(
+                                    userArray.getString(i),
+                                    ImmigrationCenterModelItem::class.java
+                                ))) {
+                                immigartinList.add(
+
+                                    gson.fromJson(
+                                        userArray.getString(i),
+                                        ImmigrationCenterModelItem::class.java
+                                    )
+                                )
+                            }
+
+                        }
+                        immigrationAdapter?.setData(immigartinList)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter =
@@ -810,4 +845,22 @@ class HomeScreenFragment : Fragment() {
     fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
     fun Context.dpToPx(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+
+
+    private fun loadJSONFromAsset(): String? {
+        val json: String?
+        try {
+            val inputStream = context?.assets?.open("informationcenter.json")
+            val size = inputStream?.available()
+            val buffer = size?.let { ByteArray(it) }
+            val charset: Charset = Charsets.UTF_8
+            inputStream?.read(buffer)
+            inputStream?.close()
+            json = buffer?.let { String(it, charset) }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return ""
+        }
+        return json
+    }
 }

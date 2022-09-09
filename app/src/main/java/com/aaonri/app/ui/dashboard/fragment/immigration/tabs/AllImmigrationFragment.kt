@@ -96,6 +96,15 @@ class AllImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                    if(response.data?.discussionList?.isNotEmpty() == true)
+                    {
+                        binding?.resultsNotFoundLL?.visibility = View.GONE
+                    }
+                    else{
+                        binding?.resultsNotFoundLL?.visibility = View.VISIBLE
+                    }
+
+
                     /*response.data?.discussionList?.forEach { discussion ->
                         if (discussion.approved && !activeDiscussionList.contains(discussion)) {
                             activeDiscussionList.add(discussion)
