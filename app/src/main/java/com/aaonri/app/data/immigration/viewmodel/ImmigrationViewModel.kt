@@ -99,7 +99,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         return Resource.Error(response.message())
     }
 
-    /*fun getAllImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
+    fun getAllImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
         viewModelScope.launch {
             allImmigrationDiscussionListData.postValue(Resource.Loading())
             val response =
@@ -109,7 +109,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
                     response
                 )
             )
-        }*/
+        }
 
     fun getMyImmigrationDiscussion(getAllImmigrationRequest: GetAllImmigrationRequest) =
         viewModelScope.launch {

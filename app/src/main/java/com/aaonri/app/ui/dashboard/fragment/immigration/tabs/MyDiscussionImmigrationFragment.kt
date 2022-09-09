@@ -57,7 +57,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 if (item is Discussion) {
                     if (updateImmigration) {
                         if (!item.approved) {
-                            //immigrationViewModel.setNavigateFromMyImmigrationToUpdateScreen(true)
+                            immigrationViewModel.setNavigateFromMyImmigrationToUpdateScreen(true)
                             immigrationViewModel.setSelectedDiscussionItem(item)
                         }
                     } else if (deleteImmigration) {
@@ -113,6 +113,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
         immigrationViewModel.selectedMyDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
+
             binding?.selectMyImmigrationCategorySpinner?.text = it.discCatValue
             if (!immigrationViewModel.isNavigateBackFromMyImmigrationDetailScreen) {
                 immigrationViewModel.getMyImmigrationDiscussion(

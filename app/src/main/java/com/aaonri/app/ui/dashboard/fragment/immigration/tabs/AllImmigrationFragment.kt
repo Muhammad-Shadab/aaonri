@@ -65,14 +65,14 @@ class AllImmigrationFragment : Fragment() {
             discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
             if (!immigrationViewModel.isNavigateBackFromAllImmigrationDetailScreen) {
-                /*immigrationViewModel.getAllImmigrationDiscussion(
+                immigrationViewModel.getAllImmigrationDiscussion(
                     GetAllImmigrationRequest(
                         categoryId = "${it.discCatId}",
                         createdById = "",
                         keywords =
                         ""
                     )
-                )*/
+                )
             }
         }
 
