@@ -26,7 +26,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val allDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
-    val ImmigrationCenterCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
+    val immigrationCenterCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
     val myDiscussionCategoryIsClicked: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -141,7 +141,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     }
 
     fun setImmigrationcenterCategoryIsClicked(value: Boolean) {
-        ImmigrationCenterCategoryIsClicked.postValue(value)
+        immigrationCenterCategoryIsClicked.postValue(value)
     }
     fun setSelectedAllDiscussionCategory(value: DiscussionCategoryResponseItem) {
         selectedAllDiscussionScreenCategory.postValue(value)
@@ -184,7 +184,6 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         val response = immigrationRepository.getDiscussionDetailsById(discussionId)
         discussionDetailsData.postValue(handleDiscussionDetailsResponse(response))
     }
-
 
 
     private fun handleDiscussionDetailsResponse(response: Response<DiscussionDetailsResponse>): Resource<DiscussionDetailsResponse>? {

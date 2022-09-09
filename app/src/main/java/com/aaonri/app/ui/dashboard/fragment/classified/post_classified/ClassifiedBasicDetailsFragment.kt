@@ -4,14 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
@@ -27,7 +24,6 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
 import com.aaonri.app.utils.DecimalDigitsInputFilter
-import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
@@ -214,7 +210,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         if (postClassifiedViewModel.isUpdateClassified) {
             ClassifiedStaticData.getCategoryList()
                 .forEachIndexed { index, classifiedCategoryResponseItem ->
-                    if (classifiedCategoryResponseItem.title == postClassifiedViewModel.selectedClssifiedCategoryWhileUpdating) {
+                    if (classifiedCategoryResponseItem.title == postClassifiedViewModel.selectedClassifiedCategoryWhileUpdating) {
                         postClassifiedViewModel.setClassifiedSubCategoryList(
                             classifiedCategoryResponseItem
                         )

@@ -47,7 +47,7 @@ class PostClassifiedViewModel @Inject constructor(
     var classifiedBasicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedClssifiedCategoryWhileUpdating = ""
+    var selectedClassifiedCategoryWhileUpdating = ""
 
     var classifiedAddressDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
@@ -88,8 +88,6 @@ class PostClassifiedViewModel @Inject constructor(
         MutableLiveData()
         private set
 
-    var filterSelectedDataList: MutableLiveData<MutableList<String>> = MutableLiveData()
-
     val classifiedAdDetailsData: MutableLiveData<Resource<ClassifiedAdDetailsResponse>> =
         MutableLiveData()
 
@@ -110,7 +108,7 @@ class PostClassifiedViewModel @Inject constructor(
     var classifiedUploadedImagesIdList = mutableListOf<Int>()
         private set
 
-    var imageIdGoindToRemove = mutableListOf<Int>()
+    var imageIdGoingToRemove = mutableListOf<Int>()
         private set
 
     var minValueInFilterScreen = ""
@@ -260,10 +258,6 @@ class PostClassifiedViewModel @Inject constructor(
         navigateToAllClassified.postValue(value)
     }
 
-    fun setFilterData(value: MutableList<String>) {
-        filterSelectedDataList.postValue(value)
-    }
-
 
     /* fun uploadImages(uploadImagesRequest: UploadImagesRequest) = viewModelScope.launch {
          uploadImagesData.postValue(Resource.Loading())
@@ -379,7 +373,7 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setClassifiedCategoryWhileUpdating(value: String) {
-        selectedClssifiedCategoryWhileUpdating = value
+        selectedClassifiedCategoryWhileUpdating = value
     }
 
     fun setClassifiedUploadedImagesIdList(value: MutableList<Int>) {

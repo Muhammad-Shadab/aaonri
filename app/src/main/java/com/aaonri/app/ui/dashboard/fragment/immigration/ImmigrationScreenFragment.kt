@@ -149,6 +149,7 @@ class ImmigrationScreenFragment : Fragment() {
                 immigrationViewModel.setSearchQuery(searchView.text.toString())
             }*/
 
+
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -159,7 +160,6 @@ class ImmigrationScreenFragment : Fragment() {
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
                             searchViewIcon.visibility = View.VISIBLE
-                            immigrationViewModel.setSearchQuery(searchView.text.toString())
                         } else {
                             cancelbutton.visibility = View.VISIBLE
                             searchViewIcon.visibility = View.GONE

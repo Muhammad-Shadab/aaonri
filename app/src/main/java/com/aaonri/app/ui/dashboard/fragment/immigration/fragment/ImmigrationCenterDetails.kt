@@ -47,7 +47,7 @@ class ImmigrationCenterDetails : Fragment() {
                 selectAllImmigrationSpinner.text = Html.fromHtml(it.title)
             }
 
-            immigrationViewModel.ImmigrationCenterCategoryIsClicked.observe(viewLifecycleOwner) {
+            immigrationViewModel.immigrationCenterCategoryIsClicked.observe(viewLifecycleOwner) {
                 if (it) {
                     val action =
                         ImmigrationCenterDetailsDirections.actionImmigrationCenterDetailsToImmigrationInfoCenterBottomSheet()

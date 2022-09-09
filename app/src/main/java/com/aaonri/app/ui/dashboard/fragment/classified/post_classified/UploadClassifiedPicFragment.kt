@@ -188,28 +188,28 @@ class UploadClassifiedPicFragment : Fragment() {
                 0 -> {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoindToRemove.add(i)
+                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
                         }
                     }
                 }
                 1 -> {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoindToRemove.add(i)
+                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
                         }
                     }
                 }
                 2 -> {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoindToRemove.add(i)
+                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
                         }
                     }
                 }
                 3 -> {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoindToRemove.add(i)
+                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
                         }
                     }
                 }

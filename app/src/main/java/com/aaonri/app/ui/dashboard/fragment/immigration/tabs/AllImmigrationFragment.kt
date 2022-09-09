@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -75,7 +76,8 @@ class AllImmigrationFragment : Fragment() {
             }
         }
 
-        immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
+        /*immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
             immigrationViewModel.getAllImmigrationDiscussion(
                 GetAllImmigrationRequest(
                     categoryId = "${discussionCategoryResponseItem?.discCatId}",
@@ -83,7 +85,7 @@ class AllImmigrationFragment : Fragment() {
                     keywords = it
                 )
             )
-        }
+        }*/
 
 
         immigrationViewModel.allImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
