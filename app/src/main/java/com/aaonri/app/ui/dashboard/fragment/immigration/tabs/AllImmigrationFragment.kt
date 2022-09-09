@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -64,16 +63,14 @@ class AllImmigrationFragment : Fragment() {
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
-            if (!immigrationViewModel.isNavigateBackFromAllImmigrationDetailScreen) {
-                immigrationViewModel.getAllImmigrationDiscussion(
-                    GetAllImmigrationRequest(
-                        categoryId = "${it.discCatId}",
-                        createdById = "",
-                        keywords =
-                        ""
-                    )
+            immigrationViewModel.getAllImmigrationDiscussion(
+                GetAllImmigrationRequest(
+                    categoryId = "${it.discCatId}",
+                    createdById = "",
+                    keywords =
+                    ""
                 )
-            }
+            )
         }
 
         /*immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
@@ -96,11 +93,9 @@ class AllImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
-                    if(response.data?.discussionList?.isNotEmpty() == true)
-                    {
+                    if (response.data?.discussionList?.isNotEmpty() == true) {
                         binding?.resultsNotFoundLL?.visibility = View.GONE
-                    }
-                    else{
+                    } else {
                         binding?.resultsNotFoundLL?.visibility = View.VISIBLE
                     }
 

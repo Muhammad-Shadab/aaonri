@@ -56,12 +56,12 @@ class PostImmigrationFragment : Fragment() {
                         if (descEt.text.toString().length >= 3) {
 
                             if (args.isUpdateImmigration) {
-                                immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
                                     false
                                 )
                                 immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
                                     false
-                                )
+                                )*/
                                 immigrationViewModel.updateDiscussion(
                                     UpdateDiscussionRequest(
                                         discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else if (discussionData?.discCatId != null) discussionData!!.discCatId else 0,
@@ -72,12 +72,12 @@ class PostImmigrationFragment : Fragment() {
                                     )
                                 )
                             } else {
-                                immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
                                     false
                                 )
                                 immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
                                     false
-                                )
+                                )*/
                                 immigrationViewModel.postDiscussion(
                                     PostDiscussionRequest(
                                         discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else 0,
@@ -154,16 +154,6 @@ class PostImmigrationFragment : Fragment() {
                 }
             }
         }
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
-                    //immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
-                    findNavController().navigateUp()
-                }
-            })
 
         return binding?.root
     }

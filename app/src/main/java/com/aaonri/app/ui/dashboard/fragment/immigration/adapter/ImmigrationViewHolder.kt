@@ -96,9 +96,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                     if (discussion.approved) {
                         updateImmigrationBtn.visibility = View.GONE
                     }
-
                 }
-
 
 
                 immigrationCv.setOnClickListener {

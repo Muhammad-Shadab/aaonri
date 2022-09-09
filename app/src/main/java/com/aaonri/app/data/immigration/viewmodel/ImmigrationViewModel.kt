@@ -62,11 +62,11 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     var setCategoryForFirstIndexForOnce = true
         private set
 
-    var isNavigateBackFromAllImmigrationDetailScreen = false
-        private set
+    /*var isNavigateBackFromAllImmigrationDetailScreen = false
+        private set*/
 
-    var isNavigateBackFromMyImmigrationDetailScreen = false
-        private set
+    /*var isNavigateBackFromMyImmigrationDetailScreen = false
+        private set*/
 
     val immigrationSearchQuery: MutableLiveData<String> = MutableLiveData()
 
@@ -178,7 +178,6 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         immigrationCenterList.value = value
     }
 
-
     fun getDiscussionDetailsById(discussionId: String) = viewModelScope.launch {
         discussionDetailsData.postValue(Resource.Loading())
         val response = immigrationRepository.getDiscussionDetailsById(discussionId)
@@ -199,13 +198,13 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         setCategoryForFirstIndexForOnce = value
     }
 
-    fun setIsNavigateBackFromAllImmigrationDetailScreen(value: Boolean) {
+    /*fun setIsNavigateBackFromAllImmigrationDetailScreen(value: Boolean) {
         isNavigateBackFromAllImmigrationDetailScreen = value
     }
 
     fun setIsNavigateBackFromMyImmigrationDetailScreen(value: Boolean) {
         isNavigateBackFromMyImmigrationDetailScreen = value
-    }
+    }*/
 
     fun setKeyClassifiedKeyboardListener(value: Boolean) {
         keyImmigrationKeyboardListener.postValue(value)

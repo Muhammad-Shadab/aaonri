@@ -265,15 +265,6 @@ class ImmigrationFilterFragment : Fragment() {
              binding?.selectCategorySpinner?.text = it.discCatValue
          }*/
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
-                    //immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
-                    findNavController().navigateUp()
-                }
-            })
 
         return binding?.root
     }

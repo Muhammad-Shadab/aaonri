@@ -113,18 +113,15 @@ class MyDiscussionImmigrationFragment : Fragment() {
 
         immigrationViewModel.selectedMyDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
-
             binding?.selectMyImmigrationCategorySpinner?.text = it.discCatValue
-            if (!immigrationViewModel.isNavigateBackFromMyImmigrationDetailScreen) {
-                immigrationViewModel.getMyImmigrationDiscussion(
-                    GetAllImmigrationRequest(
-                        categoryId = "${it.discCatId}",
-                        createdById = userId.toString(),
-                        keywords =
-                        ""
-                    )
+            immigrationViewModel.getMyImmigrationDiscussion(
+                GetAllImmigrationRequest(
+                    categoryId = "${it.discCatId}",
+                    createdById = userId.toString(),
+                    keywords =
+                    ""
                 )
-            }
+            )
         }
 
         immigrationViewModel.myImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
@@ -135,11 +132,9 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
-                    if(response.data?.discussionList?.isNotEmpty() == true)
-                    {
+                    if (response.data?.discussionList?.isNotEmpty() == true) {
                         binding?.resultsNotFoundLL?.visibility = View.GONE
-                    }
-                    else{
+                    } else {
                         binding?.resultsNotFoundLL?.visibility = View.VISIBLE
                     }
                 }
@@ -156,14 +151,13 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    /*immigrationViewModel.getMyImmigrationDiscussion(
+                    immigrationViewModel.getMyImmigrationDiscussion(
                         GetAllImmigrationRequest(
                             categoryId = "${discussionCategoryResponseItem?.discCatId}",
                             createdById = userId.toString(),
                             keywords = ""
                         )
-                    )*/
-
+                    )
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
