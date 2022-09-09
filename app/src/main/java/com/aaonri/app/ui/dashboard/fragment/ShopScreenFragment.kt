@@ -10,7 +10,9 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.databinding.FragmentShopScreenBinding
 
 
@@ -67,8 +69,18 @@ class ShopScreenFragment : Fragment() {
             shopWithUsWebView.setOnClickListener {
                 findNavController().navigateUp()
             }*/
-            startWebView("http://aaonridevnew.aaonri.com/StartSelling")
+            startWebView("${BuildConfig.BASE_URL.replace(":8444","")}/StartSelling")
+            requireActivity()
+                .onBackPressedDispatcher
+                .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        if (binding?.shopWithUsWebView?.canGoBack() == true)
+                            binding?.shopWithUsWebView?.goBack()
+                        // if your webview cannot go back
+                        // it will exit the application
 
+                    }
+                })
         }
         return  binding?.root
     }
@@ -77,24 +89,21 @@ class ShopScreenFragment : Fragment() {
     private fun startWebView(url: String) {
         val settings: WebSettings? = binding?.shopWithUsWebView?.getSettings()
         settings?.javaScriptEnabled = true
-        binding?.shopWithUsWebView?.getSettings()?.setUseWideViewPort(true)
-        binding?.shopWithUsWebView?.getSettings()?.setLoadWithOverviewMode(true)
-        binding?.shopWithUsWebView?.getSettings()?.setDomStorageEnabled(true)
+        binding?.shopWithUsWebView?.settings?.useWideViewPort = true
+        binding?.shopWithUsWebView?.settings?.loadWithOverviewMode = true
+        binding?.shopWithUsWebView?.settings?.domStorageEnabled = true
         binding?.shopWithUsWebView?.clearView()
-        binding?.shopWithUsWebView?.setHorizontalScrollBarEnabled(false)
-        binding?.shopWithUsWebView?.getSettings()?.setAppCacheEnabled(true)
-        binding?.shopWithUsWebView?.getSettings()?.setDatabaseEnabled(true)
+        binding?.shopWithUsWebView?.isHorizontalScrollBarEnabled = false
+        binding?.shopWithUsWebView?.settings?.setAppCacheEnabled(true)
+        binding?.shopWithUsWebView?.settings?.databaseEnabled = true
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            binding?.shopWithUsWebView?.getSettings()?.setDatabasePath(
-                "/data/data/" + context?.packageName.toString() + "/databases/"
-            )
+            binding?.shopWithUsWebView?.settings?.databasePath = "/data/data/" + context?.packageName.toString() + "/databases/"
         }
-        binding?.shopWithUsWebView?.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY)
-        binding?.shopWithUsWebView?.getSettings()?.setBuiltInZoomControls(true)
-        binding?.shopWithUsWebView?.getSettings()?.setUseWideViewPort(true)
-        binding?.shopWithUsWebView?.getSettings()?.setLoadWithOverviewMode(true)
+        binding?.shopWithUsWebView?.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
+        binding?.shopWithUsWebView?.settings?.useWideViewPort = true
+        binding?.shopWithUsWebView?.settings?.loadWithOverviewMode = true
         binding?.progresShopping?.visibility = View.VISIBLE
-        binding?.shopWithUsWebView?.setWebViewClient(object : WebViewClient() {
+        binding?.shopWithUsWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 return true
@@ -102,7 +111,7 @@ class ShopScreenFragment : Fragment() {
 
             override fun onPageFinished(view: WebView, url: String) {
 
-                    binding?.progresShopping?.visibility = View.GONE
+                binding?.progresShopping?.visibility = View.GONE
 
             }
 
@@ -115,7 +124,11 @@ class ShopScreenFragment : Fragment() {
                 Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
                     .show()
             }
-        })
+        }
+
+
         binding?.shopWithUsWebView?.loadUrl(url)
     }
+
+
 }
