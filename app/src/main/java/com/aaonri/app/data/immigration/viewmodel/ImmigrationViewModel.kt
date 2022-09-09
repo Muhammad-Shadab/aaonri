@@ -86,6 +86,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     var immigrationCenterList: MutableLiveData<MutableList<Category>> = MutableLiveData()
 
+    var clearSearchViewText: MutableLiveData<Boolean> = MutableLiveData()
+
     var callAllImmigrationApi = true
 
     fun getDiscussionCategory() = viewModelScope.launch {
@@ -295,5 +297,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setCallImmigrationApi(value: Boolean) {
         callAllImmigrationApi = value
+    }
+
+    fun setClearSearchViewText(value: Boolean) {
+        clearSearchViewText.postValue(value)
     }
 }

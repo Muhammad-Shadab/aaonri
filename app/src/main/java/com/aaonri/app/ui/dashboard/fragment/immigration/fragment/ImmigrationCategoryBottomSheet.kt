@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -44,6 +45,17 @@ class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
                             /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
                                 false
                             )*/
+
+                            immigrationViewModel.setFilterData(
+                                ImmigrationFilterModel(
+                                    fifteenDaysSelected = false,
+                                    threeMonthSelected = false,
+                                    oneYearSelected = false,
+                                    activeDiscussion = false,
+                                    atLeastOnDiscussion = false
+                                )
+                            )
+                            immigrationViewModel.setClearSearchViewText(true)
                             immigrationViewModel.setCallImmigrationApi(true)
                             immigrationViewModel.setSelectedAllDiscussionCategory(item)
                         }

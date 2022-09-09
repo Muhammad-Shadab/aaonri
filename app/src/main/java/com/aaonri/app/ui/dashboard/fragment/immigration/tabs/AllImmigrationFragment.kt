@@ -182,6 +182,11 @@ class AllImmigrationFragment : Fragment() {
                 filteredList = discussionList
             }
 
+            if (filteredList.isNotEmpty()) {
+                binding?.resultsNotFoundLL?.visibility = View.GONE
+            } else {
+                binding?.resultsNotFoundLL?.visibility = View.VISIBLE
+            }
             immigrationAdapter?.setData(filteredList)
         }
 

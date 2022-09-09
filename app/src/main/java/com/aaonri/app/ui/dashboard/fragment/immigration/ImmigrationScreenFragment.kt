@@ -14,12 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.immigration.ImmigrationStaticData
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigartionScreenFrgamentBinding
-import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -357,6 +355,13 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             numberOfAppliedFilter(noOfSelectedFilter)
+        }
+
+        immigrationViewModel.clearSearchViewText.observe(viewLifecycleOwner) {
+            if (it) {
+                binding?.searchView?.setText("")
+                immigrationViewModel.setClearSearchViewText(false)
+            }
         }
 
 
