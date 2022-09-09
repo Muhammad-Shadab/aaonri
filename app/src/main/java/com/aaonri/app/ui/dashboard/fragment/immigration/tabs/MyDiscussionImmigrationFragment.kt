@@ -155,13 +155,13 @@ class MyDiscussionImmigrationFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    immigrationViewModel.getMyImmigrationDiscussion(
+                    /*immigrationViewModel.getMyImmigrationDiscussion(
                         GetAllImmigrationRequest(
                             categoryId = "${discussionCategoryResponseItem?.discCatId}",
                             createdById = userId.toString(),
                             keywords = ""
                         )
-                    )
+                    )*/
 
                 }
                 is Resource.Error -> {
