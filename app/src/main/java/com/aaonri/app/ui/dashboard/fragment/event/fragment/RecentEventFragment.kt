@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
@@ -38,6 +39,20 @@ class RecentEventFragment : Fragment() {
 
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
+
+        adsGenericAdapter2?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                eventViewModel.setNavigateFromEventScreenToAdvertiseWebView(true)
+                eventViewModel.setEventAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
+
+        adsGenericAdapter1?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                eventViewModel.setNavigateFromEventScreenToAdvertiseWebView(true)
+                eventViewModel.setEventAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
 
         recentEventBinding?.apply {
 

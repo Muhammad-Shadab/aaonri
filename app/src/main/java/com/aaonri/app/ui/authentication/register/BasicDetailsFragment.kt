@@ -184,7 +184,7 @@ class BasicDetailsFragment : Fragment() {
                             emailAddress.toString(),
                             password.toString()
                         )
-                        authCommonViewModel.addCountryClicked(true)
+//                        authCommonViewModel.addCountryClicked(true)
                         findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
                     } else {
                         activity?.let { it1 ->

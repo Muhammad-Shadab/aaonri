@@ -37,11 +37,13 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val selectedDiscussionItem: MutableLiveData<Discussion> = MutableLiveData()
 
-    val selectedImmigrationCenterItem: MutableLiveData<ImmigrationCenterModelItem> = MutableLiveData()
+    val selectedImmigrationCenterItem: MutableLiveData<ImmigrationCenterModelItem> =
+        MutableLiveData()
 
     val navigateFromAllImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
-    val navigateFromImmigrationCenterToCenterDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
+    val navigateFromImmigrationCenterToCenterDetailScreen: MutableLiveData<Boolean> =
+        MutableLiveData()
 
     val navigateFromMyImmigrationToDetailScreen: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -62,11 +64,11 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     var setCategoryForFirstIndexForOnce = true
         private set
 
-    var isNavigateBackFromAllImmigrationDetailScreen = false
-        private set
+    /*var isNavigateBackFromAllImmigrationDetailScreen = false
+        private set*/
 
-    var isNavigateBackFromMyImmigrationDetailScreen = false
-        private set
+    /*var isNavigateBackFromMyImmigrationDetailScreen = false
+        private set*/
 
     val immigrationSearchQuery: MutableLiveData<String> = MutableLiveData()
 
@@ -83,6 +85,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         MutableLiveData()
 
     var immigrationCenterList: MutableLiveData<MutableList<Category>> = MutableLiveData()
+
+    var callAllImmigrationApi = true
 
     fun getDiscussionCategory() = viewModelScope.launch {
         discussionCategoryData.postValue(Resource.Loading())
@@ -143,6 +147,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     fun setImmigrationcenterCategoryIsClicked(value: Boolean) {
         immigrationCenterCategoryIsClicked.postValue(value)
     }
+
     fun setSelectedAllDiscussionCategory(value: DiscussionCategoryResponseItem) {
         selectedAllDiscussionScreenCategory.postValue(value)
     }
@@ -174,10 +179,10 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     fun setNavigateFromImmigrationCenterToCenterDetailScreen(value: Boolean) {
         navigateFromImmigrationCenterToCenterDetailScreen.postValue(value)
     }
-    fun setImmigrationList(value:  MutableList<Category>) {
+
+    fun setImmigrationList(value: MutableList<Category>) {
         immigrationCenterList.value = value
     }
-
 
     fun getDiscussionDetailsById(discussionId: String) = viewModelScope.launch {
         discussionDetailsData.postValue(Resource.Loading())
@@ -199,13 +204,13 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
         setCategoryForFirstIndexForOnce = value
     }
 
-    fun setIsNavigateBackFromAllImmigrationDetailScreen(value: Boolean) {
+    /*fun setIsNavigateBackFromAllImmigrationDetailScreen(value: Boolean) {
         isNavigateBackFromAllImmigrationDetailScreen = value
     }
 
     fun setIsNavigateBackFromMyImmigrationDetailScreen(value: Boolean) {
         isNavigateBackFromMyImmigrationDetailScreen = value
-    }
+    }*/
 
     fun setKeyClassifiedKeyboardListener(value: Boolean) {
         keyImmigrationKeyboardListener.postValue(value)
@@ -250,7 +255,7 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     }
 
     fun setImmigrationCenterDesc(item: Category) {
-            immigrationCenterDesc.value = item
+        immigrationCenterDesc.value = item
     }
 
 
@@ -286,5 +291,9 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     fun setNavigateFromMyImmigrationToUpdateScreen(value: Boolean) {
         navigateFromMyImmigrationToUpdateScreen.postValue(value)
+    }
+
+    fun setCallImmigrationApi(value: Boolean) {
+        callAllImmigrationApi = value
     }
 }

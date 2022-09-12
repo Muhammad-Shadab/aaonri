@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
@@ -50,6 +51,20 @@ class MyClassifiedFragment : Fragment() {
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
 
+
+        adsGenericAdapter2?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(true)
+                classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
+
+        adsGenericAdapter1?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(true)
+                classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
         myClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))

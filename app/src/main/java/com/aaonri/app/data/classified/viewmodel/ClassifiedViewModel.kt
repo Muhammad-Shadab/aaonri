@@ -22,6 +22,8 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     val callClassifiedApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
 
+    var classifiedAdvertiseUrl: String = ""
+
     val favoriteClassifiedData: MutableLiveData<Resource<FavoriteClassifiedResponse>> =
         MutableLiveData()
 
@@ -52,6 +54,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     var selectedServiceRow: String = ""
         private set
 
+    val navigateFromClassifiedScreenToAdvertiseWebView: MutableLiveData<Boolean> = MutableLiveData()
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.getAllUserAdsClassified(email)
@@ -183,4 +186,12 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         selectedServiceRow = value
     }
 
+    fun setNavigateFromClassifiedScreenToAdvertiseWebView(value: Boolean) {
+        navigateFromClassifiedScreenToAdvertiseWebView.postValue(value)
+    }
+
+    fun setClassifiedAdvertiseUrls(url: String) {
+        classifiedAdvertiseUrl  = url
+
+    }
 }
