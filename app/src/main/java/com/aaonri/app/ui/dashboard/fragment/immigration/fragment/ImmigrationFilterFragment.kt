@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -35,6 +33,8 @@ class ImmigrationFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentImmigrationFilterBinding.inflate(layoutInflater, container, false)
+
+        immigrationViewModel.setCallImmigrationApi(false)
 
         binding?.apply {
 
@@ -265,15 +265,6 @@ class ImmigrationFilterFragment : Fragment() {
              binding?.selectCategorySpinner?.text = it.discCatValue
          }*/
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(true)
-                    //immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(true)
-                    findNavController().navigateUp()
-                }
-            })
 
         return binding?.root
     }
@@ -286,6 +277,11 @@ class ImmigrationFilterFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        immigrationViewModel.selectedPostingDiscussionScreenCategory.postValue(null)
     }
 
 }

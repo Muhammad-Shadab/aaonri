@@ -24,6 +24,7 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -509,6 +510,19 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.setClearAllFilter(false)
         }
 
+
+
+        classifiedViewModel.navigateFromClassifiedScreenToAdvertiseWebView.observe(viewLifecycleOwner) {
+            if (it) {
+                val action =
+                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToAdvertiseWebviewFragment(
+                        classifiedViewModel.classifiedAdvertiseUrl
+                    )
+                findNavController().navigate(action)
+                classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(false)
+            }
+        }
+
         return classifiedScreenBinding?.root
     }
 
@@ -597,6 +611,8 @@ class ClassifiedScreenFragment : Fragment() {
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
     }
+
+
 
     private fun callGetAllClassifiedApi(searchQuery: String = "") {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }

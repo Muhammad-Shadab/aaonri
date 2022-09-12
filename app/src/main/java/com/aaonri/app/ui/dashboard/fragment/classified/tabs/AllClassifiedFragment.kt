@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
+import com.aaonri.app.data.immigration.model.ImmigrationCenterModelItem
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
+import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.Resource
@@ -46,6 +50,22 @@ class AllClassifiedFragment : Fragment() {
 
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
+
+
+        adsGenericAdapter2?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(true)
+                classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
+
+        adsGenericAdapter1?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(true)
+                classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
+
 
         allClassifiedBinding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)

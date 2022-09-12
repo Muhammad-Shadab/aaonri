@@ -69,6 +69,7 @@ class ShopScreenFragment : Fragment() {
             shopWithUsWebView.setOnClickListener {
                 findNavController().navigateUp()
             }*/
+           progresShopping?.visibility = View.VISIBLE
             startWebView("${BuildConfig.BASE_URL.replace(":8444","")}/StartSelling")
             requireActivity()
                 .onBackPressedDispatcher
@@ -121,8 +122,10 @@ class ShopScreenFragment : Fragment() {
                 description: String,
                 failingUrl: String
             ) {
-                Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
-                    .show()
+
+                binding?.progresShopping?.visibility = View.GONE
+//                Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
+//                    .show()
             }
         }
 

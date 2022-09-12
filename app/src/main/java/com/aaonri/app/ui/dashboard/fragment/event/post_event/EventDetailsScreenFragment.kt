@@ -28,6 +28,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.EventAddGoingRequest
@@ -38,6 +39,7 @@ import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -85,7 +87,16 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.getEventDetails(args.eventId)
 
         adsGenericAdapter = AdsGenericAdapter()
+        adsGenericAdapter?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
 
+                val action =
+                    EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToAdvertiseWebviewFragment(
+                        item.advertisementDetails.url
+                    )
+                findNavController().navigate(action)
+            }
+        }
         evenDetailsBinding?.apply {
 
             /*if (args.isMyEvent) {
@@ -804,7 +815,11 @@ class EventDetailsScreenFragment : Fragment() {
 
         evenDetailsBinding?.premiumLink?.setOnClickListener {
             if (URLUtil.isValidUrl(eventPremiumLink)) {
-                activity?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(eventPremiumLink)))
+                val action =
+                    EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToAdvertiseWebviewFragment(
+                        eventPremiumLink
+                    )
+                findNavController().navigate(action)
             } else {
                 showAlert("Invalid link")
             }

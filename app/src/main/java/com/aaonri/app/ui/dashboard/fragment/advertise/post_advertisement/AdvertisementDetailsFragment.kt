@@ -19,6 +19,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -143,12 +144,22 @@ class AdvertisementDetailsFragment : Fragment() {
 
         detailsBinding?.advertiseLinkTv?.setOnClickListener {
             if (URLUtil.isValidUrl(data?.advertisementDetails?.url)) {
-                activity?.startActivity(
+                /*activity?.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(data?.advertisementDetails?.url)
                     )
-                )
+                )*/
+
+                val action =
+                    data?.advertisementDetails?.let { it1 ->
+                        AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToAdvertiseWebviewFragment(
+                            it1.url
+                        )
+                    }
+                if (action != null) {
+                    findNavController().navigate(action)
+                }
             } else {
                 activity?.let { it1 ->
                     Snackbar.make(
@@ -157,6 +168,8 @@ class AdvertisementDetailsFragment : Fragment() {
                     ).show()
                 }
             }
+
+
         }
 
 

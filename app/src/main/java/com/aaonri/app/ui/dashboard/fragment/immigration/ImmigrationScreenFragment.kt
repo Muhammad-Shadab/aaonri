@@ -58,6 +58,10 @@ class ImmigrationScreenFragment : Fragment() {
             immigrationScreenViewPager.isUserInputEnabled = false
             immigrationScreenViewPager.adapter = pagerAdapter
 
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             filterImmigration.setOnClickListener {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationFilterFragment()
@@ -160,6 +164,7 @@ class ImmigrationScreenFragment : Fragment() {
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
                             searchViewIcon.visibility = View.VISIBLE
+                            immigrationViewModel.setSearchQuery(searchView.text.toString())
                         } else {
                             cancelbutton.visibility = View.VISIBLE
                             searchViewIcon.visibility = View.GONE
@@ -354,6 +359,13 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             numberOfAppliedFilter(noOfSelectedFilter)
+        }
+
+        immigrationViewModel.clearSearchViewText.observe(viewLifecycleOwner) {
+            if (it) {
+                binding?.searchView?.setText("")
+                immigrationViewModel.setClearSearchViewText(false)
+            }
         }
 
 

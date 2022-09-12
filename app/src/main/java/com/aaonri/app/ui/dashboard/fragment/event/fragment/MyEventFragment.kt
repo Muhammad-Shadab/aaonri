@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
@@ -45,6 +46,20 @@ class MyEventFragment : Fragment() {
 
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
+
+        adsGenericAdapter2?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                eventViewModel.setNavigateFromEventScreenToAdvertiseWebView(true)
+                eventViewModel.setEventAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
+
+        adsGenericAdapter1?.itemClickListener = { view, item, position ->
+            if (item is FindAllActiveAdvertiseResponseItem) {
+                eventViewModel.setNavigateFromEventScreenToAdvertiseWebView(true)
+                eventViewModel.setEventAdvertiseUrls(item.advertisementDetails.url)
+            }
+        }
 
         myEventBinding?.apply {
 
