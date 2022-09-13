@@ -178,7 +178,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         detailsBinding?.apply {
             companyNameEt.setText(advertiseData?.advertisementDetails?.companyName)
             companyAddress.setText(advertiseData?.advertisementDetails?.location)
-            companyMobileEt.setText(advertiseData?.advertisementDetails?.contactNo)
+            companyMobileEt.setText(advertiseData?.advertisementDetails?.contactNo?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3"))
             companyEmailEt.setText(advertiseData?.advertisementDetails?.emailId)
             companyProfessionEt.setText(advertiseData?.advertisementDetails?.productServices)
             companyLinkEt.setText(advertiseData?.advertisementDetails?.url)

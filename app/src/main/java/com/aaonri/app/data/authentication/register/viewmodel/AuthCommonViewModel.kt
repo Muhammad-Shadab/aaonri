@@ -32,6 +32,9 @@ class AuthCommonViewModel @Inject constructor(
     var locationDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
+    var originLocationDetails: MutableMap<String, String> = mutableMapOf()
+        private set
+
 
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
@@ -133,6 +136,14 @@ class AuthCommonViewModel @Inject constructor(
         locationDetails["zipCode"] = zipCode
         locationDetails["state"] = state
         locationDetails["city"] = city
+    }
+
+    fun addOriginLocationDetails(
+        originState: String,
+        originCity: String
+    ){
+        originLocationDetails["originState"] = originState
+        originLocationDetails["originCity"] = originCity
     }
 
     fun addAddressDetails(

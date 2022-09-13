@@ -98,6 +98,7 @@ class ServicesItemAdapter(
                             data[position]
                         )
                     ) {
+
                         selectedCategoriesList.add(data[position])
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
