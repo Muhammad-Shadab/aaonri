@@ -3,14 +3,12 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
-import com.google.android.material.snackbar.Snackbar
 
 class ServicesItemAdapter(
     private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit),
@@ -49,10 +47,10 @@ class ServicesItemAdapter(
                     "Immigration" -> {
                         servicesGridIv.load(R.drawable.ic_immigration)
                     }
-                    "Astrology"-> {
+                    "Astrology" -> {
                         servicesGridIv.load(R.drawable.ic_astrology)
                     }
-                    "Sports"-> {
+                    "Sports" -> {
                         servicesGridIv.load(R.drawable.ic_sports)
                     }
                     "Community Connect" -> {
@@ -76,7 +74,7 @@ class ServicesItemAdapter(
                     "Real Estate" -> {
                         servicesGridIv.load(R.drawable.ic_real_state)
                     }
-                    "Shop With Us"  -> {
+                    "Shop With Us" -> {
                         servicesGridIv.load(R.drawable.ic_shop)
                     }
                     "Travel and Stay" -> {
@@ -93,12 +91,11 @@ class ServicesItemAdapter(
                     }
                 }
 
-                if (data[position].active) {
+                /*if (data[position].active) {
                     if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
                             data[position]
                         )
                     ) {
-
                         selectedCategoriesList.add(data[position])
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
@@ -133,10 +130,46 @@ class ServicesItemAdapter(
                             R.color.disableServiceColor
                         )
                     )
-                }
-
+                }*/
 
                 itemView.setOnClickListener {
+                    if (data[position].active) {
+                        data[position].isSelected = !data[position].isSelected
+                        notifyDataSetChanged()
+                    }
+                }
+
+                if (data[position].active) {
+                    if (data[position].isSelected) {
+                        servicesGridIv.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.white
+                            )
+                        )
+                        servicesGridIv.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blueBtnColor
+                            )
+                        )
+                    } else {
+                        servicesGridIv.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blueBtnColor
+                            )
+                        )
+                        servicesGridIv.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.serviceCardLightBlue
+                            )
+                        )
+                    }
+                }
+
+                /*itemView.setOnClickListener {
                     if (data[position].active) {
                         if (selectedCategoriesList.contains(data[position])) {
                             selectedCategoriesList.remove(data[position])
@@ -181,7 +214,7 @@ class ServicesItemAdapter(
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-                }
+                }*/
             }
         }
     }

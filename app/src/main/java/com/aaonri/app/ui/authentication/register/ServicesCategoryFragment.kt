@@ -3,7 +3,6 @@ package com.aaonri.app.ui.authentication.register
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,31 +10,29 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
-import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.data.authentication.register.model.add_user.Community
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
-import com.aaonri.app.utils.*
+import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
+import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -303,9 +300,9 @@ class ServicesCategoryFragment : Fragment() {
                 isSurveyCompleted = false,
                 lastName = authCommonViewModel.basicDetailsMap["lastName"]!!,
                 newsletter = false,
-                originCity = if(authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true)authCommonViewModel.originLocationDetails["originCity"]!!else "",
+                originCity = if (authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true) authCommonViewModel.originLocationDetails["originCity"]!! else "",
                 originCountry = authCommonViewModel.selectedCountryAddressScreen!!.value!!.first,
-                originState =  if(authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true)authCommonViewModel.originLocationDetails["originState"]!!else "",
+                originState = if (authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true) authCommonViewModel.originLocationDetails["originState"]!! else "",
                 password = authCommonViewModel.basicDetailsMap["password"]!!,
                 phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,
                 picture = "",
