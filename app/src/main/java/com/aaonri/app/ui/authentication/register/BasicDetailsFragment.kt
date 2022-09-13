@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
@@ -37,7 +36,7 @@ import kotlinx.coroutines.launch
 class BasicDetailsFragment : Fragment() {
     var basicDetailsBinding: FragmentBasicDetailsBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
-    val registrationViewModel: RegistrationViewModel by viewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     var isEmailValid = false
     var isPasswordValid = false
     var profile = ""

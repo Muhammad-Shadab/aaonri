@@ -1,16 +1,15 @@
 package com.aaonri.app.ui.authentication.login
 
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.ActivityAuthBinding
-import com.aaonri.app.utils.custom.ConnectivityReceiver
 import java.security.MessageDigest
 
 
@@ -20,7 +19,6 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         authBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(authBinding?.root)
-
 
         printKeyHash()
         // hiding the status bar and making it transparent

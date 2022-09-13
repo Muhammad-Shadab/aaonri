@@ -10,6 +10,7 @@ import com.aaonri.app.R
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.ActivityRegistrationBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -19,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
     var registrationBinding: ActivityRegistrationBinding? = null
     val authCommonViewModel: AuthCommonViewModel by viewModels()
+    val registrationViewModel: RegistrationViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registrationBinding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -37,6 +40,8 @@ class RegistrationActivity : BaseActivity() {
         val newUserRegister = intent.getBooleanExtra("newUserRegister", false)
 
         authCommonViewModel.setIsNewUserRegisterUsingGmail(newUserRegister)
+        registrationViewModel.getServices()
+
 
         val firstName =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] }

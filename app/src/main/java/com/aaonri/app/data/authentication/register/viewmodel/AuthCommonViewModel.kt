@@ -95,7 +95,7 @@ class AuthCommonViewModel @Inject constructor(
     }
 
     fun addServicesList(value: MutableList<ServicesResponseItem>) {
-        selectedServicesList.value = value
+        selectedServicesList.postValue(value)
     }
 
     fun setSelectedCountryAddressScreen(

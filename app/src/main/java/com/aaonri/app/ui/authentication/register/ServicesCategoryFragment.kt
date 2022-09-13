@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
@@ -46,6 +45,7 @@ class ServicesCategoryFragment : Fragment() {
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
     var selectedCommunity = mutableListOf<Community>()
+    var selectedServices = mutableListOf<ServicesResponseItem>()
     var selectedServicesInterest = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -57,10 +57,11 @@ class ServicesCategoryFragment : Fragment() {
         val dialog = Dialog(requireContext())
         servicesGridItemBinding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
+
         getServicesInterestList()
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
-            authCommonViewModel.addServicesList(selectedCommunity as MutableList<ServicesResponseItem>)
+            authCommonViewModel.addServicesList(selectedCommunity)
         }) {
             isJobSelected = it
         }
@@ -170,7 +171,7 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
-            adapter?.savedCategoriesList = serviceResponseItem
+            adapter?.selectedCategoriesList = serviceResponseItem
             selectedServicesInterest = ""
             var i = 0
             var len: Int = serviceResponseItem.size
@@ -315,27 +316,22 @@ class ServicesCategoryFragment : Fragment() {
     }
 
     private fun getServicesInterestList() {
-        registrationViewModel.getServices()
-        lifecycleScope.launchWhenCreated {
-            registrationViewModel.service.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is Resource.Loading -> {
-                        servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        servicesGridItemBinding?.progressBar?.visibility = View.GONE
-                        response.data?.let { servicesResponse ->
-                            servicesResponse.removeAt(7)
-                            servicesResponse.removeAt(0)
-                            adapter?.setData(servicesResponse)
-                        }
-                    }
-                    is Resource.Error -> {
-                        servicesGridItemBinding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {}
+        registrationViewModel.service.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
                 }
+                is Resource.Success -> {
+                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    response.data?.let { servicesResponse ->
+                        adapter?.setData(servicesResponse)
+                    }
+                }
+                is Resource.Error -> {
+                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
             }
         }
     }

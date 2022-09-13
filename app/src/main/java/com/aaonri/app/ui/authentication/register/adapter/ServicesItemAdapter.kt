@@ -9,9 +9,10 @@ import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
+import com.google.android.material.snackbar.Snackbar
 
 class ServicesItemAdapter(
-    private var selectedServices: ((value: List<ServicesResponseItem>) -> Unit),
+    private var selectedServices: ((value: MutableList<ServicesResponseItem>) -> Unit),
     private var isJobSelected: (value: Boolean) -> Unit
 ) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
@@ -27,7 +28,7 @@ class ServicesItemAdapter(
         return CustomViewHolder(binding)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.apply {
@@ -91,38 +92,19 @@ class ServicesItemAdapter(
                     }
                 }
 
-                /*if (data[position].active) {
-                    if (selectedCategoriesList.contains(data[position]) || savedCategoriesList.contains(
-                            data[position]
+                if (data[position].active) {
+                    servicesGridIv.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.blueBtnColor
                         )
-                    ) {
-                        selectedCategoriesList.add(data[position])
-                        servicesGridIv.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.white
-                            )
+                    )
+                    servicesGridIv.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.serviceCardLightBlue
                         )
-                        servicesGridIv.setBackgroundColor(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.blueBtnColor
-                            )
-                        )
-                    } else {
-                        servicesGridIv.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.blueBtnColor
-                            )
-                        )
-                        servicesGridIv.setBackgroundColor(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.serviceCardLightBlue
-                            )
-                        )
-                    }
+                    )
                 } else {
                     servicesGridIv.setBackgroundColor(
                         ContextCompat.getColor(
@@ -130,13 +112,35 @@ class ServicesItemAdapter(
                             R.color.disableServiceColor
                         )
                     )
+                }
+
+                /*if (data[position].isSelected) {
+                    selectedServices(selectedCategoriesList)
                 }*/
+                selectedServices(selectedCategoriesList)
 
                 itemView.setOnClickListener {
+                    if (selectedCategoriesList.contains(data[position])) {
+                        selectedCategoriesList.remove(data[position])
+                    } else {
+                        selectedCategoriesList.add(data[position])
+                    }
                     if (data[position].active) {
                         data[position].isSelected = !data[position].isSelected
                         notifyDataSetChanged()
+                        if (data[position].id == 17 && data[position].isSelected) {
+                            isJobSelected(true)
+                        } else {
+                            isJobSelected(false)
+                        }
+                    } else {
+                        Snackbar.make(
+                            itemView,
+                            "This service is currently unavailable",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
+                    selectedServices(selectedCategoriesList)
                 }
 
                 if (data[position].active) {
