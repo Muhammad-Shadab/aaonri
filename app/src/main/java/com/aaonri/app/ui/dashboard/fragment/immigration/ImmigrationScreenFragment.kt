@@ -344,7 +344,7 @@ class ImmigrationScreenFragment : Fragment() {
 
             if (filterData.atLeastOnDiscussion) {
                 noOfSelectedFilter++
-                binding?.atLeastOneResponseFilterTv?.text = "Discussion With at Least One Response"
+                binding?.atLeastOneResponseFilterTv?.text = "Sort: At Least One Response"
                 binding?.atLeastOneResponseFilterCv?.visibility = View.VISIBLE
             }
 
