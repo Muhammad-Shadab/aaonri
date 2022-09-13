@@ -26,6 +26,7 @@ class AllEventFragment : Fragment() {
     var allEventAdapter: AllEventAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

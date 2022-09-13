@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

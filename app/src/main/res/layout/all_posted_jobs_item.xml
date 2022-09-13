@@ -105,7 +105,6 @@
                             android:drawablePadding="7dp"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
-
                             android:text="New York, NY, USA"
                             android:textColor="#797979" />
 
