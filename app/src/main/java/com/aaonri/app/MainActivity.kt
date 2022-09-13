@@ -367,10 +367,11 @@ class MainActivity : BaseActivity() {
                 is Resource.Success -> {
                     //callApiAccordingToInterest(response.data?.interests)
 
-                    response.data?.interests?.let {
+                    /*response.data?.interests?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_INTERESTED_SERVICES] =
                             it
-                    }
+                    }*/
+
                     response.data?.userId?.let {
                         PreferenceManager<Int>(applicationContext)[Constant.USER_ID] =
                             it

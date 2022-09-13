@@ -54,6 +54,7 @@ class HomeScreenFragment : Fragment() {
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
     var immigartinList = mutableListOf<ImmigrationCenterModelItem>()
+
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
     var popularClassifiedAdapter: PoplarClassifiedAdapter? = null
@@ -63,13 +64,14 @@ class HomeScreenFragment : Fragment() {
     var jobAdapter: JobAdapter? = null
     var interestAdapter: InterestAdapter? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
+
     //var homeEventAdapter: HomeEventAdapter? = null
     var genericAdapterForClassified: ClassifiedGenericAdapter? = null
     var genericAdapterForEvent: EventGenericAdapter? = null
     val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
-    var userInterestedService = ""
+    var userInterestedService: MutableList<String>? = mutableListOf()
     var guestUser = false
     var homeClassifiedWithAdList = mutableListOf<Any>()
     //var homeEventWithAdList = mutableListOf<Any>()
@@ -82,9 +84,34 @@ class HomeScreenFragment : Fragment() {
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
-        userInterestedService =
+        val list =
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
                 .toString()
+
+        userInterestedService = list.split(",") as MutableList<String>?
+
+
+        if (userInterestedService != null) {
+
+
+            if (userInterestedService?.contains("22") == true) {
+                userInterestedService?.remove("22")
+            }
+            if (userInterestedService?.contains("27") == true) {
+                userInterestedService?.remove("27")
+            }
+
+            if (userInterestedService?.size == 1) {
+                if (userInterestedService?.contains("2") == false) {
+                    userInterestedService?.add("2")
+                }
+            }
+            if (userInterestedService?.size == 1) {
+                if (userInterestedService?.contains("8") == false) {
+                    userInterestedService?.add("8")
+                }
+            }
+        }
 
         /*allClassifiedAdapter = AllClassifiedAdapter {
             val action =
@@ -121,7 +148,6 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified?.itemClickListener = { view, item, position ->
             val action =
-
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
                     item.id,
                     false
@@ -168,26 +194,26 @@ class HomeScreenFragment : Fragment() {
         immigrationAdapter?.itemClickListener =
             { view, item, position, updateImmigration, deleteImmigration ->
                 if (item is ImmigrationCenterModelItem) {
-                    val action =HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationCenterDetails()
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationCenterDetails()
                     findNavController().navigate(action)
                     immigrationViewModel.setSelectedImmigrationCenterItem(item)
                 }
             }
 
-        //immigrationAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
         jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
         homeInterestsServiceAdapter =
             HomeInterestsServiceAdapter {
                 classifiedViewModel.setSelectedServiceRow(it)
-                if (it == "Shop With Us") {
+                /*if (it == "Shop With Us") {
                     homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                         View.GONE
                     homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                     dashboardCommonViewModel.setIsShopWithUsClicked(true)
                 } else {
                     homeScreenBinding?.eventTv?.text = it
-                }
+                }*/
                 navigationFromHorizontalSeeAll = it
                 when (it) {
                     "Classifieds" -> {
@@ -224,7 +250,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,0F)
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         //homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
@@ -235,7 +261,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,0F)
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
@@ -244,15 +270,19 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,4F)
-                        val userArray = JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 4F)
+                        val userArray =
+                            JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
                         val gson = Gson()
 
                         for (i in 0 until userArray.length()) {
-                            if(!immigartinList.contains( gson.fromJson(
-                                    userArray.getString(i),
-                                    ImmigrationCenterModelItem::class.java
-                                ))) {
+                            if (!immigartinList.contains(
+                                    gson.fromJson(
+                                        userArray.getString(i),
+                                        ImmigrationCenterModelItem::class.java
+                                    )
+                                )
+                            ) {
                                 immigartinList.add(
                                     gson.fromJson(
                                         userArray.getString(i),
@@ -295,9 +325,6 @@ class HomeScreenFragment : Fragment() {
                     "Real Estate" -> {
 
                     }
-                    "Shop With Us" -> {
-
-                    }
                     "Travel and Stay" -> {
 
                     }
@@ -306,14 +333,6 @@ class HomeScreenFragment : Fragment() {
                     }
                     "Business Needs" -> {
 
-                    }
-                    "Advertise With Us" -> {
-                        /*homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
-                            View.GONE
-                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = advertiseAdapter*/
                     }
                 }
             }
@@ -353,7 +372,7 @@ class HomeScreenFragment : Fragment() {
             context?.let { Glide.with(it).load(profile).into(profilePicIv) }
 
             seeAllClassified.setOnClickListener {
-                navigateToTheSpecificScreen(userInterestedService)
+                navigateToTheSpecificScreen(userInterestedService?.get(0))
             }
 
             seeAllEvents.setOnClickListener {
@@ -421,11 +440,26 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     val list: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
-                    /*if (list != null) {
-                        if (list[0] != "22") {
-                            list.removeAt(0)
+                    if (list?.contains("22") == true) {
+                        list.remove("22")
+                    }
+                    if (list?.contains("27") == true) {
+                        list.remove("27")
+                    }
+
+                    if (list != null) {
+                        if (list.size == 1) {
+                            if (!list.contains("2")) {
+                                list.add("2")
+                            }
                         }
-                    }*/
+                        if (list.size == 1) {
+                            if (!list.contains("8")) {
+                                list.add("8")
+                            }
+                        }
+                    }
+
                     callApiAccordingToInterest(list?.get(0))
                     list?.removeAt(0)
                     setUserInterestedServiceRow(list)
@@ -615,60 +649,60 @@ class HomeScreenFragment : Fragment() {
 
     private fun navigateToTheSpecificScreen(interests: String?) {
         if (interests?.isNotEmpty() == true) {
-            if (interests.startsWith("27") || interests == "Advertise With Us") {
+            if (interests == "27" || interests == "Advertise With Us") {
                 //Advertise With Us
                 dashboardCommonViewModel.setIsAdvertiseClicked(true)
-            } else if (interests.startsWith("2") || interests == "Classifieds") {
+            } else if (interests == "2" || interests == "Classifieds") {
                 //Classifieds
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-            } else if (interests.startsWith("8") || interests == "Events") {
+            } else if (interests == "8" || interests == "Events") {
                 //Events
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            } else if (interests.startsWith("3") || interests == "Immigration") {
+            } else if (interests == "3" || interests == "Immigration") {
                 //Immigration
                 val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationScreenFragment()
                 findNavController().navigate(action)
-            } else if (interests.startsWith("17") || interests == "Jobs") {
+            } else if (interests == "17" || interests == "Jobs") {
                 //Jobs
-
-            } else if (interests.startsWith("22") || interests == "Shop With Us") {
+                //Toast.makeText(context, "jobs", Toast.LENGTH_SHORT).show()
+            } else if (interests == "22" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)
-            } else if (interests.startsWith("4") || interests == "Astrology") {
+            } else if (interests == "4" || interests == "Astrology") {
                 //Astrology
 
-            } else if (interests.startsWith("26") || interests == "Business Needs") {
+            } else if (interests == "26" || interests == "Business Needs") {
                 //Business Needs
 
-            } else if (interests.startsWith("10") || interests == "Community Connect") {
+            } else if (interests == "10" || interests == "Community Connect") {
                 //Community Connect
 
-            } else if (interests.startsWith("13") || interests == "Foundation & Donations") {
+            } else if (interests == "13" || interests == "Foundation & Donations") {
                 //Foundation & Donations
 
-            } else if (interests.startsWith("25") || interests == "Home Needs") {
+            } else if (interests == "25" || interests == "Home Needs") {
                 //Home Needs
 
-            } else if (interests.startsWith("18") || interests == "Legal Services") {
+            } else if (interests == "18" || interests == "Legal Services") {
                 //Legal Services
 
-            } else if (interests.startsWith("19") || interests == "Matrimony & Weddings") {
+            } else if (interests == "19" || interests == "Matrimony & Weddings") {
                 //Matrimony & Weddings
 
-            } else if (interests.startsWith("20") || interests == "Medical Care") {
+            } else if (interests == "20" || interests == "Medical Care") {
                 //Medical Care
 
-            } else if (interests.startsWith("21") || interests == "Real Estate") {
+            } else if (interests == "21" || interests == "Real Estate") {
                 //Real Estate
 
-            } else if (interests.startsWith("5") || interests == "Sports") {
+            } else if (interests == "5" || interests == "Sports") {
                 //Sports
 
-            } else if (interests.startsWith("16") || interests == "Student Services") {
+            } else if (interests == "16" || interests == "Student Services") {
                 //Student Services
 
-            } else if (interests.startsWith("24") || interests == "Travel and Stay") {
+            } else if (interests == "24" || interests == "Travel and Stay") {
                 //Travel and Stay
 
             }
@@ -713,7 +747,6 @@ class HomeScreenFragment : Fragment() {
                 homeScreenBinding?.priorityServiceRv?.margin(left = 16f, right = 16f)
                 homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
                 homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
-                Toast.makeText(context, "17", Toast.LENGTH_SHORT).show()
             } else if (interests == "22") {
                 //Shop With Us
                 priorityService = "Shop With Us"

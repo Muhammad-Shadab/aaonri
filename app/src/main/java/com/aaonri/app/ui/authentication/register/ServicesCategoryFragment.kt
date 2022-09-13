@@ -168,6 +168,8 @@ class ServicesCategoryFragment : Fragment() {
             }
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
+
+
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
@@ -257,21 +259,20 @@ class ServicesCategoryFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-
                     findNavController().navigateUp()
                 }
             })
+
         return servicesGridItemBinding?.root
     }
+
 
     private fun registerUser(
         companyEmail: String,
         aliasName: String,
         isRecruiterCheckBox: Boolean,
         isAliasNameCheckBox: Boolean,
-        //belongToCricketCheckBox: Boolean
     ) {
-
         authCommonViewModel.addCompanyEmailAliasName(
             companyEmail,
             aliasName
@@ -279,7 +280,6 @@ class ServicesCategoryFragment : Fragment() {
         authCommonViewModel.addCompanyEmailAliasCheckBoxValue(
             isRecruiterCheckBox,
             isAliasNameCheckBox,
-            //belongToCricketCheckBox
         )
         registrationViewModel.registerUser(
             RegisterRequest(

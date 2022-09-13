@@ -114,9 +114,6 @@ class ServicesItemAdapter(
                     )
                 }
 
-                /*if (data[position].isSelected) {
-                    selectedServices(selectedCategoriesList)
-                }*/
                 selectedServices(selectedCategoriesList)
 
                 itemView.setOnClickListener {

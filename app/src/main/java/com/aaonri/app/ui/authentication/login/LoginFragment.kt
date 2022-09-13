@@ -187,6 +187,11 @@ class LoginFragment : Fragment() {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                             ?.set(Constant.IS_USER_LOGIN, true)
 
+                        response.data?.user?.interests?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_INTERESTED_SERVICES, it)
+                        }
+
                         response.data?.emailId?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_EMAIL, it)
