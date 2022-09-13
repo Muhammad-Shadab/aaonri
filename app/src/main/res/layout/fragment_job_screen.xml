@@ -415,7 +415,7 @@
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/jobsScreenViewPager"
+            android:id="@+id/jobScreenViewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_4sdp"
