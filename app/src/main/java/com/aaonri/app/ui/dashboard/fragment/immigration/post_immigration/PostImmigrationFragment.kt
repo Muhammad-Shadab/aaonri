@@ -170,4 +170,8 @@ class PostImmigrationFragment : Fragment() {
             ).show()
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

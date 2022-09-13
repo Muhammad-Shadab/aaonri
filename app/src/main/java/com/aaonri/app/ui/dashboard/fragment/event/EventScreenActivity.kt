@@ -3,22 +3,20 @@ package com.aaonri.app.ui.dashboard.fragment.event
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.ActivityEventScreenBinding
 
 class EventScreenActivity : BaseActivity() {
-    var eventActivityBinding: ActivityEventScreenBinding? = null
+    var binding: ActivityEventScreenBinding? = null
     val postEventViewModel: PostEventViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        eventActivityBinding = ActivityEventScreenBinding.inflate(layoutInflater)
-        setContentView(eventActivityBinding?.root)
+        binding = ActivityEventScreenBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         // hiding the status bar and making it transparent
         supportActionBar?.hide()
@@ -33,14 +31,14 @@ class EventScreenActivity : BaseActivity() {
         postEventViewModel.setUpdateEventId(updateEventId)
 
         if (isUpdateEvent) {
-            eventActivityBinding?.registrationText?.text = "Update Your Event"
+            binding?.registrationText?.text = "Update Your Event"
         } else {
             if (EventStaticData.getEventCategory().isEmpty()) {
                 postEventViewModel.getEventCategory()
             }
         }
 
-        eventActivityBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 onBackPressed()
@@ -63,6 +61,9 @@ class EventScreenActivity : BaseActivity() {
                 stepView.done(it)
             }
         }
-
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

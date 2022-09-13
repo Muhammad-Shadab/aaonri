@@ -8,10 +8,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
-import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var selectClassifiedCategoryBottom: FragmentSelectClassifiedCategoryBottomBinding? = null
+    var binding: FragmentSelectClassifiedCategoryBottomBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedCategoryAdapter: ClassifiedCategoryAdapter? = null
     override fun onCreateView(
@@ -28,7 +28,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
     ): View? {
 
         isCancelable = false
-        selectClassifiedCategoryBottom =
+        binding =
             FragmentSelectClassifiedCategoryBottomBinding.inflate(inflater, container, false)
 
         classifiedCategoryAdapter = ClassifiedCategoryAdapter {
@@ -38,7 +38,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
             findNavController().navigateUp()
         }
 
-        selectClassifiedCategoryBottom?.apply {
+        binding?.apply {
 
             closeCountryBtn.setOnClickListener {
                 dismiss()
@@ -55,11 +55,11 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
             postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                        binding?.progressBarCommunityBottom?.visibility =
                             View.VISIBLE
                     }
                     is Resource.Success -> {
-                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                        binding?.progressBarCommunityBottom?.visibility =
                             View.GONE
                         response.data?.let {
                             classifiedCategoryAdapter!!.setData(it)
@@ -67,7 +67,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
                         }
                     }
                     is Resource.Error -> {
-                        selectClassifiedCategoryBottom?.progressBarCommunityBottom?.visibility =
+                        binding?.progressBarCommunityBottom?.visibility =
                             View.GONE
                     }
                     else -> {
@@ -81,7 +81,11 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
             classifiedCategoryAdapter?.setData(ClassifiedStaticData.getCategoryList())
         }
 
+        return binding?.root
+    }
 
-        return selectClassifiedCategoryBottom?.root
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

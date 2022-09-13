@@ -20,7 +20,7 @@ import java.util.*
 @AndroidEntryPoint
 class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var reviewBinding: FragmentReviewAdvertiseBinding? = null
+    var binding: FragmentReviewAdvertiseBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -28,13 +28,13 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        reviewBinding = FragmentReviewAdvertiseBinding.inflate(inflater, container, false)
+        binding = FragmentReviewAdvertiseBinding.inflate(inflater, container, false)
 
         val calender = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MM/dd/yyyy")
         val date = dateFormat.format(calender.time)
 
-        reviewBinding?.apply {
+        binding?.apply {
 
             closeCommunityBtn.setOnClickListener {
                 findNavController().navigateUp()
@@ -76,9 +76,7 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
 
         }
 
-
-
-        return reviewBinding?.root
+        return binding?.root
     }
 
     fun getCalculatedDate(dateFormat: String?, days: Int): String? {
@@ -88,4 +86,8 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
         return s.format(Date(cal.timeInMillis))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

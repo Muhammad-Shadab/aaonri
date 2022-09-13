@@ -35,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnItemClickListener {
-    var advertiseBinding: FragmentPostAdvertisementbasicDetailsBinding? = null
+    var binding: FragmentPostAdvertisementbasicDetailsBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertiseImage: String? = ""
     var description: String? = ""
@@ -54,10 +54,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    advertiseBinding?.advertiseDescEt?.fromHtml(data.trim())
+                    binding?.advertiseDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
-                    advertiseBinding?.advertiseDescEt?.text = ""
+                    binding?.advertiseDescEt?.text = ""
                 }
             }
         }
@@ -66,10 +66,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        advertiseBinding =
+        binding =
             FragmentPostAdvertisementbasicDetailsBinding.inflate(inflater, container, false)
 
-        advertiseBinding?.apply {
+        binding?.apply {
             advertiseDescEt.movementMethod = ScrollingMovementMethod()
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_BASIC_DETAILS)
 
@@ -211,7 +211,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
         }
 
-        advertiseBinding?.selectAdvertiseTemplateSpinner?.customSetOnItemSelectedListener(object :
+        binding?.selectAdvertiseTemplateSpinner?.customSetOnItemSelectedListener(object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -220,9 +220,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 id: Long
             ) {
                 setPersistedItem(position)
-                when (advertiseBinding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
+                when (binding?.selectAdvertiseTemplateSpinner?.selectedItem.toString()) {
                     "Image Only" -> {
-                        advertiseBinding?.advertiseDescEt?.setText("")
+                        binding?.advertiseDescEt?.setText("")
                         description = ""
                         spinnerTemplateCode = "IMON"
                         openRichTextEditor = false
@@ -245,7 +245,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         isTextOnly = false
                     }
                     "Text Only" -> {
-                        advertiseBinding?.advertiseDescEt?.setText("")
+                        binding?.advertiseDescEt?.setText("")
                         description = ""
                         spinnerTemplateCode = "TXON"
                         openRichTextEditor = true
@@ -262,11 +262,11 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
         })
 
-        advertiseBinding?.titleAdvertisedEt?.addTextChangedListener { editable ->
+        binding?.titleAdvertisedEt?.addTextChangedListener { editable ->
             enableDisableBtn()
         }
 
-        advertiseBinding?.advertiseDescEt?.addTextChangedListener { editable ->
+        binding?.advertiseDescEt?.addTextChangedListener { editable ->
             enableDisableBtn()
         }
 
@@ -281,14 +281,14 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             when (it.code) {
                                 "EPAD" -> {
                                     // Email Promotional Ads
-                                    advertiseBinding?.emailPromotionalLl?.visibility = View.VISIBLE
-                                    advertiseBinding?.emailPromotionalTv?.text = it.name
+                                    binding?.emailPromotionalLl?.visibility = View.VISIBLE
+                                    binding?.emailPromotionalTv?.text = it.name
                                     emailPromotionalDesc = it.description
                                 }
                                 "FLAD" -> {
                                     // Flashing Advertisement
-                                    advertiseBinding?.flashingAdvertiseLl?.visibility = View.VISIBLE
-                                    advertiseBinding?.flashingAdvertiseTv?.text = it.name
+                                    binding?.flashingAdvertiseLl?.visibility = View.VISIBLE
+                                    binding?.flashingAdvertiseTv?.text = it.name
                                     flashingAdvertiseDesc = it.description
                                 }
                             }
@@ -303,7 +303,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
-            advertiseBinding?.selectedPage?.text = it.title
+            binding?.selectedPage?.text = it.title
         }
 
         postAdvertiseViewModel.activeTemplateDataForSpinner.observe(viewLifecycleOwner) { response ->
@@ -315,30 +315,30 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     val templateName = mutableListOf<String>()
 
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
-                        advertiseBinding?.advertiseDescEt?.isEnabled = true
+                        binding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
                             if (!templateName.contains(it.name)) {
                                 templateName.add(it.name)
                             }
                         }
                         templateName.remove("Text Only")
-                        advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
-                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = true
+                        binding?.chooseTemplatell?.visibility = View.VISIBLE
+                        binding?.selectAdvertiseTemplateSpinner?.isEnabled = true
                     } else if (advertisePageLocationResponseItem?.type == "TXTONLY") {
-                        advertiseBinding?.advertiseDescEt?.isEnabled = true
+                        binding?.advertiseDescEt?.isEnabled = true
                         if (!templateName.contains("Text Only")) {
                             templateName.add("Text Only")
                         }
-                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
-                        advertiseBinding?.chooseTemplatell?.visibility = View.GONE
+                        binding?.selectAdvertiseTemplateSpinner?.isEnabled = false
+                        binding?.chooseTemplatell?.visibility = View.GONE
                     } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
 
-                        advertiseBinding?.advertiseDescEt?.isEnabled = false
+                        binding?.advertiseDescEt?.isEnabled = false
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
                         }
-                        advertiseBinding?.selectAdvertiseTemplateSpinner?.isEnabled = false
-                        advertiseBinding?.chooseTemplatell?.visibility = View.VISIBLE
+                        binding?.selectAdvertiseTemplateSpinner?.isEnabled = false
+                        binding?.chooseTemplatell?.visibility = View.VISIBLE
                     }
 
                     val arrayAdapter = context?.let {
@@ -350,9 +350,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     }
 
                     arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    advertiseBinding?.selectAdvertiseTemplateSpinner?.adapter = arrayAdapter
+                    binding?.selectAdvertiseTemplateSpinner?.adapter = arrayAdapter
                     getPersistedItem()?.let {
-                        advertiseBinding?.selectAdvertiseTemplateSpinner?.setSelection(
+                        binding?.selectAdvertiseTemplateSpinner?.setSelection(
                             it,
                             true
                         )
@@ -376,15 +376,15 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         }
 
         if (postAdvertiseViewModel.isUpdateAdvertise) {
-            advertiseBinding?.templateSpinnerConstraintLayout?.visibility = View.GONE
-            advertiseBinding?.previewAdvertiseBtn?.visibility = View.GONE
-            advertiseBinding?.emailPromotionalLl?.visibility = View.VISIBLE
-            advertiseBinding?.flashingAdvertiseLl?.visibility = View.VISIBLE
-            advertiseBinding?.emailPromotionalCheckbox?.isChecked = true
-            advertiseBinding?.flashingAdvertiseCheckbox?.isChecked = true
+            binding?.templateSpinnerConstraintLayout?.visibility = View.GONE
+            binding?.previewAdvertiseBtn?.visibility = View.GONE
+            binding?.emailPromotionalLl?.visibility = View.VISIBLE
+            binding?.flashingAdvertiseLl?.visibility = View.VISIBLE
+            binding?.emailPromotionalCheckbox?.isChecked = true
+            binding?.flashingAdvertiseCheckbox?.isChecked = true
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "TXON") {
-                advertiseBinding?.chooseTemplatell?.visibility = View.GONE
+                binding?.chooseTemplatell?.visibility = View.GONE
                 openPreview = false
                 openRichTextEditor = false
                 isImageOnly = false
@@ -393,7 +393,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "IMON") {
-                advertiseBinding?.advertiseDescEtNestedScroll?.visibility = View.GONE
+                binding?.advertiseDescEtNestedScroll?.visibility = View.GONE
                 openPreview = false
                 openRichTextEditor = false
                 isImageOnly = true
@@ -404,79 +404,79 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         }
 
 
-        return advertiseBinding?.root
+        return binding?.root
     }
 
     private fun enableDisableBtn() {
         if (isBoth) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.white))
-            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
+            if (binding?.titleAdvertisedEt?.text.toString().length >= 3 && binding?.advertiseDescEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
-                    if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
-                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    if (binding?.advertiseDescEt?.text.toString().length >= 3) {
+                        binding?.advertiseDetailsNextBtn?.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
-                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                        binding?.previewAdvertiseBtn?.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.blueBtnColor))
                         openPreview = true
-                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = true
+                        binding?.previewAdvertiseBtn?.isEnabled = true
                     } else {
                         openPreview = false
-                        advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                        advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                        binding?.previewAdvertiseBtn?.isEnabled = false
+                        binding?.advertiseDetailsNextBtn?.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                        advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                        binding?.previewAdvertiseBtn?.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
                     }
                 }
             } else {
                 openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.isEnabled = false
+                binding?.advertiseDetailsNextBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
         } else if (isTextOnly) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.white))
 
-            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3 && advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
-                if (advertiseBinding?.advertiseDescEt?.text.toString().length >= 3) {
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+            if (binding?.titleAdvertisedEt?.text.toString().length >= 3 && binding?.advertiseDescEt?.text.toString().length >= 3) {
+                if (binding?.advertiseDescEt?.text.toString().length >= 3) {
+                    binding?.advertiseDetailsNextBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                 } else {
-                    advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                    binding?.previewAdvertiseBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
-                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
+                    binding?.previewAdvertiseBtn?.isEnabled = false
                 }
             } else {
                 openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.isEnabled = false
+                binding?.advertiseDetailsNextBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
             openPreview = false
         } else if (isImageOnly) {
-            advertiseBinding?.advertiseDescEtNestedScroll?.backgroundTintList =
+            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.graycolor))
-            if (advertiseBinding?.titleAdvertisedEt?.text.toString().length >= 3) {
+            if (binding?.titleAdvertisedEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    binding?.advertiseDetailsNextBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.greenBtnColor))
                 } else {
-                    advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                    advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                    binding?.previewAdvertiseBtn?.isEnabled = false
+                    binding?.advertiseDetailsNextBtn?.backgroundTintList =
                         ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
                 }
             } else {
                 openPreview = false
-                advertiseBinding?.previewAdvertiseBtn?.isEnabled = false
-                advertiseBinding?.advertiseDetailsNextBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.isEnabled = false
+                binding?.advertiseDetailsNextBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightGreenBtnColor))
-                advertiseBinding?.previewAdvertiseBtn?.backgroundTintList =
+                binding?.previewAdvertiseBtn?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
             openPreview = false
@@ -489,7 +489,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
     private fun setDataForUpdating() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
-        advertiseBinding?.apply {
+        binding?.apply {
             titleAdvertisedEt.setText(advertiseData?.advertisementDetails?.adTitle)
             selectedPage.text = advertiseData?.advertisementPageLocation?.locationName
             when (advertiseData?.locationPlanRate?.days) {
@@ -551,7 +551,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             isFlashingAdvertisement = isFlashingAdvertisement,
             templateCode = templateCode,
             advertiseImageUri = if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "",
-            description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseBinding?.advertiseDescEt?.text.toString()
+            description = if (description?.isNotEmpty() == true) description?.trim()!! else binding?.advertiseDescEt?.text.toString()
                 .trim(),
         )
     }
@@ -566,13 +566,13 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 val fileUri = data?.data!!
 
                 advertiseImage = fileUri.toString()
-                advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
                 setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                advertiseBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
             }
         }
 
@@ -585,10 +585,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         postAdvertiseViewModel.setAdvertiseImage(if (advertiseImage?.isNotEmpty() == true) advertiseImage!! else "")
 
         if (advertiseImage?.isNotEmpty() == true) {
-            advertiseBinding?.advertiseIv?.visibility = View.VISIBLE
-            advertiseBinding?.uploadImageTv?.visibility = View.GONE
-            advertiseBinding?.sizeLimitTv?.visibility = View.GONE
-            advertiseBinding?.advertiseIv?.let {
+            binding?.advertiseIv?.visibility = View.VISIBLE
+            binding?.uploadImageTv?.visibility = View.GONE
+            binding?.sizeLimitTv?.visibility = View.GONE
+            binding?.advertiseIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load(advertiseImage)
@@ -597,9 +597,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }
         } else {
-            advertiseBinding?.advertiseIv?.visibility = View.GONE
-            advertiseBinding?.uploadImageTv?.visibility = View.VISIBLE
-            advertiseBinding?.sizeLimitTv?.visibility = View.VISIBLE
+            binding?.advertiseIv?.visibility = View.GONE
+            binding?.uploadImageTv?.visibility = View.VISIBLE
+            binding?.sizeLimitTv?.visibility = View.VISIBLE
         }
     }
 
@@ -629,5 +629,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
         super.onResume()
         enableDisableBtn()
         setImage()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

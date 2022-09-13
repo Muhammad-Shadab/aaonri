@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -30,7 +29,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class PostAdvertiseCheckoutFragment : Fragment() {
-    var checkoutBinding: FragmentPostAdvertiseCheckoutBinding? = null
+    var binding: FragmentPostAdvertiseCheckoutBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     var advertisePageLocationResponseItem: AdvertisePageLocationResponseItem? = null
 
@@ -40,13 +39,13 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        checkoutBinding = FragmentPostAdvertiseCheckoutBinding.inflate(inflater, container, false)
+        binding = FragmentPostAdvertiseCheckoutBinding.inflate(inflater, container, false)
 
         val calender = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MM/dd/yyyy")
         val date = dateFormat.format(calender.time)
 
-        checkoutBinding?.apply {
+        binding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
 
             startdDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
@@ -133,16 +132,16 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         }
 
         postAdvertiseViewModel.selectedTemplatePageName.observe(viewLifecycleOwner) { activePageResponse ->
-            checkoutBinding?.addPageTv?.text = activePageResponse.pageName
+            binding?.addPageTv?.text = activePageResponse.pageName
         }
 
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -152,7 +151,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -160,10 +159,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.updateAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
                             "http:"
                         ) != true
@@ -176,7 +175,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -184,10 +183,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.renewAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                     /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                           *//*response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -197,7 +196,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -205,14 +204,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.uploadAdvertiseImageData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-                    checkoutBinding?.progressBarBasicDetails?.visibility = View.GONE
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                 }
             }
         }
@@ -220,16 +219,16 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.selectedTemplateLocation.observe(viewLifecycleOwner) {
             advertisePageLocationResponseItem = it
 
-            checkoutBinding?.addPageLocationTv?.text = it.locationName.trim()
+            binding?.addPageLocationTv?.text = it.locationName.trim()
         }
 
-        return checkoutBinding?.root
+        return binding?.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataForUpdating() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
-        checkoutBinding?.apply {
+        binding?.apply {
             addPageLocationTv.text = advertiseData?.advertisementPageLocation?.locationName
             startdDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -265,4 +264,8 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         return s.format(Date(cal.timeInMillis))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

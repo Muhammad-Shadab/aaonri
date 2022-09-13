@@ -24,7 +24,6 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -37,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClassifiedScreenFragment : Fragment() {
-    var classifiedScreenBinding: FragmentClassifiedScreenBinding? = null
+    var binding: FragmentClassifiedScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
@@ -52,7 +51,7 @@ class ClassifiedScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        classifiedScreenBinding =
+        binding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
 
         val fragment = this
@@ -87,7 +86,7 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.setClickedOnFilter(true)
         }*/
 
-        classifiedScreenBinding?.apply {
+        binding?.apply {
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
@@ -143,7 +142,7 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             deleteFilterIv1.setOnClickListener {
-                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                binding?.filterCv1?.visibility = View.GONE
 
                 postClassifiedViewModel.setMaxValue("")
                 postClassifiedViewModel.setMinValue("")
@@ -152,7 +151,7 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             deleteFilterIv2.setOnClickListener {
-                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                binding?.filterCv2?.visibility = View.GONE
 
                 postClassifiedViewModel.setSelectedClassifiedCategory(
                     ClassifiedCategoryResponseItem(
@@ -169,7 +168,7 @@ class ClassifiedScreenFragment : Fragment() {
             }
 
             deleteFilterIv3.setOnClickListener {
-                classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                binding?.filterCv3?.visibility = View.GONE
 
                 postClassifiedViewModel.setZipCodeInFilterScreen("")
                 postClassifiedViewModel.setIsMyLocationChecked(false)
@@ -187,14 +186,14 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 )
-                classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+                binding?.filterCv4?.visibility = View.GONE
                 postClassifiedViewModel.setSubCategoryFilter("")
                 postClassifiedViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv5.setOnClickListener {
-                classifiedScreenBinding?.filterCv5?.visibility = View.GONE
+                binding?.filterCv5?.visibility = View.GONE
                 postClassifiedViewModel.setChangeSortTripletFilter(
                     datePublished = false,
                     priceLowToHigh = false,
@@ -259,13 +258,13 @@ class ClassifiedScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility = View.GONE
-                        classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                        classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+                        binding?.floatingActionBtnClassified?.visibility = View.GONE
+                        binding?.selectedFilters?.visibility = View.GONE
+                        binding?.numberOfSelectedFilterCv?.visibility = View.GONE
                     } else {
-                        classifiedScreenBinding?.floatingActionBtnClassified?.visibility =
+                        binding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
-                        classifiedScreenBinding?.searchViewll?.visibility = View.VISIBLE
+                        binding?.searchViewll?.visibility = View.VISIBLE
                         onNoOfSelectedFilterItem(noOfSelection)
                     }
                     if (tab?.position != 0) {
@@ -466,7 +465,7 @@ class ClassifiedScreenFragment : Fragment() {
         postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
             if (it) {
                 callGetAllClassifiedApi()
-                classifiedScreenBinding?.searchView?.setText("")
+                binding?.searchView?.setText("")
             }
         }
 
@@ -512,7 +511,9 @@ class ClassifiedScreenFragment : Fragment() {
 
 
 
-        classifiedViewModel.navigateFromClassifiedScreenToAdvertiseWebView.observe(viewLifecycleOwner) {
+        classifiedViewModel.navigateFromClassifiedScreenToAdvertiseWebView.observe(
+            viewLifecycleOwner
+        ) {
             if (it) {
                 val action =
                     ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToAdvertiseWebviewFragment(
@@ -523,7 +524,7 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
-        return classifiedScreenBinding?.root
+        return binding?.root
     }
 
     private fun setFilterVisibility() {
@@ -538,64 +539,64 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.changeSortTriplet.second ||
             postClassifiedViewModel.changeSortTriplet.third
         ) {
-            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
 
             if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText1?.text =
+                binding?.filterCv1?.visibility = View.VISIBLE
+                binding?.filterText1?.text =
                     "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
                 noOfSelection++
 
             } else {
-                classifiedScreenBinding?.filterCv1?.visibility = View.GONE
+                binding?.filterCv1?.visibility = View.GONE
             }
             if (postClassifiedViewModel.categoryFilter.isNotEmpty()) {
-                classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText2?.text =
+                binding?.filterCv2?.visibility = View.VISIBLE
+                binding?.filterText2?.text =
                     "Category: ${postClassifiedViewModel.categoryFilter}"
                 noOfSelection++
             } else {
-                classifiedScreenBinding?.filterCv2?.visibility = View.GONE
+                binding?.filterCv2?.visibility = View.GONE
             }
             if (postClassifiedViewModel.subCategoryFilter.isNotEmpty()) {
-                classifiedScreenBinding?.filterCv4?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText4?.text =
+                binding?.filterCv4?.visibility = View.VISIBLE
+                binding?.filterText4?.text =
                     "Sub Category: ${postClassifiedViewModel.subCategoryFilter}"
                 noOfSelection++
             } else {
-                classifiedScreenBinding?.filterCv4?.visibility = View.GONE
+                binding?.filterCv4?.visibility = View.GONE
             }
 
             if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText3?.text =
+                binding?.filterCv3?.visibility = View.VISIBLE
+                binding?.filterText3?.text =
                     "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
                 noOfSelection++
 
             } else {
-                classifiedScreenBinding?.filterCv3?.visibility = View.GONE
+                binding?.filterCv3?.visibility = View.GONE
             }
 
             if (postClassifiedViewModel.changeSortTriplet.first) {
-                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText5?.text = "Sort: Date Published"
+                binding?.filterCv5?.visibility = View.VISIBLE
+                binding?.filterText5?.text = "Sort: Date Published"
                 noOfSelection++
             } else if (postClassifiedViewModel.changeSortTriplet.second) {
-                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText5?.text = "Sort: Low to High"
+                binding?.filterCv5?.visibility = View.VISIBLE
+                binding?.filterText5?.text = "Sort: Low to High"
                 noOfSelection++
             } else if (postClassifiedViewModel.changeSortTriplet.third) {
-                classifiedScreenBinding?.filterCv5?.visibility = View.VISIBLE
-                classifiedScreenBinding?.filterText5?.text = "Sort: High to Low"
+                binding?.filterCv5?.visibility = View.VISIBLE
+                binding?.filterText5?.text = "Sort: High to Low"
                 noOfSelection++
             } else {
-                classifiedScreenBinding?.filterCv5?.visibility = View.GONE
+                binding?.filterCv5?.visibility = View.GONE
             }
 
             onNoOfSelectedFilterItem(noOfSelection)
 
         } else {
-            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
+            binding?.selectedFilters?.visibility = View.GONE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() &&
@@ -607,11 +608,10 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.changeSortTriplet.second &&
             postClassifiedViewModel.changeSortTriplet.third
         ) {
-            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
         }
     }
-
 
 
     private fun callGetAllClassifiedApi(searchQuery: String = "") {
@@ -637,12 +637,12 @@ class ClassifiedScreenFragment : Fragment() {
 
     fun onNoOfSelectedFilterItem(noOfSelection: Int) {
         if (noOfSelection >= 1) {
-            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-            classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            classifiedScreenBinding?.numberOfSelectedFilterTv?.text = noOfSelection.toString()
+            binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.numberOfSelectedFilterTv?.text = noOfSelection.toString()
         } else {
-            classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-            classifiedScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            binding?.selectedFilters?.visibility = View.GONE
+            binding?.numberOfSelectedFilterCv?.visibility = View.GONE
             postClassifiedViewModel.setMaxValue("")
             postClassifiedViewModel.setMinValue("")
             postClassifiedViewModel.setZipCodeInFilterScreen("")
@@ -653,5 +653,9 @@ class ClassifiedScreenFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

@@ -10,20 +10,15 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedPostSuccessBottomBinding
-import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,13 +26,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var bottomBinding: FragmentClassifiedPostSuccessBottomBinding? = null
+    var binding: FragmentClassifiedPostSuccessBottomBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        bottomBinding =
+        binding =
             FragmentClassifiedPostSuccessBottomBinding.inflate(inflater, container, false)
 
         postClassifiedViewModel.addStepViewLastTick(true)
@@ -68,7 +63,7 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             }
         }
         ss.setSpan(clickableSpan1, 59, 75, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        bottomBinding?.apply {
+        binding?.apply {
             if (postClassifiedViewModel.isUpdateClassified) {
                 enterYourEmailToSendLinkTv.text =
                     "Congratulations \n You have successfully updated your Classified"
@@ -86,6 +81,11 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             }
         }
 
-        return bottomBinding?.root
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

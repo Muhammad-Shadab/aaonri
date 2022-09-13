@@ -19,7 +19,7 @@ import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapt
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ImmigrationInfoCenterBottomSheet : BottomSheetDialogFragment() {
-    var binding:FragmentImmigrationInfoCenterBottomSheetBinding? = null
+    var binding: FragmentImmigrationInfoCenterBottomSheetBinding? = null
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
@@ -58,6 +58,10 @@ class ImmigrationInfoCenterBottomSheet : BottomSheetDialogFragment() {
             }
         }
         return  binding?.root
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

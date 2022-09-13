@@ -43,22 +43,22 @@ import java.io.File
 
 
 class PostEventAddressDetailsFragment : Fragment() {
-    var postEventAddressBinding: FragmentPostEventAddressDetailsBinding? = null
+    var binding: FragmentPostEventAddressDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        postEventAddressBinding =
+        binding =
             FragmentPostEventAddressDetailsBinding.inflate(inflater, container, false)
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_ADDRESS_DETAILS)
 
         if (!postEventViewModel.isEventOffline) {
-            postEventAddressBinding?.zipCodeEt?.isEnabled = false
-            postEventAddressBinding?.zipCodeEt?.hint = "Zipcode"
+            binding?.zipCodeEt?.isEnabled = false
+            binding?.zipCodeEt?.hint = "Zipcode"
         } else {
-            postEventAddressBinding?.zipCodeEt?.hint = "Zipcode*"
+            binding?.zipCodeEt?.hint = "Zipcode*"
         }
 
         val text = resources.getString(R.string.if_you_want_event)
@@ -126,7 +126,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         SpanString.setSpan(privacy, 71, 85, 0)
 
 
-        postEventAddressBinding?.apply {
+        binding?.apply {
 
             textDesc1.text = ss
             privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
@@ -266,7 +266,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.postEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
@@ -320,10 +320,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
                     }
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -332,7 +332,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.updateEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
@@ -362,10 +362,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
                     }
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -374,13 +374,13 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.uploadPictureData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
@@ -392,18 +392,18 @@ class PostEventAddressDetailsFragment : Fragment() {
             val eventDetails = EventStaticData.getEventDetailsData()
 
             eventDetails?.apply {
-                postEventAddressBinding?.eventAddressEt1?.setText(address1)
-                postEventAddressBinding?.eventAddressEt2?.setText(address2)
-                postEventAddressBinding?.cityNameEt?.setText(city)
+                binding?.eventAddressEt1?.setText(address1)
+                binding?.eventAddressEt2?.setText(address2)
+                binding?.cityNameEt?.setText(city)
                 if (zipCode.isNotEmpty()) {
-                    postEventAddressBinding?.zipCodeEt?.setText(zipCode)
+                    binding?.zipCodeEt?.setText(zipCode)
                 } else {
-                    postEventAddressBinding?.zipCodeEt?.isEnabled = false
+                    binding?.zipCodeEt?.isEnabled = false
                 }
-                postEventAddressBinding?.landmarkEt?.setText(eventPlace)
-                postEventAddressBinding?.stateEt?.setText(state)
-                postEventAddressBinding?.socialMediaLinkEt?.setText(socialMediaLink)
-                postEventAddressBinding?.agreeCheckboxClassified?.isChecked =
+                binding?.landmarkEt?.setText(eventPlace)
+                binding?.stateEt?.setText(state)
+                binding?.socialMediaLinkEt?.setText(socialMediaLink)
+                binding?.agreeCheckboxClassified?.isChecked =
                     acceptedTermsAndConditions
 
             }
@@ -451,12 +451,12 @@ class PostEventAddressDetailsFragment : Fragment() {
 
                 is Resource.Success -> {
                     if (response.data?.result?.isNotEmpty() == true) {
-                        postEventAddressBinding?.cityNameEt?.setText(
+                        binding?.cityNameEt?.setText(
                             response.data.result.getOrNull(
                                 0
                             )?.district.toString()
                         )
-                        postEventAddressBinding?.stateEt?.setText(response.data.result.getOrNull(0)?.state.toString())
+                        binding?.stateEt?.setText(response.data.result.getOrNull(0)?.state.toString())
 
                         /* cityName = response.data.result.getOrNull(0)?.province.toString()
 
@@ -476,7 +476,7 @@ class PostEventAddressDetailsFragment : Fragment() {
             }
         }
 
-        return postEventAddressBinding?.root
+        return binding?.root
     }
 
     private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {
@@ -575,5 +575,9 @@ class PostEventAddressDetailsFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

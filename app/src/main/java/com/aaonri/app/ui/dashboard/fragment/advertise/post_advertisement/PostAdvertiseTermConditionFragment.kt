@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -25,14 +24,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostAdvertiseTermConditionFragment : Fragment() {
-    var termConditionBinding: FragmentPostAdvertiseTermConditionBinding? = null
+    var binding: FragmentPostAdvertiseTermConditionBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        termConditionBinding =
+        binding =
             FragmentPostAdvertiseTermConditionBinding.inflate(inflater, container, false)
 
         postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TERMS_AND_CONDITION)
@@ -99,7 +98,7 @@ class PostAdvertiseTermConditionFragment : Fragment() {
 
 
 
-        termConditionBinding?.apply {
+        binding?.apply {
 
 
             textTv1.movementMethod = LinkMovementMethod.getInstance()
@@ -118,10 +117,6 @@ class PostAdvertiseTermConditionFragment : Fragment() {
             textTv4.setText(text4, TextView.BufferType.SPANNABLE)
             textTv4.isSelected = true
 
-
-
-
-
             advertisePostNextBtn.setOnClickListener {
                 if (agreeCheckboxClassified.isChecked) {
                     findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCompanyDetailsFrgament2)
@@ -135,8 +130,12 @@ class PostAdvertiseTermConditionFragment : Fragment() {
                 }
             }
         }
-        return termConditionBinding?.root
+        return binding?.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

@@ -39,7 +39,6 @@ import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -58,8 +57,8 @@ import java.util.*
 
 @AndroidEntryPoint
 class EventDetailsScreenFragment : Fragment() {
+    var binding: FragmentEventDetailsBinding? = null
     val args: EventDetailsScreenFragmentArgs by navArgs()
-    var evenDetailsBinding: FragmentEventDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
@@ -82,7 +81,7 @@ class EventDetailsScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        evenDetailsBinding = FragmentEventDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
 
         postEventViewModel.getEventDetails(args.eventId)
 
@@ -97,7 +96,7 @@ class EventDetailsScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
-        evenDetailsBinding?.apply {
+        binding?.apply {
 
             /*if (args.isMyEvent) {
                 moreBtn.visibility = View.VISIBLE
@@ -133,29 +132,29 @@ class EventDetailsScreenFragment : Fragment() {
             postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        evenDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                        binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        evenDetailsBinding?.progressBar?.visibility = View.GONE
+                        binding?.progressBar?.visibility = View.GONE
                         response.data?.let {
                             setEventdDetails(it)
                             EventStaticData.updateEventDetails(it)
                         }
-                        evenDetailsBinding?.linear?.viewTreeObserver?.addOnGlobalLayoutListener(
+                        binding?.linear?.viewTreeObserver?.addOnGlobalLayoutListener(
                             object :
                                 OnGlobalLayoutListener {
                                 override fun onGlobalLayout() {
-                                    evenDetailsBinding?.linear!!.viewTreeObserver.removeOnGlobalLayoutListener(
+                                    binding?.linear!!.viewTreeObserver.removeOnGlobalLayoutListener(
                                         this
                                     )
                                     val hiddenView: View =
-                                        evenDetailsBinding?.linear!!.getChildAt(1)
+                                        binding?.linear!!.getChildAt(1)
                                     bottomSheetOuter.peekHeight = hiddenView.top
                                 }
                             })
                     }
                     is Resource.Error -> {
-                        evenDetailsBinding?.progressBar?.visibility = View.GONE
+                        binding?.progressBar?.visibility = View.GONE
                         Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -429,7 +428,7 @@ class EventDetailsScreenFragment : Fragment() {
         }
 
 
-        return evenDetailsBinding?.root
+        return binding?.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -438,15 +437,15 @@ class EventDetailsScreenFragment : Fragment() {
         eventPremiumLink = event.socialMediaLink
         eventname = event.title
         eventTimeZone = event.timeZone
-        evenDetailsBinding?.ll1?.visibility = View.VISIBLE
+        binding?.ll1?.visibility = View.VISIBLE
 
         startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
         eventTitleName = event.title
-        evenDetailsBinding?.navigateBack?.visibility = View.VISIBLE
+        binding?.navigateBack?.visibility = View.VISIBLE
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (event.createdBy == email) {
-            evenDetailsBinding?.moreBtn?.visibility = View.VISIBLE
+            binding?.moreBtn?.visibility = View.VISIBLE
         }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
@@ -476,7 +475,7 @@ class EventDetailsScreenFragment : Fragment() {
                                      .into(it1)
                              }
                          }*/
-                    evenDetailsBinding?.image1?.visibility = View.GONE
+                    binding?.image1?.visibility = View.GONE
 //                    context?.let {
 //                        evenDetailsBinding?.image1?.let { it1 ->
 //                            Glide.with(it)
@@ -486,10 +485,10 @@ class EventDetailsScreenFragment : Fragment() {
 //                    }
                 }
                 if (userAdsImage.imagePath.contains(".first")) {
-                    evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+                    binding?.image2CardView?.visibility = View.VISIBLE
 
                     context?.let {
-                        evenDetailsBinding?.addImage?.let { it1 ->
+                        binding?.addImage?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
@@ -497,7 +496,7 @@ class EventDetailsScreenFragment : Fragment() {
                     }
 
                     context?.let {
-                        evenDetailsBinding?.image2?.let { it1 ->
+                        binding?.image2?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
@@ -509,7 +508,7 @@ class EventDetailsScreenFragment : Fragment() {
 
 
                 if (userAdsImage.imagePath.contains(".second")) {
-                    evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                    binding?.image3CardView?.visibility = View.VISIBLE
 
                     /*  context?.let {
                       evenDetailsBinding?.addImage?.let { it1 ->
@@ -520,7 +519,7 @@ class EventDetailsScreenFragment : Fragment() {
                   }*/
 
                     context?.let {
-                        evenDetailsBinding?.image3?.let { it1 ->
+                        binding?.image3?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
@@ -528,7 +527,7 @@ class EventDetailsScreenFragment : Fragment() {
                     }
                 }
                 if (userAdsImage.imagePath.contains(".third")) {
-                    evenDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+                    binding?.image4CardView?.visibility = View.VISIBLE
 
                     /*context?.let {
                     evenDetailsBinding?.addImage?.let { it1 ->
@@ -539,7 +538,7 @@ class EventDetailsScreenFragment : Fragment() {
                 }*/
 
                     context?.let {
-                        evenDetailsBinding?.image4?.let { it1 ->
+                        binding?.image4?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .into(it1)
@@ -551,13 +550,13 @@ class EventDetailsScreenFragment : Fragment() {
                 when (index) {
                     0 -> {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
                             }
                         }
-                        evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                        binding?.image1CardView?.visibility = View.VISIBLE
 
                         /*  context?.let {
                           evenDetailsBinding?.addImage?.let { it1 ->
@@ -568,7 +567,7 @@ class EventDetailsScreenFragment : Fragment() {
                       }*/
 
                         context?.let {
-                            evenDetailsBinding?.image1?.let { it1 ->
+                            binding?.image1?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -577,7 +576,7 @@ class EventDetailsScreenFragment : Fragment() {
                         changeCardViewBorder(0)
                     }
                     1 -> {
-                        evenDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+                        binding?.image2CardView?.visibility = View.VISIBLE
 
                         /*  context?.let {
                           evenDetailsBinding?.addImage?.let { it1 ->
@@ -588,7 +587,7 @@ class EventDetailsScreenFragment : Fragment() {
                       }*/
 
                         context?.let {
-                            evenDetailsBinding?.image2?.let { it1 ->
+                            binding?.image2?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -596,7 +595,7 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                     2 -> {
-                        evenDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                        binding?.image3CardView?.visibility = View.VISIBLE
 
                         /* context?.let {
                          evenDetailsBinding?.addImage?.let { it1 ->
@@ -607,7 +606,7 @@ class EventDetailsScreenFragment : Fragment() {
                      }*/
 
                         context?.let {
-                            evenDetailsBinding?.image3?.let { it1 ->
+                            binding?.image3?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -615,7 +614,7 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                     3 -> {
-                        evenDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+                        binding?.image4CardView?.visibility = View.VISIBLE
 
                         /* context?.let {
                          evenDetailsBinding?.addImage?.let { it1 ->
@@ -626,7 +625,7 @@ class EventDetailsScreenFragment : Fragment() {
                      }*/
 
                         context?.let {
-                            evenDetailsBinding?.image4?.let { it1 ->
+                            binding?.image4?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -647,7 +646,7 @@ class EventDetailsScreenFragment : Fragment() {
               }
           }*/
 
-        evenDetailsBinding?.image1?.setOnClickListener {
+        binding?.image1?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
                         ".second"
@@ -655,7 +654,7 @@ class EventDetailsScreenFragment : Fragment() {
                 ) {
                     if (userAdsImage.imagePath.contains(".cover")) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -667,7 +666,7 @@ class EventDetailsScreenFragment : Fragment() {
                 } else {
                     if (index == 0) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -679,7 +678,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
-        evenDetailsBinding?.image2?.setOnClickListener {
+        binding?.image2?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
                         ".second"
@@ -687,7 +686,7 @@ class EventDetailsScreenFragment : Fragment() {
                 ) {
                     if (userAdsImage.imagePath.contains(".first")) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -699,7 +698,7 @@ class EventDetailsScreenFragment : Fragment() {
                 } else {
                     if (index == 1) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -710,7 +709,7 @@ class EventDetailsScreenFragment : Fragment() {
                 changeCardViewBorder(1)
             }
         }
-        evenDetailsBinding?.image3?.setOnClickListener {
+        binding?.image3?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
                         ".second"
@@ -718,7 +717,7 @@ class EventDetailsScreenFragment : Fragment() {
                 ) {
                     if (userAdsImage.imagePath.contains(".second")) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -730,7 +729,7 @@ class EventDetailsScreenFragment : Fragment() {
                 } else {
                     if (index == 2) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -741,7 +740,7 @@ class EventDetailsScreenFragment : Fragment() {
                 changeCardViewBorder(2)
             }
         }
-        evenDetailsBinding?.image4?.setOnClickListener {
+        binding?.image4?.setOnClickListener {
             event.images.forEachIndexed { index, userAdsImage ->
                 if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
                         ".second"
@@ -749,7 +748,7 @@ class EventDetailsScreenFragment : Fragment() {
                 ) {
                     if (userAdsImage.imagePath.contains(".third")) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -759,7 +758,7 @@ class EventDetailsScreenFragment : Fragment() {
                 } else {
                     if (index == 3) {
                         context?.let {
-                            evenDetailsBinding?.addImage?.let { it1 ->
+                            binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                     .into(it1)
@@ -777,14 +776,14 @@ class EventDetailsScreenFragment : Fragment() {
             df.roundingMode = RoundingMode.DOWN
             val roundoff = df.format(random)
 
-            evenDetailsBinding?.eventPriceTv?.text = "$$roundoff"
+            binding?.eventPriceTv?.text = "$$roundoff"
         } else {
-            evenDetailsBinding?.eventPriceTv?.text = "FREE"
+            binding?.eventPriceTv?.text = "FREE"
         }
-        evenDetailsBinding?.eventTitle?.text = event.title
-        evenDetailsBinding?.eventDescTv?.textSize = 14F
-        evenDetailsBinding?.eventDescTv?.fromHtml(event.description)
-        evenDetailsBinding?.locationIconEvent?.visibility = View.VISIBLE
+        binding?.eventTitle?.text = event.title
+        binding?.eventDescTv?.textSize = 14F
+        binding?.eventDescTv?.fromHtml(event.description)
+        binding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
@@ -798,22 +797,22 @@ class EventDetailsScreenFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        evenDetailsBinding?.locationEventTv?.setText(spannable, TextView.BufferType.SPANNABLE)
+        binding?.locationEventTv?.setText(spannable, TextView.BufferType.SPANNABLE)
         //evenDetailsBinding?.eventLocationZip?.text = event.zipCode
-        evenDetailsBinding?.eventCategoryTv?.text = "Category: " + event.category
-        evenDetailsBinding?.eventDetailsBottom?.visibility = View.VISIBLE
+        binding?.eventCategoryTv?.text = "Category: " + event.category
+        binding?.eventDetailsBottom?.visibility = View.VISIBLE
         if (!event.socialMediaLink.isNullOrEmpty()) {
-            evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
+            binding?.buyTicket?.visibility = View.VISIBLE
             //evenDetailsBinding?.premiumLink?.text = event.socialMediaLink
         } else {
-            evenDetailsBinding?.buyTicket?.visibility = View.GONE
+            binding?.buyTicket?.visibility = View.GONE
         }
-        evenDetailsBinding?.totalVisitingTv?.text = event.totalVisiting.toString() + " going"
-        evenDetailsBinding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
-        evenDetailsBinding?.totalVisiting?.text = event.totalVisiting.toString()
-        evenDetailsBinding?.totalFavourite?.text = event.totalFavourite.toString()
+        binding?.totalVisitingTv?.text = event.totalVisiting.toString() + " going"
+        binding?.totalFavoriteTv?.text = event.totalFavourite.toString() + " Interested"
+        binding?.totalVisiting?.text = event.totalVisiting.toString()
+        binding?.totalFavourite?.text = event.totalFavourite.toString()
 
-        evenDetailsBinding?.premiumLink?.setOnClickListener {
+        binding?.premiumLink?.setOnClickListener {
             if (URLUtil.isValidUrl(eventPremiumLink)) {
                 val action =
                     EventDetailsScreenFragmentDirections.actionEventDetailsScreenFragmentToAdvertiseWebviewFragment(
@@ -826,7 +825,7 @@ class EventDetailsScreenFragment : Fragment() {
         }
 
         try {
-            evenDetailsBinding?.postedDate1?.text = "${
+            binding?.postedDate1?.text = "${
                 DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -836,7 +835,7 @@ class EventDetailsScreenFragment : Fragment() {
                 LocalTime.parse(event.startTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))
             } ${event.timeZone}"
-            evenDetailsBinding?.postedDate2?.text = " ${
+            binding?.postedDate2?.text = " ${
                 DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(event.endDate.split("T")[0])
@@ -857,15 +856,15 @@ class EventDetailsScreenFragment : Fragment() {
             changeCardViewBorder(0)
         }
         if (isVisiting) {
-            evenDetailsBinding?.goingBtn?.setText("GOING")
+            binding?.goingBtn?.setText("GOING")
         } else {
-            evenDetailsBinding?.goingBtn?.setText("NOT GOING")
+            binding?.goingBtn?.setText("NOT GOING")
         }
 
         if (isInterested) {
-            evenDetailsBinding?.interestedBtn?.setText("INTERESTED")
+            binding?.interestedBtn?.setText("INTERESTED")
         } else {
-            evenDetailsBinding?.interestedBtn?.setText("NOT INTERESTED")
+            binding?.interestedBtn?.setText("NOT INTERESTED")
         }
     }
 
@@ -878,7 +877,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -888,18 +887,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image2CardView?.setStrokeColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                evenDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -910,7 +898,18 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -921,7 +920,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -931,7 +930,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -941,7 +940,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -952,7 +951,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -964,7 +963,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -974,7 +973,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -984,7 +983,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -995,7 +994,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1007,7 +1006,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1017,7 +1016,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1028,7 +1027,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1038,7 +1037,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1049,7 +1048,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1059,7 +1058,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1070,7 +1069,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1080,7 +1079,7 @@ class EventDetailsScreenFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                evenDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -1101,6 +1100,7 @@ class EventDetailsScreenFragment : Fragment() {
         super.onDestroyView()
         postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
+        binding = null
     }
 
 }

@@ -38,7 +38,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class PostEventBasicDetailsFragment : Fragment() {
-    var postEventBinding: FragmentPostEventBasicDetailsBinding? = null
+    var binding: FragmentPostEventBasicDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var description: String? = ""
 
@@ -50,10 +50,10 @@ class PostEventBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    postEventBinding?.eventDescEt?.fromHtml(data.trim())
+                    binding?.eventDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
-                    postEventBinding?.eventDescEt?.text = ""
+                    binding?.eventDescEt?.text = ""
                 }
             }
         }
@@ -71,13 +71,13 @@ class PostEventBasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        postEventBinding = FragmentPostEventBasicDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentPostEventBasicDetailsBinding.inflate(inflater, container, false)
 
         setData()
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_BASIC_DETAILS)
 
-        postEventBinding?.apply {
+        binding?.apply {
 
             eventDescEt.textSize = 16F
 
@@ -260,11 +260,11 @@ class PostEventBasicDetailsFragment : Fragment() {
 
 
         postEventViewModel.selectedEventCategory.observe(viewLifecycleOwner) {
-            postEventBinding?.selectCategoryEvent?.text = it.title
+            binding?.selectCategoryEvent?.text = it.title
         }
 
         postEventViewModel.selectedEventTimeZone.observe(viewLifecycleOwner) {
-            postEventBinding?.eventTimezone?.text = it
+            binding?.eventTimezone?.text = it
         }
 
         if (postEventViewModel.isUpdateEvent) {
@@ -277,23 +277,23 @@ class PostEventBasicDetailsFragment : Fragment() {
             } else {
                 val uploadedImages = mutableListOf<Uri>()
                 if (eventDetails?.zipCode?.isNotEmpty() == true) {
-                    postEventBinding?.offlineRadioBtn?.isChecked = true
+                    binding?.offlineRadioBtn?.isChecked = true
                 } else {
-                    postEventBinding?.onlineRdaioBtn?.isChecked = true
+                    binding?.onlineRdaioBtn?.isChecked = true
                 }
-                postEventBinding?.titleEvent?.setText(eventDetails?.title)
-                postEventBinding?.selectCategoryEvent?.text = eventDetails?.category
-                postEventBinding?.selectstartDate?.text =
+                binding?.titleEvent?.setText(eventDetails?.title)
+                binding?.selectCategoryEvent?.text = eventDetails?.category
+                binding?.selectstartDate?.text =
                     eventDetails?.startDate?.split("T")?.get(0)
-                postEventBinding?.selectStartTime?.text =
+                binding?.selectStartTime?.text =
                     displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
                 startTime = eventDetails?.startTime.toString()
-                postEventBinding?.selectEndDate?.text =
+                binding?.selectEndDate?.text =
                     eventDetails?.endDate?.split("T")?.get(0)
-                postEventBinding?.selectEndTime?.text =
+                binding?.selectEndTime?.text =
                     displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
-                postEventBinding?.eventTimezone?.text = eventDetails?.timeZone
-                postEventBinding?.eventDescEt?.fromHtml(eventDetails?.description)
+                binding?.eventTimezone?.text = eventDetails?.timeZone
+                binding?.eventDescEt?.fromHtml(eventDetails?.description)
 
                 if (eventDetails?.fee != null) {
                     if (eventDetails.fee > 0) {
@@ -302,10 +302,10 @@ class PostEventBasicDetailsFragment : Fragment() {
                         val df = DecimalFormat("####")
                         df.roundingMode = RoundingMode.DOWN
                         val roundoff = df.format(random)
-                        postEventBinding?.askingFee?.setText(roundoff)
+                        binding?.askingFee?.setText(roundoff)
                     } else {
-                        postEventBinding?.isFreeEntryCheckBox?.isChecked = true
-                        postEventBinding?.askingFee?.isEnabled = false
+                        binding?.isFreeEntryCheckBox?.isChecked = true
+                        binding?.askingFee?.isEnabled = false
                     }
                 } else {
                     //Toast.makeText(context, "else condition", Toast.LENGTH_SHORT).show()
@@ -406,38 +406,38 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
             })
 
-        return postEventBinding?.root
+        return binding?.root
     }
 
     private fun setData() {
 
         postEventViewModel.apply {
             eventBasicDetailMap.let {
-                postEventBinding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
-                postEventBinding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
-                postEventBinding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
+                binding?.titleEvent?.setText(it[EventConstants.EVENT_TITLE])
+                binding?.selectCategoryEvent?.text = it[EventConstants.EVENT_CATEGORY]
+                binding?.selectstartDate?.text = it[EventConstants.EVENT_START_DATE]
                 if (!it[EventConstants.EVENT_START_TIME].isNullOrEmpty()) {
-                    postEventBinding?.selectStartTime?.text =
+                    binding?.selectStartTime?.text =
                         displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_START_TIME]))
                             .toString()
 
                 }
                 if (!it[EventConstants.EVENT_END_TIME].isNullOrEmpty()) {
-                    postEventBinding?.selectEndTime?.text =
+                    binding?.selectEndTime?.text =
                         displayFormat.format(parseFormat.parse(it[EventConstants.EVENT_END_TIME]))
                             .toString()
 
                 }
-                postEventBinding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
-                postEventBinding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
+                binding?.selectEndDate?.text = it[EventConstants.EVENT_END_DATE]
+                binding?.eventTimezone?.text = it[EventConstants.EVENT_TIMEZONE]
                 if (isEventFree) {
-                    postEventBinding?.isFreeEntryCheckBox?.isChecked = true
-                    postEventBinding?.askingFee?.isEnabled = false
+                    binding?.isFreeEntryCheckBox?.isChecked = true
+                    binding?.askingFee?.isEnabled = false
                 } else {
-                    postEventBinding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
+                    binding?.askingFee?.setText(it[EventConstants.EVENT_ASKING_FEE])
                 }
                 if (it[EventConstants.EVENT_DESC]?.isNotEmpty() == true) {
-                    postEventBinding?.eventDescEt?.fromHtml(it[EventConstants.EVENT_DESC])
+                    binding?.eventDescEt?.fromHtml(it[EventConstants.EVENT_DESC])
                 }
             }
         }
@@ -479,11 +479,11 @@ class PostEventBasicDetailsFragment : Fragment() {
                     if (isStartdate) {
 
                         endDate = ""
-                        postEventBinding?.selectEndDate?.text = ""
+                        binding?.selectEndDate?.text = ""
                         startDate = selectedDate
                     } else {
                         endDate = selectedDate
-                        postEventBinding?.selectEndTime?.text = ""
+                        binding?.selectEndTime?.text = ""
                     }
 
                 },
@@ -517,7 +517,7 @@ class PostEventBasicDetailsFragment : Fragment() {
         var minute = mcurrentTime.get(Calendar.MINUTE)
         var getHoursCLock: Int = 30
         var getMinutesCLock: Int = 0
-        if (postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString() && getHoursCLock != 30) {
+        if (binding?.selectstartDate?.text.toString() == binding?.selectEndDate?.text.toString() && getHoursCLock != 30) {
             hour = getHoursCLock
             minute = getMinutesCLock
         }
@@ -555,15 +555,15 @@ class PostEventBasicDetailsFragment : Fragment() {
                 if (isStartTime) {
                     //this is for startTime
                     selectStartTime.text = displayFormat.format(date)
-                    postEventBinding?.selectEndTime?.text = ""
+                    binding?.selectEndTime?.text = ""
 
                 } else {
                     var time =
-                        parseFormat.format(displayFormat.parse(postEventBinding?.selectStartTime?.text.toString()))
+                        parseFormat.format(displayFormat.parse(binding?.selectStartTime?.text.toString()))
                     var startHour: Int? = time?.split(":")?.get(0)?.toInt()
                     var startMin: Int? = time?.split(":")?.get(1)?.toInt()
                     //this is for  endTime
-                    if (postEventBinding?.selectstartDate?.text.toString() == postEventBinding?.selectEndDate?.text.toString()) {
+                    if (binding?.selectstartDate?.text.toString() == binding?.selectEndDate?.text.toString()) {
                         if (hourOfDay > startHour!! || hourOfDay == startHour && minute!! > startMin!!) {
                             selectStartTime.text = displayFormat.format(date)
                             endTime = parseFormat.format(date).toString()
@@ -581,24 +581,10 @@ class PostEventBasicDetailsFragment : Fragment() {
         mTimePicker.show()
     }
 
-    /*  override fun onResume() {
-          super.onResume()
-
-          if (Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })?.trim()
-                  ?.isNotEmpty() == true
-          ) {
-              postEventBinding?.eventDescEt?.text =
-                  Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-          } else {
-              postEventBinding?.eventDescEt?.text = ""
-          }
-      }*/
-
-    /* override fun onResume() {
-         super.onResume()
-         Toast.makeText(context, context?.let { PreferenceManager<String>(it)["description", ""] }, Toast.LENGTH_SHORT).show()
-         postEventBinding?.eventDescEt?.text = Html.fromHtml(context?.let { PreferenceManager<String>(it)["description", ""] })
-     }*/
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }
 

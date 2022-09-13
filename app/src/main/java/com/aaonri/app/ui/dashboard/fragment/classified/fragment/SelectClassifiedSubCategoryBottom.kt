@@ -16,7 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SelectClassifiedSubCategoryBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var selectClassifiedCategoryBinding: FragmentSelectClassifiedSubCategoryBottomBinding? = null
+    var binding: FragmentSelectClassifiedSubCategoryBottomBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var classifiedSubCategoryAdapter: ClassifiedSubCategoryAdapter? = null
     override fun onCreateView(
@@ -24,7 +24,7 @@ class SelectClassifiedSubCategoryBottom : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        selectClassifiedCategoryBinding =
+        binding =
             FragmentSelectClassifiedSubCategoryBottomBinding.inflate(inflater, container, false)
 
         classifiedSubCategoryAdapter = ClassifiedSubCategoryAdapter {
@@ -32,7 +32,7 @@ class SelectClassifiedSubCategoryBottom : BottomSheetDialogFragment() {
             findNavController().navigateUp()
         }
 
-        selectClassifiedCategoryBinding?.apply {
+        binding?.apply {
 
             closeCountryBtn.setOnClickListener {
                 dismiss()
@@ -47,8 +47,13 @@ class SelectClassifiedSubCategoryBottom : BottomSheetDialogFragment() {
 
         }
 
-        return selectClassifiedCategoryBinding?.root
+        return binding?.root
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

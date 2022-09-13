@@ -1,8 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +17,6 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +25,7 @@ import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class AdvertisementDetailsFragment : Fragment() {
-    var detailsBinding: FragmentAdvertisementDetailsBinding? = null
+    var binding: FragmentAdvertisementDetailsBinding? = null
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val args: AdvertisementDetailsFragmentArgs by navArgs()
     var isAdApproved: Boolean? = null
@@ -38,11 +35,11 @@ class AdvertisementDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        detailsBinding = FragmentAdvertisementDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentAdvertisementDetailsBinding.inflate(inflater, container, false)
 
         advertiseViewModel.getAdvertiseDetailsById(args.advertiseId)
 
-        detailsBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -60,19 +57,19 @@ class AdvertisementDetailsFragment : Fragment() {
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    detailsBinding?.progressBar?.visibility = View.VISIBLE
-                    detailsBinding?.classifiedDetailsBottom?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.VISIBLE
+                    binding?.classifiedDetailsBottom?.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     AdvertiseStaticData.updateAdvertiseDetails(response.data)
 
                     setData(response.data)
 
-                    detailsBinding?.classifiedDetailsBottom?.visibility = View.VISIBLE
-                    detailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.classifiedDetailsBottom?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    detailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -101,7 +98,7 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
 
-        return detailsBinding?.root
+        return binding?.root
     }
 
     @SuppressLint("ResourceAsColor")
@@ -113,36 +110,36 @@ class AdvertisementDetailsFragment : Fragment() {
         isAdApproved = data?.approved
 
         if (isAdApproved == true) {
-            detailsBinding?.moreClassifiedOption?.visibility = View.GONE
+            binding?.moreClassifiedOption?.visibility = View.GONE
         }
 
-        detailsBinding?.addImage?.let {
+        binding?.addImage?.let {
             context?.let { it1 ->
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${data?.advertisementDetails?.adImage}")
                     .into(it)
             }
         }
-        detailsBinding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
+        binding?.advertiseNameTv?.text = data?.advertisementDetails?.adTitle
 
-        detailsBinding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+        binding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.fromDate?.split("T")?.get(0))
         )
-        detailsBinding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+        binding?.postedOnDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.toDate?.split("T")?.get(0))
         )
 
-        detailsBinding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
+        binding?.advertiseLocationTv?.text = data?.advertisementDetails?.location
 
         if (data?.advertisementDetails?.url?.isNotEmpty() == true) {
-            detailsBinding?.advertiseLinkTv?.visibility = View.VISIBLE
+            binding?.advertiseLinkTv?.visibility = View.VISIBLE
         } else {
-            detailsBinding?.advertiseLinkTv?.visibility = View.GONE
+            binding?.advertiseLinkTv?.visibility = View.GONE
         }
 
-        detailsBinding?.advertiseLinkTv?.setOnClickListener {
+        binding?.advertiseLinkTv?.setOnClickListener {
             if (URLUtil.isValidUrl(data?.advertisementDetails?.url)) {
                 /*activity?.startActivity(
                     Intent(
@@ -173,44 +170,44 @@ class AdvertisementDetailsFragment : Fragment() {
         }
 
 
-        detailsBinding?.companyDescTv?.textSize = 14f
+        binding?.companyDescTv?.textSize = 14f
         if (!data?.advertisementDetails?.companyDescription.isNullOrEmpty()) {
-            detailsBinding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription?.trim())
-            detailsBinding?.compnyDetails?.visibility = View.VISIBLE
-            detailsBinding?.companyDescTv?.visibility = View.VISIBLE
+            binding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription?.trim())
+            binding?.compnyDetails?.visibility = View.VISIBLE
+            binding?.companyDescTv?.visibility = View.VISIBLE
         }
-        detailsBinding?.companyNameTv?.text = data?.advertisementDetails?.companyName
-        detailsBinding?.companyContactTv?.text =
+        binding?.companyNameTv?.text = data?.advertisementDetails?.companyName
+        binding?.companyContactTv?.text =
             data?.advertisementDetails?.contactNo?.replace("""[(,), ]""".toRegex(), "")
                 ?.replace("-", "")?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
-        detailsBinding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
+        binding?.companyEmailTv?.text = data?.advertisementDetails?.emailId
         if (data?.advertisementDetails?.productServices?.isNotEmpty() == true) {
-            detailsBinding?.companyServicesTv?.text = data.advertisementDetails.productServices
+            binding?.companyServicesTv?.text = data.advertisementDetails.productServices
         } else {
-            detailsBinding?.companyServicesTv?.text = "-"
+            binding?.companyServicesTv?.text = "-"
         }
 
-        detailsBinding?.postedOnDate?.text =
+        binding?.postedOnDate?.text =
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.fromDate?.split("T")?.get(0))
             )
-        detailsBinding?.validUpToDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+        binding?.validUpToDate?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.toDate?.split("T")?.get(0))
         )
 
-        detailsBinding?.companyStartDateTv?.text =
+        binding?.companyStartDateTv?.text =
             DateTimeFormatter.ofPattern("MM-dd-yyy").format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     .parse(data?.fromDate?.split("T")?.get(0))
             )
-        detailsBinding?.companyEndDateTv?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
+        binding?.companyEndDateTv?.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 .parse(data?.toDate?.split("T")?.get(0))
         )
 
-        detailsBinding?.companyPlanTv?.text = data?.locationPlanRate?.days.toString()
+        binding?.companyPlanTv?.text = data?.locationPlanRate?.days.toString()
         data?.advertisementVasMap?.forEach {
             when (it.code) {
                 "EPAD" -> {
@@ -228,23 +225,23 @@ class AdvertisementDetailsFragment : Fragment() {
         if (vasCodes.isNotEmpty()) {
             //detailsBinding?.companyVasTv?.text = vasCodes.toString().replace("[", "").replace("]", "")
         } else {
-            detailsBinding?.companyVasTv?.text = "-"
+            binding?.companyVasTv?.text = "-"
         }
-        detailsBinding?.companyLocationTv?.text = data?.advertisementDetails?.location
-        detailsBinding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
+        binding?.companyLocationTv?.text = data?.advertisementDetails?.location
+        binding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
         if (data?.approved == true) {
 
-            detailsBinding?.verifiedTv?.visibility = View.VISIBLE
-            detailsBinding?.pendingTv?.visibility = View.GONE
+            binding?.verifiedTv?.visibility = View.VISIBLE
+            binding?.pendingTv?.visibility = View.GONE
         } else {
-            detailsBinding?.verifiedTv?.visibility = View.GONE
-            detailsBinding?.pendingTv?.visibility = View.VISIBLE
+            binding?.verifiedTv?.visibility = View.GONE
+            binding?.pendingTv?.visibility = View.VISIBLE
         }
 
-        detailsBinding?.companyTemplateTv?.text = data?.template?.name
-        detailsBinding?.companyAdPageTv?.text =
+        binding?.companyTemplateTv?.text = data?.template?.name
+        binding?.companyAdPageTv?.text =
             data?.advertisementPageLocation?.advertisementPage?.pageName
-        detailsBinding?.companyPageLocationNameTv?.text =
+        binding?.companyPageLocationNameTv?.text =
             data?.advertisementPageLocation?.locationName
     }
 
@@ -252,6 +249,7 @@ class AdvertisementDetailsFragment : Fragment() {
         super.onDestroy()
         advertiseViewModel.advertiseDetailsData.value = null
         advertiseViewModel.cancelAdvertiseData.value = null
+        binding = null
     }
 
 }

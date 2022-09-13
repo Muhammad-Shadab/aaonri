@@ -1,22 +1,18 @@
 package com.aaonri.app.ui.dashboard.fragment.event.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventFilterScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottomDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
@@ -473,5 +469,8 @@ class EventFilterScreenFragment : Fragment() {
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

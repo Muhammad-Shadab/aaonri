@@ -5,30 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.post_classified.ClassifiedBasicDetailsFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
 class ClassifiedFilterFragmentBottom : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var classifiedFilterBinding: FragmentClassifiedFilterBinding? = null
+    var binding: FragmentClassifiedFilterBinding? = null
     var isDatePublishedSelected = false
     var isPriceLowToHighSelected = false
     var isPriceHighToLowSelected = false
@@ -37,12 +33,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        classifiedFilterBinding =
+        binding =
             FragmentClassifiedFilterBinding.inflate(inflater, container, false)
 
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
-        classifiedFilterBinding?.apply {
+        binding?.apply {
             minPriceRange.stickPrefix("$")
             maxPriceRange.stickPrefix("$")
             minPriceRange.filters = arrayOf(DecimalDigitsInputFilter(2))
@@ -571,36 +567,36 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
-            classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = it.title
+            binding?.selectCategoryClassifiedSpinner?.text = it.title
             if (postClassifiedViewModel.clearSubCategory) {
-                classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+                binding?.selectSubCategoryClassifiedSpinner?.text = ""
                 postClassifiedViewModel.setClearSubCategory(false)
             }
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
-            classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
+            binding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
-                classifiedFilterBinding?.myLocationLinear?.visibility = View.GONE
-                classifiedFilterBinding?.locationTv?.visibility = View.GONE
+                binding?.myLocationLinear?.visibility = View.GONE
+                binding?.locationTv?.visibility = View.GONE
             } else {
-                classifiedFilterBinding?.myLocationLinear?.visibility = View.VISIBLE
-                classifiedFilterBinding?.locationTv?.visibility = View.VISIBLE
+                binding?.myLocationLinear?.visibility = View.VISIBLE
+                binding?.locationTv?.visibility = View.VISIBLE
             }
         }
 
         postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
 
-                classifiedFilterBinding?.minPriceRange?.setText("")
-                classifiedFilterBinding?.maxPriceRange?.setText("")
-                classifiedFilterBinding?.zipCodeEt?.setText("")
-                classifiedFilterBinding?.myLocationCheckBox?.isChecked = false
-                classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = ""
-                classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+                binding?.minPriceRange?.setText("")
+                binding?.maxPriceRange?.setText("")
+                binding?.zipCodeEt?.setText("")
+                binding?.myLocationCheckBox?.isChecked = false
+                binding?.selectCategoryClassifiedSpinner?.text = ""
+                binding?.selectSubCategoryClassifiedSpinner?.text = ""
 
                 postClassifiedViewModel.setSearchQuery("")
                 postClassifiedViewModel.setMinValue("")
@@ -638,7 +634,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
                 /*selectedFilterList.clear()*/
 
-                classifiedFilterBinding?.apply {
+                binding?.apply {
 
                     myLocationCheckBox.isChecked = false
 
@@ -755,17 +751,17 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }*/
 
 
-        return classifiedFilterBinding?.root
+        return binding?.root
 
 
     }
 
     private fun setData() {
 
-        classifiedFilterBinding?.minPriceRange?.setText(postClassifiedViewModel.minValueInFilterScreen)
-        classifiedFilterBinding?.maxPriceRange?.setText(postClassifiedViewModel.maxValueInFilterScreen)
-        classifiedFilterBinding?.zipCodeEt?.setText(postClassifiedViewModel.zipCodeInFilterScreen)
-        classifiedFilterBinding?.myLocationCheckBox?.isChecked =
+        binding?.minPriceRange?.setText(postClassifiedViewModel.minValueInFilterScreen)
+        binding?.maxPriceRange?.setText(postClassifiedViewModel.maxValueInFilterScreen)
+        binding?.zipCodeEt?.setText(postClassifiedViewModel.zipCodeInFilterScreen)
+        binding?.myLocationCheckBox?.isChecked =
             postClassifiedViewModel.isMyLocationCheckedInFilterScreen
 
         postClassifiedViewModel.changeSortTriplet.let {
@@ -777,12 +773,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         R.color.blueBtnColor
                     )
                 }?.let { it2 ->
-                    classifiedFilterBinding?.datePublished?.setBackgroundColor(
+                    binding?.datePublished?.setBackgroundColor(
                         it2
                     )
                 }
                 context?.getColor(R.color.white)
-                    ?.let { it1 -> classifiedFilterBinding?.datePublished?.setTextColor(it1) }
+                    ?.let { it1 -> binding?.datePublished?.setTextColor(it1) }
             }
             if (it.second) {
                 isPriceLowToHighSelected = true
@@ -792,12 +788,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         R.color.blueBtnColor
                     )
                 }?.let { it2 ->
-                    classifiedFilterBinding?.priceLowToHigh?.setBackgroundColor(
+                    binding?.priceLowToHigh?.setBackgroundColor(
                         it2
                     )
                 }
                 context?.getColor(R.color.white)
-                    ?.let { it1 -> classifiedFilterBinding?.priceLowToHigh?.setTextColor(it1) }
+                    ?.let { it1 -> binding?.priceLowToHigh?.setTextColor(it1) }
             }
             if (it.third) {
                 isPriceHighToLowSelected = true
@@ -807,12 +803,12 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         R.color.blueBtnColor
                     )
                 }?.let { it2 ->
-                    classifiedFilterBinding?.priceHighToLow?.setBackgroundColor(
+                    binding?.priceHighToLow?.setBackgroundColor(
                         it2
                     )
                 }
                 context?.getColor(R.color.white)
-                    ?.let { it1 -> classifiedFilterBinding?.priceHighToLow?.setTextColor(it1) }
+                    ?.let { it1 -> binding?.priceHighToLow?.setTextColor(it1) }
             }
         }
 
@@ -958,5 +954,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 this.setSelection(this.length())
             }
         })
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

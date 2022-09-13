@@ -88,5 +88,9 @@ class InformationCenterImmigrationFragment : Fragment() {
         return json
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

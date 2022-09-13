@@ -22,14 +22,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var eventBottomBinding: FragmentEventPostSuccessfulBottomBinding? = null
+    var binding: FragmentEventPostSuccessfulBottomBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        eventBottomBinding =
+        binding =
             FragmentEventPostSuccessfulBottomBinding.inflate(inflater, container, false)
 
         postEventViewModel.addStepViewLastTick(true)
@@ -61,7 +61,7 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
             }
         }
 
-        eventBottomBinding?.apply {
+        binding?.apply {
 
             if (postEventViewModel.isUpdateEvent) {
                 successful.text = "You have successfully updated your event"
@@ -81,7 +81,10 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
 
         }
 
-        return eventBottomBinding?.root
+        return binding?.root
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

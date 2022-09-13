@@ -105,13 +105,16 @@ class RichTextEditor : AppCompatActivity() {
         mToolbar?.addToolbarItem(backgroundColor);
         binding?.arEditText?.setToolbar(mToolbar)
 
-
-//
         initToolbarArrow()
     }
 
     private fun initToolbarArrow() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 

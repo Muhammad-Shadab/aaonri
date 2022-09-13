@@ -34,7 +34,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class AdvertiseScreenFragment : Fragment() {
-    var advertiseBinding: FragmentAdvertiseScreenBinding? = null
+    var binding: FragmentAdvertiseScreenBinding? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
@@ -43,7 +43,6 @@ class AdvertiseScreenFragment : Fragment() {
     var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
 
     var isGuestUser = false
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -78,8 +77,8 @@ class AdvertiseScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        advertiseBinding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
-        advertiseBinding?.apply {
+        binding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
+        binding?.apply {
             loginToViewAdvertisement.text = ss
             loginToViewAdvertisement.movementMethod = LinkMovementMethod.getInstance()
             searchViewIcon.setOnClickListener {
@@ -98,19 +97,19 @@ class AdvertiseScreenFragment : Fragment() {
             if (isGuestUser) {
                 isGuestUser = true
 
-                advertiseBinding?.loginToViewAdvertisement?.visibility = View.VISIBLE
-                advertiseBinding?.yourText?.visibility = View.GONE
-                advertiseBinding?.postingofAdTv?.visibility = View.GONE
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
-                advertiseBinding?.floatingActionBtnEvents?.visibility = View.GONE
+                binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
+                binding?.yourText?.visibility = View.GONE
+                binding?.postingofAdTv?.visibility = View.GONE
+                binding?.recyclerViewAdvertise?.visibility = View.GONE
+                binding?.floatingActionBtnEvents?.visibility = View.GONE
 
             } else {
                 isGuestUser = false
-                advertiseBinding?.loginToViewAdvertisement?.visibility = View.GONE
-                advertiseBinding?.yourText?.visibility = View.VISIBLE
-                advertiseBinding?.postingofAdTv?.visibility = View.VISIBLE
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                advertiseBinding?.floatingActionBtnEvents?.visibility = View.VISIBLE
+                binding?.loginToViewAdvertisement?.visibility = View.GONE
+                binding?.yourText?.visibility = View.VISIBLE
+                binding?.postingofAdTv?.visibility = View.VISIBLE
+                binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                binding?.floatingActionBtnEvents?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
 
@@ -152,19 +151,19 @@ class AdvertiseScreenFragment : Fragment() {
             if (it) {
                 isGuestUser = true
 
-                advertiseBinding?.loginToViewAdvertisement?.visibility = View.VISIBLE
-                advertiseBinding?.yourText?.visibility = View.GONE
-                advertiseBinding?.postingofAdTv?.visibility = View.GONE
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
-                advertiseBinding?.floatingActionBtnEvents?.visibility = View.GONE
+                binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
+                binding?.yourText?.visibility = View.GONE
+                binding?.postingofAdTv?.visibility = View.GONE
+                binding?.recyclerViewAdvertise?.visibility = View.GONE
+                binding?.floatingActionBtnEvents?.visibility = View.GONE
 
             } else {
                 isGuestUser = false
-                advertiseBinding?.loginToViewAdvertisement?.visibility = View.GONE
-                advertiseBinding?.yourText?.visibility = View.VISIBLE
-                advertiseBinding?.postingofAdTv?.visibility = View.VISIBLE
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                advertiseBinding?.floatingActionBtnEvents?.visibility = View.VISIBLE
+                binding?.loginToViewAdvertisement?.visibility = View.GONE
+                binding?.yourText?.visibility = View.VISIBLE
+                binding?.postingofAdTv?.visibility = View.VISIBLE
+                binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                binding?.floatingActionBtnEvents?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
         }
@@ -172,18 +171,18 @@ class AdvertiseScreenFragment : Fragment() {
         advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    advertiseBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    advertiseBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
 
-                    advertiseBinding?.yourText?.text =
+                    binding?.yourText?.text =
                         "Your Avertisement(${response.data?.size})"
 
                     if (response.data?.isEmpty() == true) {
-                        advertiseBinding?.noResultFound?.visibility = View.VISIBLE
-                        advertiseBinding?.emptyTextVew?.text = "You haven't listed anything yet"
-                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
+                        binding?.noResultFound?.visibility = View.VISIBLE
+                        binding?.emptyTextVew?.text = "You haven't listed anything yet"
+                        binding?.recyclerViewAdvertise?.visibility = View.GONE
 
                     } else {
                         /*response.data?.forEach {
@@ -193,14 +192,14 @@ class AdvertiseScreenFragment : Fragment() {
                         }*/
                         response.data?.let { advertiseAdapter?.setData(it) }
                         response.data?.let { searchAdvertisement(it) }
-                        advertiseBinding?.noResultFound?.visibility = View.GONE
-                        advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                        binding?.noResultFound?.visibility = View.GONE
+                        binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
                     }
 
 
                 }
                 is Resource.Error -> {
-                    advertiseBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(
                         context,
                         "Error ${response.message}",
@@ -216,11 +215,11 @@ class AdvertiseScreenFragment : Fragment() {
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    advertiseBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
 
                 }
                 is Resource.Success -> {
-                    advertiseBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     /* Toast.makeText(
                          context,
                          "${response.data?.advertisementDetails?.adImage}.",
@@ -228,7 +227,7 @@ class AdvertiseScreenFragment : Fragment() {
                      ).show()*/
                 }
                 is Resource.Error -> {
-                    advertiseBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -242,13 +241,13 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }*/
 
-        return advertiseBinding?.root
+        return binding?.root
     }
 
 
     private fun searchAdvertisement(data: List<AllAdvertiseResponseItem>) {
 
-        advertiseBinding?.searchView?.addTextChangedListener { editable ->
+        binding?.searchView?.addTextChangedListener { editable ->
             advertisementList.clear()
             val searchText = editable.toString().lowercase(Locale.getDefault())
             if (searchText.isNotEmpty()) {
@@ -264,15 +263,20 @@ class AdvertiseScreenFragment : Fragment() {
                 data.let { advertisementList.addAll(it) }
             }
             if (advertisementList.isEmpty()) {
-                advertiseBinding?.noResultFound?.visibility = View.VISIBLE
-                advertiseBinding?.emptyTextVew?.text = "Results not found"
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.GONE
+                binding?.noResultFound?.visibility = View.VISIBLE
+                binding?.emptyTextVew?.text = "Results not found"
+                binding?.recyclerViewAdvertise?.visibility = View.GONE
             } else {
-                advertiseBinding?.noResultFound?.visibility = View.GONE
-                advertiseBinding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                binding?.noResultFound?.visibility = View.GONE
+                binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
             }
             advertiseAdapter?.setData(advertisementList)
-            advertiseBinding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
+            binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

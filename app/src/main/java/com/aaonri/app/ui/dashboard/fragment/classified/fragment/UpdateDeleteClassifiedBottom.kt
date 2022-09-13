@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var updateDeleteBinding: FragmentUpdateDeleteClassifiedBottomBinding? = null
+    var binding: FragmentUpdateDeleteClassifiedBottomBinding? = null
     val args: UpdateDeleteClassifiedBottomArgs by navArgs()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
@@ -33,10 +32,10 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        updateDeleteBinding =
+        binding =
             FragmentUpdateDeleteClassifiedBottomBinding.inflate(inflater, container, false)
 
-        updateDeleteBinding?.apply {
+        binding?.apply {
 
             if (args.isClassifiedUpdate) {
                 editOption.text = "I want to edit my Classified"
@@ -121,6 +120,11 @@ class UpdateDeleteClassifiedBottom : BottomSheetDialogFragment() {
             }
         }
 
-        return updateDeleteBinding?.root
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

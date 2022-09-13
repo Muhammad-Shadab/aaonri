@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyClassifiedFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var myClassifiedBinding: FragmentMyClassifiedBinding? = null
+    var binding: FragmentMyClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -37,7 +37,7 @@ class MyClassifiedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myClassifiedBinding =
+        binding =
             FragmentMyClassifiedBinding.inflate(inflater, container, false)
 
         allClassifiedAdapter = AllClassifiedAdapter {
@@ -65,7 +65,7 @@ class MyClassifiedFragment : Fragment() {
                 classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
             }
         }
-        myClassifiedBinding?.apply {
+        binding?.apply {
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
 
@@ -85,30 +85,30 @@ class MyClassifiedFragment : Fragment() {
         classifiedViewModel.myClassified.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    myClassifiedBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    myClassifiedBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     if (response.data?.userAdsList?.isNotEmpty() == true) {
-                        myClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
-                        myClassifiedBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                        myClassifiedBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
-                        myClassifiedBinding?.emptyClassifiedImage?.visibility = View.GONE
-                        myClassifiedBinding?.emptyTextVew?.visibility = View.GONE
+                        binding?.recyclerViewClassified?.visibility = View.VISIBLE
+                        binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.emptyClassifiedImage?.visibility = View.GONE
+                        binding?.emptyTextVew?.visibility = View.GONE
                         response.data.userAdsList.let { allClassifiedAdapter?.setData(it) }
-                        myClassifiedBinding?.recyclerViewClassified?.adapter =
+                        binding?.recyclerViewClassified?.adapter =
                             allClassifiedAdapter
                     } else {
-                        myClassifiedBinding?.emptyClassifiedImage?.visibility = View.VISIBLE
-                        myClassifiedBinding?.emptyTextVew?.visibility = View.VISIBLE
-                        myClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
-                        myClassifiedBinding?.topAdvertiseRv?.visibility = View.GONE
-                        myClassifiedBinding?.bottomAdvertiseRv?.visibility = View.GONE
+                        binding?.emptyClassifiedImage?.visibility = View.VISIBLE
+                        binding?.emptyTextVew?.visibility = View.VISIBLE
+                        binding?.recyclerViewClassified?.visibility = View.GONE
+                        binding?.topAdvertiseRv?.visibility = View.GONE
+                        binding?.bottomAdvertiseRv?.visibility = View.GONE
                     }
 
                 }
                 is Resource.Error -> {
-                    myClassifiedBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -119,7 +119,7 @@ class MyClassifiedFragment : Fragment() {
         }
 
 
-        return myClassifiedBinding?.root
+        return binding?.root
     }
 
     override fun onResume() {
@@ -163,5 +163,10 @@ class MyClassifiedFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

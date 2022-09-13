@@ -140,6 +140,7 @@ class AdvertiseScreenActivity : BaseActivity() {
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedTemplateSpinnerItem", 0)
 
+        binding = null
     }
 
 }

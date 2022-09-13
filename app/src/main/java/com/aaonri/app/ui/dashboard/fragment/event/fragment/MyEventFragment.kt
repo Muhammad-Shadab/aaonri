@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,9 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyEventFragment : Fragment() {
+    var binding: FragmentMyEventBinding? = null
     val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
-    var myEventBinding: FragmentMyEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -34,7 +33,7 @@ class MyEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myEventBinding = FragmentMyEventBinding.inflate(inflater, container, false)
+        binding = FragmentMyEventBinding.inflate(inflater, container, false)
 
         val keyword =
             context?.let { PreferenceManager<String>(it)[EventConstants.SEARCH_KEYWORD_FILTER, ""] }
@@ -61,7 +60,7 @@ class MyEventFragment : Fragment() {
             }
         }
 
-        myEventBinding?.apply {
+        binding?.apply {
 
             postEventBtn.setOnClickListener {
                 val intent = Intent(requireContext(), EventScreenActivity::class.java)
@@ -89,18 +88,18 @@ class MyEventFragment : Fragment() {
         eventViewModel.myEvent.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    myEventBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    myEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     if (response.data?.eventList?.isEmpty() == true) {
                         eventViewModel.setHideFloatingBtn(true)
                         if (keyword?.isNotEmpty() == true) {
-                            myEventBinding?.nestedScrollView?.visibility = View.GONE
-                            myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
-                            myEventBinding?.topAdvertiseRv?.visibility = View.GONE
-                            myEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
-                            myEventBinding?.noResultFound?.visibility = View.VISIBLE
+                            binding?.nestedScrollView?.visibility = View.GONE
+                            binding?.recyclerViewMyEvent?.visibility = View.GONE
+                            binding?.topAdvertiseRv?.visibility = View.GONE
+                            binding?.bottomAdvertiseRv?.visibility = View.GONE
+                            binding?.noResultFound?.visibility = View.VISIBLE
                             /* activity?.let { it1 ->
                                  Snackbar.make(
                                      it1.findViewById(android.R.id.content),
@@ -108,30 +107,34 @@ class MyEventFragment : Fragment() {
                                  ).show()
                              }*/
                         } else {
-                            myEventBinding?.noResultFound?.visibility = View.GONE
-                            myEventBinding?.nestedScrollView?.visibility = View.VISIBLE
-                            myEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
-                            myEventBinding?.topAdvertiseRv?.visibility = View.GONE
-                            myEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
+                            binding?.noResultFound?.visibility = View.GONE
+                            binding?.nestedScrollView?.visibility = View.VISIBLE
+                            binding?.recyclerViewMyEvent?.visibility = View.GONE
+                            binding?.topAdvertiseRv?.visibility = View.GONE
+                            binding?.bottomAdvertiseRv?.visibility = View.GONE
                         }
                     } else {
-                        myEventBinding?.noResultFound?.visibility = View.GONE
-                        myEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
-                        myEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                        myEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.noResultFound?.visibility = View.GONE
+                        binding?.recyclerViewMyEvent?.visibility = View.VISIBLE
+                        binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                         eventViewModel.setHideFloatingBtn(false)
-                        myEventBinding?.nestedScrollView?.visibility = View.GONE
+                        binding?.nestedScrollView?.visibility = View.GONE
                         allEventAdapter?.setData(response.data?.eventList)
                     }
                 }
                 is Resource.Error -> {
-                    myEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
         }
 
-        return myEventBinding?.root
+        return binding?.root
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

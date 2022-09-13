@@ -21,24 +21,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class MoreScreenFragment : Fragment() {
+    var binding: FragmentMoreScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    var moreScreenBinding: FragmentMoreScreenBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        moreScreenBinding = FragmentMoreScreenBinding.inflate(inflater, container, false)
+        binding = FragmentMoreScreenBinding.inflate(inflater, container, false)
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
-                moreScreenBinding?.logOutBtn?.visibility = View.GONE
+                binding?.logOutBtn?.visibility = View.GONE
             } else {
-                moreScreenBinding?.logOutBtn?.visibility = View.VISIBLE
+                binding?.logOutBtn?.visibility = View.VISIBLE
             }
         }
 
-        moreScreenBinding?.apply {
+        binding?.apply {
 
             logOutBtn.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
@@ -90,6 +90,10 @@ class MoreScreenFragment : Fragment() {
             }
         }
 
-        return moreScreenBinding?.root
+        return binding?.root
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

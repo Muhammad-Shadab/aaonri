@@ -6,20 +6,20 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
+import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.ActivityClassifiedScreenBinding
-import com.aaonri.app.data.classified.ClassifiedStaticData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClassifiedActivity : AppCompatActivity() {
-    var classifiedScreenBinding: ActivityClassifiedScreenBinding? = null
+    var binding: ActivityClassifiedScreenBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by viewModels()
     var title: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        classifiedScreenBinding = ActivityClassifiedScreenBinding.inflate(layoutInflater)
-        setContentView(classifiedScreenBinding?.root)
+        binding = ActivityClassifiedScreenBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         val isUpdateClassified = intent.getBooleanExtra("updateClassified", false)
         val updateClassifiedId = intent.getIntExtra("addId", 0)
@@ -34,14 +34,14 @@ class ClassifiedActivity : AppCompatActivity() {
         postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
 
         if (isUpdateClassified) {
-            classifiedScreenBinding?.registrationText?.text = "Update Your Classified"
+            binding?.registrationText?.text = "Update Your Classified"
         } else {
             if (ClassifiedStaticData.getCategoryList().isEmpty()) {
                 postClassifiedViewModel.getClassifiedCategory()
             }
         }
 
-        classifiedScreenBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 onBackPressed()
@@ -64,6 +64,10 @@ class ClassifiedActivity : AppCompatActivity() {
                 stepView.done(it)
             }
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

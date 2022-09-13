@@ -282,6 +282,7 @@ class ImmigrationFilterFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         immigrationViewModel.selectedPostingDiscussionScreenCategory.postValue(null)
+        binding = null
     }
 
 }

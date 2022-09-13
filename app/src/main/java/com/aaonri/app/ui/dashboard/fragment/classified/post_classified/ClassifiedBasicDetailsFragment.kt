@@ -32,7 +32,7 @@ import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class ClassifiedBasicDetailsFragment : Fragment() {
-    var classifiedDetailsBinding: FragmentClassifiedBasicDetailsBinding? = null
+    var binding: FragmentClassifiedBasicDetailsBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var description: String? = ""
 
@@ -41,10 +41,10 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(data.trim())
+                    binding?.classifiedDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
-                    classifiedDetailsBinding?.classifiedDescEt?.text = ""
+                    binding?.classifiedDescEt?.text = ""
                 }
             }
         }
@@ -53,14 +53,14 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        classifiedDetailsBinding =
+        binding =
             FragmentClassifiedBasicDetailsBinding.inflate(inflater, container, false)
 
         setData()
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.BASIC_DETAILS_SCREEN)
 
-        classifiedDetailsBinding?.apply {
+        binding?.apply {
             classifiedDescEt.movementMethod = ScrollingMovementMethod()
             priceClassifiedEt.stickPrefix("$")
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
@@ -143,15 +143,15 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
-            classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text = it.title
+            binding?.selectCategoryClassifiedSpinner?.text = it.title
             if (postClassifiedViewModel.clearSubCategory) {
-                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = ""
+                binding?.selectSubCategoryClassifiedSpinner?.text = ""
                 postClassifiedViewModel.setClearSubCategory(false)
             }
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
-            classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text = it.title
+            binding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
         if (postClassifiedViewModel.isUpdateClassified) {
@@ -162,21 +162,21 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             } else {
                 val uploadedImages = mutableListOf<Uri>()
                 val uploadedImagesIdList = mutableListOf<Int>()
-                classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
+                binding?.selectCategoryClassifiedSpinner?.text =
                     addDetails?.userAds?.category
-                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
+                binding?.selectSubCategoryClassifiedSpinner?.text =
                     addDetails?.userAds?.subCategory
-                classifiedDetailsBinding?.titleClassifiedEt?.setText(addDetails?.userAds?.adTitle)
+                binding?.titleClassifiedEt?.setText(addDetails?.userAds?.adTitle)
                 val random = addDetails?.userAds?.askingPrice
 
                 val df = DecimalFormat("####")
                 df.roundingMode = RoundingMode.DOWN
                 val roundoff = df.format(random)
-                classifiedDetailsBinding?.priceClassifiedEt?.setText(roundoff)
-                classifiedDetailsBinding?.isProductNewCheckBox?.isChecked =
+                binding?.priceClassifiedEt?.setText(roundoff)
+                binding?.isProductNewCheckBox?.isChecked =
                     addDetails?.userAds?.isNew == true
 
-                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription.toString())
+                binding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription.toString())
                 addDetails?.userAds?.userAdsImages?.forEach {
                     uploadedImagesIdList.add(it.imageId)
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
@@ -198,7 +198,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                     )
                 }
 
-                classifiedDetailsBinding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription)
+                binding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription)
 
                 description = addDetails?.userAds?.adDescription
 
@@ -317,21 +317,21 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }*/
 
 
-        return classifiedDetailsBinding?.root
+        return binding?.root
     }
 
     private fun setData() {
         postClassifiedViewModel.apply {
 
             classifiedBasicDetailsMap.let {
-                classifiedDetailsBinding?.selectCategoryClassifiedSpinner?.text =
+                binding?.selectCategoryClassifiedSpinner?.text =
                     it[ClassifiedConstant.BASIC_DETAILS_CATEGORY]
-                classifiedDetailsBinding?.selectSubCategoryClassifiedSpinner?.text =
+                binding?.selectSubCategoryClassifiedSpinner?.text =
                     it[ClassifiedConstant.BASIC_DETAILS_SUB_CATEGORY]
-                classifiedDetailsBinding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
-                classifiedDetailsBinding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
+                binding?.titleClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_TITLE])
+                binding?.priceClassifiedEt?.setText(it[ClassifiedConstant.BASIC_DETAILS_ASKING_PRICE])
                 if (it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION]?.isNotEmpty() == true) {
-                    classifiedDetailsBinding?.classifiedDescEt?.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
+                    binding?.classifiedDescEt?.fromHtml(it[ClassifiedConstant.BASIC_DETAILS_DESCRIPTION])
                 }
             }
         }
@@ -355,5 +355,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }
 

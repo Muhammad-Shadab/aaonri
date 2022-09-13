@@ -35,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
-    var mainActivityBinding: ActivityMainBinding? = null
+    var binding: ActivityMainBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by viewModels()
     val homeViewModel: HomeViewModel by viewModels()
     val classifiedViewModel: ClassifiedViewModel by viewModels()
@@ -47,8 +47,8 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mainActivityBinding?.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         supportActionBar?.hide()
         val connectivityReceiver = ConnectivityReceiver()
@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
 
-        mainActivityBinding?.apply {
+        binding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -238,7 +238,7 @@ class MainActivity : BaseActivity() {
                     val eventAdOnDetailsScreen = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     response.data?.forEach { data ->
 
                         /** one ad for classified grid**/
@@ -350,7 +350,7 @@ class MainActivity : BaseActivity() {
 
                 }
                 is Resource.Error -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
             }
         }
@@ -527,7 +527,7 @@ class MainActivity : BaseActivity() {
 
         dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                binding?.bottomNavigation?.selectedItemId =
                     R.id.classifiedScreenFragment
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
@@ -535,7 +535,7 @@ class MainActivity : BaseActivity() {
 
         dashboardCommonViewModel.isAdvertiseClicked.observe(this) {
             if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId =
+                binding?.bottomNavigation?.selectedItemId =
                     R.id.advertiseScreenFragment
                 dashboardCommonViewModel.setIsAdvertiseClicked(false)
             }
@@ -543,7 +543,7 @@ class MainActivity : BaseActivity() {
 
         dashboardCommonViewModel.isShopWithUsClicked.observe(this) {
             if (it) {
-                mainActivityBinding?.bottomNavigation?.selectedItemId = R.id.shopScreenFragment
+                binding?.bottomNavigation?.selectedItemId = R.id.shopScreenFragment
                 dashboardCommonViewModel.setIsShopWithUsClicked(false)
                 applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
                     ?.set("selectedHomeServiceRow", 0)
@@ -711,5 +711,6 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedHomeServiceRow", -1)
+        binding = null
     }
 }

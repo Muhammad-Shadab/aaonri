@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class
 FavoriteClassifiedFragment : Fragment() {
-    var favoriteClassifiedBinding: FragmentFavoriteClassifiedBinding? = null
+    var binding: FragmentFavoriteClassifiedBinding? = null
     var favoriteClassifiedAdapter: FavoriteClassifiedAdapter? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
@@ -36,7 +36,7 @@ FavoriteClassifiedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        favoriteClassifiedBinding =
+        binding =
             FragmentFavoriteClassifiedBinding.inflate(inflater, container, false)
 
         favoriteClassifiedAdapter = FavoriteClassifiedAdapter {
@@ -62,7 +62,7 @@ FavoriteClassifiedFragment : Fragment() {
                 classifiedViewModel.setClassifiedAdvertiseUrls(item.advertisementDetails.url)
             }
         }
-        favoriteClassifiedBinding?.apply {
+        binding?.apply {
 
             loginBtn.setOnClickListener {
                 postClassifiedViewModel.setNavigateToAllClassified(true)
@@ -89,29 +89,29 @@ FavoriteClassifiedFragment : Fragment() {
         classifiedViewModel.favoriteClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    favoriteClassifiedBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
 
                     if (response.data?.classifieds?.isNotEmpty() == true) {
-                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.GONE
-                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.VISIBLE
-                        favoriteClassifiedBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                        favoriteClassifiedBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.nestedScrollView?.visibility = View.GONE
+                        binding?.recyclerViewClassified?.visibility = View.VISIBLE
+                        binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                         response.data.classifieds.let { favoriteClassifiedAdapter!!.setData(it) }
                     } else {
-                        favoriteClassifiedBinding?.recyclerViewClassified?.visibility = View.GONE
-                        favoriteClassifiedBinding?.topAdvertiseRv?.visibility = View.GONE
-                        favoriteClassifiedBinding?.bottomAdvertiseRv?.visibility = View.GONE
-                        favoriteClassifiedBinding?.nestedScrollView?.visibility = View.VISIBLE
+                        binding?.recyclerViewClassified?.visibility = View.GONE
+                        binding?.topAdvertiseRv?.visibility = View.GONE
+                        binding?.bottomAdvertiseRv?.visibility = View.GONE
+                        binding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 
-                    favoriteClassifiedBinding?.recyclerViewClassified?.adapter =
+                    binding?.recyclerViewClassified?.adapter =
                         favoriteClassifiedAdapter
                 }
                 is Resource.Error -> {
-                    favoriteClassifiedBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -121,7 +121,7 @@ FavoriteClassifiedFragment : Fragment() {
             }
         }
 
-        return favoriteClassifiedBinding?.root
+        return binding?.root
     }
 
     override fun onResume() {
@@ -136,5 +136,10 @@ FavoriteClassifiedFragment : Fragment() {
                 classifiedViewModel.setIsLikedButtonClicked(false)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

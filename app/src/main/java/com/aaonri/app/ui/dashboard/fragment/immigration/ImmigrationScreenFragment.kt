@@ -14,12 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
+import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.immigration.ImmigrationStaticData
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigartionScreenFrgamentBinding
-import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -34,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ImmigrationScreenFragment : Fragment() {
     var binding: FragmentImmigartionScreenFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
+    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     var immigrationFilterModel: ImmigrationFilterModel? = null
     var noOfSelectedFilter = 2
     var isFilterEnable = false
@@ -224,6 +224,16 @@ class ImmigrationScreenFragment : Fragment() {
                     return
                 }
             })
+            dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+                if (it) {
+                    profilePicIv.visibility = View.GONE
+                    bellIconIv.visibility = View.GONE
+                    floatingActionBtnImmigration.visibility = View.GONE
+                    immigrationScreenTabLayout.visibility = View.GONE
+                    immigrationScreenViewPager.setPadding(0, 40, 0, 0)
+                    immigrationScreenViewPager.isUserInputEnabled = false
+                }
+            }
         }
 
 
@@ -370,7 +380,6 @@ class ImmigrationScreenFragment : Fragment() {
             }
         }
 
-
         return binding?.root
     }
 
@@ -378,5 +387,9 @@ class ImmigrationScreenFragment : Fragment() {
         binding?.numberOfSelectedFilterTv?.text = value.toString()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

@@ -182,6 +182,7 @@ class ImmigrationDetailsFragment : Fragment() {
         super.onDestroy()
         immigrationViewModel.discussionDetailsData.value = null
         immigrationViewModel.setCallImmigrationApi(callAllImmigrationApi)
+        binding = null
     }
 
 }

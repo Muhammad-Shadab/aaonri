@@ -38,14 +38,14 @@ import java.io.File
 
 @AndroidEntryPoint
 class AddressDetailsClassifiedFragment : Fragment() {
-    var addressDetailsBinding: FragmentAddressDetailsClassifiedBinding? = null
+    var binding: FragmentAddressDetailsClassifiedBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var isEmailValid = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        addressDetailsBinding =
+        binding =
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
@@ -148,7 +148,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         SpanString.setSpan(teremsAndCondition, 50, 62, 0)
         SpanString.setSpan(privacy, 71, 85, 0)
 
-        addressDetailsBinding?.apply {
+        binding?.apply {
 
             textDesc1.text = ss
             textDec2.text = ss1
@@ -274,7 +274,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         }
 
-        addressDetailsBinding?.phoneNumberAddressDetails?.addTextChangedListener(object :
+        binding?.phoneNumberAddressDetails?.addTextChangedListener(object :
             TextWatcher {
             var length_before = 0
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -295,19 +295,19 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         })
 
-        addressDetailsBinding?.emailAddressBasicDetails?.addTextChangedListener { editable ->
+        binding?.emailAddressBasicDetails?.addTextChangedListener { editable ->
             editable?.let {
                 if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
                     if (Validator.emailValidation(editable.toString())) {
                         isEmailValid = true
-                        addressDetailsBinding?.emailValidationTv?.visibility = View.GONE
+                        binding?.emailValidationTv?.visibility = View.GONE
                     } else {
                         isEmailValid = false
-                        addressDetailsBinding?.emailValidationTv?.visibility = View.VISIBLE
+                        binding?.emailValidationTv?.visibility = View.VISIBLE
                     }
                 } else {
                     isEmailValid = false
-                    addressDetailsBinding?.emailValidationTv?.visibility = View.GONE
+                    binding?.emailValidationTv?.visibility = View.GONE
                 }
             }
         }
@@ -315,7 +315,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.postClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
@@ -332,10 +332,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             findNavController().navigate(action)
                         }
                     }
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
@@ -345,7 +345,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.updateClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
@@ -371,10 +371,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         }
                     }
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
@@ -385,17 +385,17 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
             val addDetails = ClassifiedStaticData.getAddDetails()
 
-            addressDetailsBinding?.cityNameAddressDetails?.setText(addDetails?.userAds?.adLocation)
-            addressDetailsBinding?.zipCodeAddressDetails?.setText(addDetails?.userAds?.adZip)
-            addressDetailsBinding?.classifiedKeywordEt?.setText(addDetails?.userAds?.adKeywords)
-            addressDetailsBinding?.agreeCheckboxClassified?.isChecked =
+            binding?.cityNameAddressDetails?.setText(addDetails?.userAds?.adLocation)
+            binding?.zipCodeAddressDetails?.setText(addDetails?.userAds?.adZip)
+            binding?.classifiedKeywordEt?.setText(addDetails?.userAds?.adKeywords)
+            binding?.agreeCheckboxClassified?.isChecked =
                 addDetails?.userAds?.isTermsAndConditionAccepted == true
             if (addDetails?.userAds?.adEmail?.isNotEmpty() == true) {
-                addressDetailsBinding?.emailRadioBtn?.isChecked = true
-                addressDetailsBinding?.emailAddressBasicDetails?.setText(addDetails.userAds.adEmail)
+                binding?.emailRadioBtn?.isChecked = true
+                binding?.emailAddressBasicDetails?.setText(addDetails.userAds.adEmail)
             } else {
-                addressDetailsBinding?.phoneRadioBtn?.isChecked = true
-                addressDetailsBinding?.phoneNumberAddressDetails?.setText(addDetails?.userAds?.adPhone)
+                binding?.phoneRadioBtn?.isChecked = true
+                binding?.phoneNumberAddressDetails?.setText(addDetails?.userAds?.adPhone)
             }
         }
 
@@ -442,7 +442,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
         }
 
-        return addressDetailsBinding?.root
+        return binding?.root
     }
 
     private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, deleteId: Int?) {
@@ -554,6 +554,11 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

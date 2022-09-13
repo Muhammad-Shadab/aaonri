@@ -1,12 +1,10 @@
 package com.aaonri.app
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.databinding.ActivityNoInternetConnectionBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
@@ -15,17 +13,17 @@ import com.google.android.material.snackbar.Snackbar
 
 class NoInternetConnectionActivity : AppCompatActivity() {
     var mainll: LinearLayout? = null
-    var noInternetbinding: ActivityNoInternetConnectionBinding? = null
+    var binding: ActivityNoInternetConnectionBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        noInternetbinding = ActivityNoInternetConnectionBinding.inflate(layoutInflater)
-        setContentView(noInternetbinding?.root)
+        binding = ActivityNoInternetConnectionBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         supportActionBar?.hide()
         window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        noInternetbinding?.apply {
+        binding?.apply {
             retryBtn.setOnClickListener {
                 if (Constant.isConnected(baseContext)) {
                     val isUserLogin =
@@ -47,7 +45,10 @@ class NoInternetConnectionActivity : AppCompatActivity() {
             }
 
         }
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,16 +21,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
-import com.aaonri.app.databinding.FragmentCreateNewPasswordBinding
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class UploadEventPicFragment : Fragment() {
-    var uploadEventPicBinding: FragmentUploadEventPicBinding? = null
+    var binding: FragmentUploadEventPicBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val showingImagesList = mutableListOf<Uri>()
     var image1Uri = ""
@@ -49,7 +46,7 @@ class UploadEventPicFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        uploadEventPicBinding = FragmentUploadEventPicBinding.inflate(inflater, container, false)
+        binding = FragmentUploadEventPicBinding.inflate(inflater, container, false)
         val curveRadius = 10F
 
         setImageOnNavigatingBack()
@@ -58,7 +55,7 @@ class UploadEventPicFragment : Fragment() {
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_UPLOAD_PICS)
 
-        uploadEventPicBinding?.apply {
+        binding?.apply {
             uploadPicBtn.setOnClickListener {
 
                 if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
@@ -169,7 +166,7 @@ class UploadEventPicFragment : Fragment() {
                 }
             })
 
-        return uploadEventPicBinding?.root
+        return binding?.root
     }
 
     private fun setImagesForUpdatingEvent() {
@@ -178,21 +175,21 @@ class UploadEventPicFragment : Fragment() {
                 0 -> {
                     image1Uri = uri.toString()
                     selectPicIndex = 0
-                    uploadEventPicBinding?.uploadedImage1?.let {
+                    binding?.uploadedImage1?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image1Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image1Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
+                    binding?.deleteImage1?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image1Uri.toUri())) {
                         showingImagesList.add(image1Uri.toUri())
                     }
@@ -202,21 +199,21 @@ class UploadEventPicFragment : Fragment() {
                 1 -> {
                     image2Uri = uri.toString()
                     selectPicIndex = 1
-                    uploadEventPicBinding?.uploadedImage2?.let {
+                    binding?.uploadedImage2?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
+                    binding?.deleteImage2?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image2Uri.toUri())) {
                         showingImagesList.add(image2Uri.toUri())
                     }
@@ -226,21 +223,21 @@ class UploadEventPicFragment : Fragment() {
                 2 -> {
                     image3Uri = uri.toString()
                     selectPicIndex = 2
-                    uploadEventPicBinding?.uploadedImage3?.let {
+                    binding?.uploadedImage3?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
+                    binding?.deleteImage3?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image3Uri.toUri())) {
                         showingImagesList.add(image3Uri.toUri())
                     }
@@ -250,21 +247,21 @@ class UploadEventPicFragment : Fragment() {
                 3 -> {
                     image4Uri = uri.toString()
                     selectPicIndex = 3
-                    uploadEventPicBinding?.uploadedImage4?.let {
+                    binding?.uploadedImage4?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
+                    binding?.deleteImage4?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image4Uri.toUri())) {
                         showingImagesList.add(image4Uri.toUri())
                     }
@@ -300,22 +297,22 @@ class UploadEventPicFragment : Fragment() {
                     setImage()
                 }
 
-                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
                 //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                uploadEventPicBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
             }
         }
 
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            uploadEventPicBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
-            uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.deleteImage1?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image1Uri.toUri())
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -323,9 +320,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            uploadEventPicBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
-            uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.deleteImage2?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image2Uri.toUri())
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -333,9 +330,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            uploadEventPicBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
-            uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.deleteImage3?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image3Uri.toUri())
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -343,9 +340,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            uploadEventPicBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
-            uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.deleteImage4?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image4Uri.toUri())
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -357,13 +354,13 @@ class UploadEventPicFragment : Fragment() {
 
     private fun disableUploadBtnColor() {
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
-            uploadEventPicBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_disabled_add_btn
                 )
             })
         } else {
-            uploadEventPicBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_add_image_icon
                 )
@@ -374,9 +371,9 @@ class UploadEventPicFragment : Fragment() {
     private fun setImageOnNavigatingBack() {
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            uploadEventPicBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
-            uploadEventPicBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.deleteImage1?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image1Uri.toUri())
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -385,9 +382,9 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            uploadEventPicBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
-            uploadEventPicBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.deleteImage2?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image2Uri.toUri())
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -396,9 +393,9 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            uploadEventPicBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
-            uploadEventPicBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.deleteImage3?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image3Uri.toUri())
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -407,9 +404,9 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            uploadEventPicBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
-            uploadEventPicBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadEventPicBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.deleteImage4?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image4Uri.toUri())
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -422,12 +419,12 @@ class UploadEventPicFragment : Fragment() {
     private fun deleteImage(index: Int) {
         if (index == 0) {
             selectPicIndex = 0
-            uploadEventPicBinding?.uploadedImage1?.setImageDrawable(context?.let {
+            binding?.uploadedImage1?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            uploadEventPicBinding?.deleteImage1?.visibility = View.GONE
+            binding?.deleteImage1?.visibility = View.GONE
             changeCardViewBg(0)
             if (showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.remove(image1Uri.toUri())
@@ -436,7 +433,7 @@ class UploadEventPicFragment : Fragment() {
             image1 = true
         } else if (index == 1) {
             selectPicIndex = 1
-            uploadEventPicBinding?.uploadedImage2?.setImageDrawable(context?.let {
+            binding?.uploadedImage2?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -444,13 +441,13 @@ class UploadEventPicFragment : Fragment() {
             if (showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.remove(image2Uri.toUri())
             }
-            uploadEventPicBinding?.deleteImage2?.visibility = View.GONE
+            binding?.deleteImage2?.visibility = View.GONE
             changeCardViewBg(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
             selectPicIndex = 2
-            uploadEventPicBinding?.uploadedImage3?.setImageDrawable(context?.let {
+            binding?.uploadedImage3?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -458,13 +455,13 @@ class UploadEventPicFragment : Fragment() {
             if (showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.remove(image3Uri.toUri())
             }
-            uploadEventPicBinding?.deleteImage3?.visibility = View.GONE
+            binding?.deleteImage3?.visibility = View.GONE
             changeCardViewBg(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
             selectPicIndex = 3
-            uploadEventPicBinding?.uploadedImage4?.setImageDrawable(context?.let {
+            binding?.uploadedImage4?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -472,14 +469,14 @@ class UploadEventPicFragment : Fragment() {
             if (showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.remove(image4Uri.toUri())
             }
-            uploadEventPicBinding?.deleteImage4?.visibility = View.GONE
+            binding?.deleteImage4?.visibility = View.GONE
             changeCardViewBg(3)
             image4Uri = ""
             image4 = true
         }
 
         if (image1Uri.isEmpty() && image2Uri.isEmpty() && image3Uri.isEmpty() && image4Uri.isEmpty()) {
-            uploadEventPicBinding?.selectedImage?.setImageDrawable(context?.let { it1 ->
+            binding?.selectedImage?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_imageview_placeholder
                 )
@@ -487,13 +484,13 @@ class UploadEventPicFragment : Fragment() {
         }
 
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
-            uploadEventPicBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_disabled_add_btn
                 )
             })
         } else {
-            uploadEventPicBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_add_image_icon
                 )
@@ -505,16 +502,16 @@ class UploadEventPicFragment : Fragment() {
     private fun setImageAfterDelete() {
         if (showingImagesList.size != 0) {
             if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()) {
-                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(3)
             } else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()) {
-                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(2)
             } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()) {
-                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(1)
             } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()) {
-                uploadEventPicBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(0)
             }
         } else {
@@ -532,7 +529,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -542,18 +539,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -564,7 +550,18 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -575,7 +572,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -585,7 +582,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -595,7 +592,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -606,7 +603,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -618,7 +615,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -628,7 +625,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -638,7 +635,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -649,7 +646,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -661,7 +658,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -671,7 +668,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -682,7 +679,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -692,7 +689,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -703,7 +700,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -713,7 +710,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -724,7 +721,7 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -734,10 +731,14 @@ class UploadEventPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadEventPicBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

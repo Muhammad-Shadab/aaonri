@@ -1,14 +1,9 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
-import com.aaonri.app.R
-import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
 import com.aaonri.app.databinding.FragmentClassifiedRichTextEditorBinding
 import com.chinalwb.are.AREditText
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
@@ -16,7 +11,7 @@ import com.chinalwb.are.styles.toolitems.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ClassifiedRichTextEditor : BottomSheetDialogFragment() {
-    var richTextEditorBinding : FragmentClassifiedRichTextEditorBinding? = null
+    var binding: FragmentClassifiedRichTextEditorBinding? = null
 
     private var mToolbar: IARE_Toolbar? = null
 
@@ -26,17 +21,17 @@ class ClassifiedRichTextEditor : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-         richTextEditorBinding = FragmentClassifiedRichTextEditorBinding.inflate(inflater, container, false)
+        binding = FragmentClassifiedRichTextEditorBinding.inflate(inflater, container, false)
 
-        richTextEditorBinding?.apply {
+        binding?.apply {
             toolbar()
 
         }
-        return richTextEditorBinding?.root
+        return binding?.root
     }
 
     private fun toolbar() {
-        mToolbar = richTextEditorBinding?.areToolbar
+        mToolbar = binding?.areToolbar
         val bold: IARE_ToolItem = ARE_ToolItem_Bold()
         val italic: IARE_ToolItem = ARE_ToolItem_Italic()
         val underline: IARE_ToolItem = ARE_ToolItem_Underline()
@@ -75,9 +70,12 @@ class ClassifiedRichTextEditor : BottomSheetDialogFragment() {
         mToolbar?.addToolbarItem(at)
         mToolbar?.addToolbarItem(fontColor);
         mToolbar?.addToolbarItem(backgroundColor);
-        richTextEditorBinding?.arEditText?.setToolbar(mToolbar)
+        binding?.arEditText?.setToolbar(mToolbar)
 
-//        setHtml()
-//
-//        initToolbarArrow()
-    }}
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+}

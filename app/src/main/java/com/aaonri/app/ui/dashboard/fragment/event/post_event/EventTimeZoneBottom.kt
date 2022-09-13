@@ -16,9 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EventTimeZoneBottom : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    var binding: FragmentEventTimeZoneBottomBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var eventTimeZoneAdapter: EventTimeZoneAdapter? = null
-    var eventBinding: FragmentEventTimeZoneBottomBinding? = null
 
     var timeZoneList = listOf(
         "CST",
@@ -31,14 +31,14 @@ class EventTimeZoneBottom : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        eventBinding = FragmentEventTimeZoneBottomBinding.inflate(inflater, container, false)
+        binding = FragmentEventTimeZoneBottomBinding.inflate(inflater, container, false)
 
         eventTimeZoneAdapter = EventTimeZoneAdapter {
             postEventViewModel.setEventTimeZone(it)
             dismiss()
         }
 
-        eventBinding?.apply {
+        binding?.apply {
             closeCountryBtn.setOnClickListener {
                 dismiss()
             }
@@ -48,7 +48,11 @@ class EventTimeZoneBottom : BottomSheetDialogFragment() {
             categoriesRv.adapter = eventTimeZoneAdapter
         }
 
-        return eventBinding?.root
+        return binding?.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

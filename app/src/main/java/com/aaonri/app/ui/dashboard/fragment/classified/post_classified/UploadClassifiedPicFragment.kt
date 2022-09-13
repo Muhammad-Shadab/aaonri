@@ -32,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
-    var uploadClassifiedBinding: FragmentUploadClassifiedPicBinding? = null
+    var binding: FragmentUploadClassifiedPicBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val showingImagesList = mutableListOf<Uri>()
     var image1Uri = ""
@@ -49,7 +49,7 @@ class UploadClassifiedPicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        uploadClassifiedBinding =
+        binding =
             FragmentUploadClassifiedPicBinding.inflate(inflater, container, false)
 
         val curveRadius = 10F
@@ -62,12 +62,16 @@ class UploadClassifiedPicFragment : Fragment() {
             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
         }*/
 
-        Toast.makeText(context, "${postClassifiedViewModel.listOfImagesUri.size}", Toast.LENGTH_SHORT)
+        Toast.makeText(
+            context,
+            "${postClassifiedViewModel.listOfImagesUri.size}",
+            Toast.LENGTH_SHORT
+        )
             .show()
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 
-        uploadClassifiedBinding?.apply {
+        binding?.apply {
 
             uploadPicBtn.setOnClickListener {
 
@@ -179,7 +183,7 @@ class UploadClassifiedPicFragment : Fragment() {
                 }
             })
 
-        return uploadClassifiedBinding?.root
+        return binding?.root
     }
 
     private fun deleteImageWithId(idIndex: Int) {
@@ -223,21 +227,21 @@ class UploadClassifiedPicFragment : Fragment() {
                 0 -> {
                     image1Uri = uri.toString()
                     selectPicIndex = 0
-                    uploadClassifiedBinding?.uploadedImage1?.let {
+                    binding?.uploadedImage1?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image1Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image1Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
+                    binding?.deleteImage1?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image1Uri.toUri())) {
                         showingImagesList.add(image1Uri.toUri())
                     }
@@ -247,21 +251,21 @@ class UploadClassifiedPicFragment : Fragment() {
                 1 -> {
                     image2Uri = uri.toString()
                     selectPicIndex = 1
-                    uploadClassifiedBinding?.uploadedImage2?.let {
+                    binding?.uploadedImage2?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
+                    binding?.deleteImage2?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image2Uri.toUri())) {
                         showingImagesList.add(image2Uri.toUri())
                     }
@@ -271,21 +275,21 @@ class UploadClassifiedPicFragment : Fragment() {
                 2 -> {
                     image3Uri = uri.toString()
                     selectPicIndex = 2
-                    uploadClassifiedBinding?.uploadedImage3?.let {
+                    binding?.uploadedImage3?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
+                    binding?.deleteImage3?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image3Uri.toUri())) {
                         showingImagesList.add(image3Uri.toUri())
                     }
@@ -295,21 +299,21 @@ class UploadClassifiedPicFragment : Fragment() {
                 3 -> {
                     image4Uri = uri.toString()
                     selectPicIndex = 3
-                    uploadClassifiedBinding?.uploadedImage4?.let {
+                    binding?.uploadedImage4?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.selectedImage?.let {
+                    binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri).into(
                                 it
                             )
                         }
                     }
-                    uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
+                    binding?.deleteImage4?.visibility = View.VISIBLE
                     if (!showingImagesList.contains(image4Uri.toUri())) {
                         showingImagesList.add(image4Uri.toUri())
                     }
@@ -344,22 +348,22 @@ class UploadClassifiedPicFragment : Fragment() {
                     setImage()
                 }
 
-                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
                 //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                uploadClassifiedBinding?.progressBarPicUpload?.visibility = View.GONE
+                binding?.progressBarPicUpload?.visibility = View.GONE
             }
         }
 
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
-            uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.deleteImage1?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image1Uri.toUri())
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -367,9 +371,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            uploadClassifiedBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
-            uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.deleteImage2?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image2Uri.toUri())
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -377,9 +381,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            uploadClassifiedBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
-            uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.deleteImage3?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image3Uri.toUri())
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -387,9 +391,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            uploadClassifiedBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
-            uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.deleteImage4?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image4Uri.toUri())
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -401,13 +405,13 @@ class UploadClassifiedPicFragment : Fragment() {
 
     private fun disableUploadBtnColor() {
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
-            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_disabled_add_btn
                 )
             })
         } else {
-            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_add_image_icon
                 )
@@ -418,9 +422,9 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun setImageOnNavigatingBack() {
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            uploadClassifiedBinding?.uploadedImage1?.setImageURI(image1Uri.toUri())
-            uploadClassifiedBinding?.deleteImage1?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.deleteImage1?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image1Uri.toUri())
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -429,9 +433,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            uploadClassifiedBinding?.uploadedImage2?.setImageURI(image2Uri.toUri())
-            uploadClassifiedBinding?.deleteImage2?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.deleteImage2?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image2Uri.toUri())
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -440,9 +444,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            uploadClassifiedBinding?.uploadedImage3?.setImageURI(image3Uri.toUri())
-            uploadClassifiedBinding?.deleteImage3?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.deleteImage3?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image3Uri.toUri())
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -451,9 +455,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            uploadClassifiedBinding?.uploadedImage4?.setImageURI(image4Uri.toUri())
-            uploadClassifiedBinding?.deleteImage4?.visibility = View.VISIBLE
-            uploadClassifiedBinding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.deleteImage4?.visibility = View.VISIBLE
+            binding?.selectedImage?.setImageURI(image4Uri.toUri())
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -466,12 +470,12 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun deleteImage(index: Int) {
         if (index == 0) {
             selectPicIndex = 0
-            uploadClassifiedBinding?.uploadedImage1?.setImageDrawable(context?.let {
+            binding?.uploadedImage1?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
             })
-            uploadClassifiedBinding?.deleteImage1?.visibility = View.GONE
+            binding?.deleteImage1?.visibility = View.GONE
             changeCardViewBg(0)
             if (showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.remove(image1Uri.toUri())
@@ -480,7 +484,7 @@ class UploadClassifiedPicFragment : Fragment() {
             image1 = true
         } else if (index == 1) {
             selectPicIndex = 1
-            uploadClassifiedBinding?.uploadedImage2?.setImageDrawable(context?.let {
+            binding?.uploadedImage2?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -488,13 +492,13 @@ class UploadClassifiedPicFragment : Fragment() {
             if (showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.remove(image2Uri.toUri())
             }
-            uploadClassifiedBinding?.deleteImage2?.visibility = View.GONE
+            binding?.deleteImage2?.visibility = View.GONE
             changeCardViewBg(1)
             image2Uri = ""
             image2 = true
         } else if (index == 2) {
             selectPicIndex = 2
-            uploadClassifiedBinding?.uploadedImage3?.setImageDrawable(context?.let {
+            binding?.uploadedImage3?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -502,13 +506,13 @@ class UploadClassifiedPicFragment : Fragment() {
             if (showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.remove(image3Uri.toUri())
             }
-            uploadClassifiedBinding?.deleteImage3?.visibility = View.GONE
+            binding?.deleteImage3?.visibility = View.GONE
             changeCardViewBg(2)
             image3Uri = ""
             image3 = true
         } else if (index == 3) {
             selectPicIndex = 3
-            uploadClassifiedBinding?.uploadedImage4?.setImageDrawable(context?.let {
+            binding?.uploadedImage4?.setImageDrawable(context?.let {
                 ContextCompat.getDrawable(
                     it, R.drawable.ic_uplaoded_image
                 )
@@ -516,14 +520,14 @@ class UploadClassifiedPicFragment : Fragment() {
             if (showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.remove(image4Uri.toUri())
             }
-            uploadClassifiedBinding?.deleteImage4?.visibility = View.GONE
+            binding?.deleteImage4?.visibility = View.GONE
             changeCardViewBg(3)
             image4Uri = ""
             image4 = true
         }
 
         if (image1Uri.isEmpty() && image2Uri.isEmpty() && image3Uri.isEmpty() && image4Uri.isEmpty()) {
-            uploadClassifiedBinding?.selectedImage?.setImageDrawable(context?.let { it1 ->
+            binding?.selectedImage?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_imageview_placeholder
                 )
@@ -531,13 +535,13 @@ class UploadClassifiedPicFragment : Fragment() {
         }
 
         if (image1Uri.isNotEmpty() && image2Uri.isNotEmpty() && image3Uri.isNotEmpty() && image4Uri.isNotEmpty()) {
-            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_disabled_add_btn
                 )
             })
         } else {
-            uploadClassifiedBinding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
+            binding?.uploadPicBtn?.setImageDrawable(context?.let { it1 ->
                 ContextCompat.getDrawable(
                     it1, R.drawable.ic_add_image_icon
                 )
@@ -549,16 +553,16 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun setImageAfterDelete() {
         if (showingImagesList.size != 0) {
             if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()) {
-                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(3)
             } else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()) {
-                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(2)
             } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()) {
-                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(1)
             } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()) {
-                uploadClassifiedBinding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
                 changeCardViewBg(0)
             }
         } else {
@@ -576,7 +580,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -586,18 +590,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -608,7 +601,18 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -619,7 +623,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -629,7 +633,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -639,7 +643,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -650,7 +654,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -662,7 +666,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -672,7 +676,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -682,7 +686,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -693,7 +697,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -705,7 +709,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -715,7 +719,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -726,7 +730,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -736,7 +740,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.blueBtnColor
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
@@ -747,7 +751,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl1?.setStrokeColor(
+                binding?.uploadedImageFl1?.setStrokeColor(
                     it2
                 )
             }
@@ -757,7 +761,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl2?.setStrokeColor(
+                binding?.uploadedImageFl2?.setStrokeColor(
                     it2
                 )
             }
@@ -768,7 +772,7 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl3?.setStrokeColor(
+                binding?.uploadedImageFl3?.setStrokeColor(
                     it2
                 )
             }
@@ -778,10 +782,16 @@ class UploadClassifiedPicFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                uploadClassifiedBinding?.uploadedImageFl4?.setStrokeColor(
+                binding?.uploadedImageFl4?.setStrokeColor(
                     it2
                 )
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
 }

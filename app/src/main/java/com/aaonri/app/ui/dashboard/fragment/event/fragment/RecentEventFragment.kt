@@ -20,9 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecentEventFragment : Fragment() {
+    var binding: FragmentRecentEventBinding? = null
     val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
-    var recentEventBinding: FragmentRecentEventBinding? = null
     var recentAdapter: RecentEventAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -30,7 +30,7 @@ class RecentEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        recentEventBinding = FragmentRecentEventBinding.inflate(inflater, container, false)
+        binding = FragmentRecentEventBinding.inflate(inflater, container, false)
 
         recentAdapter = RecentEventAdapter {
             postEventViewModel.setSendDataToEventDetailsScreen(it.id)
@@ -54,7 +54,7 @@ class RecentEventFragment : Fragment() {
             }
         }
 
-        recentEventBinding?.apply {
+        binding?.apply {
 
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewMyEvent.adapter = recentAdapter
@@ -76,14 +76,14 @@ class RecentEventFragment : Fragment() {
         eventViewModel.recentEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    recentEventBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    recentEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     if (response.data?.isEmpty() == true) {
-                        recentEventBinding?.topAdvertiseRv?.visibility = View.GONE
-                        recentEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
-                        recentEventBinding?.recyclerViewMyEvent?.visibility = View.GONE
+                        binding?.topAdvertiseRv?.visibility = View.GONE
+                        binding?.bottomAdvertiseRv?.visibility = View.GONE
+                        binding?.recyclerViewMyEvent?.visibility = View.GONE
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
@@ -91,22 +91,25 @@ class RecentEventFragment : Fragment() {
                             ).show()
                         }
                     } else {
-                        recentEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                        recentEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
-                        recentEventBinding?.recyclerViewMyEvent?.visibility = View.VISIBLE
+                        binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.recyclerViewMyEvent?.visibility = View.VISIBLE
                         response.data?.let { recentAdapter?.setData(it) }
                     }
                 }
                 is Resource.Error -> {
-                    recentEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
         }
 
-        return recentEventBinding?.root
+        return binding?.root
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

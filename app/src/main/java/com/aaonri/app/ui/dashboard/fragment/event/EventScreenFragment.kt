@@ -8,15 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedConstant
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
@@ -38,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EventScreenFragment : Fragment() {
-    var eventScreenBinding: FragmentEventScreenBinding? = null
+    var binding: FragmentEventScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
@@ -50,7 +47,7 @@ class EventScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        eventScreenBinding = FragmentEventScreenBinding.inflate(inflater, container, false)
+        binding = FragmentEventScreenBinding.inflate(inflater, container, false)
         val fragment = this
 
         val profile =
@@ -65,7 +62,7 @@ class EventScreenFragment : Fragment() {
 
         val pagerAdapter = EventPagerAdapter(fragment)
 
-        eventScreenBinding?.apply {
+        binding?.apply {
 
             eventsScreenViewPager.isUserInputEnabled = false
 
@@ -230,7 +227,7 @@ class EventScreenFragment : Fragment() {
                     ""
                 )
                 eventViewModel.setSelectedEventLocation("")
-                eventScreenBinding?.filterCv1?.visibility = View.GONE
+                binding?.filterCv1?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
@@ -239,7 +236,7 @@ class EventScreenFragment : Fragment() {
                     ""
                 )
                 eventViewModel.setIsMyLocationChecked(false)
-                eventScreenBinding?.filterCv2?.visibility = View.GONE
+                binding?.filterCv2?.visibility = View.GONE
                 eventViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
@@ -370,7 +367,7 @@ class EventScreenFragment : Fragment() {
             }
         }
 
-        return eventScreenBinding?.root
+        return binding?.root
     }
 
     private fun callEventApi(searchQuery: String = "") {
@@ -401,75 +398,76 @@ class EventScreenFragment : Fragment() {
                 EventConstants.SEARCH_KEYWORD_FILTER,
                 ""
             )
+        binding = null
     }
 
     private fun setFilterVisibility() {
         noOfSelection = 0
         if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() || eventViewModel.cityFilter.isNotEmpty() || eventViewModel.isFreeSelected || eventViewModel.isPaidSelected || eventViewModel.isAllSelected || eventViewModel.categoryFilter.isNotEmpty()) {
-            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
 
             if (eventViewModel.categoryFilter.isNotEmpty()) {
-                eventScreenBinding?.filterCv4?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText4?.text =
+                binding?.filterCv4?.visibility = View.VISIBLE
+                binding?.filterText4?.text =
                     "Category: ${eventViewModel.categoryFilter}"
                 noOfSelection++
             } else {
-                eventScreenBinding?.filterCv4?.visibility = View.GONE
+                binding?.filterCv4?.visibility = View.GONE
             }
 
             if (eventViewModel.cityFilter.isNotEmpty()) {
-                eventScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText1?.text =
+                binding?.filterCv1?.visibility = View.VISIBLE
+                binding?.filterText1?.text =
                     "Location: ${eventViewModel.cityFilter}"
                 noOfSelection++
             } else {
-                eventScreenBinding?.filterCv1?.visibility = View.GONE
+                binding?.filterCv1?.visibility = View.GONE
             }
 
             if (eventViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                eventScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText2?.text =
+                binding?.filterCv2?.visibility = View.VISIBLE
+                binding?.filterText2?.text =
                     "ZipCode: ${eventViewModel.zipCodeInFilterScreen}"
                 noOfSelection++
 
             } else {
-                eventScreenBinding?.filterCv2?.visibility = View.GONE
+                binding?.filterCv2?.visibility = View.GONE
             }
             if (eventViewModel.isAllSelected) {
-                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText3?.text = "Fee: All"
+                binding?.filterCv3?.visibility = View.VISIBLE
+                binding?.filterText3?.text = "Fee: All"
                 noOfSelection++
             } else if (eventViewModel.isFreeSelected) {
-                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText3?.text = "Fee: Free"
+                binding?.filterCv3?.visibility = View.VISIBLE
+                binding?.filterText3?.text = "Fee: Free"
                 noOfSelection++
             } else if (eventViewModel.isPaidSelected) {
-                eventScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                eventScreenBinding?.filterText3?.text = "Fee: Paid"
+                binding?.filterCv3?.visibility = View.VISIBLE
+                binding?.filterText3?.text = "Fee: Paid"
                 noOfSelection++
             } else {
-                eventScreenBinding?.filterCv3?.visibility = View.GONE
+                binding?.filterCv3?.visibility = View.GONE
             }
 
 
             onNoOfSelectedFilterItem(noOfSelection)
 
         } else {
-            eventScreenBinding?.selectedFilters?.visibility = View.GONE
+            binding?.selectedFilters?.visibility = View.GONE
         }
         if (eventViewModel.zipCodeInFilterScreen.isNotEmpty() && eventViewModel.cityFilter.isNotEmpty()) {
-            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
         }
     }
 
     fun onNoOfSelectedFilterItem(noOfSelection: Int) {
         if (noOfSelection >= 1) {
-            eventScreenBinding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-            eventScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-            eventScreenBinding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
+            binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            binding?.selectedFilters?.visibility = View.VISIBLE
+            binding?.numberOfSelectedFilterTv?.setText(noOfSelection.toString())
         } else {
-            eventScreenBinding?.selectedFilters?.visibility = View.GONE
-            eventScreenBinding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            binding?.selectedFilters?.visibility = View.GONE
+            binding?.numberOfSelectedFilterCv?.visibility = View.GONE
             eventViewModel.setZipCodeInFilterScreen("")
             eventViewModel.setCategoryFilter("")
             eventViewModel.setIsAllSelected(false)

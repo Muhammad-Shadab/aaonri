@@ -46,7 +46,7 @@ import java.nio.charset.Charset
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-    var homeScreenBinding: FragmentHomeScreenBinding? = null
+    var binding: FragmentHomeScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
@@ -80,7 +80,7 @@ class HomeScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeScreenBinding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+        binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
@@ -88,12 +88,12 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
                 .toString()
 
-        userInterestedService = list.split(",") as MutableList<String>?
+        if (list.isNotEmpty()) {
+            userInterestedService = list.split(",") as MutableList<String>?
+        }
 
 
-        if (userInterestedService != null) {
-
-
+        if (userInterestedService?.size != null) {
             if (userInterestedService?.contains("22") == true) {
                 userInterestedService?.remove("22")
             }
@@ -218,22 +218,22 @@ class HomeScreenFragment : Fragment() {
                 when (it) {
                     "Classifieds" -> {
                         var itemDecoration: RecyclerView.ItemDecoration? = null
-                        while (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && (homeScreenBinding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(
+                        while (binding?.availableServiceHorizontalClassifiedRv?.itemDecorationCount!! > 0 && (binding?.availableServiceHorizontalClassifiedRv?.getItemDecorationAt(
                                 0
                             )?.let { itemDecoration = it }) != null
                         ) {
                             itemDecoration?.let { it1 ->
-                                homeScreenBinding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
+                                binding?.availableServiceHorizontalClassifiedRv?.removeItemDecoration(
                                     it1
                                 )
                             }
                         }
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        binding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.GONE
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.layoutManager =
+                        binding?.availableServiceHorizontalRv?.visibility = View.GONE
+                        binding?.availableServiceHorizontalClassifiedRv?.layoutManager =
                             GridLayoutManager(context, 2)
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
+                        binding?.availableServiceHorizontalClassifiedRv?.addItemDecoration(
                             GridSpacingItemDecoration(
                                 2,
                                 32,
@@ -242,35 +242,35 @@ class HomeScreenFragment : Fragment() {
                         )
                         /*homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
                             allClassifiedAdapterForHorizontal*/
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.adapter =
+                        binding?.availableServiceHorizontalClassifiedRv?.adapter =
                             genericAdapterForClassified
 
                     }
                     "Events" -> {
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        binding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
-                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
-                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
+                        binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         //homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                        binding?.availableServiceHorizontalRv?.adapter =
                             genericAdapterForEvent
                     }
                     "Jobs" -> {
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        binding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
-                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
-                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
+                        binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
+                        binding?.availableServiceHorizontalRv?.adapter = jobAdapter
                     }
                     "Immigration" -> {
-                        homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
+                        binding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
-                        homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 4F)
+                        binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
+                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 4F)
                         val userArray =
                             JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
                         val gson = Gson()
@@ -293,9 +293,9 @@ class HomeScreenFragment : Fragment() {
 
                         }
                         immigrationAdapter?.setData(immigartinList)
-                        homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
+                        binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        homeScreenBinding?.availableServiceHorizontalRv?.adapter =
+                        binding?.availableServiceHorizontalRv?.adapter =
                             immigrationAdapter
                     }
                     "Astrology" -> {
@@ -356,7 +356,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        homeScreenBinding?.apply {
+        binding?.apply {
 
             if (userCity != null) {
                 if (userCity.isNotEmpty()) {
@@ -405,10 +405,10 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
 
                     if (response.data?.userEvent?.isNotEmpty() == true) {
                         if (response.data.userEvent.size >= 4) {
@@ -422,7 +422,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -475,7 +475,7 @@ class HomeScreenFragment : Fragment() {
             guestUser = it
             if (it) {
                 setHomeClassifiedData()
-                homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
+                binding?.classifiedTv?.visibility = View.VISIBLE
                 setUserInterestedServiceRow()
             }
         }
@@ -483,20 +483,20 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.popularClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
-                    homeScreenBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.homeConstraintLayout?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.isNotEmpty() == true) {
                         popularClassifiedAdapter?.setData(response.data)
                     }
-                    homeScreenBinding?.homeConstraintLayout?.visibility = View.VISIBLE
-                    homeScreenBinding?.popularItemsRv?.adapter = popularClassifiedAdapter
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    binding?.homeConstraintLayout?.visibility = View.VISIBLE
+                    binding?.popularItemsRv?.adapter = popularClassifiedAdapter
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    homeScreenBinding?.homeConstraintLayout?.visibility = View.GONE
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    binding?.homeConstraintLayout?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -543,7 +543,7 @@ class HomeScreenFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    homeScreenBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -607,7 +607,7 @@ class HomeScreenFragment : Fragment() {
             }
         }*/
 
-        return homeScreenBinding?.root
+        return binding?.root
     }
 
     private fun setUserInterestedServiceRow(interests: MutableList<String>? = null) {
@@ -629,8 +629,8 @@ class HomeScreenFragment : Fragment() {
                                 }
                             }
                         }
-                        homeScreenBinding?.interestRecyclerView?.visibility = View.VISIBLE
-                        homeScreenBinding?.interestBorder?.visibility = View.VISIBLE
+                        binding?.interestRecyclerView?.visibility = View.VISIBLE
+                        binding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" } as MutableList<InterestResponseItem>)
@@ -716,10 +716,10 @@ class HomeScreenFragment : Fragment() {
             if (interests == "27") {
                 //Advertise With Us
                 priorityService = "Advertise With Us"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.adapter = advertiseAdapter
+                binding?.priorityServiceRv?.adapter = advertiseAdapter
 
             } else if (interests == "2") {
                 //Classifieds
@@ -728,115 +728,115 @@ class HomeScreenFragment : Fragment() {
             } else if (interests == "8") {
                 //Events
                 priorityService = "Events"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 //homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
-                homeScreenBinding?.priorityServiceRv?.adapter = genericAdapterForEvent
+                binding?.priorityServiceRv?.adapter = genericAdapterForEvent
 
             } else if (interests == "3") {
                 //Immigration
                 priorityService = "Immigration"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 16f, right = 16f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 16f, right = 16f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.adapter = immigrationAdapter
+                binding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests == "17") {
                 //Jobs
                 priorityService = "Jobs"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 16f, right = 16f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.adapter = jobAdapter
+                binding?.priorityServiceRv?.margin(left = 16f, right = 16f)
+                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+                binding?.priorityServiceRv?.adapter = jobAdapter
             } else if (interests == "22") {
                 //Shop With Us
                 priorityService = "Shop With Us"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                homeScreenBinding?.priorityServiceRv?.visibility = View.GONE
+                binding?.priorityServiceRv?.visibility = View.GONE
             } else if (interests == "4") {
                 //Astrology
                 priorityService = "Astrology"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests == "26") {
                 //Business Needs
                 priorityService = "Business Needs"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests == "10") {
                 //Community Connect
                 priorityService = "Community Connect"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests == "13") {
                 //Foundation & Donations
                 priorityService = "Foundation & Donations"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests == "25") {
                 //Home Needs
                 priorityService = "Home Needs"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests == "18") {
                 //Legal Services
                 priorityService = "Legal Services"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests == "19") {
                 //Matrimony & Weddings
                 priorityService = "Matrimony & Weddings"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests == "20") {
                 //Medical Care
                 priorityService = "Medical Care"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests == "21") {
                 //Real Estate
                 priorityService = "Real Estate"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
             } else if (interests == "5") {
                 //Sports
                 priorityService = "Sports"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
 
             } else if (interests == "16") {
                 //Student Services
                 priorityService = "Student Services"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
 
             } else if (interests == "24") {
                 //Travel and Stay
                 priorityService = "Travel and Stay"
-                homeScreenBinding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                homeScreenBinding?.priorityServiceRv?.layoutManager =
+                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
             } else if (interests.isBlank()) {
                 //Toast.makeText(context, "blank", Toast.LENGTH_SHORT).show()
             }
         }
-        homeScreenBinding?.classifiedTv?.text = priorityService
-        homeScreenBinding?.classifiedTv?.visibility = View.VISIBLE
+        binding?.classifiedTv?.text = priorityService
+        binding?.classifiedTv?.visibility = View.VISIBLE
         /*if (interests?.isNotEmpty() == true && interests.contains("22")) {
             homeScreenBinding?.classifiedTv?.visibility = View.GONE
             homeScreenBinding?.seeAllClassified?.visibility = View.GONE
@@ -851,9 +851,9 @@ class HomeScreenFragment : Fragment() {
 
     private fun setHomeClassifiedData() {
 
-        homeScreenBinding?.priorityServiceRv?.layoutManager =
+        binding?.priorityServiceRv?.layoutManager =
             GridLayoutManager(context, 2)
-        homeScreenBinding?.priorityServiceRv?.addItemDecoration(
+        binding?.priorityServiceRv?.addItemDecoration(
             GridSpacingItemDecoration(
                 2,
                 32,
@@ -861,7 +861,7 @@ class HomeScreenFragment : Fragment() {
             )
         )
         //homeScreenBinding?.priorityServiceRv?.adapter = allClassifiedAdapter
-        homeScreenBinding?.priorityServiceRv?.adapter = genericAdapterForClassified
+        binding?.priorityServiceRv?.adapter = genericAdapterForClassified
 
     }
 
@@ -904,5 +904,10 @@ class HomeScreenFragment : Fragment() {
             return ""
         }
         return json
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

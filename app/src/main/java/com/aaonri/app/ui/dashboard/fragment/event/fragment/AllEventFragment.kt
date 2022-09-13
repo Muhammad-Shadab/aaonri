@@ -20,9 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AllEventFragment : Fragment() {
+    var binding: FragmentAllEventBinding? = null
     val eventViewModel: EventViewModel by activityViewModels()
     val postEventViewModel: PostEventViewModel by activityViewModels()
-    var allEventBinding: FragmentAllEventBinding? = null
     var allEventAdapter: AllEventAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -31,7 +31,7 @@ class AllEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        allEventBinding =
+        binding =
             FragmentAllEventBinding.inflate(inflater, container, false)
 
         allEventAdapter = AllEventAdapter {
@@ -59,7 +59,7 @@ class AllEventFragment : Fragment() {
         }
 
 
-        allEventBinding?.apply {
+        binding?.apply {
 
             recyclerViewEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewEvent.adapter = allEventAdapter
@@ -81,10 +81,10 @@ class AllEventFragment : Fragment() {
         eventViewModel.allEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    allEventBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    allEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     val listOfCity = mutableListOf<String>()
                     if (response.data?.eventList?.isNotEmpty() == true) {
                         if (eventViewModel.isAllSelected) {
@@ -104,13 +104,13 @@ class AllEventFragment : Fragment() {
                         if (eventViewModel.eventCityList.isEmpty()) {
                             eventViewModel.setEventCityList(listOfCity)
                         }
-                        allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
-                        allEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                        allEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.recyclerViewEvent?.visibility = View.VISIBLE
+                        binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                     } else {
-                        allEventBinding?.recyclerViewEvent?.visibility = View.GONE
-                        allEventBinding?.topAdvertiseRv?.visibility = View.GONE
-                        allEventBinding?.bottomAdvertiseRv?.visibility = View.GONE
+                        binding?.recyclerViewEvent?.visibility = View.GONE
+                        binding?.topAdvertiseRv?.visibility = View.GONE
+                        binding?.bottomAdvertiseRv?.visibility = View.GONE
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
@@ -120,7 +120,7 @@ class AllEventFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    allEventBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 else -> {}
             }
@@ -128,15 +128,19 @@ class AllEventFragment : Fragment() {
 
         eventViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
-                allEventBinding?.recyclerViewEvent?.visibility = View.VISIBLE
-                allEventBinding?.topAdvertiseRv?.visibility = View.VISIBLE
-                allEventBinding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                binding?.recyclerViewEvent?.visibility = View.VISIBLE
+                binding?.topAdvertiseRv?.visibility = View.VISIBLE
+                binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                 //allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }
 
-        return allEventBinding?.root
+        return binding?.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

@@ -27,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostAdvertiseCompanyDetailsFragment : Fragment() {
-    var detailsBinding: FragmentPostAdvertiseCompanyDetailsFrgamentBinding? = null
+    var binding: FragmentPostAdvertiseCompanyDetailsFrgamentBinding? = null
     val postAdvertiseViewModel: PostAdvertiseViewModel by activityViewModels()
 
     var description: String? = ""
@@ -36,10 +36,10 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
-                    detailsBinding?.advertiseDescEt?.fromHtml(data.trim())
+                    binding?.advertiseDescEt?.fromHtml(data.trim())
                     description = data.trim()
                 } else {
-                    detailsBinding?.advertiseDescEt?.text = ""
+                    binding?.advertiseDescEt?.text = ""
                 }
             }
         }
@@ -48,7 +48,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        detailsBinding =
+        binding =
             FragmentPostAdvertiseCompanyDetailsFrgamentBinding.inflate(inflater, container, false)
 
         val email =
@@ -61,7 +61,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             postAdvertiseViewModel.setAdvertiseImage("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${AdvertiseStaticData.getAddDetails()?.advertisementDetails?.adImage}")
         }
 
-        detailsBinding?.apply {
+        binding?.apply {
             advertiseDescEt.movementMethod = ScrollingMovementMethod()
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_COMPANY_DETAILS)
 
@@ -134,7 +134,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             }
         }
 
-        detailsBinding?.companyMobileEt?.addTextChangedListener(object :
+        binding?.companyMobileEt?.addTextChangedListener(object :
             TextWatcher {
             var length_before = 0
             override fun beforeTextChanged(
@@ -169,13 +169,13 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
 
 
-        return detailsBinding?.root
+        return binding?.root
     }
 
     private fun setDataForUpdating() {
         val advertiseData = AdvertiseStaticData.getAddDetails()
 
-        detailsBinding?.apply {
+        binding?.apply {
             companyNameEt.setText(advertiseData?.advertisementDetails?.companyName)
             companyAddress.setText(advertiseData?.advertisementDetails?.location)
             companyMobileEt.setText(advertiseData?.advertisementDetails?.contactNo?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3"))
@@ -188,7 +188,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
     }
 
     private fun setData() {
-        detailsBinding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] else "")
+        binding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] else "")
 
     }
 
@@ -199,6 +199,11 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                 text, Snackbar.LENGTH_LONG
             ).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

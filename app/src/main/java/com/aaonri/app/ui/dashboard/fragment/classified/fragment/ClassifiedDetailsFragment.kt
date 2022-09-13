@@ -43,7 +43,6 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -58,7 +57,7 @@ import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ClassifiedDetailsFragment : Fragment() {
-    var classifiedDetailsBinding: FragmentClassifiedDetailsBinding? = null
+    var binding: FragmentClassifiedDetailsBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
@@ -78,7 +77,7 @@ class ClassifiedDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        classifiedDetailsBinding =
+        binding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
@@ -112,7 +111,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-        classifiedDetailsBinding?.apply {
+        binding?.apply {
 
             loginToViewSellerInfo.text = ss
             loginToViewSellerInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -230,10 +229,10 @@ class ClassifiedDetailsFragment : Fragment() {
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    classifiedDetailsBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    classifiedDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
 
                     response.data?.let {
                         setClassifiedDetails(it.userAds)
@@ -242,7 +241,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    classifiedDetailsBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -257,7 +256,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    classifiedDetailsBinding?.sellerName?.text =
+                    binding?.sellerName?.text =
                         response.data?.firstName + " " + response.data?.lastName
                 }
                 is Resource.Error -> {
@@ -307,7 +306,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        return classifiedDetailsBinding?.root
+        return binding?.root
     }
 
 
@@ -316,7 +315,7 @@ class ClassifiedDetailsFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
             if (!data.approved) {
-                classifiedDetailsBinding?.moreClassifiedOption?.visibility = View.VISIBLE
+                binding?.moreClassifiedOption?.visibility = View.VISIBLE
             }
         }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
@@ -324,7 +323,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
             when (index) {
                 0 -> {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
@@ -334,7 +333,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 1 -> {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
@@ -343,7 +342,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
                 2 -> {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
@@ -352,7 +351,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
                 3 -> {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
@@ -364,10 +363,10 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
             if (userAdsImage.sequenceNumber == 1) {
-                classifiedDetailsBinding?.image1CardView?.visibility = View.VISIBLE
+                binding?.image1CardView?.visibility = View.VISIBLE
 
                 context?.let {
-                    classifiedDetailsBinding?.image1?.let { it1 ->
+                    binding?.image1?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                             .into(it1)
@@ -376,9 +375,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
             if (userAdsImage.sequenceNumber == 2) {
 
-                classifiedDetailsBinding?.image2CardView?.visibility = View.VISIBLE
+                binding?.image2CardView?.visibility = View.VISIBLE
                 context?.let {
-                    classifiedDetailsBinding?.image2?.let { it1 ->
+                    binding?.image2?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                             .into(it1)
@@ -387,9 +386,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
             if (userAdsImage.sequenceNumber == 3) {
 
-                classifiedDetailsBinding?.image3CardView?.visibility = View.VISIBLE
+                binding?.image3CardView?.visibility = View.VISIBLE
                 context?.let {
-                    classifiedDetailsBinding?.image3?.let { it1 ->
+                    binding?.image3?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                             .into(it1)
@@ -398,9 +397,9 @@ class ClassifiedDetailsFragment : Fragment() {
             }
             if (userAdsImage.sequenceNumber == 4) {
 
-                classifiedDetailsBinding?.image4CardView?.visibility = View.VISIBLE
+                binding?.image4CardView?.visibility = View.VISIBLE
                 context?.let {
-                    classifiedDetailsBinding?.image4?.let { it1 ->
+                    binding?.image4?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                             .into(it1)
@@ -410,7 +409,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         if (data.userAdsImages.isNotEmpty()) {
-            classifiedDetailsBinding?.addImage?.let {
+            binding?.addImage?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
@@ -419,11 +418,11 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-        classifiedDetailsBinding?.image1?.setOnClickListener {
+        binding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
 
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
@@ -438,10 +437,10 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
 
-        classifiedDetailsBinding?.image2?.setOnClickListener {
+        binding?.image2?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 1) {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
@@ -452,10 +451,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
         }
-        classifiedDetailsBinding?.image3?.setOnClickListener {
+        binding?.image3?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 2) {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
@@ -466,10 +465,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
         }
-        classifiedDetailsBinding?.image4?.setOnClickListener {
+        binding?.image4?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 3) {
-                    classifiedDetailsBinding?.addImage?.let {
+                    binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
@@ -487,21 +486,21 @@ class ClassifiedDetailsFragment : Fragment() {
         val df = DecimalFormat("#,###.00")
         df.roundingMode = RoundingMode.DOWN
         val roundoff = df.format(random)
-        classifiedDetailsBinding?.constraint1?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.classifiedPriceTv?.text = "$$roundoff"
-        classifiedDetailsBinding?.addTitle?.text = data.adTitle
-        classifiedDetailsBinding?.addTitle?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.navigateBack?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.classifiedDescTv?.textSize = 14F
-        classifiedDetailsBinding?.classifiedDescTv?.fromHtml(data.adDescription)
-        classifiedDetailsBinding?.classifiedLocationDetails?.text =
+        binding?.constraint1?.visibility = View.VISIBLE
+        binding?.classifiedPriceTv?.text = "$$roundoff"
+        binding?.addTitle?.text = data.adTitle
+        binding?.addTitle?.visibility = View.VISIBLE
+        binding?.navigateBack?.visibility = View.VISIBLE
+        binding?.classifiedDescTv?.textSize = 14F
+        binding?.classifiedDescTv?.fromHtml(data.adDescription)
+        binding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
-        classifiedDetailsBinding?.sellerName?.text =
+        binding?.sellerName?.text =
             classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
 
-        classifiedDetailsBinding?.postedDate1?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+        binding?.postedDate1?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.createdOn.split("T")[0]))
-        classifiedDetailsBinding?.postedDate2?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+        binding?.postedDate2?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.adExpireDT.split("T")[0]))
 
         itemId = data.id
@@ -513,15 +512,15 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         if (data.popularOnAaonri) {
-            classifiedDetailsBinding?.popularTv?.visibility = View.VISIBLE
+            binding?.popularTv?.visibility = View.VISIBLE
         } else {
-            classifiedDetailsBinding?.popularTv?.visibility = View.GONE
+            binding?.popularTv?.visibility = View.GONE
         }
 
-        classifiedDetailsBinding?.classifiedCategoryTv?.text =
+        binding?.classifiedCategoryTv?.text =
             "Category: ${data.category}  |  Sub Category: ${data.subCategory}"
-        classifiedDetailsBinding?.classifiedLocation?.visibility = View.VISIBLE
-        classifiedDetailsBinding?.classifiedPostDate?.visibility = View.VISIBLE
+        binding?.classifiedLocation?.visibility = View.VISIBLE
+        binding?.classifiedPostDate?.visibility = View.VISIBLE
         val address =
             "${if (!data.adLocation.isNullOrEmpty()) data.adLocation else ""}"
         val text2: String = "$address ${if (!data.adZip.isNullOrEmpty()) data.adZip else ""}"
@@ -535,7 +534,7 @@ class ClassifiedDetailsFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        classifiedDetailsBinding?.locationClassifiedTv?.setText(
+        binding?.locationClassifiedTv?.setText(
             spannable,
             TextView.BufferType.SPANNABLE
         )
@@ -544,23 +543,23 @@ class ClassifiedDetailsFragment : Fragment() {
         if (data.adEmail.isNotEmpty()) {
             isEmailAvailable = data.adEmail
             isPhoneAvailable = data.adPhone
-            classifiedDetailsBinding?.emailTv?.text = "Email"
-            classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adEmail
+            binding?.emailTv?.text = "Email"
+            binding?.classifiedSellerEmail?.text = data.adEmail
         } else {
             isEmailAvailable = data.adEmail
             isPhoneAvailable = data.adPhone
-            classifiedDetailsBinding?.emailTv?.text = "Phone"
-            classifiedDetailsBinding?.classifiedSellerEmail?.text = data.adPhone
+            binding?.emailTv?.text = "Phone"
+            binding?.classifiedSellerEmail?.text = data.adPhone
         }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 isGuestUser = true
-                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.GONE
+                binding?.sellerInformationLayout?.visibility = View.GONE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
-                classifiedDetailsBinding?.loginToViewSellerInfo?.visibility = View.VISIBLE
+                binding?.loginToViewSellerInfo?.visibility = View.VISIBLE
             } else {
                 isGuestUser = false
-                classifiedDetailsBinding?.sellerInformationLayout?.visibility = View.VISIBLE
+                binding?.sellerInformationLayout?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
         }
@@ -572,9 +571,9 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data.toBoolean()) {
-                        classifiedDetailsBinding?.likeDislikeBtn?.load(R.drawable.heart)
+                        binding?.likeDislikeBtn?.load(R.drawable.heart)
                     } else {
-                        classifiedDetailsBinding?.likeDislikeBtn?.load(R.drawable.heart_grey)
+                        binding?.likeDislikeBtn?.load(R.drawable.heart_grey)
                     }
 
                 }
@@ -611,7 +610,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -621,18 +620,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
-                    it2
-                )
-            }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -643,7 +631,18 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
+                    it2
+                )
+            }
+
+            context?.let { it1 ->
+                ContextCompat.getColor(
+                    it1,
+                    R.color.white
+                )
+            }?.let { it2 ->
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -654,7 +653,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -664,7 +663,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -674,7 +673,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -685,7 +684,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -697,7 +696,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -707,7 +706,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -717,7 +716,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -728,7 +727,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -740,7 +739,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -750,7 +749,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -761,7 +760,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -771,7 +770,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.selectedClassifiedCardViewBorder
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -782,7 +781,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image1CardView?.setStrokeColor(
+                binding?.image1CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -792,7 +791,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image2CardView?.setStrokeColor(
+                binding?.image2CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -803,7 +802,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image3CardView?.setStrokeColor(
+                binding?.image3CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -813,7 +812,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     R.color.white
                 )
             }?.let { it2 ->
-                classifiedDetailsBinding?.image4CardView?.setStrokeColor(
+                binding?.image4CardView?.setStrokeColor(
                     it2
                 )
             }
@@ -837,6 +836,7 @@ class ClassifiedDetailsFragment : Fragment() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
+        binding = null
     }
 
 
