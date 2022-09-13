@@ -60,7 +60,15 @@ class LocationDetailsFragment : Fragment() {
             )
         }*/
         locationDetailsBinding?.apply {
+              if(authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true)
+              {
+                  stateLocationDetails.setText(authCommonViewModel.originLocationDetails["originState"])
+              }
 
+            if(authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true)
+            {
+                cityLocationDetails.setText(authCommonViewModel.originLocationDetails["originCity"])
+            }
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
             countryFlagIcon.visibility= View.GONE
             selectMoreCommunityIv.setOnClickListener {
@@ -71,7 +79,12 @@ class LocationDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
+
                 if (isCommunitySelected && selectCountryLocation.text.toString().isNotEmpty()) {
+                    authCommonViewModel.addOriginLocationDetails(
+                        originState = stateLocationDetails.text.toString(),
+                        originCity = cityLocationDetails.text.toString()
+                    )
                     findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
                 } else {
                     activity?.let { it1 ->
@@ -137,8 +150,8 @@ class LocationDetailsFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
-                    authCommonViewModel.selectedCommunityList.value?.clear()
-                    authCommonViewModel.setSelectedCountryLocationScreen("","","")
+                /*    authCommonViewModel.selectedCommunityList.value?.clear()
+                    authCommonViewModel.setSelectedCountryLocationScreen("","","")*/
                 }
             })
         return locationDetailsBinding?.root

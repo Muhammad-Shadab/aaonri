@@ -254,7 +254,6 @@ class HomeScreenFragment : Fragment() {
                                     ImmigrationCenterModelItem::class.java
                                 ))) {
                                 immigartinList.add(
-
                                     gson.fromJson(
                                         userArray.getString(i),
                                         ImmigrationCenterModelItem::class.java
