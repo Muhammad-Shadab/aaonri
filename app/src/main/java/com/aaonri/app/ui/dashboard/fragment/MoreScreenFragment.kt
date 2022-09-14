@@ -58,7 +58,7 @@ class MoreScreenFragment : Fragment() {
                         ?.set(Constant.IS_USER_LOGIN, false)
 
                     context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.PROFILE_USER, "")
+                        ?.set(Constant.USER_PROFILE_PIC, "")
 
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.GMAIL_FIRST_NAME, "")

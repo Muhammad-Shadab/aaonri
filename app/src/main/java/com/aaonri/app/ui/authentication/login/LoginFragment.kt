@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.login.model.Login
@@ -192,6 +193,14 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.USER_INTERESTED_SERVICES, it)
                         }
 
+                        response.data?.user?.profilePic?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(
+                                    Constant.USER_PROFILE_PIC,
+                                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                                )
+                        }
+
                         response.data?.emailId?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_EMAIL, it)
@@ -211,6 +220,10 @@ class LoginFragment : Fragment() {
                             startActivity(intent)
                             activity?.finish()
                         } else {
+
+                            context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                                ?.set(Constant.IS_USER_LOGIN, false)
+
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
@@ -323,7 +336,7 @@ class LoginFragment : Fragment() {
                             mGoogleSignInClient.signOut()
                             LoginManager.getInstance().logOut()
                             context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(Constant.PROFILE_USER, "")
+                                ?.set(Constant.USER_PROFILE_PIC, "")
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
@@ -411,7 +424,7 @@ class LoginFragment : Fragment() {
 
             it.user?.photoUrl?.let { it1 ->
                 context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(Constant.PROFILE_USER, it1.toString())
+                    ?.set(Constant.USER_PROFILE_PIC, it1.toString())
             }
 
 
@@ -473,7 +486,7 @@ class LoginFragment : Fragment() {
 
         account.photoUrl?.let {
             context?.let { it1 -> PreferenceManager<String>(it1) }
-                ?.set(Constant.PROFILE_USER, it.toString())
+                ?.set(Constant.USER_PROFILE_PIC, it.toString())
         }
 
 

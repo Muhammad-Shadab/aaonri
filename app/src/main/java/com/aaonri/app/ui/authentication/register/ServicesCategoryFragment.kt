@@ -3,6 +3,7 @@ package com.aaonri.app.ui.authentication.register
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -34,10 +35,16 @@ import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class ServicesCategoryFragment : Fragment() {
-    var servicesGridItemBinding: FragmentServicesCategoryBinding? = null
+    var binding: FragmentServicesCategoryBinding? = null
     private var adapter: ServicesItemAdapter? = null
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
@@ -55,7 +62,7 @@ class ServicesCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val dialog = Dialog(requireContext())
-        servicesGridItemBinding =
+        binding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
 
         getServicesInterestList()
@@ -66,7 +73,7 @@ class ServicesCategoryFragment : Fragment() {
             isJobSelected = it
         }
 
-        servicesGridItemBinding?.apply {
+        binding?.apply {
 
             companyEmailServices.isEnabled = false
             authCommonViewModel.addNavigationForStepper(AuthConstant.SERVICE_DETAILS_SCREEN)
@@ -169,7 +176,6 @@ class ServicesCategoryFragment : Fragment() {
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
 
-
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
@@ -185,52 +191,61 @@ class ServicesCategoryFragment : Fragment() {
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
-                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
+                binding?.servicesGridRecyclerView?.margin(bottom = 0f)
+                binding?.visibilityCardView?.visibility = View.VISIBLE
+                binding?.aliasNameCardView?.visibility = View.VISIBLE
+                binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
 //                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
-                servicesGridItemBinding?.aliasNameCardView?.visibility = View.VISIBLE
-                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 0f)
-                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
+                binding?.visibilityCardView?.visibility = View.GONE
+                binding?.aliasNameCardView?.visibility = View.VISIBLE
+                binding?.servicesGridRecyclerView?.margin(bottom = 0f)
+                binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
 //                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
-                servicesGridItemBinding?.visibilityCardView?.visibility = View.GONE
-                servicesGridItemBinding?.aliasNameCardView?.visibility = View.GONE
-                servicesGridItemBinding?.servicesGridRecyclerView?.margin(bottom = 60f)
-                servicesGridItemBinding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.light_green_btn_shape)
+                binding?.visibilityCardView?.visibility = View.GONE
+                binding?.aliasNameCardView?.visibility = View.GONE
+                binding?.servicesGridRecyclerView?.margin(bottom = 60f)
+                binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.light_green_btn_shape)
             }
         }
 
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     if (response.data?.status.equals("true")) {
 
-                        dialog.setContentView(R.layout.success_register_dialog)
-                        dialog.window?.setBackgroundDrawable(
-                            ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.dialog_shape
+                        if (authCommonViewModel.profilePicUri != null) {
+                            uploadProfilePicture(
+                                response.data?.user?.userId,
+                                authCommonViewModel.profilePicUri!!
                             )
-                        )
-                        dialog.setCancelable(false)
-                        dialog.show()
-                        val continueBtn = dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                        continueBtn.setOnClickListener {
-                            dialog.dismiss()
-                            activity?.finish()
+                        } else {
+                            dialog.setContentView(R.layout.success_register_dialog)
+                            dialog.window?.setBackgroundDrawable(
+                                ContextCompat.getDrawable(
+                                    requireContext(),
+                                    R.drawable.dialog_shape
+                                )
+                            )
+                            dialog.setCancelable(false)
+                            dialog.show()
+                            val continueBtn =
+                                dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                            continueBtn.setOnClickListener {
+                                dialog.dismiss()
+                                activity?.finish()
+                            }
                         }
+
                     } else {
                         Toast.makeText(
                             context,
@@ -240,7 +255,7 @@ class ServicesCategoryFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -255,6 +270,36 @@ class ServicesCategoryFragment : Fragment() {
             }
         }
 
+        authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    dialog.setContentView(R.layout.success_register_dialog)
+                    dialog.window?.setBackgroundDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.dialog_shape
+                        )
+                    )
+                    dialog.setCancelable(false)
+                    dialog.show()
+                    val continueBtn =
+                        dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                    continueBtn.setOnClickListener {
+                        dialog.dismiss()
+                        activity?.finish()
+                    }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+
+        }
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -263,7 +308,20 @@ class ServicesCategoryFragment : Fragment() {
                 }
             })
 
-        return servicesGridItemBinding?.root
+        return binding?.root
+    }
+
+    private fun uploadProfilePicture(userId: Int?, profilePic: Uri) {
+
+        val file = File(profilePic.toString().replace("file:", ""))
+
+        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+        authCommonViewModel.uploadProfilePic(requestImage, id)
     }
 
 
@@ -319,16 +377,16 @@ class ServicesCategoryFragment : Fragment() {
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
                         adapter?.setData(servicesResponse)
                     }
                 }
                 is Resource.Error -> {
-                    servicesGridItemBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
@@ -358,4 +416,10 @@ class ServicesCategoryFragment : Fragment() {
     fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
     fun Context.dpToPx(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
 }

@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BasicDetailsFragment : Fragment() {
-    var basicDetailsBinding: FragmentBasicDetailsBinding? = null
+    var binding: FragmentBasicDetailsBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     var isEmailValid = false
@@ -44,11 +44,11 @@ class BasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        basicDetailsBinding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentBasicDetailsBinding.inflate(inflater, container, false)
         var job: Job? = null
 
         val socialProfile =
-            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
         val blockCharacterSet = "1234567890~#^|$%&*!@\""
 
@@ -58,7 +58,7 @@ class BasicDetailsFragment : Fragment() {
             } else null
         }
 
-        basicDetailsBinding?.apply {
+        binding?.apply {
 
             authCommonViewModel.addNavigationForStepper(AuthConstant.BASIC_DETAILS_SCREEN)
 
@@ -123,7 +123,7 @@ class BasicDetailsFragment : Fragment() {
                         if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
                             if (Validator.emailValidation(editable.toString())) {
                                 isEmailValid = true
-                                basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
+                                binding?.emailAlreadyExistTv?.visibility = View.GONE
                                 registrationViewModel.isEmailAlreadyRegister(
                                     EmailVerifyRequest(
                                         emailAddressBasicDetails.text.toString()
@@ -131,13 +131,13 @@ class BasicDetailsFragment : Fragment() {
                                 )
                             } else {
                                 isEmailValid = false
-                                basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.VISIBLE
-                                basicDetailsBinding?.emailAlreadyExistTv?.text =
+                                binding?.emailAlreadyExistTv?.visibility = View.VISIBLE
+                                binding?.emailAlreadyExistTv?.text =
                                     "Please enter valid email"
                             }
                         } else {
                             isEmailValid = false
-                            basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
+                            binding?.emailAlreadyExistTv?.visibility = View.GONE
                         }
                     }
                 }
@@ -149,16 +149,16 @@ class BasicDetailsFragment : Fragment() {
                     if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                         if (Validator.passwordValidation(it.toString())) {
                             isPasswordValid = true
-                            basicDetailsBinding?.passwordValidationTv?.visibility = View.GONE
+                            binding?.passwordValidationTv?.visibility = View.GONE
                         } else {
                             isPasswordValid = false
-                            basicDetailsBinding?.passwordValidationTv?.text =
+                            binding?.passwordValidationTv?.text =
                                 "Please enter valid password"
-                            basicDetailsBinding?.passwordValidationTv?.visibility = View.VISIBLE
+                            binding?.passwordValidationTv?.visibility = View.VISIBLE
                         }
                     } else {
                         isPasswordValid = false
-                        basicDetailsBinding?.passwordValidationTv?.visibility = View.GONE
+                        binding?.passwordValidationTv?.visibility = View.GONE
                     }
                 }
             }
@@ -208,20 +208,20 @@ class BasicDetailsFragment : Fragment() {
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
+                    binding?.emailAlreadyExistTv?.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     if (response.data?.status == "true") {
                         isEmailValid = false
-                        basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.VISIBLE
-                        basicDetailsBinding?.emailAlreadyExistTv?.text =
+                        binding?.emailAlreadyExistTv?.visibility = View.VISIBLE
+                        binding?.emailAlreadyExistTv?.text =
                             "This email is already registered"
                     } else {
                         isEmailValid = true
                     }
                 }
                 is Resource.Error -> {
-                    basicDetailsBinding?.emailAlreadyExistTv?.visibility = View.GONE
+                    binding?.emailAlreadyExistTv?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -239,7 +239,7 @@ class BasicDetailsFragment : Fragment() {
                 }
             })
 
-        return basicDetailsBinding?.root
+        return binding?.root
     }
 
     private val startForProfileImageResult =
@@ -252,21 +252,22 @@ class BasicDetailsFragment : Fragment() {
                 val fileUri = data?.data!!
 
                 profile = fileUri.toString()
-                basicDetailsBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
                 setImage()
+                authCommonViewModel.setProfilePicUriValue(fileUri)
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
-                basicDetailsBinding?.addProfileBtn?.visibility = View.GONE
+                binding?.addProfileBtn?.visibility = View.GONE
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                basicDetailsBinding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
             }
         }
 
     private fun setImage() {
         if (profile.isNotEmpty()) {
-            basicDetailsBinding?.addProfileIv?.let {
+            binding?.addProfileIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load(profile)
@@ -275,7 +276,7 @@ class BasicDetailsFragment : Fragment() {
                 }
             }
         } else {
-            basicDetailsBinding?.addProfileIv?.let {
+            binding?.addProfileIv?.let {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load(R.drawable.profile_pic_placeholder)
@@ -285,6 +286,11 @@ class BasicDetailsFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

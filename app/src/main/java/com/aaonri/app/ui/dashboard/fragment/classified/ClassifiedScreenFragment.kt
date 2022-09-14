@@ -58,7 +58,7 @@ class ClassifiedScreenFragment : Fragment() {
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
         val profile =
-            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }

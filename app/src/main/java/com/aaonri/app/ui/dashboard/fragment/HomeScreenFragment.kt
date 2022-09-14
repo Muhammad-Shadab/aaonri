@@ -84,6 +84,9 @@ class HomeScreenFragment : Fragment() {
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
+
         val list =
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
                 .toString()
@@ -340,8 +343,7 @@ class HomeScreenFragment : Fragment() {
 
         homeInterestsServiceAdapter?.setSelectedTab(classifiedViewModel.selectedServiceRow)
 
-        val profile =
-            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+        Toast.makeText(context, "$profile", Toast.LENGTH_SHORT).show()
 
         interestAdapter = InterestAdapter {
             navigateToTheSpecificScreen(it.interestDesc)

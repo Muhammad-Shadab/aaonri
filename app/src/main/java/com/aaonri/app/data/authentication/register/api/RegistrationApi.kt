@@ -7,9 +7,10 @@ import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyReq
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 

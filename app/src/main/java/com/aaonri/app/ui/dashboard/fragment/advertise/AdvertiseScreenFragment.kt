@@ -51,7 +51,7 @@ class AdvertiseScreenFragment : Fragment() {
     ): View? {
 
         val profile =
-            context?.let { PreferenceManager<String>(it)[Constant.PROFILE_USER, ""] }
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
         val ss = SpannableString(resources.getString(R.string.login_to_view_Advertisement))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {

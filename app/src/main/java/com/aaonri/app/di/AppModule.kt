@@ -51,5 +51,3 @@ object AppModule {
             .addCallAdapterFactory(ResultCallAdapterFactory())
 
 }
-
-/**/

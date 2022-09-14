@@ -7,38 +7,40 @@ import com.aaonri.app.data.classified.repository.ClassifiedRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object ClassifiedModule {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideClassifiedApi(
         @Named("RetrofitForGlobal") retrofit: Retrofit.Builder
     ): ClassifiedApi =
         retrofit.build().create(ClassifiedApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun providePostClassifiedApi(
         @Named("RetrofitForGlobal") retrofit: Retrofit.Builder
     ): PostClassifiedApi =
         retrofit.build().create(PostClassifiedApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideDeleteClassifiedApi(
         @Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder
     ): DeleteClassifiedApi =
         retrofit.build().create(DeleteClassifiedApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideClassifiedRepo(
         classifiedApi: ClassifiedApi,
         postClassifiedApi: PostClassifiedApi,

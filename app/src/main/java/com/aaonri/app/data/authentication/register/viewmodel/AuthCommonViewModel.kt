@@ -1,6 +1,7 @@
 package com.aaonri.app.data.authentication.register.viewmodel
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,8 @@ import com.aaonri.app.data.authentication.register.repository.RegistrationReposi
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -35,11 +38,14 @@ class AuthCommonViewModel @Inject constructor(
     var originLocationDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
-
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
     var selectedCommunityList: MutableLiveData<MutableList<Community>> = MutableLiveData()
+
+    var uploadProfilePicData: MutableLiveData<Resource<String>> = MutableLiveData()
+
+    var profilePicUri: Uri? = null
 
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
@@ -141,7 +147,7 @@ class AuthCommonViewModel @Inject constructor(
     fun addOriginLocationDetails(
         originState: String,
         originCity: String
-    ){
+    ) {
         originLocationDetails["originState"] = originState
         originLocationDetails["originCity"] = originCity
     }
@@ -234,7 +240,28 @@ class AuthCommonViewModel @Inject constructor(
 
     fun setSelectedServices(value: Boolean) {
         isSelectedServices = value
-//        slectedServicesPosition.value = value1
+    }
+
+    fun uploadProfilePic(
+        file: MultipartBody.Part,
+        userId: RequestBody
+    ) = viewModelScope.launch {
+        uploadProfilePicData.postValue(Resource.Loading())
+        val response = registrationRepository.uploadProfilePic(file, userId)
+        uploadProfilePicData.postValue(handleUploadImageResponse(response))
+    }
+
+    private fun handleUploadImageResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setProfilePicUriValue(value: Uri) {
+        profilePicUri = value
     }
 
 }
