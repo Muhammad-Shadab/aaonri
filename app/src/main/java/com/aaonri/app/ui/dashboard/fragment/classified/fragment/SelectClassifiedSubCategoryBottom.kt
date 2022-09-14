@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.adapter.ClassifiedSubCategoryAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedSubCategoryAdapter
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedSubCategoryBottomBinding

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.event.adapter.EventCityAdapter
+import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventCityAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.databinding.FragmentSelectFilterEventCityBottomBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

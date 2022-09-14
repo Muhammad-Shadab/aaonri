@@ -1,7 +1,6 @@
-package com.aaonri.app.data.home.adapter
+package com.aaonri.app.ui.dashboard.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

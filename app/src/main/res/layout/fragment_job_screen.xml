@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.dashboard.fragment.JobScreenFragment">
+    tools:context=".ui.dashboard.fragment.jobs.JobScreenFragment">
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"

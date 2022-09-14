@@ -1,15 +1,7 @@
 package com.aaonri.app.utils
 
 import android.content.Context
-import android.icu.text.SimpleDateFormat
-import android.icu.util.TimeZone
 import android.net.ConnectivityManager
-import java.text.ParseException
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 object Constant {
 
@@ -24,6 +16,7 @@ object Constant {
     const val USER_STATE = "USER_STATE"
     const val USER_INTERESTED_SERVICES = "USER_INTERESTED_SERVICES"
     const val USER_ID = "USER_ID"
+    const val IS_JOB_RECRUITER = "IS_JOB_RECRUITER"
     const val ORIGIN_COUNTRY = "ORIGIN_COUNTRY"
 
 

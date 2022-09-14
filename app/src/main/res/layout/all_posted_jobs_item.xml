@@ -7,10 +7,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
-        app:cardElevation="@dimen/_3sdp"
         android:layout_marginVertical="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/nameTv"
+                            android:id="@+id/jobTitleTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableRight="@drawable/hot"
@@ -62,9 +62,8 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-
                         <TextView
-                            android:id="@+id/jobTitleTv"
+                            android:id="@+id/jobCompanyNameTv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
@@ -76,11 +75,9 @@
                             android:textColor="@color/jobtxtcolor"
                             android:textSize="12sp"
                             android:translationY="-4dp"
-                            app:layout_constraintTop_toBottomOf="@+id/nameTv" />
-
+                            app:layout_constraintTop_toBottomOf="@+id/jobTitleTv" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 </LinearLayout>
 
@@ -144,9 +141,9 @@
                         android:layout_gravity="bottom"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:elevation="@dimen/_10sdp"
                         android:background="@drawable/green1_btn_shape"
                         android:backgroundTint="#124c94"
+                        android:elevation="@dimen/_10sdp"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:includeFontPadding="false"
                         android:minHeight="0dp"

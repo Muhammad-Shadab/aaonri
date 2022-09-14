@@ -16,12 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
-import com.aaonri.app.data.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
-import com.aaonri.app.data.event.adapter.EventGenericAdapter
-import com.aaonri.app.data.home.adapter.InterestAdapter
-import com.aaonri.app.data.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.data.immigration.model.ImmigrationCenterModelItem
@@ -29,9 +25,13 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
+import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
+import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
+import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
@@ -180,9 +180,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        jobAdapter = JobAdapter {
-
-        }
+        jobAdapter = JobAdapter()
 
         /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =
@@ -665,7 +663,9 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests == "17" || interests == "Jobs") {
                 //Jobs
-                //Toast.makeText(context, "jobs", Toast.LENGTH_SHORT).show()
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                findNavController().navigate(action)
             } else if (interests == "22" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)
@@ -744,16 +744,16 @@ class HomeScreenFragment : Fragment() {
             } else if (interests == "17") {
                 //Jobs
                 priorityService = "Jobs"
-                binding?.priorityServiceRv?.margin(left = 16f, right = 16f)
+                binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
                 binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
                 binding?.priorityServiceRv?.adapter = jobAdapter
             } else if (interests == "22") {
                 //Shop With Us
-                priorityService = "Shop With Us"
+                /*priorityService = "Shop With Us"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-                binding?.priorityServiceRv?.visibility = View.GONE
+                binding?.priorityServiceRv?.visibility = View.GONE*/
             } else if (interests == "4") {
                 //Astrology
                 priorityService = "Astrology"

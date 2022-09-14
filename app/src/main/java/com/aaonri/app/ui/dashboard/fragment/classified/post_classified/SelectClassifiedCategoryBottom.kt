@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedStaticData
-import com.aaonri.app.data.classified.adapter.ClassifiedCategoryAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
 import com.aaonri.app.utils.Resource

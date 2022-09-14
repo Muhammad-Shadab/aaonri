@@ -1,4 +1,4 @@
-package com.aaonri.app.data.event.adapter
+package com.aaonri.app.ui.dashboard.fragment.event.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.RecentEventResponseItem
-import com.aaonri.app.data.event.model.UserEvent
 import com.aaonri.app.databinding.EventItemBinding
-import com.aaonri.app.databinding.HomeEventItemBinding
 import com.bumptech.glide.Glide
 import java.math.RoundingMode
 import java.text.DecimalFormat

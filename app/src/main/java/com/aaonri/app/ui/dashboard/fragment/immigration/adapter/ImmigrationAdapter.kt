@@ -116,7 +116,6 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
             is Category -> R.layout.category_card_item1
             is DiscussionDetailsResponseItem -> R.layout.immigration_reply_item
             is ImmigrationCenterModelItem -> R.layout.immigrations_inforamtion_center_item
-
             else -> {
                 R.layout.category_card_item
             }

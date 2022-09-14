@@ -1,4 +1,4 @@
-package com.aaonri.app.data.home.adapter
+package com.aaonri.app.ui.dashboard.home.adapter
 
 import android.content.Intent
 import android.net.Uri

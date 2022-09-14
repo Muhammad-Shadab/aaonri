@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.data.event.adapter.RecentEventAdapter
+import com.aaonri.app.ui.dashboard.fragment.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData

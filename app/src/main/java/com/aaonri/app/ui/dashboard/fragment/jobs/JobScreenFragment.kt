@@ -1,36 +1,50 @@
-package com.aaonri.app.ui.dashboard.fragment
+package com.aaonri.app.ui.dashboard.fragment.jobs
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.ClassifiedPagerAdapter
-import com.aaonri.app.data.jobs.JobPagerAdapter
+import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobPagerAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class JobScreenFragment : Fragment() {
-    var jobBinding : FragmentJobScreenBinding? = null
-    var jobAdapter: JobAdapter? = null
+    var binding: FragmentJobScreenBinding? = null
+    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Jobs", "Job Alerts", "My Profile")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        jobBinding = FragmentJobScreenBinding.inflate(inflater, container, false)
+        binding = FragmentJobScreenBinding.inflate(inflater, container, false)
+
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
+
         val fragment = this
         val jobPagerAdapter = JobPagerAdapter(fragment)
-        jobBinding?.apply {
+
+        binding?.apply {
+
+            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
 
             jobScreenViewPager.adapter = jobPagerAdapter
             TabLayoutMediator(
@@ -59,8 +73,7 @@ class JobScreenFragment : Fragment() {
 
                     } else {
 
-
-                         }
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -73,9 +86,19 @@ class JobScreenFragment : Fragment() {
             })
         }
 
+        jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner){
+            if (it){
+                val action = JobScreenFragmentDirections.
+            }
+        }
 
 
-        return jobBinding?.root
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

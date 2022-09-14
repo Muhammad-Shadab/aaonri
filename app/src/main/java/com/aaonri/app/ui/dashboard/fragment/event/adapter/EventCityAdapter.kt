@@ -1,13 +1,10 @@
-package com.aaonri.app.data.event.adapter
+package com.aaonri.app.ui.dashboard.fragment.event.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.databinding.CategoryCardItemBinding
 
 class EventCityAdapter(private var selectedCategory: ((value: String) -> Unit)) :

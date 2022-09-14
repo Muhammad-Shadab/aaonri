@@ -1,4 +1,4 @@
-package com.aaonri.app.data.jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

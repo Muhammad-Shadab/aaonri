@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/jobScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -323,32 +323,8 @@
         tools:layout="@layout/fragment_immigration_info_center_bottom_sheet" />
     <fragment
         android:id="@+id/jobScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.JobScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenFragment"
         android:label="fragment_job_screen"
         tools:layout="@layout/fragment_job_screen" >
-        <action
-            android:id="@+id/action_jobScreenFragment_to_allJobFragment"
-            app:destination="@id/allJobFragment" />
-        <action
-            android:id="@+id/action_jobScreenFragment_to_jobAlertsFragment"
-            app:destination="@id/jobAlertsFragment" />
-        <action
-            android:id="@+id/action_jobScreenFragment_to_myJobProfileFragment"
-            app:destination="@id/myJobProfileFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/allJobFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.tabs.AllJobFragment"
-        android:label="fragment_all_job"
-        tools:layout="@layout/fragment_all_job" />
-    <fragment
-        android:id="@+id/jobAlertsFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.tabs.JobAlertsFragment"
-        android:label="fragment_job_alerts"
-        tools:layout="@layout/fragment_job_alerts" />
-    <fragment
-        android:id="@+id/myJobProfileFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.tabs.MyJobProfileFragment"
-        android:label="fragment_my_job_profile"
-        tools:layout="@layout/fragment_my_job_profile" />
 </navigation>
