@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.ClassifiedPagerAdapter
+import com.aaonri.app.data.jobs.JobPagerAdapter
 import com.aaonri.app.databinding.FragmentJobScreenBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
 import com.aaonri.app.utils.SystemServiceUtil
@@ -26,7 +28,11 @@ class JobScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         jobBinding = FragmentJobScreenBinding.inflate(inflater, container, false)
+        val fragment = this
+        val jobPagerAdapter = JobPagerAdapter(fragment)
         jobBinding?.apply {
+
+            jobScreenViewPager.adapter = jobPagerAdapter
             TabLayoutMediator(
                 jobsScreenTabLayout,
                 jobScreenViewPager

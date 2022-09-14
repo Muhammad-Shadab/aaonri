@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.fragment.JobDetailsFragment">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
-        app:cardCornerRadius="@dimen/_11sdp"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        app:cardElevation="6dp"
-        android:outlineAmbientShadowColor="#291c2839"
-        app:cardBackgroundColor="@color/blueBtnColor"
-        android:layout_marginStart="@dimen/_12sdp"
         android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/registrationText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/registrationText"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="31dp" >
+        tools:layout_editor_absoluteY="31dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
-            android:src="@drawable/navigate_back"
-            />
+            android:src="@drawable/navigate_back" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -54,12 +54,387 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_26sdp"
+        android:paddingVertical="@dimen/_26sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/namell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/jobNametv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:includeFontPadding="false"
+                        android:text="Operations Anlyst"
+                        android:textColor="@color/jobtxtcolor"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:src="@drawable/hot" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/companyNameTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:includeFontPadding="false"
+                    android:text="Wipro"
+                    android:textColor="@color/jobtxtcolor" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:background="@drawable/location_with_circle_bg" />
+
+                        <TextView
+                            android:id="@+id/addressTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="New York, USA"
+                            android:textColor="@color/graytxtcolor"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:background="@drawable/dollor_with_circle_bg" />
+
+                        <TextView
+                            android:id="@+id/moneyTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="$150,000"
+                            android:textColor="@color/graytxtcolor"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:background="@drawable/job_icon_with_circle_bg" />
+
+                        <TextView
+                            android:id="@+id/experienceTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="3 to 5 year"
+                            android:textColor="@color/graytxtcolor"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:background="@drawable/clock_with_circle_bg" />
+
+                        <TextView
+                            android:id="@+id/jobCategoriesTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:gravity="center"
+                            android:text="Full Time"
+                            android:textColor="@color/graytxtcolor"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="#802f6ca8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="@dimen/_7sdp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:includeFontPadding="false"
+                            android:text="Posted: "
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/dateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Mar 12,2022"
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/point_icon" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:drawablePadding="4dp"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:includeFontPadding="false"
+                            android:text="Job Views: "
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/jobViewTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="25"
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/point_icon" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="4dp"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:includeFontPadding="false"
+                            android:text="Job Application: "
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/jobApplicationTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="251"
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#802f6ca8" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_19sdp"
+                    android:fontFamily="@font/sf_pro_medium"
+                    android:includeFontPadding="false"
+                    android:text="Job Description"
+                    android:textSize="14sp"
+                    android:textColor="@color/blackColor1" />
+                <TextView
+                    android:id="@+id/jobDescTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:includeFontPadding="false"
+                    android:text="Minimum 2-5 years experience in a deeply technical
+role in a financial (banking) services firm, or in product
+development or professional services organization
+in a technology company that serves the financial
+service market is required. Knowledge and skills"
+                    android:textSize="14sp"
+                    android:textColor="@color/light_black_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/sf_pro_medium"
+                    android:includeFontPadding="false"
+                    android:text="Key Skills"
+                    android:textSize="14sp"
+                    android:textColor="@color/blackColor1" />
+                <TextView
+                    android:id="@+id/jobKeySkillsTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:includeFontPadding="false"
+                    android:text="Business Analysis • Business Systems Analyst
+• Requirement Analyst • Technical Analyst • System Analyst
+• SBA • BSA • Document Gather • Mutual Fund • User
+Acceptance • Capital markets • Derivatives • Equities
+• Legal Compliance (Department experience is must)"
+                    android:textSize="14sp"
+                    android:textColor="@color/light_black_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/sf_pro_medium"
+                    android:includeFontPadding="false"
+                    android:text="Key Skills"
+                    android:textSize="14sp"
+                    android:textColor="@color/blackColor1" />
+                <TextView
+                    android:id="@+id/jobRoleTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:includeFontPadding="false"
+                    android:text="Business Analysis • Business Systems Analyst
+• Requirement Analyst • Technical Analyst • System Analyst
+• SBA • BSA • Document Gather • Mutual Fund • User
+Acceptance • Capital markets • Derivatives • Equities
+• Legal Compliance (Department experience is must)"
+                    android:textSize="14sp"
+                    android:textColor="@color/light_black_color" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/applyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_26sdp"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="Apply Now"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
