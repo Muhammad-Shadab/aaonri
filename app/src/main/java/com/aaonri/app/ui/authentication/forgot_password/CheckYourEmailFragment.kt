@@ -1,18 +1,17 @@
 package com.aaonri.app.ui.authentication.forgot_password
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.text.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -24,12 +23,12 @@ import com.google.android.material.snackbar.Snackbar
 
 
 class CheckYourEmailFragment : Fragment() {
-    var checkYourEmailBinding: FragmentCheckYourEmailBinding? = null
+    var binding: FragmentCheckYourEmailBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        checkYourEmailBinding = FragmentCheckYourEmailBinding.inflate(inflater, container, false)
+        binding = FragmentCheckYourEmailBinding.inflate(inflater, container, false)
 
 
         val text =
@@ -55,11 +54,11 @@ class CheckYourEmailFragment : Fragment() {
         ss.setSpan(UnderlineSpan(), 58, 78, 0)
         ss.setSpan(clickableSpan1, 54, 80, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        checkYourEmailBinding?.didYouReceive?.text = ss
-        checkYourEmailBinding?.didYouReceive?.movementMethod = LinkMovementMethod.getInstance()
+        binding?.didYouReceive?.text = ss
+        binding?.didYouReceive?.movementMethod = LinkMovementMethod.getInstance()
 
 
-        checkYourEmailBinding?.apply {
+        binding?.apply {
 
             skipForNowTv.setOnClickListener {
                 findNavController().navigate(R.id.action_checkYourEmailFragment_to_loginFragment)
@@ -90,7 +89,12 @@ class CheckYourEmailFragment : Fragment() {
                 }
             })
 
-        return checkYourEmailBinding?.root
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

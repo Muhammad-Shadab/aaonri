@@ -125,11 +125,6 @@ class ServicesItemAdapter(
                     if (data[position].active) {
                         data[position].isSelected = !data[position].isSelected
                         notifyDataSetChanged()
-                        if (data[position].id == 17 && data[position].isSelected) {
-                            isJobSelected(true)
-                        } else {
-                            isJobSelected(false)
-                        }
                     } else {
                         Snackbar.make(
                             itemView,
@@ -139,6 +134,12 @@ class ServicesItemAdapter(
                     }
                     selectedServices(selectedCategoriesList)
                 }
+
+                /*if (data[position].id == 17 && data[position].isSelected) {
+                    isJobSelected(true)
+                } else {
+                    isJobSelected(false)
+                }*/
 
                 if (data[position].active) {
                     if (data[position].isSelected) {

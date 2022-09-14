@@ -27,9 +27,9 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    var binding: FragmentSelectCountryBottomBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
-    var countryBottomBinding: FragmentSelectCountryBottomBinding? = null
     var countryAdapter: CountryAdapter? = null
     var tempArrayList = ArrayList<CountriesResponseItem>()
     val args: SelectCountryBottomFragmentArgs by navArgs()
@@ -39,7 +39,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        countryBottomBinding =
+        binding =
             FragmentSelectCountryBottomBinding.inflate(inflater, container, false)
 
         getCountries()
@@ -62,7 +62,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             findNavController().navigateUp()
         }
 
-        countryBottomBinding?.apply {
+        binding?.apply {
 
             closeCountryBtn.setOnClickListener {
                 dismiss()
@@ -83,7 +83,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             countriesRv.adapter = countryAdapter
         }
 
-        return countryBottomBinding?.root
+        return binding?.root
     }
 
     private fun getCountries() {
@@ -125,7 +125,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun searchCountry(data: CountriesResponse?) {
-        countryBottomBinding?.countrySearchView?.setOnQueryTextListener(object :
+        binding?.countrySearchView?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
@@ -142,7 +142,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
                         }
                     }
                     countryAdapter?.setData(tempArrayList)
-                    countryBottomBinding?.countriesRv?.adapter?.notifyDataSetChanged()
+                    binding?.countriesRv?.adapter?.notifyDataSetChanged()
                 } else {
                     tempArrayList.clear()
                     data?.let { tempArrayList.addAll(it) }
@@ -152,5 +152,9 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
                 return false
             }
         })
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

@@ -343,8 +343,6 @@ class HomeScreenFragment : Fragment() {
 
         homeInterestsServiceAdapter?.setSelectedTab(classifiedViewModel.selectedServiceRow)
 
-        Toast.makeText(context, "$profile", Toast.LENGTH_SHORT).show()
-
         interestAdapter = InterestAdapter {
             navigateToTheSpecificScreen(it.interestDesc)
         }

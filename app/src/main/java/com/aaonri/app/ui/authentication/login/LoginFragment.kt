@@ -41,8 +41,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
+    var binding: FragmentLoginBinding? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
-    var introBinding: FragmentLoginBinding? = null
     var isEmailValid = false
     var isPasswordValid = false
 
@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        introBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.gmail_client_id))
@@ -66,7 +66,7 @@ class LoginFragment : Fragment() {
         mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
         firebaseAuth = FirebaseAuth.getInstance()
         callbackManager = CallbackManager.Factory.create()
-        introBinding?.apply {
+        binding?.apply {
 
             forgotPassTv.setOnClickListener {
                 findNavController().navigate(R.id.action_loginFragment_to_resetPassword)
@@ -130,7 +130,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        introBinding?.loginEmailEt?.addTextChangedListener { editable ->
+        binding?.loginEmailEt?.addTextChangedListener { editable ->
             editable?.let {
                 if (editable.toString().replace(" ", "").trim()
                         .isNotEmpty() && editable.toString().length > 8
@@ -141,7 +141,7 @@ class LoginFragment : Fragment() {
                     } else {
                         isEmailValid = false
                         //introBinding?.emailValidationTv?.visibility = View.VISIBLE
-                        introBinding?.emailValidationTv?.text =
+                        binding?.emailValidationTv?.text =
                             "Please enter valid email"
                     }
                 } else {
@@ -151,7 +151,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        introBinding?.loginPasswordEt?.addTextChangedListener { editable ->
+        binding?.loginPasswordEt?.addTextChangedListener { editable ->
             editable?.let {
                 if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
@@ -159,7 +159,7 @@ class LoginFragment : Fragment() {
                         //introBinding?.passwordValidationTv?.visibility = View.GONE
                     } else {
                         isPasswordValid = false
-                        introBinding?.passwordValidationTv?.text =
+                        binding?.passwordValidationTv?.text =
                             "Please enter valid password"
                         //introBinding?.passwordValidationTv?.visibility = View.VISIBLE
                     }
@@ -173,10 +173,10 @@ class LoginFragment : Fragment() {
         registrationViewModel.loginData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.userName.equals("failed")) {
                         activity?.let { it1 ->
                             Snackbar.make(
@@ -234,7 +234,7 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -283,10 +283,10 @@ class LoginFragment : Fragment() {
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.status == "true") {
                         context?.let {
                             PreferenceManager<String>(
@@ -308,7 +308,7 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -360,11 +360,11 @@ class LoginFragment : Fragment() {
         }
 
 
-        return introBinding?.root
+        return binding?.root
     }
 
     private fun signInFacebook() {
-        introBinding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+        binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
@@ -373,7 +373,7 @@ class LoginFragment : Fragment() {
 
                 override fun onCancel() {
                     //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
 
                 }
 
@@ -382,7 +382,7 @@ class LoginFragment : Fragment() {
                     mGoogleSignInClient.signOut()
                     LoginManager.getInstance().logOut()
                     Toast.makeText(context, "${error.message}", Toast.LENGTH_SHORT).show()
-                    introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
                 }
             })
     }
@@ -392,10 +392,10 @@ class LoginFragment : Fragment() {
         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
 
-            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+            binding?.progressBarCommunityBottom?.visibility = View.GONE
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
-            introBinding?.progressBarCommunityBottom?.visibility = View.GONE
+            binding?.progressBarCommunityBottom?.visibility = View.GONE
 
             val email = it.user?.email
             val name = it.user?.displayName
@@ -515,8 +515,13 @@ class LoginFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        introBinding?.loginEmailEt?.setText("")
-        introBinding?.loginPasswordEt?.setText("")
+        binding?.loginEmailEt?.setText("")
+        binding?.loginPasswordEt?.setText("")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

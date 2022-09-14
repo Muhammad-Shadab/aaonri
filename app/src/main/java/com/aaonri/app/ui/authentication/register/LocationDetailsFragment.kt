@@ -2,15 +2,11 @@ package com.aaonri.app.ui.authentication.register
 
 import com.aaonri.app.R
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -33,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LocationDetailsFragment : Fragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
-    var locationDetailsBinding: FragmentLocationDetailsBinding? = null
+    var binding: FragmentLocationDetailsBinding? = null
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
     var isCommunitySelected = false
@@ -44,7 +40,7 @@ class LocationDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        locationDetailsBinding = FragmentLocationDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentLocationDetailsBinding.inflate(inflater, container, false)
         getCommunities()
 
         selectedCommunityAdapter = SelectedCommunityAdapter()
@@ -59,7 +55,7 @@ class LocationDetailsFragment : Fragment() {
                 countryCode = "US"
             )
         }*/
-        locationDetailsBinding?.apply {
+        binding?.apply {
               if(authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true)
               {
                   stateLocationDetails.setText(authCommonViewModel.originLocationDetails["originState"])
@@ -115,16 +111,16 @@ class LocationDetailsFragment : Fragment() {
 
         authCommonViewModel.selectedCountryLocationScreen?.observe(viewLifecycleOwner) { triple ->
             isCountrySelected = true
-            locationDetailsBinding?.selectCountryLocation?.text = triple.first
+            binding?.selectCountryLocation?.text = triple.first
 
 
             if(triple.second.isEmpty())
             {
-                locationDetailsBinding?.countryFlagIcon?.visibility = View.GONE
+                binding?.countryFlagIcon?.visibility = View.GONE
             }
             else{
-                locationDetailsBinding?.countryFlagIcon?.load(triple.second)
-                locationDetailsBinding?.countryFlagIcon?.visibility = View.VISIBLE
+                binding?.countryFlagIcon?.load(triple.second)
+                binding?.countryFlagIcon?.visibility = View.VISIBLE
             }
         }
 
@@ -132,16 +128,16 @@ class LocationDetailsFragment : Fragment() {
             if (it.isNotEmpty()) {
                 isCommunitySelected = true
                 selectedCommunityAdapter
-                locationDetailsBinding?.selectedCommunitySizeTv?.text =
+                binding?.selectedCommunitySizeTv?.text =
                     "Your selected ${if(it.size<=1)"community" else "communities" } (${it.size})"
-                locationDetailsBinding?.selectedCardView?.visibility = View.VISIBLE
+                binding?.selectedCardView?.visibility = View.VISIBLE
                 selectedCommunityAdapter!!.setData(it)
-                locationDetailsBinding?.selectCommunityEt?.visibility = View.GONE
-                locationDetailsBinding?.selectMoreCommunityIv?.visibility = View.VISIBLE
+                binding?.selectCommunityEt?.visibility = View.GONE
+                binding?.selectMoreCommunityIv?.visibility = View.VISIBLE
             } else {
                 isCommunitySelected = false
-                locationDetailsBinding?.selectCommunityEt?.visibility = View.VISIBLE
-                locationDetailsBinding?.selectedCardView?.visibility = View.GONE
+                binding?.selectCommunityEt?.visibility = View.VISIBLE
+                binding?.selectedCardView?.visibility = View.GONE
             }
         }
 
@@ -154,7 +150,7 @@ class LocationDetailsFragment : Fragment() {
                     authCommonViewModel.setSelectedCountryLocationScreen("","","")*/
                 }
             })
-        return locationDetailsBinding?.root
+        return binding?.root
     }
 
     private fun getCommunities() {
@@ -197,5 +193,9 @@ class LocationDetailsFragment : Fragment() {
                 }
             }
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

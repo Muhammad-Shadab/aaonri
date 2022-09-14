@@ -18,13 +18,13 @@ import kotlinx.coroutines.launch
 
 
 class SplashScreenFragment : Fragment() {
-    var splashScreenBinding: FragmentSplashScreenBinding? = null
+    var binding: FragmentSplashScreenBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        splashScreenBinding =
+        binding =
             FragmentSplashScreenBinding.inflate(inflater, container, false)
 
 
@@ -43,6 +43,11 @@ class SplashScreenFragment : Fragment() {
             }
         }
 
-        return splashScreenBinding?.root
+        return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.authentication.forgot_password
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,17 +21,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ResetMyPasswordFragment : Fragment() {
+    var binding: FragmentResetMyPasswordBinding? = null
     val forgotPassViewModel: ForgotPasswordViewModel by viewModels()
-    var resetPasswordBinding: FragmentResetMyPasswordBinding? = null
     var isEmailValid = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        resetPasswordBinding = FragmentResetMyPasswordBinding.inflate(inflater, container, false)
+        binding = FragmentResetMyPasswordBinding.inflate(inflater, container, false)
 
-        resetPasswordBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -50,7 +49,7 @@ class ResetMyPasswordFragment : Fragment() {
                         emailValidationTv.visibility = View.GONE
                         isEmailValid = true
                     } else {
-                        resetPasswordBinding?.emailValidationTv?.text = "Please enter valid email"
+                        binding?.emailValidationTv?.text = "Please enter valid email"
                         isEmailValid = false
                         emailValidationTv.visibility = View.VISIBLE
                     }
@@ -81,26 +80,26 @@ class ResetMyPasswordFragment : Fragment() {
         forgotPassViewModel.forgotPasswordData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    resetPasswordBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     if (response.data?.status?.equals("false") == true) {
                         isEmailValid = false
-                        resetPasswordBinding?.emailValidationTv?.visibility = View.VISIBLE
-                        resetPasswordBinding?.emailValidationTv?.text =
+                        binding?.emailValidationTv?.visibility = View.VISIBLE
+                        binding?.emailValidationTv?.text =
                             response.data.message.toString()
-                        resetPasswordBinding?.emailValidationTv?.visibility = View.VISIBLE
+                        binding?.emailValidationTv?.visibility = View.VISIBLE
                     } else {
                         isEmailValid = true
-                        resetPasswordBinding?.emailValidationTv?.visibility = View.GONE
+                        binding?.emailValidationTv?.visibility = View.GONE
                         findNavController().navigate(R.id.action_resetPassword_to_checkYourEmailFragment)
-                        resetPasswordBinding?.emailValidationTv?.visibility = View.GONE
+                        binding?.emailValidationTv?.visibility = View.GONE
                         forgotPassViewModel.forgotPasswordData.value = null
                     }
-                    resetPasswordBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    resetPasswordBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -116,6 +115,10 @@ class ResetMyPasswordFragment : Fragment() {
                 }
             })
 
-        return resetPasswordBinding?.root
+        return binding?.root
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

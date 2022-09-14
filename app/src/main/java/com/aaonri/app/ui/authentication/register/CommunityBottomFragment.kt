@@ -28,10 +28,10 @@ import java.util.*
 @AndroidEntryPoint
 class CommunityBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    var binding: FragmentCommunityBottomBinding? = null
     val registrationViewModel: RegistrationViewModel by viewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     private var communityItemAdapter: CommunityItemAdapter? = null
-    var communityBottomBinding: FragmentCommunityBottomBinding? = null
     var selectedCommunitiesSize = 0
     var communityAdapter: CommunityItemAdapter? = null
     var tempArrayList = mutableListOf<Community>()
@@ -43,17 +43,17 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     ): View? {
         isCancelable = false
 
-        communityBottomBinding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
+        binding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
-                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
-                communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${communitiesList.size + selectedCommunitiesSize} ${if((communitiesList.size + selectedCommunitiesSize)<=1)"community" else "communities" }"
+                binding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+                binding?.numberOfSelectedCommunity?.text =
+                    "You have selected ${communitiesList.size + selectedCommunitiesSize} ${if ((communitiesList.size + selectedCommunitiesSize) <= 1) "community" else "communities"}"
             } else {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
-                communityBottomBinding?.numberOfSelectedCommunity?.text =
+                binding?.numberOfSelectedCommunity?.text =
                     "You have selected 0 community"
             }
         }
@@ -61,18 +61,18 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { selectedCommunitiesList ->
             selectedCommunitiesSize = selectedCommunitiesList.size
             if (selectedCommunitiesList.size == 0) {
-                communityBottomBinding?.numberOfSelectedCommunity?.text =
+                binding?.numberOfSelectedCommunity?.text =
                     "You have selected 0 community"
             } else {
-                communityBottomBinding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
-                communityBottomBinding?.numberOfSelectedCommunity?.text =
-                    "You have selected ${selectedCommunitiesList.size} ${if(selectedCommunitiesList.size<=1)"community" else "communities" }"
+                binding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
+                binding?.numberOfSelectedCommunity?.text =
+                    "You have selected ${selectedCommunitiesList.size} ${if (selectedCommunitiesList.size <= 1) "community" else "communities"}"
                 communityItemAdapter?.setDataSavedList(selectedCommunitiesList)
             }
         }
 
 
-        communityBottomBinding?.apply {
+        binding?.apply {
             closeCommunityBtn.setOnClickListener {
                 dismiss()
             }
@@ -87,7 +87,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             rvBottomFragment.adapter = communityItemAdapter
         }
 
-        return communityBottomBinding?.root
+        return binding?.root
     }
 
     private fun getCommunities() {
@@ -120,7 +120,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun searchCommunity(data: List<Community>) {
-        communityBottomBinding?.searchView?.addTextChangedListener { editable ->
+        binding?.searchView?.addTextChangedListener { editable ->
             tempArrayList.clear()
             val searchText = editable.toString().lowercase(Locale.getDefault())
             if (searchText.isNotEmpty()) {
@@ -130,7 +130,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                     }
                 }
                 communityItemAdapter?.setData(tempArrayList)
-                communityBottomBinding?.rvBottomFragment?.adapter?.notifyDataSetChanged()
+                binding?.rvBottomFragment?.adapter?.notifyDataSetChanged()
             } else {
                 tempArrayList.clear()
                 data.let { tempArrayList.addAll(it) }
@@ -160,4 +160,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 }

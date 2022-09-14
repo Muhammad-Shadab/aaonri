@@ -18,14 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
-    var registrationBinding: ActivityRegistrationBinding? = null
+    var binding: ActivityRegistrationBinding? = null
     val authCommonViewModel: AuthCommonViewModel by viewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registrationBinding = ActivityRegistrationBinding.inflate(layoutInflater)
-        setContentView(registrationBinding?.root)
+        binding = ActivityRegistrationBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         // hiding the status bar and making it transparent
         supportActionBar?.hide()
@@ -67,7 +67,7 @@ class RegistrationActivity : BaseActivity() {
             }
         }
 
-        registrationBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 onBackPressed()
@@ -97,5 +97,9 @@ class RegistrationActivity : BaseActivity() {
                 stepView.done(it)
             }
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

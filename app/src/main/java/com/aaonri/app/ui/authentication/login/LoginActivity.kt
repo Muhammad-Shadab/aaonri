@@ -6,19 +6,17 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import com.aaonri.app.base.BaseActivity
-import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.ActivityAuthBinding
 import java.security.MessageDigest
 
 
 class LoginActivity : BaseActivity() {
-    var authBinding: ActivityAuthBinding? = null
+    var binding: ActivityAuthBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authBinding = ActivityAuthBinding.inflate(layoutInflater)
-        setContentView(authBinding?.root)
+        binding = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         printKeyHash()
         // hiding the status bar and making it transparent
@@ -44,5 +42,9 @@ class LoginActivity : BaseActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
 
 }

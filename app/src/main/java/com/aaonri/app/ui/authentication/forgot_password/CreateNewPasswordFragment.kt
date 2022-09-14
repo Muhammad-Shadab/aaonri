@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.authentication.forgot_password
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.model.NewPasswordRequest
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
@@ -26,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateNewPasswordFragment : Fragment() {
-    var createNewPasswordBinding: FragmentCreateNewPasswordBinding? = null
+    var binding: FragmentCreateNewPasswordBinding? = null
     val forgotPasswordViewModel: ForgotPasswordViewModel by viewModels()
     val args: CreateNewPasswordFragmentArgs by navArgs()
     var isPasswordValid = false
@@ -36,10 +34,10 @@ class CreateNewPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        createNewPasswordBinding =
+        binding =
             FragmentCreateNewPasswordBinding.inflate(inflater, container, false)
 
-        createNewPasswordBinding?.apply {
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -67,41 +65,41 @@ class CreateNewPasswordFragment : Fragment() {
             }
         }
 
-        createNewPasswordBinding?.newPasswordEt1?.addTextChangedListener { editable ->
+        binding?.newPasswordEt1?.addTextChangedListener { editable ->
             editable?.let {
                 if (it.toString().isNotEmpty() && it.toString().length >= 8) {
                     if (Validator.passwordValidation(it.toString())) {
                         isPasswordValid = true
-                        createNewPasswordBinding?.passwordValidationTv1?.visibility = View.GONE
+                        binding?.passwordValidationTv1?.visibility = View.GONE
                     } else {
                         isPasswordValid = false
-                        createNewPasswordBinding?.passwordValidationTv1?.text =
+                        binding?.passwordValidationTv1?.text =
                             "Please enter valid password"
-                        createNewPasswordBinding?.passwordValidationTv1?.visibility = View.VISIBLE
+                        binding?.passwordValidationTv1?.visibility = View.VISIBLE
                     }
                 } else {
                     isPasswordValid = false
-                    createNewPasswordBinding?.passwordValidationTv1?.visibility = View.GONE
+                    binding?.passwordValidationTv1?.visibility = View.GONE
                 }
             }
         }
 
-        createNewPasswordBinding?.newPasswordEt2?.addTextChangedListener { editable ->
+        binding?.newPasswordEt2?.addTextChangedListener { editable ->
 
             editable?.let {
-                if (it.isNotEmpty() && createNewPasswordBinding?.newPasswordEt1?.text.toString().length <= it.length) {
-                    if (it.toString() == createNewPasswordBinding?.newPasswordEt1?.text.toString()) {
+                if (it.isNotEmpty() && binding?.newPasswordEt1?.text.toString().length <= it.length) {
+                    if (it.toString() == binding?.newPasswordEt1?.text.toString()) {
                         isPasswordValid = true
-                        createNewPasswordBinding?.passwordValidationTv2?.visibility = View.GONE
+                        binding?.passwordValidationTv2?.visibility = View.GONE
                     } else {
                         isPasswordValid = false
-                        createNewPasswordBinding?.passwordValidationTv2?.text =
+                        binding?.passwordValidationTv2?.text =
                             "Password did not matched"
-                        createNewPasswordBinding?.passwordValidationTv2?.visibility = View.VISIBLE
+                        binding?.passwordValidationTv2?.visibility = View.VISIBLE
                     }
                 } else {
                     isPasswordValid = false
-                    createNewPasswordBinding?.passwordValidationTv2?.visibility = View.GONE
+                    binding?.passwordValidationTv2?.visibility = View.GONE
                 }
             }
         }
@@ -109,14 +107,14 @@ class CreateNewPasswordFragment : Fragment() {
         forgotPasswordViewModel.newPasswordData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    createNewPasswordBinding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    createNewPasswordBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     findNavController().navigate(R.id.action_createNewPasswordFragment_to_passwordResetSuccessBottom)
                 }
                 is Resource.Error -> {
-                    createNewPasswordBinding?.progressBar?.visibility = View.GONE
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -133,7 +131,10 @@ class CreateNewPasswordFragment : Fragment() {
                 }
             })
 
-        return createNewPasswordBinding?.root
-
+        return binding?.root
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
