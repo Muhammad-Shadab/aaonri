@@ -84,14 +84,26 @@ class JobScreenFragment : Fragment() {
                     return
                 }
             })
+            jobScreenViewPager.isUserInputEnabled = false
         }
 
-        jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner){
-            if (it){
-                val action = JobScreenFragmentDirections.
+        jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
+            if (jobId != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId)
+                findNavController().navigate(action)
+                jobSeekerViewModel.navigateAllJobToDetailsJobScreen.postValue(null)
             }
         }
 
+        jobSeekerViewModel.navigateToUploadJobProfileScreen.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment()
+                findNavController().navigate(action)
+                jobSeekerViewModel.navigateToUploadJobProfileScreen.postValue(null)
+            }
+        }
 
         return binding?.root
     }

@@ -20,6 +20,9 @@ interface JobSeekerApi {
     @GET("/api/v1/jobs/findAllActiveJobApplicability")
     suspend fun getAllActiveJobApplicability(): Response<AllActiveJobApplicabilityResponse>
 
+    @GET("/api/v1/jobs/findAllActiveAvailability")
+    suspend fun getAllActiveAvailability(): Response<ActiveJobAvailabilityResponse>
+
     @PUT("/api/v1/jobprofile/update/{profileId}")
     suspend fun updateJobProfile(
         @Body addJobProfileRequest: AddJobProfileRequest
@@ -34,5 +37,10 @@ interface JobSeekerApi {
     suspend fun applyJob(
         @Body applyJobRequest: ApplyJobRequest
     ): Response<ApplyJobResponse>
+
+    @POST("/api/v1/jobs/saveJobView")
+    suspend fun saveJobView(
+        @Body saveJobViewRequest: SaveJobViewRequest
+    ): Response<SaveJobViewRequest>
 
 }

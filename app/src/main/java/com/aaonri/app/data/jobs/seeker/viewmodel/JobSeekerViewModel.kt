@@ -17,6 +17,11 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val allActiveJobsData: MutableLiveData<Resource<AllJobsResponse>> = MutableLiveData()
 
+    val allActiveAvailabilityData: MutableLiveData<Resource<ActiveJobAvailabilityResponse>> =
+        MutableLiveData()
+
+    val jobDetailData: MutableLiveData<Resource<JobDetailResponse>> = MutableLiveData()
+
     val allExperienceLevelData: MutableLiveData<Resource<ExperienceLevelResponse>> =
         MutableLiveData()
 
@@ -29,7 +34,11 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val applyJobData: MutableLiveData<Resource<ApplyJobResponse>> = MutableLiveData()
 
-    val navigateAllJobToDetailsJobScreen: MutableLiveData<Boolean> = MutableLiveData()
+    val saveJobViewData: MutableLiveData<Resource<SaveJobViewRequest>> = MutableLiveData()
+
+    val navigateAllJobToDetailsJobScreen: MutableLiveData<Int> = MutableLiveData()
+
+    val navigateToUploadJobProfileScreen: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
@@ -45,6 +54,37 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         }
         return Resource.Error(response.message())
     }
+
+    fun getJobDetails(jobId: Int) = viewModelScope.launch {
+        jobDetailData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.getJobDetails(jobId)
+        jobDetailData.postValue(handleJobDetailResponse(response))
+    }
+
+    private fun handleJobDetailResponse(response: Response<JobDetailResponse>): Resource<JobDetailResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getAllActiveAvailability() = viewModelScope.launch {
+        allActiveAvailabilityData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.getAllActiveAvailability()
+        allActiveAvailabilityData.postValue(handleAllActiveAvailabilityResponse(response))
+    }
+
+    private fun handleAllActiveAvailabilityResponse(response: Response<ActiveJobAvailabilityResponse>): Resource<ActiveJobAvailabilityResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 
     fun getAllActiveExperienceLevel() = viewModelScope.launch {
         allExperienceLevelData.postValue(Resource.Loading())
@@ -112,8 +152,27 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         return Resource.Error(response.message())
     }
 
-    fun setNavigateAllJobToDetailsJobScreen(value: Boolean) {
+    fun saveJobView(saveJobViewRequest: SaveJobViewRequest) = viewModelScope.launch {
+        saveJobViewData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.saveJobView(saveJobViewRequest)
+        saveJobViewData.postValue(handleSaveJobViewResponse(response))
+    }
+
+    private fun handleSaveJobViewResponse(response: Response<SaveJobViewRequest>): Resource<SaveJobViewRequest>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun setNavigateAllJobToDetailsJobScreen(value: Int) {
         navigateAllJobToDetailsJobScreen.postValue(value)
+    }
+
+    fun setNavigateToUploadJobProfileScreen(value: Boolean) {
+        navigateToUploadJobProfileScreen.postValue(value)
     }
 
 }

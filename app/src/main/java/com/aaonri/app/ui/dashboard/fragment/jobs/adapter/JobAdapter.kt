@@ -6,8 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.seeker.model.ActiveJobAvailabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
+import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
 import com.aaonri.app.databinding.AllPostedJobsItemBinding
+import com.aaonri.app.databinding.CategoryCardItem1Binding
+import com.aaonri.app.databinding.CategoryCardItemBinding
+import com.aaonri.app.databinding.CategoryItem2Binding
 
 class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
 
@@ -24,6 +30,28 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
                     false
                 )
             )
+            R.layout.category_card_item -> JobViewHolders.ExperienceCategoriesViewHolder(
+                CategoryCardItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            R.layout.category_card_item1 -> JobViewHolders.JobApplicabilityViewHolder(
+                CategoryCardItem1Binding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            R.layout.category_item2 -> JobViewHolders.JobAvailabilityViewHolder(
+                CategoryItem2Binding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
             else -> throw IllegalArgumentException("Invalid ViewType")
         }
     }
@@ -34,6 +62,21 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
             is JobViewHolders.AllActiveJobsViewHolders -> {
                 if (data[position] is AllJobsResponseItem) {
                     holder.bind(data[position] as AllJobsResponseItem)
+                }
+            }
+            is JobViewHolders.ExperienceCategoriesViewHolder -> {
+                if (data[position] is ExperienceLevelResponseItem) {
+                    holder.bind(data[position] as ExperienceLevelResponseItem)
+                }
+            }
+            is JobViewHolders.JobApplicabilityViewHolder -> {
+                if (data[position] is AllActiveJobApplicabilityResponseItem) {
+                    holder.bind(data[position] as AllActiveJobApplicabilityResponseItem)
+                }
+            }
+            is JobViewHolders.JobAvailabilityViewHolder -> {
+                if (data[position] is ActiveJobAvailabilityResponseItem) {
+                    holder.bind(data[position] as ActiveJobAvailabilityResponseItem)
                 }
             }
         }
@@ -51,6 +94,9 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
     override fun getItemViewType(position: Int): Int {
         return when (data[position]) {
             is AllJobsResponseItem -> R.layout.fragment_all_job
+            is ExperienceLevelResponseItem -> R.layout.category_card_item
+            is AllActiveJobApplicabilityResponseItem -> R.layout.category_card_item1
+            is ActiveJobAvailabilityResponseItem -> R.layout.category_item2
             else -> R.layout.fragment_all_job
         }
     }

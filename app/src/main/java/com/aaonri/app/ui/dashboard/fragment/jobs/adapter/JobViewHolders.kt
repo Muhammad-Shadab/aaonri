@@ -4,8 +4,14 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.aaonri.app.data.jobs.seeker.model.ActiveJobAvailabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
+import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
 import com.aaonri.app.databinding.AllPostedJobsItemBinding
+import com.aaonri.app.databinding.CategoryCardItem1Binding
+import com.aaonri.app.databinding.CategoryCardItemBinding
+import com.aaonri.app.databinding.CategoryItem2Binding
 
 sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -34,4 +40,33 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
             }
         }
     }
+
+    class ExperienceCategoriesViewHolder(private val binding: CategoryCardItemBinding) :
+        JobViewHolders(binding) {
+        fun bind(experienceLevelResponseItem: ExperienceLevelResponseItem) {
+            binding.apply {
+                countryTv.text = experienceLevelResponseItem.experienceLevel
+            }
+        }
+    }
+
+    class JobApplicabilityViewHolder(private val binding: CategoryCardItem1Binding) :
+        JobViewHolders(binding) {
+        fun bind(allActiveJobApplicabilityResponseItem: AllActiveJobApplicabilityResponseItem) {
+            binding.apply {
+                countryTv.text = allActiveJobApplicabilityResponseItem.applicability
+            }
+        }
+    }
+
+    class JobAvailabilityViewHolder(private val binding: CategoryItem2Binding) :
+        JobViewHolders(binding) {
+        fun bind(activeJobAvailabilityResponseItem: ActiveJobAvailabilityResponseItem) {
+            binding.apply {
+                categoryTv.text = activeJobAvailabilityResponseItem.availability
+            }
+        }
+    }
+
+
 }

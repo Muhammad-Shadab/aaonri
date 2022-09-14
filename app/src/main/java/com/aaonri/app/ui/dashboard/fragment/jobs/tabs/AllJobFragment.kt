@@ -30,7 +30,7 @@ class AllJobFragment : Fragment() {
 
         jobAdapter?.itemClickListener = { view, item, position ->
             if (item is AllJobsResponseItem) {
-                jobSeekerViewModel.setNavigateAllJobToDetailsJobScreen(true)
+                jobSeekerViewModel.setNavigateAllJobToDetailsJobScreen(item.jobId)
             }
         }
 

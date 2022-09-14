@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -39,13 +38,13 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
     }
     class ImmigrationCenterCategoryViewHolder(private val binding: CategoryCardItem1Binding) :
         ImmigrationViewHolder(binding) {
-        fun bind(categoryitem: Category) {
+        fun bind(categoryItem: Category) {
             binding.apply {
-                countryTv.text = Html.fromHtml(categoryitem.title)
+                countryTv.text = Html.fromHtml(categoryItem.title)
                 root.setOnClickListener {
                     itemClickListener?.invoke(
                         it,
-                        categoryitem,
+                        categoryItem,
                         adapterPosition,
                         false,
                         false
