@@ -114,6 +114,9 @@
     <string name="login_to_view_seller_information">Login to view Seller Information</string>
     <string name="login_to_view_Advertisement">Login to explore Advertisement</string>
     <string name="tap_now"><u>Tap Now</u></string>
+    <string name="view_cover_letter"><u>View Cover Letter</u></string>
+    <string name="view_resume"><u>View Resume</u></string>
+
     <string name="dashboard_below_text">Dashboard Below Interest Area</string>
     <string name="our_ad_approval_process_text">Our Ad approval process may take upto 24 hrs. Your Ad will be available on our portal from the next day of submitting an order,From &amp; To dates reflect based upon the time taken for approval and the duration you selected.</string>
     <string name="your_advertisement_will_posted_text">Your advertisement will be posted on aaonri\nweb &amp; mobile platforms within 24 hrs after the\ncompletion of the approval process!</string>
@@ -138,6 +141,9 @@
     <string name="by_posting_an_ad_on_aaonri_advertise"><![CDATA[By posting an Ad on aaonri, I have read & agree to the Terms & Conditions above]]></string>
     <string name="see_less">\n - See Less</string>
     <string name="see_more">\n + See More</string>
+    <string name="create_your_job">Create your job alerts by filling below details\nand you can see alerts in your job alerts page in tags</string>
+    <string name="please_review_your_details">Please review your details before applying for this job you can also update your cover letter and resume.</string>
+    <string name="we_are_using_your_default">we are using your default profile resume. if you need to change another resume, please click to (x) button and upload the resume from your device</string>
 
 
     <string-array name="advertiseValidity">

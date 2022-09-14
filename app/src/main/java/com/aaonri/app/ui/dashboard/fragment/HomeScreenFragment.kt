@@ -235,7 +235,7 @@ class HomeScreenFragment : Fragment() {
                         homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         homeScreenBinding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,0f,0F,0F)
+                        homeScreenBinding?.availableServiceHorizontalRv?.margin(0F,-6F,0F,6F)
                         homeScreenBinding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         homeScreenBinding?.availableServiceHorizontalRv?.adapter = jobAdapter
@@ -631,7 +631,7 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests.startsWith("17") || interests == "Jobs") {
                 //Jobs
-
+                findNavController().navigate(R.id.action_homeScreenFragment_to_jobScreenFragment)
             } else if (interests.startsWith("22") || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)

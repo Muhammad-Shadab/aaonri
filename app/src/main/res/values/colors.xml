@@ -35,6 +35,7 @@
     <color name="selectedAdvertiseTemplateStroke">#20b8a1</color>
     <color name="orangeColor">#FFA500</color>
     <color name="redcolor">#FD1100</color>
+    <color name="blackColor1">#484848</color>
 
 
 </resources>
