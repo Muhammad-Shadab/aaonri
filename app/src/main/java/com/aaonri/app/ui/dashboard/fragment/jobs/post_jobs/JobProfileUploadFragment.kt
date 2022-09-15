@@ -56,6 +56,22 @@ class JobProfileUploadFragment : Fragment() {
         jobSeekerViewModel.getAllActiveExperienceLevel()
         jobSeekerViewModel.getAllActiveAvailability()
 
+        jobSeekerViewModel.selectedExperienceLevel.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding?.selectExperienceTv?.text = it.experienceLevel
+            }
+        }
+        jobSeekerViewModel.selectedJobApplicability.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding?.selectVisaStatusTv?.text = it.applicability
+            }
+        }
+        jobSeekerViewModel.selectedJobAvailability.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding?.selectAvailabilityTv?.text = it.availability
+            }
+        }
+
         return binding?.root
     }
 
