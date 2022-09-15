@@ -1,5 +1,6 @@
 package com.aaonri.app.data.jobs.seeker.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.aaonri.app.data.jobs.seeker.repository.JobSeekerRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -41,8 +43,14 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
     val navigateToUploadJobProfileScreen: MutableLiveData<Boolean> = MutableLiveData()
 
     val selectedExperienceLevel: MutableLiveData<ExperienceLevelResponseItem> = MutableLiveData()
-    val selectedJobApplicability: MutableLiveData<AllActiveJobApplicabilityResponseItem> = MutableLiveData()
-    val selectedJobAvailability: MutableLiveData<ActiveJobAvailabilityResponseItem> = MutableLiveData()
+    val selectedJobApplicability: MutableLiveData<AllActiveJobApplicabilityResponseItem> =
+        MutableLiveData()
+    val selectedJobAvailability: MutableLiveData<ActiveJobAvailabilityResponseItem> =
+        MutableLiveData()
+
+    val uploadResumeData: MutableLiveData<Resource<String>> = MutableLiveData()
+
+    var resumeFileUri: Uri? = null
 
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
@@ -141,6 +149,25 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         addJobProfileData.postValue(handleUpdateAndAddJobProfileResponse(response))
     }
 
+    fun uploadResume(
+        jobProfileId: Int,
+        jobProfile: Boolean,
+        file: MultipartBody.Part
+    ) = viewModelScope.launch {
+        uploadResumeData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.uploadResume(jobProfileId, jobProfile, file)
+        uploadResumeData.postValue(handleUploadResumeResponse(response))
+    }
+
+    private fun handleUploadResumeResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     fun applyJob(applyJobRequest: ApplyJobRequest) = viewModelScope.launch {
         applyJobData.postValue(Resource.Loading())
         val response = jobSeekerRepository.applyJob(applyJobRequest)
@@ -189,6 +216,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     fun setSelectedJobAvailability(value: ActiveJobAvailabilityResponseItem) {
         selectedJobAvailability.postValue(value)
+    }
+
+    fun setResumeFileUriValue(value: Uri?) {
+        resumeFileUri = value
     }
 
 }

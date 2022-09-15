@@ -1,6 +1,7 @@
 package com.aaonri.app.data.jobs.seeker.di
 
 import com.aaonri.app.data.jobs.seeker.api.JobSeekerApi
+import com.aaonri.app.data.jobs.seeker.api.UploadResumeApi
 import com.aaonri.app.data.jobs.seeker.repository.JobSeekerRepository
 import dagger.Module
 import dagger.Provides
@@ -23,8 +24,17 @@ object JobSeekerModule {
 
     @Provides
     @ViewModelScoped
+    fun provideJobSeekerUploadApi(
+        @Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder
+    ): UploadResumeApi =
+        retrofit.build().create(UploadResumeApi::class.java)
+
+
+    @Provides
+    @ViewModelScoped
     fun provideJobSeekerRepository(
-        jobSeekerApi: JobSeekerApi
-    ) = JobSeekerRepository(jobSeekerApi)
+        jobSeekerApi: JobSeekerApi,
+        uploadResumeApi: UploadResumeApi
+    ) = JobSeekerRepository(jobSeekerApi, uploadResumeApi)
 
 }

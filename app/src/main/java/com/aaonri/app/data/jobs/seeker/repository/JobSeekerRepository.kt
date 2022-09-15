@@ -1,12 +1,17 @@
 package com.aaonri.app.data.jobs.seeker.repository
 
 import com.aaonri.app.data.jobs.seeker.api.JobSeekerApi
+import com.aaonri.app.data.jobs.seeker.api.UploadResumeApi
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.model.SaveJobViewRequest
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class JobSeekerRepository @Inject constructor(private val jobSeekerApi: JobSeekerApi) {
+class JobSeekerRepository @Inject constructor(
+    private val jobSeekerApi: JobSeekerApi,
+    private val uploadResumeApi: UploadResumeApi
+) {
 
     suspend fun getAllActiveJobs() = jobSeekerApi.getAllActiveJobs()
 
@@ -23,6 +28,12 @@ class JobSeekerRepository @Inject constructor(private val jobSeekerApi: JobSeeke
 
     suspend fun addJobProfile(addJobProfileRequest: AddJobProfileRequest) =
         jobSeekerApi.addJobProfile(addJobProfileRequest)
+
+    suspend fun uploadResume(
+        jobProfileId: Int,
+        jobProfile: Boolean,
+        file: MultipartBody.Part
+    ) = uploadResumeApi.uploadResume(jobProfileId, jobProfile, file)
 
     suspend fun applyJob(applyJobRequest: ApplyJobRequest) = jobSeekerApi.applyJob(applyJobRequest)
 

@@ -139,7 +139,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:hint="Contact Email Id*"
-                    android:inputType="textCapSentences"
+                    android:inputType="textEmailAddress"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -158,8 +158,9 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:hint="Phone No*"
-                    android:inputType="textCapSentences"
+                    android:inputType="phone"
                     android:lines="1"
+                    android:maxLength="10"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_6sdp"
@@ -285,6 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/dotted_ractangle_bg"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -344,7 +346,7 @@
                             android:fontFamily="@font/sf_pro_regular"
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
-                            android:maxLength="10"
+                            android:maxLength="16"
                             android:maxLines="1"
                             android:text=""
                             android:textColor="@color/white"
@@ -381,4 +383,15 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

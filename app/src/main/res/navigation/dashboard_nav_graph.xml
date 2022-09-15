@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/jobScreenFragment">
+    app:startDestination="@id/jobProfileUploadFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -352,6 +352,9 @@
         <action
             android:id="@+id/action_jobProfileUploadFragment_to_jobGenericBottomSheet"
             app:destination="@id/jobGenericBottomSheet" />
+        <action
+            android:id="@+id/action_jobProfileUploadFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
     </fragment>
     <dialog
         android:id="@+id/jobGenericBottomSheet"
@@ -360,6 +363,15 @@
         tools:layout="@layout/fragment_job_generic_bottom_sheet">
         <argument
             android:name="selectionName"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/jobProfileUploadSuccessFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobProfileUploadSuccessFragment"
+        android:label="fragment_job_profile_upload_success"
+        tools:layout="@layout/fragment_job_profile_upload_success" >
+        <argument
+            android:name="navigatingFrom"
             app:argType="string" />
     </dialog>
 </navigation>
