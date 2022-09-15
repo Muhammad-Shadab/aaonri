@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobSeekerAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AllJobFragment : Fragment() {
     var binding: FragmentAllJobBinding? = null
-    var jobAdapter: JobAdapter? = null
+    var jobAdapter: JobSeekerAdapter? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -26,7 +26,7 @@ class AllJobFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAllJobBinding.inflate(inflater, container, false)
-        jobAdapter = JobAdapter()
+        jobAdapter = JobSeekerAdapter()
 
         jobAdapter?.itemClickListener = { view, item, position ->
             if (item is AllJobsResponseItem) {

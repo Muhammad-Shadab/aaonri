@@ -28,7 +28,7 @@ import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
@@ -61,7 +61,7 @@ class HomeScreenFragment : Fragment() {
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     var immigrationAdapter: ImmigrationAdapter? = null
-    var jobAdapter: JobAdapter? = null
+    var jobAdapter: JobSeekerAdapter? = null
     var interestAdapter: InterestAdapter? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
 
@@ -180,7 +180,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        jobAdapter = JobAdapter()
+        jobAdapter = JobSeekerAdapter()
 
         /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =

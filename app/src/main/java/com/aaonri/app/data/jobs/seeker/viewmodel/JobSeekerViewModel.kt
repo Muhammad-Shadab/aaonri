@@ -42,6 +42,8 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val navigateToUploadJobProfileScreen: MutableLiveData<Boolean> = MutableLiveData()
 
+    val getUserJobProfileData: MutableLiveData<Resource<UserJobProfileResponse>> = MutableLiveData()
+
     val selectedExperienceLevel: MutableLiveData<ExperienceLevelResponseItem> = MutableLiveData()
     val selectedJobApplicability: MutableLiveData<AllActiveJobApplicabilityResponseItem> =
         MutableLiveData()
@@ -74,6 +76,21 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
     }
 
     private fun handleJobDetailResponse(response: Response<JobDetailResponse>): Resource<JobDetailResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getUserJobProfileByEmail(emailId: String, isApplicant: Boolean) = viewModelScope.launch {
+        getUserJobProfileData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.getUserJobProfileByEmail(emailId, isApplicant)
+        getUserJobProfileData.postValue(handleUserJobProfileResponse(response))
+    }
+
+    private fun handleUserJobProfileResponse(response: Response<UserJobProfileResponse>): Resource<UserJobProfileResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
