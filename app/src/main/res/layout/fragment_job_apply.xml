@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.post_jobs.JobApplyFragment">
 
@@ -74,15 +74,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
                     android:fontFamily="@font/sf_pro_semi_bold"
+                    android:gravity="center_horizontal"
                     android:text="@string/please_review_your_details"
                     android:textColor="#333333"
                     android:textSize="17sp" />
+
                 <EditText
                     android:id="@+id/firstNameEt"
                     android:layout_width="match_parent"
@@ -121,8 +123,6 @@
                     android:textSize="16sp" />
 
 
-
-
                 <EditText
                     android:id="@+id/phoneNumberEt"
                     android:layout_width="match_parent"
@@ -141,6 +141,7 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
+
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_90sdp"
@@ -164,6 +165,7 @@
                         android:textSize="12sp"
                         tools:ignore="RtlHardcoded" />
                 </androidx.core.widget.NestedScrollView>
+
                 <LinearLayout
                     android:id="@+id/uploadResumeLl"
                     android:layout_width="match_parent"
@@ -196,46 +198,51 @@
                         android:text="Maximum 5 MB (Doc. PDF)"
                         android:textColor="@color/hintColor"
                         android:textSize="12sp" />
-<LinearLayout
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/darkGrayColor"
-    android:background="@drawable/gray_btn"
-    android:paddingHorizontal="12dp"
-    android:layout_marginVertical="@dimen/_12sdp"
-    android:paddingVertical="8dp"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_regular"
-        android:gravity="center_vertical"
-        android:includeFontPadding="false"
-        android:text="AdityBA.pdf"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:visibility="visible" />
-    <ImageView
-        android:layout_width="12dp"
-        android:layout_marginLeft="@dimen/_18sdp"
-        android:background="@drawable/cancel_icon"
-        android:backgroundTint="@color/white"
-        android:layout_height="12dp"/>
-</LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_12sdp"
+                        android:background="@drawable/gray_btn"
+                        android:backgroundTint="@color/darkGrayColor"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:text="AdityBA.pdf"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="@dimen/_18sdp"
+                            android:background="@drawable/cancel_icon"
+                            android:backgroundTint="@color/white" />
+                    </LinearLayout>
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:fontFamily="@font/sf_pro_text_light"
                     android:text="@string/we_are_using_your_default"
                     android:textColor="#797979"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:textSize="11sp" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/uploadProfileNextBtn"
                     android:layout_width="match_parent"

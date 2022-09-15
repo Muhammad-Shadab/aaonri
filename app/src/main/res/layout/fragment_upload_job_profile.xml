@@ -82,7 +82,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="First Name"
+                    android:hint="First Name*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -101,7 +101,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Last Name"
+                    android:hint="Last Name*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -120,7 +120,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Current Title"
+                    android:hint="Current Title*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -138,7 +138,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Contact Email Id"
+                    android:hint="Contact Email Id*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -157,7 +157,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Phone No."
+                    android:hint="Phone No*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -176,7 +176,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Location"
+                    android:hint="Location*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -196,7 +196,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="center_vertical"
-                    android:hint="Experience Level"
+                    android:hint="Experience Level*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingVertical="@dimen/_4sdp"
@@ -215,7 +215,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="center_vertical"
-                    android:hint="Visa Status"
+                    android:hint="Visa Status*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingVertical="@dimen/_4sdp"
@@ -234,7 +234,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="center_vertical"
-                    android:hint="Availability"
+                    android:hint="Availability*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingVertical="@dimen/_4sdp"
@@ -245,53 +245,39 @@
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-                <androidx.core.widget.NestedScrollView
+                <EditText
+                    android:id="@+id/skillSetDescEt"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_90sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/multiline_textfield_shape"
-                    android:fillViewport="true">
+                    android:ems="10"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="left"
+                    android:hint="Skill Set (Comma Separated)*"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="255"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded" />
 
-                    <com.chinalwb.are.render.AreTextView
-                        android:id="@+id/skillSetDescEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_2sdp"
-                        android:fontFamily="@font/helvetica_regular"
-                        android:gravity="left"
-                        android:hint="Skill Set (Comma Separated)"
-                        android:includeFontPadding="false"
-                        android:padding="@dimen/_5sdp"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:scrollbars="vertical"
-                        android:textSize="16sp"
-                        tools:ignore="RtlHardcoded" />
-                </androidx.core.widget.NestedScrollView>
-
-                <androidx.core.widget.NestedScrollView
+                <EditText
+                    android:id="@+id/coverLetterDescEt"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_90sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/multiline_textfield_shape"
-                    android:fillViewport="true">
-
-                    <com.chinalwb.are.render.AreTextView
-                        android:id="@+id/coverLetterDescEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_2sdp"
-                        android:fontFamily="@font/helvetica_regular"
-                        android:gravity="left"
-                        android:hint="Cover Letter"
-                        android:includeFontPadding="false"
-                        android:padding="@dimen/_5sdp"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:scrollbars="vertical"
-                        android:textSize="12sp"
-                        tools:ignore="RtlHardcoded" />
-                </androidx.core.widget.NestedScrollView>
+                    android:ems="10"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="left"
+                    android:hint="Cover Letter*"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="240"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded" />
 
                 <LinearLayout
                     android:id="@+id/uploadResumeLl"
@@ -299,7 +285,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/dotted_ractangle_bg"
-                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -328,13 +313,52 @@
                         android:textSize="12sp"
                         android:visibility="visible" />
 
-                    <ImageView
-                        android:id="@+id/advertiseIv"
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_marginVertical="@dimen/_2sdp"
-                        android:src="@drawable/demo"
-                        android:visibility="gone" />
+                    <LinearLayout
+                        android:id="@+id/uploadedResumeShapeLl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginVertical="@dimen/_12sdp"
+                        android:background="@drawable/blue_capsule_shape"
+                        android:backgroundTint="#124c94"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:background="@drawable/ic_file_icon"
+                            android:backgroundTint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/resumeNameTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:maxLength="10"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/deleteResume"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/cancel_icon"
+                            android:backgroundTint="@color/white" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
