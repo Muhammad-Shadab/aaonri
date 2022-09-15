@@ -290,8 +290,7 @@ class JobProfileUploadFragment : Fragment() {
     private fun callUploadResumeApi(id: Int?) {
 
         Log.i("resumePath", "callUploadResumeApi: ${getFilePath()}")
-
-        val file = getFilePath()?.let { File(it) }
+        val file = File(getFilePath())
 
         val requestFile: RequestBody =
             file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
