@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.tabs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
