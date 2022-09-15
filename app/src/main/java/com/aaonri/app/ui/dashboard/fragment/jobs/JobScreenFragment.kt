@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -61,6 +63,9 @@ class JobScreenFragment : Fragment() {
                 jobsScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }
+
+            jobsScreenTabLayout.getTabAt(1)?.view?.isClickable = false
+
             jobsScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
