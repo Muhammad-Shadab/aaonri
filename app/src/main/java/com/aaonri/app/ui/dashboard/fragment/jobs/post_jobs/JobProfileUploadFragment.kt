@@ -10,7 +10,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -155,11 +157,14 @@ class JobProfileUploadFragment : Fragment() {
             }
 
             uploadProfileNextBtn.setOnClickListener {
+
+                val phoneNumber = phoneNumberEt.text.toString().replace("-", "")
+
                 if (firstNameEt.text.toString().length >= 3) {
                     if (lastNameEt.text.toString().length >= 3) {
                         if (currentTitleEt.text.toString().length >= 3) {
                             if (Validator.emailValidation(contactEmailEt.text.toString().trim())) {
-                                if (phoneNumberEt.text.toString().length == 10) {
+                                if (phoneNumber.length == 10) {
                                     if (locationEt.text.toString().length >= 3) {
                                         if (selectExperienceTv.text.toString().isNotEmpty()) {
                                             if (selectVisaStatusTv.text.toString().isNotEmpty()) {
@@ -183,7 +188,7 @@ class JobProfileUploadFragment : Fragment() {
                                                                         isApplicant = true,
                                                                         lastName = lastNameEt.text.toString(),
                                                                         location = locationEt.text.toString(),
-                                                                        phoneNo = phoneNumberEt.text.toString(),
+                                                                        phoneNo = phoneNumber,
                                                                         resumeName = fileName ?: "",
                                                                         skillSet = skillSetDescEt.text.toString(),
                                                                         title = currentTitleEt.text.toString(),
@@ -228,6 +233,31 @@ class JobProfileUploadFragment : Fragment() {
                 }
             }
 
+            phoneNumberEt.addTextChangedListener(object :
+                TextWatcher {
+                var length_before = 0
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    length_before = s.length
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable) {
+                    if (length_before < s.length) {
+                        if (s.length == 3 || s.length == 7) s.append("-")
+                        if (s.length > 3) {
+                            if (Character.isDigit(s[3])) s.insert(3, "-")
+                        }
+                        if (s.length > 7) {
+                            if (Character.isDigit(s[7])) s.insert(7, "-")
+                        }
+                    }
+                }
+            })
         }
 
         jobSeekerViewModel.getAllActiveJobApplicability()
