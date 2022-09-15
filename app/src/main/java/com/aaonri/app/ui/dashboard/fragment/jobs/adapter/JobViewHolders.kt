@@ -46,6 +46,10 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
         fun bind(experienceLevelResponseItem: ExperienceLevelResponseItem) {
             binding.apply {
                 countryTv.text = experienceLevelResponseItem.experienceLevel
+
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, experienceLevelResponseItem, adapterPosition)
+                }
             }
         }
     }
@@ -55,6 +59,10 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
         fun bind(allActiveJobApplicabilityResponseItem: AllActiveJobApplicabilityResponseItem) {
             binding.apply {
                 countryTv.text = allActiveJobApplicabilityResponseItem.applicability
+
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, allActiveJobApplicabilityResponseItem, adapterPosition)
+                }
             }
         }
     }
@@ -64,6 +72,10 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
         fun bind(activeJobAvailabilityResponseItem: ActiveJobAvailabilityResponseItem) {
             binding.apply {
                 categoryTv.text = activeJobAvailabilityResponseItem.availability
+
+                root.setOnClickListener {
+                    itemClickListener?.invoke(it, activeJobAvailabilityResponseItem, adapterPosition)
+                }
             }
         }
     }

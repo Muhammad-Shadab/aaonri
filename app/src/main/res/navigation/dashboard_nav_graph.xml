@@ -355,7 +355,7 @@
     </fragment>
     <dialog
         android:id="@+id/jobGenericBottomSheet"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.fragment.JobGenericBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.fragment.JobSeekerGenericBottomSheet"
         android:label="fragment_job_generic_bottom_sheet"
         tools:layout="@layout/fragment_job_generic_bottom_sheet">
         <argument

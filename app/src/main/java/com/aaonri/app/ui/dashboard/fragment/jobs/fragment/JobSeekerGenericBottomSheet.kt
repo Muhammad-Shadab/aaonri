@@ -8,6 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.seeker.model.ActiveJobAvailabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobGenericBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
@@ -16,19 +19,39 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class JobGenericBottomSheet : BottomSheetDialogFragment() {
+class JobSeekerGenericBottomSheet : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+
     var binding: FragmentJobGenericBottomSheetBinding? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
-    val args: JobGenericBottomSheetArgs by navArgs()
-    var jobAdapter: JobAdapter? = null
+    val args: JobSeekerGenericBottomSheetArgs by navArgs()
+
+    private var jobAdapter: JobAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        isCancelable = false
         binding = FragmentJobGenericBottomSheetBinding.inflate(layoutInflater, container, false)
 
         jobAdapter = JobAdapter()
+
+        jobAdapter?.itemClickListener = { view, item, position ->
+            when (item) {
+                is ExperienceLevelResponseItem -> {
+                    jobSeekerViewModel.setSelectedExperienceLevel(item)
+                    dismiss()
+                }
+                is AllActiveJobApplicabilityResponseItem -> {
+                    jobSeekerViewModel.setSelectedJobApplicability(item)
+                    dismiss()
+                }
+                is ActiveJobAvailabilityResponseItem -> {
+                    jobSeekerViewModel.setSelectedJobAvailability(item)
+                    dismiss()
+                }
+            }
+        }
 
         binding?.apply {
 
@@ -90,7 +113,11 @@ class JobGenericBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         }
-
         return binding?.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

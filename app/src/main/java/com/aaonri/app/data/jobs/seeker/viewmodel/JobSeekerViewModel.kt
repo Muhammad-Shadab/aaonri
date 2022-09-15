@@ -40,6 +40,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val navigateToUploadJobProfileScreen: MutableLiveData<Boolean> = MutableLiveData()
 
+    val selectedExperienceLevel: MutableLiveData<ExperienceLevelResponseItem> = MutableLiveData()
+    val selectedJobApplicability: MutableLiveData<AllActiveJobApplicabilityResponseItem> = MutableLiveData()
+    val selectedJobAvailability: MutableLiveData<ActiveJobAvailabilityResponseItem> = MutableLiveData()
+
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
         val response = jobSeekerRepository.getAllActiveJobs()
@@ -173,6 +177,18 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     fun setNavigateToUploadJobProfileScreen(value: Boolean) {
         navigateToUploadJobProfileScreen.postValue(value)
+    }
+
+    fun setSelectedExperienceLevel(value: ExperienceLevelResponseItem) {
+        selectedExperienceLevel.postValue(value)
+    }
+
+    fun setSelectedJobApplicability(value: AllActiveJobApplicabilityResponseItem) {
+        selectedJobApplicability.postValue(value)
+    }
+
+    fun setSelectedJobAvailability(value: ActiveJobAvailabilityResponseItem) {
+        selectedJobAvailability.postValue(value)
     }
 
 }

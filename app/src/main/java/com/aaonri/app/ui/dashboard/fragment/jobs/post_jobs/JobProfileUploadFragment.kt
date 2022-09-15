@@ -58,4 +58,12 @@ class JobProfileUploadFragment : Fragment() {
 
         return binding?.root
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+        jobSeekerViewModel.selectedExperienceLevel.postValue(null)
+        jobSeekerViewModel.selectedJobApplicability.postValue(null)
+        jobSeekerViewModel.selectedJobAvailability.postValue(null)
+    }
 }
