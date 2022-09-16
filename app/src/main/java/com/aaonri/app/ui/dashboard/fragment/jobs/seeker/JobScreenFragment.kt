@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobPagerAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide

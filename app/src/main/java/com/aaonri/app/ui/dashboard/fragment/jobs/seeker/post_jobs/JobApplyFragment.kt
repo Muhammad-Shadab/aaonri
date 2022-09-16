@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs
 
 import android.Manifest
 import android.app.Activity
@@ -26,6 +26,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobApplyBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobApplyFragmentArgs
+import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobApplyFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource

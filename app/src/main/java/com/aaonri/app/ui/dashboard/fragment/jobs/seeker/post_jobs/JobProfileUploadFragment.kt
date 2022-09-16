@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs
 
 import android.Manifest
 import android.app.Activity

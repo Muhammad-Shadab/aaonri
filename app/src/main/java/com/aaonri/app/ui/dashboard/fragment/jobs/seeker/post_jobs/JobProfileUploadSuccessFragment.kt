@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentJobProfileUploadSuccessBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobProfileUploadSuccessFragmentArgs
+import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobProfileUploadSuccessFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 

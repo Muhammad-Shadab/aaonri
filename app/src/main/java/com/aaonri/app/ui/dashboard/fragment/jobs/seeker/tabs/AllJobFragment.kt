@@ -12,8 +12,8 @@ import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenFragmentDirections
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobSeekerAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragmentDirections
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 

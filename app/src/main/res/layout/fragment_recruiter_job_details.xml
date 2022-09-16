@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.dashboard.fragment.jobs.seeker.fragment.JobDetailsFragment">
+    tools:context=".ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterJobDetailsFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
@@ -65,7 +65,6 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_26sdp"
             android:paddingVertical="@dimen/_26sdp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -95,23 +94,41 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/jobNameTv"
+                        <com.google.android.flexbox.FlexboxLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:fontFamily="@font/sf_pro_semi_bold"
-                            android:includeFontPadding="false"
-                            android:text="Operations Anlyst"
-                            android:textColor="@color/jobtxtcolor"
-                            android:textSize="20sp" />
+                            app:alignItems="flex_start">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:textColor="@color/jobtxtcolor"
+                                android:includeFontPadding="false"
+                                tools:text="Android Developer" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:lines="1"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:gravity="center_vertical"
+                                android:includeFontPadding="false"
+                                android:layout_marginLeft="5dp"
+                                android:textColor="#e31b1b"
+                                android:textSize="10sp"
+                                tools:text="Inactive" />
+                        </com.google.android.flexbox.FlexboxLayout>
 
                         <ImageView
+                            android:id="@+id/editJobIv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:src="@drawable/hot" />
+                            android:backgroundTint="@color/blueBtnColor"
+                            android:background="@drawable/editicon" />
                     </LinearLayout>
 
                     <TextView
@@ -121,7 +138,6 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
                         android:text="Wipro"
-                        android:textSize="12sp"
                         android:textColor="@color/jobtxtcolor" />
 
 
@@ -414,7 +430,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/applyBtn"
+        android:id="@+id/activateJobBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_28sdp"
@@ -426,10 +442,34 @@
         android:minHeight="0dp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:text="Apply Now"
+        android:text="Activate this job"
+        android:backgroundTint="#20b8a1"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/deactivateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_26sdp"
+        android:background="@drawable/green_btn_shape"
+        android:backgroundTint="#d34a4a"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="DeActivate  this Job"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

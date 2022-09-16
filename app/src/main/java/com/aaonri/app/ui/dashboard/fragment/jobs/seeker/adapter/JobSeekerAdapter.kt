@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.adapter
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

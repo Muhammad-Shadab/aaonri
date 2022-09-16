@@ -28,7 +28,7 @@ import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobSeekerAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
