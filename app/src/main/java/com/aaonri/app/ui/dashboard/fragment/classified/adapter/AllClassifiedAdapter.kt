@@ -13,8 +13,7 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 
-class
-AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
+class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
     RecyclerView.Adapter<AllClassifiedAdapter.ClassifiedViewHolder>() {
 
     private var data = listOf<UserAds>()
@@ -84,7 +83,6 @@ AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Unit)) :
         RecyclerView.ViewHolder(
             binding.root
         )
-
 }
 
 

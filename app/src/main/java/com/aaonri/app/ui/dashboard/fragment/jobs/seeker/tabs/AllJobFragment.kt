@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.tabs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,7 +60,7 @@ class AllJobFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { jobAdapter?.setData(it) }
+                    response.data?.let { jobAdapter?.setData(it.subList(0,4)) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

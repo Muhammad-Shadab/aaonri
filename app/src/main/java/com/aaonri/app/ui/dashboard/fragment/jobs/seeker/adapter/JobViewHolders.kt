@@ -13,7 +13,6 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
 
     class AllActiveJobsViewHolders(private val binding: AllPostedJobsItemBinding) :
         JobViewHolders(binding) {
-
         @SuppressLint("SetTextI18n")
         fun bind(allJobsResponseItem: AllJobsResponseItem) {
             binding.apply {
@@ -35,7 +34,6 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 jobCv.setOnClickListener {
                     itemClickListener?.invoke(it, allJobsResponseItem, adapterPosition)
                 }
-
             }
         }
     }
