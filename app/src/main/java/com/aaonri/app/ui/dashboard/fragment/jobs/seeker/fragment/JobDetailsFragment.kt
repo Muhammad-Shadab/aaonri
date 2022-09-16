@@ -106,7 +106,7 @@ class JobDetailsFragment : Fragment() {
                             jobViewTv.text = it.viewCount.toString()
                             jobApplicationTv.text = it.applyCount.toString()
                             jobDescTv.fromHtml(it.description)
-                            jobKeySkillsTv.text = it.skillSet
+                            jobKeySkillsTv.text = it.skillSet.replace(",", " \u2022")
                             it.applicability.forEach { apl ->
                                 applicability += "${apl.applicability}, "
                             }

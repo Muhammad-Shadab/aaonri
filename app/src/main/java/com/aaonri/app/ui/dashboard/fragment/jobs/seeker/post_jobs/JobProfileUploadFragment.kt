@@ -141,7 +141,7 @@ class JobProfileUploadFragment : Fragment() {
                 findNavController().navigate(action)
             }
 
-            uploadResumeTv.setOnClickListener {
+            uploadResumeBtnLl.setOnClickListener {
                 if (checkPermission()) {
                     val intent = Intent(Intent.ACTION_GET_CONTENT)
                     intent.type = "application/*"
@@ -153,8 +153,7 @@ class JobProfileUploadFragment : Fragment() {
 
             deleteResume.setOnClickListener {
                 binding?.uploadResumeLl?.gravity = Gravity.CENTER
-                binding?.uploadResumeTv?.visibility = View.VISIBLE
-                binding?.sizeLimitTv?.visibility = View.VISIBLE
+                binding?.uploadResumeBtnLl?.visibility = View.VISIBLE
 
                 binding?.uploadedResumeShapeLl?.visibility = View.GONE
                 jobSeekerViewModel.setResumeFileUriValue("".toUri())
@@ -402,8 +401,7 @@ class JobProfileUploadFragment : Fragment() {
 
     private fun visibleResumeFile() {
         binding?.uploadResumeLl?.gravity = Gravity.START
-        binding?.uploadResumeTv?.visibility = View.GONE
-        binding?.sizeLimitTv?.visibility = View.GONE
+        binding?.uploadResumeBtnLl?.visibility = View.GONE
         binding?.uploadedResumeShapeLl?.visibility = View.VISIBLE
         binding?.resumeNameTv?.text = fileName
 
