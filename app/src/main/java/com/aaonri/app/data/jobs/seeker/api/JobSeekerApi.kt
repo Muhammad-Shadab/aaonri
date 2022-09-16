@@ -1,7 +1,6 @@
 package com.aaonri.app.data.jobs.seeker.api
 
 import com.aaonri.app.data.jobs.seeker.model.*
-import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -23,6 +22,12 @@ interface JobSeekerApi {
 
     @GET("/api/v1/jobs/findAllActiveAvailability")
     suspend fun getAllActiveAvailability(): Response<ActiveJobAvailabilityResponse>
+
+    @GET("/api/v1/jobprofile/findByEmailIdAndApplicantFlag")
+    suspend fun getUserJobProfileByEmail(
+        @Query("emailId") emailId: String,
+        @Query("isApplicant") isApplicant: Boolean
+    ): Response<UserJobProfileResponse>
 
     @PUT("/api/v1/jobprofile/update/{profileId}")
     suspend fun updateJobProfile(

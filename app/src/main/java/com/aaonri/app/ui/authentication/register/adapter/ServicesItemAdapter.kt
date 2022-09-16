@@ -135,12 +135,6 @@ class ServicesItemAdapter(
                     selectedServices(selectedCategoriesList)
                 }
 
-                /*if (data[position].id == 17 && data[position].isSelected) {
-                    isJobSelected(true)
-                } else {
-                    isJobSelected(false)
-                }*/
-
                 if (data[position].active) {
                     if (data[position].isSelected) {
                         servicesGridIv.setColorFilter(
@@ -168,6 +162,14 @@ class ServicesItemAdapter(
                                 R.color.serviceCardLightBlue
                             )
                         )
+                    }
+                }
+
+                if (data[position].id == 17) {
+                    if (data[position].isSelected) {
+                        isJobSelected(true)
+                    } else {
+                        isJobSelected(false)
                     }
                 }
 

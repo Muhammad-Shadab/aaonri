@@ -185,17 +185,16 @@ class ServicesCategoryFragment : Fragment() {
             var len: Int = serviceResponseItem.size
             serviceResponseItem.forEach {
                 i++
-                isJobSelected = it.interestDesc == "Jobs"
+                //isJobSelected = it.interestDesc == "Jobs" || it.id = 17
                 selectedServicesInterest += "${it.id}${if (i != len) "," else ""}"
             }
             if (serviceResponseItem.size >= 3 && isJobSelected) {
                 authCommonViewModel.addStepViewLastTick(true)
                 isServicesSelected = true
                 binding?.servicesGridRecyclerView?.margin(bottom = 0f)
-                binding?.visibilityCardView?.visibility = View.VISIBLE
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
+                binding?.visibilityCardView?.visibility = View.VISIBLE
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
-//                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else if (serviceResponseItem.size >= 3) {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
@@ -203,7 +202,6 @@ class ServicesCategoryFragment : Fragment() {
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
                 binding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
-//                servicesGridItemBinding?.scrollView?.fullScroll(NestedScrollView.FOCUS_DOWN)
             } else {
                 authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false

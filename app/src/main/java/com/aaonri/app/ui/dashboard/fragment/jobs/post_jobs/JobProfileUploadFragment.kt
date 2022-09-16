@@ -367,7 +367,7 @@ class JobProfileUploadFragment : Fragment() {
                 return tempId.replaceFirst("raw:", "");
             }
             try {
-                var contentUri = ContentUris.withAppendedId(
+                val contentUri = ContentUris.withAppendedId(
                     Uri.parse("content://downloads/public_downloads"), tempId.toLong()
                 )
                 return getDataColumn(context, contentUri, null, null);
