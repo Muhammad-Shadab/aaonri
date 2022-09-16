@@ -95,6 +95,17 @@
             android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/providers_path"
+                tools:replace="android:resource" />
+        </provider>
     </application>
 
 </manifest>

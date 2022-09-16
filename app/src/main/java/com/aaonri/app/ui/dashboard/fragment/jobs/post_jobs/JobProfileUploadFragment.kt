@@ -320,14 +320,17 @@ class JobProfileUploadFragment : Fragment() {
     private fun callUploadResumeApi(id: Int?) {
 
         Log.i("resumePath", "callUploadResumeApi: ${getFilePath()}")
-        val file = File(getFilePath())
 
-        val requestFile: RequestBody =
-            file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val file = createTmpFileFromUri(jobSeekerViewModel.resumeFileUri)
 
-        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-        jobSeekerViewModel.uploadResume(id ?: 0, true, requestImage)
+        val requestFile: RequestBody? =
+            file?.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage =
+            requestFile?.let { MultipartBody.Part.createFormData("file", file?.name, it) }
+
+        requestImage?.let { jobSeekerViewModel.uploadResume(id ?: 0, true, it) }
     }
 
     private fun showAlert(text: String) {
@@ -386,5 +389,17 @@ class JobProfileUploadFragment : Fragment() {
         jobSeekerViewModel.selectedJobApplicability.postValue(null)
         jobSeekerViewModel.selectedJobAvailability.postValue(null)
         jobSeekerViewModel.setResumeFileUriValue("".toUri())
+    }
+
+    private fun createTmpFileFromUri(uri: Uri?): File? {
+        return try {
+            val stream = uri?.let { context?.contentResolver?.openInputStream(it) }
+            val file = File.createTempFile(fileName, "", context?.cacheDir)
+            org.apache.commons.io.FileUtils.copyInputStreamToFile(stream,file)
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
