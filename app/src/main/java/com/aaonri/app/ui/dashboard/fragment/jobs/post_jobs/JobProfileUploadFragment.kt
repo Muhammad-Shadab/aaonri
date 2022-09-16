@@ -2,18 +2,14 @@ package com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +23,10 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentUploadJobProfileBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.Validator
-import com.chinalwb.are.Util.GetPathFromUri4kitkat.getDataColumn
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -50,6 +47,9 @@ class JobProfileUploadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUploadJobProfileBinding.inflate(layoutInflater, container, false)
+
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -181,7 +181,7 @@ class JobProfileUploadFragment : Fragment() {
                                                                         availability = selectAvailabilityTv.text.toString(),
                                                                         contactEmailId = contactEmailEt.text.toString(),
                                                                         coverLetter = coverLetterDescEt.text.toString(),
-                                                                        emailId = contactEmailEt.text.toString(),
+                                                                        emailId = email ?: "",
                                                                         experience = selectExperienceTv.text.toString(),
                                                                         firstName = firstNameEt.text.toString(),
                                                                         isActive = true,
@@ -304,7 +304,7 @@ class JobProfileUploadFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     val action =
                         JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
-                            ""
+                            "ProfileUploadScreen"
                         )
                     findNavController().navigate(action)
                 }
@@ -319,7 +319,7 @@ class JobProfileUploadFragment : Fragment() {
 
     private fun callUploadResumeApi(id: Int?) {
 
-        Log.i("resumePath", "callUploadResumeApi: ${getFilePath()}")
+        //Log.i("resumePath", "callUploadResumeApi: ${getFilePath()}")
 
         val file = createTmpFileFromUri(jobSeekerViewModel.resumeFileUri)
 
@@ -359,7 +359,7 @@ class JobProfileUploadFragment : Fragment() {
         return fileName
     }
 
-    private fun getFilePath(): String? {
+    /*private fun getFilePath(): String? {
         val tempId = DocumentsContract.getDocumentId(jobSeekerViewModel.resumeFileUri)
         if (!TextUtils.isEmpty(tempId)) {
             if (tempId.startsWith("raw:")) {
@@ -379,7 +379,7 @@ class JobProfileUploadFragment : Fragment() {
             }
         }
         return null
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()
@@ -394,7 +394,7 @@ class JobProfileUploadFragment : Fragment() {
         return try {
             val stream = uri?.let { context?.contentResolver?.openInputStream(it) }
             val file = File.createTempFile(fileName, "", context?.cacheDir)
-            org.apache.commons.io.FileUtils.copyInputStreamToFile(stream,file)
+            org.apache.commons.io.FileUtils.copyInputStreamToFile(stream, file)
             file
         } catch (e: Exception) {
             e.printStackTrace()

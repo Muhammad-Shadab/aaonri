@@ -373,10 +373,22 @@
         <argument
             android:name="navigatingFrom"
             app:argType="string" />
+        <action
+            android:id="@+id/action_jobProfileUploadSuccessFragment_to_jobScreenFragment2"
+            app:destination="@id/jobScreenFragment"
+            app:popUpTo="@id/jobScreenFragment"
+            app:popUpToInclusive="true" />
     </dialog>
     <fragment
         android:id="@+id/jobApplyFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobApplyFragment"
         android:label="fragment_job_apply"
-        tools:layout="@layout/fragment_job_apply" />
+        tools:layout="@layout/fragment_job_apply" >
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_jobApplyFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+    </fragment>
 </navigation>

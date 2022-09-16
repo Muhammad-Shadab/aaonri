@@ -83,9 +83,8 @@
 
         <activity
             android:name="com.aaonri.app.NoInternetConnectionActivity"
-            android:exported="false"
+            android:exported="false" />
 
-            />
         <activity
             android:name="com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity"
             android:exported="false"
@@ -95,6 +94,7 @@
             android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

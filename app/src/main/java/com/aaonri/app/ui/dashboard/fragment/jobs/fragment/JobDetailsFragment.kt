@@ -21,6 +21,7 @@ class JobDetailsFragment : Fragment() {
     var binding: FragmentJobDetailsBinding? = null
     val args: JobDetailsFragmentArgs by navArgs()
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var jobId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,9 @@ class JobDetailsFragment : Fragment() {
                                 if (it.size > 0) {
                                     /** Profile Uploaded **/
                                     val action =
-                                        JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment()
+                                        JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(
+                                            jobId
+                                        )
                                     findNavController().navigate(action)
                                 } else {
 
@@ -91,6 +94,7 @@ class JobDetailsFragment : Fragment() {
                         var applicability = ""
                         progressBar.visibility = View.GONE
                         response.data?.let {
+                            jobId = it.jobId
                             jobNameTv.text = it.title
                             companyNameTv.text = it.company
                             experienceTv.text = it.experienceLevel
