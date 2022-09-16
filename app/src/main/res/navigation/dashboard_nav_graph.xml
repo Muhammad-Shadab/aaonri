@@ -331,6 +331,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_jobProfileUploadFragment"
             app:destination="@id/jobProfileUploadFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"

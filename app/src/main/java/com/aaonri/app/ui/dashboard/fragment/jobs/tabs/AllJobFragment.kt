@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobSeekerAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,13 +27,21 @@ class AllJobFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentAllJobBinding.inflate(inflater, container, false)
         jobAdapter = JobSeekerAdapter()
 
         jobAdapter?.itemClickListener = { view, item, position ->
+
             if (item is AllJobsResponseItem) {
-                jobSeekerViewModel.setNavigateAllJobToDetailsJobScreen(item.jobId)
+                if (view.id == R.id.jobCv) {
+                    /** Clicked on Job Card View **/
+                    jobSeekerViewModel.setNavigateAllJobToDetailsJobScreen(item.jobId)
+                } else {
+                    /** Clicked on Apply btn **/
+                    val action =
+                        JobScreenFragmentDirections.actionJobScreenFragmentToJobApplyFragment(item.jobId)
+                    findNavController().navigate(action)
+                }
             }
         }
 

@@ -111,6 +111,10 @@ class JobApplyFragment : Fragment() {
 
         binding?.apply {
 
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             uploadResumeTv.setOnClickListener {
                 if (checkPermission()) {
                     val intent = Intent(Intent.ACTION_GET_CONTENT)

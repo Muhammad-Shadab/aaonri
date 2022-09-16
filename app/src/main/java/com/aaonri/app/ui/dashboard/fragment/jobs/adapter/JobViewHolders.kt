@@ -28,9 +28,14 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 jobViewTv.text = allJobsResponseItem.viewCount.toString()
                 jobApplicationTv.text = allJobsResponseItem.applyCount.toString()
 
-                root.setOnClickListener {
+                jobApplyBtn.setOnClickListener {
                     itemClickListener?.invoke(it, allJobsResponseItem, adapterPosition)
                 }
+
+                jobCv.setOnClickListener {
+                    itemClickListener?.invoke(it, allJobsResponseItem, adapterPosition)
+                }
+
             }
         }
     }
@@ -92,7 +97,8 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 jobSeekerGmailTv.text = userJobProfileResponseItem.contactEmailId
                 jobSeekerMobileTv.text =
                     userJobProfileResponseItem.phoneNo.replace("""[(,), ]""".toRegex(), "")
-                        .replace("-", "").replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
+                        .replace("-", "")
+                        .replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
                 jobSeekerAddressTv.text = userJobProfileResponseItem.location
             }
         }

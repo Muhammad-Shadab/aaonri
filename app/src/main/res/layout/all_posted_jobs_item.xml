@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/jobCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_6sdp"
@@ -135,7 +136,7 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/applyBtn"
+                        android:id="@+id/jobApplyBtn"
                         android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_28sdp"
                         android:layout_gravity="bottom"
