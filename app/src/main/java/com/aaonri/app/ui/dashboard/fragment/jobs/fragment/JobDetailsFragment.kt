@@ -30,6 +30,7 @@ class JobDetailsFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
@@ -53,6 +54,33 @@ class JobDetailsFragment : Fragment() {
                     viewerName = "",
                 )
             )
+
+            applyBtn.setOnClickListener {
+                jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resource.Loading -> {
+                            progressBar.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            progressBar.visibility = View.GONE
+                            response.data?.let {
+                                if (it.size > 0) {
+                                    /** Profile Uploaded **/
+                                    val action =
+                                        JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment()
+                                    findNavController().navigate(action)
+                                } else {
+
+                                }
+                            }
+
+                        }
+                        is Resource.Error -> {
+                            progressBar.visibility = View.GONE
+                        }
+                    }
+                }
+            }
 
             jobSeekerViewModel.jobDetailData.observe(viewLifecycleOwner) { response ->
                 when (response) {
@@ -87,6 +115,7 @@ class JobDetailsFragment : Fragment() {
                     }
                 }
             }
+
         }
 
 

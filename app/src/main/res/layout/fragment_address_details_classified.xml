@@ -365,7 +365,7 @@
                 android:minHeight="0dp"
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_4sdp"
-                android:text="@string/submit_a_classified"
+                android:text="SUBMIT"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 

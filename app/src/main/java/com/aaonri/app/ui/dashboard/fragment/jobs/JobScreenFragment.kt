@@ -1,12 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -37,8 +35,19 @@ class JobScreenFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val isJobRecruiter =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
+
         val fragment = this
         val jobPagerAdapter = JobPagerAdapter(fragment)
+
+        jobSeekerViewModel.getUserJobProfileByEmail(
+            emailId = email ?: "",
+            isApplicant = isJobRecruiter != true
+        )
 
         binding?.apply {
 

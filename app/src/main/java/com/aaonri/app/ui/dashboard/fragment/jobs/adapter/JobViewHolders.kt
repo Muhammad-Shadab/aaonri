@@ -89,7 +89,7 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
             binding.apply {
                 jobSeekerNameTv.text =
                     "${userJobProfileResponseItem.firstName} ${userJobProfileResponseItem.lastName}"
-                jobSeekerGmailTv.text = userJobProfileResponseItem.emailId
+                jobSeekerGmailTv.text = userJobProfileResponseItem.contactEmailId
                 jobSeekerMobileTv.text = userJobProfileResponseItem.phoneNo
                 jobSeekerAddressTv.text = userJobProfileResponseItem.location
             }

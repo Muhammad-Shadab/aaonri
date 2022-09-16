@@ -109,8 +109,10 @@ class PostImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.selectedPostingDiscussionScreenCategory.observe(viewLifecycleOwner) {
-            discussionCategoryResponseItem = it
-            binding?.selectImmigrationCategory?.text = it.discCatValue
+            if (it != null) {
+                discussionCategoryResponseItem = it
+                binding?.selectImmigrationCategory?.text = it.discCatValue
+            }
         }
 
         immigrationViewModel.postDiscussionData.observe(viewLifecycleOwner) { response ->
@@ -170,6 +172,7 @@ class PostImmigrationFragment : Fragment() {
             ).show()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

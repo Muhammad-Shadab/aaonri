@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/jobScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -341,8 +341,8 @@
             android:name="jobId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_jobDetailsFragment_to_jobProfileUploadFragment"
-            app:destination="@id/jobProfileUploadFragment" />
+            android:id="@+id/action_jobDetailsFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobProfileUploadFragment"
@@ -374,4 +374,9 @@
             android:name="navigatingFrom"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/jobApplyFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobApplyFragment"
+        android:label="fragment_job_apply"
+        tools:layout="@layout/fragment_job_apply" />
 </navigation>
