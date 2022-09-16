@@ -323,7 +323,6 @@ class JobProfileUploadFragment : Fragment() {
 
         val file = createTmpFileFromUri(jobSeekerViewModel.resumeFileUri)
 
-
         val requestFile: RequestBody? =
             file?.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
