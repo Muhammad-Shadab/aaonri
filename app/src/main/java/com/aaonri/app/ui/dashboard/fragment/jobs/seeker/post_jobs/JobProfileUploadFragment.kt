@@ -20,6 +20,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentUploadJobProfileBinding
@@ -40,6 +41,7 @@ import java.io.File
 class JobProfileUploadFragment : Fragment() {
     var binding: FragmentUploadJobProfileBinding? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    val args: JobProfileUploadFragmentArgs by navArgs()
     var fileName: String? = null
 
     override fun onCreateView(
@@ -50,6 +52,14 @@ class JobProfileUploadFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        if (args.isUpdateProfile) {
+            fileName = "${email}.pdf"
+            if (fileName?.isNotEmpty() == true) {
+                visibleResumeFile()
+                binding?.appbarTextTv?.text = "Update Profile"
+            }
+        }
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -78,14 +88,8 @@ class JobProfileUploadFragment : Fragment() {
 
                         if (size != null) {
                             if (size <= 5120) {
-                                binding?.uploadResumeLl?.gravity = Gravity.START
-                                binding?.uploadResumeTv?.visibility = View.GONE
-                                binding?.sizeLimitTv?.visibility = View.GONE
-
-                                binding?.uploadedResumeShapeLl?.visibility = View.VISIBLE
-                                binding?.resumeNameTv?.text = fileName
+                                visibleResumeFile()
                                 jobSeekerViewModel.setResumeFileUriValue(fileUri)
-
                             } else {
                                 showAlert("File size must be less then 5 MB")
                             }
@@ -173,28 +177,52 @@ class JobProfileUploadFragment : Fragment() {
                                                 ) {
                                                     if (skillSetDescEt.text.toString().length >= 3) {
                                                         if (coverLetterDescEt.text.toString().length >= 3) {
-                                                            if (jobSeekerViewModel.resumeFileUri.toString()
-                                                                    .isNotEmpty()
+                                                            if (jobSeekerViewModel.resumeFileUri != null || fileName?.isNotEmpty() == true
                                                             ) {
-                                                                jobSeekerViewModel.addJobProfile(
-                                                                    AddJobProfileRequest(
-                                                                        availability = selectAvailabilityTv.text.toString(),
-                                                                        contactEmailId = contactEmailEt.text.toString(),
-                                                                        coverLetter = coverLetterDescEt.text.toString(),
-                                                                        emailId = email ?: "",
-                                                                        experience = selectExperienceTv.text.toString(),
-                                                                        firstName = firstNameEt.text.toString(),
-                                                                        isActive = true,
-                                                                        isApplicant = true,
-                                                                        lastName = lastNameEt.text.toString(),
-                                                                        location = locationEt.text.toString(),
-                                                                        phoneNo = phoneNumber,
-                                                                        resumeName = fileName ?: "",
-                                                                        skillSet = skillSetDescEt.text.toString(),
-                                                                        title = currentTitleEt.text.toString(),
-                                                                        visaStatus = selectVisaStatusTv.text.toString()
+                                                                if (args.isUpdateProfile) {
+                                                                    jobSeekerViewModel.updateJobProfile(
+                                                                        profileId = args.jobId,
+                                                                        addJobProfileRequest = AddJobProfileRequest(
+                                                                            availability = selectAvailabilityTv.text.toString(),
+                                                                            contactEmailId = contactEmailEt.text.toString(),
+                                                                            coverLetter = coverLetterDescEt.text.toString(),
+                                                                            emailId = email ?: "",
+                                                                            experience = selectExperienceTv.text.toString(),
+                                                                            firstName = firstNameEt.text.toString(),
+                                                                            isActive = true,
+                                                                            isApplicant = true,
+                                                                            lastName = lastNameEt.text.toString(),
+                                                                            location = locationEt.text.toString(),
+                                                                            phoneNo = phoneNumber,
+                                                                            resumeName = fileName
+                                                                                ?: "",
+                                                                            skillSet = skillSetDescEt.text.toString(),
+                                                                            title = currentTitleEt.text.toString(),
+                                                                            visaStatus = selectVisaStatusTv.text.toString()
+                                                                        )
                                                                     )
-                                                                )
+                                                                } else {
+                                                                    jobSeekerViewModel.addJobProfile(
+                                                                        AddJobProfileRequest(
+                                                                            availability = selectAvailabilityTv.text.toString(),
+                                                                            contactEmailId = contactEmailEt.text.toString(),
+                                                                            coverLetter = coverLetterDescEt.text.toString(),
+                                                                            emailId = email ?: "",
+                                                                            experience = selectExperienceTv.text.toString(),
+                                                                            firstName = firstNameEt.text.toString(),
+                                                                            isActive = true,
+                                                                            isApplicant = true,
+                                                                            lastName = lastNameEt.text.toString(),
+                                                                            location = locationEt.text.toString(),
+                                                                            phoneNo = phoneNumber,
+                                                                            resumeName = fileName
+                                                                                ?: "",
+                                                                            skillSet = skillSetDescEt.text.toString(),
+                                                                            title = currentTitleEt.text.toString(),
+                                                                            visaStatus = selectVisaStatusTv.text.toString()
+                                                                        )
+                                                                    )
+                                                                }
                                                             } else {
                                                                 showAlert("Please upload Resume")
                                                             }
@@ -258,6 +286,37 @@ class JobProfileUploadFragment : Fragment() {
                     }
                 }
             })
+
+            jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        response.data?.let {
+                            if (it.size > 0) {
+                                firstNameEt.setText(it[0].firstName)
+                                lastNameEt.setText(it[0].lastName)
+                                currentTitleEt.setText(it[0].title)
+                                contactEmailEt.setText(it[0].contactEmailId)
+                                phoneNumberEt.setText(it[0].phoneNo)
+                                locationEt.setText(it[0].location)
+                                selectExperienceTv.text = it[0].experience
+                                selectVisaStatusTv.text = it[0].visaStatus
+                                selectAvailabilityTv.text = it[0].availability
+                                skillSetDescEt.setText(it[0].skillSet)
+                                coverLetterDescEt.setText(it[0].coverLetter)
+                            }
+                        }
+
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
         }
 
         jobSeekerViewModel.getAllActiveJobApplicability()
@@ -295,6 +354,30 @@ class JobProfileUploadFragment : Fragment() {
             }
         }
 
+        jobSeekerViewModel.updateJobProfileData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+
+                    if (jobSeekerViewModel.resumeFileUri != null) {
+                        callUploadResumeApi(response.data?.id)
+                    } else {
+                        val action =
+                            JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
+                                "UpdateProfileScreen"
+                            )
+                        findNavController().navigate(action)
+                    }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+        }
+
         jobSeekerViewModel.uploadResumeData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -315,6 +398,28 @@ class JobProfileUploadFragment : Fragment() {
         }
 
         return binding?.root
+    }
+
+    private fun visibleResumeFile() {
+        binding?.uploadResumeLl?.gravity = Gravity.START
+        binding?.uploadResumeTv?.visibility = View.GONE
+        binding?.sizeLimitTv?.visibility = View.GONE
+        binding?.uploadedResumeShapeLl?.visibility = View.VISIBLE
+        binding?.resumeNameTv?.text = fileName
+
+        /*if (enableGrayColor) {
+            binding?.uploadedResumeShapeLl?.backgroundTintList = ColorStateList.valueOf(
+                resources.getColor(
+                    R.color.darkGrayColor
+                )
+            )
+        } else {
+            binding?.uploadedResumeShapeLl?.backgroundTintList = ColorStateList.valueOf(
+                resources.getColor(
+                    R.color.blueBtnColor
+                )
+            )
+        }*/
     }
 
     private fun callUploadResumeApi(id: Int?) {

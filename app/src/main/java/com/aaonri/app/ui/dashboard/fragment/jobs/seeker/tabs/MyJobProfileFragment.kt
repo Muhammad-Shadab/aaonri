@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
+import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentMyJobProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
@@ -27,7 +29,11 @@ class MyJobProfileFragment : Fragment() {
 
         jobSeekerAdapter = JobSeekerAdapter()
         jobSeekerAdapter?.itemClickListener = { view, item, position ->
-
+            if (item is UserJobProfileResponseItem) {
+                if (view.id == R.id.updateProfileBtn) {
+                    jobSeekerViewModel.setNavigateToUpdateJobProfileScreen(true, item.id)
+                }
+            }
         }
 
         binding?.apply {

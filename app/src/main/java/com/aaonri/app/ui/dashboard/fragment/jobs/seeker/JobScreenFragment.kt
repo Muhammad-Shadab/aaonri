@@ -113,9 +113,24 @@ class JobScreenFragment : Fragment() {
         jobSeekerViewModel.navigateToUploadJobProfileScreen.observe(viewLifecycleOwner) {
             if (it != null) {
                 val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment()
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                        false,
+                        0
+                    )
                 findNavController().navigate(action)
                 jobSeekerViewModel.navigateToUploadJobProfileScreen.postValue(null)
+            }
+        }
+
+        jobSeekerViewModel.navigateToUpdateJobProfileScreen.observe(viewLifecycleOwner) { pair ->
+            if (pair != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                        true,
+                        pair.second
+                    )
+                findNavController().navigate(action)
+                jobSeekerViewModel.navigateToUpdateJobProfileScreen.postValue(null)
             }
         }
 

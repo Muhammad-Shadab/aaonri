@@ -26,8 +26,8 @@ class JobSeekerRepository @Inject constructor(
     suspend fun getUserJobProfileByEmail(emailId: String, isApplicant: Boolean) =
         jobSeekerApi.getUserJobProfileByEmail(emailId, isApplicant)
 
-    suspend fun updateJobProfile(addJobProfileRequest: AddJobProfileRequest) =
-        jobSeekerApi.updateJobProfile(addJobProfileRequest)
+    suspend fun updateJobProfile(profileId: Int, addJobProfileRequest: AddJobProfileRequest) =
+        jobSeekerApi.updateJobProfile(profileId, addJobProfileRequest)
 
     suspend fun addJobProfile(addJobProfileRequest: AddJobProfileRequest) =
         jobSeekerApi.addJobProfile(addJobProfileRequest)

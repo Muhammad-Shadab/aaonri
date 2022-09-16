@@ -42,6 +42,8 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val navigateToUploadJobProfileScreen: MutableLiveData<Boolean> = MutableLiveData()
 
+    val navigateToUpdateJobProfileScreen: MutableLiveData<Pair<Boolean, Int>> = MutableLiveData()
+
     val getUserJobProfileData: MutableLiveData<Resource<UserJobProfileResponse>> = MutableLiveData()
 
     val selectedExperienceLevel: MutableLiveData<ExperienceLevelResponseItem> = MutableLiveData()
@@ -145,11 +147,12 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         return Resource.Error(response.message())
     }
 
-    fun updateJobProfile(addJobProfileRequest: AddJobProfileRequest) = viewModelScope.launch {
-        updateJobProfileData.postValue(Resource.Loading())
-        val response = jobSeekerRepository.updateJobProfile(addJobProfileRequest)
-        updateJobProfileData.postValue(handleUpdateAndAddJobProfileResponse(response))
-    }
+    fun updateJobProfile(profileId: Int, addJobProfileRequest: AddJobProfileRequest) =
+        viewModelScope.launch {
+            updateJobProfileData.postValue(Resource.Loading())
+            val response = jobSeekerRepository.updateJobProfile(profileId, addJobProfileRequest)
+            updateJobProfileData.postValue(handleUpdateAndAddJobProfileResponse(response))
+        }
 
     private fun handleUpdateAndAddJobProfileResponse(response: Response<AddJobProfileResponse>): Resource<AddJobProfileResponse>? {
         if (response.isSuccessful) {
@@ -221,6 +224,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     fun setNavigateToUploadJobProfileScreen(value: Boolean) {
         navigateToUploadJobProfileScreen.postValue(value)
+    }
+
+    fun setNavigateToUpdateJobProfileScreen(value: Boolean, id: Int) {
+        navigateToUpdateJobProfileScreen.postValue(Pair(first = value, second = id))
     }
 
     fun setSelectedExperienceLevel(value: ExperienceLevelResponseItem) {

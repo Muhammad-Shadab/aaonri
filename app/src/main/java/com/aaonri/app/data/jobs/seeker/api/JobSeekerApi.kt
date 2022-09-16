@@ -31,6 +31,7 @@ interface JobSeekerApi {
 
     @PUT("/api/v1/jobprofile/update/{profileId}")
     suspend fun updateJobProfile(
+        @Path("profileId") profileId: Int,
         @Body addJobProfileRequest: AddJobProfileRequest
     ): Response<AddJobProfileResponse>
 

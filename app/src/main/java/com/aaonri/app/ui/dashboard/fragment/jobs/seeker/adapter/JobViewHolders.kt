@@ -100,6 +100,11 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                         .replace("-", "")
                         .replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
                 jobSeekerAddressTv.text = userJobProfileResponseItem.location
+
+                updateProfileBtn.setOnClickListener {
+                    itemClickListener?.invoke(it, userJobProfileResponseItem, adapterPosition)
+                }
+
             }
         }
     }

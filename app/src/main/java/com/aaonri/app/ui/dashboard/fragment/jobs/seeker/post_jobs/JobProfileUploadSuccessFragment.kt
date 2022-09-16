@@ -8,8 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentJobProfileUploadSuccessBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobProfileUploadSuccessFragmentArgs
-import com.aaonri.app.ui.dashboard.fragment.jobs.post_jobs.JobProfileUploadSuccessFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,21 +26,24 @@ class JobProfileUploadSuccessFragment : BottomSheetDialogFragment() {
 
         binding?.apply {
 
-            when (args.navigatingFrom) {
+            when (args.screenName) {
                 "ProfileUploadScreen" -> {
                     successfulTv.text = "You have successfully uploaded your JOB Profile."
                     navigateScreenBtn.text = "VIEW MY JOB PROFILE"
                 }
-
                 "ApplyJobScreen" -> {
                     successfulTv.text = "You have successfully applied for this Job ."
                     navigateScreenBtn.text = "VIEW JOBS"
+                }
+                "UpdateProfileScreen" -> {
+                    successfulTv.text = "You have successfully updated your JOB Profile."
+                    navigateScreenBtn.text = "VIEW MY JOB PROFILE"
                 }
             }
 
             navigateScreenBtn.setOnClickListener {
                 val action =
-                    JobProfileUploadSuccessFragmentDirections.actionJobProfileUploadSuccessFragmentToJobScreenFragment2()
+                    JobProfileUploadSuccessFragmentDirections.actionJobProfileUploadSuccessFragmentToJobScreenFragment()
                 findNavController().navigate(action)
             }
 
