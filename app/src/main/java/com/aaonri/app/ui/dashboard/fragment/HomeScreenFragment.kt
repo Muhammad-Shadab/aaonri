@@ -663,9 +663,7 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests == "17" || interests == "Jobs") {
                 //Jobs
-                val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
-                findNavController().navigate(action)
+
             } else if (interests == "22" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)
