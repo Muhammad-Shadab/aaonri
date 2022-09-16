@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.dashboard.fragment.jobs.seeker.JobScreenFragment">
+    tools:context=".ui.dashboard.fragment.jobs.recruiter.JobRecruiterScreenFragment">
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_42sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -127,10 +127,12 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/helvetica_regular"
-            android:hint="@string/search_jobs"
+            android:hint="Search Talent?"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="none"
+            android:textColorHint="@color/black"
             android:maxLines="1"
+            android:editable="false"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_8sdp"
@@ -140,20 +142,16 @@
             android:id="@+id/searchViewIcon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/ic_icon_search" />
-        <ImageView
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:id="@+id/cancelbutton"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:background="@drawable/cancel_btn" />
+            android:backgroundTint="@color/graytxtcolor"
+            android:background="@drawable/ic_baseline_arrow_forward" />
+
     </LinearLayout>
 
 
 
     <ImageView
         android:id="@+id/filterEvent"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_icons_filter"
@@ -373,7 +371,7 @@
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
+            app:tabMode="auto"
             app:tabPaddingEnd="@dimen/_2sdp"
             app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />
@@ -389,6 +387,27 @@
             app:layout_constraintTop_toBottomOf="@id/jobsScreenTabLayout">
         </androidx.viewpager2.widget.ViewPager2>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/floatingActionBtnClassified"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:cardBackgroundColor="@color/greenBtnColor"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/circle"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/_4sdp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/plus" />
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

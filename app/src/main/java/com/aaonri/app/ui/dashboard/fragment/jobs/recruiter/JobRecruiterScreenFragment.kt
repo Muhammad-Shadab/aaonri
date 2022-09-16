@@ -1,42 +1,38 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
-import com.aaonri.app.databinding.FragmentJobScreenBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobPagerAdapter
+import com.aaonri.app.databinding.FragmentJobRecruiterScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class JobScreenFragment : Fragment() {
-    var binding: FragmentJobScreenBinding? = null
-    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+
+class JobRecruiterScreenFragment : Fragment() {
+    var binding:FragmentJobRecruiterScreenBinding? = null
     private val tabTitles =
-        arrayListOf("All Jobs", "Job Alerts", "My Profile")
-
+        arrayListOf("All Talents", "My Posted Jobs", "Consultant Profile")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentJobScreenBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        binding = FragmentJobRecruiterScreenBinding.inflate(inflater, container, false)
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
         val fragment = this
-        val jobPagerAdapter = JobPagerAdapter(fragment)
+        val jobPagerAdapter = RecruiterPagerAdapter(fragment)
 
         binding?.apply {
 
@@ -87,23 +83,9 @@ class JobScreenFragment : Fragment() {
             jobScreenViewPager.isUserInputEnabled = false
         }
 
-        jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
-            if (jobId != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId)
-                findNavController().navigate(action)
-                jobSeekerViewModel.navigateAllJobToDetailsJobScreen.postValue(null)
-            }
-        }
 
-        jobSeekerViewModel.navigateToUploadJobProfileScreen.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment()
-                findNavController().navigate(action)
-                jobSeekerViewModel.navigateToUploadJobProfileScreen.postValue(null)
-            }
-        }
+
+
 
         return binding?.root
     }

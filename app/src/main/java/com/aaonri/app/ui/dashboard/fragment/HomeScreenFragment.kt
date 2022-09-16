@@ -28,7 +28,7 @@ import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
@@ -664,7 +664,7 @@ class HomeScreenFragment : Fragment() {
             } else if (interests == "17" || interests == "Jobs") {
                 //Jobs
                 val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
                 findNavController().navigate(action)
             } else if (interests == "22" || interests == "Shop With Us") {
                 //Shop With Us

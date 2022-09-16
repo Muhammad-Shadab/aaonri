@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.dashboard.fragment.jobs.seeker.post_jobs.JobProfileUploadSuccessFragment">
+    tools:context=".ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterBottomSuccessFragment">
+
     <ImageView
-    android:id="@+id/successTickIv"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="@dimen/_40sdp"
-    android:layout_marginBottom="@dimen/_20sdp"
-    android:src="@drawable/ic_success_tick" />
+        android:id="@+id/successTickIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:src="@drawable/ic_success_tick" />
 
     <TextView
         android:id="@+id/enterYourEmailToSendLinkTv"
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="@dimen/_24sdp"
-        android:text="You have successfully uploaded your JOB Profile."
+        android:text="You have successfully uploaded your consultant profile."
         android:fontFamily="@font/sf_pro_regular"
         android:lineSpacingExtra="@dimen/_4sdp"
         android:textAlignment="center"
@@ -52,9 +53,8 @@
         android:minHeight="0dp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:text="View My JOB Profile"
+        android:text="View Consultant Profile"
         android:textColor="@color/white"
         android:textSize="17sp" />
-
 
 </LinearLayout>

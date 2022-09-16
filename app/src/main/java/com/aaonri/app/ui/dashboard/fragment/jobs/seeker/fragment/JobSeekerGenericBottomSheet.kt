@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.fragment
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseIt
 import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobGenericBottomSheetBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobAdapter
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
