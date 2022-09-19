@@ -72,6 +72,7 @@ class AuthCommonViewModel @Inject constructor(
 
     val stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
 
+
     val communitiesList: MutableLiveData<Resource<CommunitiesListResponse>> = MutableLiveData()
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
@@ -263,5 +264,7 @@ class AuthCommonViewModel @Inject constructor(
     fun setProfilePicUriValue(value: Uri) {
         profilePicUri = value
     }
+
+
 
 }

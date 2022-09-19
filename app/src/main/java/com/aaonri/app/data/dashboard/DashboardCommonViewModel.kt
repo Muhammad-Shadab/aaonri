@@ -2,6 +2,7 @@ package com.aaonri.app.data.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 
 class DashboardCommonViewModel : ViewModel() {
 
@@ -18,6 +19,9 @@ class DashboardCommonViewModel : ViewModel() {
         private set
 
     var isFilterApplied: MutableLiveData<String> = MutableLiveData()
+
+    var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
+        private set
 
     fun setGuestUser(value: Boolean) {
         isGuestUser.value = value
@@ -38,5 +42,9 @@ class DashboardCommonViewModel : ViewModel() {
     fun setIsShopWithUsClicked(value: Boolean) {
         isShopWithUsClicked.postValue(value)
     }
+    fun addServicesList(value: MutableList<ServicesResponseItem>) {
+        selectedServicesList.postValue(value)
+    }
+
 
 }

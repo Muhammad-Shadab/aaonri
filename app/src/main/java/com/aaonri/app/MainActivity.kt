@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -44,7 +45,7 @@ class MainActivity : BaseActivity() {
     val advertiseViewModel: AdvertiseViewModel by viewModels()
     val mainViewModel: MainViewModel by viewModels()
     val immigrationViewModel: ImmigrationViewModel by viewModels()
-
+    val registrationViewModel: RegistrationViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -62,7 +63,7 @@ class MainActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
-
+        registrationViewModel.getServices()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.dashboardNavHost) as NavHostFragment
         val navController = navHostFragment.navController

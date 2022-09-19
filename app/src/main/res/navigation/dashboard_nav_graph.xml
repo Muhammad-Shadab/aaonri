@@ -86,7 +86,14 @@
         android:id="@+id/moreScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.MoreScreenFragment"
         android:label="fragment_more_screen"
-        tools:layout="@layout/fragment_more_screen" />
+        tools:layout="@layout/fragment_more_screen" >
+        <action
+            android:id="@+id/action_moreScreenFragment_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_immigrationScreenFragment"
+            app:destination="@id/immigrationScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/classifiedFilterFragmentBottom"
         android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottom"

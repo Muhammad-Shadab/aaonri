@@ -69,8 +69,8 @@ class ServicesCategoryFragment : Fragment() {
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
             authCommonViewModel.addServicesList(selectedCommunity)
-        }) {
-            isJobSelected = it
+        },{isJobSelected = it}) {
+
         }
 
         binding?.apply {
@@ -380,7 +380,7 @@ class ServicesCategoryFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
-                        adapter?.setData(servicesResponse)
+                        adapter?.setData(servicesResponse,false)
                     }
                 }
                 is Resource.Error -> {
