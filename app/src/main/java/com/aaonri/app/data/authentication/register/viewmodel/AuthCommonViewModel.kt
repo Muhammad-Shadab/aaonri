@@ -12,6 +12,7 @@ import com.aaonri.app.data.authentication.register.model.countries.CountriesResp
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
+import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -27,6 +28,9 @@ class AuthCommonViewModel @Inject constructor(
 
     var basicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
+
+    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+        MutableLiveData()
 
     var saveState: MutableLiveData<String> = MutableLiveData()
 
@@ -76,8 +80,9 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
-    var isSelectedServices: Boolean? = false
+    var isUpdateProfile = false
 
+    var isSelectedServices: Boolean? = false
 
     var isNewUserRegisterUsingGmail = false
         private set
@@ -262,6 +267,25 @@ class AuthCommonViewModel @Inject constructor(
 
     fun setProfilePicUriValue(value: Uri) {
         profilePicUri = value
+    }
+
+    fun setIsUpdateProfile(value: Boolean) {
+        isUpdateProfile = value
+    }
+
+    fun findByEmail(email: String) = viewModelScope.launch {
+        findByEmailData.postValue(Resource.Loading())
+        val response = registrationRepository.findByEmail(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
+    }
+
+    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 }

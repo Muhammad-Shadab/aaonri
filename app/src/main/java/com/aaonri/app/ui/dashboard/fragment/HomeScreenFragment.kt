@@ -1,11 +1,13 @@
 package com.aaonri.app.ui.dashboard.fragment
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -26,12 +28,12 @@ import com.aaonri.app.data.immigration.model.ImmigrationCenterModelItem
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
+import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
-import com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileActivity
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
@@ -40,6 +42,11 @@ import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
@@ -50,6 +57,7 @@ import java.nio.charset.Charset
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
     var binding: FragmentHomeScreenBinding? = null
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
@@ -144,7 +152,7 @@ class HomeScreenFragment : Fragment() {
         val logOutBtn =
             dialog.findViewById<TextView>(R.id.logOutBtn)
         val closeDialogBtn =
-            dialog.findViewById<TextView>(R.id.closeDialogBtn)
+            dialog.findViewById<ImageView>(R.id.closeDialogBtn)
 
         val window: Window? = dialog.window
         val wlp: WindowManager.LayoutParams? = window?.attributes
@@ -234,6 +242,7 @@ class HomeScreenFragment : Fragment() {
         homeInterestsServiceAdapter =
             HomeInterestsServiceAdapter {
                 classifiedViewModel.setSelectedServiceRow(it)
+                binding?.eventTv?.text = it
                 /*if (it == "Shop With Us") {
                     homeScreenBinding?.availableServiceHorizontalClassifiedRv?.visibility =
                         View.GONE
@@ -408,14 +417,65 @@ class HomeScreenFragment : Fragment() {
                 dialog.show()
             }
 
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
+            findNavController().navigate(action)
+
             editProfileBtn.setOnClickListener {
-                val intent = Intent(requireActivity(), UpdateProfileActivity::class.java)
-                startActivity(intent)
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
+                findNavController().navigate(action)
                 dialog.dismiss()
             }
 
             logOutBtn.setOnClickListener {
                 dialog.dismiss()
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure you want to Logout?")
+                builder.setPositiveButton("OK") { dialog, which ->
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_ZIP_CODE, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_CITY, "")
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_STATE, "")
+                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_USER_LOGIN, false)
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PROFILE_PIC, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_FIRST_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_LAST_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.gmail_client_id))
+                        .requestEmail()
+                        .build()
+
+                    FirebaseAuth.getInstance().signOut()
+                    LoginManager.getInstance().logOut()
+                    mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
+                    mGoogleSignInClient.signOut()
+
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                }
+                builder.show()
             }
 
             closeDialogBtn.setOnClickListener {
@@ -646,6 +706,7 @@ class HomeScreenFragment : Fragment() {
                         .show()
                 }
                 else -> {
+
                 }
             }
         }*/
@@ -708,9 +769,9 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests == "17" || interests == "Jobs") {
                 //Jobs
-                val action =
+                /*val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                findNavController().navigate(action)
+                findNavController().navigate(action)*/
             } else if (interests == "22" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)

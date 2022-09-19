@@ -103,17 +103,18 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:orientation="horizontal">
+
                 <com.hbb20.CountryCodePicker
                     android:id="@+id/countryCodePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:ccp_defaultNameCode="US"
-                    android:layout_marginStart="@dimen/_12sdp"
                     app:ccpDialog_backgroundColor="@color/white"
                     app:ccpDialog_searchEditTextTint="@color/black"
+                    app:ccp_defaultNameCode="US"
                     app:ccp_hintExampleNumber="true"
                     app:ccp_showArrow="false"
                     app:ccp_showFullName="false"

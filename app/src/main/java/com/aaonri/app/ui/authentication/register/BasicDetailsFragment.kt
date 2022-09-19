@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
@@ -116,49 +117,60 @@ class BasicDetailsFragment : Fragment() {
             }
 
             emailAddressBasicDetails.addTextChangedListener { editable ->
-                job?.cancel()
-                job = MainScope().launch {
-                    delay(500L)
-                    editable?.let {
-                        if (editable.toString().isNotEmpty() && editable.toString().length > 8) {
-                            if (Validator.emailValidation(editable.toString())) {
-                                isEmailValid = true
-                                binding?.emailAlreadyExistTv?.visibility = View.GONE
-                                registrationViewModel.isEmailAlreadyRegister(
-                                    EmailVerifyRequest(
-                                        emailAddressBasicDetails.text.toString()
+                if (authCommonViewModel.isUpdateProfile) {
+                    isEmailValid = true
+                } else {
+                    job?.cancel()
+                    job = MainScope().launch {
+                        delay(500L)
+                        editable?.let {
+                            if (editable.toString()
+                                    .isNotEmpty() && editable.toString().length > 8
+                            ) {
+                                if (Validator.emailValidation(editable.toString())) {
+                                    isEmailValid = true
+                                    binding?.emailAlreadyExistTv?.visibility = View.GONE
+                                    registrationViewModel.isEmailAlreadyRegister(
+                                        EmailVerifyRequest(
+                                            emailAddressBasicDetails.text.toString()
+                                        )
                                     )
-                                )
+                                } else {
+                                    isEmailValid = false
+                                    binding?.emailAlreadyExistTv?.visibility = View.VISIBLE
+                                    binding?.emailAlreadyExistTv?.text =
+                                        "Please enter valid email"
+                                }
                             } else {
                                 isEmailValid = false
-                                binding?.emailAlreadyExistTv?.visibility = View.VISIBLE
-                                binding?.emailAlreadyExistTv?.text =
-                                    "Please enter valid email"
+                                binding?.emailAlreadyExistTv?.visibility = View.GONE
                             }
-                        } else {
-                            isEmailValid = false
-                            binding?.emailAlreadyExistTv?.visibility = View.GONE
                         }
                     }
                 }
+
             }
 
 
             passwordBasicDetails.addTextChangedListener { editable ->
                 editable?.let {
-                    if (it.toString().isNotEmpty() && it.toString().length >= 8) {
-                        if (Validator.passwordValidation(it.toString())) {
-                            isPasswordValid = true
-                            binding?.passwordValidationTv?.visibility = View.GONE
+                    if (authCommonViewModel.isUpdateProfile) {
+                        isPasswordValid = true
+                    } else {
+                        if (it.toString().isNotEmpty() && it.toString().length >= 8) {
+                            if (Validator.passwordValidation(it.toString())) {
+                                isPasswordValid = true
+                                binding?.passwordValidationTv?.visibility = View.GONE
+                            } else {
+                                isPasswordValid = false
+                                binding?.passwordValidationTv?.text =
+                                    "Please enter valid password"
+                                binding?.passwordValidationTv?.visibility = View.VISIBLE
+                            }
                         } else {
                             isPasswordValid = false
-                            binding?.passwordValidationTv?.text =
-                                "Please enter valid password"
-                            binding?.passwordValidationTv?.visibility = View.VISIBLE
+                            binding?.passwordValidationTv?.visibility = View.GONE
                         }
-                    } else {
-                        isPasswordValid = false
-                        binding?.passwordValidationTv?.visibility = View.GONE
                     }
                 }
             }
@@ -184,7 +196,11 @@ class BasicDetailsFragment : Fragment() {
                             password.toString()
                         )
 //                        authCommonViewModel.addCountryClicked(true)
-                        findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                        if (authCommonViewModel.isUpdateProfile) {
+
+                        } else {
+                            findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                        }
                     } else {
                         activity?.let { it1 ->
                             Snackbar.make(
@@ -227,6 +243,67 @@ class BasicDetailsFragment : Fragment() {
                 }
                 else -> {
 
+                }
+            }
+        }
+
+        authCommonViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        profile =
+                            "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
+                        binding?.addProfileIv?.let { it1 ->
+                            context?.let { it2 ->
+                                Glide.with(it2)
+                                    .load(profile)
+                                    .into(
+                                        it1
+                                    )
+                            }
+                        }
+                        binding?.firstNameBasicDetails?.setText(it.firstName)
+                        binding?.lastNameBasicDetails?.setText(it.lastName)
+                        binding?.emailAddressBasicDetails?.setText(it.emailId)
+                        binding?.passwordBasicDetails?.setText("********")
+                        isEmailValid = true
+                        isPasswordValid = true
+                        binding?.emailAddressBasicDetails?.isEnabled = false
+                        binding?.passwordBasicDetails?.isEnabled = false
+                        binding?.passTi?.isEnabled = false
+
+                        /*authCommonViewModel.addBasicDetails(
+                            firstName = it.firstName,
+                            lastName = it.lastName,
+                            emailAddress = it.emailId,
+                            password = it.password
+                        )
+
+                        authCommonViewModel.addAddressDetails(
+                            address1 = it.address1,
+                            address2 = it.address2,
+                            phoneNumber = it.phoneNo
+                        )
+
+                        authCommonViewModel.addLocationDetails(
+                            zipCode = it.zipcode,
+                            state = (it.state?: "") as String,
+                            city = it.city
+                        )*/
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
                 }
             }
         }

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_jobRecruiterScreenFragment"
             app:destination="@id/jobRecruiterScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -387,7 +390,7 @@
         android:id="@+id/jobApplyFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobApplyFragment"
         android:label="fragment_job_apply"
-        tools:layout="@layout/fragment_job_apply" >
+        tools:layout="@layout/fragment_job_apply">
         <argument
             android:name="jobId"
             app:argType="integer" />
@@ -399,7 +402,7 @@
         android:id="@+id/jobProfileUploadSuccessFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobProfileUploadSuccessFragment"
         android:label="fragment_job_profile_upload_success"
-        tools:layout="@layout/fragment_job_profile_upload_success" >
+        tools:layout="@layout/fragment_job_profile_upload_success">
         <argument
             android:name="screenName"
             app:argType="string" />
@@ -409,6 +412,11 @@
             app:popUpTo="@id/jobScreenFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" />
 
 
 </navigation>

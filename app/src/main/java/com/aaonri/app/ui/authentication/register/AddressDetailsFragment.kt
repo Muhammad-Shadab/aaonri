@@ -68,22 +68,19 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                     authCommonViewModel.selectedCountryAddressScreen?.value?.first
                 countryCodePicker.imageViewFlag.setImageBitmap(authCommonViewModel.countryFlagBmp)
                 if (authCommonViewModel.addressDetails["address1"]?.isNotEmpty() == true) {
-                    binding?.address1?.setText(authCommonViewModel?.addressDetails?.get("address1"))
-
+                    binding?.address1?.setText(authCommonViewModel.addressDetails.get("address1"))
                 }
                 if (authCommonViewModel.addressDetails["address2"]?.isNotEmpty() == true) {
-                    binding?.address2?.setText(authCommonViewModel?.addressDetails?.get("address2"))
+                    binding?.address2?.setText(authCommonViewModel.addressDetails.get("address2"))
 
                 }
                 if (authCommonViewModel.addressDetails["phoneNumber"]?.isNotEmpty() == true) {
                     binding?.phoneNumberAddressDetails?.setText(
-                        authCommonViewModel?.addressDetails?.get(
+                        authCommonViewModel.addressDetails?.get(
                             "phoneNumber"
                         )?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
                     )
                 }
-
-
             }
 
 
@@ -203,6 +200,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                     }
                 }
             }
+
         }
 
         authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
@@ -310,6 +308,54 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                       authCommonViewModel.countryFlagBmp(null)*/
                 }
             })
+
+        authCommonViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+
+                        binding?.address1?.setText(it.address1)
+                        binding?.address2?.setText(it.address2)
+                        binding?.selectedCountryName?.text = it.originCountry
+                        binding?.zipCodeAddressDetails?.setText(it.zipcode)
+
+
+                        /*authCommonViewModel.addBasicDetails(
+                            firstName = it.firstName,
+                            lastName = it.lastName,
+                            emailAddress = it.emailId,
+                            password = it.password
+                        )
+
+                        authCommonViewModel.addAddressDetails(
+                            address1 = it.address1,
+                            address2 = it.address2,
+                            phoneNumber = it.phoneNo
+                        )
+
+                        authCommonViewModel.addLocationDetails(
+                            zipCode = it.zipcode,
+                            state = (it.state?: "") as String,
+                            city = it.city
+                        )*/
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+
 
 
         return binding?.root

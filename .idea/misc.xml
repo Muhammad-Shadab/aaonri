@@ -67,6 +67,7 @@
         <entry key="app/src/main/res/layout/category_card_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item1.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_item2.xml" value="0.26766304347826086" />
+        <entry key="app/src/main/res/layout/fragment_address_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/fragment_all_classified.xml" value="0.19972826086956522" />
@@ -100,6 +101,7 @@
         <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_services_category.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_update_profile.xml" value="0.36820652173913043" />
         <entry key="app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
@@ -108,6 +110,7 @@
         <entry key="app/src/main/res/layout/my_job_profile_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/success_register_dialog.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/tab_title_text.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/update_profile_dialog.xml" value="0.33" />
       </map>
     </option>

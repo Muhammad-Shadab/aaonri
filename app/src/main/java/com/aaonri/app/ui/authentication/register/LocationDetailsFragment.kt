@@ -1,6 +1,5 @@
 package com.aaonri.app.ui.authentication.register
 
-import com.aaonri.app.R
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -56,17 +56,15 @@ class LocationDetailsFragment : Fragment() {
             )
         }*/
         binding?.apply {
-              if(authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true)
-              {
-                  stateLocationDetails.setText(authCommonViewModel.originLocationDetails["originState"])
-              }
+            if (authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true) {
+                stateLocationDetails.setText(authCommonViewModel.originLocationDetails["originState"])
+            }
 
-            if(authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true)
-            {
+            if (authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true) {
                 cityLocationDetails.setText(authCommonViewModel.originLocationDetails["originCity"])
             }
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
-            countryFlagIcon.visibility= View.GONE
+            countryFlagIcon.visibility = View.GONE
             selectMoreCommunityIv.setOnClickListener {
                 findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
             }
@@ -74,7 +72,6 @@ class LocationDetailsFragment : Fragment() {
             locationDetailsNextBtn.setOnClickListener {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
 
                 if (isCommunitySelected && selectCountryLocation.text.toString().isNotEmpty()) {
                     authCommonViewModel.addOriginLocationDetails(
@@ -114,11 +111,9 @@ class LocationDetailsFragment : Fragment() {
             binding?.selectCountryLocation?.text = triple.first
 
 
-            if(triple.second.isEmpty())
-            {
+            if (triple.second.isEmpty()) {
                 binding?.countryFlagIcon?.visibility = View.GONE
-            }
-            else{
+            } else {
                 binding?.countryFlagIcon?.load(triple.second)
                 binding?.countryFlagIcon?.visibility = View.VISIBLE
             }
@@ -128,7 +123,7 @@ class LocationDetailsFragment : Fragment() {
             if (it.isNotEmpty()) {
                 isCommunitySelected = true
                 binding?.selectedCommunitySizeTv?.text =
-                    "Your selected ${if(it.size<=1)"community" else "communities" } (${it.size})"
+                    "Your selected ${if (it.size <= 1) "community" else "communities"} (${it.size})"
                 binding?.selectedCardView?.visibility = View.VISIBLE
                 selectedCommunityAdapter?.setData(it)
                 binding?.selectCommunityEt?.visibility = View.GONE
@@ -145,8 +140,8 @@ class LocationDetailsFragment : Fragment() {
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
-                /*    authCommonViewModel.selectedCommunityList.value?.clear()
-                    authCommonViewModel.setSelectedCountryLocationScreen("","","")*/
+                    /*    authCommonViewModel.selectedCommunityList.value?.clear()
+                        authCommonViewModel.setSelectedCountryLocationScreen("","","")*/
                 }
             })
         return binding?.root
@@ -193,6 +188,7 @@ class LocationDetailsFragment : Fragment() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null
