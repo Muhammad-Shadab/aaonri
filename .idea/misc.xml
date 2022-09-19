@@ -55,11 +55,13 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_item.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ad_txt_only_bg.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/blue_capsule_shape.xml" value="0.336" />
+        <entry key="app/src/main/res/drawable/dialog_shape.xml" value="0.37" />
         <entry key="app/src/main/res/drawable/gray_btn.xml" value="0.336" />
         <entry key="app/src/main/res/drawable/ic_image_placeholder.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/tab_background_shape.xml" value="0.336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/activity_update_profile.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/advertisement_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/all_posted_jobs_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item.xml" value="0.3692708333333333" />
@@ -72,6 +74,8 @@
         <entry key="app/src/main/res/layout/fragment_basic_details.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_classified_filter.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_classified_screen.xml" value="0.223731884057971" />
+        <entry key="app/src/main/res/layout/fragment_community_bottom.xml" value="0.36820652173913043" />
         <entry key="app/src/main/res/layout/fragment_event_category_bottom.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_event_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.19972826086956522" />
@@ -104,6 +108,7 @@
         <entry key="app/src/main/res/layout/my_job_profile_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/success_register_dialog.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/update_profile_dialog.xml" value="0.33" />
       </map>
     </option>
   </component>

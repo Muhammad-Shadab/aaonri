@@ -2,11 +2,10 @@ package com.aaonri.app.ui.dashboard.fragment
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -32,6 +31,7 @@ import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGeneric
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
+import com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileActivity
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
@@ -129,6 +129,28 @@ class HomeScreenFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }*/
+
+        dialog.setContentView(R.layout.update_profile_dialog)
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+
+        dialog.setCancelable(false)
+        val editProfileBtn =
+            dialog.findViewById<TextView>(R.id.editProfileBtn)
+        val logOutBtn =
+            dialog.findViewById<TextView>(R.id.logOutBtn)
+        val closeDialogBtn =
+            dialog.findViewById<TextView>(R.id.closeDialogBtn)
+
+        val window: Window? = dialog.window
+        val wlp: WindowManager.LayoutParams? = window?.attributes
+
+        wlp?.gravity = Gravity.TOP
+        window?.attributes = wlp
 
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
@@ -383,21 +405,21 @@ class HomeScreenFragment : Fragment() {
             }
 
             profilePicCv.setOnClickListener {
-                dialog.setContentView(R.layout.success_register_dialog)
-                dialog.window?.setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.dialog_shape
-                    )
-                )
-                dialog.setCancelable(false)
                 dialog.show()
-                val continueBtn =
-                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                continueBtn.setOnClickListener {
+            }
 
-                    dialog.dismiss()
-                }
+            editProfileBtn.setOnClickListener {
+                val intent = Intent(requireActivity(), UpdateProfileActivity::class.java)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+
+            logOutBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            closeDialogBtn.setOnClickListener {
+                dialog.dismiss()
             }
 
             interestRecyclerView.layoutManager =

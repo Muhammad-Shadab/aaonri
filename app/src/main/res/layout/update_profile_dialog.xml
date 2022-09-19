@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_12sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profilePicCv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <ImageView
+            android:id="@+id/profilePicIv"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:padding="@dimen/_1sdp"
+            android:src="@drawable/profile_pic_placeholder" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/profileDetailsLl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
+        app:layout_constraintEnd_toStartOf="@id/closeDialogBtn"
+        app:layout_constraintStart_toEndOf="@id/profilePicCv"
+        app:layout_constraintTop_toTopOf="@id/profilePicCv">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:maxLines="1"
+            android:text="Maulik Gupta"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/sf_pro_display_light"
+            android:maxLines="1"
+            android:text="Maulik Gupta"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/closeDialogBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profilePicCv" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editProfileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/green_btn_shape"
+        android:elevation="@dimen/_6sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:gravity="center"
+        android:minHeight="0dp"
+        android:text="EDIT PROFILE"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileDetailsLl" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logOutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:background="@drawable/green_btn_shape"
+        android:backgroundTint="#124C94"
+        android:elevation="@dimen/_6sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:gravity="center"
+        android:minHeight="0dp"
+        android:text="LOG OUT"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
