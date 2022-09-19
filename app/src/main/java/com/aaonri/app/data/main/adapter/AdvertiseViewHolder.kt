@@ -1,13 +1,9 @@
 package com.aaonri.app.data.main.adapter
 
-import android.content.Intent
 import android.content.res.Resources
-import android.net.Uri
 import android.text.Html
 import android.view.Gravity
 import android.view.View
-import android.webkit.URLUtil
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
@@ -22,6 +18,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
 
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? =
         null
+
     /** Advertise ViewHolder for text only Type**/
     class TextOnlyViewHolder(private val binding: TextOnlyItemBinding) :
         AdvertiseViewHolder(binding) {
@@ -30,12 +27,17 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
             binding.apply {
                 root.setOnClickListener {
-                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
+                    itemClickListener?.invoke(
+                        it,
+                        findAllActiveAdvertiseResponseItem,
+                        adapterPosition
+                    )
 
                 }
             }
             binding.advertiseDesc.text =
-                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
+                Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                    .trim()
             binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 50
         }
     }
@@ -47,7 +49,11 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
             binding.apply {
                 root.setOnClickListener {
-                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
+                    itemClickListener?.invoke(
+                        it,
+                        findAllActiveAdvertiseResponseItem,
+                        adapterPosition
+                    )
 
                 }
             }
@@ -66,13 +72,16 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         AdvertiseViewHolder(binding) {
         val context = binding.imageView.context
         fun bind(findAllActiveAdvertiseResponseItem: FindAllActiveAdvertiseResponseItem) {
-            when(findAllActiveAdvertiseResponseItem.template.code)
-            {
-                  "IMTB"->{binding.bothLl.gravity = Gravity.BOTTOM
-                      binding.advertiseDesc.gravity = Gravity.CENTER}
+            when (findAllActiveAdvertiseResponseItem.template.code) {
+                "IMTB" -> {
+                    binding.bothLl.gravity = Gravity.BOTTOM
+                    binding.advertiseDesc.gravity = Gravity.CENTER
+                }
 
-                "IMTL"->{binding.bothLl.gravity = Gravity.BOTTOM
-                         binding.advertiseDesc.gravity = Gravity.START }
+                "IMTL" -> {
+                    binding.bothLl.gravity = Gravity.BOTTOM
+                    binding.advertiseDesc.gravity = Gravity.START
+                }
 
                 else -> {
                     binding.bothLl.gravity = Gravity.CENTER
@@ -81,14 +90,14 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             }
 
 
-            if(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isNullOrEmpty())
-            {
+            if (findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription.isNullOrEmpty()) {
                 binding.advertiseDesc.visibility = View.GONE
 
-            }else{
+            } else {
                 binding.advertiseDesc.visibility = View.VISIBLE
                 binding.advertiseDesc.text =
-                    Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription).trim()
+                    Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
+                        .trim()
             }
             context?.let { it1 ->
                 Glide.with(it1)
@@ -97,7 +106,11 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             }
             binding.apply {
                 root.setOnClickListener {
-                    itemClickListener?.invoke(it, findAllActiveAdvertiseResponseItem, adapterPosition)
+                    itemClickListener?.invoke(
+                        it,
+                        findAllActiveAdvertiseResponseItem,
+                        adapterPosition
+                    )
 
                 }
             }

@@ -1,5 +1,4 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

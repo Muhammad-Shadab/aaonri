@@ -2,9 +2,9 @@ package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs.AllJobFragment
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs.JobAlertsFragment
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs.MyJobProfileFragment
-import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs.AllJobFragment
 
 class JobPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
