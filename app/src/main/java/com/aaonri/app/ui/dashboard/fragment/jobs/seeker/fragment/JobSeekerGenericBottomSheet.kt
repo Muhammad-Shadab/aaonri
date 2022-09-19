@@ -13,7 +13,7 @@ import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseIt
 import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobGenericBottomSheetBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ class JobSeekerGenericBottomSheet : BottomSheetDialogFragment() {
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     val args: JobSeekerGenericBottomSheetArgs by navArgs()
 
-    private var jobAdapter: JobAdapter? = null
+    private var jobAdapter: JobSeekerAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +34,7 @@ class JobSeekerGenericBottomSheet : BottomSheetDialogFragment() {
         isCancelable = false
         binding = FragmentJobGenericBottomSheetBinding.inflate(layoutInflater, container, false)
 
-        jobAdapter = JobAdapter()
+        jobAdapter = JobSeekerAdapter()
 
         jobAdapter?.itemClickListener = { view, item, position ->
             when (item) {

@@ -127,11 +127,10 @@ class LocationDetailsFragment : Fragment() {
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 isCommunitySelected = true
-                selectedCommunityAdapter
                 binding?.selectedCommunitySizeTv?.text =
                     "Your selected ${if(it.size<=1)"community" else "communities" } (${it.size})"
                 binding?.selectedCardView?.visibility = View.VISIBLE
-                selectedCommunityAdapter!!.setData(it)
+                selectedCommunityAdapter?.setData(it)
                 binding?.selectCommunityEt?.visibility = View.GONE
                 binding?.selectMoreCommunityIv?.visibility = View.VISIBLE
             } else {

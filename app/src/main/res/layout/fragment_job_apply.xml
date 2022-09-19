@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.seeker.post_jobs.JobApplyFragment">
 
@@ -74,15 +74,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/sf_pro_regular"
                     android:gravity="center_horizontal"
-                    android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="@string/please_review_your_details"
+                    android:textAlignment="center"
                     android:textColor="#333333"
-                    android:textSize="17sp" />
+                    android:textSize="13sp" />
+
                 <EditText
                     android:id="@+id/firstNameEt"
                     android:layout_width="match_parent"
@@ -90,7 +93,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="First Name"
+                    android:hint="First Name*"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
@@ -109,7 +112,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Last Name"
+                    android:hint="Last Name*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -119,9 +122,6 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
-
-
-
 
                 <EditText
                     android:id="@+id/phoneNumberEt"
@@ -130,9 +130,10 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Phone No."
-                    android:inputType="number"
+                    android:hint="Phone No*"
+                    android:inputType="phone"
                     android:lines="1"
+                    android:maxLength="12"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_6sdp"
@@ -141,29 +142,24 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
-                <androidx.core.widget.NestedScrollView
+
+                <EditText
+                    android:id="@+id/coverLetterDescEt"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_90sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/multiline_textfield_shape"
-                    android:fillViewport="true">
+                    android:ems="10"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="left"
+                    android:hint="Cover Letter*"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="255"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:textSize="16sp"
+                    tools:ignore="RtlHardcoded" />
 
-                    <com.chinalwb.are.render.AreTextView
-                        android:id="@+id/coverLetterDescEt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_2sdp"
-                        android:fontFamily="@font/helvetica_regular"
-                        android:gravity="left"
-                        android:hint="Cover Letter"
-                        android:includeFontPadding="false"
-                        android:padding="@dimen/_5sdp"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:scrollbars="vertical"
-                        android:textSize="12sp"
-                        tools:ignore="RtlHardcoded" />
-                </androidx.core.widget.NestedScrollView>
                 <LinearLayout
                     android:id="@+id/uploadResumeLl"
                     android:layout_width="match_parent"
@@ -183,7 +179,8 @@
                         android:includeFontPadding="false"
                         android:text="Upload Resume"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:visibility="visible" />
 
                     <TextView
                         android:id="@+id/sizeLimitTv"
@@ -195,49 +192,70 @@
                         android:includeFontPadding="false"
                         android:text="Maximum 5 MB (Doc. PDF)"
                         android:textColor="@color/hintColor"
-                        android:textSize="12sp" />
-<LinearLayout
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/darkGrayColor"
-    android:background="@drawable/gray_btn"
-    android:paddingHorizontal="12dp"
-    android:layout_marginVertical="@dimen/_12sdp"
-    android:paddingVertical="8dp"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_regular"
-        android:gravity="center_vertical"
-        android:includeFontPadding="false"
-        android:text="AdityBA.pdf"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:visibility="visible" />
-    <ImageView
-        android:layout_width="12dp"
-        android:layout_marginLeft="@dimen/_18sdp"
-        android:background="@drawable/cancel_icon"
-        android:backgroundTint="@color/white"
-        android:layout_height="12dp"/>
-</LinearLayout>
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/uploadedResumeShapeLl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginVertical="@dimen/_12sdp"
+                        android:background="@drawable/blue_capsule_shape"
+                        android:backgroundTint="#124c94"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:background="@drawable/ic_file_icon"
+                            android:backgroundTint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/resumeNameTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:maxLength="16"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/deleteResume"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/cancel_icon"
+                            android:backgroundTint="@color/white" />
+                    </LinearLayout>
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:fontFamily="@font/sf_pro_text_light"
                     android:text="@string/we_are_using_your_default"
                     android:textColor="#797979"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:textSize="11sp" />
+
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/uploadProfileNextBtn"
+                    android:id="@+id/applyNowBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -247,7 +265,7 @@
                     android:minHeight="0dp"
                     android:paddingTop="@dimen/_4sdp"
                     android:paddingBottom="@dimen/_4sdp"
-                    android:text="SUBMIT"
+                    android:text="APPLY NOW"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -255,4 +273,17 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

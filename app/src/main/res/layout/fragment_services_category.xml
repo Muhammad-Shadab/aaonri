@@ -41,8 +41,7 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_50sdp"
-                android:numColumns="3"
-                tools:listitem="@layout/services_grid_item" />
+                android:numColumns="3" />
 
             <LinearLayout
                 android:id="@+id/aliasNameCardView"

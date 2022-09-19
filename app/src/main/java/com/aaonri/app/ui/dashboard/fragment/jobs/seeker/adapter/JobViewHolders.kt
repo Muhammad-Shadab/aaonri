@@ -4,14 +4,8 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.aaonri.app.data.jobs.seeker.model.ActiveJobAvailabilityResponseItem
-import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
-import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
-import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
-import com.aaonri.app.databinding.AllPostedJobsItemBinding
-import com.aaonri.app.databinding.CategoryCardItem1Binding
-import com.aaonri.app.databinding.CategoryCardItemBinding
-import com.aaonri.app.databinding.CategoryItem2Binding
+import com.aaonri.app.data.jobs.seeker.model.*
+import com.aaonri.app.databinding.*
 
 sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -19,7 +13,6 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
 
     class AllActiveJobsViewHolders(private val binding: AllPostedJobsItemBinding) :
         JobViewHolders(binding) {
-
         @SuppressLint("SetTextI18n")
         fun bind(allJobsResponseItem: AllJobsResponseItem) {
             binding.apply {
@@ -34,7 +27,11 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 jobViewTv.text = allJobsResponseItem.viewCount.toString()
                 jobApplicationTv.text = allJobsResponseItem.applyCount.toString()
 
-                root.setOnClickListener {
+                jobApplyBtn.setOnClickListener {
+                    itemClickListener?.invoke(it, allJobsResponseItem, adapterPosition)
+                }
+
+                jobCv.setOnClickListener {
                     itemClickListener?.invoke(it, allJobsResponseItem, adapterPosition)
                 }
             }
@@ -61,7 +58,11 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 countryTv.text = allActiveJobApplicabilityResponseItem.applicability
 
                 root.setOnClickListener {
-                    itemClickListener?.invoke(it, allActiveJobApplicabilityResponseItem, adapterPosition)
+                    itemClickListener?.invoke(
+                        it,
+                        allActiveJobApplicabilityResponseItem,
+                        adapterPosition
+                    )
                 }
             }
         }
@@ -74,8 +75,34 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 categoryTv.text = activeJobAvailabilityResponseItem.availability
 
                 root.setOnClickListener {
-                    itemClickListener?.invoke(it, activeJobAvailabilityResponseItem, adapterPosition)
+                    itemClickListener?.invoke(
+                        it,
+                        activeJobAvailabilityResponseItem,
+                        adapterPosition
+                    )
                 }
+            }
+        }
+    }
+
+    class MyJobProfileViewHolder(private val binding: MyJobProfileItemBinding) :
+        JobViewHolders(binding) {
+        @SuppressLint("SetTextI18n")
+        fun bind(userJobProfileResponseItem: UserJobProfileResponseItem) {
+            binding.apply {
+                jobSeekerNameTv.text =
+                    "${userJobProfileResponseItem.firstName} ${userJobProfileResponseItem.lastName}"
+                jobSeekerGmailTv.text = userJobProfileResponseItem.contactEmailId
+                jobSeekerMobileTv.text =
+                    userJobProfileResponseItem.phoneNo.replace("""[(,), ]""".toRegex(), "")
+                        .replace("-", "")
+                        .replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
+                jobSeekerAddressTv.text = userJobProfileResponseItem.location
+
+                updateProfileBtn.setOnClickListener {
+                    itemClickListener?.invoke(it, userJobProfileResponseItem, adapterPosition)
+                }
+
             }
         }
     }

@@ -21,6 +21,7 @@ class JobDetailsFragment : Fragment() {
     var binding: FragmentJobDetailsBinding? = null
     val args: JobDetailsFragmentArgs by navArgs()
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var jobId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +31,7 @@ class JobDetailsFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
@@ -54,6 +56,35 @@ class JobDetailsFragment : Fragment() {
                 )
             )
 
+            applyBtn.setOnClickListener {
+                jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is Resource.Loading -> {
+                            progressBar.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            progressBar.visibility = View.GONE
+                            response.data?.let {
+                                if (it.size > 0) {
+                                    /** Profile Uploaded **/
+                                    val action =
+                                        JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(
+                                            jobId
+                                        )
+                                    findNavController().navigate(action)
+                                } else {
+
+                                }
+                            }
+
+                        }
+                        is Resource.Error -> {
+                            progressBar.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+
             jobSeekerViewModel.jobDetailData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
@@ -63,6 +94,7 @@ class JobDetailsFragment : Fragment() {
                         var applicability = ""
                         progressBar.visibility = View.GONE
                         response.data?.let {
+                            jobId = it.jobId
                             jobNameTv.text = it.title
                             companyNameTv.text = it.company
                             experienceTv.text = it.experienceLevel
@@ -74,7 +106,7 @@ class JobDetailsFragment : Fragment() {
                             jobViewTv.text = it.viewCount.toString()
                             jobApplicationTv.text = it.applyCount.toString()
                             jobDescTv.fromHtml(it.description)
-                            jobKeySkillsTv.text = it.skillSet
+                            jobKeySkillsTv.text = it.skillSet.replace(",", " \u2022")
                             it.applicability.forEach { apl ->
                                 applicability += "${apl.applicability}, "
                             }
@@ -87,6 +119,7 @@ class JobDetailsFragment : Fragment() {
                     }
                 }
             }
+
         }
 
 

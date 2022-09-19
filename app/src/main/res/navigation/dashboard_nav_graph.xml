@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/jobScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_jobScreenFragment"
             app:destination="@id/jobScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobRecruiterScreenFragment"
+            app:destination="@id/jobRecruiterScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -322,7 +325,7 @@
         tools:layout="@layout/fragment_immigration_info_center_bottom_sheet" />
     <fragment
         android:id="@+id/jobScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragment"
         android:label="fragment_job_screen"
         tools:layout="@layout/fragment_job_screen">
         <action
@@ -331,6 +334,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_jobProfileUploadFragment"
             app:destination="@id/jobProfileUploadFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"
@@ -341,8 +347,8 @@
             android:name="jobId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_jobDetailsFragment_to_jobProfileUploadFragment"
-            app:destination="@id/jobProfileUploadFragment" />
+            android:id="@+id/action_jobDetailsFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobProfileUploadFragment"
@@ -352,6 +358,15 @@
         <action
             android:id="@+id/action_jobProfileUploadFragment_to_jobGenericBottomSheet"
             app:destination="@id/jobGenericBottomSheet" />
+        <action
+            android:id="@+id/action_jobProfileUploadFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+        <argument
+            android:name="isUpdateProfile"
+            app:argType="boolean" />
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
     </fragment>
     <dialog
         android:id="@+id/jobGenericBottomSheet"
@@ -362,4 +377,38 @@
             android:name="selectionName"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/jobRecruiterScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.JobRecruiterScreenFragment"
+        android:label="fragment_job_recruiter_screen"
+        tools:layout="@layout/fragment_job_recruiter_screen" />
+
+    <fragment
+        android:id="@+id/jobApplyFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobApplyFragment"
+        android:label="fragment_job_apply"
+        tools:layout="@layout/fragment_job_apply" >
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_jobApplyFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/jobProfileUploadSuccessFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobProfileUploadSuccessFragment"
+        android:label="fragment_job_profile_upload_success"
+        tools:layout="@layout/fragment_job_profile_upload_success" >
+        <argument
+            android:name="screenName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_jobProfileUploadSuccessFragment_to_jobScreenFragment"
+            app:destination="@id/jobScreenFragment"
+            app:popUpTo="@id/jobScreenFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+
+
 </navigation>

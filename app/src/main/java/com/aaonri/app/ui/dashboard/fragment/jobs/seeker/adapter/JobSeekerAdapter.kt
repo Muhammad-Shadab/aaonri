@@ -6,16 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
-import com.aaonri.app.data.jobs.seeker.model.ActiveJobAvailabilityResponseItem
-import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
-import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
-import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
-import com.aaonri.app.databinding.AllPostedJobsItemBinding
-import com.aaonri.app.databinding.CategoryCardItem1Binding
-import com.aaonri.app.databinding.CategoryCardItemBinding
-import com.aaonri.app.databinding.CategoryItem2Binding
+import com.aaonri.app.data.jobs.seeker.model.*
+import com.aaonri.app.databinding.*
 
-class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
+class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
 
     private var data = listOf<Any>()
 
@@ -51,6 +45,13 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
                     false
                 )
             )
+            R.layout.my_job_profile_item -> JobViewHolders.MyJobProfileViewHolder(
+                MyJobProfileItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
 
             else -> throw IllegalArgumentException("Invalid ViewType")
         }
@@ -79,6 +80,11 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
                     holder.bind(data[position] as ActiveJobAvailabilityResponseItem)
                 }
             }
+            is JobViewHolders.MyJobProfileViewHolder -> {
+                if (data[position] is UserJobProfileResponseItem) {
+                    holder.bind(data[position] as UserJobProfileResponseItem)
+                }
+            }
         }
     }
 
@@ -97,6 +103,7 @@ class JobAdapter : RecyclerView.Adapter<JobViewHolders>() {
             is ExperienceLevelResponseItem -> R.layout.category_card_item
             is AllActiveJobApplicabilityResponseItem -> R.layout.category_card_item1
             is ActiveJobAvailabilityResponseItem -> R.layout.category_item2
+            is UserJobProfileResponseItem -> R.layout.my_job_profile_item
             else -> R.layout.fragment_all_job
         }
     }

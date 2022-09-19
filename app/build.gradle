@@ -129,7 +129,6 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     //Glide image loading
-
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation "androidx.core:core-ktx:1.8.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
@@ -139,7 +138,6 @@ dependencies {
     implementation 'com.hbb20:ccp:2.2.2'
 
     //TextEditor for text (description)
-
     implementation 'com.github.onecode369:WYSIWYG:4.0'
     implementation 'com.github.chinalwb:are:0.1.7'
 
@@ -150,6 +148,7 @@ dependencies {
 
     //Retrofit 
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
     // for zoomIn and  zoomOut Image
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
@@ -162,6 +161,8 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation "commons-io:commons-io:2.7"
 
 
 

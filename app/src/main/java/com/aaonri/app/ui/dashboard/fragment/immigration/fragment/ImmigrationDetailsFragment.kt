@@ -107,7 +107,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 discussionTitle.text = it.discussionTopic
                 immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                 discussionNameTv.text = it.discussionTopic
-                postedByTv.text = "Posted by: ${
+                postedByTv.text = "Posted by: ${it.createdBy} ${
                     DateTimeFormatter.ofPattern("MM-dd-yyyy")
                         .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
                 }"

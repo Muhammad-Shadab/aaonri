@@ -121,6 +121,7 @@
                         android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
                         android:text="Wipro"
+                        android:textSize="12sp"
                         android:textColor="@color/jobtxtcolor" />
 
 

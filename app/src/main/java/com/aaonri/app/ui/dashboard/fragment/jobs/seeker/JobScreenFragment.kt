@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,8 +35,19 @@ class JobScreenFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val email =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val isJobRecruiter =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
+
         val fragment = this
         val jobPagerAdapter = JobPagerAdapter(fragment)
+
+        jobSeekerViewModel.getUserJobProfileByEmail(
+            emailId = email ?: "",
+            isApplicant = isJobRecruiter != true
+        )
 
         binding?.apply {
 
@@ -61,6 +72,9 @@ class JobScreenFragment : Fragment() {
                 jobsScreenTabLayout.getTabAt(i)?.customView =
                     textView
             }
+
+            jobsScreenTabLayout.getTabAt(1)?.view?.isClickable = false
+
             jobsScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -99,9 +113,24 @@ class JobScreenFragment : Fragment() {
         jobSeekerViewModel.navigateToUploadJobProfileScreen.observe(viewLifecycleOwner) {
             if (it != null) {
                 val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment()
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                        false,
+                        0
+                    )
                 findNavController().navigate(action)
                 jobSeekerViewModel.navigateToUploadJobProfileScreen.postValue(null)
+            }
+        }
+
+        jobSeekerViewModel.navigateToUpdateJobProfileScreen.observe(viewLifecycleOwner) { pair ->
+            if (pair != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                        true,
+                        pair.second
+                    )
+                findNavController().navigate(action)
+                jobSeekerViewModel.navigateToUpdateJobProfileScreen.postValue(null)
             }
         }
 

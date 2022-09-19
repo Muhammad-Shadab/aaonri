@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterBottomSuccessFragment">
+
+    <ImageView
+        android:id="@+id/successTickIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:src="@drawable/ic_success_tick" />
+
+    <TextView
+        android:id="@+id/enterYourEmailToSendLinkTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="Congratulations!"
+        android:includeFontPadding="false"
+        android:textAlignment="center"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/successfulTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:text="You have successfully uploaded your consultant profile."
+        android:fontFamily="@font/sf_pro_regular"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:textAlignment="center"
+        android:textColor="#5d5d5d"
+        android:textSize="14sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/viewYourAdvertiseBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:includeFontPadding="false"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="View Consultant Profile"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+</LinearLayout>

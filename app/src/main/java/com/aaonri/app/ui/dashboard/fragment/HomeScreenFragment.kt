@@ -1,12 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -28,7 +31,7 @@ import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
@@ -61,7 +64,7 @@ class HomeScreenFragment : Fragment() {
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     var immigrationAdapter: ImmigrationAdapter? = null
-    var jobAdapter: JobAdapter? = null
+    var jobAdapter: JobSeekerAdapter? = null
     var interestAdapter: InterestAdapter? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
 
@@ -81,6 +84,8 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+        val dialog = Dialog(requireContext())
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
@@ -180,7 +185,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        jobAdapter = JobAdapter()
+        jobAdapter = JobSeekerAdapter()
 
         /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =
@@ -375,6 +380,24 @@ class HomeScreenFragment : Fragment() {
 
             seeAllEvents.setOnClickListener {
                 navigateToTheSpecificScreen(navigationFromHorizontalSeeAll)
+            }
+
+            profilePicCv.setOnClickListener {
+                dialog.setContentView(R.layout.success_register_dialog)
+                dialog.window?.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dialog_shape
+                    )
+                )
+                dialog.setCancelable(false)
+                dialog.show()
+                val continueBtn =
+                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                continueBtn.setOnClickListener {
+
+                    dialog.dismiss()
+                }
             }
 
             interestRecyclerView.layoutManager =

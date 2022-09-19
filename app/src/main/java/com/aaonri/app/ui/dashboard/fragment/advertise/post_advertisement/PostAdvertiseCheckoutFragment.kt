@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,7 +22,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
@@ -247,8 +247,6 @@ class PostAdvertiseCheckoutFragment : Fragment() {
             postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI].toString()
                 .replace("file:", "")
         )
-
-        val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
