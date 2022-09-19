@@ -1,12 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -81,6 +84,8 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+        val dialog = Dialog(requireContext())
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
@@ -378,7 +383,21 @@ class HomeScreenFragment : Fragment() {
             }
 
             profilePicCv.setOnClickListener {
+                dialog.setContentView(R.layout.success_register_dialog)
+                dialog.window?.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dialog_shape
+                    )
+                )
+                dialog.setCancelable(false)
+                dialog.show()
+                val continueBtn =
+                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                continueBtn.setOnClickListener {
 
+                    dialog.dismiss()
+                }
             }
 
             interestRecyclerView.layoutManager =

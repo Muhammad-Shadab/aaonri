@@ -59,6 +59,7 @@
         <entry key="app/src/main/res/drawable/ic_image_placeholder.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/tab_background_shape.xml" value="0.336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/advertisement_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/all_posted_jobs_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item.xml" value="0.3692708333333333" />
@@ -102,6 +103,7 @@
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/my_job_profile_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/success_register_dialog.xml" value="0.3692708333333333" />
       </map>
     </option>
   </component>

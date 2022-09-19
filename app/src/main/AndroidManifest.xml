@@ -106,12 +106,17 @@
                 android:resource="@xml/providers_path"
                 tools:replace="android:resource" />
         </provider>
-    <activity
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
-        android:exported="false"
-        android:windowSoftInputMode="adjustPan" />
-    <activity
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity"
-        android:exported="false" />
-</application>
+
+        <activity
+            android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileActivity"
+            android:exported="false" />
+    </application>
 </manifest>
+
