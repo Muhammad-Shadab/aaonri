@@ -76,14 +76,17 @@ class MoreScreenFragment : Fragment() {
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
+                binding?.profileInfoLl?.visibility = View.GONE
                 binding?.logOutBtn?.visibility = View.GONE
             } else {
+                binding?.profileInfoLl?.visibility = View.VISIBLE
                 binding?.logOutBtn?.visibility = View.VISIBLE
             }
         }
 
         binding?.apply {
-
+              useremailTv.text = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+            userNameTv.text = context?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] }+" "+context?.let { PreferenceManager<String>(it)[Constant.GMAIL_LAST_NAME, ""] }
             logOutBtn.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
