@@ -377,6 +377,10 @@ class HomeScreenFragment : Fragment() {
                 navigateToTheSpecificScreen(navigationFromHorizontalSeeAll)
             }
 
+            profilePicCv.setOnClickListener {
+
+            }
+
             interestRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
