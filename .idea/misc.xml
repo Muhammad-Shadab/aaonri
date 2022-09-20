@@ -21,6 +21,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/ad_backdround_shape.xml" value="0.179" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/arrow_forward.xml" value="0.1325" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/classified_seller_bg_gradiant.xml" value="0.1465" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_inner_shadow.xml" value="0.2115" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/edit_text_shape_1.xml" value="0.15" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/editicon.xml" value="0.15" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/drawable/event_item_gradiant1.xml" value="0.1465" />
@@ -32,51 +33,69 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/advertisement_item.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/category_card_item.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/classified_advertise_item.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/community_item.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/event_advertise_item.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/event_item.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_address_details_classified.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertise_post_success.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertise_webview.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_advertisement_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_all_classified.xml" value="0.25" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_filter.xml" value="0.5" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_classified_screen.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_bottom_reply_sheet.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_category_bottom_sheet.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_details_frgament.xml" value="0.25" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_information.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_immigration_reply_bottom.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_information_center_immigration.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_job_recruiter_screen.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_job_screen.xml" value="0.25" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_job_seeker_filter.xml" value="0.22" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_more_screen.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_classified.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_my_event.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_post_immigration.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_all_talents_fragmet.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_bottom_success.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_consultant_profile.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_job_applicants.xml" value="0.22" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_job_details.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_my_posted_job.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_post_job_company_details.xml" value="0.22" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_post_job_details.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_search.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_talent_details.xml" value="0.1068840579710145" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_recruiter_update_profile.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_select_advertise_template.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_select_country_bottom.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_services_category.xml" value="0.5" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/fragment_shop_screen.xml" value="0.25" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/image_only_view_holder.xml" value="0.1" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_inforamtion_center_item.xml" value="0.33" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/immigrations_item.xml" value="0.25" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/job_applicant_item.xml" value="0.1" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/my_posted_jobs_item.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/notification.xml" value="0.67" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.33" />
+        <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/recruiter_consultant_profile_item.xml" value="0.16576086956521738" />
         <entry key="app/src/main/res/drawable/ad_txt_only_bg.xml" value="0.2445" />
-        <entry key="app/src/main/res/drawable/blue_capsule_shape.xml" value="0.336" />
-        <entry key="app/src/main/res/drawable/dialog_shape.xml" value="0.37" />
-        <entry key="app/src/main/res/drawable/gray_btn.xml" value="0.336" />
         <entry key="app/src/main/res/drawable/ic_image_placeholder.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/tab_background_shape.xml" value="0.336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/activity_update_profile.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/advertisement_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/all_posted_jobs_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_card_item1.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/category_item2.xml" value="0.26766304347826086" />
-        <entry key="app/src/main/res/layout/fragment_address_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/fragment_all_classified.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_all_immigration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_basic_details.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_classified_filter.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_classified_screen.xml" value="0.223731884057971" />
-        <entry key="app/src/main/res/layout/fragment_community_bottom.xml" value="0.36820652173913043" />
         <entry key="app/src/main/res/layout/fragment_event_category_bottom.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_event_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.19972826086956522" />
@@ -84,34 +103,23 @@
         <entry key="app/src/main/res/layout/fragment_immigration_category_bottom_sheet.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_immigration_details_frgament.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_immigration_filter.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_job_apply.xml" value="0.36820652173913043" />
         <entry key="app/src/main/res/layout/fragment_job_details.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_job_generic_bottom_sheet.xml" value="0.19270833333333334" />
-        <entry key="app/src/main/res/layout/fragment_job_profile_upload_success.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_job_screen.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_job_seeker_filter.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/layout/fragment_location_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_my_event.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_my_immigration_category_bottom.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_my_job_profile.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.19972826086956522" />
-        <entry key="app/src/main/res/layout/fragment_post_advertise_company_details_frgament.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_services_category.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_update_profile.xml" value="0.36820652173913043" />
         <entry key="app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/my_job_profile_item.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/layout/success_register_dialog.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/tab_title_text.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/update_profile_dialog.xml" value="0.33" />
       </map>
     </option>
   </component>
@@ -120,5 +128,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.67" />
+      </ProjectState>
+    </option>
   </component>
 </project>
