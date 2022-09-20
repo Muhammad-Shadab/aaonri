@@ -3,6 +3,7 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.databinding.CommunitySelectedItemBinding

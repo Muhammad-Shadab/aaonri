@@ -1,5 +1,8 @@
 package com.aaonri.app.data.classified.model
 
+import com.aaonri.app.data.authentication.register.model.community.Community
+
+
 data class GetClassifiedSellerResponse(
     val activeUser: Boolean,
     val address1: String,
@@ -7,7 +10,7 @@ data class GetClassifiedSellerResponse(
     val aliasName: String,
     val authorized: Boolean,
     val city: String,
-    val community: List<CommunityX>,
+    val community: List<Community>,
     val companyEmail: String,
     val createdOn: String,
     val deletedOn: Any,

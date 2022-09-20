@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
@@ -144,6 +145,34 @@ class LocationDetailsFragment : Fragment() {
                         authCommonViewModel.setSelectedCountryLocationScreen("","","")*/
                 }
             })
+
+        authCommonViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        binding?.selectCountryLocation?.text = it.originCountry
+                        binding?.stateLocationDetails?.setText(it.originState)
+                        binding?.cityLocationDetails?.setText(it.originCity)
+                        authCommonViewModel.addCommunityList(it.community as MutableList<Community>)
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(
+                        context,
+                        "Error ${response.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {
+                }
+            }
+        }
+
+
         return binding?.root
     }
 

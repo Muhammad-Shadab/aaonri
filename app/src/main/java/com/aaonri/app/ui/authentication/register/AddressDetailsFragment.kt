@@ -27,6 +27,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -321,6 +322,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         binding?.address2?.setText(it.address2)
                         binding?.selectedCountryName?.text = it.originCountry
                         binding?.zipCodeAddressDetails?.setText(it.zipcode)
+                        binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
 
 
                         /*authCommonViewModel.addBasicDetails(
@@ -381,6 +383,9 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             }
         }
     }
+
+    fun getCountryCode(countryName: String) =
+        Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
 
     override fun onCountrySelected() {
         countryCode = binding?.countryCodePicker?.selectedCountryCode

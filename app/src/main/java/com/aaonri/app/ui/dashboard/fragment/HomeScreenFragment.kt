@@ -417,9 +417,9 @@ class HomeScreenFragment : Fragment() {
                 dialog.show()
             }
 
-            val action =
+            /*val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action)*/
 
             editProfileBtn.setOnClickListener {
                 val action =
