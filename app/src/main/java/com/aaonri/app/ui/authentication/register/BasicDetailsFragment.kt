@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.app.Activity
+import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,11 +20,13 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.utils.*
+import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,6 +36,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -50,6 +61,8 @@ class BasicDetailsFragment : Fragment() {
 
         val socialProfile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val blockCharacterSet = "1234567890~#^|$%&*!@\""
 
@@ -184,7 +197,6 @@ class BasicDetailsFragment : Fragment() {
                 val password = passwordBasicDetails.text
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-
                 if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
                     if (authCommonViewModel.isNewUserRegisterUsingGmail) {
                         findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
@@ -195,9 +207,45 @@ class BasicDetailsFragment : Fragment() {
                             emailAddress.toString(),
                             password.toString()
                         )
-//                        authCommonViewModel.addCountryClicked(true)
                         if (authCommonViewModel.isUpdateProfile) {
-
+                            if (!profile.startsWith("htt")) {
+                                authCommonViewModel.setProfilePicUriValue(profile.toUri())
+                            }
+                            UserProfileStaticData.getUserProfileDataValue()?.let {
+                                registrationViewModel.updateProfile(
+                                    UpdateProfileRequest(
+                                        activeUser = true,
+                                        address1 = it.address1,
+                                        address2 = it.address2,
+                                        aliasName = it.aliasName,
+                                        authorized = true,
+                                        city = it.city,
+                                        community = it.community,
+                                        companyEmail = it.companyEmail,
+                                        emailId = it.emailId,
+                                        firstName = firstNameBasicDetails.text.toString(),
+                                        interests = it.interests,
+                                        isAdmin = 0,
+                                        isFullNameAsAliasName = it.isFullNameAsAliasName,
+                                        isJobRecruiter = it.isJobRecruiter,
+                                        isPrimeUser = false,
+                                        isSurveyCompleted = false,
+                                        lastName = lastNameBasicDetails.text.toString(),
+                                        newsletter = false,
+                                        originCity = it.originCity,
+                                        originCountry = it.originCountry,
+                                        originState = it.originState,
+                                        password = it.password,
+                                        phoneNo = it.phoneNo,
+                                        regdEmailSent = false,
+                                        registeredBy = "manual",
+                                        userName = it.userName,
+                                        zipcode = it.zipcode,
+                                        state = it.state,
+                                        userType = it.userType,
+                                    )
+                                )
+                            }
                         } else {
                             findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
                         }
@@ -247,55 +295,56 @@ class BasicDetailsFragment : Fragment() {
             }
         }
 
-        authCommonViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+        UserProfileStaticData.getUserProfileDataValue()?.let {
+            binding?.textHintTv?.visibility = View.GONE
+            profile =
+                "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
+            binding?.addProfileIv?.let { it1 ->
+                context?.let { it2 ->
+                    Glide.with(it2)
+                        .load(profile)
+                        .into(
+                            it1
+                        )
+                }
+            }
+            binding?.firstNameBasicDetails?.setText(it.firstName)
+            binding?.lastNameBasicDetails?.setText(it.lastName)
+            binding?.emailAddressBasicDetails?.setText(it.emailId)
+            binding?.emailAddressBasicDetails?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+            binding?.passwordBasicDetails?.setText(it.password)
+            binding?.passwordBasicDetails?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+            isEmailValid = true
+            isPasswordValid = true
+            binding?.emailAddressBasicDetails?.isEnabled = false
+            binding?.passwordBasicDetails?.isEnabled = false
+            binding?.passTi?.isEnabled = false
+            binding?.basicDetailsNextBtn?.text = "UPDATE"
+        }
+
+        /*registrationViewModel.updateUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    response.data?.let {
-                        profile =
-                            "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
-                        binding?.addProfileIv?.let { it1 ->
-                            context?.let { it2 ->
-                                Glide.with(it2)
-                                    .load(profile)
-                                    .into(
-                                        it1
-                                    )
-                            }
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    if (!profile.startsWith("htt")) {
+                        uploadProfilePicture(response.data?.user?.userId, profile.toUri())
+                    } else {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                            ).show()
                         }
-                        binding?.firstNameBasicDetails?.setText(it.firstName)
-                        binding?.lastNameBasicDetails?.setText(it.lastName)
-                        binding?.emailAddressBasicDetails?.setText(it.emailId)
-                        binding?.passwordBasicDetails?.setText("********")
-                        isEmailValid = true
-                        isPasswordValid = true
-                        binding?.emailAddressBasicDetails?.isEnabled = false
-                        binding?.passwordBasicDetails?.isEnabled = false
-                        binding?.passTi?.isEnabled = false
-
-                        /*authCommonViewModel.addBasicDetails(
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            emailAddress = it.emailId,
-                            password = it.password
-                        )
-
-                        authCommonViewModel.addAddressDetails(
-                            address1 = it.address1,
-                            address2 = it.address2,
-                            phoneNumber = it.phoneNo
-                        )
-
-                        authCommonViewModel.addLocationDetails(
-                            zipCode = it.zipcode,
-                            state = (it.state?: "") as String,
-                            city = it.city
-                        )*/
                     }
+                    email?.let { registrationViewModel.findByEmail(email = it) }
                 }
                 is Resource.Error -> {
+                    binding?.progressBarBasicDetails?.visibility = View.GONE
                     Toast.makeText(
                         context,
                         "Error ${response.message}",
@@ -306,7 +355,7 @@ class BasicDetailsFragment : Fragment() {
                 else -> {
                 }
             }
-        }
+        }*/
 
         requireActivity()
             .onBackPressedDispatcher
@@ -317,6 +366,19 @@ class BasicDetailsFragment : Fragment() {
             })
 
         return binding?.root
+    }
+
+    private fun uploadProfilePicture(userId: Int?, profilePic: Uri) {
+
+        val file = File(profilePic.toString().replace("file:", ""))
+
+        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+        authCommonViewModel.uploadProfilePic(requestImage, id)
     }
 
     private val startForProfileImageResult =

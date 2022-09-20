@@ -1,6 +1,6 @@
 package com.aaonri.app.data.authentication.register.model.add_user
 
-data class RegisterationResponse(
+data class RegistrationResponse(
     val code: String,
     val community: Any,
     val count: Int,

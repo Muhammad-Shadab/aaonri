@@ -1,6 +1,6 @@
-package com.aaonri.app.data.authentication.register.model.add_user
+package com.aaonri.app.data.authentication.register.model
 
-data class CommunityX(
+data class CommunityAuth(
     val communityId: Int,
     val communityName: String,
     val createdDt: String,

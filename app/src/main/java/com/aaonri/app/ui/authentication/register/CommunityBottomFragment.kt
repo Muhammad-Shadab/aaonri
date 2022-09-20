@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.community.Community
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
@@ -34,7 +34,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     private var communityItemAdapter: CommunityItemAdapter? = null
     var selectedCommunitiesSize = 0
     var communityAdapter: CommunityItemAdapter? = null
-    var tempArrayList = mutableListOf<Community>()
+    var tempArrayList = mutableListOf<CommunityAuth>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -47,12 +47,12 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         getCommunities()
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
             if (communitiesList.isNotEmpty()) {
-                authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
+                authCommonViewModel.addCommunityList(communitiesList as MutableList<CommunityAuth>)
                 binding?.numberOfSelectedCommunity?.visibility = View.VISIBLE
                 binding?.numberOfSelectedCommunity?.text =
                     "You have selected ${communitiesList.size + selectedCommunitiesSize} ${if ((communitiesList.size + selectedCommunitiesSize) <= 1) "community" else "communities"}"
             } else {
-                authCommonViewModel.addCommunityList(communitiesList as MutableList<Community>)
+                authCommonViewModel.addCommunityList(communitiesList as MutableList<CommunityAuth>)
                 binding?.numberOfSelectedCommunity?.text =
                     "You have selected 0 community"
             }
@@ -119,7 +119,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun searchCommunity(data: List<Community>) {
+    private fun searchCommunity(data: List<CommunityAuth>) {
         binding?.searchView?.addTextChangedListener { editable ->
             tempArrayList.clear()
             val searchText = editable.toString().lowercase(Locale.getDefault())

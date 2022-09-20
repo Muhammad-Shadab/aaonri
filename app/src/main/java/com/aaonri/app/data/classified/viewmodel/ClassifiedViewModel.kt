@@ -36,10 +36,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val likeDislikeClassifiedData: MutableLiveData<Resource<LikeDislikeClassifiedResponse>> =
         MutableLiveData()
 
-    val classifiedSellerNameData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+    val classifiedSellerNameData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
 
-    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+    val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
 
     val classifiedLikeDislikeInfoData: MutableLiveData<Resource<String>> =
@@ -138,7 +138,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         classifiedSellerNameData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
-    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
+    private fun handleClassifiedSellerNameResponse(response: Response<FindByEmailDetailResponse>): Resource<FindByEmailDetailResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

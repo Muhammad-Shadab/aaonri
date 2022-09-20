@@ -1,8 +1,10 @@
 package com.aaonri.app.data.authentication.register.model.community
 
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
+
 data class CommunitiesListResponse(
     val code: Any,
-    val community: List<Community>,
+    val community: List<CommunityAuth>,
     val count: Int,
     val discusstion: Any,
     val errorDetails: Any,

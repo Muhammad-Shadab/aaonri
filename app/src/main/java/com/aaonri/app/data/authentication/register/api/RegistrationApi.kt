@@ -2,15 +2,11 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
+import com.aaonri.app.data.authentication.register.model.add_user.*
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
-import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,7 +21,7 @@ interface RegistrationApi {
     @GET("/api/v1/user/findByEmail")
     suspend fun findByEmail(
         @Query("email") userEmail: String
-    ): Response<GetClassifiedSellerResponse>
+    ): Response<FindByEmailDetailResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/userExists")
@@ -39,6 +35,11 @@ interface RegistrationApi {
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/add")
-    suspend fun userRegister(@Body registerRequest: RegisterRequest): Response<RegisterationResponse>
+    suspend fun userRegister(@Body registerRequest: RegisterRequest): Response<RegistrationResponse>
+
+    @POST("/api/v1/user/update")
+    suspend fun updateProfile(
+        @Body updateProfileRequest: UpdateProfileRequest
+    ): Response<RegistrationResponse>
 
 }

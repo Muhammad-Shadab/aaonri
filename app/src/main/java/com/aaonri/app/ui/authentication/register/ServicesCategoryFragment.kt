@@ -23,7 +23,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
-import com.aaonri.app.data.authentication.register.model.add_user.Community
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -51,7 +51,7 @@ class ServicesCategoryFragment : Fragment() {
     var isServicesSelected = false
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
-    var selectedCommunity = mutableListOf<Community>()
+    var selectedCommunity = mutableListOf<CommunityAuth>()
     var selectedServices = mutableListOf<ServicesResponseItem>()
     var selectedServicesInterest = ""
 
@@ -264,7 +264,7 @@ class ServicesCategoryFragment : Fragment() {
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { communityList ->
             communityList.forEach { community ->
-                selectedCommunity.add((Community(community.communityId, community.communityName)))
+                selectedCommunity.add((CommunityAuth(community.communityId, community.communityName, community.createdDt, community.id)))
             }
         }
 

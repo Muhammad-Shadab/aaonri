@@ -12,7 +12,7 @@ interface ClassifiedApi {
     @GET("/api/v1/user/findByEmail")
     suspend fun getClassifiedSellerInfo(
         @Query("email") userEmail: String
-    ): Response<GetClassifiedSellerResponse>
+    ): Response<FindByEmailDetailResponse>
 
     @GET("/api/v1/favourite/getItemFavouriteByEmailAndService")
     suspend fun getClassifiedLikeInfo(

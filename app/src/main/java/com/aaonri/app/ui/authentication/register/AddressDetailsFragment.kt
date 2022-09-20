@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.register
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,10 +17,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsBinding
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.google.android.material.snackbar.Snackbar
 import com.hbb20.CountryCodePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +38,7 @@ import java.util.*
 class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeListener {
     var binding: FragmentAddressDetailsBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     var cityName: String = ""
     var stateName: String = ""
     private var countryCode: String? = null
@@ -112,19 +117,23 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
 
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
-                        job?.cancel()
-                        job = MainScope().launch {
-                            delay(300L)
-                            editable?.let {
-                                if (editable.toString()
-                                        .isNotEmpty() && editable.toString().length >= 5
-                                ) {
-                                    authCommonViewModel.getLocationByZipCode(
-                                        editable.toString(),
-                                        triple.third
-                                    )
-                                } else {
-                                    invalidZipCodeTv.visibility = View.GONE
+                        if (authCommonViewModel.isUpdateProfile) {
+
+                        } else {
+                            job?.cancel()
+                            job = MainScope().launch {
+                                delay(300L)
+                                editable?.let {
+                                    if (editable.toString()
+                                            .isNotEmpty() && editable.toString().length >= 5
+                                    ) {
+                                        authCommonViewModel.getLocationByZipCode(
+                                            editable.toString(),
+                                            triple.third
+                                        )
+                                    } else {
+                                        invalidZipCodeTv.visibility = View.GONE
+                                    }
                                 }
                             }
                         }
@@ -162,7 +171,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         .isNotEmpty() && zipCode.toString().length >= 4
                 ) {
                     if (cityName.isEmpty()) {
-
                         cityName = userEnteredCity.toString()
                     }
                     authCommonViewModel.addLocationDetails(
@@ -171,9 +179,12 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         city = userEnteredCity.toString()
                     )
                     if (phoneNumber.isNotEmpty()) {
-
                         if (phoneNumber.length == 10) {
-                            findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                            if (authCommonViewModel.isUpdateProfile) {
+                                updateProfile()
+                            } else {
+                                findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                            }
                         } else {
                             activity?.let { it1 ->
                                 Snackbar.make(
@@ -183,8 +194,11 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                             }
                         }
                     } else {
-
-                        findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                        if (authCommonViewModel.isUpdateProfile) {
+                            updateProfile()
+                        } else {
+                            findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+                        }
                     }
                     authCommonViewModel.addAddressDetails(
                         address1.toString(),
@@ -291,6 +305,32 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             }
         }
 
+        UserProfileStaticData.getUserProfileDataValue()?.let {
+            cityName = it.city
+            stateName = "it.state"
+            //binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
+            binding?.countryPickerLl?.visibility = View.GONE
+            binding?.address1?.setText(it.address1)
+            binding?.address2?.setText(it.address2)
+            binding?.zipCodeAddressDetails?.setText(it.zipcode)
+            binding?.zipCodeAddressDetails?.isEnabled = false
+            binding?.zipCodeAddressDetails?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+            binding?.cityNameAddressDetails?.setText(it.city)
+            binding?.cityNameAddressDetails?.isEnabled = false
+            binding?.cityNameAddressDetails?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+            binding?.stateNameAddressDetails?.isEnabled = false
+            binding?.stateNameAddressDetails?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+            binding?.stateNameAddressDetails?.text = "BSR"
+            //if (it.state != null) it.state.toString() else ""
+            binding?.phoneNumberAddressDetails?.setText(it.phoneNo)
+            binding?.addressDetailsNextBtn?.text = "UPDATE"
+        }
+
+
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -310,57 +350,50 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 }
             })
 
-        authCommonViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    response.data?.let {
-
-                        binding?.address1?.setText(it.address1)
-                        binding?.address2?.setText(it.address2)
-                        binding?.selectedCountryName?.text = it.originCountry
-                        binding?.zipCodeAddressDetails?.setText(it.zipcode)
-                        binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
-
-
-                        /*authCommonViewModel.addBasicDetails(
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            emailAddress = it.emailId,
-                            password = it.password
-                        )
-
-                        authCommonViewModel.addAddressDetails(
-                            address1 = it.address1,
-                            address2 = it.address2,
-                            phoneNumber = it.phoneNo
-                        )
-
-                        authCommonViewModel.addLocationDetails(
-                            zipCode = it.zipcode,
-                            state = (it.state?: "") as String,
-                            city = it.city
-                        )*/
-                    }
-                }
-                is Resource.Error -> {
-                    Toast.makeText(
-                        context,
-                        "Error ${response.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-                else -> {
-                }
-            }
-        }
-
-
 
         return binding?.root
+    }
+
+    private fun updateProfile() {
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                registrationViewModel.updateProfile(
+                    UpdateProfileRequest(
+                        activeUser = true,
+                        address1 = binding?.address1?.text?.toString(),
+                        address2 = binding?.address2?.text?.toString(),
+                        aliasName = it.aliasName,
+                        authorized = true,
+                        city = it.city,
+                        community = it.community,
+                        companyEmail = it.companyEmail,
+                        emailId = it.emailId,
+                        firstName = it.firstName,
+                        interests = it.interests,
+                        isAdmin = 0,
+                        isFullNameAsAliasName = it.isFullNameAsAliasName,
+                        isJobRecruiter = it.isJobRecruiter,
+                        isPrimeUser = false,
+                        isSurveyCompleted = false,
+                        lastName = it.lastName,
+                        newsletter = false,
+                        originCity = it.originCity,
+                        originCountry = it.originCountry,
+                        originState = it.originState,
+                        password = it.password,
+                        phoneNo = binding?.phoneNumberAddressDetails?.text?.toString(),
+                        regdEmailSent = false,
+                        registeredBy = "manual",
+                        userName = it.userName,
+                        zipcode = it.zipcode,
+                        state = it.state,
+                        userType = it.userType,
+                    )
+                )
+            }
+        } else {
+            findNavController().navigate(R.id.action_addressDetailsFragment_to_locationDetailsFragment)
+        }
     }
 
     private fun getCountries() {

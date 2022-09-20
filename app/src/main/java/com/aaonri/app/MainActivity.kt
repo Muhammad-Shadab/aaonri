@@ -30,6 +30,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
+import com.aaonri.app.utils.custom.UserProfileStaticData
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -366,7 +367,7 @@ class MainActivity : BaseActivity() {
                 }
                 is Resource.Success -> {
                     //callApiAccordingToInterest(response.data?.interests)
-
+                    response.data?.let { UserProfileStaticData.setUserProfileDataValue(it) }
                     /*response.data?.interests?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_INTERESTED_SERVICES] =
                             it
@@ -711,6 +712,7 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedHomeServiceRow", -1)
+        UserProfileStaticData.setUserProfileDataValue(null)
         binding = null
     }
 }

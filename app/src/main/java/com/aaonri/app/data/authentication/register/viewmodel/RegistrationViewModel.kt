@@ -5,13 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
+import com.aaonri.app.data.authentication.register.model.add_user.*
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
-import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
+import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,7 +24,7 @@ class RegistrationViewModel
 
     var service: MutableLiveData<Resource<ServicesResponse>> = MutableLiveData()
 
-    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+    val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
@@ -34,7 +32,9 @@ class RegistrationViewModel
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 
-    val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
+    val registerData: MutableLiveData<Resource<RegistrationResponse>> = MutableLiveData()
+
+    val updateUserData: MutableLiveData<Resource<RegistrationResponse>> = MutableLiveData()
 
     fun getServices() = viewModelScope.launch {
         service.postValue(Resource.Loading())
@@ -88,7 +88,13 @@ class RegistrationViewModel
         registerData.postValue(handleRegisterResponse(response))
     }
 
-    private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
+    fun updateProfile(updateProfileRequest: UpdateProfileRequest) = viewModelScope.launch {
+        updateUserData.postValue(Resource.Loading())
+        val response = repository.updateProfile(updateProfileRequest)
+        updateUserData.postValue(handleRegisterResponse(response))
+    }
+
+    private fun handleRegisterResponse(response: Response<RegistrationResponse>): Resource<RegistrationResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -103,7 +109,7 @@ class RegistrationViewModel
         findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
-    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
+    private fun handleClassifiedSellerNameResponse(response: Response<FindByEmailDetailResponse>): Resource<FindByEmailDetailResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

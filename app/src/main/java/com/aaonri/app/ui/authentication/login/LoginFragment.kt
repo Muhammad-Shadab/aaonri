@@ -221,7 +221,7 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }
 
-                        if (response.data?.massage?.isBlank() == true) {
+                        if (response.data?.massage != null) {
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
                             activity?.finish()

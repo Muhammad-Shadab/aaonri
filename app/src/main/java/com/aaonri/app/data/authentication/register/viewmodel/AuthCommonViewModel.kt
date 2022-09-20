@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.community.Community
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
-import com.aaonri.app.data.classified.model.GetClassifiedSellerResponse
+import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class AuthCommonViewModel @Inject constructor(
     var basicDetailsMap: MutableMap<String, String> = mutableMapOf()
         private set
 
-    val findByEmailData: MutableLiveData<Resource<GetClassifiedSellerResponse>> =
+    val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
 
     var saveState: MutableLiveData<String> = MutableLiveData()
@@ -45,7 +45,7 @@ class AuthCommonViewModel @Inject constructor(
     var addressDetails: MutableMap<String, String> = mutableMapOf()
         private set
 
-    var selectedCommunityList: MutableLiveData<MutableList<Community>> = MutableLiveData()
+    var selectedCommunityList: MutableLiveData<MutableList<CommunityAuth>> = MutableLiveData()
 
     var uploadProfilePicData: MutableLiveData<Resource<String>> = MutableLiveData()
 
@@ -101,7 +101,7 @@ class AuthCommonViewModel @Inject constructor(
         stepViewLastTick.value = value
     }
 
-    fun addCommunityList(value: MutableList<Community>) {
+    fun addCommunityList(value: MutableList<CommunityAuth>) {
         selectedCommunityList.postValue(value)
     }
 
@@ -265,7 +265,7 @@ class AuthCommonViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
-    fun setProfilePicUriValue(value: Uri) {
+    fun setProfilePicUriValue(value: Uri?) {
         profilePicUri = value
     }
 
@@ -279,7 +279,7 @@ class AuthCommonViewModel @Inject constructor(
         findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
     }
 
-    private fun handleClassifiedSellerNameResponse(response: Response<GetClassifiedSellerResponse>): Resource<GetClassifiedSellerResponse>? {
+    private fun handleClassifiedSellerNameResponse(response: Response<FindByEmailDetailResponse>): Resource<FindByEmailDetailResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

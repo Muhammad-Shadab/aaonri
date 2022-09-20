@@ -5,6 +5,7 @@ import com.aaonri.app.data.authentication.register.api.CountriesApi
 import com.aaonri.app.data.authentication.register.api.ProfilePicApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.api.ZipCodeApi
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import okhttp3.MultipartBody
@@ -33,6 +34,9 @@ class RegistrationRepository @Inject constructor(
 
     suspend fun registerUser(registerRequest: RegisterRequest) =
         registrationApi.userRegister(registerRequest)
+
+    suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) =
+        registrationApi.updateProfile(updateProfileRequest)
 
     suspend fun getLocationByZipCode(postalCode: String, countryCode: String) =
         zipCodeApi.getLocation(postalCode, countryCode)

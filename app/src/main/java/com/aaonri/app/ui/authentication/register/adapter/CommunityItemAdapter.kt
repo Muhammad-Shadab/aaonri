@@ -6,18 +6,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
-import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.community.Community
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.databinding.CommunityItemBinding
-import java.util.ArrayList
 
 
-class CommunityItemAdapter(private var selectedCommunity: ((value: List<Community>) -> Unit)? = null) :
+class CommunityItemAdapter(private var selectedCommunity: ((value: List<CommunityAuth>) -> Unit)? = null) :
     RecyclerView.Adapter<CommunityItemAdapter.CustomViewHolder>() {
 
-    private var data = listOf<Community>()
+    private var data = listOf<CommunityAuth>()
 
-    private var selectedCommunityList = mutableListOf<Community>()
+    private var selectedCommunityList = mutableListOf<CommunityAuth>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -76,13 +74,13 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
 
     @JvmName("setData1")
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<Community>) {
+    fun setData(data: List<CommunityAuth>) {
         this.data = data
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setDataSavedList(selectedCommunityList: MutableList<Community>) {
+    fun setDataSavedList(selectedCommunityList: MutableList<CommunityAuth>) {
         this.selectedCommunityList = selectedCommunityList
         notifyDataSetChanged()
     }
