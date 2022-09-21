@@ -4,21 +4,25 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
+import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.ServicesGridItemBinding
 import com.google.android.material.snackbar.Snackbar
 
 class ServicesItemAdapter(
     private var selectedServices: ((value: MutableList<ServicesResponseItem>) -> Unit),
-    private var isJobSelected: (value: Boolean) -> Unit
+    private var isJobSelected: (value: Boolean) -> Unit,
+    private var selected: (value: String) -> Unit,
+
 ) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
 
     private var data = ArrayList<ServicesResponseItem>()
-
+   private  var isProfileScreen:Boolean = false
     var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
     var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
 
@@ -92,19 +96,23 @@ class ServicesItemAdapter(
                     }
                 }
 
-                if (data[position].active) {
-                    servicesGridIv.setColorFilter(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.blueBtnColor
+                if (data[position].active && !isProfileScreen) {
+                        servicesGridIv.setColorFilter(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blueBtnColor
+                            )
                         )
-                    )
-                    servicesGridIv.setBackgroundColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.serviceCardLightBlue
+
+                        servicesGridIv.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.serviceCardLightBlue
+                            )
                         )
-                    )
+
+
+
                 } else {
                     servicesGridIv.setBackgroundColor(
                         ContextCompat.getColor(
@@ -117,14 +125,17 @@ class ServicesItemAdapter(
                 selectedServices(selectedCategoriesList)
 
                 itemView.setOnClickListener {
-                    if (selectedCategoriesList.contains(data[position])) {
-                        selectedCategoriesList.remove(data[position])
-                    } else {
-                        selectedCategoriesList.add(data[position])
-                    }
                     if (data[position].active) {
+                        selected(data[position].interestDesc)
+
+                        if (selectedCategoriesList.contains(data[position])) {
+                            selectedCategoriesList.remove(data[position])
+                        } else {
+                            selectedCategoriesList.add(data[position])
+                        }
                         data[position].isSelected = !data[position].isSelected
                         notifyDataSetChanged()
+                        selectedServices(selectedCategoriesList)
                     } else {
                         Snackbar.make(
                             itemView,
@@ -132,11 +143,10 @@ class ServicesItemAdapter(
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-                    selectedServices(selectedCategoriesList)
                 }
 
                 if (data[position].active) {
-                    if (data[position].isSelected) {
+                    if (data[position].isSelected && !isProfileScreen) {
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -226,8 +236,9 @@ class ServicesItemAdapter(
     override fun getItemCount() = data.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<ServicesResponseItem>) {
+    fun setData(data: List<ServicesResponseItem>,isProfileScreen:Boolean) {
         this.data = data as ArrayList<ServicesResponseItem>
+        this.isProfileScreen = isProfileScreen
         notifyDataSetChanged()
     }
 
