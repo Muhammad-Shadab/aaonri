@@ -108,15 +108,16 @@
         </provider>
 
         <activity
-            android:name="com.aaonri.app.ui.dashboard.fragment.jobs.JobScreenActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity"
             android:exported="false" />
-        <activity
-            android:name="com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileActivity"
-            android:exported="false" />
+
+        <service
+            android:name=".utils.firebase.FireBase"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
 
