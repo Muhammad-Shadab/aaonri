@@ -305,30 +305,31 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             }
         }
 
-        UserProfileStaticData.getUserProfileDataValue()?.let {
-            cityName = it.city
-            stateName = "it.state"
-            //binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
-            binding?.countryPickerLl?.visibility = View.GONE
-            binding?.address1?.setText(it.address1)
-            binding?.address2?.setText(it.address2)
-            binding?.zipCodeAddressDetails?.setText(it.zipcode)
-            binding?.zipCodeAddressDetails?.isEnabled = false
-            binding?.zipCodeAddressDetails?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            binding?.cityNameAddressDetails?.setText(it.city)
-            binding?.cityNameAddressDetails?.isEnabled = false
-            binding?.cityNameAddressDetails?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            binding?.stateNameAddressDetails?.isEnabled = false
-            binding?.stateNameAddressDetails?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            binding?.stateNameAddressDetails?.text = "BSR"
-            //if (it.state != null) it.state.toString() else ""
-            binding?.phoneNumberAddressDetails?.setText(it.phoneNo)
-            binding?.addressDetailsNextBtn?.text = "UPDATE"
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                cityName = it.city
+                stateName = it.state.toString()
+                //binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
+                binding?.countryPickerLl?.visibility = View.GONE
+                binding?.address1?.setText(it.address1)
+                binding?.address2?.setText(it.address2)
+                binding?.zipCodeAddressDetails?.setText(it.zipcode)
+                binding?.zipCodeAddressDetails?.isEnabled = false
+                binding?.zipCodeAddressDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.cityNameAddressDetails?.setText(it.city)
+                binding?.cityNameAddressDetails?.isEnabled = false
+                binding?.cityNameAddressDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.stateNameAddressDetails?.isEnabled = false
+                binding?.stateNameAddressDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.stateNameAddressDetails?.text = stateName
+                //if (it.state != null) it.state.toString() else ""
+                binding?.phoneNumberAddressDetails?.setText(it.phoneNo)
+                binding?.addressDetailsNextBtn?.text = "UPDATE"
+            }
         }
-
 
 
         requireActivity()

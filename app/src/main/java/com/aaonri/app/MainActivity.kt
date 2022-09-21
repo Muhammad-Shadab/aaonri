@@ -368,22 +368,49 @@ class MainActivity : BaseActivity() {
                 }
                 is Resource.Success -> {
                     //callApiAccordingToInterest(response.data?.interests)
-                    response.data?.let { UserProfileStaticData.setUserProfileDataValue(it) }
                     /*response.data?.interests?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_INTERESTED_SERVICES] =
                             it
                     }*/
 
+                    response.data?.let { UserProfileStaticData.setUserProfileDataValue(it) }
+
+                    response.data?.interests?.let {
+                        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_INTERESTED_SERVICES, it)
+                    }
+
+                    response.data?.profilePic?.let {
+                        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                Constant.USER_PROFILE_PIC,
+                                "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                            )
+                    }
+
+                    response.data?.emailId?.let {
+                        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_EMAIL, it)
+                    }
+
+                    response.data?.isJobRecruiter?.let {
+                        applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_JOB_RECRUITER, it)
+                    }
+
                     response.data?.userId?.let {
                         PreferenceManager<Int>(applicationContext)[Constant.USER_ID] =
                             it
                     }
+
                     response.data?.city?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_CITY] = it
                     }
+
                     response.data?.zipcode?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_ZIP_CODE] = it
                     }
+
                     response.data?.phoneNo?.let {
                         PreferenceManager<String>(applicationContext)[Constant.USER_PHONE_NUMBER] =
                             it

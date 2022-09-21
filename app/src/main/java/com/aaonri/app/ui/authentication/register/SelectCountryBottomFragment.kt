@@ -6,30 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.ui.authentication.register.adapter.CountryAdapter
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponseItem
 import com.aaonri.app.data.authentication.register.model.countries.CountryInfo
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentSelectCountryBottomBinding
+import com.aaonri.app.ui.authentication.register.adapter.CountryAdapter
+import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class SelectCountryBottomFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     var binding: FragmentSelectCountryBottomBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
-    val registrationViewModel: RegistrationViewModel by viewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     var countryAdapter: CountryAdapter? = null
     var tempArrayList = ArrayList<CountriesResponseItem>()
     val args: SelectCountryBottomFragmentArgs by navArgs()
@@ -69,19 +70,60 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             }
 
             val southAsiaCountry = mutableListOf<CountriesResponseItem>()
-            southAsiaCountry.add(CountriesResponseItem("Afghanistan", CountryInfo("https://disease.sh/assets/img/flags/af.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Bangladesh", CountryInfo("https://disease.sh/assets/img/flags/bd.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Bhutan", CountryInfo("https://disease.sh/assets/img/flags/bt.png","")))
-            southAsiaCountry.add(CountriesResponseItem("India", CountryInfo("https://disease.sh/assets/img/flags/in.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Maldives", CountryInfo("https://disease.sh/assets/img/flags/mv.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Nepal", CountryInfo("https://disease.sh/assets/img/flags/np.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Pakistan", CountryInfo("https://disease.sh/assets/img/flags/pk.png","")))
-            southAsiaCountry.add(CountriesResponseItem("Sri Lanka", CountryInfo("https://disease.sh/assets/img/flags/lk.png","")))
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Afghanistan",
+                    CountryInfo("https://disease.sh/assets/img/flags/af.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Bangladesh",
+                    CountryInfo("https://disease.sh/assets/img/flags/bd.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Bhutan",
+                    CountryInfo("https://disease.sh/assets/img/flags/bt.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "India",
+                    CountryInfo("https://disease.sh/assets/img/flags/in.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Maldives",
+                    CountryInfo("https://disease.sh/assets/img/flags/mv.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Nepal",
+                    CountryInfo("https://disease.sh/assets/img/flags/np.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Pakistan",
+                    CountryInfo("https://disease.sh/assets/img/flags/pk.png", "")
+                )
+            )
+            southAsiaCountry.add(
+                CountriesResponseItem(
+                    "Sri Lanka",
+                    CountryInfo("https://disease.sh/assets/img/flags/lk.png", "")
+                )
+            )
 
             countryAdapter?.setData(southAsiaCountry)
             countriesRv.layoutManager = LinearLayoutManager(context)
             countriesRv.adapter = countryAdapter
         }
+
 
         return binding?.root
     }
@@ -153,6 +195,7 @@ class SelectCountryBottomFragment : BottomSheetDialogFragment() {
             }
         })
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

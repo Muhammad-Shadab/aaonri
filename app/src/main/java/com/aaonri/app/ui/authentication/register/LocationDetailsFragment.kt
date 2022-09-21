@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
@@ -32,9 +31,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LocationDetailsFragment : Fragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     var binding: FragmentLocationDetailsBinding? = null
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
-    val registrationViewModel: RegistrationViewModel by viewModels()
     var isCommunitySelected = false
     var isCountrySelected = false
 
@@ -140,16 +139,80 @@ class LocationDetailsFragment : Fragment() {
             }
         }
 
-        UserProfileStaticData.getUserProfileDataValue()?.let {
-            binding?.selectCountryOrigin?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            binding?.selectCountryLocation?.text = it.originCountry
-            binding?.selectCountryOrigin?.isEnabled = false
-            binding?.stateLocationDetails?.setText(it.originState)
-            binding?.cityLocationDetails?.setText(it.originCity)
-            binding?.selectCommunityEt?.visibility = View.GONE
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                binding?.selectCountryOrigin?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.selectCountryLocation?.text = it.originCountry
+                binding?.selectCountryOrigin?.isEnabled = false
+                binding?.stateLocationDetails?.setText(it.originState)
+                binding?.cityLocationDetails?.setText(it.originCity)
+                binding?.selectCommunityEt?.visibility = View.GONE
+                binding?.locationDetailsNextBtn?.text = "UPDATE"
+            }
+        }
 
-            binding?.locationDetailsNextBtn?.text = "UPDATE"
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                when (it.originCountry) {
+                    "Afghanistan" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Afghanistan",
+                            "https://disease.sh/assets/img/flags/af.png",
+                            ""
+                        )
+                    }
+                    "Bangladesh" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Bangladesh",
+                            "https://disease.sh/assets/img/flags/bd.png",
+                            ""
+                        )
+                    }
+                    "Bhutan" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Bhutan",
+                            "https://disease.sh/assets/img/flags/bt.png",
+                            ""
+                        )
+                    }
+                    "India" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "India",
+                            "https://disease.sh/assets/img/flags/in.png",
+                            ""
+                        )
+                    }
+                    "Maldives" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Maldives",
+                            "https://disease.sh/assets/img/flags/mv.png",
+                            ""
+                        )
+                    }
+                    "Nepal" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Nepal",
+                            "https://disease.sh/assets/img/flags/np.png",
+                            ""
+                        )
+                    }
+                    "Pakistan" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Pakistan",
+                            "https://disease.sh/assets/img/flags/pk.png",
+                            ""
+                        )
+                    }
+                    "Sri Lanka" -> {
+                        authCommonViewModel.setSelectedCountryLocationScreen(
+                            "Sri Lanka",
+                            "https://disease.sh/assets/img/flags/lk.png",
+                            ""
+                        )
+                    }
+                }
+            }
         }
 
         requireActivity()

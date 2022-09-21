@@ -188,7 +188,20 @@ class LoginFragment : Fragment() {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                             ?.set(Constant.IS_USER_LOGIN, true)
 
-                        response.data?.user?.interests?.let {
+                        response.data?.user?.profilePic?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(
+                                    Constant.USER_PROFILE_PIC,
+                                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                                )
+                        }
+
+                        response.data?.user?.emailId?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_EMAIL, it)
+                        }
+
+                        /*response.data?.user?.interests?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_INTERESTED_SERVICES, it)
                         }
@@ -219,14 +232,13 @@ class LoginFragment : Fragment() {
                         if (response.data?.user?.zipcode?.isNotEmpty() == true) {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
-                        }
+                        }*/
 
                         if (response.data?.massage != null) {
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
                             activity?.finish()
                         } else {
-
                             context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                                 ?.set(Constant.IS_USER_LOGIN, false)
 

@@ -295,33 +295,35 @@ class BasicDetailsFragment : Fragment() {
             }
         }
 
-        UserProfileStaticData.getUserProfileDataValue()?.let {
-            binding?.textHintTv?.visibility = View.GONE
-            profile =
-                "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
-            binding?.addProfileIv?.let { it1 ->
-                context?.let { it2 ->
-                    Glide.with(it2)
-                        .load(profile)
-                        .into(
-                            it1
-                        )
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                binding?.textHintTv?.visibility = View.GONE
+                profile =
+                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
+                binding?.addProfileIv?.let { it1 ->
+                    context?.let { it2 ->
+                        Glide.with(it2)
+                            .load(profile)
+                            .into(
+                                it1
+                            )
+                    }
                 }
+                binding?.firstNameBasicDetails?.setText(it.firstName)
+                binding?.lastNameBasicDetails?.setText(it.lastName)
+                binding?.emailAddressBasicDetails?.setText(it.emailId)
+                binding?.emailAddressBasicDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.passwordBasicDetails?.setText(it.password)
+                binding?.passwordBasicDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                isEmailValid = true
+                isPasswordValid = true
+                binding?.emailAddressBasicDetails?.isEnabled = false
+                binding?.passwordBasicDetails?.isEnabled = false
+                binding?.passTi?.isEnabled = false
+                binding?.basicDetailsNextBtn?.text = "UPDATE"
             }
-            binding?.firstNameBasicDetails?.setText(it.firstName)
-            binding?.lastNameBasicDetails?.setText(it.lastName)
-            binding?.emailAddressBasicDetails?.setText(it.emailId)
-            binding?.emailAddressBasicDetails?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            binding?.passwordBasicDetails?.setText(it.password)
-            binding?.passwordBasicDetails?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-            isEmailValid = true
-            isPasswordValid = true
-            binding?.emailAddressBasicDetails?.isEnabled = false
-            binding?.passwordBasicDetails?.isEnabled = false
-            binding?.passTi?.isEnabled = false
-            binding?.basicDetailsNextBtn?.text = "UPDATE"
         }
 
         /*registrationViewModel.updateUserData.observe(viewLifecycleOwner) { response ->
@@ -361,7 +363,11 @@ class BasicDetailsFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    activity?.finish()
+                    if (authCommonViewModel.isUpdateProfile) {
+                        findNavController().navigateUp()
+                    } else {
+                        activity?.finish()
+                    }
                 }
             })
 

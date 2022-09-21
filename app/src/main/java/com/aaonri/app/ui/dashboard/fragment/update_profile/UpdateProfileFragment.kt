@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -72,67 +73,72 @@ class UpdateProfileFragment : Fragment() {
             }
         }
 
-        email?.let { authCommonViewModel.findByEmail(it) }
-
         registrationViewModel.updateUserData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    if (authCommonViewModel.profilePicUri != null) {
-                        uploadProfilePicture(
-                            response.data?.user?.userId,
-                            authCommonViewModel.profilePicUri!!
+            if (registrationViewModel.updateUserData != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        if (authCommonViewModel.profilePicUri != null) {
+                            uploadProfilePicture(
+                                response.data?.user?.userId,
+                                authCommonViewModel.profilePicUri!!
+                            )
+                        } else {
+                            email?.let { registrationViewModel.findByEmail(email = it) }
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                        registrationViewModel.updateUserData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(
+                            context,
+                            "Error ${response.message}",
+                            Toast.LENGTH_SHORT
                         )
-                    } else {
+                            .show()
+                    }
+                    else -> {
+                    }
+                }
+            }
+        }
+
+        authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
+            if (authCommonViewModel.uploadProfilePicData != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        authCommonViewModel.setProfilePicUriValue(null)
+                        email?.let { registrationViewModel.findByEmail(email = it) }
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
                                 "Successfully Profile Updated", Snackbar.LENGTH_LONG
                             ).show()
                         }
+                        authCommonViewModel.uploadProfilePicData.postValue(null)
                     }
-                    email?.let { registrationViewModel.findByEmail(email = it) }
-                }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        context,
-                        "Error ${response.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-                else -> {
-                }
-            }
-        }
-
-        authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    authCommonViewModel.setProfilePicUriValue(null)
-                    activity?.let { it1 ->
-                        Snackbar.make(
-                            it1.findViewById(android.R.id.content),
-                            "Successfully Profile Updated", Snackbar.LENGTH_LONG
-                        ).show()
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(
+                            context,
+                            "Error ${response.message}",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
-                }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(
-                        context,
-                        "Error ${response.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
                 }
             }
         }
@@ -143,20 +149,47 @@ class UpdateProfileFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
+
                     response.data?.let { UserProfileStaticData.setUserProfileDataValue(it) }
+
+                    response.data?.interests?.let {
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_INTERESTED_SERVICES, it)
+                    }
+
+                    response.data?.profilePic?.let {
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(
+                                Constant.USER_PROFILE_PIC,
+                                "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                            )
+                    }
+
+                    response.data?.emailId?.let {
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_EMAIL, it)
+                    }
+
+                    response.data?.isJobRecruiter?.let {
+                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_JOB_RECRUITER, it)
+                    }
 
                     response.data?.userId?.let {
                         context?.let { it1 -> PreferenceManager<Int>(it1) }
                             ?.set(Constant.USER_ID, it)
                     }
+
                     response.data?.city?.let {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_CITY, it)
                     }
+
                     response.data?.zipcode?.let {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_ZIP_CODE, it)
                     }
+
                     response.data?.phoneNo?.let {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_PHONE_NUMBER, it)
