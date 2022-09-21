@@ -125,7 +125,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             val searchText = editable.toString().lowercase(Locale.getDefault())
             if (searchText.isNotEmpty()) {
                 data.forEach {
-                    if (it.communityName.lowercase(Locale.getDefault()).contains(searchText)) {
+                    if (it.communityName?.lowercase(Locale.getDefault())?.contains(searchText) == true) {
                         tempArrayList.add(it)
                     }
                 }

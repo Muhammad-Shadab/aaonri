@@ -1,8 +1,8 @@
 package com.aaonri.app.data.authentication.register.model
 
 data class CommunityAuth(
-    val communityId: Int,
-    val communityName: String,
-    val createdDt: String,
-    val id: Int
+    val communityId: Int? = null,
+    val communityName: String? = null,
+    val createdDt: String? = null,
+    val id: Int? = null
 )
