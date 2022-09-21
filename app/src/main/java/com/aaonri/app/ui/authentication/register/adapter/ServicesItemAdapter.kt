@@ -3,28 +3,27 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
-import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.databinding.ServicesGridItemBinding
 import com.google.android.material.snackbar.Snackbar
 
 class ServicesItemAdapter(
     private var selectedServices: ((value: MutableList<ServicesResponseItem>) -> Unit),
     private var isJobSelected: (value: Boolean) -> Unit,
-    private var selected: (value: String) -> Unit,
-
+    private var selected: (value: String) -> Unit
 ) :
     RecyclerView.Adapter<ServicesItemAdapter.CustomViewHolder>() {
 
     private var data = ArrayList<ServicesResponseItem>()
-   private  var isProfileScreen:Boolean = false
+    private var isProfileScreen: Boolean = false
     var selectedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
-    var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
+    var userInterestService = ""
+    //var savedCategoriesList: MutableList<ServicesResponseItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,6 +36,133 @@ class ServicesItemAdapter(
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
+
+                if (userInterestService.contains("27")) {
+                    //"Advertise With Us"
+                    if (data[position].id == 27) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("2")) {
+                    //"Classifieds"
+                    if (data[position].id == 2) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("8")) {
+                    //"Events"
+                    if (data[position].id == 8) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("3")) {
+                    //"Immigration"
+                    if (data[position].id == 3) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("17")) {
+                    //"Jobs"
+                    if (data[position].id == 17) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("22")) {
+                    //"Shop With Us"
+                    if (data[position].id == 22) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("4")) {
+                    //"Astrology"
+                    if (data[position].id == 4) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("26")) {
+                    //"Business Needs"
+                    if (data[position].id == 26) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("10")) {
+                    //"Community Connect"
+                    if (data[position].id == 10) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("13")) {
+                    //"Foundation & Donations"
+                    if (data[position].id == 13) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("25")) {
+                    //"Home Needs"
+                    if (data[position].id == 25) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("18")) {
+                    //"Legal Services"
+                    if (data[position].id == 18) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("19")) {
+                    //"Matrimony & Weddings"
+                    if (data[position].id == 19) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("20")) {
+                    //"Medical Care"
+                    if (data[position].id == 20) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("21")) {
+                    //"Real Estate"
+                    if (data[position].id == 21) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("5")) {
+                    //"Sports"
+                    if (data[position].id == 5) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("16")) {
+                    //"Student Services"
+                    if (data[position].id == 16) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
+                if (userInterestService.contains("24")) {
+                    //"Travel and Stay"
+                    if (data[position].id == 24) {
+                        addSelectedDataList(data[position])
+                        data[position].isSelected = true
+                    }
+                }
 
                 servicesGridTv.text = data[position].interestDesc
                 when (data[position].interestDesc) {
@@ -97,21 +223,19 @@ class ServicesItemAdapter(
                 }
 
                 if (data[position].active && !isProfileScreen) {
-                        servicesGridIv.setColorFilter(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.blueBtnColor
-                            )
+                    servicesGridIv.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.blueBtnColor
                         )
+                    )
 
-                        servicesGridIv.setBackgroundColor(
-                            ContextCompat.getColor(
-                                context,
-                                R.color.serviceCardLightBlue
-                            )
+                    servicesGridIv.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.serviceCardLightBlue
                         )
-
-
+                    )
 
                 } else {
                     servicesGridIv.setBackgroundColor(
@@ -127,15 +251,10 @@ class ServicesItemAdapter(
                 itemView.setOnClickListener {
                     if (data[position].active) {
                         selected(data[position].interestDesc)
-
-                        if (selectedCategoriesList.contains(data[position])) {
-                            selectedCategoriesList.remove(data[position])
-                        } else {
-                            selectedCategoriesList.add(data[position])
-                        }
+                        addSelectedDataList(data[position])
                         data[position].isSelected = !data[position].isSelected
-                        notifyDataSetChanged()
                         selectedServices(selectedCategoriesList)
+                        notifyDataSetChanged()
                     } else {
                         Snackbar.make(
                             itemView,
@@ -174,6 +293,9 @@ class ServicesItemAdapter(
                         )
                     }
                 }
+                if (userInterestService.length == position) {
+                    userInterestService = ""
+                }
 
                 if (data[position].id == 17) {
                     if (data[position].isSelected) {
@@ -183,62 +305,30 @@ class ServicesItemAdapter(
                     }
                 }
 
-                /*itemView.setOnClickListener {
-                    if (data[position].active) {
-                        if (selectedCategoriesList.contains(data[position])) {
-                            selectedCategoriesList.remove(data[position])
-                            servicesGridIv.setColorFilter(
-                                ContextCompat.getColor(
-                                    context,
-                                    R.color.blueBtnColor
-                                )
-                            )
-                            servicesGridIv.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    context,
-                                    R.color.serviceCardLightBlue
-                                )
-                            )
-                            if (data[position].id == 3) {
-                                isJobSelected(false)
-                            }
-                        } else {
-                            if (data[position].id == 3) {
-                                isJobSelected(true)
-                            }
-                            selectedCategoriesList.add(data[position])
-                            servicesGridIv.setColorFilter(
-                                ContextCompat.getColor(
-                                    context,
-                                    R.color.white
-                                )
-                            )
-                            servicesGridIv.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    context,
-                                    R.color.blueBtnColor
-                                )
-                            )
-                        }
-                        selectedServices(selectedCategoriesList)
-                    } else {
-                        Snackbar.make(
-                            itemView,
-                            "This service is currently unavailable",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                }*/
             }
+        }
+    }
+
+    private fun addSelectedDataList(servicesResponseItem: ServicesResponseItem) {
+        if (selectedCategoriesList.contains(servicesResponseItem)) {
+            selectedCategoriesList.remove(servicesResponseItem)
+        } else {
+            selectedCategoriesList.add(servicesResponseItem)
         }
     }
 
     override fun getItemCount() = data.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<ServicesResponseItem>,isProfileScreen:Boolean) {
+    fun setData(data: List<ServicesResponseItem>, isProfileScreen: Boolean) {
         this.data = data as ArrayList<ServicesResponseItem>
         this.isProfileScreen = isProfileScreen
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setSelectedServicesList(value: String) {
+        userInterestService = value
         notifyDataSetChanged()
     }
 

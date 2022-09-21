@@ -351,7 +351,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 }
             })
 
-
         return binding?.root
     }
 

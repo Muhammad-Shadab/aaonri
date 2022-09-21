@@ -887,7 +887,6 @@ class HomeScreenFragment : Fragment() {
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-
             } else if (interests == "25") {
                 //Home Needs
                 priorityService = "Home Needs"

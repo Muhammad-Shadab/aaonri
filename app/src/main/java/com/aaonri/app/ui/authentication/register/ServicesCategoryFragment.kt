@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -33,6 +34,7 @@ import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -69,7 +71,7 @@ class ServicesCategoryFragment : Fragment() {
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
             authCommonViewModel.addServicesList(selectedCommunity)
-        },{isJobSelected = it}) {
+        }, { isJobSelected = it }) {
 
         }
 
@@ -122,13 +124,17 @@ class ServicesCategoryFragment : Fragment() {
                                 selectedCommunity.forEach {
                                     Log.i("selectedCommunity", "${it.communityName}")
                                 }
-                                registerUser(
-                                    companyEmail.toString(),
-                                    aliasName.toString(),
-                                    isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
-                                    isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
-                                    //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
-                                )
+                                if (authCommonViewModel.isUpdateProfile) {
+                                    updateProfile()
+                                } else {
+                                    registerUser(
+                                        companyEmail.toString(),
+                                        aliasName.toString(),
+                                        isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
+                                        isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
+                                        //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
+                                    )
+                                }
                             } else {
                                 activity?.let { it1 ->
                                     Snackbar.make(
@@ -150,12 +156,16 @@ class ServicesCategoryFragment : Fragment() {
                             }
                         }
                     } else if (aliasName.toString().isNotEmpty()) {
-                        registerUser(
-                            companyEmail.toString(), aliasName.toString(),
-                            isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
-                            isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
-                            //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
-                        )
+                        if (authCommonViewModel.isUpdateProfile) {
+                            updateProfile()
+                        } else {
+                            registerUser(
+                                companyEmail.toString(), aliasName.toString(),
+                                isRecruiterCheckBox = isRecruiterCheckBox.isChecked,
+                                isAliasNameCheckBox = isAliasNameCheckBox.isChecked,
+                                //belongToCricketCheckBox = belongToCricketCheckBox.isChecked
+                            )
+                        }
                     } else {
                         activity?.let { it1 ->
                             Snackbar.make(
@@ -179,6 +189,7 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
+            Toast.makeText(context, "${serviceResponseItem.size}", Toast.LENGTH_SHORT).show()
             adapter?.selectedCategoriesList = serviceResponseItem
             selectedServicesInterest = ""
             var i = 0
@@ -264,7 +275,14 @@ class ServicesCategoryFragment : Fragment() {
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) { communityList ->
             communityList.forEach { community ->
-                selectedCommunity.add((CommunityAuth(community.communityId, community.communityName, community.createdDt, community.id)))
+                selectedCommunity.add(
+                    (CommunityAuth(
+                        community.communityId,
+                        community.communityName,
+                        community.createdDt,
+                        community.id
+                    ))
+                )
             }
         }
 
@@ -295,7 +313,10 @@ class ServicesCategoryFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
+        }
 
+        UserProfileStaticData.getUserProfileDataValue()?.let {
+            adapter?.setSelectedServicesList(it.interests)
         }
 
         requireActivity()
@@ -322,6 +343,43 @@ class ServicesCategoryFragment : Fragment() {
         authCommonViewModel.uploadProfilePic(requestImage, id)
     }
 
+    private fun updateProfile() {
+        UserProfileStaticData.getUserProfileDataValue()?.let {
+            registrationViewModel.updateProfile(
+                UpdateProfileRequest(
+                    activeUser = true,
+                    address1 = it.address1,
+                    address2 = it.address2,
+                    aliasName = binding?.aliasNameServices?.text?.toString(),
+                    authorized = true,
+                    city = it.city,
+                    community = it.community,
+                    companyEmail = binding?.companyEmailServices?.text?.toString(),
+                    emailId = it.emailId,
+                    firstName = it.firstName,
+                    interests = it.interests,
+                    isAdmin = 0,
+                    isFullNameAsAliasName = it.isFullNameAsAliasName,
+                    isJobRecruiter = it.isJobRecruiter,
+                    isPrimeUser = false,
+                    isSurveyCompleted = false,
+                    lastName = it.lastName,
+                    newsletter = false,
+                    originCity = it.originCity,
+                    originCountry = it.originCountry,
+                    originState = it.originState,
+                    password = it.password,
+                    phoneNo = it.phoneNo,
+                    regdEmailSent = false,
+                    registeredBy = "manual",
+                    userName = it.userName,
+                    zipcode = it.zipcode,
+                    state = it.state,
+                    userType = it.userType,
+                )
+            )
+        }
+    }
 
     private fun registerUser(
         companyEmail: String,
@@ -380,7 +438,7 @@ class ServicesCategoryFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
-                        adapter?.setData(servicesResponse,false)
+                        adapter?.setData(servicesResponse, false)
                     }
                 }
                 is Resource.Error -> {
