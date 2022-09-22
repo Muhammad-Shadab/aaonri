@@ -6,25 +6,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.data.immigration.model.Discussion
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
+import com.aaonri.app.data.main.adapter.AdvertiseViewHolder
 import com.aaonri.app.databinding.ImageOnlyViewHolderBinding
 import com.aaonri.app.databinding.ImageWithTextBinding
 import com.aaonri.app.databinding.TextOnlyItemBinding
-import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationViewHolder
 
 class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
 
-    var items = listOf<FindAllActiveAdvertiseResponseItem>()
+    var items = mutableListOf<FindAllActiveAdvertiseResponseItem>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? =
         null
 
-
+    fun load() {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvertiseViewHolder {
         return when (viewType) {
             R.layout.text_only_item -> {
@@ -58,8 +57,9 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
         }
     }
 
-    override fun onBindViewHolder(holder: AdvertiseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AdvertiseViewHolder, pos: Int) {
         holder.itemClickListener = itemClickListener
+        val position = pos % items.size
         when (holder) {
             is AdvertiseViewHolder.ImageAndTextViewHolder -> holder.bind(items[position])
             is AdvertiseViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
@@ -69,9 +69,11 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
 
     }
 
-    override fun getItemCount() = items.size
-
-    override fun getItemViewType(position: Int): Int {
+    override fun getItemCount(): Int {
+        return if (items == null) 0 else if(items.size in 1..2) items.size else Int.MAX_VALUE
+    }
+    override fun getItemViewType(pos: Int): Int {
+        val position = pos % items.size
         return when (items[position].advertisementPageLocation.type) {
             "TXTONLY" -> R.layout.text_only_item
             "IMGONLY" -> R.layout.image_only_view_holder

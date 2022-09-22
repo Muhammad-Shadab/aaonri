@@ -180,8 +180,8 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
-        adsGenericAdapter1 = AdsGenericAdapter()
-        adsGenericAdapter2 = AdsGenericAdapter()
+//        adsGenericAdapter1 = AdsGenericAdapter()
+//        adsGenericAdapter2 = AdsGenericAdapter()
 
         adsGenericAdapter1?.itemClickListener = { view, item, position ->
             if (item is FindAllActiveAdvertiseResponseItem) {
