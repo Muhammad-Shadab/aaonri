@@ -23,6 +23,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
@@ -84,6 +85,8 @@ class MainActivity : BaseActivity() {
         binding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
+
+            /** Clearing the filter data when user navigate to the non filter screens**/
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.classifiedScreenFragment || destination.id == R.id.advertiseScreenFragment ||
                     destination.id == R.id.shopScreenFragment || destination.id == R.id.moreScreenFragment
@@ -106,6 +109,18 @@ class MainActivity : BaseActivity() {
                         postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                     }
                 }
+            }
+            if (navController.currentDestination?.id != R.id.immigrationScreenFragment || navController.currentDestination?.id != R.id.immigrationDetailsFragment) {
+                immigrationViewModel.setFilterData(
+                    ImmigrationFilterModel(
+                        fifteenDaysSelected = false,
+                        threeMonthSelected = false,
+                        oneYearSelected = false,
+                        activeDiscussion = false,
+                        atLeastOnDiscussion = false
+                    )
+                )
+                immigrationViewModel.setSearchQuery("")
             }
         }
 
@@ -494,7 +509,7 @@ class MainActivity : BaseActivity() {
             }
         }*/
 
-        homeViewModel.popularClassifiedData.observe(this) { response ->
+        /*homeViewModel.popularClassifiedData.observe(this) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -507,7 +522,7 @@ class MainActivity : BaseActivity() {
                 }
                 else -> {}
             }
-        }
+        }*/
 
         /*classifiedViewModel.classifiedByUserData.observe(this) { response ->
             when (response) {

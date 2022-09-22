@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_immigrationDetailsFragment"
+            app:destination="@id/immigrationDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"

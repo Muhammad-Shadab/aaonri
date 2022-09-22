@@ -24,7 +24,8 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
-import com.aaonri.app.data.immigration.model.ImmigrationCenterModelItem
+import com.aaonri.app.data.immigration.model.Discussion
+import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -48,9 +49,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
@@ -63,9 +62,10 @@ class HomeScreenFragment : Fragment() {
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
+    val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var adsGenericAdapter1: AdsGenericAdapter? = null
+
     var adsGenericAdapter2: AdsGenericAdapter? = null
-    var immigartinList = mutableListOf<ImmigrationCenterModelItem>()
 
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
@@ -75,7 +75,6 @@ class HomeScreenFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     var jobAdapter: JobSeekerAdapter? = null
     var interestAdapter: InterestAdapter? = null
-    val immigrationViewModel: ImmigrationViewModel by activityViewModels()
 
     //var homeEventAdapter: HomeEventAdapter? = null
     var genericAdapterForClassified: ClassifiedGenericAdapter? = null
@@ -248,11 +247,13 @@ class HomeScreenFragment : Fragment() {
         immigrationAdapter = ImmigrationAdapter()
         immigrationAdapter?.itemClickListener =
             { view, item, position, updateImmigration, deleteImmigration ->
-                if (item is ImmigrationCenterModelItem) {
+                if (item is Discussion) {
                     val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationCenterDetails()
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationDetailsFragment(
+                            true
+                        )
                     findNavController().navigate(action)
-                    immigrationViewModel.setSelectedImmigrationCenterItem(item)
+                    immigrationViewModel.setSelectedDiscussionItem(item)
                 }
             }
 
@@ -300,7 +301,6 @@ class HomeScreenFragment : Fragment() {
                             allClassifiedAdapterForHorizontal*/
                         binding?.availableServiceHorizontalClassifiedRv?.adapter =
                             genericAdapterForClassified
-
                     }
                     "Events" -> {
                         binding?.availableServiceHorizontalClassifiedRv?.visibility =
@@ -327,32 +327,39 @@ class HomeScreenFragment : Fragment() {
                             View.GONE
                         binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
                         binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 4F)
-                        val userArray =
-                            JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
-                        val gson = Gson()
 
-                        for (i in 0 until userArray.length()) {
-                            if (!immigartinList.contains(
-                                    gson.fromJson(
-                                        userArray.getString(i),
-                                        ImmigrationCenterModelItem::class.java
-                                    )
-                                )
-                            ) {
-                                immigartinList.add(
-                                    gson.fromJson(
-                                        userArray.getString(i),
-                                        ImmigrationCenterModelItem::class.java
-                                    )
-                                )
-                            }
+                        /* val userArray =
+                             JSONObject(loadJSONFromAsset()).getJSONArray("immigrationcenterlist")
+                         val gson = Gson()
 
-                        }
-                        immigrationAdapter?.setData(immigartinList)
+                         for (i in 0 until userArray.length()) {
+                             if (!immigrationList.contains(
+                                     gson.fromJson(
+                                         userArray.getString(i),
+                                         ImmigrationCenterModelItem::class.java
+                                     )
+                                 )
+                             ) {
+                                 immigrationList.add(
+                                     gson.fromJson(
+                                         userArray.getString(i),
+                                         ImmigrationCenterModelItem::class.java
+                                     )
+                                 )
+                             }
+                         }*/
+
+                        immigrationViewModel.getAllImmigrationDiscussion(
+                            GetAllImmigrationRequest(
+                                categoryId = "1",
+                                createdById = "",
+                                keywords = ""
+                            )
+                        )
+
                         binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        binding?.availableServiceHorizontalRv?.adapter =
-                            immigrationAdapter
+                        binding?.availableServiceHorizontalRv?.adapter = immigrationAdapter
                     }
                     "Astrology" -> {
 
@@ -601,8 +608,6 @@ class HomeScreenFragment : Fragment() {
                         }
                     }
 
-
-
                     callApiAccordingToInterest(list?.get(0))
                     list?.removeAt(0)
                     setUserInterestedServiceRow(list)
@@ -751,6 +756,29 @@ class HomeScreenFragment : Fragment() {
             }
         }*/
 
+        immigrationViewModel.allImmigrationDiscussionListData.observe(
+            viewLifecycleOwner
+        ) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    response.data?.discussionList?.let {
+                        if (it.size >= 4) {
+                            immigrationAdapter?.setData(it.subList(0, 4))
+                        } else {
+                            immigrationAdapter?.setData(it)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+        }
+
         return binding?.root
     }
 
@@ -884,6 +912,13 @@ class HomeScreenFragment : Fragment() {
                 //Immigration
                 priorityService = "Immigration"
                 binding?.priorityServiceRv?.margin(left = 16f, right = 16f)
+                immigrationViewModel.getAllImmigrationDiscussion(
+                    GetAllImmigrationRequest(
+                        categoryId = "1",
+                        createdById = "",
+                        keywords = ""
+                    )
+                )
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 binding?.priorityServiceRv?.adapter = immigrationAdapter

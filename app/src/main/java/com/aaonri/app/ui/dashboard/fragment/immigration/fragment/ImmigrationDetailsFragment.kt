@@ -94,26 +94,29 @@ class ImmigrationDetailsFragment : Fragment() {
             allReplyRv.adapter = immigrationAdapter
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
-                discussion = it
-                if (discussion?.approved == false) {
-                    binding?.postReplyEt?.isFocusable = false
-                    binding?.postReplyEt?.isEnabled = false
-                    binding?.postReplyEt?.isCursorVisible = false
-                    binding?.postReplyEt?.keyListener = null
-                    binding?.postReplyEtLl?.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
-                    binding?.postReplyBtn?.isEnabled = false
+                if (it != null) {
+                    discussion = it
+                    if (discussion?.approved == false) {
+                        binding?.postReplyEt?.isFocusable = false
+                        binding?.postReplyEt?.isEnabled = false
+                        binding?.postReplyEt?.isCursorVisible = false
+                        binding?.postReplyEt?.keyListener = null
+                        binding?.postReplyEtLl?.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
+                        binding?.postReplyBtn?.isEnabled = false
+                    }
+                    discussionTitle.text = it.discussionTopic
+                    immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
+                    discussionNameTv.text = it.discussionTopic
+                    postedByTv.text = "Posted by: ${it.createdBy} on ${
+                        DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                            .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
+                    }"
+                    discussionDesc.text = it.discussionDesc
+                    noOfReply.text = it.noOfReplies.toString()
+                    discussionDetailsLl.visibility = View.VISIBLE
+                    immigrationViewModel.selectedDiscussionItem.postValue(null)
                 }
-                discussionTitle.text = it.discussionTopic
-                immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
-                discussionNameTv.text = it.discussionTopic
-                postedByTv.text = "Posted by: ${it.createdBy} on ${
-                    DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                        .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
-                }"
-                discussionDesc.text = it.discussionDesc
-                noOfReply.text = it.noOfReplies.toString()
-                discussionDetailsLl.visibility = View.VISIBLE
             }
         }
 
