@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
+import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.model.InterestResponseItem
@@ -63,6 +64,7 @@ class HomeScreenFragment : Fragment() {
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
+    val registrationViewModel: RegistrationViewModel by activityViewModels()
     var adsGenericAdapter1: AdsGenericAdapter? = null
 
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -120,6 +122,9 @@ class HomeScreenFragment : Fragment() {
             }
             if (userInterestedService?.contains("27") == true) {
                 userInterestedService?.remove("27")
+            }
+            if (userInterestedService?.contains("17") == true) {
+                userInterestedService?.remove("17")
             }
 
             if (userInterestedService?.size == 1) {
@@ -257,7 +262,7 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-        jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
+        //jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
         homeInterestsServiceAdapter =
             HomeInterestsServiceAdapter {
@@ -580,19 +585,24 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        classifiedViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
+        registrationViewModel.findByEmailData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
                 }
                 is Resource.Success -> {
+
                     val list: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
+
                     if (list?.contains("22") == true) {
                         list.remove("22")
                     }
                     if (list?.contains("27") == true) {
                         list.remove("27")
+                    }
+                    if (list?.contains("17") == true) {
+                        list.remove("17")
                     }
 
                     if (list != null) {
@@ -805,8 +815,10 @@ class HomeScreenFragment : Fragment() {
                         binding?.interestBorder?.visibility = View.VISIBLE
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
+                            /**This will show all active interested services in guest user**/
                             homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" } as MutableList<InterestResponseItem>)
                         } else {
+                            //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
                         }
                     }

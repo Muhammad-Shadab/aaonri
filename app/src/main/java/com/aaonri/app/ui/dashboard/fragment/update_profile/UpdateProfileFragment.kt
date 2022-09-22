@@ -131,6 +131,7 @@ class UpdateProfileFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
                         authCommonViewModel.setProfilePicUriValue(null)
                         email?.let { registrationViewModel.findByEmail(email = it) }
+
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),

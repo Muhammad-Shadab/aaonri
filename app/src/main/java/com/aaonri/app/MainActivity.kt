@@ -162,7 +162,7 @@ class MainActivity : BaseActivity() {
                 classifiedViewModel.setIsLikedButtonClicked(true)
 
                 if (email != null) {
-                    classifiedViewModel.findByEmail(email)
+                    registrationViewModel.findByEmail(email)
                     eventViewModel.getRecentEvent(email)
                 }
 
@@ -376,7 +376,7 @@ class MainActivity : BaseActivity() {
         homeViewModel.getHomeEvent()
         homeViewModel.getPopularClassified()
 
-        classifiedViewModel.findByEmailData.observe(this) { response ->
+        registrationViewModel.findByEmailData.observe(this) { response ->
             when (response) {
                 is Resource.Loading -> {
 
