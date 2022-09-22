@@ -8,8 +8,6 @@ object AuthConstant {
     const val LOCATION_DETAILS_SCREEN = "LOCATION_DETAILS_SCREEN"
     const val SERVICE_DETAILS_SCREEN = "SERVICE_DETAILS_SCREEN"
 
-    // Map Constants
-
     // Basic details screen
     const val FIRST_NAME = "firstName"
     const val LAST_NAME = "lastName"

@@ -25,7 +25,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -181,7 +181,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             advertiseDescEt.setOnClickListener {
                 if (openRichTextEditor) {
                     postAdvertiseViewModel.setIsAdvertise(true)
-                    val intent = Intent(context, RichTextEditor::class.java)
+                    val intent = Intent(context, RichTextEditorActivity::class.java)
                     intent.putExtra("isFromAdvertiseBasicDetails", true)
                     intent.putExtra("data", description)
                     intent.putExtra("placeholder", "Ad description (Max 30 characters)")

@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class RichTextEditor : AppCompatActivity() {
+class RichTextEditorActivity : AppCompatActivity() {
     var binding: ActivityRichTextEditorBinding? = null
     private var mToolbar: IARE_Toolbar? = null
 
@@ -47,7 +47,7 @@ class RichTextEditor : AppCompatActivity() {
 
             navigateBack.setOnClickListener {
                 finish()
-                SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
+                SystemServiceUtil.closeKeyboard(this@RichTextEditorActivity, it)
             }
 
             toolbar()
@@ -60,7 +60,7 @@ class RichTextEditor : AppCompatActivity() {
                 Log.e("html", html)
                 data.putExtra("result", html)
                 setResult(RESULT_OK, data)
-                SystemServiceUtil.closeKeyboard(this@RichTextEditor, it)
+                SystemServiceUtil.closeKeyboard(this@RichTextEditorActivity, it)
                 finish()
             }
         }

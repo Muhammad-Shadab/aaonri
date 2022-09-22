@@ -22,7 +22,7 @@ import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentClassifiedBasicDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -121,7 +121,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             }
 
             classifiedDescEt.setOnClickListener {
-                val intent = Intent(context, RichTextEditor::class.java)
+                val intent = Intent(context, RichTextEditorActivity::class.java)
                 intent.putExtra("data", description)
                 intent.putExtra("placeholder", "Please describe what you are selling?")
                 resultLauncher.launch(intent)

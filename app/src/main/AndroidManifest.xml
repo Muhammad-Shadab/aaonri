@@ -60,7 +60,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.dashboard.fragment.classified.RichTextEditor"
+            android:name=".ui.dashboard.fragment.classified.RichTextEditorActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible" />
         <activity

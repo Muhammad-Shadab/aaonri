@@ -26,7 +26,7 @@ import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventBasicDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditor
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -250,7 +250,7 @@ class PostEventBasicDetailsFragment : Fragment() {
             }
 
             eventDescEt.setOnClickListener {
-                val intent = Intent(context, RichTextEditor::class.java)
+                val intent = Intent(context, RichTextEditorActivity::class.java)
                 intent.putExtra("data", description)
                 intent.putExtra("placeholder", "Please describe about the event*")
                 resultLauncher.launch(intent)

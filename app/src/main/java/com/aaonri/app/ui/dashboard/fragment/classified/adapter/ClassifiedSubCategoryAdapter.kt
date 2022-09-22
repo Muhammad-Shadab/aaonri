@@ -3,15 +3,14 @@ package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.databinding.CategoryCardItemBinding
 
-class ClassifiedCategoryAdapter(private var selectedCategory: ((value: ClassifiedCategoryResponseItem) -> Unit)) :
-    RecyclerView.Adapter<ClassifiedCategoryAdapter.ClassifiedCategoryViewHolder>() {
+class ClassifiedSubCategoryAdapter(private var deleteFilter: ((value: ClassifiedSubcategoryX) -> Unit)) :
+    RecyclerView.Adapter<ClassifiedSubCategoryAdapter.ClassifiedCategoryViewHolder>() {
 
-    var data = mutableListOf<ClassifiedCategoryResponseItem>()
+    var subCate = mutableListOf<ClassifiedSubcategoryX>()
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,19 +22,16 @@ class ClassifiedCategoryAdapter(private var selectedCategory: ((value: Classifie
     }
 
     override fun onBindViewHolder(holder: ClassifiedCategoryViewHolder, position: Int) {
-        val context = holder.itemView.context
-        holder.binding.countryTv.text = data[position].title
-        holder.binding.countryTv.setTextColor(context.getColor(R.color.black))
+        holder.binding.countryTv.text = subCate[position].title
         holder.binding.countryTv.setOnClickListener {
-            selectedCategory(data[position])
+            deleteFilter(subCate[position])
         }
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = subCate.size
 
-    @JvmName("setData1")
-    fun setData(data: MutableList<ClassifiedCategoryResponseItem>) {
-        this.data = data
+    fun setSubCategoryData(subCategoryX: MutableList<ClassifiedSubcategoryX>) {
+        this.subCate = subCategoryX
         notifyDataSetChanged()
     }
 
