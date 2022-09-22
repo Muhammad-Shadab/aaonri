@@ -134,7 +134,7 @@ class BasicDetailsFragment : Fragment() {
                             if (editable.toString()
                                     .isNotEmpty() && editable.toString().length > 8
                             ) {
-                                if (Validator.emailValidation(editable.toString())) {
+                                if (Validator.emailValidation(editable.toString().trim())) {
                                     isEmailValid = true
                                     binding?.emailAlreadyExistTv?.visibility = View.GONE
                                     registrationViewModel.isEmailAlreadyRegister(

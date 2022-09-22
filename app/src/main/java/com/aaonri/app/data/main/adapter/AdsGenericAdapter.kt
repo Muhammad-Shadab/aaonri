@@ -6,13 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.data.immigration.model.Discussion
-import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
 import com.aaonri.app.databinding.ImageOnlyViewHolderBinding
 import com.aaonri.app.databinding.ImageWithTextBinding
 import com.aaonri.app.databinding.TextOnlyItemBinding
-import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationViewHolder
 
 class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
 
@@ -65,8 +61,6 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
             is AdvertiseViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
             is AdvertiseViewHolder.TextOnlyViewHolder -> holder.bind(items[position])
         }
-
-
     }
 
     override fun getItemCount() = items.size
@@ -76,9 +70,7 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
             "TXTONLY" -> R.layout.text_only_item
             "IMGONLY" -> R.layout.image_only_view_holder
             "BOTH" -> R.layout.image_with_text
-            else -> {
-                R.layout.image_only_view_holder
-            }
+            else -> R.layout.image_only_view_holder
         }
     }
 

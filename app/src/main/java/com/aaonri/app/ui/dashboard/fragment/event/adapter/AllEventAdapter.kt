@@ -8,7 +8,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.event.model.Event
-import com.aaonri.app.data.event.model.RecentEventResponseItem
 import com.aaonri.app.databinding.EventItemBinding
 import com.bumptech.glide.Glide
 import java.math.RoundingMode
@@ -46,7 +45,8 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 endTimeOfEvent = LocalTime.parse(data[position].endTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))
                 timeZone = data[position].timeZone
-                eventTiming.text = "Starts From $startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+                eventTiming.text =
+                    "Starts From $startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
             } catch (e: Exception) {
 
             }
@@ -58,8 +58,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                         ".third"
                     )
                 ) {
-                data[position].images.forEachIndexed { index, userAdsImage ->
-
+                    data[position].images.forEachIndexed { index, userAdsImage ->
                         if (userAdsImage.imagePath.contains(".cover")) {
                             val image =
                                 "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[index].imagePath}"
@@ -67,10 +66,8 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                             Glide.with(context).load(image)
                                 .into(eventImageView)
                         }
-
-                }
-                }
-                else{
+                    }
+                } else {
                     val image =
                         "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
                     placeholder.visibility = View.GONE
@@ -84,8 +81,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 try {
                     eventLocationZip.text =
                         if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
-                }
-                catch(e : Exception){
+                } catch (e: Exception) {
 
                 }
                 if (data[position].fee > 0) {
@@ -105,8 +101,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 try {
                     eventLocationZip.text =
                         if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
-                }
-                catch(e : Exception){
+                } catch (e: Exception) {
 
                 }
                 if (data[position].fee > 0) {

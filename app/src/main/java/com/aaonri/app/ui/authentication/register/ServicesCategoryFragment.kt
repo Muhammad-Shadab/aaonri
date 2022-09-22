@@ -194,7 +194,7 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
-           // adapter?.selectedCategoriesList = serviceResponseItem
+            // adapter?.selectedCategoriesList = serviceResponseItem
             selectedServicesInterest = ""
             var i = 0
             var len: Int = serviceResponseItem.size
@@ -325,11 +325,11 @@ class ServicesCategoryFragment : Fragment() {
                 adapter?.setSelectedServicesList(it.interests)
                 if (it.isJobRecruiter) {
                     binding?.isRecruiterCheckBox?.isChecked = true
+                    binding?.companyEmailServices?.setText(it.companyEmail)
                 }
                 if (it.isFullNameAsAliasName) {
                     binding?.isAliasNameCheckBox?.isChecked = true
                 }
-                binding?.companyEmailServices?.setText(it.companyEmail)
                 binding?.aliasNameServices?.setText(it.aliasName)
             }
         }
@@ -369,13 +369,13 @@ class ServicesCategoryFragment : Fragment() {
                     authorized = true,
                     city = it.city,
                     community = it.community,
-                    companyEmail = binding?.companyEmailServices?.text?.toString(),
+                    companyEmail = if (binding?.isRecruiterCheckBox?.isChecked == true) binding?.companyEmailServices?.text?.toString() else "",
                     emailId = it.emailId,
                     firstName = it.firstName,
                     interests = selectedServicesInterest,
                     isAdmin = 0,
                     isFullNameAsAliasName = it.isFullNameAsAliasName,
-                    isJobRecruiter = it.isJobRecruiter,
+                    isJobRecruiter = binding?.isRecruiterCheckBox?.isChecked,
                     isPrimeUser = false,
                     isSurveyCompleted = false,
                     lastName = it.lastName,

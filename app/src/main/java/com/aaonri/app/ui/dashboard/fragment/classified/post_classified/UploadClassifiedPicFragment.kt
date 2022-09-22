@@ -62,13 +62,6 @@ class UploadClassifiedPicFragment : Fragment() {
             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
         }*/
 
-        Toast.makeText(
-            context,
-            "${postClassifiedViewModel.listOfImagesUri.size}",
-            Toast.LENGTH_SHORT
-        )
-            .show()
-
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 
         binding?.apply {

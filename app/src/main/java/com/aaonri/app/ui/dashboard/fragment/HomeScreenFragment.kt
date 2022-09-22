@@ -174,7 +174,7 @@ class HomeScreenFragment : Fragment() {
         userEmailTv.text = email
         context?.let {
             Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).into(dialogProfileIv)
+                .skipMemoryCache(true).centerCrop().into(dialogProfileIv)
         }
 
         val window: Window? = dialog.window
@@ -816,7 +816,7 @@ class HomeScreenFragment : Fragment() {
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" } as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" && it.interestDesc != "Shop With Us"} as MutableList<InterestResponseItem>)
                         } else {
                             //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
@@ -1099,7 +1099,7 @@ class HomeScreenFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         binding = null
+        super.onDestroy()
     }
 }

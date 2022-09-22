@@ -9,26 +9,26 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_155sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
         app:cardBackgroundColor="#ebebeb"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/placeholder"
-            android:layout_marginBottom="@dimen/_20sdp"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/small_image_placeholder"
             android:layout_height="wrap_content"
-            />
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:src="@drawable/small_image_placeholder" />
+
         <ImageView
             android:id="@+id/eventImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -83,31 +83,31 @@
                 android:paddingVertical="@dimen/_4sdp"
                 android:paddingLeft="@dimen/_12sdp">
 
-                    <TextView
-                        android:id="@+id/eventName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:includeFontPadding="false"
-                        android:maxLines="2"
-                        android:fontFamily="@font/sf_pro_semi_bold"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/eventName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/eventLocationZip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:includeFontPadding="false"
-                        android:paddingVertical="@dimen/_1sdp"
-                        android:fontFamily="@font/sf_pro_display_light"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/eventLocationZip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="@dimen/_1sdp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/eventTiming"
@@ -115,8 +115,8 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_display_light"
-                    android:maxLines="1"
                     android:includeFontPadding="false"
+                    android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -127,34 +127,33 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/event_entryfee_bg1"
-                android:orientation="vertical"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/_4sdp"
-                >
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_4sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Entry Fee"
                     android:includeFontPadding="false"
+                    android:text="Entry Fee"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/eventFee"
-                    android:layout_marginTop="@dimen/_1sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="$45.99"
+                    android:includeFontPadding="false"
                     android:maxLines="1"
+                    android:text="$45.99"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:ellipsize="end"
                     android:textStyle="normal" />
             </LinearLayout>
         </LinearLayout>
