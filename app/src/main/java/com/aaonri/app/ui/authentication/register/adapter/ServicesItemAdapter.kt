@@ -3,7 +3,6 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -36,7 +35,6 @@ class ServicesItemAdapter(
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-
                 if (userInterestService.contains("27")) {
                     //"Advertise With Us"
                     if (data[position].id == 27) {
@@ -229,14 +227,12 @@ class ServicesItemAdapter(
                             R.color.blueBtnColor
                         )
                     )
-
                     servicesGridIv.setBackgroundColor(
                         ContextCompat.getColor(
                             context,
                             R.color.serviceCardLightBlue
                         )
                     )
-
                 } else {
                     servicesGridIv.setBackgroundColor(
                         ContextCompat.getColor(
@@ -245,8 +241,6 @@ class ServicesItemAdapter(
                         )
                     )
                 }
-
-                selectedServices(selectedCategoriesList)
 
                 itemView.setOnClickListener {
                     if (data[position].active) {
@@ -266,6 +260,10 @@ class ServicesItemAdapter(
 
                 if (data[position].active) {
                     if (data[position].isSelected && !isProfileScreen) {
+                        if (!selectedCategoriesList.contains(data[position])) {
+                            addSelectedDataList(data[position])
+                        }
+                        selectedServices(selectedCategoriesList)
                         servicesGridIv.setColorFilter(
                             ContextCompat.getColor(
                                 context,
@@ -293,6 +291,7 @@ class ServicesItemAdapter(
                         )
                     }
                 }
+
                 if (userInterestService.length == position) {
                     userInterestService = ""
                 }

@@ -82,6 +82,7 @@
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/recruiter_all_talents_item.xml" value="0.33" />
         <entry key="..\:/Users/dipan/Desktop/aaonri/aaonri-android/app/src/main/res/layout/recruiter_consultant_profile_item.xml" value="0.16576086956521738" />
         <entry key="app/src/main/res/drawable/ad_txt_only_bg.xml" value="0.2445" />
+        <entry key="app/src/main/res/drawable/dialog_shape.xml" value="0.37" />
         <entry key="app/src/main/res/drawable/ic_image_placeholder.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/tab_background_shape.xml" value="0.336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
@@ -94,7 +95,7 @@
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/fragment_all_classified.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_all_immigration.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_basic_details.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_basic_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_event_category_bottom.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_event_details.xml" value="0.3692708333333333" />
@@ -108,6 +109,7 @@
         <entry key="app/src/main/res/layout/fragment_job_screen.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_location_details.xml" value="0.317481884057971" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_more_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_my_event.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_my_immigration_category_bottom.xml" value="0.33" />
@@ -121,6 +123,7 @@
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/update_profile_dialog.xml" value="0.3692708333333333" />
       </map>
     </option>
   </component>

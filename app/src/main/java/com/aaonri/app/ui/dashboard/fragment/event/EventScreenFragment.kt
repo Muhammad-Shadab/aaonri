@@ -29,6 +29,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,7 +71,8 @@ class EventScreenFragment : Fragment() {
                 activity?.onBackPressed()
             }
 
-            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
 
             filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.eventFilterScreenFragment)

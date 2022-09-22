@@ -2,7 +2,6 @@ package com.aaonri.app.ui.authentication.register
 
 import android.app.Activity
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -28,6 +27,7 @@ import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.utils.*
 import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -36,12 +36,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
 
 @AndroidEntryPoint
@@ -304,11 +298,17 @@ class BasicDetailsFragment : Fragment() {
                     context?.let { it2 ->
                         Glide.with(it2)
                             .load(profile)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .circleCrop()
                             .into(
                                 it1
                             )
                     }
                 }
+                binding?.addProfileBtn?.visibility = View.GONE
+                binding?.updateProfileBtn?.visibility = View.VISIBLE
+
                 binding?.firstNameBasicDetails?.setText(it.firstName)
                 binding?.lastNameBasicDetails?.setText(it.lastName)
                 binding?.emailAddressBasicDetails?.setText(it.emailId)
@@ -326,39 +326,6 @@ class BasicDetailsFragment : Fragment() {
             }
         }
 
-        /*registrationViewModel.updateUserData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
-                    if (!profile.startsWith("htt")) {
-                        uploadProfilePicture(response.data?.user?.userId, profile.toUri())
-                    } else {
-                        activity?.let { it1 ->
-                            Snackbar.make(
-                                it1.findViewById(android.R.id.content),
-                                "Successfully Profile Updated", Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                    email?.let { registrationViewModel.findByEmail(email = it) }
-                }
-                is Resource.Error -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
-                    Toast.makeText(
-                        context,
-                        "Error ${response.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-                else -> {
-                }
-            }
-        }*/
-
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
@@ -372,19 +339,6 @@ class BasicDetailsFragment : Fragment() {
             })
 
         return binding?.root
-    }
-
-    private fun uploadProfilePicture(userId: Int?, profilePic: Uri) {
-
-        val file = File(profilePic.toString().replace("file:", ""))
-
-        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-        authCommonViewModel.uploadProfilePic(requestImage, id)
     }
 
     private val startForProfileImageResult =

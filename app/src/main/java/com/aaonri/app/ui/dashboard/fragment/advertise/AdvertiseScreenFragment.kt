@@ -29,6 +29,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -90,7 +91,8 @@ class AdvertiseScreenFragment : Fragment() {
                 startActivityForResult(intent, 3)
             }
 
-            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
 
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
             recyclerViewAdvertise.adapter = advertiseAdapter

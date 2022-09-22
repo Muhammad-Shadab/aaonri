@@ -42,6 +42,7 @@ import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -100,6 +101,11 @@ class HomeScreenFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val userName =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_NAME, ""] }
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         val list =
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
                 .toString()
@@ -153,6 +159,19 @@ class HomeScreenFragment : Fragment() {
             dialog.findViewById<TextView>(R.id.logOutBtn)
         val closeDialogBtn =
             dialog.findViewById<ImageView>(R.id.closeDialogBtn)
+        val dialogProfileIv =
+            dialog.findViewById<ImageView>(R.id.profilePicIv)
+        val userNameTv =
+            dialog.findViewById<TextView>(R.id.userNameTv)
+        val userEmailTv =
+            dialog.findViewById<TextView>(R.id.userEmailTv)
+
+        userNameTv.text = userName
+        userEmailTv.text = email
+        context?.let {
+            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).into(dialogProfileIv)
+        }
 
         val window: Window? = dialog.window
         val wlp: WindowManager.LayoutParams? = window?.attributes
@@ -403,7 +422,10 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
 
             seeAllClassified.setOnClickListener {
                 navigateToTheSpecificScreen(userInterestedService?.get(0))
@@ -437,12 +459,16 @@ class HomeScreenFragment : Fragment() {
 
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_EMAIL, "")
+
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_ZIP_CODE, "")
+
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_CITY, "")
+
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_STATE, "")
+
                     context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                         ?.set(Constant.IS_USER_LOGIN, false)
 
@@ -457,6 +483,18 @@ class HomeScreenFragment : Fragment() {
 
                     context?.let { it1 -> PreferenceManager<String>(it1) }
                         ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_JOB_RECRUITER, false)
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PHONE_NUMBER, "")
+
+                    context?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set(Constant.USER_ID, 0)
 
                     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.gmail_client_id))
@@ -562,6 +600,8 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
+
+
 
                     callApiAccordingToInterest(list?.get(0))
                     list?.removeAt(0)

@@ -71,7 +71,9 @@ class ServicesCategoryFragment : Fragment() {
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
             authCommonViewModel.addServicesList(selectedCommunity)
-        }, { isJobSelected = it }) {
+        }, {
+            isJobSelected = it
+        }) {
 
         }
 
@@ -83,7 +85,11 @@ class ServicesCategoryFragment : Fragment() {
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 if (p1) {
                     aliasNameServices.isEnabled = false
-                    aliasNameServices.setText(authCommonViewModel.basicDetailsMap["firstName"] + " " + authCommonViewModel.basicDetailsMap["lastName"])
+                    if (authCommonViewModel.basicDetailsMap["firstName"] != null) {
+                        aliasNameServices.setText(authCommonViewModel.basicDetailsMap["firstName"] + " " + authCommonViewModel.basicDetailsMap["lastName"])
+                    } else {
+                        aliasNameServices.setText(UserProfileStaticData.getUserProfileDataValue()?.aliasName)
+                    }
                 } else {
                     aliasNameServices.setText("")
                     aliasNameServices.isEnabled = true
@@ -185,18 +191,15 @@ class ServicesCategoryFragment : Fragment() {
             }
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
-
         }
 
         authCommonViewModel.selectedServicesList.observe(viewLifecycleOwner) { serviceResponseItem ->
-            Toast.makeText(context, "${serviceResponseItem.size}", Toast.LENGTH_SHORT).show()
-            adapter?.selectedCategoriesList = serviceResponseItem
+           // adapter?.selectedCategoriesList = serviceResponseItem
             selectedServicesInterest = ""
             var i = 0
             var len: Int = serviceResponseItem.size
             serviceResponseItem.forEach {
                 i++
-                //isJobSelected = it.interestDesc == "Jobs" || it.id = 17
                 selectedServicesInterest += "${it.id}${if (i != len) "," else ""}"
             }
             if (serviceResponseItem.size >= 3 && isJobSelected) {
@@ -210,12 +213,13 @@ class ServicesCategoryFragment : Fragment() {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 binding?.visibilityCardView?.visibility = View.GONE
+                binding?.isRecruiterCheckBox?.isChecked = false
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
                 binding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
             } else {
-                authCommonViewModel.addStepViewLastTick(false)
                 isServicesSelected = false
+                authCommonViewModel.addStepViewLastTick(false)
                 binding?.visibilityCardView?.visibility = View.GONE
                 binding?.aliasNameCardView?.visibility = View.GONE
                 binding?.servicesGridRecyclerView?.margin(bottom = 60f)
@@ -315,8 +319,18 @@ class ServicesCategoryFragment : Fragment() {
             }
         }
 
-        UserProfileStaticData.getUserProfileDataValue()?.let {
-            adapter?.setSelectedServicesList(it.interests)
+        if (authCommonViewModel.isUpdateProfile) {
+            UserProfileStaticData.getUserProfileDataValue()?.let {
+                adapter?.setSelectedServicesList(it.interests)
+                if (it.isJobRecruiter) {
+                    binding?.isRecruiterCheckBox?.isChecked = true
+                }
+                if (it.isFullNameAsAliasName) {
+                    binding?.isAliasNameCheckBox?.isChecked = true
+                }
+                binding?.companyEmailServices?.setText(it.companyEmail)
+                binding?.aliasNameServices?.setText(it.aliasName)
+            }
         }
 
         requireActivity()
@@ -357,7 +371,7 @@ class ServicesCategoryFragment : Fragment() {
                     companyEmail = binding?.companyEmailServices?.text?.toString(),
                     emailId = it.emailId,
                     firstName = it.firstName,
-                    interests = it.interests,
+                    interests = selectedServicesInterest,
                     isAdmin = 0,
                     isFullNameAsAliasName = it.isFullNameAsAliasName,
                     isJobRecruiter = it.isJobRecruiter,
@@ -474,8 +488,9 @@ class ServicesCategoryFragment : Fragment() {
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
     override fun onDestroy() {
-        super.onDestroy()
         binding = null
+        adapter = null
+        super.onDestroy()
     }
 
 }

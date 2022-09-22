@@ -201,6 +201,11 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.USER_EMAIL, it)
                         }
 
+                        response.data?.user?.firstName?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_NAME, "$it ${response.data.user.lastName}")
+                        }
+
                         /*response.data?.user?.interests?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_INTERESTED_SERVICES, it)
@@ -422,6 +427,11 @@ class LoginFragment : Fragment() {
 
             //  context?.let { it1 -> PreferenceManager<String>(it1) }?.set(Constant.USER_CITY, response.data.user.city)
 
+            name?.let { name ->
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_NAME, name)
+            }
+
             email?.let { it1 -> EmailVerifyRequest(it1) }
                 ?.let { it2 -> registrationViewModel.isEmailAlreadyRegister(it2) }
 
@@ -439,6 +449,8 @@ class LoginFragment : Fragment() {
                 context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(Constant.GMAIL_LAST_NAME, it1)
             }
+
+
 
             it.user?.photoUrl?.let { it1 ->
                 context?.let { it1 -> PreferenceManager<String>(it1) }

@@ -15,6 +15,7 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +52,8 @@ class JobScreenFragment : Fragment() {
 
         binding?.apply {
 
-            context?.let { Glide.with(it).load(profile).into(profilePicIv) }
+            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()

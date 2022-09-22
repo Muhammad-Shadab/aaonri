@@ -81,17 +81,26 @@ class UpdateProfileFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
-                        if (authCommonViewModel.profilePicUri != null) {
-                            uploadProfilePicture(
-                                response.data?.user?.userId,
-                                authCommonViewModel.profilePicUri!!
-                            )
+                        if (response.data?.user != null) {
+                            if (authCommonViewModel.profilePicUri != null) {
+                                uploadProfilePicture(
+                                    response.data.user.userId,
+                                    authCommonViewModel.profilePicUri!!
+                                )
+                            } else {
+                                email?.let { registrationViewModel.findByEmail(email = it) }
+                                activity?.let { it1 ->
+                                    Snackbar.make(
+                                        it1.findViewById(android.R.id.content),
+                                        "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                         } else {
-                            email?.let { registrationViewModel.findByEmail(email = it) }
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
-                                    "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                                    "Something went wrong", Snackbar.LENGTH_LONG
                                 ).show()
                             }
                         }
@@ -165,10 +174,10 @@ class UpdateProfileFragment : Fragment() {
                             )
                     }
 
-                    response.data?.emailId?.let {
+                    /*response.data?.emailId?.let {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_EMAIL, it)
-                    }
+                    }*/
 
                     response.data?.isJobRecruiter?.let {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
@@ -194,6 +203,12 @@ class UpdateProfileFragment : Fragment() {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_PHONE_NUMBER, it)
                     }
+
+                    response.data?.firstName?.let {
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_NAME, "$it ${response.data.lastName}")
+                    }
+
 
                 }
                 is Resource.Error -> {

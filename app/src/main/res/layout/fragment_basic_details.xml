@@ -42,6 +42,15 @@
                     android:src="@drawable/plus"
                     app:tint="@color/blueBtnColor" />
 
+                <ImageView
+                    android:id="@+id/updateProfileBtn"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:src="@drawable/edit_pic"
+                    android:visibility="gone" />
+
             </FrameLayout>
 
             <EditText
@@ -215,10 +224,10 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:layout_marginBottom="@dimen/_2sdp"
                 android:background="@drawable/green_btn_shape"
+                android:elevation="6dp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"
                 android:paddingTop="@dimen/_4sdp"
-                android:elevation="6dp"
                 android:paddingBottom="@dimen/_4sdp"
                 android:text="@string/next"
                 android:textColor="@color/white"
