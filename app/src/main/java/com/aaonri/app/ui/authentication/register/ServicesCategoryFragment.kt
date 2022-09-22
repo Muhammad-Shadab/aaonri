@@ -320,6 +320,7 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         if (authCommonViewModel.isUpdateProfile) {
+            binding?.serviceSubmitBtn?.text = "UPDATE"
             UserProfileStaticData.getUserProfileDataValue()?.let {
                 adapter?.setSelectedServicesList(it.interests)
                 if (it.isJobRecruiter) {

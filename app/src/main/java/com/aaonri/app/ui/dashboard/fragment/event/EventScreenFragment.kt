@@ -68,11 +68,13 @@ class EventScreenFragment : Fragment() {
             eventsScreenViewPager.isUserInputEnabled = false
 
             navigateBack.setOnClickListener {
-                activity?.onBackPressed()
+                findNavController().navigateUp()
             }
 
-            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
 
             filterEvent.setOnClickListener {
                 findNavController().navigate(R.id.eventFilterScreenFragment)
@@ -332,7 +334,6 @@ class EventScreenFragment : Fragment() {
 
         eventViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
-
                 eventViewModel.setCategoryFilter("")
                 eventViewModel.setSelectedEventLocation("")
                 eventViewModel.setIsMyLocationChecked(false)
