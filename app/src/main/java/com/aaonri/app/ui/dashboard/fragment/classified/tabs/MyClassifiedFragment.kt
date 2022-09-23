@@ -239,7 +239,7 @@ class MyClassifiedFragment : Fragment() {
 
     fun runAutoScrollBanner1() {
 
-        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer1 == null && timerTask1 == null) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
 
@@ -272,7 +272,7 @@ class MyClassifiedFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+              if (timer2 == null && timerTask2 == null) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 

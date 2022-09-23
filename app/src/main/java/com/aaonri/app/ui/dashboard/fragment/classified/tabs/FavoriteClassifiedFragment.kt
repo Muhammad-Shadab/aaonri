@@ -173,6 +173,8 @@ FavoriteClassifiedFragment : Fragment() {
                 classifiedViewModel.setIsLikedButtonClicked(false)
             }
         }
+        runAutoScrollBanner2()
+        runAutoScrollBanner1()
     }
 
     override fun onDestroy() {
@@ -208,7 +210,7 @@ FavoriteClassifiedFragment : Fragment() {
 
     fun runAutoScrollBanner1() {
 
-        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer1 == null && timerTask1 == null) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
 
@@ -241,7 +243,7 @@ FavoriteClassifiedFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+        if (timer2 == null && timerTask2 == null) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 

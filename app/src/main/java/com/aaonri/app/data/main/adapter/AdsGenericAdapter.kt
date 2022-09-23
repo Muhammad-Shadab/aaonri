@@ -58,12 +58,14 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: AdvertiseViewHolder, pos: Int) {
-        holder.itemClickListener = itemClickListener
-        val position = pos % items.size
-        when (holder) {
-            is AdvertiseViewHolder.ImageAndTextViewHolder -> holder.bind(items[position])
-            is AdvertiseViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
-            is AdvertiseViewHolder.TextOnlyViewHolder -> holder.bind(items[position])
+        if(items.size>0) {
+            holder.itemClickListener = itemClickListener
+            val position = pos % items.size
+            when (holder) {
+                is AdvertiseViewHolder.ImageAndTextViewHolder -> holder.bind(items[position])
+                is AdvertiseViewHolder.ImageOnlyViewHolder -> holder.bind(items[position])
+                is AdvertiseViewHolder.TextOnlyViewHolder -> holder.bind(items[position])
+            }
         }
     }
 
@@ -71,13 +73,21 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
         return if (items == null) 0 else if(items.size in 1..2) items.size else Int.MAX_VALUE
     }
     override fun getItemViewType(pos: Int): Int {
-        val position = pos % items.size
-        return when (items[position].advertisementPageLocation.type) {
-            "TXTONLY" -> R.layout.text_only_item
-            "IMGONLY" -> R.layout.image_only_view_holder
-            "BOTH" -> R.layout.image_with_text
-            else -> R.layout.image_only_view_holder
+        val position:Int
+        if(items.size>0) {
+            position = pos % items.size
+            return when (items[position].advertisementPageLocation.type) {
+                "TXTONLY" -> R.layout.text_only_item
+                "IMGONLY" -> R.layout.image_only_view_holder
+                "BOTH" -> R.layout.image_with_text
+                else -> R.layout.image_only_view_holder
+            }
+
         }
+
+           return R.layout.image_only_view_holder
+
+
     }
 
 }

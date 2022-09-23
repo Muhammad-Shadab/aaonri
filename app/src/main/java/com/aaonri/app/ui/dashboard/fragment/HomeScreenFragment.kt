@@ -53,6 +53,7 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.nio.charset.Charset
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -88,7 +89,14 @@ class HomeScreenFragment : Fragment() {
     var guestUser = false
     var homeClassifiedWithAdList = mutableListOf<Any>()
     //var homeEventWithAdList = mutableListOf<Any>()
-
+    private lateinit var layoutManager2: LinearLayoutManager
+    private lateinit var layoutManager1: LinearLayoutManager
+    var adRvposition1 = 0
+    var adRvposition2 = 0
+    var timer1: Timer? = null
+    var timerTask1: TimerTask? = null
+    var timer2: Timer? = null
+    var timerTask2: TimerTask? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -186,8 +194,8 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
-//        adsGenericAdapter1 = AdsGenericAdapter()
-//        adsGenericAdapter2 = AdsGenericAdapter()
+        adsGenericAdapter1 = AdsGenericAdapter()
+        adsGenericAdapter2 = AdsGenericAdapter()
 
         /** call back function for getting the ads clicked item **/
         adsGenericAdapter1?.itemClickListener = { view, item, position ->
@@ -556,13 +564,43 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
-            adsBelowFirstSectionRv.adapter = adsGenericAdapter1
-            adsBelowFirstSectionRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adsAbovePopularSectionRv.adapter = adsGenericAdapter2
+                layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adsAbovePopularSectionRv.layoutManager = layoutManager2
 
-            adsAbovePopularSectionRv.adapter = adsGenericAdapter2
-            adsAbovePopularSectionRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+                adsBelowFirstSectionRv.adapter = adsGenericAdapter1
+                layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adsBelowFirstSectionRv.layoutManager = layoutManager1
+
+
+            adsAbovePopularSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == 1) {
+                        stopAutoScrollBanner2()
+                    } else if (newState == 0) {
+
+                        adRvposition2 = layoutManager2.findFirstCompletelyVisibleItemPosition()
+                        runAutoScrollBanner2()
+                    }
+                }
+            })
+
+
+            adsBelowFirstSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == 1) {
+                        stopAutoScrollBanner1()
+                    } else if (newState == 0) {
+
+                        adRvposition1 = layoutManager1.findFirstCompletelyVisibleItemPosition()
+                        runAutoScrollBanner1()
+                    }
+                }
+            })
+
         }
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
@@ -743,10 +781,13 @@ class HomeScreenFragment : Fragment() {
 
         homeViewModel.adsBelowFirstSection.observe(viewLifecycleOwner) {
             adsGenericAdapter1?.items = it
+            runAutoScrollBanner1()
         }
 
         homeViewModel.adsAbovePopularItem.observe(viewLifecycleOwner) {
             adsGenericAdapter2?.items = it
+            runAutoScrollBanner2()
+
         }
 
 
@@ -1115,4 +1156,84 @@ class HomeScreenFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    override fun onResume() {
+        super.onResume()
+        runAutoScrollBanner2()
+        runAutoScrollBanner1()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScrollBanner2()
+        stopAutoScrollBanner1()
+    }
+    fun stopAutoScrollBanner1() {
+        if (timer1 != null && timerTask1 != null) {
+            timerTask1!!.cancel()
+            timer1!!.cancel()
+            timer1 = null
+            timerTask1 = null
+            adRvposition1 = layoutManager1.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner1() {
+
+        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+            timer1 = Timer()
+            timerTask1 = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition1 == Int.MAX_VALUE) {
+                        adRvposition1 = Int.MAX_VALUE / 2
+                        binding?.adsBelowFirstSectionRv?.scrollToPosition(adRvposition1)
+
+                    } else {
+                        adRvposition1 += 2
+                        binding?.adsBelowFirstSectionRv?.smoothScrollToPosition(adRvposition1)
+                    }
+                }
+            }
+            timer1!!.schedule(timerTask1, 4000, 4000)
+        }
+
+
+
+    }
+    fun stopAutoScrollBanner2() {
+        if (timer2 != null && timerTask2 != null) {
+            timerTask2!!.cancel()
+            timer2!!.cancel()
+            timer2 = null
+            timerTask2 = null
+            adRvposition2 = layoutManager2.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner2() {
+        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+            timer2 = Timer()
+            timerTask2 = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition2 == Int.MAX_VALUE) {
+                        adRvposition2 = Int.MAX_VALUE / 2
+                        binding?.adsAbovePopularSectionRv?.scrollToPosition(adRvposition2)
+
+                    } else {
+                        adRvposition2 += 2
+                        binding?.adsAbovePopularSectionRv?.smoothScrollToPosition(adRvposition2)
+                    }
+                }
+            }
+            timer2!!.schedule(timerTask2, 4000, 4000)
+        }
+
+
+
+    }
 }
+
