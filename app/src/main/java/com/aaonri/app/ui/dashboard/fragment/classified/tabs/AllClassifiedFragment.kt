@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.math.log
 
 @AndroidEntryPoint
 class AllClassifiedFragment : Fragment() {
@@ -229,6 +231,7 @@ class AllClassifiedFragment : Fragment() {
     }
 
     fun runAutoScrollBanner1() {
+
         if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
@@ -262,7 +265,7 @@ class AllClassifiedFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 
@@ -274,6 +277,7 @@ class AllClassifiedFragment : Fragment() {
 
                     } else {
                         adRvposition2 += 2
+                        Log.d("position", adRvposition2.toString())
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
                     }
                 }

@@ -26,6 +26,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
@@ -74,7 +75,10 @@ class EventDetailsScreenFragment : Fragment() {
     var firstImageuri = ""
     var eventname = ""
     val eventdesc = ""
-
+    private lateinit var layoutManager: LinearLayoutManager
+    var adRvposition = 0
+    var timer: Timer? = null
+    var timerTask: TimerTask? = null
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,11 +112,27 @@ class EventDetailsScreenFragment : Fragment() {
                 postEventViewModel.getUserisInterested(email, "Event", args.eventId)
             }
 
-            bottomAdvertiseRv.adapter = adsGenericAdapter
-            bottomAdvertiseRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adsGenericAdapter?.items =
-                ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
+            if(ActiveAdvertiseStaticData.getAdvertiseOnEventDetails().isNotEmpty()) {
+                adsGenericAdapter?.items =
+                    ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
+
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                bottomAdvertiseRv.layoutManager = layoutManager
+                bottomAdvertiseRv.adapter = adsGenericAdapter
+                bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        if (newState == 1) {
+                            stopAutoScrollBanner()
+                        } else if (newState == 0) {
+
+                            adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                            runAutoScrollBanner()
+                        }
+                    }
+                })
+            }
+
 
             val bottomSheetOuter = BottomSheetBehavior.from(eventDetailsBottom)
 
@@ -1101,6 +1121,60 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.eventDetailsData.value = null
         postEventViewModel.deleteEventData.value = null
         binding = null
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+        stopAutoScrollBanner()
+    }
+
+
+
+
+
+
+    override fun onResume() {
+        super.onResume()
+        runAutoScrollBanner()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScrollBanner()
+    }
+    fun stopAutoScrollBanner() {
+        if (timer != null && timerTask != null) {
+            timerTask!!.cancel()
+            timer!!.cancel()
+            timer = null
+            timerTask = null
+            adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner() {
+        if (timer == null && timerTask == null&&adsGenericAdapter?.items?.size!! >=3) {
+            timer = Timer()
+            timerTask = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition == Int.MAX_VALUE) {
+                        adRvposition = Int.MAX_VALUE / 2
+                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
+
+                    } else {
+                        adRvposition+= 2
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
+                    }
+                }
+            }
+            timer!!.schedule(timerTask, 4000, 4000)
+        }
+
+
+
     }
 
 }
