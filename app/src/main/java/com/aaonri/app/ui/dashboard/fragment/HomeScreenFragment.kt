@@ -186,8 +186,8 @@ class HomeScreenFragment : Fragment() {
 
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
-        adsGenericAdapter1 = AdsGenericAdapter()
-        adsGenericAdapter2 = AdsGenericAdapter()
+//        adsGenericAdapter1 = AdsGenericAdapter()
+//        adsGenericAdapter2 = AdsGenericAdapter()
 
         /** call back function for getting the ads clicked item **/
         adsGenericAdapter1?.itemClickListener = { view, item, position ->

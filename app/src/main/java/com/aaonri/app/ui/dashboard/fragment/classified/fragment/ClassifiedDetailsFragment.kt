@@ -30,6 +30,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
@@ -53,6 +54,7 @@ import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -68,6 +70,10 @@ class ClassifiedDetailsFragment : Fragment() {
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
+    private lateinit var layoutManager: LinearLayoutManager
+    var adRvposition = 0
+    var timer: Timer? = null
+    var timerTask: TimerTask? = null
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -110,7 +116,6 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
 
-
         binding?.apply {
 
             loginToViewSellerInfo.text = ss
@@ -122,11 +127,28 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
+            if(ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails().isNotEmpty()) {
+                adsGenericAdapter?.items =
+                    ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
+
+
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            bottomAdvertiseRv.layoutManager = layoutManager
             bottomAdvertiseRv.adapter = adsGenericAdapter
-            bottomAdvertiseRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adsGenericAdapter?.items =
-                ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
+            bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == 1) {
+                        stopAutoScrollBanner()
+                    } else if (newState == 0) {
+
+                        adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                        runAutoScrollBanner()
+                    }
+                }
+            })
+
+            }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
 
@@ -836,6 +858,7 @@ class ClassifiedDetailsFragment : Fragment() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
+        stopAutoScrollBanner()
     }
 
     override fun onDestroyView() {
@@ -843,4 +866,54 @@ class ClassifiedDetailsFragment : Fragment() {
         binding = null
     }
 
+
+
+
+
+
+    override fun onResume() {
+        super.onResume()
+        runAutoScrollBanner()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScrollBanner()
+    }
+    fun stopAutoScrollBanner() {
+        if (timer != null && timerTask != null) {
+            timerTask!!.cancel()
+            timer!!.cancel()
+            timer = null
+            timerTask = null
+            adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner() {
+        if (timer == null && timerTask == null&&adsGenericAdapter?.items?.size!! >=3) {
+            timer = Timer()
+            timerTask = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition == Int.MAX_VALUE) {
+                        adRvposition = Int.MAX_VALUE / 2
+                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
+
+                    } else {
+                        adRvposition+= 2
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
+                    }
+                }
+            }
+            timer!!.schedule(timerTask, 4000, 4000)
+        }
+
+
+
+    }
+
 }
+

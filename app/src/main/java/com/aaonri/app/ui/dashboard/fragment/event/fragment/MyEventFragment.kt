@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
@@ -20,6 +21,7 @@ import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MyEventFragment : Fragment() {
@@ -29,6 +31,14 @@ class MyEventFragment : Fragment() {
     var allEventAdapter: AllEventAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
+    var adRvposition1 = 0
+    var adRvposition2 = 0
+    var timer1: Timer? = null
+    var timerTask1: TimerTask? = null
+    var timer2: Timer? = null
+    var timerTask2: TimerTask? = null
+    private lateinit var layoutManager2: LinearLayoutManager
+    private lateinit var layoutManager1: LinearLayoutManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,13 +84,45 @@ class MyEventFragment : Fragment() {
 
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getEventBottomAds()
 
-            topAdvertiseRv.adapter = adsGenericAdapter1
-            topAdvertiseRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            if(ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
+                topAdvertiseRv.adapter = adsGenericAdapter1
+                layoutManager1 =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                topAdvertiseRv.layoutManager = layoutManager1
+            }
+            if(ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
 
-            bottomAdvertiseRv.adapter = adsGenericAdapter2
-            bottomAdvertiseRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                bottomAdvertiseRv.adapter = adsGenericAdapter2
+                layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                bottomAdvertiseRv.layoutManager = layoutManager2
+            }
+
+            bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == 1) {
+                        stopAutoScrollBanner2()
+                    } else if (newState == 0) {
+
+                        adRvposition2 = layoutManager2.findFirstCompletelyVisibleItemPosition()
+                        runAutoScrollBanner2()
+                    }
+                }
+            })
+
+
+            topAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == 1) {
+                        stopAutoScrollBanner1()
+                    } else if (newState == 0) {
+
+                        adRvposition1 = layoutManager1.findFirstCompletelyVisibleItemPosition()
+                        runAutoScrollBanner1()
+                    }
+                }
+            })
 
         }
 
@@ -133,8 +175,92 @@ class MyEventFragment : Fragment() {
         return binding?.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        stopAutoScrollBanner1()
+        stopAutoScrollBanner2()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
+
+
+
+
+
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScrollBanner2()
+        stopAutoScrollBanner1()
+    }
+    fun stopAutoScrollBanner1() {
+        if (timer1 != null && timerTask1 != null) {
+            timerTask1!!.cancel()
+            timer1!!.cancel()
+            timer1 = null
+            timerTask1 = null
+            adRvposition1 = layoutManager1.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner1() {
+
+        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+            timer1 = Timer()
+            timerTask1 = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition1 == Int.MAX_VALUE) {
+                        adRvposition1 = Int.MAX_VALUE / 2
+                        binding?.topAdvertiseRv?.scrollToPosition(adRvposition1)
+
+                    } else {
+                        adRvposition1 += 2
+                        binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
+                    }
+                }
+            }
+            timer1!!.schedule(timerTask1, 4000, 4000)
+        }
+
+
+
+    }
+    fun stopAutoScrollBanner2() {
+        if (timer2 != null && timerTask2 != null) {
+            timerTask2!!.cancel()
+            timer2!!.cancel()
+            timer2 = null
+            timerTask2 = null
+            adRvposition2 = layoutManager2.findFirstCompletelyVisibleItemPosition()
+        }
+    }
+
+    fun runAutoScrollBanner2() {
+        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+            timer2 = Timer()
+            timerTask2 = object : TimerTask() {
+
+                override fun run() {
+
+                    if (adRvposition2 == Int.MAX_VALUE) {
+                        adRvposition2 = Int.MAX_VALUE / 2
+                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition2)
+
+                    } else {
+                        adRvposition2 += 2
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
+                    }
+                }
+            }
+            timer2!!.schedule(timerTask2, 3000, 4000)
+        }
+
+
+
+    }
 }
+
