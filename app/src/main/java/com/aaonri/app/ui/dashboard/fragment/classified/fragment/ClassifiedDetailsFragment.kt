@@ -836,8 +836,11 @@ class ClassifiedDetailsFragment : Fragment() {
         super.onDestroy()
         postClassifiedViewModel.classifiedAdDetailsData.value = null
         postClassifiedViewModel.classifiedDeleteData.value = null
-        binding = null
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 }

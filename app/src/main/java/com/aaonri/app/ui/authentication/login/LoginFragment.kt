@@ -544,8 +544,8 @@ class LoginFragment : Fragment() {
         binding?.loginPasswordEt?.setText("")
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 

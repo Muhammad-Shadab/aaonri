@@ -14,6 +14,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -32,7 +33,7 @@ class SplashScreenFragment : Fragment() {
 
         var job: Job? = null
         job = MainScope().launch {
-            //delay(2000L)
+            delay(2000L)
             if (isUserLogin == true) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
@@ -45,8 +46,8 @@ class SplashScreenFragment : Fragment() {
         return binding?.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

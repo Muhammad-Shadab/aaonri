@@ -246,8 +246,12 @@ class UpdateProfileFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
         authCommonViewModel.setIsUpdateProfile(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 }

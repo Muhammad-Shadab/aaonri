@@ -262,8 +262,8 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         return s.format(Date(cal.timeInMillis))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

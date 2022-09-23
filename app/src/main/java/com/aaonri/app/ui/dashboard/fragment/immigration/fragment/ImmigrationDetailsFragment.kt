@@ -49,12 +49,27 @@ class ImmigrationDetailsFragment : Fragment() {
         binding =
             FragmentImmigrationDetailsFrgamentBinding.inflate(layoutInflater, container, false)
 
+
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
         immigrationAdapter = ImmigrationAdapter()
 
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
         binding?.apply {
+
+            if (isUserLogin == false) {
+                binding?.postReplyEt?.isFocusable = false
+                binding?.postReplyEt?.isEnabled = false
+                binding?.postReplyEt?.isCursorVisible = false
+                binding?.postReplyEt?.keyListener = null
+                binding?.postReplyEtLl?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
+                binding?.postReplyBtn?.isEnabled = false
+            }
+
             immigrationAdapter?.itemClickListener =
                 { view, item, position, updateImmigration, deleteImmigration ->
                     postReplyEt.requestFocus()

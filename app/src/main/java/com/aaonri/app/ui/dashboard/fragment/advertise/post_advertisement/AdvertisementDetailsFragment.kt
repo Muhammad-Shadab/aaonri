@@ -245,8 +245,8 @@ class AdvertisementDetailsFragment : Fragment() {
             data?.advertisementPageLocation?.locationName
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         advertiseViewModel.advertiseDetailsData.value = null
         advertiseViewModel.cancelAdvertiseData.value = null
         binding = null

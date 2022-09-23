@@ -207,8 +207,9 @@ class AllImmigrationFragment : Fragment() {
         cal.add(Calendar.DAY_OF_YEAR, days)
         return s.format(Date(cal.timeInMillis))
     }
-    override fun onDestroy() {
-        super.onDestroy()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

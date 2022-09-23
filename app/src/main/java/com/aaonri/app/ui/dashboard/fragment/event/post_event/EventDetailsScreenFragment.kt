@@ -1095,11 +1095,14 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        postEventViewModel.eventDetailsData.value = null
+        postEventViewModel.deleteEventData.value = null
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        postEventViewModel.eventDetailsData.value = null
-        postEventViewModel.deleteEventData.value = null
         binding = null
     }
 

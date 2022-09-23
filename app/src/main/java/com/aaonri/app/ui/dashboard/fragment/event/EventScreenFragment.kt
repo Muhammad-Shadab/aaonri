@@ -401,6 +401,10 @@ class EventScreenFragment : Fragment() {
                 EventConstants.SEARCH_KEYWORD_FILTER,
                 ""
             )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 

@@ -486,11 +486,15 @@ class JobProfileUploadFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
         jobSeekerViewModel.selectedExperienceLevel.postValue(null)
         jobSeekerViewModel.selectedJobApplicability.postValue(null)
         jobSeekerViewModel.selectedJobAvailability.postValue(null)
         jobSeekerViewModel.setResumeFileUriValue("".toUri())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     private fun createTmpFileFromUri(uri: Uri?): File? {

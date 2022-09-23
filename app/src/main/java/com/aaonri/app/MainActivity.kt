@@ -758,4 +758,5 @@ class MainActivity : BaseActivity() {
         UserProfileStaticData.setUserProfileDataValue(null)
         binding = null
     }
+
 }

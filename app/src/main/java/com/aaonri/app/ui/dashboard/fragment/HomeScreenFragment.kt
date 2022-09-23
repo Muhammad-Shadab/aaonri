@@ -646,6 +646,7 @@ class HomeScreenFragment : Fragment() {
                 setHomeClassifiedData()
                 binding?.classifiedTv?.visibility = View.VISIBLE
                 setUserInterestedServiceRow()
+                binding?.profilePicCv?.isEnabled = false
             }
         }
 
@@ -1110,8 +1111,8 @@ class HomeScreenFragment : Fragment() {
         return json
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
-        super.onDestroy()
     }
 }

@@ -84,8 +84,8 @@ class ShopScreenFragment : Fragment() {
         binding?.shopWithUsWebView?.loadUrl(url)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 
