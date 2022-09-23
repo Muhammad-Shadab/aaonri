@@ -79,6 +79,7 @@ class EventDetailsScreenFragment : Fragment() {
     var adRvposition = 0
     var timer: Timer? = null
     var timerTask: TimerTask? = null
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,7 +113,7 @@ class EventDetailsScreenFragment : Fragment() {
                 postEventViewModel.getUserisInterested(email, "Event", args.eventId)
             }
 
-            if(ActiveAdvertiseStaticData.getAdvertiseOnEventDetails().isNotEmpty()) {
+            if (ActiveAdvertiseStaticData.getAdvertiseOnEventDetails().isNotEmpty()) {
                 adsGenericAdapter?.items =
                     ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
 
@@ -1115,37 +1116,16 @@ class EventDetailsScreenFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        postEventViewModel.eventDetailsData.value = null
-        postEventViewModel.deleteEventData.value = null
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        binding = null
-        stopAutoScrollBanner()
-    }
-
-
-
-
-
-
     override fun onResume() {
         super.onResume()
         runAutoScrollBanner()
-
     }
 
     override fun onPause() {
         super.onPause()
         stopAutoScrollBanner()
     }
+
     fun stopAutoScrollBanner() {
         if (timer != null && timerTask != null) {
             timerTask!!.cancel()
@@ -1157,27 +1137,32 @@ class EventDetailsScreenFragment : Fragment() {
     }
 
     fun runAutoScrollBanner() {
-        if (timer == null && timerTask == null&&adsGenericAdapter?.items?.size!! >=3) {
+        if (timer == null && timerTask == null && adsGenericAdapter?.items?.size!! >= 3) {
             timer = Timer()
             timerTask = object : TimerTask() {
-
                 override fun run() {
-
                     if (adRvposition == Int.MAX_VALUE) {
                         adRvposition = Int.MAX_VALUE / 2
                         binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
-
                     } else {
-                        adRvposition+= 2
+                        adRvposition += 2
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
                     }
                 }
             }
             timer!!.schedule(timerTask, 4000, 4000)
         }
-
-
-
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        postEventViewModel.eventDetailsData.value = null
+        stopAutoScrollBanner()
+        postEventViewModel.deleteEventData.value = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 }

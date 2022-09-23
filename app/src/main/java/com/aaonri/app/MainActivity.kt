@@ -430,7 +430,10 @@ class MainActivity : BaseActivity() {
                         PreferenceManager<String>(applicationContext)[Constant.USER_PHONE_NUMBER] =
                             it
                     }
-
+                    response.data?.firstName?.let {
+                        PreferenceManager<String>(applicationContext)[Constant.USER_NAME] =
+                            "$it ${response.data.lastName}"
+                    }
                 }
                 is Resource.Error -> {
                     Toast.makeText(
