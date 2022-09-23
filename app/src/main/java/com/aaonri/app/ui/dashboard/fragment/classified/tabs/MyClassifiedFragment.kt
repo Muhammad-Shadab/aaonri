@@ -208,6 +208,7 @@ class MyClassifiedFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
         stopAutoScrollBanner1()
         stopAutoScrollBanner2()
     }
