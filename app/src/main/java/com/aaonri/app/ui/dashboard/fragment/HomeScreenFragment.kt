@@ -115,7 +115,7 @@ class HomeScreenFragment : Fragment() {
             userInterestedService = list.split(",") as MutableList<String>?
         }
 
-
+        /** Removing unnecessary User Interest service id **/
         if (userInterestedService?.size != null) {
             if (userInterestedService?.contains("22") == true) {
                 userInterestedService?.remove("22")
@@ -148,6 +148,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }*/
 
+        /** Dialog for edit/update profile and logout **/
         dialog.setContentView(R.layout.update_profile_dialog)
         dialog.window?.setBackgroundDrawable(
             ContextCompat.getDrawable(
@@ -188,6 +189,7 @@ class HomeScreenFragment : Fragment() {
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
 
+        /** call back function for getting the ads clicked item **/
         adsGenericAdapter1?.itemClickListener = { view, item, position ->
             if (item is FindAllActiveAdvertiseResponseItem) {
                 val action =
@@ -197,6 +199,8 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
+        /** call back function for getting the ads clicked item **/
         adsGenericAdapter2?.itemClickListener = { view, item, position ->
             if (item is FindAllActiveAdvertiseResponseItem) {
                 val action =
@@ -207,6 +211,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
+        /** This generic adapter can be used with the multiple view type so that we can add the advertise item between the classified items **/
         genericAdapterForClassified?.itemClickListener = { view, item, position ->
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
@@ -216,6 +221,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        /** This generic adapter can be used with the multiple view type so that we can add the advertise item between the classified items **/
         genericAdapterForEvent?.itemClickListenerEvent = { view, item, position ->
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToEventDetailsScreenFragment(
@@ -230,6 +236,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }*/
 
+        /** This adapter is used for showing advertise on home screen  **/
         advertiseAdapter = AdvertiseAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToAdvertisementDetailsFragment(
@@ -238,6 +245,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        /** This adapter is used for showing job on home screen  **/
         jobAdapter = JobSeekerAdapter()
 
         /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
@@ -250,6 +258,8 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         immigrationAdapter = ImmigrationAdapter()
+
+
         immigrationAdapter?.itemClickListener =
             { view, item, position, updateImmigration, deleteImmigration ->
                 if (item is Discussion) {
@@ -264,8 +274,15 @@ class HomeScreenFragment : Fragment() {
 
         //jobAdapter?.setData(listOf("Test 1", "Test 2", "Test 3", "Test 4"))
 
+        /** This callback is used for navigating to the specific screen from the  top horizontal services row in homescreen**/
+        interestAdapter = InterestAdapter {
+            navigateToTheSpecificScreen(it.interestDesc)
+        }
+
+        /** This adapter is used for showing Horizontal tab of user selected services **/
         homeInterestsServiceAdapter =
             HomeInterestsServiceAdapter {
+                /** This callback is used for changing the selected horizontal tab **/
                 classifiedViewModel.setSelectedServiceRow(it)
                 binding?.eventTv?.text = it
                 /*if (it == "Shop With Us") {
@@ -404,13 +421,6 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
             }
-
-
-        homeInterestsServiceAdapter?.setSelectedTab(classifiedViewModel.selectedServiceRow)
-
-        interestAdapter = InterestAdapter {
-            navigateToTheSpecificScreen(it.interestDesc)
-        }
 
         popularClassifiedAdapter = PoplarClassifiedAdapter {
             val action =
@@ -595,6 +605,7 @@ class HomeScreenFragment : Fragment() {
                     val list: MutableList<String>? =
                         response.data?.interests?.split(",") as MutableList<String>?
 
+                    /** Removing unnecessary User Interest service id **/
                     if (list?.contains("22") == true) {
                         list.remove("22")
                     }
@@ -792,6 +803,7 @@ class HomeScreenFragment : Fragment() {
         return binding?.root
     }
 
+    /** showing all the selected services horizontal tab for both login user and guest user**/
     private fun setUserInterestedServiceRow(interests: MutableList<String>? = null) {
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -816,7 +828,7 @@ class HomeScreenFragment : Fragment() {
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" && it.interestDesc != "Shop With Us"} as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" && it.interestDesc != "Shop With Us" } as MutableList<InterestResponseItem>)
                         } else {
                             //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)

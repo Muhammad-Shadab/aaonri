@@ -98,7 +98,6 @@ class MoreScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
                         adapter?.setData(servicesResponse.filter { it.active && it.id != 17 }, true)
-
                     }
                 }
                 is Resource.Error -> {

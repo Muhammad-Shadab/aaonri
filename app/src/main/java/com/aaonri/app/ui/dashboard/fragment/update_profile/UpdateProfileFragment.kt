@@ -89,6 +89,8 @@ class UpdateProfileFragment : Fragment() {
                                 )
                             } else {
                                 email?.let { registrationViewModel.findByEmail(email = it) }
+                                context?.let { it1 -> PreferenceManager<Int>(it1) }
+                                    ?.set("selectedHomeServiceRow", -1)
                                 activity?.let { it1 ->
                                     Snackbar.make(
                                         it1.findViewById(android.R.id.content),
@@ -131,7 +133,8 @@ class UpdateProfileFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
                         authCommonViewModel.setProfilePicUriValue(null)
                         email?.let { registrationViewModel.findByEmail(email = it) }
-
+                        context?.let { it1 -> PreferenceManager<Int>(it1) }
+                            ?.set("selectedHomeServiceRow", -1)
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),

@@ -427,11 +427,6 @@ class LoginFragment : Fragment() {
 
             //  context?.let { it1 -> PreferenceManager<String>(it1) }?.set(Constant.USER_CITY, response.data.user.city)
 
-            name?.let { name ->
-                context?.let { it1 -> PreferenceManager<String>(it1) }
-                    ?.set(Constant.USER_NAME, name)
-            }
-
             email?.let { it1 -> EmailVerifyRequest(it1) }
                 ?.let { it2 -> registrationViewModel.isEmailAlreadyRegister(it2) }
 

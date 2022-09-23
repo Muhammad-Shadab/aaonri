@@ -16,7 +16,6 @@ class HomeInterestsServiceAdapter(
     RecyclerView.Adapter<HomeInterestsServiceAdapter.ClassifiedViewHolder>() {
 
     private var data = listOf<InterestResponseItem>()
-    private var selectedTab = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassifiedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -88,11 +87,6 @@ class HomeInterestsServiceAdapter(
     @JvmName("setData1")
     fun setData(data: MutableList<InterestResponseItem>) {
         this.data = data
-        notifyDataSetChanged()
-    }
-
-    fun setSelectedTab(data: String) {
-        this.selectedTab = data
         notifyDataSetChanged()
     }
 
