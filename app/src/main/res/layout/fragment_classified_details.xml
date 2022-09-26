@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainCl"
     tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment">
 
     <com.ortiz.touchview.TouchImageView
