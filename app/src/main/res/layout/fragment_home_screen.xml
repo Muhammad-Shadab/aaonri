@@ -68,8 +68,8 @@
             android:id="@+id/profilePicIv"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:scaleType="fitXY"
             android:padding="@dimen/_1sdp"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -332,8 +332,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
-                        android:visibility="visible"
                         android:paddingEnd="15dp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/priorityServiceRv" />
@@ -412,18 +412,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
-                            android:visibility="visible"
                             android:paddingEnd="15dp"
+                            android:visibility="visible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
                     <LinearLayout
                         android:id="@+id/popularItemsLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@color/white"
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@id/ll2">
@@ -432,7 +432,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -440,7 +439,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/sf_pro_semi_bold"
+                                android:maxLines="1"
                                 android:text="Popular Items you may like"
                                 android:textColor="@color/black"
                                 android:textSize="20sp" />
@@ -449,6 +450,7 @@
                                 android:id="@+id/seeAllPopularItems"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/see_all"
                                 android:textColor="@color/blueBtnColor"

@@ -6,10 +6,15 @@ import retrofit2.http.*
 
 interface AdvertiseApi {
 
-    @GET("/api/v1/avd/findMyAvdsByEmail")
+    @GET("/api/v1/avd/findAdvertisementsByEmailId")
     suspend fun getAllAdvertise(
         @Query("emailId") userEmail: String
     ): Response<AllAdvertiseResponse>
+
+    /*@GET("/api/v1/avd/findMyAvdsByEmail")
+    suspend fun getAllAdvertise(
+        @Query("emailId") userEmail: String
+    ): Response<AllAdvertiseResponse>*/
 
     @GET("/api/v1/avd/findById/{advertiseId}")
     suspend fun getAdvertiseDetailsById(

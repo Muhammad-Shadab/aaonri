@@ -18,7 +18,7 @@ import com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.Adverti
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
+class AdvertiseUpdateDeleteFragment : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     var binding: FragmentUpdateAndDeleteBottomBinding? = null
     val args: AdvertisementDetailsFragmentArgs by navArgs()
@@ -73,19 +73,21 @@ class UpdateAndDeleteBottomFragment : BottomSheetDialogFragment() {
         }
 
         advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    dismiss()
-                    findNavController().navigateUp()
-                    //advertiseViewModel.callAdvertiseApiAfterCancel(true)
-                }
-                is Resource.Error -> {
+                    }
+                    is Resource.Success -> {
+                        dismiss()
+                        findNavController().navigateUp()
+                        advertiseViewModel.cancelAdvertiseData.postValue(null)
+                        //advertiseViewModel.callAdvertiseApiAfterCancel(true)
+                    }
+                    is Resource.Error -> {
 
+                    }
                 }
-                else -> {}
             }
         }
 

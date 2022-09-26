@@ -70,12 +70,22 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }
         ss.setSpan(clickableSpan1, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        advertiseAdapter = AdvertiseAdapter {
-            val action =
-                AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToAdvertisementDetailsFragment(
-                    it.advertisementId
-                )
-            findNavController().navigate(action)
+
+        advertiseAdapter = AdvertiseAdapter { selectedService, isMoreMenuBtnClicked ->
+            if (isMoreMenuBtnClicked) {
+                val action =
+                    AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToUpdateAndDeleteBottomFragment(
+                        selectedService.advertisementId
+                    )
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToAdvertisementDetailsFragment(
+                        selectedService.advertisementId
+                    )
+                findNavController().navigate(action)
+            }
+
         }
 
         binding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
@@ -91,8 +101,10 @@ class AdvertiseScreenFragment : Fragment() {
                 startActivityForResult(intent, 3)
             }
 
-            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
 
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
             recyclerViewAdvertise.adapter = advertiseAdapter
@@ -235,6 +247,23 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }
 
+        advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
+            if (response != null){
+                when (response) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        advertiseViewModel.callAdvertiseApiAfterCancel(true)
+                        advertiseViewModel.cancelAdvertiseData.postValue(null)
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+        }
+
         /*if (advertiseIdList.isNotEmpty()) {
             advertiseIdList.forEachIndexed { index, i ->
                 if (index == 0) {
@@ -247,19 +276,19 @@ class AdvertiseScreenFragment : Fragment() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun searchAdvertisement(data: List<AllAdvertiseResponseItem>) {
-
         binding?.searchView?.addTextChangedListener { editable ->
             advertisementList.clear()
             val searchText = editable.toString().lowercase(Locale.getDefault())
             if (searchText.isNotEmpty()) {
                 data.forEach {
-                    if (it.title.lowercase(Locale.getDefault()).contains(searchText)) {
+                    if (it.advertisementDetails.adTitle.lowercase(Locale.getDefault())
+                            .contains(searchText)
+                    ) {
                         advertisementList.add(it)
                     }
                 }
-
-
             } else {
                 advertisementList.clear()
                 data.let { advertisementList.addAll(it) }

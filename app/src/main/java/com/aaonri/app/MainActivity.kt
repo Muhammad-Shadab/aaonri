@@ -572,13 +572,13 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
+        /*dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {
                 binding?.bottomNavigation?.selectedItemId =
                     R.id.classifiedScreenFragment
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
-        }
+        }*/
 
         dashboardCommonViewModel.isAdvertiseClicked.observe(this) {
             if (it) {
@@ -675,12 +675,11 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-
     }
 
-    private fun callApiAccordingToInterest(interests: String?) {
+    /*private fun callApiAccordingToInterest(interests: String?) {
 
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val email =

@@ -76,18 +76,20 @@ class AdvertisementDetailsFragment : Fragment() {
         }
 
         advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
+            if (response != null){
+                when (response) {
+                    is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    findNavController().navigateUp()
-                    advertiseViewModel.callAdvertiseApiAfterCancel(true)
-                }
-                is Resource.Error -> {
+                    }
+                    is Resource.Success -> {
+                        findNavController().navigateUp()
+                        advertiseViewModel.callAdvertiseApiAfterCancel(true)
+                        advertiseViewModel.cancelAdvertiseData.postValue(null)
+                    }
+                    is Resource.Error -> {
 
+                    }
                 }
-                else -> {}
             }
         }
 

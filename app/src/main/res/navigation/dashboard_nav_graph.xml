@@ -87,6 +87,9 @@
         <action
             android:id="@+id/action_advertiseScreenFragment_to_advertisementDetailsFragment"
             app:destination="@id/advertisementDetailsFragment" />
+        <action
+            android:id="@+id/action_advertiseScreenFragment_to_updateAndDeleteBottomFragment"
+            app:destination="@id/updateAndDeleteBottomFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreScreenFragment"
@@ -102,6 +105,9 @@
         <action
             android:id="@+id/action_moreScreenFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_classifiedScreenFragment"
+            app:destination="@id/classifiedScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedFilterFragmentBottom"
@@ -238,7 +244,7 @@
     </fragment>
     <dialog
         android:id="@+id/updateAndDeleteBottomFragment"
-        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.UpdateAndDeleteBottomFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseUpdateDeleteFragment"
         android:label="fragment_update_and_delete_bottom"
         tools:layout="@layout/fragment_update_and_delete_bottom">
         <argument

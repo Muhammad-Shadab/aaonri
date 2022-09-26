@@ -188,14 +188,14 @@ class ClassifiedScreenFragment : Fragment() {
                         ""
                     )
                 )
-                binding?.filterCv4?.visibility = View.GONE
+                filterCv4.visibility = View.GONE
                 postClassifiedViewModel.setSubCategoryFilter("")
                 postClassifiedViewModel.setClickedOnFilter(true)
                 onNoOfSelectedFilterItem(--noOfSelection)
             }
 
             deleteFilterIv5.setOnClickListener {
-                binding?.filterCv5?.visibility = View.GONE
+                filterCv5.visibility = View.GONE
                 postClassifiedViewModel.setChangeSortTripletFilter(
                     datePublished = false,
                     priceLowToHigh = false,
@@ -302,7 +302,6 @@ class ClassifiedScreenFragment : Fragment() {
                     return
                 }
             })
-
         }
         /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {

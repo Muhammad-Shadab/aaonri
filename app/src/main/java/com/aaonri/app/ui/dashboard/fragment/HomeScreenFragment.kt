@@ -88,6 +88,7 @@ class HomeScreenFragment : Fragment() {
     var userInterestedService: MutableList<String>? = mutableListOf()
     var guestUser = false
     var homeClassifiedWithAdList = mutableListOf<Any>()
+
     //var homeEventWithAdList = mutableListOf<Any>()
     private lateinit var layoutManager2: LinearLayoutManager
     private lateinit var layoutManager1: LinearLayoutManager
@@ -245,13 +246,13 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         /** This adapter is used for showing advertise on home screen  **/
-        advertiseAdapter = AdvertiseAdapter {
+        /*advertiseAdapter = AdvertiseAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToAdvertisementDetailsFragment(
                     it.advertisementId
                 )
             findNavController().navigate(action)
-        }
+        }*/
 
         /** This adapter is used for showing job on home screen  **/
         jobAdapter = JobSeekerAdapter()
@@ -469,10 +470,6 @@ class HomeScreenFragment : Fragment() {
                 dialog.show()
             }
 
-            /*val action =
-                HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
-            findNavController().navigate(action)*/
-
             editProfileBtn.setOnClickListener {
                 val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
@@ -550,6 +547,12 @@ class HomeScreenFragment : Fragment() {
                 dialog.dismiss()
             }
 
+            /*seeAllPopularItems.setOnClickListener {
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedScreenFragment()
+                findNavController().navigate(action)
+            }*/
+
             interestRecyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             interestRecyclerView.adapter = interestAdapter
@@ -564,14 +567,14 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.layoutManager = GridLayoutManager(context, 2)
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
-                adsAbovePopularSectionRv.adapter = adsGenericAdapter2
-                layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adsAbovePopularSectionRv.layoutManager = layoutManager2
+            adsAbovePopularSectionRv.adapter = adsGenericAdapter2
+            layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adsAbovePopularSectionRv.layoutManager = layoutManager2
 
 
-                adsBelowFirstSectionRv.adapter = adsGenericAdapter1
-                layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adsBelowFirstSectionRv.layoutManager = layoutManager1
+            adsBelowFirstSectionRv.adapter = adsGenericAdapter1
+            layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adsBelowFirstSectionRv.layoutManager = layoutManager1
 
 
             adsAbovePopularSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -696,7 +699,11 @@ class HomeScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.isNotEmpty() == true) {
-                        popularClassifiedAdapter?.setData(response.data)
+                        if (response.data.size > 6) {
+                            popularClassifiedAdapter?.setData(response.data.subList(0, 6))
+                        } else {
+                            popularClassifiedAdapter?.setData(response.data)
+                        }
                     }
                     binding?.homeConstraintLayout?.visibility = View.VISIBLE
                     binding?.popularItemsRv?.adapter = popularClassifiedAdapter
@@ -892,7 +899,10 @@ class HomeScreenFragment : Fragment() {
                 dashboardCommonViewModel.setIsAdvertiseClicked(true)
             } else if (interests == "2" || interests == "Classifieds") {
                 //Classifieds
-                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                //dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedScreenFragment()
+                findNavController().navigate(action)
             } else if (interests == "8" || interests == "Events") {
                 //Events
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
@@ -1156,6 +1166,7 @@ class HomeScreenFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+
     override fun onResume() {
         super.onResume()
         runAutoScrollBanner2()
@@ -1168,6 +1179,7 @@ class HomeScreenFragment : Fragment() {
         stopAutoScrollBanner2()
         stopAutoScrollBanner1()
     }
+
     fun stopAutoScrollBanner1() {
         if (timer1 != null && timerTask1 != null) {
             timerTask1!!.cancel()
@@ -1180,7 +1192,7 @@ class HomeScreenFragment : Fragment() {
 
     fun runAutoScrollBanner1() {
 
-        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer1 == null && timerTask1 == null && adsGenericAdapter1?.items?.size!! >= 3) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
 
@@ -1200,8 +1212,8 @@ class HomeScreenFragment : Fragment() {
         }
 
 
-
     }
+
     fun stopAutoScrollBanner2() {
         if (timer2 != null && timerTask2 != null) {
             timerTask2!!.cancel()
@@ -1213,7 +1225,7 @@ class HomeScreenFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+        if (timer2 == null && timerTask2 == null && adsGenericAdapter2?.items?.size!! >= 3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 
@@ -1231,7 +1243,6 @@ class HomeScreenFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 4000, 4000)
         }
-
 
 
     }

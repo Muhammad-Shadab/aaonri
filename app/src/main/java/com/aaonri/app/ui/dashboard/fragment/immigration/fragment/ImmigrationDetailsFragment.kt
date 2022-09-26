@@ -49,7 +49,6 @@ class ImmigrationDetailsFragment : Fragment() {
         binding =
             FragmentImmigrationDetailsFrgamentBinding.inflate(layoutInflater, container, false)
 
-
         val isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
 

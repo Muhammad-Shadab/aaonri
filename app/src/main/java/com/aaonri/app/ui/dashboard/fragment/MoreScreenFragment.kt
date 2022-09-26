@@ -58,7 +58,10 @@ class MoreScreenFragment : Fragment() {
         }, { isJobSelected = it }) {
             when (it) {
                 "Classifieds" -> {
-                    dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                    //dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                    val action =
+                        MoreScreenFragmentDirections.actionMoreScreenFragmentToClassifiedScreenFragment()
+                    findNavController().navigate(action)
                 }
                 "Events" -> {
                     findNavController().navigate(MoreScreenFragmentDirections.actionMoreScreenFragmentToEventScreenFragment())

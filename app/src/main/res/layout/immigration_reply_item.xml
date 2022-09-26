@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/_5sdp"
     android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
     app:cardBackgroundColor="#f2f0f0"
     app:cardCornerRadius="@dimen/_6sdp">
 
@@ -85,7 +85,7 @@
             android:id="@+id/userReplyDescTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:fontFamily="@font/sf_pro_regular"
             android:paddingHorizontal="@dimen/_16sdp"
             android:text="ed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
@@ -101,13 +101,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="#c4c3c3" />
+            android:background="#c4c3c3"
+            android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_6sdp">
+            android:paddingVertical="@dimen/_6sdp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/totalVisiting"

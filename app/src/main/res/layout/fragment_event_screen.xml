@@ -54,9 +54,9 @@
         android:layout_marginEnd="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardPreventCornerOverlap="false"
-        app:layout_constraintBottom_toBottomOf="@id/homeTv"
+        app:layout_constraintBottom_toBottomOf="@id/classifiedText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/homeTv"
+        app:layout_constraintTop_toTopOf="@id/classifiedText"
         app:strokeColor="@color/white"
         app:strokeWidth="@dimen/_1sdp">
 
