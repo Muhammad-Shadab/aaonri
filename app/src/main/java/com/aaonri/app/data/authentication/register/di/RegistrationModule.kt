@@ -1,51 +1,31 @@
 package com.aaonri.app.data.authentication.register.di
 
 import com.aaonri.app.data.authentication.register.api.CountriesApi
+import com.aaonri.app.data.authentication.register.api.ProfilePicApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.api.ZipCodeApi
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
-import com.aaonri.app.util.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
+import javax.inject.Named
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object RegistrationModule {
 
     @Provides
-    @Singleton
-    fun provideHttpClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(Constant.BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-
-    @Provides
-    @Singleton
-    fun providesRegistrationApi(retrofit: Retrofit.Builder): RegistrationApi =
+    @ViewModelScoped
+    fun providesRegistrationApi(@Named("RetrofitForGlobal") retrofit: Retrofit.Builder): RegistrationApi =
         retrofit.build().create(RegistrationApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun providesCountryApi(okHttpClient: OkHttpClient): CountriesApi =
         Retrofit.Builder()
             .baseUrl("https://corona.lmao.ninja")
@@ -55,7 +35,7 @@ object RegistrationModule {
             .create(CountriesApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun providesZipCodeApi(okHttpClient: OkHttpClient): ZipCodeApi =
         Retrofit.Builder()
             .baseUrl("https://api.worldpostallocations.com")
@@ -64,15 +44,20 @@ object RegistrationModule {
             .build()
             .create(ZipCodeApi::class.java)
 
+    @Provides
+    @ViewModelScoped
+    fun providesProfilePicApi(@Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder): ProfilePicApi =
+        retrofit.build().create(ProfilePicApi::class.java)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideRegistrationRepository(
         registrationApi: RegistrationApi,
         countriesApi: CountriesApi,
-        zipCodeApi: ZipCodeApi
+        zipCodeApi: ZipCodeApi,
+        profilePicApi: ProfilePicApi
     ) =
-        RegistrationRepository(registrationApi, countriesApi, zipCodeApi)
+        RegistrationRepository(registrationApi, countriesApi, zipCodeApi, profilePicApi)
 
 
 }

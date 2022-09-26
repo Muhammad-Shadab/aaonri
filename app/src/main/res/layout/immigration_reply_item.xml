@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    app:cardBackgroundColor="#f2f0f0"
+    app:cardCornerRadius="@dimen/_6sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/mainll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/profile_pic_placeholder" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/discussionUserReplyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:includeFontPadding="false"
+                    android:maxLines="2"
+                    android:text="B1 B2 Visa Discussion"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/userReplyDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sf_pro_light_italic"
+                    android:includeFontPadding="false"
+                    android:text="Mar 09,2022"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/deleteComment"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/ic_recycle_bin"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/replyBtn"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/replysolid" />
+        </LinearLayout>
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/userReplyDescTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="ed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            app:colorClickableText="#2f6ca8"
+            app:trimCollapsedText="@string/see_more"
+            app:trimExpandedText="@string/see_less"
+            app:trimLines="4"
+            app:trimMode="trimModeLine" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="#c4c3c3"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/totalVisiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/user_icon"
+                android:drawablePadding="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/totalShareTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_btn"
+                android:drawableLeft="@drawable/replyholo"
+                android:drawablePadding="@dimen/_2sdp"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toRightOf="@+id/totalVisiting"
+                app:layout_constraintRight_toLeftOf="@+id/likeTv"
+                app:layout_constraintTop_toTopOf="@+id/totalVisiting" />
+
+            <TextView
+                android:id="@+id/likeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_btn"
+                android:drawableLeft="@drawable/like"
+                android:drawablePadding="@dimen/_2sdp"
+                android:text="297"
+                android:textSize="12sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

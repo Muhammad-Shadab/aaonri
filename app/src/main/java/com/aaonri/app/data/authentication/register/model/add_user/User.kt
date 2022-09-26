@@ -1,5 +1,7 @@
 package com.aaonri.app.data.authentication.register.model.add_user
 
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
+
 data class User(
     val activeUser: Boolean,
     val address1: String,
@@ -7,7 +9,7 @@ data class User(
     val aliasName: String,
     val authorized: Boolean,
     val city: String,
-    val community: List<CommunityX>,
+    val community: List<CommunityAuth>,
     val companyEmail: String,
     val createdOn: String,
     val deletedOn: Any,

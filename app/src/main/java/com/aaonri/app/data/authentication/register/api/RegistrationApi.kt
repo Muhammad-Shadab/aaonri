@@ -2,18 +2,13 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
+import com.aaonri.app.data.authentication.register.model.add_user.*
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
+import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RegistrationApi {
 
@@ -21,7 +16,12 @@ interface RegistrationApi {
     suspend fun getAllCommunities(): Response<CommunitiesListResponse>
 
     @GET("api/v1/interests/all")
-    suspend fun getAllServicesInterest(): ServicesResponse
+    suspend fun getAllServicesInterest(): Response<ServicesResponse>
+
+    @GET("/api/v1/user/findByEmail")
+    suspend fun findByEmail(
+        @Query("email") userEmail: String
+    ): Response<FindByEmailDetailResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/userExists")
@@ -35,6 +35,11 @@ interface RegistrationApi {
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/add")
-    suspend fun userRegister(@Body registerRequest: RegisterRequest): Response<RegisterationResponse>
+    suspend fun userRegister(@Body registerRequest: RegisterRequest): Response<RegistrationResponse>
+
+    @POST("/api/v1/user/update")
+    suspend fun updateProfile(
+        @Body updateProfileRequest: UpdateProfileRequest
+    ): Response<RegistrationResponse>
 
 }

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background_gradient"
+    tools:context=".ui.dashboard.fragment.immigration.ImmigrationScreenFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/immigrationText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/immigrationText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/immigrationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="Immigrations"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profilePicCv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="@id/immigrationText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/immigrationText"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <ImageView
+            android:id="@+id/profilePicIv"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:scaleType="fitXY"
+            android:padding="@dimen/_1sdp"
+            android:src="@drawable/profile_pic_placeholder" />
+    </com.google.android.material.card.MaterialCardView>
+
+   <!-- <ImageView
+        android:id="@+id/bellIconIv"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:padding="@dimen/_1sdp"
+        android:src="@drawable/ic_bell_notification"
+        app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/numberOfSelectedFilterCv"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:translationY="14dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#14aa9a"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@+id/filterImmigration"
+        app:layout_constraintEnd_toEndOf="@+id/filterImmigration">
+
+        <TextView
+            android:id="@+id/numberOfSelectedFilterTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/searchViewll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_42sdp"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/immigrationText">
+
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/cancelbutton"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/cancel_btn"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/filterImmigration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_icons_filter"
+        app:layout_constraintBottom_toBottomOf="@id/searchViewll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/searchViewll"
+        app:layout_constraintTop_toTopOf="@id/searchViewll" />
+
+    <HorizontalScrollView
+        android:id="@+id/selectedFilters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchViewll">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="none">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dateRangeCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/dateRangeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteDateRangeFilter"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/activeDiscussionFilterCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/activeDiscussionFilterTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteActiveDiscussionFilterIv"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/atLeastOneResponseFilterCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/atLeastOneResponseFilterTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteAtLeastOneResponseFilterIv"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--<com.google.android.material.card.MaterialCardView
+                android:id="@+id/filterCv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/filterText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteFilterIv4"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/filterCv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/filterText5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteFilterIv5"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>-->
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/moreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="@string/more"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/selectedFilters"
+        app:layout_constraintStart_toEndOf="@id/selectedFilters"
+        app:layout_constraintTop_toTopOf="@id/selectedFilters" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/top_rounded_corner_shape"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/immigrationScreenTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/tab_background_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="auto"
+            app:tabPaddingEnd="@dimen/_2sdp"
+            app:tabPaddingStart="@dimen/_2sdp"
+            app:tabRippleColor="@null" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/immigrationScreenViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/immigrationScreenTabLayout">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/floatingActionBtnImmigration"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:cardBackgroundColor="@color/greenBtnColor"
+            app:cardElevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/circle"
+            app:strokeColor="@color/white"
+            app:strokeWidth="@dimen/_4sdp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/plus" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

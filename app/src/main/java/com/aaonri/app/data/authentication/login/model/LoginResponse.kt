@@ -1,10 +1,10 @@
 package com.aaonri.app.data.authentication.login.model
 
 data class LoginResponse(
-    val changePass: Boolean,
+    val changePass: Any,
     val emailId: String,
     val isAdmin: Int,
-    val massage: String,
+    val massage: Any,
     val password: String,
     val user: User,
     val userName: String

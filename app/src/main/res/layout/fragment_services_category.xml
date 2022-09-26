@@ -7,6 +7,7 @@
     tools:context=".ui.authentication.register.ServicesCategoryFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,9 +27,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/choose_any_three_or_more_categories"
-                android:textColor="@color/black" />
-
+                android:text="Choose any three or more"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/servicesGridRecyclerView"
@@ -38,21 +40,23 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:numColumns="3"
-                tools:listitem="@layout/services_grid_item" />
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:numColumns="3" />
 
             <LinearLayout
+                android:id="@+id/aliasNameCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_32sdp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_24sdp"
                     android:layout_marginEnd="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_60sdp"
                     app:cardBackgroundColor="#EFEFEF"
                     app:cardCornerRadius="@dimen/_12sdp"
                     app:strokeColor="#E1E1E1"
@@ -93,10 +97,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/_4sdp"
+                                    android:layout_marginEnd="@dimen/_12sdp"
                                     android:fontFamily="@font/sf_pro_regular"
                                     android:text="@string/as_you_have_selected"
                                     android:textColor="@color/textViewColor"
-                                    android:textSize="@dimen/_12sdp" />
+                                    android:textSize="12sp" />
 
                             </LinearLayout>
 
@@ -114,7 +119,7 @@
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/your_company_s_email"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_10sdp" />
+                                android:textSize="12sp" />
 
                             <EditText
                                 android:id="@+id/companyEmailServices"
@@ -134,7 +139,22 @@
                                 android:paddingEnd="@dimen/_16sdp"
                                 android:paddingBottom="@dimen/_6sdp"
                                 android:textColor="@color/editTextColor"
-                                android:textColorHint="@color/hintColor" />
+                                android:textColorHint="@color/hintColor"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/invalidEmailTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_36sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_20sdp"
+                                android:layout_marginBottom="@dimen/_2sdp"
+                                android:fontFamily="@font/sf_pro_regular"
+                                android:text="Please enter valid email"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/_10sdp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -144,7 +164,7 @@
                                 android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/choose_an_alias"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_10sdp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -166,7 +186,8 @@
                             android:paddingEnd="@dimen/_16sdp"
                             android:paddingBottom="@dimen/_6sdp"
                             android:textColor="@color/editTextColor"
-                            android:textColorHint="@color/hintColor" />
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="16sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -192,7 +213,7 @@
                                 android:fontFamily="@font/sf_pro_regular"
                                 android:text="@string/just_want_my_full_name_as_my_alias_name"
                                 android:textColor="@color/textViewColor"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -200,64 +221,75 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_24sdp"
-                    android:orientation="horizontal">
+                <!-- <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginStart="@dimen/_40sdp"
+                     android:layout_marginTop="@dimen/_8sdp"
+                     android:layout_marginEnd="@dimen/_24sdp"
+                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/belongToCricketCheckBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:button="@drawable/custom_checkbox"
-                        android:buttonTint="@drawable/custom_checkbox"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp" />
+                     <CheckBox
+                         android:id="@+id/belongToCricketCheckBox"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@color/white"
+                         android:button="@drawable/custom_checkbox"
+                         android:buttonTint="@drawable/custom_checkbox"
+                         android:minWidth="0dp"
+                         android:minHeight="0dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:fontFamily="@font/sf_pro_regular"
-                        android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
-                        android:textColor="@color/textViewColor"
-                        android:textSize="@dimen/_12sdp" />
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="@dimen/_4sdp"
+                         android:fontFamily="@font/sf_pro_regular"
+                         android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
+                         android:textColor="@color/textViewColor"
+                         android:textSize="12sp" />
 
-                </LinearLayout>
+                 </LinearLayout>-->
 
             </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/serviceSubmitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_32sdp"
-                android:background="@drawable/green_btn_shape"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:minHeight="0dp"
-                android:text="Get Started"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/serviceSubmitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/light_green_btn_shape"
+        android:elevation="@dimen/_6sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="Get Started"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

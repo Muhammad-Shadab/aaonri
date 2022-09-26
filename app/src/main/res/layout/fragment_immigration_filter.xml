@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationFilterFragment">
+
+    <LinearLayout
+        android:id="@+id/filterLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="Immigration Filters"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_close" />
+
+    </LinearLayout>
+
+    <!--<TextView
+        android:id="@+id/selectCategorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/edit_text_inner_shadow"
+        android:drawableRight="@drawable/arrow_down_spinner"
+        android:fontFamily="@font/helvetica_regular"
+        android:gravity="center_vertical"
+        android:hint="Select Category"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:textColor="@color/editTextColor"
+        android:textColorHint="@color/hintColor"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/filterLl" />-->
+
+    <RadioGroup
+        android:id="@+id/radioGrp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterLl">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="Date Range"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/fifteenDaysRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <TextView
+                android:id="@+id/fifteenDaysTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="15 Days"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/threeMonthRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <TextView
+                android:id="@+id/threeMonthTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="3 Months"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/oneYearRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_radio_btn"
+                android:buttonTint="@drawable/custom_radio_btn"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <TextView
+                android:id="@+id/oneYearTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="1 Year"
+                android:textColor="#979797"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/radioGrp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Sort"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!-- <com.google.android.material.card.MaterialCardView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="@dimen/_4sdp"
+                 app:cardCornerRadius="@dimen/_18sdp"
+                 app:strokeColor="@color/lightGrey"
+                 app:strokeWidth="1dp">
+
+                 <TextView
+                     android:id="@+id/datePublished"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:fontFamily="@font/sf_pro_semi_bold"
+                     android:paddingHorizontal="@dimen/_12sdp"
+                     android:paddingVertical="@dimen/_6sdp"
+                     android:text="Date Published"
+                     android:textColor="@color/textViewColor"
+                     android:textSize="12sp" />
+
+             </com.google.android.material.card.MaterialCardView>-->
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:backgroundTint="@color/lightGrey"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/activeDiscussion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="Active Discussion"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/atLeastOneResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="At Least One Response"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/clearAllBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:background="@drawable/blue_btn_shape"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="@string/clear_all"
+            android:textColor="@color/blueBtnColor"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/applyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:background="@drawable/green_btn_shape"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="@string/apply"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

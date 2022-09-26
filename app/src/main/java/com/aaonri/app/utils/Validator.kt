@@ -4,13 +4,20 @@ class Validator {
     companion object {
 
         fun emailValidation(email: String): Boolean {
-            val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+            val emailRegex =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
             return emailRegex.toRegex().matches(email)
         }
 
         fun passwordValidation(password: String): Boolean {
-            val passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+            val passwordRegex = "^(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             return passwordRegex.toRegex().matches(password)
+        }
+
+        fun urlValidation(url: String): Boolean {
+            val urlRegex =
+                "((https|http)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+"
+            return urlRegex.toRegex().matches(url)
         }
 
     }

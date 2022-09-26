@@ -1,34 +1,31 @@
 package com.aaonri.app.data.authentication.register.repository
 
 import com.aaonri.app.data.authentication.login.model.Login
-import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.api.CountriesApi
+import com.aaonri.app.data.authentication.register.api.ProfilePicApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.api.ZipCodeApi
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
 import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
-import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
-import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class RegistrationRepository @Inject constructor(
     private val registrationApi: RegistrationApi,
     private val countriesApi: CountriesApi,
-    private val zipCodeApi: ZipCodeApi
+    private val zipCodeApi: ZipCodeApi,
+    private val profilePicApi: ProfilePicApi
 ) {
 
     suspend fun getCommunitiesList() = registrationApi.getAllCommunities()
 
     suspend fun getCountries() = countriesApi.getCountriesList()
 
-    fun getServicesInterest(): Flow<ServicesResponse> = flow {
-        emit(registrationApi.getAllServicesInterest())
-    }.flowOn(Dispatchers.IO)
+    suspend fun getServicesInterest() = registrationApi.getAllServicesInterest()
+
+    suspend fun findByEmail(email: String) = registrationApi.findByEmail(email)
 
     suspend fun isEmailAlreadyRegistered(emailVerifyRequest: EmailVerifyRequest) =
         registrationApi.isEmailAlreadyRegistered(emailVerifyRequest)
@@ -38,7 +35,15 @@ class RegistrationRepository @Inject constructor(
     suspend fun registerUser(registerRequest: RegisterRequest) =
         registrationApi.userRegister(registerRequest)
 
+    suspend fun updateProfile(updateProfileRequest: UpdateProfileRequest) =
+        registrationApi.updateProfile(updateProfileRequest)
+
     suspend fun getLocationByZipCode(postalCode: String, countryCode: String) =
         zipCodeApi.getLocation(postalCode, countryCode)
+
+    suspend fun uploadProfilePic(
+        file: MultipartBody.Part,
+        userId: RequestBody
+    ) = profilePicApi.uploadProfilePic(file, userId)
 
 }

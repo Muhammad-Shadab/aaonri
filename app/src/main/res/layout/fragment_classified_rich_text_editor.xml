@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedRichTextEditor">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottombar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/white">
+
+        <com.chinalwb.are.AREditText
+            android:id="@+id/arEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|left"
+            android:hint="Your EditText goes here"
+            android:textColor="@color/black"
+            android:textSize="50sp" />
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="1000">
+
+        <com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
+            android:id="@+id/areToolbar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="900"
+            android:background="@color/white"
+            android:gravity="center_vertical" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="@color/black" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="95"
+            android:background="@color/lightGrey"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/arrow_down_spinner" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

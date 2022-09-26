@@ -5,77 +5,115 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/closeCommunityBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="@string/select_one_or_multiple_communities"
+            android:textColor="#333333"
+            android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/searchViewll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/edit_text_shape"
+            android:backgroundTint="@color/graycolor"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_4sdp">
+
+            <EditText
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/helvetica_regular"
+                android:hint="Search your community"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/_2sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/closeCommunityBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:src="@drawable/ic_close" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/select_one_or_multiple_communities"
-                android:textSize="@dimen/_14sdp" />
-
-            <ProgressBar
-                android:id="@+id/progressBarCommunityBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvBottomFragment"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_260sdp" />
-
-            <TextView
-                android:id="@+id/numberOfSelectedCommunity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_28sdp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:fontFamily="@font/sf_pro_regular"
-                android:text="@string/you_have_selected_communities"
-                android:textSize="@dimen/_10sdp"
-                android:visibility="gone" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/communitySubmitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:background="@drawable/green_btn_shape"
-                android:fontFamily="@font/sf_pro_semi_bold"
-                android:minHeight="0dp"
-                android:text="@string/submit"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
-
+                android:id="@+id/searchViewIcon"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/ic_icon_search" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBarCommunityBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBottomFragment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_260sdp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/numberOfSelectedCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="@string/you_have_selected_communities"
+            android:textColor="#979797"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/communitySubmitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/green_btn_shape"
+            android:elevation="@dimen/_6sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:gravity="center"
+            android:minHeight="0dp"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 </LinearLayout>

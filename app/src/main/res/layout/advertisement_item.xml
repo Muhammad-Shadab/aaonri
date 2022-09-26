@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/advertiseItemCard"
+        android:layout_width='match_parent'
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:elevation="10dp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_12sdp">
+
+            <ImageView
+                android:id="@+id/advertisementImage"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#ebebeb"
+                android:src="@drawable/ic_image_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/advertiseNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="Yoga &amp; Fitness Classes"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/advertisementImage" />
+
+            <TextView
+                android:id="@+id/advertiseLocationTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_display_light"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="New York 0852"
+                android:textColor="#707070"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
+
+            <ImageView
+                android:id="@+id/timeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/ic_time_watch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+            <LinearLayout
+                android:id="@+id/advertiseDateLl1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/timeIcon"
+                app:layout_constraintStart_toEndOf="@id/timeIcon"
+                app:layout_constraintTop_toTopOf="@+id/timeIcon">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Posted On"
+                    android:textColor="#484747"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Valid Up To"
+                    android:textColor="#484747"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/advertiseDateLl2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/advertiseDateLl1"
+                app:layout_constraintStart_toEndOf="@id/advertiseDateLl1"
+                app:layout_constraintTop_toTopOf="@+id/advertiseDateLl1">
+
+                <TextView
+                    android:id="@+id/postedOnDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Posted On"
+                    android:textColor="#707070"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+                <TextView
+                    android:id="@+id/validUpToDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Valid Up To"
+                    android:textColor="#707070"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/advertiseLinkTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:drawableLeft="@drawable/link_icon"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="https://yogafitness.com/"
+                android:textColor="#124c94"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseDateLl2" />
+
+            <ImageView
+                android:id="@+id/moreClassifiedOption"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/_11sdp"
+                android:src="@drawable/ic_more"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.fragment.homescreen.HomeScreenFilter">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/filterTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/filterTv"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/filterTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="Filter"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <TextView
+        android:id="@+id/selectCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/edit_text_inner_shadow"
+        android:fontFamily="@font/helvetica_regular"
+        android:gravity="center_vertical"
+        android:hint="Select Category"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:textColor="@color/editTextColor"
+        android:textColorHint="@color/hintColor"
+        android:textSize="16sp"
+        app:drawableRightCompat="@drawable/arrow_down_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterTv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/companyRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectCategory" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/applyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="@string/apply"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

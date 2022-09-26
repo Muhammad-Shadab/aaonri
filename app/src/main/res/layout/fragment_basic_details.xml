@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.authentication.register.BasicDetailsFragment">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/person"
-        android:translationY="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,17 +21,19 @@
 
             <FrameLayout
                 android:id="@+id/profilePicPlaceholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_66sdp"
+                android:layout_height="@dimen/_66sdp"
                 android:layout_gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/addProfileIv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:src="@drawable/profile_pic_placeholder" />
 
                 <ImageView
+                    android:id="@+id/addProfileBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
@@ -48,6 +41,15 @@
                     android:background="@drawable/white_circle_shape"
                     android:src="@drawable/plus"
                     app:tint="@color/blueBtnColor" />
+
+                <ImageView
+                    android:id="@+id/updateProfileBtn"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:src="@drawable/edit_pic"
+                    android:visibility="gone" />
 
             </FrameLayout>
 
@@ -59,9 +61,9 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/first_name"
-                android:inputType="textEmailAddress"
+                android:inputType="textCapSentences"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
@@ -69,8 +71,20 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/firstNameValidationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/lastNameBasicDetails"
@@ -80,9 +94,9 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/last_name"
-                android:inputType="textEmailAddress"
+                android:inputType="textCapSentences"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingStart="@dimen/_16sdp"
@@ -90,7 +104,21 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/lastNameValidationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="safdfa"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/emailAddressBasicDetails"
@@ -100,7 +128,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/sf_pro_regular"
+                android:fontFamily="@font/helvetica_regular"
                 android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
                 android:lines="1"
@@ -110,13 +138,14 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor" />
+                android:textColorHint="@color/hintColor"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/emailAlreadyExistTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginStart="@dimen/_36sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_2sdp"
@@ -125,15 +154,15 @@
                 android:textSize="@dimen/_10sdp"
                 android:visibility="gone" />
 
-
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passTi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:minHeight="0dp"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="16sp"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:hintEnabled="false"
@@ -145,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
+                    android:fontFamily="@font/helvetica_regular"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:lines="1"
@@ -156,7 +185,7 @@
                     android:paddingBottom="@dimen/_4sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,6 +203,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/textHintTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_36sdp"
@@ -192,13 +222,23 @@
                 android:layout_marginStart="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_marginEnd="@dimen/_28sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:background="@drawable/green_btn_shape"
+                android:elevation="6dp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
                 android:text="@string/next"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:src="@drawable/person" />
 
         </LinearLayout>
 
@@ -208,6 +248,7 @@
         android:id="@+id/progressBarBasicDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

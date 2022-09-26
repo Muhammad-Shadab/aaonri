@@ -4,47 +4,438 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
     app:startDestination="@id/homeScreenFragment">
-
-
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.HomeScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" >
+        tools:layout="@layout/activity_event_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_classifiedScreenFragment"
             app:destination="@id/classifiedScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_classifiedDetailsFragment"
+            app:destination="@id/classifiedDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_advertisementDetailsFragment"
+            app:destination="@id/advertisementDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_immigrationScreenFragment"
+            app:destination="@id/immigrationScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_immigrationCenterDetails"
+            app:destination="@id/immigrationCenterDetails" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobScreenFragment"
+            app:destination="@id/jobScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobRecruiterScreenFragment"
+            app:destination="@id/jobRecruiterScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_immigrationDetailsFragment"
+            app:destination="@id/immigrationDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.ClassifiedScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.ClassifiedScreenFragment"
         android:label="fragment_classified_screen"
-        tools:layout="@layout/fragment_classified_screen" >
+        tools:layout="@layout/fragment_classified_screen">
         <action
             android:id="@+id/action_classifiedScreenFragment_to_shopScreenFragment"
             app:destination="@id/shopScreenFragment" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_classifiedFilterFragmentBottom"
+            app:destination="@id/classifiedFilterFragmentBottom"
+            app:enterAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_classifiedDetailsFragment"
+            app:destination="@id/classifiedDetailsFragment" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.ShopScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.ShopScreenFragment"
         android:label="fragment_shop_screen"
-        tools:layout="@layout/fragment_shop_screen" >
+        tools:layout="@layout/fragment_shop_screen">
         <action
             android:id="@+id/action_shopScreenFragment_to_advertiseScreenFragment"
             app:destination="@id/advertiseScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/advertiseScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.AdvertiseScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenFragment"
         android:label="fragment_advertise_screen"
-        tools:layout="@layout/fragment_advertise_screen" >
+        tools:layout="@layout/fragment_advertise_screen">
         <action
             android:id="@+id/action_advertiseScreenFragment_to_moreScreenFragment"
             app:destination="@id/moreScreenFragment" />
+        <action
+            android:id="@+id/action_advertiseScreenFragment_to_advertisementDetailsFragment"
+            app:destination="@id/advertisementDetailsFragment" />
+        <action
+            android:id="@+id/action_advertiseScreenFragment_to_updateAndDeleteBottomFragment"
+            app:destination="@id/updateAndDeleteBottomFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreScreenFragment"
-        android:name="com.aaonri.app.ui.dashboard.MoreScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.MoreScreenFragment"
         android:label="fragment_more_screen"
-        tools:layout="@layout/fragment_more_screen" />
+        tools:layout="@layout/fragment_more_screen" >
+        <action
+            android:id="@+id/action_moreScreenFragment_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_immigrationScreenFragment"
+            app:destination="@id/immigrationScreenFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_classifiedScreenFragment"
+            app:destination="@id/classifiedScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/classifiedFilterFragmentBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedFilterFragmentBottom"
+        android:label="fragment_classified_filter"
+        tools:layout="@layout/fragment_classified_filter">
+        <action
+            android:id="@+id/action_classifiedFilterFragmentBottom_to_selectClassifiedSubCategoryBottom2"
+            app:destination="@id/selectClassifiedSubCategoryBottom2" />
+        <action
+            android:id="@+id/action_classifiedFilterFragmentBottom_to_selectClassifiedCategoryBottom2"
+            app:destination="@id/selectClassifiedCategoryBottom2" />
+        <action
+            android:id="@+id/action_classifiedFilterFragmentBottom_to_classifiedScreenFragment"
+            app:destination="@id/classifiedScreenFragment"
+            app:popUpTo="@id/classifiedScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/classifiedDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment"
+        android:label="fragment_classified_details"
+        tools:layout="@layout/fragment_classified_details">
+        <action
+            android:id="@+id/action_classifiedDetailsFragment_to_updateDeleteClassifiedBottom"
+            app:destination="@id/updateDeleteClassifiedBottom" />
+        <argument
+            android:name="addId"
+            app:argType="integer" />
+        <argument
+            android:name="isMyClassifiedScreen"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_classifiedDetailsFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.EventScreenFragment"
+        android:label="fragment_event_screen"
+        tools:layout="@layout/fragment_event_screen">
+        <action
+            android:id="@+id/action_eventScreenFragment_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_eventFilterScreenFragment"
+            app:destination="@id/eventFilterScreenFragment" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailsScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventDetailsScreenFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/fragment_event_details">
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_eventDetailsScreenFragment_to_updateDeleteClassifiedBottom"
+            app:destination="@id/updateDeleteClassifiedBottom" />
+        <action
+            android:id="@+id/action_eventDetailsScreenFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/updateDeleteClassifiedBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.UpdateDeleteClassifiedBottom"
+        android:label="fragment_update_delete_classified_bottom"
+        tools:layout="@layout/fragment_update_delete_classified_bottom">
+        <argument
+            android:name="addId"
+            app:argType="integer" />
+        <argument
+            android:name="isClassifiedUpdate"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_updateDeleteClassifiedBottom_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/selectClassifiedCategoryBottom2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.post_classified.SelectClassifiedCategoryBottom"
+        android:label="fragment_select_classified_category_bottom"
+        tools:layout="@layout/fragment_select_classified_category_bottom" />
+    <dialog
+        android:id="@+id/selectClassifiedSubCategoryBottom2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.classified.fragment.SelectClassifiedSubCategoryBottom"
+        android:label="fragment_select_classified_sub_category_bottom"
+        tools:layout="@layout/fragment_select_classified_sub_category_bottom" />
+    <fragment
+        android:id="@+id/eventFilterScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.EventFilterScreenFragment"
+        android:label="fragment_event_filter_screen"
+        tools:layout="@layout/fragment_event_filter_screen">
+        <action
+            android:id="@+id/action_eventFilterScreenFragment_to_eventScreenFragment"
+            app:destination="@id/eventScreenFragment"
+            app:popUpTo="@id/eventScreenFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_eventFilterScreenFragment_to_selectFilterEventCityBottom"
+            app:destination="@id/selectFilterEventCityBottom" />
+        <action
+            android:id="@+id/action_eventFilterScreenFragment_to_eventCategoryBottom2"
+            app:destination="@id/eventCategoryBottom2" />
+    </fragment>
+    <dialog
+        android:id="@+id/selectFilterEventCityBottom"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.fragment.SelectFilterEventCityBottom"
+        android:label="fragment_select_filter_event_city_bottom"
+        tools:layout="@layout/fragment_select_filter_event_city_bottom" />
+    <dialog
+        android:id="@+id/eventCategoryBottom2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.event.post_event.EventCategoryBottom"
+        android:label="fragment_event_category_bottom"
+        tools:layout="@layout/fragment_event_category_bottom" />
+    <fragment
+        android:id="@+id/advertisementDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.AdvertisementDetailsFragment"
+        android:label="fragment_advertisement_details"
+        tools:layout="@layout/fragment_advertisement_details">
+        <action
+            android:id="@+id/action_advertisementDetailsFragment_to_updateAndDeleteBottomFragment"
+            app:destination="@id/updateAndDeleteBottomFragment" />
+        <argument
+            android:name="advertiseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_advertisementDetailsFragment_to_advertiseWebviewFragment"
+            app:destination="@id/advertiseWebviewFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/updateAndDeleteBottomFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseUpdateDeleteFragment"
+        android:label="fragment_update_and_delete_bottom"
+        tools:layout="@layout/fragment_update_and_delete_bottom">
+        <argument
+            android:name="advertiseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_updateAndDeleteBottomFragment_to_postAdvertiseCheckout2"
+            app:destination="@id/postAdvertiseCheckout2" />
+    </dialog>
+    <fragment
+        android:id="@+id/postAdvertiseCheckout2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement.PostAdvertiseCheckoutFragment"
+        android:label="fragment_post_advertise_checkout"
+        tools:layout="@layout/fragment_post_advertise_checkout" />
+    <fragment
+        android:id="@+id/immigrationScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.ImmigrationScreenFragment"
+        android:label="fragment_immigartion_screen_frgament"
+        tools:layout="@layout/fragment_immigartion_screen_frgament">
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationCategoryBottomSheet"
+            app:destination="@id/immigrationCategoryBottomSheet" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationDetailsFragment"
+            app:destination="@id/immigrationDetailsFragment" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationFilterFragment"
+            app:destination="@id/immigrationFilterFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_postImmigrationFragment"
+            app:destination="@id/postImmigrationFragment" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_immigrationCenterDetails"
+            app:destination="@id/immigrationCenterDetails" />
+    </fragment>
+    <dialog
+        android:id="@+id/immigrationCategoryBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationCategoryBottomSheet"
+        android:label="fragment_immigration_category_bottom_sheet"
+        tools:layout="@layout/fragment_immigration_category_bottom_sheet">
+        <argument
+            android:name="screenName"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/immigrationDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment"
+        android:label="fragment_immigration_details_frgament"
+        tools:layout="@layout/fragment_immigration_details_frgament">
+        <argument
+            android:name="isFromAllDiscussionScreen"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/immigrationFilterFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationFilterFragment"
+        android:label="fragment_immigration_filter"
+        tools:layout="@layout/fragment_immigration_filter">
+        <action
+            android:id="@+id/action_immigrationFilterFragment_to_immigrationCategoryBottomSheet"
+            app:destination="@id/immigrationCategoryBottomSheet" />
+    </fragment>
+    <fragment
+        android:id="@+id/postImmigrationFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.post_immigration.PostImmigrationFragment"
+        android:label="fragment_post_immigration"
+        tools:layout="@layout/fragment_post_immigration">
+        <action
+            android:id="@+id/action_postImmigrationFragment_to_immigrationCategoryBottomSheet"
+            app:destination="@id/immigrationCategoryBottomSheet" />
+        <argument
+            android:name="isUpdateImmigration"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/advertiseWebviewFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseWebviewFragment"
+        android:label="fragment_advertise_webview"
+        tools:layout="@layout/fragment_advertise_webview">
+        <argument
+            android:name="advertiseurl"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/immigrationCenterDetails"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationCenterDetails"
+        android:label="fragment_immigration_center_details"
+        tools:layout="@layout/fragment_immigration_center_details">
+        <action
+            android:id="@+id/action_immigrationCenterDetails_to_immigrationInfoCenterBottomSheet"
+            app:destination="@id/immigrationInfoCenterBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/immigrationInfoCenterBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.immigration.fragment.ImmigrationInfoCenterBottomSheet"
+        android:label="fragment_immigration_info_center_bottom_sheet"
+        tools:layout="@layout/fragment_immigration_info_center_bottom_sheet" />
+    <fragment
+        android:id="@+id/jobScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragment"
+        android:label="fragment_job_screen"
+        tools:layout="@layout/fragment_job_screen">
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobProfileUploadFragment"
+            app:destination="@id/jobProfileUploadFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobDetailsFragment"
+        android:label="fragment_job_details"
+        tools:layout="@layout/fragment_job_details">
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_jobDetailsFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobProfileUploadFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobProfileUploadFragment"
+        android:label="fragment_upload_job_profile"
+        tools:layout="@layout/fragment_upload_job_profile">
+        <action
+            android:id="@+id/action_jobProfileUploadFragment_to_jobGenericBottomSheet"
+            app:destination="@id/jobGenericBottomSheet" />
+        <action
+            android:id="@+id/action_jobProfileUploadFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+        <argument
+            android:name="isUpdateProfile"
+            app:argType="boolean" />
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+    </fragment>
+    <dialog
+        android:id="@+id/jobGenericBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSeekerGenericBottomSheet"
+        android:label="fragment_job_generic_bottom_sheet"
+        tools:layout="@layout/fragment_job_generic_bottom_sheet">
+        <argument
+            android:name="selectionName"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/jobRecruiterScreenFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.JobRecruiterScreenFragment"
+        android:label="fragment_job_recruiter_screen"
+        tools:layout="@layout/fragment_job_recruiter_screen" />
+
+    <fragment
+        android:id="@+id/jobApplyFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobApplyFragment"
+        android:label="fragment_job_apply"
+        tools:layout="@layout/fragment_job_apply">
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_jobApplyFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/jobProfileUploadSuccessFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobProfileUploadSuccessFragment"
+        android:label="fragment_job_profile_upload_success"
+        tools:layout="@layout/fragment_job_profile_upload_success">
+        <argument
+            android:name="screenName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_jobProfileUploadSuccessFragment_to_jobScreenFragment"
+            app:destination="@id/jobScreenFragment"
+            app:popUpTo="@id/jobScreenFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" />
+
+
 </navigation>

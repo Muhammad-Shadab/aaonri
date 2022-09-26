@@ -9,7 +9,7 @@
     <item
         android:id="@+id/classifiedScreenFragment"
         android:icon="@drawable/ic_classified"
-        android:title="Classified" />
+        android:title="Classifieds" />
 
     <item
         android:id="@+id/shopScreenFragment"
@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/moreScreenFragment"
-        android:icon="@drawable/ic_more"
+        android:icon="@drawable/more_icon_"
         android:title="More" />
 
 </menu>

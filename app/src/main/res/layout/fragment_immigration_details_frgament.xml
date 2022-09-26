@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background_gradient"
+    tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationDetailsFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/discussionTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/discussionTitle"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/discussionTitle"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:maxLines="2"
+        android:text="B1 B2 Visitor Visa"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/immigrationNestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/top_rounded_corner_shape"
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discussionTitle">
+
+        <LinearLayout
+            android:id="@+id/discussionDetailsLl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/discussionNameTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="B1 B2 Visa Discussion"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/noOfReply"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/inner_radius_shadow"
+                            android:drawableLeft="@drawable/chat"
+                            android:drawablePadding="4dp"
+                            android:fontFamily="@font/sf_pro_bold"
+                            android:maxLines="1"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:text="25" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/postedByTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display_light"
+                        android:includeFontPadding="false"
+                        android:text="Posted by: Mannan Kumar on Mar 09, 2022"
+                        android:textColor="@color/immigaration_text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/discussionDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:includeFontPadding="false"
+                        android:text="How long can you stay in the US with a B1 B2 visa? Can B1 B2 visa holders apply for a green card?"
+                        android:textColor="@color/immigaration_text_color"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/allReplyRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                tools:listitem="@layout/immigration_reply_item" />
+
+            <TextView
+                android:id="@+id/viewAllComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/round_gray_shape"
+                android:fontFamily="@font/sf_pro_light_italic"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="View All Comments"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:id="@+id/postReplyEtLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/edit_text_shape_1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/postReplyEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Add Comment"
+                android:maxLines="4"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_2sdp" />
+
+            <ImageView
+                android:id="@+id/postReplyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/send_btn_shape"
+                android:backgroundTint="@color/greenBtnColor"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_8sdp"
+                android:src="@drawable/send_icon" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

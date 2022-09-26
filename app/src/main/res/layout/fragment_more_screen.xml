@@ -12,7 +12,7 @@
         android:id="@+id/registrationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="More"
         android:textColor="@color/white"
@@ -23,20 +23,127 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_22sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/profileInfoLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/profilePicCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardPreventCornerOverlap="false"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/_1sdp">
 
+                <ImageView
+                    android:id="@+id/profilePicIv"
+                    android:layout_width="@dimen/_34sdp"
+                    android:layout_height="@dimen/_34sdp"
+                    android:padding="@dimen/_1sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/profile_pic_placeholder" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Maulik gupta"
+                    android:textColor="@color/jobtxtcolor"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/useremailTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_light_italic"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="maulik.gupta@gmail.com"
+                    android:textColor="@color/jobtxtcolor"
+                    android:textSize="15sp"
+                    android:translationY="-4dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_23sdp"
+            android:background="#C9C9C9"
+            app:layout_constraintTop_toBottomOf="@id/profileInfoLl" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/servicesGridRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:numColumns="3"
+            android:paddingTop="@dimen/_15sdp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toTopOf="@+id/versionTv"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/versionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_12sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:text="Version: 1.0(1)"
+            android:textColor="#676767"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

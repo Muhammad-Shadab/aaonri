@@ -6,23 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.authentication.register.LocationDetailsFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/person"
-        android:translationY="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,10 +18,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/selectCountryOrigin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -49,7 +37,8 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_12sdp" />
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/selectCountryLocation"
@@ -57,30 +46,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_2sdp"
-                        android:fontFamily="@font/sf_pro_regular"
+                        android:fontFamily="@font/helvetica_regular"
+                        android:gravity="center_vertical"
                         android:hint="@string/select_country_of_origin"
                         android:lines="1"
                         android:maxLines="1"
-                        android:paddingStart="@dimen/_12sdp"
-                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:paddingStart="@dimen/_16sdp"
                         android:paddingEnd="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_6sdp"
                         android:textColor="@color/editTextColor"
                         android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="16sp"
+                        app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/cityLocationDetails"
+                    android:id="@+id/stateLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/city"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:hint="State of origin"
                     android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
@@ -90,18 +80,19 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/stateLocationDetails"
+                <EditText
+                    android:id="@+id/cityLocationDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:hint="@string/state"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:hint="City of origin"
+                    android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
@@ -110,8 +101,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp" />
-
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/selectCommunityEt"
@@ -121,26 +111,26 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
-                    android:fontFamily="@font/sf_pro_regular"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:gravity="center_vertical"
                     android:hint="@string/select_your_community"
                     android:lines="1"
                     android:maxLines="1"
+                    android:paddingVertical="@dimen/_4sdp"
                     android:paddingStart="@dimen/_16sdp"
-                    android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/selectedCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:visibility="gone"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_12sdp"
@@ -166,6 +156,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/sf_pro_semi_bold"
                                 android:text="@string/your_selected_community_3"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12sdp" />
@@ -209,12 +200,23 @@
                     android:background="@drawable/green_btn_shape"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:minHeight="0dp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:text="@string/next"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:src="@drawable/person" />
+
             </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

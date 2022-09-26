@@ -12,7 +12,7 @@
         android:id="@+id/registrationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:text="Shop"
         android:textColor="@color/white"
@@ -23,10 +23,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
@@ -34,9 +35,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="-50dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
+        <WebView
+            android:id = "@+id/shopWithUsWebView"
+            android:layout_width = "match_parent"
 
-    </LinearLayout>
+             android:paddingBottom="50dp"
+             android:layout_margin="@dimen/_4sdp"
+            android:layout_height = "match_parent" />
+        <ProgressBar
+            android:id="@+id/progresShopping"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

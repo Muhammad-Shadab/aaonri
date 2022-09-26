@@ -5,21 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
-import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
-import com.aaonri.app.data.authentication.register.model.add_user.RegisterationResponse
-import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
-import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
+import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
+import com.aaonri.app.data.authentication.register.model.add_user.*
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
-import com.aaonri.app.data.authentication.register.model.zip_code.ZipCodeResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
-import com.example.newsapp.utils.Resource
+import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -30,28 +22,34 @@ class RegistrationViewModel
     private val repository: RegistrationRepository,
 ) : ViewModel() {
 
-    private var mutableServices: MutableStateFlow<Resource<ServicesResponse>> =
-        MutableStateFlow(Resource.Empty())
-    val service: StateFlow<Resource<ServicesResponse>> = mutableServices
+    var service: MutableLiveData<Resource<ServicesResponse>> = MutableLiveData()
+
+    val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
+        MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()
 
     val loginData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
 
-    val registerData: MutableLiveData<Resource<RegisterationResponse>> = MutableLiveData()
+    val registerData: MutableLiveData<Resource<RegistrationResponse>> = MutableLiveData()
 
+    val updateUserData: MutableLiveData<Resource<RegistrationResponse>> = MutableLiveData()
 
     fun getServices() = viewModelScope.launch {
-        mutableServices.value = Resource.Loading()
-        repository.getServicesInterest().catch { e ->
-            mutableServices.value = Resource.Error(e.localizedMessage)
-        }.collect { response ->
-            mutableServices.value = Resource.Success(response)
-        }
+        service.postValue(Resource.Loading())
+        val response = repository.getServicesInterest()
+        service.postValue(handleServiceResponse(response))
     }
 
-
+    private fun handleServiceResponse(response: Response<ServicesResponse>): Resource<ServicesResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
 
     fun loginUser(login: Login) = viewModelScope.launch {
@@ -90,7 +88,28 @@ class RegistrationViewModel
         registerData.postValue(handleRegisterResponse(response))
     }
 
-    private fun handleRegisterResponse(response: Response<RegisterationResponse>): Resource<RegisterationResponse>? {
+    fun updateProfile(updateProfileRequest: UpdateProfileRequest) = viewModelScope.launch {
+        updateUserData.postValue(Resource.Loading())
+        val response = repository.updateProfile(updateProfileRequest)
+        updateUserData.postValue(handleRegisterResponse(response))
+    }
+
+    private fun handleRegisterResponse(response: Response<RegistrationResponse>): Resource<RegistrationResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun findByEmail(email: String) = viewModelScope.launch {
+        findByEmailData.postValue(Resource.Loading())
+        val response = repository.findByEmail(email)
+        findByEmailData.postValue(handleClassifiedSellerNameResponse(response))
+    }
+
+    private fun handleClassifiedSellerNameResponse(response: Response<FindByEmailDetailResponse>): Resource<FindByEmailDetailResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
