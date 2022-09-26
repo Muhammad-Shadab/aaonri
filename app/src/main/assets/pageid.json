@@ -1,0 +1,40 @@
+{"AdvertisePageInfo":[{
+  "pageId": 1,
+  "pageCode": "HM",
+  "pageName": "Home",
+  "imageName": "HomePage Step 01.png",
+  "title": "Home Page (Website) | Home Screen (Mobile)",
+  "description": "The most viewed area of our platform. Please note we encourage only long term ads to be part of this section",
+  "createdOn": "2020-11-11T13:25:32.000+0000",
+  "active": true
+},
+  {
+    "pageId": 2,
+    "pageCode": "DB",
+    "pageName": "Dashboard",
+    "imageName": "Dashboard Step 01.png",
+    "title": "Dashboard (Website) | Home Screen (Mobile)",
+    "description": "Your advertisement will be displayed on users \"Personal\" Dashboard\" section on the website and Home Screen on the Mobile app, which provides more visibility of your ad to the users when they login to aaonri.",
+    "createdOn": "2020-11-11T13:26:00.000+0000",
+    "active": true
+  },
+  {
+    "pageId": 3,
+    "pageCode": "LP",
+    "pageName": "Landing Page",
+    "imageName": "Landing Page Step 01.png",
+    "title": "Landing Page (Website) | Listing Page (Mobile)",
+    "description": "Your ad will be displayed on respective landing page on the Website and listing page on the Mobile app of different available services like Classifieds, Immigration, Event etc.",
+    "createdOn": "2020-11-11T13:26:30.000+0000",
+    "active": true
+  },
+  {
+    "pageId": 4,
+    "pageCode": "PD",
+    "pageName": "Product Detail Page",
+    "imageName": "Product Details Step 01.png",
+    "title": "Product Detail Page",
+    "description": "Your ad will be displayed on a Product Detail or Event detail pages. Use this section to promote your products advertisements.",
+    "createdOn": "2020-11-11T13:27:40.000+0000",
+    "active": true
+  }]}
