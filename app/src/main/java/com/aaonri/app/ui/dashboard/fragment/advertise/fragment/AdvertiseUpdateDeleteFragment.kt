@@ -54,13 +54,13 @@ class AdvertiseUpdateDeleteFragment : BottomSheetDialogFragment() {
                 //
             }
 
-            /*renevAdvrstBtn.setOnClickListener {
+            renevAdvrstBtn.setOnClickListener {
                 dismiss()
                 val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
                 intent.putExtra("isRenewAdvertise", true)
                 intent.putExtra("advertiseId", args.advertiseId)
                 startActivityForResult(intent, 4)
-            }*/
+            }
 
             updateAdvrst.setOnClickListener {
                 dismiss()
