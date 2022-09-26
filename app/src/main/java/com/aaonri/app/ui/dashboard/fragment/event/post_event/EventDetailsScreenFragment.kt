@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
@@ -62,10 +61,9 @@ class EventDetailsScreenFragment : Fragment() {
     val args: EventDetailsScreenFragmentArgs by navArgs()
     val postEventViewModel: PostEventViewModel by activityViewModels()
     val eventViewModel: EventViewModel by activityViewModels()
-    val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     var adsGenericAdapter: AdsGenericAdapter? = null
     var eventPremiumLink: String = ""
-    var isGuestUser = false
+    var isUserLogin: Boolean? = null
     var startDate = ""
     var endDate = ""
     var eventTitleName = ""
@@ -87,7 +85,8 @@ class EventDetailsScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
-
+        isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         postEventViewModel.getEventDetails(args.eventId)
 
         adsGenericAdapter = AdsGenericAdapter()
@@ -227,7 +226,7 @@ class EventDetailsScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
             interestedBtn.setOnClickListener {
-                if (!isGuestUser) {
+                if (isUserLogin == true) {
                     eventViewModel.setCallEventApiAfterDelete(true)
                     val email =
                         context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
@@ -239,11 +238,13 @@ class EventDetailsScreenFragment : Fragment() {
                             service = "Event"
                         )
                     )
+                } else {
+                    showSnckBar()
                 }
             }
 
             goingBtn.setOnClickListener {
-                if (!isGuestUser) {
+                if (isUserLogin == true) {
                     eventViewModel.setCallEventApiAfterDelete(true)
                     val email =
                         context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
@@ -254,6 +255,8 @@ class EventDetailsScreenFragment : Fragment() {
                             visiting = isVisiting
                         )
                     )
+                } else {
+                    showSnckBar()
                 }
             }
             calendarBtn.setOnClickListener {
@@ -326,9 +329,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
         }
 
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-            isGuestUser = it
-        }
+
 
         postEventViewModel.eventuserVisitinginfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -1164,5 +1165,24 @@ class EventDetailsScreenFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    fun showSnckBar() {
+        val snackbar =
+            binding?.let {
+                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
+                    .setActionTextColor(
+                        resources.getColor(
+                            R.color
+                                .lightRedColor
+                        )
+                    )
+                    .setAction(
+                        "Login"
+                    ) {
+                        activity?.finish()
+                    }
+            }
+        snackbar?.show()
     }
 }

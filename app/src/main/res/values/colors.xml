@@ -36,6 +36,7 @@
     <color name="orangeColor">#FFA500</color>
     <color name="redcolor">#FD1100</color>
     <color name="blackColor1">#484848</color>
-
+    <color name="purpleColor">#800080</color>
+    <color name="lightRedColor">#CEFD1100</color>
 
 </resources>

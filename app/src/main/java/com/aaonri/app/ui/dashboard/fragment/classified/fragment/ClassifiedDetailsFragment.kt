@@ -49,6 +49,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.math.RoundingMode
@@ -66,7 +67,7 @@ class ClassifiedDetailsFragment : Fragment() {
     val args: ClassifiedDetailsFragmentArgs by navArgs()
     var adsGenericAdapter: AdsGenericAdapter? = null
     var isClassifiedLike = false
-    var isGuestUser = false
+    var isUserLogin:Boolean?= null
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
@@ -85,6 +86,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
         binding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
+        isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -147,7 +150,6 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
             })
-
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
@@ -182,9 +184,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             likeDislikeBtn.setOnClickListener {
-                if (isGuestUser) {
-
-                } else {
+                if (isUserLogin==true) {
                     isClassifiedLike = !isClassifiedLike
                     if (isClassifiedLike) {
                         likeDislikeBtn.load(R.drawable.heart)
@@ -193,8 +193,9 @@ class ClassifiedDetailsFragment : Fragment() {
                         likeDislikeBtn.load(R.drawable.heart_grey)
                         callLikeDislikeApi()
                     }
+                } else {
+                   showSnckBar()
                 }
-
             }
 
             moreClassifiedOption.setOnClickListener {
@@ -260,7 +261,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         setClassifiedDetails(it.userAds)
                         ClassifiedStaticData.updateAddDetails(it)
                     }
-
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -573,18 +573,16 @@ class ClassifiedDetailsFragment : Fragment() {
             binding?.emailTv?.text = "Phone"
             binding?.classifiedSellerEmail?.text = data.adPhone
         }
-        dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-            if (it) {
-                isGuestUser = true
+
+            if (isUserLogin==false) {
                 binding?.sellerInformationLayout?.visibility = View.GONE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
                 binding?.loginToViewSellerInfo?.visibility = View.VISIBLE
             } else {
-                isGuestUser = false
                 binding?.sellerInformationLayout?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
-        }
+
 
         classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -913,6 +911,24 @@ class ClassifiedDetailsFragment : Fragment() {
 
 
 
+    }
+    fun showSnckBar() {
+        val snackbar =
+            binding?.let {
+                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
+                    .setActionTextColor(
+                        resources.getColor(
+                            R.color
+                                .lightRedColor
+                        )
+                    )
+                    .setAction(
+                        "Login"
+                    ) {
+                        activity?.finish()
+                    }
+            }
+        snackbar?.show()
     }
 
 }

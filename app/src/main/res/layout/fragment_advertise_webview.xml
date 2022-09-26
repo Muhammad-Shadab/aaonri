@@ -11,17 +11,51 @@
         android:id = "@+id/advertiseWebView"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent" />
-     <ImageView
-         android:id="@+id/closeAdvertiseBtn"
-         android:layout_width="@dimen/_30sdp"
-         android:layout_height="@dimen/_30sdp"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintLeft_toLeftOf="parent"
-         android:layout_marginTop="@dimen/_30sdp"
-         android:layout_marginLeft="@dimen/_20sdp"
-         android:backgroundTint="@color/black"
-         android:background="@drawable/ic_close"
-      />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:innerRadius="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/closeAdvertiseBtn"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="start"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:innerRadius="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_close" />
+    </androidx.cardview.widget.CardView>
     <ProgressBar
         android:id="@+id/progresShopping"
         android:layout_width="wrap_content"
