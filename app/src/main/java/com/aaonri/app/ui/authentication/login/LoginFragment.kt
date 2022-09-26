@@ -397,7 +397,6 @@ class LoginFragment : Fragment() {
                 override fun onCancel() {
                     //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
                     binding?.progressBarCommunityBottom?.visibility = View.GONE
-
                 }
 
                 override fun onError(error: FacebookException) {
