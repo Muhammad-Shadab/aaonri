@@ -156,7 +156,7 @@ class HomeScreenFragment : Fragment() {
             findNavController().navigate(action)
         }*/
 
-        /** Dialog for edit/update profile and logout **/
+        /** Dialog for edit/update profile and logout user **/
         dialog.setContentView(R.layout.update_profile_dialog)
         dialog.window?.setBackgroundDrawable(
             ContextCompat.getDrawable(

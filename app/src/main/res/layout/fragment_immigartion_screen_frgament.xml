@@ -51,11 +51,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="@id/immigrationText"
-        app:layout_constraintEnd_toStartOf="@+id/bellIconIv"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/immigrationText"
         app:strokeColor="@color/white"
         app:strokeWidth="@dimen/_1sdp">
@@ -69,7 +69,7 @@
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/bellIconIv"
         android:layout_width="@dimen/_28sdp"
         android:layout_height="@dimen/_28sdp"
@@ -78,7 +78,7 @@
         android:src="@drawable/ic_bell_notification"
         app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/profilePicCv" />
+        app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/numberOfSelectedFilterCv"

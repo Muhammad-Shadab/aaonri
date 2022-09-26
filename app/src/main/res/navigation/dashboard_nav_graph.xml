@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_moreScreenFragment_to_immigrationScreenFragment"
             app:destination="@id/immigrationScreenFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedFilterFragmentBottom"

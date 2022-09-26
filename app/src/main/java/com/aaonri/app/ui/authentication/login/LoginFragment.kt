@@ -206,6 +206,11 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.USER_NAME, "$it ${response.data.user.lastName}")
                         }
 
+                        response.data?.user?.city?.let {
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_CITY, it)
+                        }
+
                         /*response.data?.user?.interests?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_INTERESTED_SERVICES, it)

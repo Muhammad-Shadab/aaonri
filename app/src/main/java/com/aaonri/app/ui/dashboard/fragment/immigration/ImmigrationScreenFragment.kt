@@ -229,7 +229,7 @@ class ImmigrationScreenFragment : Fragment() {
             dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
                 if (it) {
                     profilePicIv.visibility = View.GONE
-                    bellIconIv.visibility = View.GONE
+                    //bellIconIv.visibility = View.GONE
                     floatingActionBtnImmigration.visibility = View.GONE
                     immigrationScreenTabLayout.visibility = View.GONE
                     immigrationScreenViewPager.setPadding(0, 40, 0, 0)
