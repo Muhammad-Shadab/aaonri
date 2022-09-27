@@ -460,7 +460,6 @@ class ServicesCategoryFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
-                else -> {}
             }
         }
     }

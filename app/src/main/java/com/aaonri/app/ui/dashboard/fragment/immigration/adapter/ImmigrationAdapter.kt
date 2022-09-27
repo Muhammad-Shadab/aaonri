@@ -65,8 +65,6 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
                     )
                 )
             }
-
-
             else -> throw IllegalArgumentException("Invalid ViewType")
         }
     }

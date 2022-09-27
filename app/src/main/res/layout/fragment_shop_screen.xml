@@ -7,7 +7,6 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.login.LoginFragment">
 
-
     <TextView
         android:id="@+id/registrationText"
         android:layout_width="wrap_content"
@@ -23,33 +22,81 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/registrationText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/registrationText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profilePicCv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintBottom_toBottomOf="@id/registrationText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/registrationText"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <ImageView
+            android:id="@+id/profilePicIv"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_1sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile_pic_placeholder" />
+    </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="-50dp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-50dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
-        <WebView
-            android:id = "@+id/shopWithUsWebView"
-            android:layout_width = "match_parent"
 
-             android:paddingBottom="50dp"
-             android:layout_margin="@dimen/_4sdp"
-            android:layout_height = "match_parent" />
+        <WebView
+            android:id="@+id/shopWithUsWebView"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_4sdp"
+            android:paddingBottom="50dp" />
+
         <ProgressBar
             android:id="@+id/progresShopping"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:visibility="gone" />
     </com.google.android.material.card.MaterialCardView>
 
 

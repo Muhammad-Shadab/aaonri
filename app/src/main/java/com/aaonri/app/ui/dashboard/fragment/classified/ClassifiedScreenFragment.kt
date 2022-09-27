@@ -132,8 +132,10 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
             }
 
-            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
 
             searchViewIcon.setOnClickListener {
                 if (searchView.text.toString().isNotEmpty()) {

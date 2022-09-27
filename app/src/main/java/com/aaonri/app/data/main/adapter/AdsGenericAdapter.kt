@@ -74,7 +74,7 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
     }
     override fun getItemViewType(pos: Int): Int {
         val position:Int
-        if(items.size>0) {
+        if(items.size > 0) {
             position = pos % items.size
             return when (items[position].advertisementPageLocation.type) {
                 "TXTONLY" -> R.layout.text_only_item

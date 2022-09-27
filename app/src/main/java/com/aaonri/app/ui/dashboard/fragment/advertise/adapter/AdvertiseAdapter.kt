@@ -40,10 +40,17 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
                     .parse(data[position].toDate.split("T").get(0))
             )
             advertiseLinkTv.text = data[position].advertisementDetails.url
-            context?.let { it1 ->
-                Glide.with(it1)
-                    .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${data[position].advertisementDetails.adImage}")
-                    .into(advertisementImage)
+            if (data[position].advertisementDetails.adImage != null) {
+                context?.let { it1 ->
+                    Glide.with(it1)
+                        .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${data[position].advertisementDetails.adImage}")
+                        .into(advertisementImage)
+                }
+                imageFl.visibility = View.INVISIBLE
+                advertisementImage.visibility = View.VISIBLE
+            } else {
+                advertisementImage.visibility = View.GONE
+                imageFl.visibility = View.VISIBLE
             }
 
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)

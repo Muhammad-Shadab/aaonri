@@ -12,6 +12,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.databinding.FragmentShopScreenBinding
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 class ShopScreenFragment : Fragment() {
@@ -20,10 +24,22 @@ class ShopScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
+
         binding = FragmentShopScreenBinding.inflate(inflater, container, false)
         binding?.apply {
-            progresShopping?.visibility = View.VISIBLE
+            progresShopping.visibility = View.VISIBLE
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
+            navigateBack.setOnClickListener {
+                if (shopWithUsWebView.canGoBack()) {
+                    shopWithUsWebView.goBack()
+                }
+            }
             startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
             requireActivity()
                 .onBackPressedDispatcher
@@ -62,9 +78,7 @@ class ShopScreenFragment : Fragment() {
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-
                 binding?.progresShopping?.visibility = View.GONE
-
             }
 
             override fun onReceivedError(
@@ -73,10 +87,7 @@ class ShopScreenFragment : Fragment() {
                 description: String,
                 failingUrl: String
             ) {
-
                 binding?.progresShopping?.visibility = View.GONE
-//                Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
-//                    .show()
             }
         }
 

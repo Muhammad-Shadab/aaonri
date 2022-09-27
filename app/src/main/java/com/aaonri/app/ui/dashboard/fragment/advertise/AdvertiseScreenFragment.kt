@@ -31,14 +31,17 @@ import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
 class AdvertiseScreenFragment : Fragment() {
     var binding: FragmentAdvertiseScreenBinding? = null
-    var advertiseAdapter: AdvertiseAdapter? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
+    var advertiseAdapter: AdvertiseAdapter? = null
+    var isAdvertiseExpired: Boolean? = null
 
     //var advertiseIdList = mutableListOf<Int>()
     var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
@@ -72,10 +75,37 @@ class AdvertiseScreenFragment : Fragment() {
         ss.setSpan(clickableSpan1, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         advertiseAdapter = AdvertiseAdapter { selectedService, isMoreMenuBtnClicked ->
+
+            var d1 = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                .format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        .parse(selectedService.toDate.split("T")[0])
+                )
+
+            val d2 = getCalculatedDate("MM-dd-yyyy", 0)
+
+            val sdf = SimpleDateFormat("MM-dd-yyyy")
+
+            val firstDate: Date = sdf.parse(d1)
+            val secondDate: Date = sdf.parse(d2)
+
+            val cmp = firstDate.compareTo(secondDate)
+            //val cmp1 = firstDate.compareTo(current)
+
+            if (cmp > 0) {
+                isAdvertiseExpired = false
+            } else {
+                /**Current date is greater then advertise date**/
+                /** Advertise Expired **/
+                isAdvertiseExpired = true
+            }
+
             if (isMoreMenuBtnClicked) {
                 val action =
                     AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToUpdateAndDeleteBottomFragment(
-                        selectedService.advertisementId
+                        selectedService.advertisementId,
+                        true,
+                        isAdvertiseExpired!!
                     )
                 findNavController().navigate(action)
             } else {
@@ -162,17 +192,14 @@ class AdvertiseScreenFragment : Fragment() {
 
         }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
+            isGuestUser = it
             if (it) {
-                isGuestUser = true
-
                 binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
                 binding?.yourText?.visibility = View.GONE
                 binding?.postingofAdTv?.visibility = View.GONE
                 binding?.recyclerViewAdvertise?.visibility = View.GONE
                 binding?.floatingActionBtnEvents?.visibility = View.GONE
-
             } else {
-                isGuestUser = false
                 binding?.loginToViewAdvertisement?.visibility = View.GONE
                 binding?.yourText?.visibility = View.VISIBLE
                 binding?.postingofAdTv?.visibility = View.VISIBLE
@@ -191,7 +218,7 @@ class AdvertiseScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
 
                     binding?.yourText?.text =
-                        "Your Avertisement(${response.data?.size})"
+                        "Your Advertisement(${response.data?.size})"
 
                     if (response.data?.isEmpty() == true) {
                         binding?.noResultFound?.visibility = View.VISIBLE
@@ -248,7 +275,7 @@ class AdvertiseScreenFragment : Fragment() {
         }
 
         advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
-            if (response != null){
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
 
@@ -304,6 +331,13 @@ class AdvertiseScreenFragment : Fragment() {
             advertiseAdapter?.setData(advertisementList)
             binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
+    }
+
+    private fun getCalculatedDate(dateFormat: String?, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 
     override fun onDestroyView() {

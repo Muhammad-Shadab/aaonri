@@ -470,6 +470,11 @@ class HomeScreenFragment : Fragment() {
                 dialog.show()
             }
 
+            searchView.setOnClickListener {
+                val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
+                findNavController().navigate(action)
+            }
+
             editProfileBtn.setOnClickListener {
                 val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()

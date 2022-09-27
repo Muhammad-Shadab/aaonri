@@ -26,8 +26,8 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         isCancelable = false
+
         binding =
             FragmentSelectClassifiedCategoryBottomBinding.inflate(inflater, container, false)
 

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.event.model.EventCategoryResponseItem
 import com.aaonri.app.databinding.CategoryCardItemBinding
-import com.aaonri.app.databinding.FilterCardViewItemBinding
 
 class EventCategoryAdapter(private var selectedCategory: ((value: EventCategoryResponseItem) -> Unit)) :
     RecyclerView.Adapter<EventCategoryAdapter.EventCategoryViewHolder>() {

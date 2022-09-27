@@ -24,12 +24,36 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/_12sdp">
 
+            <FrameLayout
+                android:id="@+id/imageFl"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="#ebebeb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/placeholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#ebebeb"
+                    android:src="@drawable/small_image_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </FrameLayout>
+
             <ImageView
                 android:id="@+id/advertisementImage"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:background="#ebebeb"
-                android:src="@drawable/ic_image_placeholder"
+                android:scaleType="fitXY"
+                android:src="@drawable/small_image_placeholder"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +71,7 @@
                 android:text="Yoga &amp; Fitness Classes"
                 android:textColor="#333333"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/advertisementImage" />
+                app:layout_constraintTop_toBottomOf="@+id/imageFl" />
 
             <TextView
                 android:id="@+id/advertiseLocationTv"

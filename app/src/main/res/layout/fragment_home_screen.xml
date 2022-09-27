@@ -84,28 +84,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
 
-    <EditText
+    <TextView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/edit_text_shape"
+        android:drawableRight="@drawable/ic_icon_search"
+        android:fontFamily="@font/helvetica_regular"
+        android:gravity="center_vertical"
+        android:hint="@string/what_are_you_looking_for"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_6sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:textColor="@color/editTextColor"
+        android:textColorHint="@color/hintColor"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeTv" />
+
+    <!--<TextView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/edit_text_shape"
-        android:clickable="true"
         android:drawableRight="@drawable/ic_icon_search"
-        android:focusable="true"
         android:hint="@string/what_are_you_looking_for"
-        android:imeOptions="actionDone"
-        android:inputType="text"
         android:maxLines="1"
-        android:paddingVertical="@dimen/_6sdp"
         android:paddingStart="@dimen/_16sdp"
+        android:paddingTop="@dimen/_6sdp"
         android:paddingEnd="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_4sdp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTv" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTv" />-->
 
 
     <com.google.android.material.card.MaterialCardView

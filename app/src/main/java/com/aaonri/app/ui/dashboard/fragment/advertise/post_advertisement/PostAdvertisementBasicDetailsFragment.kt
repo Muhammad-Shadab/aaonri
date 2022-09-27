@@ -526,7 +526,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
             }
 
-            advertiseDescEt.fromHtml(advertiseData?.advertisementDetails?.adDescription)
+            advertiseDescEt.fromHtml(if (advertiseData?.advertisementDetails?.adDescription != null) advertiseData.advertisementDetails.adDescription else "")
             description = advertiseData?.advertisementDetails?.adDescription
         }
     }

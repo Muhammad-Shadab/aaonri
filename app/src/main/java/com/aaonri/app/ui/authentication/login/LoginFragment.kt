@@ -185,32 +185,6 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     } else {
-                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                            ?.set(Constant.IS_USER_LOGIN, true)
-
-                        response.data?.user?.profilePic?.let {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(
-                                    Constant.USER_PROFILE_PIC,
-                                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
-                                )
-                        }
-
-                        response.data?.user?.emailId?.let {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(Constant.USER_EMAIL, it)
-                        }
-
-                        response.data?.user?.firstName?.let {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(Constant.USER_NAME, "$it ${response.data.user.lastName}")
-                        }
-
-                        response.data?.user?.city?.let {
-                            context?.let { it1 -> PreferenceManager<String>(it1) }
-                                ?.set(Constant.USER_CITY, it)
-                        }
-
                         /*response.data?.user?.interests?.let {
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_INTERESTED_SERVICES, it)
@@ -244,10 +218,50 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.USER_ZIP_CODE, response.data.user.zipcode)
                         }*/
 
-                        if (response.data?.massage != null) {
-                            val intent = Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent)
-                            activity?.finish()
+                        if (response.data?.user != null) {
+                            if (response.data.user.userFlags[0].flagStatus) {
+
+                                context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                                    ?.set(Constant.IS_USER_LOGIN, true)
+
+                                response.data.user.profilePic.let {
+                                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(
+                                            Constant.USER_PROFILE_PIC,
+                                            "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                                        )
+                                }
+
+                                response.data.user.emailId.let {
+                                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(Constant.USER_EMAIL, it)
+                                }
+
+                                response.data.user.firstName.let {
+                                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(
+                                            Constant.USER_NAME,
+                                            "$it ${response.data.user.lastName}"
+                                        )
+                                }
+                                response.data.user.city.let {
+                                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(Constant.USER_CITY, it)
+                                }
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                startActivity(intent)
+                                activity?.finish()
+                            } else {
+                                context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                                    ?.set(Constant.IS_USER_LOGIN, false)
+
+                                activity?.let { it1 ->
+                                    Snackbar.make(
+                                        it1.findViewById(android.R.id.content),
+                                        "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                         } else {
                             context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                                 ?.set(Constant.IS_USER_LOGIN, false)
@@ -255,7 +269,7 @@ class LoginFragment : Fragment() {
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
-                                    "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                    "${response.data?.massage}", Snackbar.LENGTH_LONG
                                 ).show()
                             }
                         }

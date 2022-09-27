@@ -41,20 +41,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         binding = FragmentPostAdvertiseCheckoutBinding.inflate(inflater, container, false)
 
         val calender = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy")
         val date = dateFormat.format(calender.time)
 
         binding?.apply {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_CHECKOUT)
 
-            startdDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                    .parse(date)
-            )
-            endDateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyy").format(
-                DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                    .parse(getCalculatedDate("MM/dd/yyyy", 7))
-            )
+            startdDateTv.text = getCalculatedDate("MM-dd-yyyy", 0)
+            endDateTv.text = getCalculatedDate("MM-dd-yyyy", 7)
 
             checkoutBtn.setOnClickListener {
                 postAdvertiseViewModel.apply {

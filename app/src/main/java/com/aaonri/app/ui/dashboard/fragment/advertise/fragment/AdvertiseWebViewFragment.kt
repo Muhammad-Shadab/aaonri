@@ -8,58 +8,60 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.aaonri.app.BuildConfig
+import androidx.navigation.fragment.navArgs
 import com.aaonri.app.databinding.FragmentAdvertiseWebviewBinding
 
 
-class AdvertiseWebviewFragment : Fragment() {
+class AdvertiseWebViewFragment : Fragment() {
     var binding: FragmentAdvertiseWebviewBinding? = null
+    val args: AdvertiseWebViewFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentAdvertiseWebviewBinding.inflate(inflater, container, false)
-        var url = arguments?.let { AdvertiseWebviewFragmentArgs.fromBundle(it).advertiseurl }
         binding?.apply {
-            progresShopping?.visibility = View.VISIBLE
 
-            if (url != null) {
-                startWebView(url)
+            progressBar.visibility = View.VISIBLE
+            startWebView(args.advertiseurl)
+
+            closeWebViewBtn.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            navigateBack.setOnClickListener {
+                if (advertiseWebView.canGoBack()) {
+                    advertiseWebView.goBack()
+                } else {
+                    findNavController().navigateUp()
+                }
+            }
+
+            navigateForward.setOnClickListener {
+                if (advertiseWebView.canGoForward()) {
+                    advertiseWebView.goForward()
+                }
             }
 
             requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
-                        if (binding?.advertiseWebView?.canGoBack() == true) {
-                            binding?.advertiseWebView?.goBack()
-
-                        }else{
+                        if (advertiseWebView.canGoBack()) {
+                            advertiseWebView.goBack()
+                        } else {
                             findNavController().navigateUp()
                         }
                     }
                 })
 
-            closeAdvertiseBtn.setOnClickListener {
-                findNavController().navigateUp()
-            }
-            navigateBack.setOnClickListener{
-                if (binding?.advertiseWebView?.canGoBack() == true) {
-                    binding?.advertiseWebView?.goBack()
-
-                }else{
-                    findNavController().navigateUp()
-                }
-            }
-
         }
         return binding?.root
     }
+
     private fun startWebView(url: String) {
         val settings: WebSettings? = binding?.advertiseWebView?.getSettings()
         settings?.javaScriptEnabled = true
@@ -77,7 +79,7 @@ class AdvertiseWebviewFragment : Fragment() {
         binding?.advertiseWebView?.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
         binding?.advertiseWebView?.settings?.useWideViewPort = true
         binding?.advertiseWebView?.settings?.loadWithOverviewMode = true
-        binding?.progresShopping?.visibility = View.VISIBLE
+        binding?.progressBar?.visibility = View.VISIBLE
         binding?.advertiseWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
@@ -85,9 +87,7 @@ class AdvertiseWebviewFragment : Fragment() {
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-
-                binding?.progresShopping?.visibility = View.GONE
-
+                binding?.progressBar?.visibility = View.GONE
             }
 
             override fun onReceivedError(
@@ -96,16 +96,13 @@ class AdvertiseWebviewFragment : Fragment() {
                 description: String,
                 failingUrl: String
             ) {
-
-                binding?.progresShopping?.visibility = View.GONE
-//                Toast.makeText(context, "Error:$description", Toast.LENGTH_SHORT)
-//                    .show()
+                binding?.progressBar?.visibility = View.GONE
             }
         }
 
-
         binding?.advertiseWebView?.loadUrl(url)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

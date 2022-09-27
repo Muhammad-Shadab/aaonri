@@ -98,8 +98,15 @@ class RegistrationActivity : BaseActivity() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+
+        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(Constant.GMAIL_FIRST_NAME, "")
+        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(Constant.GMAIL_LAST_NAME, "")
+
     }
 }

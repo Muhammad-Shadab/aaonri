@@ -21,7 +21,9 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @AndroidEntryPoint
 class AdvertisementDetailsFragment : Fragment() {
@@ -29,6 +31,7 @@ class AdvertisementDetailsFragment : Fragment() {
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val args: AdvertisementDetailsFragmentArgs by navArgs()
     var isAdApproved: Boolean? = null
+    var isAdvertiseExpired: Boolean? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -48,7 +51,9 @@ class AdvertisementDetailsFragment : Fragment() {
             moreClassifiedOption.setOnClickListener {
                 val action =
                     AdvertisementDetailsFragmentDirections.actionAdvertisementDetailsFragmentToUpdateAndDeleteBottomFragment(
-                        args.advertiseId
+                        args.advertiseId,
+                        false,
+                        if (isAdvertiseExpired != null) isAdvertiseExpired!! else false
                     )
                 findNavController().navigate(action)
             }
@@ -62,21 +67,18 @@ class AdvertisementDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     AdvertiseStaticData.updateAdvertiseDetails(response.data)
-
                     setData(response.data)
-
                     binding?.classifiedDetailsBottom?.visibility = View.VISIBLE
                     binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                 }
-                else -> {}
             }
         }
 
         advertiseViewModel.cancelAdvertiseData.observe(viewLifecycleOwner) { response ->
-            if (response != null){
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
 
@@ -110,6 +112,30 @@ class AdvertisementDetailsFragment : Fragment() {
         val vasCodes = mutableListOf<String>()
 
         isAdApproved = data?.approved
+
+        var d1 = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+            .format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .parse(data?.toDate?.split("T")?.get(0) ?: "")
+            )
+
+        val d2 = getCalculatedDate("MM-dd-yyyy", 0)
+
+        val sdf = SimpleDateFormat("MM-dd-yyyy")
+
+        val firstDate: Date = sdf.parse(d1)
+        val secondDate: Date = sdf.parse(d2)
+
+        val cmp = firstDate.compareTo(secondDate)
+        //val cmp1 = firstDate.compareTo(current)
+
+        if (cmp > 0) {
+            isAdvertiseExpired = false
+        } else {
+            /**Current date is greater then advertise date**/
+            /** Advertise Expired **/
+            isAdvertiseExpired = true
+        }
 
         if (isAdApproved == true) {
             binding?.moreClassifiedOption?.visibility = View.GONE
@@ -167,8 +193,6 @@ class AdvertisementDetailsFragment : Fragment() {
                     ).show()
                 }
             }
-
-
         }
 
 
@@ -232,7 +256,6 @@ class AdvertisementDetailsFragment : Fragment() {
         binding?.companyLocationTv?.text = data?.advertisementDetails?.location
         binding?.companyAdTitleTv?.text = data?.advertisementDetails?.adTitle
         if (data?.approved == true) {
-
             binding?.verifiedTv?.visibility = View.VISIBLE
             binding?.pendingTv?.visibility = View.GONE
         } else {
@@ -250,8 +273,14 @@ class AdvertisementDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         advertiseViewModel.advertiseDetailsData.value = null
-        advertiseViewModel.cancelAdvertiseData.value = null
         binding = null
+    }
+
+    private fun getCalculatedDate(dateFormat: String?, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 
 }
