@@ -267,7 +267,8 @@ class ImmigrationScreenFragment : Fragment() {
             if (it) {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment(
-                        true
+                        true,
+                        0
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setNavigateFromAllImmigrationToDetailScreen(false)
@@ -290,7 +291,8 @@ class ImmigrationScreenFragment : Fragment() {
             if (it) {
                 val action =
                     ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToImmigrationDetailsFragment(
-                        false
+                        false,
+                        0
                     )
                 findNavController().navigate(action)
                 immigrationViewModel.setNavigateFromMyImmigrationToDetailScreen(false)

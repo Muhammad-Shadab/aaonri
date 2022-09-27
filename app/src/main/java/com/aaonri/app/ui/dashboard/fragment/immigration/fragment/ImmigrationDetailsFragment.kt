@@ -74,8 +74,8 @@ class ImmigrationDetailsFragment : Fragment() {
                     postReplyEt.requestFocus()
                     val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.showSoftInput(postReplyEt, InputMethodManager.SHOW_IMPLICIT)
-
                 }
+
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -166,6 +166,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
+                    binding?.discussionDetailsLl?.visibility = View.VISIBLE
                     binding?.noOfReply?.text = response.data?.size.toString()
                     response.data?.let { immigrationAdapter?.setData(it) }
                 }
@@ -173,6 +174,10 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
+        }
+
+        if (args.discussionId != 0) {
+            immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
         }
 
         /* requireActivity()

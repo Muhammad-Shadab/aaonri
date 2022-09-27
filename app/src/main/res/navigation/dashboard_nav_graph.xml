@@ -312,6 +312,9 @@
         <argument
             android:name="isFromAllDiscussionScreen"
             app:argType="boolean" />
+        <argument
+            android:name="discussionId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/immigrationFilterFragment"
@@ -456,6 +459,15 @@
         <action
             android:id="@+id/action_homeScreenFilter_to_filterCategoryBottomSheet"
             app:destination="@id/filterCategoryBottomSheet" />
+        <action
+            android:id="@+id/action_homeScreenFilter_to_classifiedDetailsFragment"
+            app:destination="@id/classifiedDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFilter_to_immigrationDetailsFragment"
+            app:destination="@id/immigrationDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFilter_to_eventDetailsScreenFragment"
+            app:destination="@id/eventDetailsScreenFragment" />
     </fragment>
     <dialog
         android:id="@+id/filterCategoryBottomSheet"

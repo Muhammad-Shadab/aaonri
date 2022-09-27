@@ -18,6 +18,7 @@ class HomeFilterViewModel @Inject constructor(private val homeFilterRepository: 
 
     var service: MutableLiveData<Resource<ServicesResponse>> = MutableLiveData()
     var selectedCategoryFilter: MutableLiveData<ServicesResponseItem> = MutableLiveData()
+    var searchQuery: MutableLiveData<String> = MutableLiveData()
 
     fun getServices() = viewModelScope.launch {
         service.postValue(Resource.Loading())

@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.classified.model.UserAds
+import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.UserEvent
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
@@ -25,7 +27,9 @@ import java.time.format.DateTimeFormatter
 sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    class ClassifiedItemViewHolder(private val binding: ClassifiedCardItemsBinding) :
+    var itemClickListener: ((view: View, item: Any) -> Unit)? = null
+
+    /*class ClassifiedItemViewHolder(private val binding: ClassifiedCardItemsBinding) :
         HomeCategoryFilterViewHolder(binding) {
         val context: Context = binding.classifiedCardView.context
         fun bind(userAds: UserAds) {
@@ -53,9 +57,9 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                     Glide.with(context)
                         .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAds.userAdsImages[0].imagePath}")
                         .into(classifiedItemIv)
-                    /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
+                    *//*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                         placeholder(R.drawable.ic_image_placeholder)
-                    }*/
+                    }*//*
                     classifiedPriceTv.text = "$$roundoff"
                     classifiedTitleTv.text = userAds.adTitle
                     locationClassifiedTv.text =
@@ -74,7 +78,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                 }
             }
         }
-    }
+    }*/
 
     class EventViewHolder(private val binding: EventItemBinding) :
         HomeCategoryFilterViewHolder(binding) {
@@ -85,9 +89,8 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
         private var timeZone: String? = null
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(data: UserEvent) {
+        fun bind(data: Event) {
             binding.apply {
-
                 try {
                     startDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -163,7 +166,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                     }
                 }
                 root.setOnClickListener {
-                    //itemClickListenerEvent?.invoke(it, data, adapterPosition)
+                    itemClickListener?.invoke(it, data)
                 }
             }
         }
@@ -212,7 +215,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                 }
 
                 immigrationCv.setOnClickListener {
-                    //itemClickListener?.invoke(it, discussion, adapterPosition, false, false)
+                    itemClickListener?.invoke(it, discussion)
                 }
 
                 updateImmigrationBtn.setOnClickListener {

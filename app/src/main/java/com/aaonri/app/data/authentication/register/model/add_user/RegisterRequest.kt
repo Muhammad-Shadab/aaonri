@@ -30,5 +30,6 @@ data class RegisterRequest(
     val regdEmailSent: Boolean,
     val registeredBy: String,
     val userName: String,
-    val zipcode: String
+    val zipcode: String,
+    val state: String
 )

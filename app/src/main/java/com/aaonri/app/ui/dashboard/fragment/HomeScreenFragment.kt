@@ -274,7 +274,8 @@ class HomeScreenFragment : Fragment() {
                 if (item is Discussion) {
                     val action =
                         HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationDetailsFragment(
-                            true
+                            true,
+                            0
                         )
                     findNavController().navigate(action)
                     immigrationViewModel.setSelectedDiscussionItem(item)
@@ -471,7 +472,8 @@ class HomeScreenFragment : Fragment() {
             }
 
             searchView.setOnClickListener {
-                val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
                 findNavController().navigate(action)
             }
 

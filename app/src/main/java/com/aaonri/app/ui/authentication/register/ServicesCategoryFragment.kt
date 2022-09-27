@@ -439,7 +439,8 @@ class ServicesCategoryFragment : Fragment() {
                 regdEmailSent = false,
                 registeredBy = "manual",
                 userName = aliasName,
-                zipcode = authCommonViewModel.locationDetails["zipCode"]!!
+                zipcode = authCommonViewModel.locationDetails["zipCode"]!!,
+                state = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"]!! else "",
             )
         )
     }

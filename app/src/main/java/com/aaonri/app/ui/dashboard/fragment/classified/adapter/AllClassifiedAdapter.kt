@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
-import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
@@ -71,13 +70,13 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
         }
     }
 
+    override fun getItemCount() = data.size
+
     @JvmName("setData1")
     fun setData(data: List<UserAds>) {
         this.data = data
         notifyDataSetChanged()
     }
-
-    override fun getItemCount() = data.size
 
     inner class ClassifiedViewHolder(val binding: ClassifiedCardItemsBinding) :
         RecyclerView.ViewHolder(
