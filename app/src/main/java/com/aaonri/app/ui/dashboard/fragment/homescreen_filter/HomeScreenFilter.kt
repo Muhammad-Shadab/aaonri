@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
@@ -21,7 +22,8 @@ import com.aaonri.app.data.home_filter.viewmodel.HomeFilterViewModel
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentHomeScreenFilterBinding
-import com.aaonri.app.ui.dashboard.fragment.homescreen_filter.adapter.HomeFilterAdapter
+import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +37,9 @@ class HomeScreenFilter : Fragment() {
     val advertiseViewModel: AdvertiseViewModel by viewModels()
     val immigrationViewModel: ImmigrationViewModel by viewModels()
     var selectedCategoryFilterData: ServicesResponseItem? = null
-    var homeFilterAdapter: HomeFilterAdapter? = null
+
+    //var homeFilterAdapter: HomeFilterAdapter? = null
+    var classifiedAdapter: AllClassifiedAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +47,11 @@ class HomeScreenFilter : Fragment() {
     ): View? {
         binding = FragmentHomeScreenFilterBinding.inflate(layoutInflater, container, false)
 
-        homeFilterAdapter = HomeFilterAdapter()
+        //homeFilterAdapter = HomeFilterAdapter()
+
+        classifiedAdapter = AllClassifiedAdapter {
+
+        }
 
         binding?.apply {
 
@@ -109,7 +117,8 @@ class HomeScreenFilter : Fragment() {
                 false
             }
 
-            searchResultRv.layoutManager = LinearLayoutManager(context)
+            searchResultRv.layoutManager = GridLayoutManager(context, 2)
+            searchResultRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
             selectCategory.setOnClickListener {
                 val action =
@@ -137,7 +146,8 @@ class HomeScreenFilter : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let { homeFilterAdapter?.setData(it) }
+                    binding?.searchResultRv?.adapter = classifiedAdapter
+                    response.data?.userAdsList?.let { classifiedAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -157,7 +167,7 @@ class HomeScreenFilter : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.eventList?.let { homeFilterAdapter?.setData(it) }
+                    //response.data?.eventList?.let { homeFilterAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -177,7 +187,7 @@ class HomeScreenFilter : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.discussionList?.let { homeFilterAdapter?.setData(it) }
+                    //response.data?.discussionList?.let { homeFilterAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
