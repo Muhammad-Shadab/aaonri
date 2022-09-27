@@ -24,12 +24,14 @@ import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedScreenBinding
+import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,11 +44,10 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var addId = 0
+    var isUserLogin:Boolean?= null
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
-
     var noOfSelection = 0
-
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +55,8 @@ class ClassifiedScreenFragment : Fragment() {
     ): View? {
         binding =
             FragmentClassifiedScreenBinding.inflate(inflater, container, false)
-
+        isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
@@ -216,22 +218,24 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-                val intent = Intent(requireContext(), ClassifiedActivity::class.java)
-                //intent.putExtra("updateClassified", false)
-                startActivityForResult(intent, 1)
-                //startActivity(intent)
+                if (isUserLogin==true) {
+                    val intent = Intent(requireContext(), ClassifiedActivity::class.java)
+                    //intent.putExtra("updateClassified", false)
+                    startActivityForResult(intent, 1)
+                    //startActivity(intent
+                }else{
+                    showSnckBar()
+                }
+
             }
 
-            dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-                if (it) {
-                    profilePicIv.visibility = View.GONE
-                    //bellIconIv.visibility = View.GONE
-                    floatingActionBtnClassified.visibility = View.GONE
-                    classifiedScreenTabLayout.visibility = View.GONE
-                    classifiedScreenViewPager.setPadding(0, 40, 0, 0)
-                    classifiedScreenViewPager.isUserInputEnabled = false
-                }
-            }
+           if(isUserLogin == false)
+           { profilePicIv.visibility = View.GONE
+               //bellIconIv.visibility = View.GONE
+               classifiedScreenTabLayout.visibility = View.GONE
+               classifiedScreenViewPager.setPadding(0, 40, 0, 0)
+               classifiedScreenViewPager.isUserInputEnabled = false
+           }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
                 if (it) {
@@ -660,5 +664,22 @@ class ClassifiedScreenFragment : Fragment() {
         super.onDestroy()
         binding = null
     }
-
+    fun showSnckBar() {
+        val snackbar =
+            binding?.let {
+                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
+                    .setActionTextColor(
+                        resources.getColor(
+                            R.color
+                                .lightRedColor
+                        )
+                    )
+                    .setAction(
+                        "Login"
+                    ) {
+                        activity?.finish()
+                    }
+            }
+        snackbar?.show()
+    }
 }

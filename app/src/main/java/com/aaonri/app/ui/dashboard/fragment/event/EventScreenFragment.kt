@@ -30,6 +30,7 @@ import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,7 @@ class EventScreenFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Events", "My Events", "Recent Events")
+    var isUserLogin:Boolean?= null
     var noOfSelection = 0
 
     override fun onCreateView(
@@ -50,7 +52,8 @@ class EventScreenFragment : Fragment() {
     ): View? {
         binding = FragmentEventScreenBinding.inflate(inflater, container, false)
         val fragment = this
-
+        isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
@@ -142,14 +145,21 @@ class EventScreenFragment : Fragment() {
                 override fun afterTextChanged(p0: Editable?) {
 
                 }
-
             })
-
-            floatingActionBtnEvents.setOnClickListener {
-                val intent = Intent(requireContext(), EventScreenActivity::class.java)
-                startActivityForResult(intent, 2)
+            if (isUserLogin==false) {
+                eventsScreenTabLayout.visibility = View.GONE
+                eventsScreenViewPager.setPadding(0, 40, 0, 0)
+                eventsScreenViewPager.isUserInputEnabled = false
             }
+            floatingActionBtnEvents.setOnClickListener {
 
+                if (isUserLogin==true) {
+                    val intent = Intent(requireContext(), EventScreenActivity::class.java)
+                    startActivityForResult(intent, 2)
+                }else{
+                    showSnckBar()
+                }
+            }
             eventsScreenViewPager.adapter = pagerAdapter
 
             TabLayoutMediator(eventsScreenTabLayout, eventsScreenViewPager) { tab, position ->
@@ -218,14 +228,8 @@ class EventScreenFragment : Fragment() {
                 }
             })
 
-            dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
-                if (it) {
-                    floatingActionBtnEvents.visibility = View.GONE
-                    eventsScreenTabLayout.visibility = View.GONE
-                    eventsScreenViewPager.setPadding(0, 40, 0, 0)
-                    eventsScreenViewPager.isUserInputEnabled = false
-                }
-            }
+
+
             deleteFilterIv1.setOnClickListener {
                 eventViewModel.setCityFilter(
                     ""
@@ -487,5 +491,23 @@ class EventScreenFragment : Fragment() {
                 ""
             )
         }
+    }
+    fun showSnckBar() {
+        val snackbar =
+            binding?.let {
+                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
+                    .setActionTextColor(
+                        resources.getColor(
+                            R.color
+                                .lightRedColor
+                        )
+                    )
+                    .setAction(
+                        "Login"
+                    ) {
+                        activity?.finish()
+                    }
+            }
+        snackbar?.show()
     }
 }
