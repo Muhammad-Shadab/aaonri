@@ -538,6 +538,7 @@
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginBottom="@dimen/_2sdp"
                                 android:layout_weight="1"
+                                android:includeFontPadding="false"
                                 android:background="@drawable/green_btn_shape"
                                 android:backgroundTint="@color/blue"
                                 android:fontFamily="@font/sf_pro_semi_bold"

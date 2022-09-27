@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -466,14 +467,16 @@ class PostEventBasicDetailsFragment : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
 
-                    selectedMonth = { monthOfYear + 1 }.toString()
+                    selectedMonth = "${monthOfYear + 1}"
                     seletedDay = dayOfMonth.toString()
-                    if (monthOfYear + 1 < 10) {
+                    if (monthOfYear + 1 <=9) {
                         selectedMonth = "0${monthOfYear + 1}"
                     }
                     if (dayOfMonth < 10) {
-                        seletedDay = "0$dayOfMonth"
+                        seletedDay = "0${dayOfMonth}"
                     }
+
+
                     selectedDate = "${year}-${selectedMonth}-${seletedDay}"
                     selectstartDate?.text = "$selectedDate"
                     if (isStartdate) {
