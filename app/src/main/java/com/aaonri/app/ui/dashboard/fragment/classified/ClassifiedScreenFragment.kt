@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -44,10 +46,11 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     var addId = 0
-    var isUserLogin:Boolean?= null
+    var isUserLogin: Boolean? = null
     private val tabTitles =
         arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
     var noOfSelection = 0
+
     @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +71,29 @@ class ClassifiedScreenFragment : Fragment() {
 
         if (ClassifiedStaticData.getCategoryList().isEmpty()) {
             postClassifiedViewModel.getClassifiedCategory()
+        }
+
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+        dialogDescTv.text = "Please login to post a Classified"
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
         }
 
         /*MainStaticData.getClassifiedFooterTextOnly().forEach {
@@ -218,24 +244,24 @@ class ClassifiedScreenFragment : Fragment() {
             }*/
 
             floatingActionBtnClassified.setOnClickListener {
-                if (isUserLogin==true) {
+                if (isUserLogin == true) {
                     val intent = Intent(requireContext(), ClassifiedActivity::class.java)
                     //intent.putExtra("updateClassified", false)
                     startActivityForResult(intent, 1)
                     //startActivity(intent
-                }else{
-                    showSnckBar()
+                } else {
+                    guestUserLoginDialog.show()
                 }
 
             }
 
-           if(isUserLogin == false)
-           { profilePicIv.visibility = View.GONE
-               //bellIconIv.visibility = View.GONE
-               classifiedScreenTabLayout.visibility = View.GONE
-               classifiedScreenViewPager.setPadding(0, 40, 0, 0)
-               classifiedScreenViewPager.isUserInputEnabled = false
-           }
+            if (isUserLogin == false) {
+                profilePicIv.visibility = View.GONE
+                //bellIconIv.visibility = View.GONE
+                classifiedScreenTabLayout.visibility = View.GONE
+                classifiedScreenViewPager.setPadding(0, 40, 0, 0)
+                classifiedScreenViewPager.isUserInputEnabled = false
+            }
 
             postClassifiedViewModel.navigateToAllClassified.observe(viewLifecycleOwner) {
                 if (it) {
@@ -663,23 +689,5 @@ class ClassifiedScreenFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-    }
-    fun showSnckBar() {
-        val snackbar =
-            binding?.let {
-                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
-                    .setActionTextColor(
-                        resources.getColor(
-                            R.color
-                                .lightRedColor
-                        )
-                    )
-                    .setAction(
-                        "Login"
-                    ) {
-                        activity?.finish()
-                    }
-            }
-        snackbar?.show()
     }
 }

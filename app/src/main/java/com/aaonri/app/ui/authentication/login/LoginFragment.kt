@@ -248,6 +248,12 @@ class LoginFragment : Fragment() {
                                     context?.let { it1 -> PreferenceManager<String>(it1) }
                                         ?.set(Constant.USER_CITY, it)
                                 }
+
+                                response.data.user.interests.let {
+                                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                                        ?.set(Constant.USER_INTERESTED_SERVICES, it)
+                                }
+
                                 val intent = Intent(requireContext(), MainActivity::class.java)
                                 startActivity(intent)
                                 activity?.finish()
@@ -366,10 +372,81 @@ class LoginFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    response.data?.userFlags?.forEach {
-                        if (it.flagStatus) {
+
+                    if (response.data?.userFlags?.isNotEmpty() == true) {
+                        if (response.data.userFlags[0].flagStatus) {
+
                             context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                                 ?.set(Constant.IS_USER_LOGIN, true)
+
+                            response.data.profilePic.let {
+                                Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+
+                                context?.let { it1 -> PreferenceManager<String>(it1) }
+                                    ?.set(
+                                        Constant.USER_PROFILE_PIC,
+                                        "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
+                                    )
+                            }
+
+                            response.data.emailId.let {
+                                context?.let { it1 -> PreferenceManager<String>(it1) }
+                                    ?.set(Constant.USER_EMAIL, it)
+                            }
+
+                            response.data.firstName.let {
+                                context?.let { it1 -> PreferenceManager<String>(it1) }
+                                    ?.set(
+                                        Constant.USER_NAME,
+                                        "$it ${response.data.lastName}"
+                                    )
+                            }
+                            response.data.city.let {
+                                context?.let { it1 -> PreferenceManager<String>(it1) }
+                                    ?.set(Constant.USER_CITY, it)
+                            }
+
+                            response.data.interests.let {
+                                context?.let { it1 -> PreferenceManager<String>(it1) }
+                                    ?.set(Constant.USER_INTERESTED_SERVICES, it)
+                            }
+
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                                ?.set(Constant.IS_USER_LOGIN, false)
+                            FirebaseAuth.getInstance().signOut()
+                            mGoogleSignInClient.signOut()
+                            LoginManager.getInstance().logOut()
+                            context?.let { it1 -> PreferenceManager<String>(it1) }
+                                ?.set(Constant.USER_PROFILE_PIC, "")
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Email address is not verified yet", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    } else {
+                        context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_USER_LOGIN, false)
+                        FirebaseAuth.getInstance().signOut()
+                        mGoogleSignInClient.signOut()
+                        LoginManager.getInstance().logOut()
+                        context?.let { it1 -> PreferenceManager<String>(it1) }
+                            ?.set(Constant.USER_PROFILE_PIC, "")
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "User not found", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    /*response.data?.userFlags?.forEach {
+                        if (it.flagStatus) {
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
                             activity?.finish()
@@ -386,7 +463,7 @@ class LoginFragment : Fragment() {
                                 ).show()
                             }
                         }
-                    }
+                    }*/
                 }
                 is Resource.Error -> {
                     Toast.makeText(

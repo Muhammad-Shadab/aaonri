@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -56,6 +57,8 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         if (!postEventViewModel.isEventOffline) {
             binding?.zipCodeEt?.isEnabled = false
+            binding?.zipCodeEt?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
             binding?.zipCodeEt?.hint = "Zipcode"
         } else {
             binding?.zipCodeEt?.hint = "Zipcode*"
@@ -146,50 +149,48 @@ class PostEventAddressDetailsFragment : Fragment() {
                         if (zipCodeEt.text.toString()
                                 .isNotEmpty() && zipCodeEt.text.toString().length >= 5
                         ) {
-                            if(socialMediaLinkEt.text.isNotEmpty() && socialMediaLinkEt.text.toString().length >= 10)
-                            {
-                            if (landmarkEt.text.toString()
-                                    .isNotEmpty() && landmarkEt.text.toString().length < 3
-                            ) {
-                                showAlert("Please enter valid landmark")
-                            } else {
-                                if (stateEt.text.toString()
-                                        .isNotEmpty() && stateEt.text.toString().length < 3
+                            if (socialMediaLinkEt.text.isNotEmpty() && socialMediaLinkEt.text.toString().length >= 10) {
+                                if (landmarkEt.text.toString()
+                                        .isNotEmpty() && landmarkEt.text.toString().length < 3
                                 ) {
-                                    showAlert("Please enter valid state ")
+                                    showAlert("Please enter valid landmark")
                                 } else {
-                                    if (agreeCheckboxClassified.isChecked) {
-                                        if (postEventViewModel.isUpdateEvent) {
-                                            postEventViewModel.setEventAddressDetailMap(
-                                                addressLine1 = eventAddressEt1.text.toString(),
-                                                addressLine2 = eventAddressEt2.text.toString(),
-                                                cityName = cityNameEt.text.toString(),
-                                                zipCode = zipCodeEt.text.toString(),
-                                                landmark = landmarkEt.text.toString(),
-                                                state = stateEt.text.toString(),
-                                                socialMediaLink = socialMediaLinkEt.text.toString()
-                                            )
-                                            updateEvent()
-                                        } else {
-                                            postEventViewModel.setEventAddressDetailMap(
-                                                addressLine1 = eventAddressEt1.text.toString(),
-                                                addressLine2 = eventAddressEt2.text.toString(),
-                                                cityName = cityNameEt.text.toString(),
-                                                zipCode = zipCodeEt.text.toString(),
-                                                landmark = landmarkEt.text.toString(),
-                                                state = stateEt.text.toString(),
-                                                socialMediaLink = socialMediaLinkEt.text.toString()
-                                            )
-                                            postEvent()
-                                        }
-
+                                    if (stateEt.text.toString()
+                                            .isNotEmpty() && stateEt.text.toString().length < 3
+                                    ) {
+                                        showAlert("Please enter valid state ")
                                     } else {
-                                        showAlert("Please accept terms & condition")
+                                        if (agreeCheckboxClassified.isChecked) {
+                                            if (postEventViewModel.isUpdateEvent) {
+                                                postEventViewModel.setEventAddressDetailMap(
+                                                    addressLine1 = eventAddressEt1.text.toString(),
+                                                    addressLine2 = eventAddressEt2.text.toString(),
+                                                    cityName = cityNameEt.text.toString(),
+                                                    zipCode = zipCodeEt.text.toString(),
+                                                    landmark = landmarkEt.text.toString(),
+                                                    state = stateEt.text.toString(),
+                                                    socialMediaLink = socialMediaLinkEt.text.toString()
+                                                )
+                                                updateEvent()
+                                            } else {
+                                                postEventViewModel.setEventAddressDetailMap(
+                                                    addressLine1 = eventAddressEt1.text.toString(),
+                                                    addressLine2 = eventAddressEt2.text.toString(),
+                                                    cityName = cityNameEt.text.toString(),
+                                                    zipCode = zipCodeEt.text.toString(),
+                                                    landmark = landmarkEt.text.toString(),
+                                                    state = stateEt.text.toString(),
+                                                    socialMediaLink = socialMediaLinkEt.text.toString()
+                                                )
+                                                postEvent()
+                                            }
+
+                                        } else {
+                                            showAlert("Please accept terms & condition")
+                                        }
                                     }
                                 }
-                            }
-                            }
-                            else{
+                            } else {
                                 showAlert("Please enter valid  ticket link")
                             }
                         } else {
@@ -576,6 +577,7 @@ class PostEventAddressDetailsFragment : Fragment() {
             ).show()
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

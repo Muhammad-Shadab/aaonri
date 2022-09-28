@@ -106,6 +106,8 @@ class RegistrationActivity : BaseActivity() {
         applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
             ?.set(Constant.GMAIL_FIRST_NAME, "")
         applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(Constant.USER_PROFILE_PIC, "")
+        applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
             ?.set(Constant.GMAIL_LAST_NAME, "")
 
     }

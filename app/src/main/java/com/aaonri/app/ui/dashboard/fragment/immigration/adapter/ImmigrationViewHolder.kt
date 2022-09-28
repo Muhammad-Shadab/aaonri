@@ -36,6 +36,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             }
         }
     }
+
     class ImmigrationCenterCategoryViewHolder(private val binding: CategoryCardItem1Binding) :
         ImmigrationViewHolder(binding) {
         fun bind(categoryItem: Category) {
@@ -126,7 +127,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                             .parse(discussionDetailsResponseItem.createdOn)
                     )
                 userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
-                replyBtn.setOnClickListener{
+                replyBtn.setOnClickListener {
                     itemClickListener?.invoke(
                         it,
                         discussionDetailsResponseItem,

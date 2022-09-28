@@ -56,7 +56,7 @@ class FilterCategoryBottomSheet : BottomSheetDialogFragment() {
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
                         response.data?.let { servicesResponse ->
-                            moduleCategoryAdapter?.setData(servicesResponse.filter { it.active && it.id != 17 && it.id != 22 })
+                            moduleCategoryAdapter?.setData(servicesResponse.filter { it.active && it.id != 17 && it.id != 22 && it.id != 27 })
                         }
                     }
                     is Resource.Error -> {

@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -88,6 +89,29 @@ class EventDetailsScreenFragment : Fragment() {
         isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         postEventViewModel.getEventDetails(args.eventId)
+
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
 
         adsGenericAdapter = AdsGenericAdapter()
         adsGenericAdapter?.itemClickListener = { view, item, position ->
@@ -239,7 +263,8 @@ class EventDetailsScreenFragment : Fragment() {
                         )
                     )
                 } else {
-                    showSnckBar()
+                    dialogDescTv.text = "Please login to show interest"
+                    guestUserLoginDialog.show()
                 }
             }
 
@@ -256,75 +281,86 @@ class EventDetailsScreenFragment : Fragment() {
                         )
                     )
                 } else {
-                    showSnckBar()
+                    dialogDescTv.text = "Please login to show interest"
+                    guestUserLoginDialog.show()
                 }
             }
             calendarBtn.setOnClickListener {
-                try {
-                    val mSimpleDateFormat =
-                        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-                    when (eventTimeZone) {
-                        "EST" -> eventTimeZone = "America/New_York"
-                        "PST" -> eventTimeZone = "America/Los_Angeles"
-                        "CST" -> eventTimeZone = "America/Chicago"
-                        "MST" -> eventTimeZone = "America/Edmonton"
-                    }
+                if (isUserLogin == true) {
+                    try {
+                        val mSimpleDateFormat =
+                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+                        when (eventTimeZone) {
+                            "EST" -> eventTimeZone = "America/New_York"
+                            "PST" -> eventTimeZone = "America/Los_Angeles"
+                            "CST" -> eventTimeZone = "America/Chicago"
+                            "MST" -> eventTimeZone = "America/Edmonton"
+                        }
 
-                    mSimpleDateFormat.timeZone = TimeZone.getTimeZone(eventTimeZone)
-                    val mStartTime = mSimpleDateFormat.parse(startDate)
-                    val mEndTime = mSimpleDateFormat.parse(endDate)
-                    val mSimpleDateFormat1 =
-                        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-                    mSimpleDateFormat1.timeZone =
-                        TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
-                    val changedStartTime = mSimpleDateFormat1.format(mStartTime)
-                    val changedEndTime = mSimpleDateFormat1.format(mEndTime)
+                        mSimpleDateFormat.timeZone = TimeZone.getTimeZone(eventTimeZone)
+                        val mStartTime = mSimpleDateFormat.parse(startDate)
+                        val mEndTime = mSimpleDateFormat.parse(endDate)
+                        val mSimpleDateFormat1 =
+                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+                        mSimpleDateFormat1.timeZone =
+                            TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
+                        val changedStartTime = mSimpleDateFormat1.format(mStartTime)
+                        val changedEndTime = mSimpleDateFormat1.format(mEndTime)
 //                    Toast.makeText(
 //                        context,
 //                        "${startDate}  ${TimeZone.getDefault().toZoneId()} ",
 //                        Toast.LENGTH_SHORT
 //                    ).show()
-                    Log.e("data", changedStartTime)
-                    val mIntent = Intent(Intent.ACTION_EDIT)
-                    mIntent.type = "vnd.android.cursor.item/event"
-                    mIntent.putExtra(
-                        "beginTime",
-                        mSimpleDateFormat1.parse(changedStartTime).time
-                    )
-                    mIntent.putExtra("time", true)
-                    mIntent.putExtra("rule", "FREQ=YEARLY")
-                    mIntent.putExtra(
-                        "endTime",
-                        mSimpleDateFormat1.parse(changedEndTime).time
-                    )
-                    mIntent.putExtra("title", eventTitleName)
-                    startActivity(mIntent)
-                } catch (e: Exception) {
+                        Log.e("data", changedStartTime)
+                        val mIntent = Intent(Intent.ACTION_EDIT)
+                        mIntent.type = "vnd.android.cursor.item/event"
+                        mIntent.putExtra(
+                            "beginTime",
+                            mSimpleDateFormat1.parse(changedStartTime).time
+                        )
+                        mIntent.putExtra("time", true)
+                        mIntent.putExtra("rule", "FREQ=YEARLY")
+                        mIntent.putExtra(
+                            "endTime",
+                            mSimpleDateFormat1.parse(changedEndTime).time
+                        )
+                        mIntent.putExtra("title", eventTitleName)
+                        startActivity(mIntent)
+                    } catch (e: Exception) {
 
+                    }
+                } else {
+                    dialogDescTv.text = "Please login to add to calender"
+                    guestUserLoginDialog.show()
                 }
 
             }
 
             shareBtn.setOnClickListener {
-                try {
-                    val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-                    val bitmap = addImage.drawable.toBitmap() // your imageView here.
-                    val bytes = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    val path = MediaStore.Images.Media.insertImage(
-                        requireContext().contentResolver,
-                        bitmap,
-                        "tempimage",
-                        null
-                    )
-                    val uri = Uri.parse(path)
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.type = "text/plain"
-                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                    val shareSub = "${baseUrl}/events/details/${args.eventId}"
-                    intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-                    startActivity(intent)
-                } catch (e: Exception) {
+                if (isUserLogin == true) {
+                    try {
+                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
+                        val bytes = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                        val path = MediaStore.Images.Media.insertImage(
+                            requireContext().contentResolver,
+                            bitmap,
+                            "tempimage",
+                            null
+                        )
+                        val uri = Uri.parse(path)
+                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+                        intent.type = "text/plain"
+                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
+                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                    }
+                } else {
+                    dialogDescTv.text = "Please login to share the content"
+                    guestUserLoginDialog.show()
                 }
             }
         }
@@ -468,6 +504,11 @@ class EventDetailsScreenFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (event.createdBy == email) {
             binding?.moreBtn?.visibility = View.VISIBLE
+        }
+        if (event.isFree != null) {
+            if (event.isFree as Boolean) {
+                binding?.buyTicketHereTv?.text = "Reserve your ticket here"
+            }
         }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
@@ -1165,24 +1206,5 @@ class EventDetailsScreenFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-    }
-
-    fun showSnckBar() {
-        val snackbar =
-            binding?.let {
-                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
-                    .setActionTextColor(
-                        resources.getColor(
-                            R.color
-                                .lightRedColor
-                        )
-                    )
-                    .setAction(
-                        "Login"
-                    ) {
-                        activity?.finish()
-                    }
-            }
-        snackbar?.show()
     }
 }

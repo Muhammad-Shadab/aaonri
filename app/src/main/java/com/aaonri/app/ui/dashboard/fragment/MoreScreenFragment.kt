@@ -117,7 +117,9 @@ class MoreScreenFragment : Fragment() {
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
             if (it) {
                 binding?.profileInfoLl?.visibility = View.GONE
+                binding?.view?.visibility = View.GONE
             } else {
+                binding?.view?.visibility = View.VISIBLE
                 binding?.profileInfoLl?.visibility = View.VISIBLE
             }
         }

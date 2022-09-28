@@ -104,8 +104,6 @@ class HomeScreenFragment : Fragment() {
     ): View? {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val dialog = Dialog(requireContext())
-
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
         val profile =
@@ -115,6 +113,12 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_NAME, ""] }
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val isUserLogin =
+            context.let {
+                it?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                    ?.get(Constant.IS_USER_LOGIN, false)
+            }
 
         val list =
             context?.let { PreferenceManager<String>(it)[Constant.USER_INTERESTED_SERVICES, ""] }
@@ -158,41 +162,60 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         /** Dialog for edit/update profile and logout user **/
-        dialog.setContentView(R.layout.update_profile_dialog)
-        dialog.window?.setBackgroundDrawable(
+        val updateLogoutDialog = Dialog(requireContext())
+        updateLogoutDialog.setContentView(R.layout.update_profile_dialog)
+        updateLogoutDialog.window?.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.dialog_shape
             )
         )
 
-        dialog.setCancelable(false)
+        updateLogoutDialog.setCancelable(false)
         val editProfileBtn =
-            dialog.findViewById<TextView>(R.id.editProfileBtn)
+            updateLogoutDialog.findViewById<TextView>(R.id.editProfileBtn)
         val logOutBtn =
-            dialog.findViewById<TextView>(R.id.logOutBtn)
+            updateLogoutDialog.findViewById<TextView>(R.id.logOutBtn)
         val closeDialogBtn =
-            dialog.findViewById<ImageView>(R.id.closeDialogBtn)
+            updateLogoutDialog.findViewById<ImageView>(R.id.closeDialogBtn)
         val dialogProfileIv =
-            dialog.findViewById<ImageView>(R.id.profilePicIv)
+            updateLogoutDialog.findViewById<ImageView>(R.id.profilePicIv)
         val userNameTv =
-            dialog.findViewById<TextView>(R.id.userNameTv)
+            updateLogoutDialog.findViewById<TextView>(R.id.userNameTv)
         val userEmailTv =
-            dialog.findViewById<TextView>(R.id.userEmailTv)
+            updateLogoutDialog.findViewById<TextView>(R.id.userEmailTv)
 
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
             Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().into(dialogProfileIv)
+                .skipMemoryCache(true).circleCrop().into(dialogProfileIv)
         }
 
-        val window: Window? = dialog.window
+        val window: Window? = updateLogoutDialog.window
         val wlp: WindowManager.LayoutParams? = window?.attributes
 
         wlp?.gravity = Gravity.TOP
         window?.attributes = wlp
 
+
+        /**  Dialog for guest user **/
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+        dialogDescTv.text = "Please login to view profile"
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
         adsGenericAdapter1 = AdsGenericAdapter()
@@ -443,6 +466,13 @@ class HomeScreenFragment : Fragment() {
 
         binding?.apply {
 
+            loginBtn.setOnClickListener {
+                activity?.finish()
+            }
+            dismissBtn.setOnClickListener {
+                guestUserLoginDialog.dismiss()
+            }
+
             if (userCity != null) {
                 if (userCity.isNotEmpty()) {
                     locationTv.text = userCity
@@ -460,7 +490,11 @@ class HomeScreenFragment : Fragment() {
             }
 
             seeAllClassified.setOnClickListener {
-                navigateToTheSpecificScreen(userInterestedService?.get(0))
+                if (isUserLogin == true) {
+                    navigateToTheSpecificScreen(userInterestedService?.get(0))
+                } else {
+                    navigateToTheSpecificScreen("2")
+                }
             }
 
             seeAllEvents.setOnClickListener {
@@ -468,7 +502,11 @@ class HomeScreenFragment : Fragment() {
             }
 
             profilePicCv.setOnClickListener {
-                dialog.show()
+                if (!guestUser) {
+                    updateLogoutDialog.show()
+                } else {
+                    guestUserLoginDialog.show()
+                }
             }
 
             searchView.setOnClickListener {
@@ -481,11 +519,11 @@ class HomeScreenFragment : Fragment() {
                 val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
                 findNavController().navigate(action)
-                dialog.dismiss()
+                updateLogoutDialog.dismiss()
             }
 
             logOutBtn.setOnClickListener {
-                dialog.dismiss()
+                updateLogoutDialog.dismiss()
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
                 builder.setMessage("Are you sure you want to Logout?")
@@ -551,7 +589,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             closeDialogBtn.setOnClickListener {
-                dialog.dismiss()
+                updateLogoutDialog.dismiss()
             }
 
             /*seeAllPopularItems.setOnClickListener {
@@ -694,7 +732,6 @@ class HomeScreenFragment : Fragment() {
                 setHomeClassifiedData()
                 binding?.classifiedTv?.visibility = View.VISIBLE
                 setUserInterestedServiceRow()
-                binding?.profilePicCv?.isEnabled = false
             }
         }
 
@@ -884,7 +921,7 @@ class HomeScreenFragment : Fragment() {
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.interestDesc != "Advertise With Us" && it.interestDesc != "Shop With Us" } as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == 8} as MutableList<InterestResponseItem>)
                         } else {
                             //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
@@ -906,10 +943,7 @@ class HomeScreenFragment : Fragment() {
                 dashboardCommonViewModel.setIsAdvertiseClicked(true)
             } else if (interests == "2" || interests == "Classifieds") {
                 //Classifieds
-                //dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-                val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedScreenFragment()
-                findNavController().navigate(action)
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
             } else if (interests == "8" || interests == "Events") {
                 //Events
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
@@ -1151,24 +1185,6 @@ class HomeScreenFragment : Fragment() {
     fun Context.dpToPx(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
-
-    private fun loadJSONFromAsset(): String? {
-        val json: String?
-        try {
-            val inputStream = context?.assets?.open("informationcenter.json")
-            val size = inputStream?.available()
-            val buffer = size?.let { ByteArray(it) }
-            val charset: Charset = Charsets.UTF_8
-            inputStream?.read(buffer)
-            inputStream?.close()
-            json = buffer?.let { String(it, charset) }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return ""
-        }
-        return json
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
@@ -1178,7 +1194,6 @@ class HomeScreenFragment : Fragment() {
         super.onResume()
         runAutoScrollBanner2()
         runAutoScrollBanner1()
-
     }
 
     override fun onPause() {

@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
 import android.os.Build
@@ -9,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -52,6 +55,29 @@ class ImmigrationDetailsFragment : Fragment() {
         val isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
 
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
+
         immigrationAdapter = ImmigrationAdapter()
 
         val userId =
@@ -71,9 +97,15 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationAdapter?.itemClickListener =
                 { view, item, position, updateImmigration, deleteImmigration ->
-                    postReplyEt.requestFocus()
-                    val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.showSoftInput(postReplyEt, InputMethodManager.SHOW_IMPLICIT)
+                    if (isUserLogin == true) {
+                        postReplyEt.requestFocus()
+                        val imm =
+                            context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(postReplyEt, InputMethodManager.SHOW_IMPLICIT)
+                    } else {
+                        dialogDescTv.text = "Please login to reply"
+                        guestUserLoginDialog.show()
+                    }
                 }
 
             navigateBack.setOnClickListener {
@@ -81,26 +113,31 @@ class ImmigrationDetailsFragment : Fragment() {
             }
 
             postReplyBtn.setOnClickListener {
-                if (postReplyEt.text.toString().length >= 3) {
-                    immigrationViewModel.replyDiscussion(
-                        ReplyDiscussionRequest(
-                            createdByUserId = userId ?: 0,
-                            discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else args.discussionId.toString(),
-                            id = 0,
-                            parentId = 0,
-                            replyDesc = postReplyEt.text.toString(),
+                if (isUserLogin == true) {
+                    if (postReplyEt.text.toString().length >= 3) {
+                        immigrationViewModel.replyDiscussion(
+                            ReplyDiscussionRequest(
+                                createdByUserId = userId ?: 0,
+                                discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else args.discussionId.toString(),
+                                id = 0,
+                                parentId = 0,
+                                replyDesc = postReplyEt.text.toString(),
+                            )
                         )
-                    )
-                    callAllImmigrationApi = true
-                    postReplyEt.setText("")
-                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-                } else {
-                    activity?.let { it1 ->
-                        Snackbar.make(
-                            it1.findViewById(android.R.id.content),
-                            "Please enter valid reply", Snackbar.LENGTH_LONG
-                        ).show()
+                        callAllImmigrationApi = true
+                        postReplyEt.setText("")
+                        SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                    } else {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Please enter valid reply", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
+                } else {
+                    dialogDescTv.text = "Please login to reply"
+                    guestUserLoginDialog.show()
                 }
             }
 
@@ -151,7 +188,8 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (args.discussionId != 0) { /** If user comes from the home screen search then it wil not be zero **/
+                    if (args.discussionId != 0) {
+                        /** If user comes from the home screen search then it wil not be zero **/
                         immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
                     } else {
                         immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())

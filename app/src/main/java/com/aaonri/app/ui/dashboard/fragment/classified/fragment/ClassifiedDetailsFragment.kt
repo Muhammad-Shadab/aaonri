@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -83,8 +84,33 @@ class ClassifiedDetailsFragment : Fragment() {
 
         binding =
             FragmentClassifiedDetailsBinding.inflate(inflater, container, false)
+
         isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
+
         val ss = SpannableString(resources.getString(R.string.login_to_view_seller_information))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -130,7 +156,6 @@ class ClassifiedDetailsFragment : Fragment() {
             if (ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails().isNotEmpty()) {
                 adsGenericAdapter?.items =
                     ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
-
 
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 bottomAdvertiseRv.layoutManager = layoutManager
@@ -191,17 +216,23 @@ class ClassifiedDetailsFragment : Fragment() {
                         callLikeDislikeApi()
                     }
                 } else {
-                    showSnckBar()
+                    dialogDescTv.text = "Please login to like the content"
+                    guestUserLoginDialog.show()
                 }
             }
 
             moreClassifiedOption.setOnClickListener {
-                val action =
-                    ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
-                        args.addId,
-                        true
-                    )
-                findNavController().navigate(action)
+                if (isUserLogin == true) {
+                    val action =
+                        ClassifiedDetailsFragmentDirections.actionClassifiedDetailsFragmentToUpdateDeleteClassifiedBottom(
+                            args.addId,
+                            true
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    guestUserLoginDialog.show()
+                }
+
             }
 
             classifiedSellerEmail.setOnClickListener {
@@ -222,26 +253,31 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             shareBtn.setOnClickListener {
-                try {
-                    val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-                    val bitmap = addImage.drawable.toBitmap() // your imageView here.
-                    val bytes = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    val path = MediaStore.Images.Media.insertImage(
-                        requireContext().contentResolver,
-                        bitmap,
-                        "tempimage",
-                        null
-                    )
-                    val uri = Uri.parse(path)
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)
-                    intent.type = "text/plain"
-                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                    val shareSub = "${baseUrl}/classified/details/${args.addId}"
-                    intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                if (isUserLogin == true) {
+                    try {
+                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
+                        val bytes = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                        val path = MediaStore.Images.Media.insertImage(
+                            requireContext().contentResolver,
+                            bitmap,
+                            "tempimage",
+                            null
+                        )
+                        val uri = Uri.parse(path)
+                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+                        intent.type = "text/plain"
+                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                        val shareSub = "${baseUrl}/classified/details/${args.addId}"
+                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    dialogDescTv.text = "Please login to share the content"
+                    guestUserLoginDialog.show()
                 }
             }
         }

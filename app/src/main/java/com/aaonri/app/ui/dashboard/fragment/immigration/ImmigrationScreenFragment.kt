@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -46,19 +48,48 @@ class ImmigrationScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentImmigartionScreenFrgamentBinding.inflate(layoutInflater, container, false)
         val pagerAdapter = ImmigrationPagerAdapter(this)
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
+
         binding?.apply {
 
-            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().into(profilePicIv) }
+            context?.let {
+                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+            }
             immigrationScreenViewPager.isUserInputEnabled = false
             immigrationScreenViewPager.adapter = pagerAdapter
 
@@ -73,11 +104,16 @@ class ImmigrationScreenFragment : Fragment() {
             }
 
             floatingActionBtnImmigration.setOnClickListener {
-                val action =
-                    ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(
-                        false
-                    )
-                findNavController().navigate(action)
+                if (isUserLogin == true) {
+                    val action =
+                        ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToPostImmigrationFragment(
+                            false
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    dialogDescTv.text = "Please login to post a discussion"
+                    guestUserLoginDialog.show()
+                }
             }
 
             deleteDateRangeFilter.setOnClickListener {
@@ -230,7 +266,6 @@ class ImmigrationScreenFragment : Fragment() {
                 if (it) {
                     profilePicIv.visibility = View.GONE
                     //bellIconIv.visibility = View.GONE
-                    floatingActionBtnImmigration.visibility = View.GONE
                     immigrationScreenTabLayout.visibility = View.GONE
                     immigrationScreenViewPager.setPadding(0, 40, 0, 0)
                     immigrationScreenViewPager.isUserInputEnabled = false

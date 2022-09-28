@@ -74,7 +74,11 @@ class BasicDetailsFragment : Fragment() {
                 firstNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_FIRST_NAME, ""] })
                 lastNameBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.GMAIL_LAST_NAME, ""] })
                 emailAddressBasicDetails.setText(context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] })
-                context?.let { Glide.with(it).load(socialProfile).into(addProfileIv) }
+                binding?.passwordBasicDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.emailAddressBasicDetails?.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                context?.let { Glide.with(it).load(socialProfile).circleCrop().into(addProfileIv) }
                 if (socialProfile != null) {
                     profile = socialProfile
                 }
@@ -87,7 +91,9 @@ class BasicDetailsFragment : Fragment() {
             firstNameBasicDetails.filters = arrayOf(filter)
             lastNameBasicDetails.filters = arrayOf(filter)
 
+
             profilePicPlaceholder.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 if (profile.isEmpty()) {
                     ImagePicker.with(requireActivity())
                         .compress(1024)
@@ -155,13 +161,14 @@ class BasicDetailsFragment : Fragment() {
                         }
                     }
                 }
-
             }
 
 
             passwordBasicDetails.addTextChangedListener { editable ->
                 editable?.let {
                     if (authCommonViewModel.isUpdateProfile) {
+                        isPasswordValid = true
+                    } else if (authCommonViewModel.isNewUserRegisterUsingGmail) {
                         isPasswordValid = true
                     } else {
                         if (it.toString().isNotEmpty() && it.toString().length >= 8) {
@@ -202,7 +209,7 @@ class BasicDetailsFragment : Fragment() {
                             password.toString()
                         )
                         if (authCommonViewModel.isUpdateProfile) {
-                            if (!profile.startsWith("htt")) {
+                            if (!profile.startsWith("htt") && profile.isNotEmpty()) {
                                 authCommonViewModel.setProfilePicUriValue(profile.toUri())
                             }
                             UserProfileStaticData.getUserProfileDataValue()?.let {

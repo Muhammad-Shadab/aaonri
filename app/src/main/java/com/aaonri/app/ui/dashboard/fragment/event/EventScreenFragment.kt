@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -43,7 +45,7 @@ class EventScreenFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     private val tabTitles =
         arrayListOf("All Events", "My Events", "Recent Events")
-    var isUserLogin:Boolean?= null
+    var isUserLogin: Boolean? = null
     var noOfSelection = 0
 
     override fun onCreateView(
@@ -59,6 +61,29 @@ class EventScreenFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        val dialogDescTv =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+        dialogDescTv.text = "Please login to post an event"
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
 
         if (EventStaticData.getEventCategory().isEmpty()) {
             postEventViewModel.getEventCategory()
@@ -146,18 +171,17 @@ class EventScreenFragment : Fragment() {
 
                 }
             })
-            if (isUserLogin==false) {
+            if (isUserLogin == false) {
                 eventsScreenTabLayout.visibility = View.GONE
                 eventsScreenViewPager.setPadding(0, 40, 0, 0)
                 eventsScreenViewPager.isUserInputEnabled = false
             }
             floatingActionBtnEvents.setOnClickListener {
-
-                if (isUserLogin==true) {
+                if (isUserLogin == true) {
                     val intent = Intent(requireContext(), EventScreenActivity::class.java)
                     startActivityForResult(intent, 2)
-                }else{
-                    showSnckBar()
+                } else {
+                    guestUserLoginDialog.show()
                 }
             }
             eventsScreenViewPager.adapter = pagerAdapter
@@ -491,23 +515,5 @@ class EventScreenFragment : Fragment() {
                 ""
             )
         }
-    }
-    fun showSnckBar() {
-        val snackbar =
-            binding?.let {
-                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
-                    .setActionTextColor(
-                        resources.getColor(
-                            R.color
-                                .lightRedColor
-                        )
-                    )
-                    .setAction(
-                        "Login"
-                    ) {
-                        activity?.finish()
-                    }
-            }
-        snackbar?.show()
     }
 }

@@ -3,6 +3,7 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -218,6 +219,10 @@ class ServicesItemAdapter(
                     "Advertise With Us" -> {
                         servicesGridIv.load(R.drawable.ic_advertise)
                     }
+                }
+
+                if (data[position].id == 17) {
+                    data[position].active = false
                 }
 
                 if (data[position].active && !isProfileScreen) {

@@ -31,9 +31,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
 import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -402,6 +400,8 @@ class ServicesCategoryFragment : Fragment() {
         isRecruiterCheckBox: Boolean,
         isAliasNameCheckBox: Boolean,
     ) {
+        val socialProfile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
         authCommonViewModel.addCompanyEmailAliasName(
             companyEmail,
             aliasName
@@ -435,7 +435,7 @@ class ServicesCategoryFragment : Fragment() {
                 originState = if (authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true) authCommonViewModel.originLocationDetails["originState"]!! else "",
                 password = authCommonViewModel.basicDetailsMap["password"]!!,
                 phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,
-                picture = "",
+                picture = if (socialProfile?.isNotEmpty() == true) socialProfile else "",
                 regdEmailSent = false,
                 registeredBy = "manual",
                 userName = aliasName,

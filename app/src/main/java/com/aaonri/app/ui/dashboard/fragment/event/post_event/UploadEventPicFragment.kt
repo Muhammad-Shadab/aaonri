@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,6 +27,7 @@ import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 
 class UploadEventPicFragment : Fragment() {
     var binding: FragmentUploadEventPicBinding? = null
@@ -151,9 +153,19 @@ class UploadEventPicFragment : Fragment() {
                     }
                 }
                 postEventViewModel.setListOfUploadImagesUri(showingImagesList)
-                val action =
-                    UploadEventPicFragmentDirections.actionUploadEventPicFragmentToPostEventAddressDetailsFragment2()
-                findNavController().navigate(action)
+
+                if (showingImagesList.size >= 1) {
+                    val action =
+                        UploadEventPicFragmentDirections.actionUploadEventPicFragmentToPostEventAddressDetailsFragment2()
+                    findNavController().navigate(action)
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please upload at least one event picture", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
         }
 
@@ -737,6 +749,7 @@ class UploadEventPicFragment : Fragment() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

@@ -572,13 +572,13 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        /*dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
+        dashboardCommonViewModel.isSeeAllClassifiedClicked.observe(this) {
             if (it) {
                 binding?.bottomNavigation?.selectedItemId =
                     R.id.classifiedScreenFragment
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(false)
             }
-        }*/
+        }
 
         dashboardCommonViewModel.isAdvertiseClicked.observe(this) {
             if (it) {

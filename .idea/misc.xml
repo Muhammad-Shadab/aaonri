@@ -97,11 +97,13 @@
         <entry key="app/src/main/res/layout/classified_card_items.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/event_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_address_details_classified.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_advertise_screen.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_advertise_webview.xml" value="0.317481884057971" />
         <entry key="app/src/main/res/layout/fragment_advertisement_details.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/fragment_all_classified.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_all_immigration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_basic_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_check_your_email.xml" value="0.3532608695652174" />
         <entry key="app/src/main/res/layout/fragment_classified_basic_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_classified_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_classified_filter.xml" value="0.3692708333333333" />
@@ -129,14 +131,18 @@
         <entry key="app/src/main/res/layout/fragment_my_immigration_category_bottom.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_my_job_profile.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_post_advertise_checkout.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/fragment_post_advertise_company_details_frgament.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_post_advertisementbasic_details.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_reset_password_info.xml" value="0.3532608695652174" />
         <entry key="app/src/main/res/layout/fragment_select_classified_category_bottom.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_select_template_location.xml" value="0.1884635832004253" />
         <entry key="app/src/main/res/layout/fragment_services_category.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_shop_screen.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_update_and_delete_bottom.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/fragment_update_profile.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_upload_classified_pic.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/guest_user_login_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
