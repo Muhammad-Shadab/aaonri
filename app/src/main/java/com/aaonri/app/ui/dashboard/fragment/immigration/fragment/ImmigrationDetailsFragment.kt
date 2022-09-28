@@ -85,7 +85,7 @@ class ImmigrationDetailsFragment : Fragment() {
                     immigrationViewModel.replyDiscussion(
                         ReplyDiscussionRequest(
                             createdByUserId = userId ?: 0,
-                            discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else "",
+                            discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else args.discussionId.toString(),
                             id = 0,
                             parentId = 0,
                             replyDesc = postReplyEt.text.toString(),
@@ -151,7 +151,11 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
+                    if (args.discussionId != 0) { /** If user comes from the home screen search then it wil not be zero **/
+                        immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
+                    } else {
+                        immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
+                    }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

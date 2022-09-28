@@ -56,32 +56,34 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:id="@+id/resultsNotFoundLL"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        >
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:background="@drawable/no_immigration_found"/>
+            android:background="@drawable/no_immigration_found" />
 
         <TextView
-            android:layout_marginTop="@dimen/_30sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sorry! No result found"
-            android:textSize="16sp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:textColor="@color/black"/>
+            android:text="Sorry! No result found"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
