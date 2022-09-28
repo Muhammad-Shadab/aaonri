@@ -1,0 +1,220 @@
+{
+  "AdvertiseTemplateInfo": [
+    {
+      "locationId": 2,
+      "locationCode": "HPCIA",
+      "title": "Classifieds Section Inline",
+      "locationName": "Classifieds Section Inline"
+    },
+    {
+      "locationId": 3,
+      "locationCode": "HPEIA",
+      "title": "Events Section Inline",
+      "locationName": "Events Section Inline"
+    },
+    {
+      "locationId": 9,
+      "locationCode": "HPAFI",
+      "title": " Image Only  - Home Page Just Above Footer (Website) | Slider Just Above Popular Items (Mobile)",
+      "locationName": "Home Page Just Above Footer Image Only"
+    },
+    {
+      "locationId": 10,
+      "locationCode": "HPAFT",
+      "title": "Text Only - Home Page Just Above Footer (Website) | Slider Just Above Popular Items (Mobile)",
+      "locationName": "Home Page Just Above Footer Text Only"
+    },
+    {
+      "locationId": 1,
+      "locationCode": "HPTB",
+      "title": "Home Page Top Banner (Website) | Slider Just Below First Section",
+      "locationName": "Home Page Top Banner"
+    },
+    {
+      "locationId": 4,
+      "locationCode": "HPIIA",
+      "title": "Immigration Section Inline",
+      "locationName": "Immigration  Section Inline"
+    },
+    {
+      "locationId": 5,
+      "locationCode": "HPJIA",
+      "title": "Jobs Section Inline",
+      "locationName": "Jobs Section Inline"
+    },
+    {
+      "locationId": 12,
+      "locationCode": "DBBDA",
+      "title": "Dashboard Below Discover Aaonri (Website) | Slider Above Popular Items (Mobile)",
+      "locationName": "Dashboard Below Discover Aaonri"
+    },
+    {
+      "locationId": 13,
+      "locationCode": "DBBIA",
+      "title": "Dashboard Below Interest Area (Website) | Slider Just Below First Section (Mobile)",
+      "locationName": "Dashboard Below Interest Area"
+    },
+    {
+      "locationId": 11,
+      "locationCode": "DBTB",
+      "title": "Dashboard Top Banner(Below Search Bar) (Website) | Slider Just Below First Section (Mobile)",
+      "locationName": "Dashboard Top Banner(Below Search Bar)"
+    },
+    {
+      "locationId": 18,
+      "locationCode": "LPCAFI",
+      "title": "Image Only - Classifieds Just Above Footer (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds Just Above Footer Image Only"
+    },
+    {
+      "locationId": 19,
+      "locationCode": "LPCAFT",
+      "title": "Text Only - Classifieds Just Above Footer (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds Just Above Footer Text Only"
+    },
+    {
+      "locationId": 17,
+      "locationCode": "LPCMS",
+      "title": "Classifieds LHS of Main Section (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds LHS of Main Section"
+    },
+    {
+      "locationId": 16,
+      "locationCode": "LPCTB",
+      "title": "Classifieds top banner (Website) | Classifieds Header Top Slider (Mobile)",
+      "locationName": "Classifieds Top Banner"
+    },
+    {
+      "locationId": 22,
+      "locationCode": "LPEAFI",
+      "title": " Image Only - Events Just Above Footer (Website) | Events Just Above Bottom Tab (Mobile)",
+      "locationName": "Events Just Above Footer Image Only"
+    },
+    {
+      "locationId": 23,
+      "locationCode": "LPEAFT",
+      "title": "Text Only - Events Just Above Footer (Website) | Events Just Above Bottom Tab (Mobile)",
+      "locationName": "Events Just Above Footer Text Only"
+    },
+    {
+      "locationId": 21,
+      "locationCode": "LPEMS",
+      "title": "Events LHS of Main Section (Website) | Events Just Above Bottom Tab (Mobile)",
+      "locationName": "Events LHS of Main Section"
+    },
+    {
+      "locationId": 20,
+      "locationCode": "LPETB",
+      "title": "Events top banner (Website) | Events Header Top Slider (Mobile)",
+      "locationName": "Events Top Banner"
+    },
+    {
+      "locationId": 26,
+      "locationCode": "LPIAFI",
+      "title": "Image Only - Immigrations Just Above Footer (Website) | Immigrations Just Above Bottom Tab (Mobile)",
+      "locationName": "Immigration Just Above Footer Image Only"
+    },
+    {
+      "locationId": 27,
+      "locationCode": "LPIAFT",
+      "title": "Text Only - Immigrations Just Above Footer (Website) | Immigrations Just Above Bottom Tab (Mobile)",
+      "locationName": "Immigration Just Above Footer Text Only"
+    },
+    {
+      "locationId": 25,
+      "locationCode": "LPIMS",
+      "title": "Immigrations LHS of Main Section (Website) | Immigrations Just Above Bottom Tab (Mobile)",
+      "locationName": "Immigration LHS of Main Section"
+    },
+    {
+      "locationId": 24,
+      "locationCode": "LPITB",
+      "title": "Immigrations top banner (Website) | Immigration Header Top Slider (Mobile)",
+      "locationName": "Immigration Top Banner"
+    },
+    {
+      "locationId": 30,
+      "locationCode": "LPJAFI",
+      "title": "Image Only - Jobs Just Above Footer (Website) | Jobs Just Above Bottom Tab (Mobile)",
+      "locationName": "Jobs Just Above Footer Image Only"
+    },
+    {
+      "locationId": 31,
+      "locationCode": "LPJAFT",
+      "title": "Text Only - Jobs Just Above Footer (Website) | Jobs Just Above Bottom Tab (Mobile)",
+      "locationName": "Jobs Just Above Footer Text Only"
+    },
+    {
+      "locationId": 28,
+      "locationCode": "LPJTB",
+      "title": "Jobs Top Banner (Website) | Jobs Header Top Slider (Mobile)",
+      "locationName": "Jobs Top Banner"
+    },
+    {
+      "locationId": 33,
+      "locationCode": "PDCABH",
+      "title": "Classifieds above Browsing History (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds Above Browsing History"
+    },
+    {
+      "locationId": 34,
+      "locationCode": "PDCAFI",
+      "title": "Image Only - Classifieds Just Above Footer (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds Just Above Footer Image Only"
+    },
+    {
+      "locationId": 35,
+      "locationCode": "PDCAFT",
+      "title": " Text Only - Classifieds Just Above Footer (Website) | Classifieds Just Above Bottom Tab (Mobile)",
+      "locationName": "Classifieds Just Above Footer Text Only"
+    },
+    {
+      "locationId": 32,
+      "locationCode": "PDCTB",
+      "title": "Classifieds Top Banner (Website) | Classifieds Header Top Slider (Mobile)",
+      "locationName": "Classifieds Top Banner"
+    },
+    {
+      "locationId": 37,
+      "locationCode": "PDEAFI",
+      "title": " Image Only - Events Just Above Footer (Website) | Events Just Above Bottom Tab (Mobile)",
+      "locationName": "Events Just Above Footer Image Only"
+    },
+    {
+      "locationId": 38,
+      "locationCode": "PDEAFT",
+      "title": "Text Only - Events Just Above Footer (Website) | Events Just Above Bottom Tab (Mobile)",
+      "locationName": "Events Just Above Footer Text Only"
+    },
+    {
+      "locationId": 36,
+      "locationCode": "PDETB",
+      "title": "Events top banner (Website) | Events Header Top Slider (Mobile)",
+      "locationName": "Events Top Banner"
+    },
+    {
+      "locationId": 41,
+      "locationCode": "PDJAFI",
+      "title": " Image Only - Jobs Just Above Footer (Website) | Jobs Just Above Bottom Tab (Mobile)",
+      "locationName": "Jobs Just Above Footer Image Only"
+    },
+    {
+      "locationId": 42,
+      "locationCode": "PDJAFT",
+      "title": "Text Only - Jobs Just Above Footer (Website) | Jobs Just Above Bottom Tab (Mobile)",
+      "locationName": "Jobs Just Above Footer Text Only"
+    },
+    {
+      "locationId": 40,
+      "locationCode": "PDJMS",
+      "title": "Jobs LHS of Main Section (Website) | Jobs Just Above Bottom Tab (Mobile)",
+      "locationName": "Jobs LHS of Main Section"
+    },
+    {
+      "locationId": 39,
+      "locationCode": "PDJTB",
+      "title": "Jobs Top Banner (Website) | Jobs Header Top Slider (Mobile)",
+      "locationName": "Jobs Top Banner"
+    }
+  ]
+}

@@ -9,10 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -67,7 +64,7 @@ class ClassifiedDetailsFragment : Fragment() {
     val args: ClassifiedDetailsFragmentArgs by navArgs()
     var adsGenericAdapter: AdsGenericAdapter? = null
     var isClassifiedLike = false
-    var isUserLogin:Boolean?= null
+    var isUserLogin: Boolean? = null
     var itemId = 0
     var isEmailAvailable = ""
     var isPhoneAvailable = ""
@@ -130,26 +127,26 @@ class ClassifiedDetailsFragment : Fragment() {
                 classifiedViewModel.getClassifiedLikeDislikeInfo(email, args.addId, "Classified")
             }
 
-            if(ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails().isNotEmpty()) {
+            if (ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails().isNotEmpty()) {
                 adsGenericAdapter?.items =
                     ActiveAdvertiseStaticData.getAdvertiseOnClassifiedDetails()
 
 
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            bottomAdvertiseRv.layoutManager = layoutManager
-            bottomAdvertiseRv.adapter = adsGenericAdapter
-            bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                    if (newState == 1) {
-                        stopAutoScrollBanner()
-                    } else if (newState == 0) {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                bottomAdvertiseRv.layoutManager = layoutManager
+                bottomAdvertiseRv.adapter = adsGenericAdapter
+                bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        if (newState == 1) {
+                            stopAutoScrollBanner()
+                        } else if (newState == 0) {
 
-                        adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
-                        runAutoScrollBanner()
+                            adRvposition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                            runAutoScrollBanner()
+                        }
                     }
-                }
-            })
+                })
             }
 
             val bottomSheetOuter = BottomSheetBehavior.from(classifiedDetailsBottom)
@@ -184,7 +181,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             likeDislikeBtn.setOnClickListener {
-                if (isUserLogin==true) {
+                if (isUserLogin == true) {
                     isClassifiedLike = !isClassifiedLike
                     if (isClassifiedLike) {
                         likeDislikeBtn.load(R.drawable.heart)
@@ -194,7 +191,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         callLikeDislikeApi()
                     }
                 } else {
-                   showSnckBar()
+                    showSnckBar()
                 }
             }
 
@@ -514,7 +511,7 @@ class ClassifiedDetailsFragment : Fragment() {
         binding?.addTitle?.visibility = View.VISIBLE
         binding?.navigateBack?.visibility = View.VISIBLE
         binding?.classifiedDescTv?.textSize = 14F
-        binding?.classifiedDescTv?.fromHtml(data.adDescription)
+        binding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
         binding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
         binding?.sellerName?.text =
@@ -574,14 +571,14 @@ class ClassifiedDetailsFragment : Fragment() {
             binding?.classifiedSellerEmail?.text = data.adPhone
         }
 
-            if (isUserLogin==false) {
-                binding?.sellerInformationLayout?.visibility = View.GONE
-                //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
-                binding?.loginToViewSellerInfo?.visibility = View.VISIBLE
-            } else {
-                binding?.sellerInformationLayout?.visibility = View.VISIBLE
-                //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
-            }
+        if (isUserLogin == false) {
+            binding?.sellerInformationLayout?.visibility = View.GONE
+            //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.GONE
+            binding?.loginToViewSellerInfo?.visibility = View.VISIBLE
+        } else {
+            binding?.sellerInformationLayout?.visibility = View.VISIBLE
+            //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
+        }
 
 
         classifiedViewModel.classifiedLikeDislikeInfoData.observe(viewLifecycleOwner) { response ->
@@ -865,10 +862,6 @@ class ClassifiedDetailsFragment : Fragment() {
     }
 
 
-
-
-
-
     override fun onResume() {
         super.onResume()
         runAutoScrollBanner()
@@ -879,6 +872,7 @@ class ClassifiedDetailsFragment : Fragment() {
         super.onPause()
         stopAutoScrollBanner()
     }
+
     fun stopAutoScrollBanner() {
         if (timer != null && timerTask != null) {
             timerTask!!.cancel()
@@ -890,7 +884,7 @@ class ClassifiedDetailsFragment : Fragment() {
     }
 
     fun runAutoScrollBanner() {
-        if (timer == null && timerTask == null&&adsGenericAdapter?.items?.size!! >=3) {
+        if (timer == null && timerTask == null && adsGenericAdapter?.items?.size!! >= 3) {
             timer = Timer()
             timerTask = object : TimerTask() {
 
@@ -901,7 +895,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
 
                     } else {
-                        adRvposition+= 2
+                        adRvposition += 2
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
                     }
                 }
@@ -910,8 +904,8 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
 
-
     }
+
     fun showSnckBar() {
         val snackbar =
             binding?.let {

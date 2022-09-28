@@ -145,7 +145,6 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                     )
                 }
             }
-
         }
     }
 

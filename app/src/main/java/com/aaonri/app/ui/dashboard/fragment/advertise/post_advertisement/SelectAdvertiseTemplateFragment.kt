@@ -32,6 +32,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
 
     var advertiseTemplateAdapter1: AdvertiseTemplateAdapter? = null
     var advertiseTemplateList = mutableListOf<AdvertiseActivePageResponseItem>()
+
     //var advertiseTemplateAdapter2: AdvertiseTemplateAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,10 +76,13 @@ class SelectAdvertiseTemplateFragment : Fragment() {
             }
 
             for (i in 0 until userArray.length()) {
-                if(!advertiseTemplateList.contains( gson.fromJson(
-                        userArray.getString(i),
-                        AdvertiseActivePageResponseItem::class.java
-                    ))) {
+                if (!advertiseTemplateList.contains(
+                        gson.fromJson(
+                            userArray.getString(i),
+                            AdvertiseActivePageResponseItem::class.java
+                        )
+                    )
+                ) {
                     advertiseTemplateList.add(
                         gson.fromJson(
                             userArray.getString(i),
