@@ -61,6 +61,7 @@ class ServicesCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val dialog = Dialog(requireContext())
         binding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)

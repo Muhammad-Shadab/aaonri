@@ -308,7 +308,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         if (authCommonViewModel.isUpdateProfile) {
             UserProfileStaticData.getUserProfileDataValue()?.let {
                 cityName = it.city
-                stateName = it.state.toString()
+                stateName = if (it.state != null) it.state.toString() else ""
                 //binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
                 binding?.countryPickerLl?.visibility = View.GONE
                 binding?.address1?.setText(it.address1)

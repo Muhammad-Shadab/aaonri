@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.MediaStore
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -74,7 +75,7 @@ class EventDetailsScreenFragment : Fragment() {
     var isInterested = false
     var firstImageuri = ""
     var eventname = ""
-    var eventLocation = ""
+    var eventLocationText = ""
     val eventdesc = ""
     private lateinit var layoutManager: LinearLayoutManager
     var adRvposition = 0
@@ -323,7 +324,7 @@ class EventDetailsScreenFragment : Fragment() {
                             mSimpleDateFormat1.parse(changedEndTime).time
                         )
                         mIntent.putExtra("title", eventTitleName)
-                        mIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "$eventLocation")
+                        mIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationText)
                         startActivity(mIntent)
                     } catch (e: Exception) {
 
@@ -504,10 +505,8 @@ class EventDetailsScreenFragment : Fragment() {
         if (event.createdBy == email) {
             binding?.moreBtn?.visibility = View.VISIBLE
         }
-        if (event.isFree != null) {
-            if (event.isFree as Boolean) {
-                binding?.buyTicketHereTv?.text = "Reserve your ticket here"
-            }
+        if (event.fee <= 0) {
+            binding?.buyTicketHereTv?.text = "Reserve your ticket here"
         }
         /*if (eventPremiumLink.isEmpty()) {
             evenDetailsBinding?.buyTicket?.visibility = View.GONE
@@ -844,12 +843,12 @@ class EventDetailsScreenFragment : Fragment() {
         }
         binding?.eventTitle?.text = event.title
         binding?.eventDescTv?.textSize = 14F
-        binding?.eventDescTv?.fromHtml(event.description)
+        binding?.eventDescTv?.text = Html.fromHtml(event.description)
         binding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
-        eventLocation = address
+        eventLocationText = address
         val spannable: Spannable = SpannableString(text2)
 
         spannable.setSpan(

@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
@@ -51,8 +52,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
-import java.nio.charset.Charset
 import java.util.*
 
 
@@ -82,7 +81,6 @@ class HomeScreenFragment : Fragment() {
     //var homeEventAdapter: HomeEventAdapter? = null
     var genericAdapterForClassified: ClassifiedGenericAdapter? = null
     var genericAdapterForEvent: EventGenericAdapter? = null
-    val eventId = mutableListOf<Int>()
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService: MutableList<String>? = mutableListOf()
@@ -98,11 +96,72 @@ class HomeScreenFragment : Fragment() {
     var timerTask1: TimerTask? = null
     var timer2: Timer? = null
     var timerTask2: TimerTask? = null
+
+    var jobId = 0
+    var advertiseId = 0
+    var classifiedId = 0
+    var eventId = 0
+    var immigrationId = 0
+    var shopWithUsId = 0
+    var astrologyId = 0
+    var businessNeedId = 0
+    var communityConnectId = 0
+    var foundationAndDonationId = 0
+    var homeNeedId = 0
+    var legalServicesId = 0
+    var matrimonyId = 0
+    var medicalCareId = 0
+    var realStateId = 0
+    var sports = 0
+    var studentService = 0
+    var travelStay = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+
+        if (BuildConfig.FLAVOR == "dev") {
+            advertiseId = 27
+            classifiedId = 2
+            eventId = 8
+            immigrationId = 3
+            jobId = 17
+            shopWithUsId = 22
+            astrologyId = 4
+            businessNeedId = 26
+            communityConnectId = 10
+            foundationAndDonationId = 13
+            homeNeedId = 25
+            legalServicesId = 18
+            matrimonyId = 19
+            medicalCareId = 20
+            realStateId = 21
+            sports = 5
+            studentService = 16
+            travelStay = 24
+        } else {
+            advertiseId = 19
+            classifiedId = 1
+            eventId = 2
+            immigrationId = 4
+            jobId = 3
+            shopWithUsId = 15
+            astrologyId = 5
+            businessNeedId = 18
+            communityConnectId = 8
+            foundationAndDonationId = 9
+            homeNeedId = 17
+            legalServicesId = 11
+            matrimonyId = 12
+            medicalCareId = 13
+            realStateId = 14
+            sports = 6
+            studentService = 10
+            travelStay = 16
+        }
 
         val userCity = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
 
@@ -130,24 +189,24 @@ class HomeScreenFragment : Fragment() {
 
         /** Removing unnecessary User Interest service id **/
         if (userInterestedService?.size != null) {
-            if (userInterestedService?.contains("22") == true) {
-                userInterestedService?.remove("22")
+            if (userInterestedService?.contains("$shopWithUsId") == true) {
+                userInterestedService?.remove("$shopWithUsId")
             }
-            if (userInterestedService?.contains("27") == true) {
-                userInterestedService?.remove("27")
+            if (userInterestedService?.contains("$advertiseId") == true) {
+                userInterestedService?.remove("$advertiseId")
             }
-            if (userInterestedService?.contains("17") == true) {
-                userInterestedService?.remove("17")
+            if (userInterestedService?.contains("$jobId") == true) {
+                userInterestedService?.remove("$jobId")
             }
 
             if (userInterestedService?.size == 1) {
-                if (userInterestedService?.contains("2") == false) {
-                    userInterestedService?.add("2")
+                if (userInterestedService?.contains("$classifiedId") == false) {
+                    userInterestedService?.add("$classifiedId")
                 }
             }
             if (userInterestedService?.size == 1) {
-                if (userInterestedService?.contains("8") == false) {
-                    userInterestedService?.add("8")
+                if (userInterestedService?.contains("$eventId") == false) {
+                    userInterestedService?.add("$eventId")
                 }
             }
         }
@@ -495,7 +554,7 @@ class HomeScreenFragment : Fragment() {
                 if (isUserLogin == true) {
                     navigateToTheSpecificScreen(userInterestedService?.get(0))
                 } else {
-                    navigateToTheSpecificScreen("2")
+                    navigateToTheSpecificScreen("$classifiedId")
                 }
             }
 
@@ -694,25 +753,25 @@ class HomeScreenFragment : Fragment() {
                         response.data?.interests?.split(",") as MutableList<String>?
 
                     /** Removing unnecessary User Interest service id **/
-                    if (list?.contains("22") == true) {
-                        list.remove("22")
+                    if (list?.contains("$shopWithUsId") == true) {
+                        list.remove("$shopWithUsId")
                     }
-                    if (list?.contains("27") == true) {
-                        list.remove("27")
+                    if (list?.contains("$advertiseId") == true) {
+                        list.remove("$advertiseId")
                     }
-                    if (list?.contains("17") == true) {
-                        list.remove("17")
+                    if (list?.contains("$jobId") == true) {
+                        list.remove("$jobId")
                     }
 
                     if (list != null) {
                         if (list.size == 1) {
-                            if (!list.contains("2")) {
-                                list.add("2")
+                            if (!list.contains("$classifiedId")) {
+                                list.add("$classifiedId")
                             }
                         }
                         if (list.size == 1) {
-                            if (!list.contains("8")) {
-                                list.add("8")
+                            if (!list.contains("$eventId")) {
+                                list.add("$eventId")
                             }
                         }
                     }
@@ -923,7 +982,7 @@ class HomeScreenFragment : Fragment() {
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == 8 } as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == eventId } as MutableList<InterestResponseItem>)
                         } else {
                             //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
@@ -939,62 +998,62 @@ class HomeScreenFragment : Fragment() {
 
     private fun navigateToTheSpecificScreen(interests: String?) {
         if (interests?.isNotEmpty() == true) {
-            if (interests == "27" || interests == "Advertise With Us") {
+            if (interests == "$advertiseId" || interests == "Advertise With Us") {
                 //Advertise With Us
                 dashboardCommonViewModel.setIsAdvertiseClicked(true)
-            } else if (interests == "2" || interests == "Classifieds") {
+            } else if (interests == "$classifiedId" || interests == "Classifieds") {
                 //Classifieds
                 dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-            } else if (interests == "8" || interests == "Events") {
+            } else if (interests == "$eventId" || interests == "Events") {
                 //Events
                 findNavController().navigate(R.id.action_homeScreenFragment_to_eventScreenFragment)
-            } else if (interests == "3" || interests == "Immigration") {
+            } else if (interests == "$immigrationId" || interests == "Immigration") {
                 //Immigration
                 val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToImmigrationScreenFragment()
                 findNavController().navigate(action)
-            } else if (interests == "17" || interests == "Jobs") {
+            } else if (interests == "$jobId" || interests == "Jobs") {
                 //Jobs
                 /*val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
                 findNavController().navigate(action)*/
-            } else if (interests == "22" || interests == "Shop With Us") {
+            } else if (interests == "$shopWithUsId" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)
-            } else if (interests == "4" || interests == "Astrology") {
+            } else if (interests == "$astrologyId" || interests == "Astrology") {
                 //Astrology
 
-            } else if (interests == "26" || interests == "Business Needs") {
+            } else if (interests == "$businessNeedId" || interests == "Business Needs") {
                 //Business Needs
 
-            } else if (interests == "10" || interests == "Community Connect") {
+            } else if (interests == "$communityConnectId" || interests == "Community Connect") {
                 //Community Connect
 
-            } else if (interests == "13" || interests == "Foundation & Donations") {
+            } else if (interests == "$foundationAndDonationId" || interests == "Foundation & Donations") {
                 //Foundation & Donations
 
-            } else if (interests == "25" || interests == "Home Needs") {
+            } else if (interests == "$homeNeedId" || interests == "Home Needs") {
                 //Home Needs
 
-            } else if (interests == "18" || interests == "Legal Services") {
+            } else if (interests == "$legalServicesId" || interests == "Legal Services") {
                 //Legal Services
 
-            } else if (interests == "19" || interests == "Matrimony & Weddings") {
+            } else if (interests == "$matrimonyId" || interests == "Matrimony & Weddings") {
                 //Matrimony & Weddings
 
-            } else if (interests == "20" || interests == "Medical Care") {
+            } else if (interests == "$medicalCareId" || interests == "Medical Care") {
                 //Medical Care
 
-            } else if (interests == "21" || interests == "Real Estate") {
+            } else if (interests == "$realStateId" || interests == "Real Estate") {
                 //Real Estate
 
-            } else if (interests == "5" || interests == "Sports") {
+            } else if (interests == "$sports" || interests == "Sports") {
                 //Sports
 
-            } else if (interests == "16" || interests == "Student Services") {
+            } else if (interests == "$studentService" || interests == "Student Services") {
                 //Student Services
 
-            } else if (interests == "24" || interests == "Travel and Stay") {
+            } else if (interests == "$travelStay" || interests == "Travel and Stay") {
                 //Travel and Stay
 
             }
@@ -1005,7 +1064,7 @@ class HomeScreenFragment : Fragment() {
         interests: String? = "",
     ) {
         if (interests?.isNotEmpty() == true) {
-            if (interests == "27") {
+            if (interests == "$advertiseId") {
                 //Advertise With Us
                 priorityService = "Advertise With Us"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
@@ -1013,11 +1072,11 @@ class HomeScreenFragment : Fragment() {
                     LinearLayoutManager(context)
                 binding?.priorityServiceRv?.adapter = advertiseAdapter
 
-            } else if (interests == "2") {
+            } else if (interests == "$classifiedId") {
                 //Classifieds
                 priorityService = "Classifieds"
                 setHomeClassifiedData()
-            } else if (interests == "8") {
+            } else if (interests == "$eventId") {
                 //Events
                 priorityService = "Events"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
@@ -1026,7 +1085,7 @@ class HomeScreenFragment : Fragment() {
                 //homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
                 binding?.priorityServiceRv?.adapter = genericAdapterForEvent
 
-            } else if (interests == "3") {
+            } else if (interests == "$immigrationId") {
                 //Immigration
                 priorityService = "Immigration"
                 binding?.priorityServiceRv?.margin(left = 16f, right = 16f)
@@ -1040,90 +1099,87 @@ class HomeScreenFragment : Fragment() {
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 binding?.priorityServiceRv?.adapter = immigrationAdapter
-            } else if (interests == "17") {
+            } else if (interests == "$jobId") {
                 //Jobs
                 priorityService = "Jobs"
                 binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
                 binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
                 binding?.priorityServiceRv?.adapter = jobAdapter
-            } else if (interests == "22") {
+            } else if (interests == "$shopWithUsId") {
                 //Shop With Us
                 /*priorityService = "Shop With Us"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 binding?.priorityServiceRv?.visibility = View.GONE*/
-            } else if (interests == "4") {
+            } else if (interests == "$astrologyId") {
                 //Astrology
                 priorityService = "Astrology"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
-            } else if (interests == "26") {
+            } else if (interests == "$businessNeedId") {
                 //Business Needs
                 priorityService = "Business Needs"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
-            } else if (interests == "10") {
+            } else if (interests == "$communityConnectId") {
                 //Community Connect
                 priorityService = "Community Connect"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
 
-            } else if (interests == "13") {
+            } else if (interests == "$foundationAndDonationId") {
                 //Foundation & Donations
                 priorityService = "Foundation & Donations"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-            } else if (interests == "25") {
+            } else if (interests == "$homeNeedId") {
                 //Home Needs
                 priorityService = "Home Needs"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-            } else if (interests == "18") {
+            } else if (interests == "$legalServicesId") {
                 //Legal Services
                 priorityService = "Legal Services"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-            } else if (interests == "19") {
+            } else if (interests == "$matrimonyId") {
                 //Matrimony & Weddings
                 priorityService = "Matrimony & Weddings"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-            } else if (interests == "20") {
+            } else if (interests == "$medicalCareId") {
                 //Medical Care
                 priorityService = "Medical Care"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-            } else if (interests == "21") {
+            } else if (interests == "$realStateId") {
                 //Real Estate
                 priorityService = "Real Estate"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
-
-            } else if (interests == "5") {
+            } else if (interests == "$sports") {
                 //Sports
                 priorityService = "Sports"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
-
-            } else if (interests == "16") {
+            } else if (interests == "$studentService") {
                 //Student Services
                 priorityService = "Student Services"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
                 binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
-
-            } else if (interests == "24") {
+            } else if (interests == "$travelStay") {
                 //Travel and Stay
                 priorityService = "Travel and Stay"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 20f)

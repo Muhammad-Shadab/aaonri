@@ -68,7 +68,10 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_COMPANY_DETAILS)
 
             companyEmailEt.setText(email)
-            companyMobileEt.setText(phone)
+            companyMobileEt.setText(
+                phone?.replace("""[(,), ]""".toRegex(), "")
+                    ?.replace("-", "")?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
+            )
 
             advertiseDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditorActivity::class.java)

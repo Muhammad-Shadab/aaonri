@@ -44,6 +44,7 @@ class AdvertiseScreenFragment : Fragment() {
     var isAdvertiseExpired: Boolean? = null
 
     //var advertiseIdList = mutableListOf<Int>()
+
     var advertisementList = mutableListOf<AllAdvertiseResponseItem>()
 
     var isGuestUser = false

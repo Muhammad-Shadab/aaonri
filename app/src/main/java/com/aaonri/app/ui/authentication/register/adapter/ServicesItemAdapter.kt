@@ -3,10 +3,10 @@ package com.aaonri.app.ui.authentication.register.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
@@ -36,128 +36,188 @@ class ServicesItemAdapter(
         val context = holder.itemView.context
         holder.apply {
             binding.apply {
-                if (userInterestService.contains("27")) {
+
+                var jobId = 0
+                var advertiseId = 0
+                var classifiedId = 0
+                var eventId = 0
+                var immigrationId = 0
+                var shopWithUsId = 0
+                var astrologyId = 0
+                var businessNeedId = 0
+                var communityConnectId = 0
+                var foundationAndDonationId = 0
+                var homeNeedId = 0
+                var legalServicesId = 0
+                var matrimonyId = 0
+                var medicalCareId = 0
+                var realStateId = 0
+                var sports = 0
+                var studentService = 0
+                var travelStay = 0
+
+                if (BuildConfig.FLAVOR == "dev") {
+                    advertiseId = 27
+                    classifiedId = 2
+                    eventId = 8
+                    immigrationId = 3
+                    jobId = 17
+                    shopWithUsId = 22
+                    astrologyId = 4
+                    businessNeedId = 26
+                    communityConnectId = 10
+                    foundationAndDonationId = 13
+                    homeNeedId = 25
+                    legalServicesId = 18
+                    matrimonyId = 19
+                    medicalCareId = 20
+                    realStateId = 21
+                    sports = 5
+                    studentService = 16
+                    travelStay = 24
+                } else {
+                    advertiseId = 19
+                    classifiedId = 1
+                    eventId = 2
+                    immigrationId = 4
+                    jobId = 3
+                    shopWithUsId = 15
+                    astrologyId = 5
+                    businessNeedId = 18
+                    communityConnectId = 8
+                    foundationAndDonationId = 9
+                    homeNeedId = 17
+                    legalServicesId = 11
+                    matrimonyId = 12
+                    medicalCareId = 13
+                    realStateId = 14
+                    sports = 6
+                    studentService = 10
+                    travelStay = 16
+                }
+
+                if (userInterestService.contains("$advertiseId")) {
                     //"Advertise With Us"
-                    if (data[position].id == 27) {
+                    if (data[position].id == advertiseId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("2")) {
+                if (userInterestService.contains("$classifiedId")) {
                     //"Classifieds"
-                    if (data[position].id == 2) {
+                    if (data[position].id == classifiedId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("8")) {
+                if (userInterestService.contains("$eventId")) {
                     //"Events"
-                    if (data[position].id == 8) {
+                    if (data[position].id == eventId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("3")) {
+                if (userInterestService.contains("$immigrationId")) {
                     //"Immigration"
-                    if (data[position].id == 3) {
+                    if (data[position].id == immigrationId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("17")) {
+                if (userInterestService.contains("$jobId")) {
                     //"Jobs"
-                    if (data[position].id == 17) {
+                    if (data[position].id == jobId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("22")) {
+                if (userInterestService.contains("$shopWithUsId")) {
                     //"Shop With Us"
-                    if (data[position].id == 22) {
+                    if (data[position].id == shopWithUsId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("4")) {
+                if (userInterestService.contains("$astrologyId")) {
                     //"Astrology"
-                    if (data[position].id == 4) {
+                    if (data[position].id == astrologyId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("26")) {
+                if (userInterestService.contains("$businessNeedId")) {
                     //"Business Needs"
-                    if (data[position].id == 26) {
+                    if (data[position].id == businessNeedId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("10")) {
+                if (userInterestService.contains("$communityConnectId")) {
                     //"Community Connect"
-                    if (data[position].id == 10) {
+                    if (data[position].id == communityConnectId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("13")) {
+                if (userInterestService.contains("$foundationAndDonationId")) {
                     //"Foundation & Donations"
-                    if (data[position].id == 13) {
+                    if (data[position].id == foundationAndDonationId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("25")) {
+                if (userInterestService.contains("$homeNeedId")) {
                     //"Home Needs"
-                    if (data[position].id == 25) {
+                    if (data[position].id == homeNeedId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("18")) {
+                if (userInterestService.contains("$legalServicesId")) {
                     //"Legal Services"
-                    if (data[position].id == 18) {
+                    if (data[position].id == legalServicesId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("19")) {
+                if (userInterestService.contains("$matrimonyId")) {
                     //"Matrimony & Weddings"
-                    if (data[position].id == 19) {
+                    if (data[position].id == matrimonyId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("20")) {
+                if (userInterestService.contains("$medicalCareId")) {
                     //"Medical Care"
-                    if (data[position].id == 20) {
+                    if (data[position].id == medicalCareId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("21")) {
+                if (userInterestService.contains("$realStateId")) {
                     //"Real Estate"
-                    if (data[position].id == 21) {
+                    if (data[position].id == realStateId) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("5")) {
+                if (userInterestService.contains("$sports")) {
                     //"Sports"
-                    if (data[position].id == 5) {
+                    if (data[position].id == sports) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("16")) {
+                if (userInterestService.contains("$studentService")) {
                     //"Student Services"
-                    if (data[position].id == 16) {
+                    if (data[position].id == studentService) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
                 }
-                if (userInterestService.contains("24")) {
+                if (userInterestService.contains("$travelStay")) {
                     //"Travel and Stay"
-                    if (data[position].id == 24) {
+                    if (data[position].id == travelStay) {
                         addSelectedDataList(data[position])
                         data[position].isSelected = true
                     }
@@ -221,7 +281,7 @@ class ServicesItemAdapter(
                     }
                 }
 
-                if (data[position].id == 17) {
+                if (data[position].id == jobId) {
                     data[position].active = false
                 }
 
@@ -301,7 +361,7 @@ class ServicesItemAdapter(
                     userInterestService = ""
                 }
 
-                if (data[position].id == 17) {
+                if (data[position].id == jobId) {
                     if (data[position].isSelected) {
                         isJobSelected(true)
                     } else {

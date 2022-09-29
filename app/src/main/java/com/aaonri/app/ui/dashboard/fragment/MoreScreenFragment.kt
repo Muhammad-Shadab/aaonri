@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -135,7 +136,8 @@ class MoreScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(profilePicIv)
             }
 
             profilePicCv.setOnClickListener {
@@ -221,7 +223,6 @@ class MoreScreenFragment : Fragment() {
 
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
-
         }
 
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->
@@ -230,16 +231,24 @@ class MoreScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    var jobId = 0
+                    if (BuildConfig.FLAVOR == "dev") {
+                        jobId = 17
+                    } else {
+                        jobId = 3
+                    }
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
-                        adapter?.setData(servicesResponse.filter { it.active && it.id != 17 }, true)
+                        adapter?.setData(
+                            servicesResponse.filter { it.active && it.id != jobId },
+                            true
+                        )
                     }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
-                else -> {}
             }
         }
 
