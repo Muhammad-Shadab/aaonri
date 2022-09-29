@@ -140,7 +140,8 @@ class AdvertiseScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(profilePicIv)
             }
 
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
@@ -161,6 +162,12 @@ class AdvertiseScreenFragment : Fragment() {
                 binding?.floatingActionBtnEvents?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
+
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
 
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -221,10 +228,6 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-
-                    binding?.yourText?.text =
-                        "Your Advertisement (${response.data?.size})"
-
                     if (response.data?.isEmpty() == true) {
                         binding?.noResultFound?.visibility = View.VISIBLE
                         binding?.emptyTextVew?.text = "You haven't listed anything yet"

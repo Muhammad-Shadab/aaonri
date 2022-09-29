@@ -16,6 +16,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -76,13 +77,13 @@ class AllEventFragment : Fragment() {
             adsGenericAdapter1?.items = ActiveAdvertiseStaticData.getEventTopBannerAds()
 
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getEventBottomAds()
-              if(ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
-                  topAdvertiseRv.adapter = adsGenericAdapter1
-                  layoutManager1 =
-                      LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                  topAdvertiseRv.layoutManager = layoutManager1
-              }
-            if(ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
+            if (ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
+                topAdvertiseRv.adapter = adsGenericAdapter1
+                layoutManager1 =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                topAdvertiseRv.layoutManager = layoutManager1
+            }
+            if (ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
 
                 bottomAdvertiseRv.adapter = adsGenericAdapter2
                 layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -101,6 +102,11 @@ class AllEventFragment : Fragment() {
                 }
             })
 
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
 
             topAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -193,6 +199,7 @@ class AllEventFragment : Fragment() {
         stopAutoScrollBanner2()
         stopAutoScrollBanner1()
     }
+
     fun stopAutoScrollBanner1() {
         if (timer1 != null && timerTask1 != null) {
             timerTask1!!.cancel()
@@ -205,7 +212,7 @@ class AllEventFragment : Fragment() {
 
     fun runAutoScrollBanner1() {
 
-        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer1 == null && timerTask1 == null && adsGenericAdapter1?.items?.size!! >= 3) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
 
@@ -213,7 +220,7 @@ class AllEventFragment : Fragment() {
 
                     if (adRvposition1 == Int.MAX_VALUE) {
                         adRvposition1 = Int.MAX_VALUE / 2
-                        binding?.topAdvertiseRv?.scrollToPosition(adRvposition1)
+                        binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
                         adRvposition1 += 2
@@ -225,8 +232,8 @@ class AllEventFragment : Fragment() {
         }
 
 
-
     }
+
     fun stopAutoScrollBanner2() {
         if (timer2 != null && timerTask2 != null) {
             timerTask2!!.cancel()
@@ -238,7 +245,7 @@ class AllEventFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+        if (timer2 == null && timerTask2 == null && adsGenericAdapter2?.items?.size!! >= 3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 
@@ -246,7 +253,7 @@ class AllEventFragment : Fragment() {
 
                     if (adRvposition2 == Int.MAX_VALUE) {
                         adRvposition2 = Int.MAX_VALUE / 2
-                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition2)
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
                         adRvposition2 += 2
@@ -256,7 +263,6 @@ class AllEventFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 3000, 4000)
         }
-
 
 
     }

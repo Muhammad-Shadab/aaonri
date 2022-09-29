@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.provider.MediaStore
 import android.text.Spannable
 import android.text.SpannableString
@@ -73,6 +74,7 @@ class EventDetailsScreenFragment : Fragment() {
     var isInterested = false
     var firstImageuri = ""
     var eventname = ""
+    var eventLocation = ""
     val eventdesc = ""
     private lateinit var layoutManager: LinearLayoutManager
     var adRvposition = 0
@@ -306,11 +308,7 @@ class EventDetailsScreenFragment : Fragment() {
                             TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
                         val changedStartTime = mSimpleDateFormat1.format(mStartTime)
                         val changedEndTime = mSimpleDateFormat1.format(mEndTime)
-//                    Toast.makeText(
-//                        context,
-//                        "${startDate}  ${TimeZone.getDefault().toZoneId()} ",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+
                         Log.e("data", changedStartTime)
                         val mIntent = Intent(Intent.ACTION_EDIT)
                         mIntent.type = "vnd.android.cursor.item/event"
@@ -325,6 +323,7 @@ class EventDetailsScreenFragment : Fragment() {
                             mSimpleDateFormat1.parse(changedEndTime).time
                         )
                         mIntent.putExtra("title", eventTitleName)
+                        mIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "$eventLocation")
                         startActivity(mIntent)
                     } catch (e: Exception) {
 
@@ -850,7 +849,7 @@ class EventDetailsScreenFragment : Fragment() {
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
-
+        eventLocation = address
         val spannable: Spannable = SpannableString(text2)
 
         spannable.setSpan(
@@ -1185,7 +1184,7 @@ class EventDetailsScreenFragment : Fragment() {
                 override fun run() {
                     if (adRvposition == Int.MAX_VALUE) {
                         adRvposition = Int.MAX_VALUE / 2
-                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
                     } else {
                         adRvposition += 2
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)

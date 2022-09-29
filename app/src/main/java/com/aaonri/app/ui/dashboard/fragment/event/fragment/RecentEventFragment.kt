@@ -189,7 +189,7 @@ class RecentEventFragment : Fragment() {
 
                     if (adRvposition1 == Int.MAX_VALUE) {
                         adRvposition1 = Int.MAX_VALUE / 2
-                        binding?.topAdvertiseRv?.scrollToPosition(adRvposition1)
+                        binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
                         adRvposition1 += 2
@@ -222,7 +222,7 @@ class RecentEventFragment : Fragment() {
 
                     if (adRvposition2 == Int.MAX_VALUE) {
                         adRvposition2 = Int.MAX_VALUE / 2
-                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition2)
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
                         adRvposition2 += 2

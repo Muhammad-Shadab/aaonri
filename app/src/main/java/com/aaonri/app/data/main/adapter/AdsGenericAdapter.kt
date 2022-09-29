@@ -19,7 +19,6 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
             notifyDataSetChanged()
         }
 
-
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? =
         null
 
@@ -58,7 +57,7 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: AdvertiseViewHolder, pos: Int) {
-        if(items.size>0) {
+        if (items.size > 0) {
             holder.itemClickListener = itemClickListener
             val position = pos % items.size
             when (holder) {
@@ -70,11 +69,12 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (items == null) 0 else if(items.size in 1..2) items.size else Int.MAX_VALUE
+        return if (items == null) 0 else if (items.size in 1..2) items.size else Int.MAX_VALUE
     }
+
     override fun getItemViewType(pos: Int): Int {
-        val position:Int
-        if(items.size > 0) {
+        val position: Int
+        if (items.size > 0) {
             position = pos % items.size
             return when (items[position].advertisementPageLocation.type) {
                 "TXTONLY" -> R.layout.text_only_item
@@ -84,10 +84,6 @@ class AdsGenericAdapter : RecyclerView.Adapter<AdvertiseViewHolder>() {
             }
 
         }
-
-           return R.layout.image_only_view_holder
-
-
+        return R.layout.image_only_view_holder
     }
-
 }

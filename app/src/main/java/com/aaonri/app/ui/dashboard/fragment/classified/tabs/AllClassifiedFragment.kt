@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
@@ -19,10 +20,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -82,6 +80,13 @@ class AllClassifiedFragment : Fragment() {
 
 
         binding?.apply {
+
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
+
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
@@ -119,7 +124,6 @@ class AllClassifiedFragment : Fragment() {
                     if (newState == 1) {
                         stopAutoScrollBanner2()
                     } else if (newState == 0) {
-
                         adRvposition2 = layoutManager2.findFirstCompletelyVisibleItemPosition()
                         runAutoScrollBanner2()
                     }
@@ -133,7 +137,6 @@ class AllClassifiedFragment : Fragment() {
                     if (newState == 1) {
                         stopAutoScrollBanner1()
                     } else if (newState == 0) {
-
                         adRvposition1 = layoutManager1.findFirstCompletelyVisibleItemPosition()
                         runAutoScrollBanner1()
                     }
@@ -241,7 +244,7 @@ class AllClassifiedFragment : Fragment() {
 
                     if (adRvposition1 == Int.MAX_VALUE) {
                         adRvposition1 = Int.MAX_VALUE / 2
-                        binding?.topAdvertiseRv?.scrollToPosition(adRvposition1)
+                        binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
                         adRvposition1 += 2
@@ -269,13 +272,10 @@ class AllClassifiedFragment : Fragment() {
         if (timer2 == null && timerTask2 == null && adsGenericAdapter2?.items?.size!! >= 3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
-
                 override fun run() {
-
                     if (adRvposition2 == Int.MAX_VALUE) {
                         adRvposition2 = Int.MAX_VALUE / 2
-                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition2)
-
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
                     } else {
                         adRvposition2 += 2
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
@@ -284,8 +284,6 @@ class AllClassifiedFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 4000, 4000)
         }
-
-
     }
 
 }

@@ -81,7 +81,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                                 .toString().length >= 3
                         ) {
                             if (price.isNotEmpty() && price.length < 9) {
-                                if (price.toDouble() < 999999999 && price.toDouble() > 0) {
+                                if (price.toDouble() < 999999999 && price.toDouble() >= 1) {
                                     if (classifiedDescEt.text.isNotEmpty()) {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked

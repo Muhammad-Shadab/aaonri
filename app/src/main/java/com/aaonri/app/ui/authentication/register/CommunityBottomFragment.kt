@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentCommunityBottomBinding
 import com.aaonri.app.ui.authentication.register.adapter.CommunityItemAdapter
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -77,7 +78,11 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 dismiss()
             }
 
-
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
 
             communitySubmitBtn.setOnClickListener {
                 findNavController().navigateUp()
@@ -125,7 +130,9 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
             val searchText = editable.toString().lowercase(Locale.getDefault())
             if (searchText.isNotEmpty()) {
                 data.forEach {
-                    if (it.communityName?.lowercase(Locale.getDefault())?.contains(searchText) == true) {
+                    if (it.communityName?.lowercase(Locale.getDefault())
+                            ?.contains(searchText) == true
+                    ) {
                         tempArrayList.add(it)
                     }
                 }

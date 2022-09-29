@@ -40,8 +40,8 @@
             android:id="@+id/profilePicIv"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:scaleType="fitXY"
             android:padding="@dimen/_1sdp"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -62,12 +62,12 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/_6sdp"
         android:paddingVertical="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classifiedText">
 
@@ -123,10 +123,6 @@
             android:id="@+id/loginToViewAdvertisement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
@@ -134,7 +130,11 @@
             android:textAlignment="center"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -151,6 +151,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/postingofAdTv"
             android:layout_width="match_parent"
@@ -170,23 +171,25 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourText" />
+
         <LinearLayout
             android:id="@+id/noResultFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.312"
-            android:orientation="vertical">
+            app:layout_constraintVertical_bias="0.312">
+
             <ImageView
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
-                android:src="@drawable/empty_my_classified"
-                />
+                android:src="@drawable/empty_my_classified" />
+
             <TextView
                 android:id="@+id/emptyTextVew"
                 android:layout_width="wrap_content"
@@ -196,23 +199,36 @@
                 android:text="@string/no_result_found"
                 android:textAlignment="center"
                 android:textColor="#333333"
-                android:textSize="16sp"
-              />
+                android:textSize="16sp" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAdvertise"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/_90sdp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"
-            tools:listitem="@layout/advertisement_item" />
+            app:layout_constraintTop_toBottomOf="@+id/postingofAdTv">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAdvertise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_90sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postingofAdTv"
+                tools:listitem="@layout/advertisement_item" />
+
+        </androidx.core.widget.NestedScrollView>
+
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/floatingActionBtnEvents"
             android:layout_width="@dimen/_40sdp"

@@ -487,7 +487,8 @@ class HomeScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(profilePicIv)
             }
 
             seeAllClassified.setOnClickListener {
@@ -1222,7 +1223,7 @@ class HomeScreenFragment : Fragment() {
 
                     if (adRvposition1 == Int.MAX_VALUE) {
                         adRvposition1 = Int.MAX_VALUE / 2
-                        binding?.adsBelowFirstSectionRv?.scrollToPosition(adRvposition1)
+                        binding?.adsBelowFirstSectionRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
                         adRvposition1 += 2
@@ -1232,8 +1233,6 @@ class HomeScreenFragment : Fragment() {
             }
             timer1!!.schedule(timerTask1, 4000, 4000)
         }
-
-
     }
 
     fun stopAutoScrollBanner2() {
@@ -1250,12 +1249,10 @@ class HomeScreenFragment : Fragment() {
         if (timer2 == null && timerTask2 == null && adsGenericAdapter2?.items?.size!! >= 3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
-
                 override fun run() {
-
                     if (adRvposition2 == Int.MAX_VALUE) {
                         adRvposition2 = Int.MAX_VALUE / 2
-                        binding?.adsAbovePopularSectionRv?.scrollToPosition(adRvposition2)
+                        binding?.adsAbovePopularSectionRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
                         adRvposition2 += 2

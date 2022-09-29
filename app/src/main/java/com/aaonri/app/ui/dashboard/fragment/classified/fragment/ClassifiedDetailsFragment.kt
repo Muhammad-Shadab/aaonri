@@ -928,7 +928,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
                     if (adRvposition == Int.MAX_VALUE) {
                         adRvposition = Int.MAX_VALUE / 2
-                        binding?.bottomAdvertiseRv?.scrollToPosition(adRvposition)
+                        binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition)
 
                     } else {
                         adRvposition += 2
