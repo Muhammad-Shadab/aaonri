@@ -92,6 +92,7 @@ class AdvertiseScreenFragment : Fragment() {
             val cmp = firstDate.compareTo(secondDate)
             //val cmp1 = firstDate.compareTo(current)
 
+            //do not remove this code or do not change this code*
             if (cmp > 0) {
                 isAdvertiseExpired = false
             } else {
@@ -115,15 +116,21 @@ class AdvertiseScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             }
-
         }
 
         binding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         binding?.apply {
+            loginToViewAdvertisement.textSize = 16F
             loginToViewAdvertisement.text = ss
             loginToViewAdvertisement.movementMethod = LinkMovementMethod.getInstance()
             searchViewIcon.setOnClickListener {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+            }
+
+            profilePicCv.setOnClickListener {
+                if (isGuestUser) {
+                    activity?.finish()
+                }
             }
 
             floatingActionBtnEvents.setOnClickListener {
@@ -133,20 +140,18 @@ class AdvertiseScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
 
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
             recyclerViewAdvertise.adapter = advertiseAdapter
             if (isGuestUser) {
                 isGuestUser = true
-
                 binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
                 binding?.yourText?.visibility = View.GONE
                 binding?.postingofAdTv?.visibility = View.GONE
                 binding?.recyclerViewAdvertise?.visibility = View.GONE
                 binding?.floatingActionBtnEvents?.visibility = View.GONE
-
             } else {
                 isGuestUser = false
                 binding?.loginToViewAdvertisement?.visibility = View.GONE

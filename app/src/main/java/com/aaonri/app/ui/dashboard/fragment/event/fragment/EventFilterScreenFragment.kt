@@ -15,6 +15,7 @@ import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentEventFilterScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +53,7 @@ class EventFilterScreenFragment : Fragment() {
             }
 
             applyBtn.setOnClickListener {
-
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 if (zipCodeEt.text.toString()
                         .isNotEmpty() && zipCodeEt.text.toString().length >= 5 || zipCodeEt.text.isEmpty()
                 ) {

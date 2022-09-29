@@ -88,7 +88,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.home_page_ads
+                            R.drawable.homepage_template
                         )
                     )
 
@@ -105,7 +105,7 @@ class AdvertiseTemplateAdapter(private var selectedServices: ((value: AdvertiseA
                     mobileTemplateImageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            R.drawable.home_page_ads
+                            R.drawable.homepage_template
                         )
                     )
 

@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
+import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
+import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.GridSpacingItemDecoration
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +51,9 @@ class AllClassifiedFragment : Fragment() {
     ): View? {
         binding =
             FragmentAllClassifiedBinding.inflate(inflater, container, false)
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
         allClassifiedAdapter = AllClassifiedAdapter {
             postClassifiedViewModel.setSendDataToClassifiedDetailsScreen(it.id)
             postClassifiedViewModel.setNavigateToClassifiedDetailsScreen(
@@ -133,8 +139,6 @@ class AllClassifiedFragment : Fragment() {
                     }
                 }
             })
-
-
         }
 
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
@@ -144,7 +148,6 @@ class AllClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-
                     response.data?.userAdsList?.let { adsList ->
                         if (postClassifiedViewModel.changeSortTriplet.first) {
                             allClassifiedAdapter?.setData(adsList)
@@ -177,9 +180,6 @@ class AllClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
-
                 }
             }
         }

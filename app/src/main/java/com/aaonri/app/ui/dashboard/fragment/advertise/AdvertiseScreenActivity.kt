@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -32,6 +33,13 @@ class AdvertiseScreenActivity : BaseActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.postAdvertiseNavHost) as NavHostFragment
         val navController = navHostFragment.navController
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (navController.currentDestination?.id == R.id.postAdvertiseTermConditionFragment2) {
+                postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] =
+                    ""
+            }
+        }
 
         val isRenewAdvertise = intent.getBooleanExtra("isRenewAdvertise", false)
         val isUpdateAdvertise = intent.getBooleanExtra("isUpdateAdvertise", false)

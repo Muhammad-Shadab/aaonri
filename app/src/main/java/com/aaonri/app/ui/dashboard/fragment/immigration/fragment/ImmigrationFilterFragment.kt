@@ -52,6 +52,7 @@ class ImmigrationFilterFragment : Fragment() {
 
 
             applyBtn.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         fifteenDaysSelected = fifteenDaysRadioBtn.isChecked,

@@ -19,6 +19,7 @@ import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.DecimalDigitsInputFilter
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 
 class ClassifiedFilterFragmentBottom : Fragment() {
@@ -69,6 +70,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             applyBtn.setOnClickListener {
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
                 var minValue = ""
                 var maxValue = ""
@@ -955,6 +957,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

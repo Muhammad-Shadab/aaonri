@@ -380,8 +380,6 @@ class LoginFragment : Fragment() {
                                 ?.set(Constant.IS_USER_LOGIN, true)
 
                             response.data.profilePic.let {
-                                Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-
                                 context?.let { it1 -> PreferenceManager<String>(it1) }
                                     ?.set(
                                         Constant.USER_PROFILE_PIC,

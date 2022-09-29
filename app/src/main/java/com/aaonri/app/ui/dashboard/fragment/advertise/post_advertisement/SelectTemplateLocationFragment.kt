@@ -62,7 +62,7 @@ class SelectTemplateLocationFragment : Fragment() {
             val gson = Gson()
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE_LOCATION)
-            tv1.text = "Select a location on the selected ${
+            tv1.text = "Select a location on the ${
                 postAdvertiseViewModel.selectedTemplatePageName.value?.pageName + "," + System.getProperty(
                     "line.separator"
                 )

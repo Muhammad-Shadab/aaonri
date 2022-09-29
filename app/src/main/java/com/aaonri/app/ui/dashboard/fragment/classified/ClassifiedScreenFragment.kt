@@ -117,6 +117,12 @@ class ClassifiedScreenFragment : Fragment() {
 
         binding?.apply {
 
+            profilePicCv.setOnClickListener {
+                if (isUserLogin == false) {
+                    activity?.finish()
+                }
+            }
+
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     callGetAllClassifiedApi(searchQuery = textView.text.toString())
@@ -162,7 +168,8 @@ class ClassifiedScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(profilePicIv)
             }
 
             searchViewIcon.setOnClickListener {
@@ -252,11 +259,9 @@ class ClassifiedScreenFragment : Fragment() {
                 } else {
                     guestUserLoginDialog.show()
                 }
-
             }
 
             if (isUserLogin == false) {
-                profilePicIv.visibility = View.GONE
                 //bellIconIv.visibility = View.GONE
                 classifiedScreenTabLayout.visibility = View.GONE
                 classifiedScreenViewPager.setPadding(0, 40, 0, 0)

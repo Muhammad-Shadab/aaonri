@@ -189,7 +189,8 @@ class HomeScreenFragment : Fragment() {
         userEmailTv.text = email
         context?.let {
             Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().into(dialogProfileIv)
+                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+                .into(dialogProfileIv)
         }
 
         val window: Window? = updateLogoutDialog.window
@@ -486,7 +487,7 @@ class HomeScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
 
             seeAllClassified.setOnClickListener {
@@ -921,7 +922,7 @@ class HomeScreenFragment : Fragment() {
                         interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
-                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == 8} as MutableList<InterestResponseItem>)
+                            homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == 8 } as MutableList<InterestResponseItem>)
                         } else {
                             //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
@@ -931,7 +932,6 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Error -> {
 
                 }
-                else -> {}
             }
         }
     }

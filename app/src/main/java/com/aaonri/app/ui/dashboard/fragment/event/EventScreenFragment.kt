@@ -95,13 +95,19 @@ class EventScreenFragment : Fragment() {
 
             eventsScreenViewPager.isUserInputEnabled = false
 
+            profilePicCv.setOnClickListener {
+                if (isUserLogin == false) {
+                    activity?.finish()
+                }
+            }
+
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
 
             filterEvent.setOnClickListener {

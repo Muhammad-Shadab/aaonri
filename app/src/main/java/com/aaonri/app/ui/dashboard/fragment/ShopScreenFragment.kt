@@ -11,6 +11,7 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentShopScreenBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -28,12 +29,22 @@ class ShopScreenFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
         binding = FragmentShopScreenBinding.inflate(inflater, container, false)
         binding?.apply {
             progresShopping.visibility = View.VISIBLE
+
+            profilePicCv.setOnClickListener {
+                if (isUserLogin == false) {
+                    activity?.finish()
+                }
+            }
+
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
             navigateBack.setOnClickListener {
                 if (shopWithUsWebView.canGoBack()) {

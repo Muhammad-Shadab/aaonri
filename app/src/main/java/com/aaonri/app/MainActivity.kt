@@ -109,18 +109,18 @@ class MainActivity : BaseActivity() {
                         postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                     }
                 }
-            }
-            if (navController.currentDestination?.id != R.id.immigrationScreenFragment || navController.currentDestination?.id != R.id.immigrationDetailsFragment) {
-                immigrationViewModel.setFilterData(
-                    ImmigrationFilterModel(
-                        fifteenDaysSelected = false,
-                        threeMonthSelected = false,
-                        oneYearSelected = false,
-                        activeDiscussion = false,
-                        atLeastOnDiscussion = false
+                if (navController.currentDestination?.id != R.id.immigrationScreenFragment || navController.currentDestination?.id != R.id.immigrationDetailsFragment) {
+                    immigrationViewModel.setFilterData(
+                        ImmigrationFilterModel(
+                            fifteenDaysSelected = false,
+                            threeMonthSelected = false,
+                            oneYearSelected = false,
+                            activeDiscussion = false,
+                            atLeastOnDiscussion = false
+                        )
                     )
-                )
-                immigrationViewModel.setSearchQuery("")
+                    immigrationViewModel.setSearchQuery("")
+                }
             }
         }
 

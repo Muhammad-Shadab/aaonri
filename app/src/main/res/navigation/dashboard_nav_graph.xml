@@ -160,7 +160,10 @@
             app:destination="@id/eventDetailsScreenFragment" />
         <action
             android:id="@+id/action_eventScreenFragment_to_eventFilterScreenFragment"
-            app:destination="@id/eventFilterScreenFragment" />
+            app:destination="@id/eventFilterScreenFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
         <action
             android:id="@+id/action_eventScreenFragment_to_advertiseWebviewFragment"
             app:destination="@id/advertiseWebviewFragment" />

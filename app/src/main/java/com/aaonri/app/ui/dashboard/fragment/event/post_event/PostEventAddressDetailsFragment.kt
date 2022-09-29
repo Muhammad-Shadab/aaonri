@@ -30,6 +30,7 @@ import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -143,13 +144,16 @@ class PostEventAddressDetailsFragment : Fragment() {
                 if (cityNameEt.text.toString()
                         .isNotEmpty() && cityNameEt.text.toString().length < 3
                 ) {
-                    showAlert("Please enter valid city name")
+                    showAlert("Please enter valid city")
                 } else {
                     if (postEventViewModel.isEventOffline) {
                         if (zipCodeEt.text.toString()
                                 .isNotEmpty() && zipCodeEt.text.toString().length >= 5
                         ) {
-                            if (socialMediaLinkEt.text.isNotEmpty() && socialMediaLinkEt.text.toString().length >= 10) {
+                            if (socialMediaLinkEt.text.isNotEmpty() && Validator.urlValidation(
+                                    socialMediaLinkEt.text.toString()
+                                )
+                            ) {
                                 if (landmarkEt.text.toString()
                                         .isNotEmpty() && landmarkEt.text.toString().length < 3
                                 ) {
@@ -184,14 +188,13 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 )
                                                 postEvent()
                                             }
-
                                         } else {
-                                            showAlert("Please accept terms & condition")
+                                            showAlert("Please agree to our Terms of Use & Privacy Policy")
                                         }
                                     }
                                 }
                             } else {
-                                showAlert("Please enter valid  ticket link")
+                                showAlert("Please enter valid ticket link")
                             }
                         } else {
                             showAlert("Please enter valid zip code")

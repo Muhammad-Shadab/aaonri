@@ -9,6 +9,8 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -99,7 +101,8 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                                 email = companyEmailEt.text.toString(),
                                                 services = companyProfessionEt.text.toString(),
                                                 link = companyLinkEt.text.toString(),
-                                                description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseDescEt.text.toString().trim()
+                                                description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseDescEt.text.toString()
+                                                    .trim()
                                             )
 
                                             if (postAdvertiseViewModel.isUpdateAdvertise) {
@@ -167,8 +170,6 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             setDataForUpdating()
         }
 
-
-
         return binding?.root
     }
 
@@ -178,7 +179,12 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
         binding?.apply {
             companyNameEt.setText(advertiseData?.advertisementDetails?.companyName)
             companyAddress.setText(advertiseData?.advertisementDetails?.location)
-            companyMobileEt.setText(advertiseData?.advertisementDetails?.contactNo?.replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3"))
+            companyMobileEt.setText(
+                advertiseData?.advertisementDetails?.contactNo?.replaceFirst(
+                    "(\\d{3})(\\d{3})(\\d+)".toRegex(),
+                    "$1-$2-$3"
+                )
+            )
             companyEmailEt.setText(advertiseData?.advertisementDetails?.emailId)
             companyProfessionEt.setText(advertiseData?.advertisementDetails?.productServices)
             companyLinkEt.setText(advertiseData?.advertisementDetails?.url)
@@ -189,7 +195,6 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
 
     private fun setData() {
         binding?.advertiseDescEt?.fromHtml(if (postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION]?.isNotEmpty() == true) postAdvertiseViewModel.companyContactDetailsMap[AdvertiseConstant.ADVERTISE_COMPANY_DESCRIPTION] else "")
-
     }
 
     private fun showAlert(text: String) {
