@@ -152,16 +152,12 @@ class AllEventFragment : Fragment() {
                         binding?.recyclerViewEvent?.visibility = View.VISIBLE
                         binding?.topAdvertiseRv?.visibility = View.VISIBLE
                         binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                        binding?.resultsNotFoundLL?.visibility = View.GONE
                     } else {
                         binding?.recyclerViewEvent?.visibility = View.GONE
                         binding?.topAdvertiseRv?.visibility = View.GONE
                         binding?.bottomAdvertiseRv?.visibility = View.GONE
-                        activity?.let { it1 ->
-                            Snackbar.make(
-                                it1.findViewById(android.R.id.content),
-                                "No result found", Snackbar.LENGTH_LONG
-                            ).show()
-                        }
+                        binding?.resultsNotFoundLL?.visibility = View.VISIBLE
                     }
                 }
                 is Resource.Error -> {
@@ -176,6 +172,7 @@ class AllEventFragment : Fragment() {
                 binding?.recyclerViewEvent?.visibility = View.VISIBLE
                 binding?.topAdvertiseRv?.visibility = View.VISIBLE
                 binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
+                binding?.resultsNotFoundLL?.visibility = View.GONE
                 //allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }
