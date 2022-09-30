@@ -9,15 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllEventBinding
+import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -141,13 +140,17 @@ class AllEventFragment : Fragment() {
                         } else {
                             allEventAdapter?.setData(response.data.eventList)
                         }
-                        response.data.eventList.forEach {
-                            if (!listOfCity.contains(it.city) && !it.city.isNullOrEmpty()) {
-                                listOfCity.add(it.city)
+
+                        if (eventViewModel.isEventCityListIsEmpty) {
+                            response.data.eventList.forEach {
+                                if (!listOfCity.contains(it.city) && !it.city.isNullOrEmpty()) {
+                                    listOfCity.add(it.city)
+                                }
                             }
-                        }
-                        if (eventViewModel.eventCityList.isEmpty()) {
-                            eventViewModel.setEventCityList(listOfCity)
+                            if (eventViewModel.eventCityList.isEmpty()) {
+                                eventViewModel.setEventCityList(listOfCity)
+                            }
+                            eventViewModel.isEventCityListIsEmpty = false
                         }
                         binding?.recyclerViewEvent?.visibility = View.VISIBLE
                         binding?.topAdvertiseRv?.visibility = View.VISIBLE

@@ -34,10 +34,19 @@ class EventFilterScreenFragment : Fragment() {
         binding = FragmentEventFilterScreenBinding.inflate(layoutInflater, container, false)
 
         var zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
+
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
         binding?.apply {
             selectEventCitySpinner.setOnClickListener {
                 findNavController().navigate(R.id.action_eventFilterScreenFragment_to_selectFilterEventCityBottom)
             }
+
+            if (isUserLogin == false) {
+                myLocationCheckBox.visibility = View.GONE
+            }
+
             myLocationCheckBox.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
                     zipCodeEt.isEnabled = false
@@ -57,11 +66,7 @@ class EventFilterScreenFragment : Fragment() {
                 if (zipCodeEt.text.toString()
                         .isNotEmpty() && zipCodeEt.text.toString().length >= 5 || zipCodeEt.text.isEmpty()
                 ) {
-                    eventViewModel.setCityFilter(
-                        if (selectEventCitySpinner.text.toString()
-                                .isNotEmpty()
-                        ) selectEventCitySpinner.text.toString() else ""
-                    )
+                    eventViewModel.setCityFilter(if (selectEventCitySpinner.text.toString().isNotEmpty()) selectEventCitySpinner.text.toString() else "")
 
                     eventViewModel.setCategoryFilter(
                         if (selectEventCategorySpinner.text.toString()
@@ -91,13 +96,16 @@ class EventFilterScreenFragment : Fragment() {
 
             }
 
-
             eventViewModel.selectedEventCity.observe(viewLifecycleOwner) {
-                binding?.selectEventCitySpinner?.text = it
+                if (it != null) {
+                    binding?.selectEventCitySpinner?.text = it
+                }
             }
 
 
             closeEventBtn.setOnClickListener {
+                eventViewModel.setClickedOnFilter(true)
+
                 findNavController().navigateUp()
             }
 
@@ -121,8 +129,6 @@ class EventFilterScreenFragment : Fragment() {
                     }
                     context?.getColor(R.color.white)
                         ?.let { it1 -> allTv.setTextColor(it1) }
-
-
 
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -337,7 +343,7 @@ class EventFilterScreenFragment : Fragment() {
                 eventViewModel.setIsMyLocationChecked(false)
                 eventViewModel.setZipCodeInFilterScreen("")
                 eventViewModel.setSearchQuery("")
-
+                eventViewModel.setCityFilter("")
                 eventViewModel.setIsAllSelected(false)
                 eventViewModel.setIsFreeSelected(false)
                 eventViewModel.setIsPaidSelected(false)
@@ -351,7 +357,7 @@ class EventFilterScreenFragment : Fragment() {
                     )
                 )
 
-                eventViewModel.setEventCityList(mutableListOf())
+                //eventViewModel.setEventCityList(mutableListOf())
 
                 /*selectedFilterList.clear()*/
 

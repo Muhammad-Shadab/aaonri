@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -32,7 +33,6 @@ import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -107,7 +107,8 @@ class EventScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
+                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(profilePicIv)
             }
 
             filterEvent.setOnClickListener {
@@ -328,7 +329,6 @@ class EventScreenFragment : Fragment() {
                 noOfSelection = 0
             }
             setFilterVisibility()
-
         }
 
         eventViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
@@ -386,9 +386,11 @@ class EventScreenFragment : Fragment() {
                         ""
                     )
                 )
-
-                eventViewModel.setEventCityList(mutableListOf())
+                eventViewModel.selectedEventCity.postValue(null)
+                eventViewModel.setCityFilter("")
+                //eventViewModel.setEventCityList(mutableListOf())
             }
+
             eventViewModel.setClearAllFilter(false)
         }
 

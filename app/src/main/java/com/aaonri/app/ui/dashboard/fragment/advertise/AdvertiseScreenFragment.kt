@@ -124,6 +124,11 @@ class AdvertiseScreenFragment : Fragment() {
             loginToViewAdvertisement.textSize = 16F
             loginToViewAdvertisement.text = ss
             loginToViewAdvertisement.movementMethod = LinkMovementMethod.getInstance()
+
+            loginToViewAdvertisement.setOnClickListener {
+                activity?.finish()
+            }
+
             searchViewIcon.setOnClickListener {
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
             }
@@ -164,12 +169,12 @@ class AdvertiseScreenFragment : Fragment() {
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
 
-            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+            /*nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 }
             })
-
+*/
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 

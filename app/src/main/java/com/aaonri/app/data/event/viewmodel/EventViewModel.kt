@@ -39,6 +39,8 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     var eventCityList = mutableListOf<String>()
         private set
 
+    var isEventCityListIsEmpty = true
+
     var selectedEventCity: MutableLiveData<String> =
         MutableLiveData()
         private set
@@ -83,7 +85,6 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
         private set
 
     val navigateFromEventScreenToAdvertiseWebView: MutableLiveData<Boolean> = MutableLiveData()
-
 
 
     fun getMyEvent(allEventRequest: AllEventRequest) = viewModelScope.launch {
@@ -206,7 +207,7 @@ class EventViewModel @Inject constructor(private val eventRepository: EventRepos
     }
 
     fun setEventAdvertiseUrls(url: String) {
-        eventAdvertiseUrl  = url
+        eventAdvertiseUrl = url
 
     }
 
