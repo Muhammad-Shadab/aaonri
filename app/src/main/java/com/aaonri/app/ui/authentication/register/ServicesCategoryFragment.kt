@@ -2,10 +2,12 @@ package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -243,7 +246,8 @@ class ServicesCategoryFragment : Fragment() {
                             if (authCommonViewModel.profilePicUri != null) {
                                 uploadProfilePicture(
                                     response.data?.user?.userId,
-                                    authCommonViewModel.profilePicUri!!
+                                    authCommonViewModel.profilePicUri!!,
+                                    false
                                 )
                             } else {
                                 dialog.setContentView(R.layout.success_register_dialog)
@@ -264,7 +268,12 @@ class ServicesCategoryFragment : Fragment() {
                             }
                         } else {
                             /** Download social profile and upload the file **/
-                            Toast.makeText(context, "profile is empty", Toast.LENGTH_SHORT).show()
+                            if (downloadImage(socialProfile, "Profile")) {
+                                uploadProfilePicture(
+                                    response.data?.user?.userId,
+                                    isSocialProfile = true
+                                )
+                            }
                         }
                     } else {
                         Toast.makeText(
@@ -352,17 +361,89 @@ class ServicesCategoryFragment : Fragment() {
         return binding?.root
     }
 
-    private fun uploadProfilePicture(userId: Int?, profilePic: Uri) {
+    /*private fun callUploadResumeApi(userId: Int?) {
 
-        val file = File(profilePic.toString().replace("file:", ""))
+        val downloadDire =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val uploadedFile = File(downloadDire, "Profile.jpg")
+        val authority = "${context?.packageName}.provider"
+        val accessibleUri = context?.let { FileProvider.getUriForFile(it, authority, uploadedFile) }
+
+        val file = createTmpFileFromUri(accessibleUri)
+
+        val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val requestFile: RequestBody? =
+            file?.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val requestImage =
+            requestFile?.let { MultipartBody.Part.createFormData("file", file.name, it) }
+
+        if (requestImage != null) {
+            authCommonViewModel.uploadProfilePic(requestImage, id)
+        }
+    }*/
+
+    private fun downloadImage(socialProfile: String?, fileName: String): Boolean {
+        try {
+            val downloadManager =
+                activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val imageLink = Uri.parse(socialProfile)
+            val request = DownloadManager.Request(imageLink)
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+                .setMimeType("images/jpeg")
+                .setAllowedOverRoaming(false)
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setTitle(fileName)
+                .setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOWNLOADS,
+                    File.separator + fileName + ".jpg"
+                )
+            downloadManager.enqueue(request)
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
+    private fun uploadProfilePicture(userId: Int?, profilePic: Uri? = null, isSocialProfile: Boolean) {
+
+        val file: File?
+
+        if (isSocialProfile) {
+            val downloadDire =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val uploadedFile = File(downloadDire, "Profile.jpg")
+            val authority = "${context?.packageName}.provider"
+            val accessibleUri =
+                context?.let { FileProvider.getUriForFile(it, authority, uploadedFile) }
+            file = createTmpFileFromUri(accessibleUri)
+        } else {
+            file = File(profilePic.toString().replace("file:", ""))
+        }
 
         val id = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val requestFile: RequestBody? =
+            file?.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val requestImage =
+            requestFile?.let { MultipartBody.Part.createFormData("file", file.name, it) }
 
-        authCommonViewModel.uploadProfilePic(requestImage, id)
+        if (requestImage != null) {
+            authCommonViewModel.uploadProfilePic(requestImage, id)
+        }
+    }
+
+    private fun createTmpFileFromUri(uri: Uri?): File? {
+        return try {
+            val stream = uri?.let { context?.contentResolver?.openInputStream(it) }
+            val file = File.createTempFile("Profile.jpg", "", context?.cacheDir)
+            org.apache.commons.io.FileUtils.copyInputStreamToFile(stream, file)
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     private fun updateProfile() {

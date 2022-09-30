@@ -333,6 +333,21 @@ class BasicDetailsFragment : Fragment() {
             }
         }
 
+        authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+
+                }
+            }
+
+        }
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
