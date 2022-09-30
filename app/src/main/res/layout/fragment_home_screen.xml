@@ -88,7 +88,7 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/edit_text_shape"
         android:drawableRight="@drawable/ic_icon_search"

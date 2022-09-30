@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -50,9 +52,7 @@ class ImmigrationFilterFragment : Fragment() {
                 activity?.onBackPressed()
             }
 
-
             applyBtn.setOnClickListener {
-                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 immigrationViewModel.setFilterData(
                     ImmigrationFilterModel(
                         fifteenDaysSelected = fifteenDaysRadioBtn.isChecked,
@@ -62,10 +62,20 @@ class ImmigrationFilterFragment : Fragment() {
                         atLeastOnDiscussion = isAtLeastOneDiscussionSelected
                     )
                 )
-                activity?.onBackPressed()
+                findNavController().navigateUp()
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
             }
 
             clearAllBtn.setOnClickListener {
+               /* immigrationViewModel.setFilterData(
+                    ImmigrationFilterModel(
+                        fifteenDaysSelected = fifteenDaysRadioBtn.isChecked,
+                        threeMonthSelected = threeMonthRadioBtn.isChecked,
+                        oneYearSelected = oneYearRadioBtn.isChecked,
+                        activeDiscussion = isActiveDiscussionSelected,
+                        atLeastOnDiscussion = isAtLeastOneDiscussionSelected
+                    )
+                )*/
                 fifteenDaysRadioBtn.isChecked = false
                 threeMonthRadioBtn.isChecked = false
                 oneYearRadioBtn.isChecked = false

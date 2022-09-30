@@ -47,6 +47,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         binding = FragmentCommunityBottomBinding.inflate(inflater, container, false)
         getCommunities()
         communityItemAdapter = CommunityItemAdapter { communitiesList ->
+            SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
             if (communitiesList.isNotEmpty()) {
                 authCommonViewModel.addCommunityList(communitiesList as MutableList<CommunityAuth>)
                 binding?.numberOfSelectedCommunity?.visibility = View.VISIBLE

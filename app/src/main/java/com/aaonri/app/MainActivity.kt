@@ -108,8 +108,7 @@ class MainActivity : BaseActivity() {
                         postClassifiedViewModel.setClearAllFilter(true)
                         postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                     }
-                }
-                if (navController.currentDestination?.id != R.id.immigrationScreenFragment || navController.currentDestination?.id != R.id.immigrationDetailsFragment) {
+                    /** clearing immigration filter **/
                     immigrationViewModel.setFilterData(
                         ImmigrationFilterModel(
                             fifteenDaysSelected = false,
@@ -121,6 +120,7 @@ class MainActivity : BaseActivity() {
                     )
                     immigrationViewModel.setSearchQuery("")
                 }
+
             }
         }
 

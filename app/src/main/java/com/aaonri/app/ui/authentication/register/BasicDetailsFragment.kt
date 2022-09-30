@@ -364,6 +364,10 @@ class BasicDetailsFragment : Fragment() {
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
                 binding?.addProfileBtn?.visibility = View.GONE
 
+                /** Changing user profile pic to blank which means user changed their gmail profile to new profile in case of gmail login**/
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_PROFILE_PIC, "")
+
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {

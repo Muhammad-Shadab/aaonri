@@ -66,6 +66,9 @@ class ServicesCategoryFragment : Fragment() {
         binding =
             FragmentServicesCategoryBinding.inflate(inflater, container, false)
 
+        val socialProfile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
+
         getServicesInterestList()
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
@@ -235,29 +238,34 @@ class ServicesCategoryFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     if (response.data?.status.equals("true")) {
 
-                        if (authCommonViewModel.profilePicUri != null) {
-                            uploadProfilePicture(
-                                response.data?.user?.userId,
-                                authCommonViewModel.profilePicUri!!
-                            )
-                        } else {
-                            dialog.setContentView(R.layout.success_register_dialog)
-                            dialog.window?.setBackgroundDrawable(
-                                ContextCompat.getDrawable(
-                                    requireContext(),
-                                    R.drawable.dialog_shape
+                        if (socialProfile?.isEmpty() == true) {
+                            /**If social profile is empty that's mean user changed their profile in case of gmail login**/
+                            if (authCommonViewModel.profilePicUri != null) {
+                                uploadProfilePicture(
+                                    response.data?.user?.userId,
+                                    authCommonViewModel.profilePicUri!!
                                 )
-                            )
-                            dialog.setCancelable(false)
-                            dialog.show()
-                            val continueBtn =
-                                dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                            continueBtn.setOnClickListener {
-                                dialog.dismiss()
-                                activity?.finish()
+                            } else {
+                                dialog.setContentView(R.layout.success_register_dialog)
+                                dialog.window?.setBackgroundDrawable(
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.dialog_shape
+                                    )
+                                )
+                                dialog.setCancelable(false)
+                                dialog.show()
+                                val continueBtn =
+                                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                                continueBtn.setOnClickListener {
+                                    dialog.dismiss()
+                                    activity?.finish()
+                                }
                             }
+                        } else {
+                            /** Download social profile and upload the file **/
+                            Toast.makeText(context, "profile is empty", Toast.LENGTH_SHORT).show()
                         }
-
                     } else {
                         Toast.makeText(
                             context,

@@ -268,6 +268,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 }
 
                 is Resource.Success -> {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     if (response.data?.result?.isNotEmpty() == true) {
                         var cityChangedName = cityName
                         cityName = response.data.result.getOrNull(0)?.district.toString()

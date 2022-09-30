@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -370,6 +371,7 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             noOfSelectedFilter = 0
             immigrationFilterModel = filterData
+            Toast.makeText(context, "${filterData.atLeastOnDiscussion}", Toast.LENGTH_SHORT).show()
             if (filterData.fifteenDaysSelected) {
                 noOfSelectedFilter++
                 binding?.dateRangeCv?.visibility = View.VISIBLE

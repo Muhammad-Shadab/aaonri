@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.databinding.CommunityItemBinding
+import com.aaonri.app.utils.SystemServiceUtil
 
 
 class CommunityItemAdapter(private var selectedCommunity: ((value: List<CommunityAuth>) -> Unit)? = null) :

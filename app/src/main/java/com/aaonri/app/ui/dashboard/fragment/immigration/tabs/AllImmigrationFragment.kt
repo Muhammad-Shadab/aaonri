@@ -136,7 +136,6 @@ class AllImmigrationFragment : Fragment() {
 
             val currentDate = getCalculatedDate("MM-dd-yyyy", 0)
 
-
             discussionList.forEach { discussion ->
 
                 if (filterData.fifteenDaysSelected || filterData.threeMonthSelected || filterData.oneYearSelected) {
