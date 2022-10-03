@@ -19,10 +19,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentMyClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.AllClassifiedAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -76,6 +73,13 @@ class MyClassifiedFragment : Fragment() {
             }
         }
         binding?.apply {
+
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
+
             recyclerViewClassified.layoutManager = GridLayoutManager(context, 2)
             recyclerViewClassified.addItemDecoration(GridSpacingItemDecoration(2, 36, 40))
 

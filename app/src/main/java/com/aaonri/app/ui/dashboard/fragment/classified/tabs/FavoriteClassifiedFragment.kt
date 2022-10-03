@@ -17,10 +17,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentFavoriteClassifiedBinding
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.FavoriteClassifiedAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -73,6 +70,12 @@ FavoriteClassifiedFragment : Fragment() {
         }
         binding?.apply {
 
+            nestedScrollView1.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
+
             loginBtn.setOnClickListener {
                 postClassifiedViewModel.setNavigateToAllClassified(true)
             }
@@ -85,7 +88,7 @@ FavoriteClassifiedFragment : Fragment() {
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getClassifiedBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
-            layoutManager1 =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             topAdvertiseRv.layoutManager = layoutManager1
 
 
@@ -189,15 +192,12 @@ FavoriteClassifiedFragment : Fragment() {
     }
 
 
-
-
-
-
     override fun onPause() {
         super.onPause()
         stopAutoScrollBanner2()
         stopAutoScrollBanner1()
     }
+
     fun stopAutoScrollBanner1() {
         if (timer1 != null && timerTask1 != null) {
             timerTask1!!.cancel()
@@ -230,8 +230,8 @@ FavoriteClassifiedFragment : Fragment() {
         }
 
 
-
     }
+
     fun stopAutoScrollBanner2() {
         if (timer2 != null && timerTask2 != null) {
             timerTask2!!.cancel()
@@ -261,7 +261,6 @@ FavoriteClassifiedFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 3000, 4000)
         }
-
 
 
     }

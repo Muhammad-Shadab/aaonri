@@ -53,7 +53,7 @@
                 android:fontFamily="@font/helvetica_regular"
                 android:hint="Search your community"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_2sdp"
                 android:paddingStart="@dimen/_16sdp"

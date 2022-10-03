@@ -72,6 +72,10 @@
         <action
             android:id="@+id/action_classifiedScreenFragment_to_advertiseWebviewFragment"
             app:destination="@id/advertiseWebviewFragment" />
+        <action
+            android:id="@+id/action_classifiedScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/shopScreenFragment"
@@ -81,6 +85,9 @@
         <action
             android:id="@+id/action_shopScreenFragment_to_advertiseScreenFragment"
             app:destination="@id/advertiseScreenFragment" />
+        <action
+            android:id="@+id/action_shopScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/advertiseScreenFragment"
@@ -96,6 +103,9 @@
         <action
             android:id="@+id/action_advertiseScreenFragment_to_updateAndDeleteBottomFragment"
             app:destination="@id/updateAndDeleteBottomFragment" />
+        <action
+            android:id="@+id/action_advertiseScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreScreenFragment"
@@ -114,6 +124,9 @@
         <action
             android:id="@+id/action_moreScreenFragment_to_classifiedScreenFragment"
             app:destination="@id/classifiedScreenFragment" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedFilterFragmentBottom"
@@ -167,6 +180,9 @@
         <action
             android:id="@+id/action_eventScreenFragment_to_advertiseWebviewFragment"
             app:destination="@id/advertiseWebviewFragment" />
+        <action
+            android:id="@+id/action_eventScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailsScreenFragment"
@@ -297,6 +313,9 @@
         <action
             android:id="@+id/action_immigrationScreenFragment_to_immigrationCenterDetails"
             app:destination="@id/immigrationCenterDetails" />
+        <action
+            android:id="@+id/action_immigrationScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <dialog
         android:id="@+id/immigrationCategoryBottomSheet"

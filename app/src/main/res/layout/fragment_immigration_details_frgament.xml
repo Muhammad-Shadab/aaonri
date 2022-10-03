@@ -195,6 +195,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="Add Comment"
+                android:inputType="textCapSentences"
                 android:maxLines="4"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:paddingVertical="@dimen/_2sdp" />

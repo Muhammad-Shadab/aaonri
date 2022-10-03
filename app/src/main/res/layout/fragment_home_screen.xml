@@ -84,49 +84,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
 
-    <TextView
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/searchViewll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/edit_text_shape"
-        android:drawableRight="@drawable/ic_icon_search"
-        android:fontFamily="@font/helvetica_regular"
         android:gravity="center_vertical"
-        android:hint="@string/what_are_you_looking_for"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingVertical="@dimen/_6sdp"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:textColor="@color/editTextColor"
-        android:textColorHint="@color/hintColor"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTv" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTv">
 
-    <!--<TextView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/edit_text_shape"
-        android:drawableRight="@drawable/ic_icon_search"
-        android:hint="@string/what_are_you_looking_for"
-        android:maxLines="1"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingTop="@dimen/_6sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_4sdp"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTv" />-->
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/what_are_you_looking_for"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_2sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/cancelButton"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/cancel_btn"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/searchViewIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/ic_icon_search" />
+    </LinearLayout>
+
+    <!-- <TextView
+         android:id="@+id/searchView"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="@dimen/_12sdp"
+         android:layout_marginTop="@dimen/_16sdp"
+         android:background="@drawable/edit_text_shape"
+         android:drawableRight="@drawable/ic_icon_search"
+         android:fontFamily="@font/helvetica_regular"
+         android:gravity="center_vertical"
+         android:hint="@string/what_are_you_looking_for"
+         android:lines="1"
+         android:maxLines="1"
+         android:paddingVertical="@dimen/_6sdp"
+         android:paddingStart="@dimen/_16sdp"
+         android:paddingEnd="@dimen/_8sdp"
+         android:textColor="@color/editTextColor"
+         android:textColorHint="@color/hintColor"
+         android:textSize="12sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/homeTv" />-->
 
 
     <com.google.android.material.card.MaterialCardView
@@ -141,7 +168,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintTop_toBottomOf="@+id/searchViewll">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/homeNestedScrollView"
@@ -500,6 +527,70 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+            android:id="@+id/searchModuleFl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CBFFFFFF"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/sf_pro_semi_bold"
+                        android:text="Select one of the options to continue..."
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/closeSearchScreen"
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/black"
+                        android:src="@drawable/ic_cross" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/availableModuleSearchRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/searchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_28sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/green_btn_shape"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:minHeight="0dp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Search"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 

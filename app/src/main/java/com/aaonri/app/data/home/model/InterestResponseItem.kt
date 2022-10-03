@@ -4,5 +4,6 @@ data class InterestResponseItem(
     val active: Boolean,
     val iconName: String,
     val id: Int,
-    val interestDesc: String
+    val interestDesc: String,
+    var isSelected: Boolean
 )

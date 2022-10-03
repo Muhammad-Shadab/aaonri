@@ -178,7 +178,7 @@
                             android:background="@drawable/edit_text_shape"
                             android:fontFamily="@font/sf_pro_regular"
                             android:hint="@string/alias_name"
-                            android:inputType="textEmailAddress"
+                            android:inputType="textCapSentences"
                             android:lines="1"
                             android:maxLines="1"
                             android:paddingStart="@dimen/_16sdp"

@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -198,7 +199,10 @@ class AdvertisementDetailsFragment : Fragment() {
 
         binding?.companyDescTv?.textSize = 14f
         if (!data?.advertisementDetails?.companyDescription.isNullOrEmpty()) {
-            binding?.companyDescTv?.fromHtml(data?.advertisementDetails?.companyDescription?.trim())
+            if (data?.advertisementDetails?.companyDescription != null) {
+                binding?.companyDescTv?.text =
+                    Html.fromHtml(data.advertisementDetails.companyDescription.trim())
+            }
             binding?.compnyDetails?.visibility = View.VISIBLE
             binding?.companyDescTv?.visibility = View.VISIBLE
         }

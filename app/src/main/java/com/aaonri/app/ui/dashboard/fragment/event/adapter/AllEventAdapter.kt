@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.adapter
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,10 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.databinding.EventItemBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.LocalTime
@@ -21,8 +26,10 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     private var data = listOf<Event>()
     private var startDate: String? = null
     private var startTimeOfEvent: String? = null
-    private var endTimeOfEvent: String? = null
+
+    //private var endTimeOfEvent: String? = null
     private var timeZone: String? = null
+    private var location = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,7 +41,6 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.apply {
-
             try {
                 startDate = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -42,14 +48,28 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 )
                 startTimeOfEvent = LocalTime.parse(data[position].startTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))
-                endTimeOfEvent = LocalTime.parse(data[position].endTime)
-                    .format(DateTimeFormatter.ofPattern("h:mma"))
+                /*endTimeOfEvent = LocalTime.parse(data[position].endTime)
+                    .format(DateTimeFormatter.ofPattern("h:mma"))*/
                 timeZone = data[position].timeZone
                 eventTiming.text =
-                    "Starts From $startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
+                    "Starts From $startDate, $startTimeOfEvent $timeZone" /* - $endTimeOfEvent  $timeZone*/
             } catch (e: Exception) {
 
             }
+
+            /*if (data[position].address1 != null) {
+                location = "${data[position].address1}, "
+            }
+            if (data[position].address2 != null) {
+                location += "${data[position].address2} "
+            }*/
+            if (data[position].city != null) {
+                location += "${data[position].city}"
+            }
+            if (data[position].zipCode != null) {
+                location += " - ${data[position].zipCode}"
+            }
+
 
             if (data[position].images.isNotEmpty()) {
                 if (data[position].images[0].imagePath.contains(".cover") || data[position].images[0].imagePath.contains(
@@ -64,6 +84,27 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                                 "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[index].imagePath}"
                             placeholder.visibility = View.GONE
                             Glide.with(context).load(image)
+                                .listener(object : RequestListener<Drawable?> {
+                                    override fun onLoadFailed(
+                                        e: GlideException?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        placeholder.visibility = View.VISIBLE
+                                        return false
+                                    }
+
+                                    override fun onResourceReady(
+                                        resource: Drawable?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        dataSource: DataSource?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        return false
+                                    }
+                                })
                                 .into(eventImageView)
                         }
                     }
@@ -72,18 +113,40 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                         "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data[position].images[0].imagePath}"
                     placeholder.visibility = View.GONE
                     Glide.with(context).load(image)
+                        .listener(object : RequestListener<Drawable?> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable?>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                placeholder.visibility = View.VISIBLE
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable?>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                return false
+                            }
+                        })
                         .into(eventImageView)
                 }
                 eventName.text = data[position].title
 
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                try {
-                    eventLocationZip.text =
-                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+
+                /*try {
+                    eventLocationZip.text = location
+                    *//* "${data[position].address1.ifEmpty { "" }}, ${data[position].address2.ifEmpty { "" }}, ${data[position].city.ifEmpty { "" }}, ${data[position].zipCode.ifEmpty { "" }}"*//*
                 } catch (e: Exception) {
 
-                }
+                }*/
                 if (data[position].fee > 0) {
                     val df = DecimalFormat("#,###.00")
                     df.roundingMode = RoundingMode.DOWN
@@ -98,18 +161,24 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                try {
-                    eventLocationZip.text =
-                        if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
+                /* try {
+                     eventLocationZip.text = location
+                     *//* "${data[position].address1.ifEmpty { "" }}, ${data[position].address2.ifEmpty { "" }}, ${data[position].city.ifEmpty { "" }}, ${data[position].zipCode.ifEmpty { "" }}"*//*
+
                 } catch (e: Exception) {
 
-                }
+                }*/
+
                 if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
                     eventFee.text = "FREE"
                 }
             }
+
+            eventLocationZip.text = location
+            location = ""
+
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])

@@ -9,13 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.ui.dashboard.fragment.event.adapter.RecentEventAdapter
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentRecentEventBinding
+import com.aaonri.app.ui.dashboard.fragment.event.adapter.RecentEventAdapter
 import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -66,6 +67,12 @@ class RecentEventFragment : Fragment() {
 
         binding?.apply {
 
+            nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+            })
+
             recyclerViewMyEvent.layoutManager = LinearLayoutManager(context)
             recyclerViewMyEvent.adapter = recentAdapter
 
@@ -73,13 +80,13 @@ class RecentEventFragment : Fragment() {
 
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getEventBottomAds()
 
-            if(ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
+            if (ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
                 topAdvertiseRv.adapter = adsGenericAdapter1
                 layoutManager1 =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 topAdvertiseRv.layoutManager = layoutManager1
             }
-            if(ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
+            if (ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
 
                 bottomAdvertiseRv.adapter = adsGenericAdapter2
                 layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -154,14 +161,11 @@ class RecentEventFragment : Fragment() {
         stopAutoScrollBanner1()
         stopAutoScrollBanner2()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
-
-
-
 
 
     override fun onPause() {
@@ -169,6 +173,7 @@ class RecentEventFragment : Fragment() {
         stopAutoScrollBanner2()
         stopAutoScrollBanner1()
     }
+
     fun stopAutoScrollBanner1() {
         if (timer1 != null && timerTask1 != null) {
             timerTask1!!.cancel()
@@ -181,7 +186,7 @@ class RecentEventFragment : Fragment() {
 
     fun runAutoScrollBanner1() {
 
-        if (timer1 == null && timerTask1 == null&& adsGenericAdapter1?.items?.size!! >=3) {
+        if (timer1 == null && timerTask1 == null && adsGenericAdapter1?.items?.size!! >= 3) {
             timer1 = Timer()
             timerTask1 = object : TimerTask() {
 
@@ -201,8 +206,8 @@ class RecentEventFragment : Fragment() {
         }
 
 
-
     }
+
     fun stopAutoScrollBanner2() {
         if (timer2 != null && timerTask2 != null) {
             timerTask2!!.cancel()
@@ -214,7 +219,7 @@ class RecentEventFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-        if (timer2 == null && timerTask2 == null&&adsGenericAdapter2?.items?.size!! >=3) {
+        if (timer2 == null && timerTask2 == null && adsGenericAdapter2?.items?.size!! >= 3) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 
@@ -232,7 +237,6 @@ class RecentEventFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 3000, 4000)
         }
-
 
 
     }

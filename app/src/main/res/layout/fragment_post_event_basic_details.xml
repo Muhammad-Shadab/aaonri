@@ -115,7 +115,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
                     android:hint="@string/title_of_your_event"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"

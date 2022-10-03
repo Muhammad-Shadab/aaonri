@@ -118,6 +118,18 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/textHintTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="*Minimum Price should be $1"
+                android:textColor="#757575"
+                android:textSize="@dimen/_8sdp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

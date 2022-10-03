@@ -4,12 +4,14 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,6 +37,7 @@ import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
+import com.aaonri.app.ui.dashboard.fragment.homescreen_filter.adapter.SearchFilterModuleAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
@@ -66,8 +69,9 @@ class HomeScreenFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     var adsGenericAdapter1: AdsGenericAdapter? = null
-
     var adsGenericAdapter2: AdsGenericAdapter? = null
+
+    private var interestServiceResponseItem: InterestResponseItem? = null
 
     //var allClassifiedAdapter: AllClassifiedAdapter? = null
     //var allClassifiedAdapterForHorizontal: AllClassifiedAdapter? = null
@@ -81,6 +85,7 @@ class HomeScreenFragment : Fragment() {
     //var homeEventAdapter: HomeEventAdapter? = null
     var genericAdapterForClassified: ClassifiedGenericAdapter? = null
     var genericAdapterForEvent: EventGenericAdapter? = null
+    var searchFilterModuleAdapter: SearchFilterModuleAdapter? = null
     var priorityService = ""
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService: MutableList<String>? = mutableListOf()
@@ -116,12 +121,12 @@ class HomeScreenFragment : Fragment() {
     var studentService = 0
     var travelStay = 0
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-
 
         if (BuildConfig.FLAVOR == "dev") {
             advertiseId = 27
@@ -258,6 +263,82 @@ class HomeScreenFragment : Fragment() {
         wlp?.gravity = Gravity.TOP
         window?.attributes = wlp
 
+        logOutBtn.setOnClickListener {
+            updateLogoutDialog.dismiss()
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Confirm")
+            builder.setMessage("Are you sure you want to Logout?")
+            builder.setPositiveButton("OK") { dialog, which ->
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_EMAIL, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_ZIP_CODE, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_CITY, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_STATE, "")
+
+                context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                    ?.set(Constant.IS_USER_LOGIN, false)
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_PROFILE_PIC, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.GMAIL_FIRST_NAME, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.GMAIL_LAST_NAME, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_NAME, "")
+
+                context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                    ?.set(Constant.IS_JOB_RECRUITER, false)
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.USER_PHONE_NUMBER, "")
+
+                context?.let { it1 -> PreferenceManager<Int>(it1) }
+                    ?.set(Constant.USER_ID, 0)
+
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.gmail_client_id))
+                    .requestEmail()
+                    .build()
+
+                FirebaseAuth.getInstance().signOut()
+                LoginManager.getInstance().logOut()
+                mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
+                mGoogleSignInClient.signOut()
+
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
+            builder.setNegativeButton("Cancel") { dialog, which ->
+
+            }
+            builder.show()
+        }
+
+        closeDialogBtn.setOnClickListener {
+            updateLogoutDialog.dismiss()
+        }
+
+        editProfileBtn.setOnClickListener {
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
+            findNavController().navigate(action)
+            updateLogoutDialog.dismiss()
+        }
 
         /**  Dialog for guest user **/
         val guestUserLoginDialog = Dialog(requireContext())
@@ -340,6 +421,10 @@ class HomeScreenFragment : Fragment() {
         /** This adapter is used for showing job on home screen  **/
         jobAdapter = JobSeekerAdapter()
 
+        searchFilterModuleAdapter = SearchFilterModuleAdapter {
+            interestServiceResponseItem = it
+        }
+
         /*allClassifiedAdapterForHorizontal = AllClassifiedAdapter {
             val action =
                 HomeScreenFragmentDirections.actionHomeScreenFragmentToClassifiedDetailsFragment(
@@ -350,7 +435,6 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         immigrationAdapter = ImmigrationAdapter()
-
 
         immigrationAdapter?.itemClickListener =
             { view, item, position, updateImmigration, deleteImmigration ->
@@ -571,86 +655,25 @@ class HomeScreenFragment : Fragment() {
             }
 
             searchView.setOnClickListener {
-                val action =
+                searchModuleFl.visibility = View.VISIBLE
+                /*val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
-                findNavController().navigate(action)
+                findNavController().navigate(action)*/
             }
 
-            editProfileBtn.setOnClickListener {
-                val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
-                findNavController().navigate(action)
-                updateLogoutDialog.dismiss()
+            closeSearchScreen.setOnClickListener {
+                searchModuleFl.visibility = View.GONE
+
             }
 
-            logOutBtn.setOnClickListener {
-                updateLogoutDialog.dismiss()
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Logout?")
-                builder.setPositiveButton("OK") { dialog, which ->
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_ZIP_CODE, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_CITY, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_STATE, "")
-
-                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_USER_LOGIN, false)
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_PROFILE_PIC, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.GMAIL_FIRST_NAME, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.GMAIL_LAST_NAME, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_NAME, "")
-
-                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_JOB_RECRUITER, false)
-
-                    context?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_PHONE_NUMBER, "")
-
-                    context?.let { it1 -> PreferenceManager<Int>(it1) }
-                        ?.set(Constant.USER_ID, 0)
-
-                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.gmail_client_id))
-                        .requestEmail()
-                        .build()
-
-                    FirebaseAuth.getInstance().signOut()
-                    LoginManager.getInstance().logOut()
-                    mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
-                    mGoogleSignInClient.signOut()
-
-                    val intent = Intent(context, LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
+            searchBtn.setOnClickListener {
+                if (interestServiceResponseItem?.id == classifiedId) {
+                    Toast.makeText(context, "classified", Toast.LENGTH_SHORT).show()
+                } else if (interestServiceResponseItem?.id == immigrationId) {
+                    Toast.makeText(context, "immigration", Toast.LENGTH_SHORT).show()
+                } else if (interestServiceResponseItem?.id == eventId) {
+                    Toast.makeText(context, "classified", Toast.LENGTH_SHORT).show()
                 }
-                builder.setNegativeButton("Cancel") { dialog, which ->
-
-                }
-                builder.show()
-            }
-
-            closeDialogBtn.setOnClickListener {
-                updateLogoutDialog.dismiss()
             }
 
             /*seeAllPopularItems.setOnClickListener {
@@ -682,6 +705,9 @@ class HomeScreenFragment : Fragment() {
             layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adsBelowFirstSectionRv.layoutManager = layoutManager1
 
+            availableModuleSearchRv.adapter = searchFilterModuleAdapter
+            availableModuleSearchRv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
             adsAbovePopularSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -696,7 +722,6 @@ class HomeScreenFragment : Fragment() {
                 }
             })
 
-
             adsBelowFirstSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -709,6 +734,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
             })
+
 
         }
 
@@ -957,6 +983,41 @@ class HomeScreenFragment : Fragment() {
         return binding?.root
     }
 
+    /*fun captureScreenShot(view: View): Bitmap? {
+*//*
+ * Creating a Bitmap of view with ARGB_4444.
+ * *//*
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_4444)
+        val canvas = Canvas(bitmap)
+        val backgroundDrawable = view.background
+        if (backgroundDrawable != null) {
+            backgroundDrawable.draw(canvas)
+        } else {
+            canvas.drawColor(Color.parseColor("#80000000"))
+        }
+        view.draw(canvas)
+        return bitmap
+    }
+
+    fun blur(context: Context?, image: Bitmap): Bitmap? {
+        val BITMAP_SCALE = 0.4f
+        val BLUR_RADIUS = 7.5f
+        val width = Math.round(image.width * BITMAP_SCALE)
+        val height = Math.round(image.height * BITMAP_SCALE)
+        val inputBitmap = Bitmap.createScaledBitmap(image, width, height, false)
+        val outputBitmap = Bitmap.createBitmap(inputBitmap)
+        val rs = RenderScript.create(context)
+        val theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
+        val tmpIn = Allocation.createFromBitmap(rs, inputBitmap)
+        val tmpOut = Allocation.createFromBitmap(rs, outputBitmap)
+        theIntrinsic.setRadius(BLUR_RADIUS)
+        theIntrinsic.setInput(tmpIn)
+        theIntrinsic.forEach(tmpOut)
+        tmpOut.copyTo(outputBitmap)
+        return outputBitmap
+    }*/
+
+
     /** showing all the selected services horizontal tab for both login user and guest user**/
     private fun setUserInterestedServiceRow(interests: MutableList<String>? = null) {
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
@@ -967,6 +1028,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     val activeServiceList = mutableListOf<InterestResponseItem>()
                     if (response.data?.isNotEmpty() == true) {
+                        searchFilterModuleAdapter?.setData(response.data.filter { it.id == immigrationId || it.id == classifiedId || it.id == eventId })
                         if (interests?.isNotEmpty() == true) {
                             response.data.forEach {
                                 if (!activeServiceList.contains(it) && it.active && interests.contains(
@@ -979,7 +1041,7 @@ class HomeScreenFragment : Fragment() {
                         }
                         binding?.interestRecyclerView?.visibility = View.VISIBLE
                         binding?.interestBorder?.visibility = View.VISIBLE
-                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id != jobId})
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id != jobId })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
                             homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == eventId } as MutableList<InterestResponseItem>)

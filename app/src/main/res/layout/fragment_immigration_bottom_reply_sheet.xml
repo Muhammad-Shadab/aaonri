@@ -94,6 +94,7 @@
         android:layout_width="match_parent"
         android:hint="Add Reply"
         android:gravity="top"
+        android:inputType="textCapSentences"
         android:textSize="15sp"
         android:textColor="#d9d9d9"
         android:padding="@dimen/_8sdp"

@@ -529,7 +529,7 @@
                                 android:paddingVertical="@dimen/_2sdp"
                                 android:text="@string/going"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="14sp" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/interestedBtn"
@@ -548,7 +548,7 @@
                                 android:paddingStart="@dimen/_1sdp"
                                 android:text="@string/interested"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
 

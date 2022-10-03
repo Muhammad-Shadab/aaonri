@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:background="#ebebeb"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/small_image_placeholder"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"

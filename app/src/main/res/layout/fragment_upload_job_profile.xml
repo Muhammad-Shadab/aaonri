@@ -123,6 +123,7 @@
                     android:hint="Current Title*"
                     android:lines="1"
                     android:maxLines="1"
+                    android:inputType="textCapSentences"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_16sdp"

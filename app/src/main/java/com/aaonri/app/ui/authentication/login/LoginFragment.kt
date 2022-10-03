@@ -181,7 +181,7 @@ class LoginFragment : Fragment() {
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
-                                "Please enter valid email and password", Snackbar.LENGTH_LONG
+                                "Please enter valid email id & password", Snackbar.LENGTH_LONG
                             ).show()
                         }
                     } else {

@@ -130,7 +130,7 @@
             android:fontFamily="@font/helvetica_regular"
             android:hint="@string/what_are_you_looking_for"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:maxLines="1"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"

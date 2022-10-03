@@ -13,9 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentResetMyPasswordBinding
-import com.aaonri.app.utils.Validator
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.Validator
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,11 +66,11 @@ class ResetMyPasswordFragment : Fragment() {
                 if (emailForgotPasswordEt.text.toString().isNotEmpty() && isEmailValid
                 ) {
                     forgotPassViewModel.sendForgotPasswordLink(emailForgotPasswordEt.text.toString())
-                }else{
+                } else {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Please enter your registered mail address", Snackbar.LENGTH_LONG
+                            "Please enter your registered email address", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -117,6 +117,7 @@ class ResetMyPasswordFragment : Fragment() {
 
         return binding?.root
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

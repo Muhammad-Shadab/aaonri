@@ -123,6 +123,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/multiline_textfield_shape"
             android:gravity="top"
+            android:inputType="textCapSentences"
             android:hint="Describe the purpose of your discussion*"
             android:maxLength="257"
             android:padding="@dimen/_8sdp"
