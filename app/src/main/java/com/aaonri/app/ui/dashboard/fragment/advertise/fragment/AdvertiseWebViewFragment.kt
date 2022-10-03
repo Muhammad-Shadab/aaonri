@@ -46,7 +46,7 @@ class AdvertiseWebViewFragment : Fragment() {
                 }
             }
 
-            requireActivity()
+            /*requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
@@ -56,7 +56,7 @@ class AdvertiseWebViewFragment : Fragment() {
                             findNavController().navigateUp()
                         }
                     }
-                })
+                })*/
 
         }
         return binding?.root

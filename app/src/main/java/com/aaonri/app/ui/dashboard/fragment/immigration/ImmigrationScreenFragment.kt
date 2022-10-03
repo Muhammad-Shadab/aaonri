@@ -371,7 +371,6 @@ class ImmigrationScreenFragment : Fragment() {
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
             noOfSelectedFilter = 0
             immigrationFilterModel = filterData
-            Toast.makeText(context, "${filterData.atLeastOnDiscussion}", Toast.LENGTH_SHORT).show()
             if (filterData.fifteenDaysSelected) {
                 noOfSelectedFilter++
                 binding?.dateRangeCv?.visibility = View.VISIBLE

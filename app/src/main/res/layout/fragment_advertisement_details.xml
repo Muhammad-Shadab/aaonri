@@ -41,6 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:paddingHorizontal="@dimen/_18sdp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout

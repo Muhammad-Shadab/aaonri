@@ -18,6 +18,8 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
     var itemClickListener: ((view: View, item: Any, position: Int, isUpdateImmigration: Boolean, isDeleteImmigration: Boolean) -> Unit)? =
         null
 
+    var deleteReplyClickListener: ((item: Any) -> Unit)? = null
+
     class ImmigrationCategoryViewHolder(private val binding: CategoryCardItemBinding) :
         ImmigrationViewHolder(binding) {
         fun bind(discussionCategoryResponseItem: DiscussionCategoryResponseItem) {
@@ -119,7 +121,13 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         ImmigrationViewHolder(binding) {
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
+            val context = binding.discussionUserReplyTv.context
+            val userId =
+                context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
             binding.apply {
+                if (discussionDetailsResponseItem.createdBy == userId) {
+                    deleteComment.visibility = View.VISIBLE
+                }
                 discussionUserReplyTv.text = discussionDetailsResponseItem.userFullName
                 userReplyDate.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
@@ -136,6 +144,12 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                         false
                     )
                 }
+
+                deleteComment.setOnClickListener {
+                    deleteReplyClickListener?.invoke(discussionDetailsResponseItem)
+                }
+
+                // deleteReplyClickListener?.invoke()
                 /*root.setOnClickListener {
                     itemClickListener?.invoke(
                         it,

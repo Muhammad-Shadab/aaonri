@@ -848,7 +848,7 @@ class EventDetailsScreenFragment : Fragment() {
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
-        eventLocationText = address
+        eventLocationText = text2
         val spannable: Spannable = SpannableString(text2)
 
         spannable.setSpan(

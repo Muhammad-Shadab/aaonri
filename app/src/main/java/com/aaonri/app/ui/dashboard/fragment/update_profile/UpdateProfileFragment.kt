@@ -94,7 +94,7 @@ class UpdateProfileFragment : Fragment() {
                                 activity?.let { it1 ->
                                     Snackbar.make(
                                         it1.findViewById(android.R.id.content),
-                                        "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                                        "Profile Updated Successfully", Snackbar.LENGTH_LONG
                                     ).show()
                                 }
                             }
@@ -138,7 +138,7 @@ class UpdateProfileFragment : Fragment() {
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
-                                "Successfully Profile Updated", Snackbar.LENGTH_LONG
+                                "Profile Updated Successfully", Snackbar.LENGTH_LONG
                             ).show()
                         }
                         authCommonViewModel.uploadProfilePicData.postValue(null)

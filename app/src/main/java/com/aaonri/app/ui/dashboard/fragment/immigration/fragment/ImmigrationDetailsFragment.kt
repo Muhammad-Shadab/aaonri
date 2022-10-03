@@ -20,8 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.immigration.model.Discussion
-import com.aaonri.app.data.immigration.model.ReplyDiscussionRequest
+import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentImmigrationDetailsFrgamentBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
@@ -107,6 +106,17 @@ class ImmigrationDetailsFragment : Fragment() {
                         guestUserLoginDialog.show()
                     }
                 }
+
+            immigrationAdapter?.deleteReplyClickListener = { item ->
+                if (item is DiscussionDetailsResponseItem) {
+                    immigrationViewModel.deleteImmigrationReply(
+                        DeleteReplyRequest(
+                            discRepliesId = item.discRepliesId.toString(),
+                            DiscussionX(item.discussionId)
+                        )
+                    )
+                }
+            }
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -216,6 +226,27 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
+        }
+
+        immigrationViewModel.deleteReplyData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    if (args.discussionId != 0) {
+                        /** If user comes from the home screen search then it wil not be zero **/
+                        immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
+                    } else {
+                        immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
+                    }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+
         }
 
         if (args.discussionId != 0) {

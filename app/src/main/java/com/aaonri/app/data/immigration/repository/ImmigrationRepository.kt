@@ -26,4 +26,8 @@ class ImmigrationRepository @Inject constructor(private val immigrationApi: Immi
     suspend fun updateDiscussion(updateDiscussionRequest: UpdateDiscussionRequest) =
         immigrationApi.updateDiscussion(updateDiscussionRequest)
 
+    suspend fun deleteImmigrationReply(
+        deleteReplyRequest: DeleteReplyRequest
+    ) = immigrationApi.deleteImmigrationReply(deleteReplyRequest)
+
 }

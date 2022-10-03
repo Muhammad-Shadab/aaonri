@@ -49,6 +49,8 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
 
     val navigateFromMyImmigrationToUpdateScreen: MutableLiveData<Boolean> = MutableLiveData()
 
+    val deleteReplyData: MutableLiveData<Resource<DeleteReplyResponse>> = MutableLiveData()
+
     val selectedMyDiscussionScreenCategory: MutableLiveData<DiscussionCategoryResponseItem> =
         MutableLiveData()
 
@@ -302,4 +304,22 @@ class ImmigrationViewModel @Inject constructor(private val immigrationRepository
     fun setClearSearchViewText(value: Boolean) {
         clearSearchViewText.postValue(value)
     }
+
+    fun deleteImmigrationReply(
+        deleteReplyRequest: DeleteReplyRequest
+    ) = viewModelScope.launch {
+        deleteReplyData.postValue(Resource.Loading())
+        val response = immigrationRepository.deleteImmigrationReply(deleteReplyRequest)
+        deleteReplyData.postValue(handleDeleteReplyResponse(response))
+    }
+
+    private fun handleDeleteReplyResponse(response: Response<DeleteReplyResponse>): Resource<DeleteReplyResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 }

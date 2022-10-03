@@ -40,5 +40,11 @@ interface ImmigrationApi {
         @Body updateDiscussionRequest: UpdateDiscussionRequest
     ): Response<UpdateDiscussionResponse>
 
+    //@DELETE("/api/v1/discussion/deleteDiscReplies")
+    @HTTP(method = "DELETE", path = "/api/v1/discussion/deleteDiscReplies", hasBody = true)
+    suspend fun deleteImmigrationReply(
+        @Body deleteReplyRequest: DeleteReplyRequest
+    ): Response<DeleteReplyResponse>
+
 
 }

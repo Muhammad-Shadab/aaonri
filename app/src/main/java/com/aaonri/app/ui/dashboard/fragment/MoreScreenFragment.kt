@@ -141,7 +141,10 @@ class MoreScreenFragment : Fragment() {
             }
 
             profilePicCv.setOnClickListener {
-                dialog.show()
+                val action =
+                    MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment()
+                findNavController().navigate(action)
+                //dialog.show()
             }
 
             editProfileBtn.setOnClickListener {

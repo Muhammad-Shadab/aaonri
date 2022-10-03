@@ -338,7 +338,7 @@ class ServicesCategoryFragment : Fragment() {
         if (authCommonViewModel.isUpdateProfile) {
             binding?.serviceSubmitBtn?.text = "UPDATE"
             UserProfileStaticData.getUserProfileDataValue()?.let {
-                adapter?.setSelectedServicesList(it.interests)
+                adapter?.setSelectedServicesList(it.interests.replace("17", ""))
                 if (it.isJobRecruiter) {
                     binding?.isRecruiterCheckBox?.isChecked = true
                     binding?.companyEmailServices?.setText(it.companyEmail)
@@ -405,7 +405,11 @@ class ServicesCategoryFragment : Fragment() {
         }
     }
 
-    private fun uploadProfilePicture(userId: Int?, profilePic: Uri? = null, isSocialProfile: Boolean) {
+    private fun uploadProfilePicture(
+        userId: Int?,
+        profilePic: Uri? = null,
+        isSocialProfile: Boolean
+    ) {
 
         val file: File?
 
