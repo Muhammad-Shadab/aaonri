@@ -476,9 +476,8 @@ class PostEventBasicDetailsFragment : Fragment() {
                         seletedDay = "0${dayOfMonth}"
                     }
 
-
                     selectedDate = "${year}-${selectedMonth}-${seletedDay}"
-                    selectstartDate?.text = "$selectedDate"
+                    selectstartDate?.text = "${selectedDate}"
                     if (isStartdate) {
 
                         endDate = ""

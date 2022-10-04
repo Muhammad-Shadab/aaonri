@@ -5,5 +5,6 @@ data class InterestResponseItem(
     val iconName: String,
     val id: Int,
     val interestDesc: String,
-    var isSelected: Boolean
+    var isSelected: Boolean,
+    var index: Int = -1
 )

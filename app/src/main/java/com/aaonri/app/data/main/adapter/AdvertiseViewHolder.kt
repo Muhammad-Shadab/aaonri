@@ -32,13 +32,12 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                         findAllActiveAdvertiseResponseItem,
                         adapterPosition
                     )
-
                 }
             }
             binding.advertiseDesc.text =
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
                     .trim()
-            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 55
+            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 56
         }
     }
 
@@ -63,7 +62,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
                     .into(binding.imageView)
             }
-            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 55
+            binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 56
         }
     }
 
@@ -115,7 +114,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                 }
             }
 
-            binding.imgWithTxtCl.layoutParams.width = getScreenWidth() / 2 - 55
+            binding.imgWithTxtCl.layoutParams.width = getScreenWidth() / 2 - 56
         }
     }
 

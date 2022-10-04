@@ -71,6 +71,8 @@ class EventScreenFragment : Fragment() {
         val userName =
             context?.let { PreferenceManager<String>(it)[Constant.USER_NAME, ""] }
 
+        val searchKeyword = arguments?.get("searchKeyword")
+
         /** Dialog for edit/update profile and logout user **/
         val updateLogoutDialog = Dialog(requireContext())
         updateLogoutDialog.setContentView(R.layout.update_profile_dialog)
@@ -220,6 +222,11 @@ class EventScreenFragment : Fragment() {
 
             eventsScreenViewPager.isUserInputEnabled = false
 
+            if (searchKeyword?.toString()?.isNotEmpty() == true) {
+                callEventApi(searchKeyword.toString())
+                searchView.setText(searchKeyword.toString())
+            }
+
             profilePicCv.setOnClickListener {
                 if (isUserLogin == false) {
                     activity?.finish()
@@ -288,6 +295,13 @@ class EventScreenFragment : Fragment() {
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (keyword.toString().isEmpty()) {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
+                    } else {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
+                    }
                     if (searchView.hasFocus()) {
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
@@ -354,7 +368,7 @@ class EventScreenFragment : Fragment() {
                         filterEvent.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
-                                R.color.graycolor
+                                R.color.darkGrayColor
                             )
                         )
                         eventViewModel.setClearAllFilter(true)

@@ -1,13 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -37,9 +44,7 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
             }
 
             if (data[position].userAdsImages.isEmpty()) {
-
                 classifiedPriceTv.text = "$$roundoff"
-
                 classifiedTitleTv.text = data[position].adTitle
                 locationClassifiedTv.text = data[position].adLocation + " - " + data[position].adZip
                 popularTv.visibility =
@@ -47,6 +52,32 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
             } else {
                 Glide.with(context)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable?>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            classifiedItemIv.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_image_placeholder
+                                )
+                            )
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable?>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return false
+                        }
+                    })
                     .into(classifiedItemIv)
                 /*classifiedItemIv.load("https://www.aaonri.com/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}") {
                     placeholder(R.drawable.ic_image_placeholder)

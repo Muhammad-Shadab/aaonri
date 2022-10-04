@@ -11,7 +11,6 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -189,7 +188,8 @@ class ClassifiedScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
-            val action = ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToUpdateProfileFragment()
+            val action =
+                ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToUpdateProfileFragment()
             findNavController().navigate(action)
         }
 
@@ -245,7 +245,7 @@ class ClassifiedScreenFragment : Fragment() {
             profilePicCv.setOnClickListener {
                 if (isUserLogin == false) {
                     activity?.finish()
-                }else{
+                } else {
                     updateLogoutDialog.show()
                 }
             }
@@ -268,14 +268,17 @@ class ClassifiedScreenFragment : Fragment() {
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (searchView.text.toString().isNotEmpty()) {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
+                    } else {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
+                    }
                     if (searchView.hasFocus()) {
                         if (keyword.toString().isEmpty()) {
-                            cancelbutton.visibility = View.GONE
-                            searchViewIcon.visibility = View.VISIBLE
                             postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
                         } else {
-                            cancelbutton.visibility = View.VISIBLE
-                            searchViewIcon.visibility = View.GONE
                             postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
                         }
                     }
@@ -291,6 +294,7 @@ class ClassifiedScreenFragment : Fragment() {
                 searchViewIcon.visibility = View.VISIBLE
                 postClassifiedViewModel.setClearAllFilter(true)
                 postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+                postClassifiedViewModel.setSearchQuery("")
             }
 
             context?.let {
@@ -438,7 +442,7 @@ class ClassifiedScreenFragment : Fragment() {
                         filterClassified.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
-                                R.color.graycolor
+                                R.color.darkGrayColor
                             )
                         )
                         postClassifiedViewModel.setClearAllFilter(true)
@@ -524,6 +528,14 @@ class ClassifiedScreenFragment : Fragment() {
             }
             setClassifiedViewPager(true)
         }*/
+
+        classifiedViewModel.searchQueryFromHomeScreen.observe(viewLifecycleOwner) {
+            if (it != null) {
+                callGetAllClassifiedApi(searchQuery = it)
+                binding?.searchView?.setText(it)
+                classifiedViewModel.searchQueryFromHomeScreen.postValue(null)
+            }
+        }
 
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
@@ -688,6 +700,8 @@ class ClassifiedScreenFragment : Fragment() {
                 classifiedViewModel.setNavigateFromClassifiedScreenToAdvertiseWebView(false)
             }
         }
+
+        binding?.searchView?.setText(postClassifiedViewModel.searchQueryFilter)
 
         return binding?.root
     }

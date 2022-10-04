@@ -244,7 +244,7 @@
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:hint="Timezone"
+                    android:hint="Timezone*"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"

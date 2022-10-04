@@ -51,6 +51,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     var isLikedButtonClicked: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var searchQueryFromHomeScreen: MutableLiveData<String> = MutableLiveData()
+        private set
+
     var selectedServiceRow: String = ""
         private set
 
@@ -191,7 +194,11 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     }
 
     fun setClassifiedAdvertiseUrls(url: String) {
-        classifiedAdvertiseUrl  = url
-
+        classifiedAdvertiseUrl = url
     }
+
+    fun setSearchQueryFromHomeScreen(value: String) {
+        searchQueryFromHomeScreen.postValue(value)
+    }
+
 }

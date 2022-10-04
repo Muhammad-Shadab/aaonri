@@ -65,7 +65,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             priceClassifiedEt.stickPrefix("$")
             priceClassifiedEt.filters = arrayOf(DecimalDigitsInputFilter(2))
 
-            classifiedDescEt.textSize = 16F
+            classifiedDescEt.textSize = 15F
 
             classifiedDetailsNextBtn.setOnClickListener {
 

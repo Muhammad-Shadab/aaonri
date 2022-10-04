@@ -209,6 +209,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
+                                            classifiedDetailsNextBtn.isEnabled = false
                                             updateClassified(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
@@ -217,6 +218,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                                 zipCode = zipCodeAddressDetails.text.toString()
                                             )
                                         } else {
+                                            classifiedDetailsNextBtn.isEnabled = false
                                             postClassifiedRequest(
                                                 adEmail = emailAddressBasicDetails.text.toString(),
                                                 adPhone = "",
@@ -239,6 +241,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 if (classifiedKeywordEt.text.trim().toString().length > 3) {
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postClassifiedViewModel.isUpdateClassified) {
+                                            classifiedDetailsNextBtn.isEnabled = false
                                             updateClassified(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),
@@ -247,6 +250,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                                 zipCode = zipCodeAddressDetails.text.toString()
                                             )
                                         } else {
+                                            classifiedDetailsNextBtn.isEnabled = false
                                             postClassifiedRequest(
                                                 adEmail = "",
                                                 adPhone = phoneNumberAddressDetails.text.toString(),

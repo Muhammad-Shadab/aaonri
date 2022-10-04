@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -253,7 +254,7 @@ class AdvertisementDetailsFragment : Fragment() {
             }
         }
         if (vasCodes.isNotEmpty()) {
-            //detailsBinding?.companyVasTv?.text = vasCodes.toString().replace("[", "").replace("]", "")
+            binding?.companyVasTv?.text = vasCodes.toString().replace("[", "").replace("]", "")
         } else {
             binding?.companyVasTv?.text = "-"
         }

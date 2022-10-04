@@ -40,8 +40,8 @@
                         android:id="@+id/linear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="vertical"
                         android:paddingHorizontal="@dimen/_18sdp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,7 +93,7 @@
                                     android:background="@drawable/orange_capsule_shape"
                                     android:fontFamily="@font/sf_pro_semi_bold"
                                     android:paddingHorizontal="@dimen/_8sdp"
-                                    android:text="Pending"
+                                    android:text="Not Approved"
                                     android:textColor="#ffffff"
                                     android:textSize="12sp"
                                     android:visibility="gone" />
@@ -524,6 +524,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/sf_pro_display_light"
                                         android:text="Dashboard Below Interessdfsdft Area"
+                                        android:textAlignment="textEnd"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
 
@@ -676,8 +677,9 @@
                                         android:layout_height="wrap_content"
                                         android:ellipsize="end"
                                         android:fontFamily="@font/sf_pro_display_light"
-                                        android:maxLines="1"
+                                        android:maxLines="2"
                                         android:text="-"
+                                        android:textAlignment="textEnd"
                                         android:textColor="@color/editTextColor"
                                         android:textSize="13sp" />
 

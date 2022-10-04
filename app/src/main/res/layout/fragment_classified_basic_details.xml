@@ -126,7 +126,7 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/sf_pro_regular"
-                android:text="*Minimum Price should be $1"
+                android:text="*Minimum price should be $1"
                 android:textColor="#757575"
                 android:textSize="@dimen/_8sdp" />
 

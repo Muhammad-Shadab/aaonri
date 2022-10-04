@@ -118,7 +118,6 @@ class MainActivity : BaseActivity() {
                             atLeastOnDiscussion = false
                         )
                     )
-                    immigrationViewModel.setSearchQuery("")
                 }
 
             }

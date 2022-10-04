@@ -10,6 +10,7 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.databinding.ServicesGridItemBinding
+import com.aaonri.app.utils.PreferenceManager
 
 class SearchFilterModuleAdapter(
     private var selectedServices: ((value: InterestResponseItem) -> Unit),
@@ -309,6 +310,12 @@ class SearchFilterModuleAdapter(
 
                 itemView.setOnClickListener {
                     selectedServices(data[position])
+                    context?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set("selectedSearchModule", position)
+                    notifyDataSetChanged()
+                }
+
+                if (context?.let { PreferenceManager<Int>(it)["selectedSearchModule", -1] } == position) {
                     servicesGridIv.setColorFilter(
                         ContextCompat.getColor(
                             context,
@@ -319,6 +326,19 @@ class SearchFilterModuleAdapter(
                         ContextCompat.getColor(
                             context,
                             R.color.blueBtnColor
+                        )
+                    )
+                } else {
+                    servicesGridIv.setColorFilter(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.blueBtnColor
+                        )
+                    )
+                    servicesGridIv.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.serviceCardLightBlue
                         )
                     )
                 }

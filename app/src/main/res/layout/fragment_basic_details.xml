@@ -233,6 +233,27 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deleteProfileBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="@drawable/green_btn_shape"
+                android:backgroundTint="@color/redcolor"
+                android:elevation="6dp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="DELETE ACCOUNT"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

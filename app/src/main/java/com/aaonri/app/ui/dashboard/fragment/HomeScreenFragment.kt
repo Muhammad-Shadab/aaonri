@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
+import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
@@ -43,16 +45,14 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.PoplarClassifiedAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -65,6 +65,7 @@ class HomeScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
+    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
@@ -505,7 +506,7 @@ class HomeScreenFragment : Fragment() {
                         binding?.availableServiceHorizontalClassifiedRv?.visibility =
                             View.GONE
                         binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
+                        binding?.availableServiceHorizontalRv?.margin(10F, 0f, 0F, 0F)
                         binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         //homeScreenBinding?.availableServiceHorizontalRv?.adapter = homeEventAdapter
@@ -654,7 +655,30 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            searchView.setOnClickListener {
+            searchView.addTextChangedListener { editable ->
+                if (searchView.text.toString().isNotEmpty()) {
+                    cancelButton.visibility = View.VISIBLE
+                    searchViewIcon.visibility = View.GONE
+                } else {
+                    context?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set("selectedSearchModule", -1)
+                    cancelButton.visibility = View.GONE
+                    searchViewIcon.visibility = View.VISIBLE
+                }
+                if (searchView.hasFocus()) {
+                    if (editable.toString().isNotEmpty()) {
+                        searchModuleFl.visibility = View.VISIBLE
+                    } else {
+                        searchModuleFl.visibility = View.GONE
+                    }
+                }
+            }
+
+            cancelButton.setOnClickListener {
+                searchView.setText("")
+            }
+
+            searchViewll.setOnClickListener {
                 searchModuleFl.visibility = View.VISIBLE
                 /*val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
@@ -663,17 +687,51 @@ class HomeScreenFragment : Fragment() {
 
             closeSearchScreen.setOnClickListener {
                 searchModuleFl.visibility = View.GONE
-
+                searchView.setText("")
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
             }
 
             searchBtn.setOnClickListener {
-                if (interestServiceResponseItem?.id == classifiedId) {
-                    Toast.makeText(context, "classified", Toast.LENGTH_SHORT).show()
-                } else if (interestServiceResponseItem?.id == immigrationId) {
-                    Toast.makeText(context, "immigration", Toast.LENGTH_SHORT).show()
-                } else if (interestServiceResponseItem?.id == eventId) {
-                    Toast.makeText(context, "classified", Toast.LENGTH_SHORT).show()
+
+                if (searchView.text.toString().isNotEmpty()) {
+                    if (interestServiceResponseItem?.id == classifiedId) {
+                        postClassifiedViewModel.setSearchQuery(searchView.text.toString())
+                        postClassifiedViewModel.setClickedOnFilter(true)
+                        dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                        searchView.setText("")
+                    } else if (interestServiceResponseItem?.id == immigrationId) {
+                        val bundle = Bundle()
+                        bundle.putString("searchKeyword", searchView.text.toString())
+                        findNavController().navigate(
+                            R.id.action_homeScreenFragment_to_immigrationScreenFragment,
+                            bundle
+                        )
+                        searchView.setText("")
+                    } else if (interestServiceResponseItem?.id == eventId) {
+                        val bundle = Bundle()
+                        bundle.putString("searchKeyword", searchView.text.toString())
+                        findNavController().navigate(
+                            R.id.action_homeScreenFragment_to_eventScreenFragment,
+                            bundle
+                        )
+                        searchView.setText("")
+                    } else {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "Please choose category", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please enter valid keyword", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
                 }
+
             }
 
             /*seeAllPopularItems.setOnClickListener {
@@ -1141,7 +1199,7 @@ class HomeScreenFragment : Fragment() {
             } else if (interests == "$eventId") {
                 //Events
                 priorityService = "Events"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
+                binding?.priorityServiceRv?.margin(left = 20f, right = 14f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context)
                 //homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter

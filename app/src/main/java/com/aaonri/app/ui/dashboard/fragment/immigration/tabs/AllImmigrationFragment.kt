@@ -2,7 +2,6 @@ package com.aaonri.app.ui.dashboard.fragment.immigration.tabs
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +40,8 @@ class AllImmigrationFragment : Fragment() {
 
         binding = FragmentAllImmigrationBinding.inflate(layoutInflater, container, false)
 
+        val searchKeyword = arguments?.get("searchKeyword")
+
         immigrationAdapter = ImmigrationAdapter()
 
         immigrationAdapter?.itemClickListener =
@@ -65,26 +66,36 @@ class AllImmigrationFragment : Fragment() {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 }
             })
-
         }
 
         immigrationViewModel.selectedAllDiscussionScreenCategory.observe(viewLifecycleOwner) {
             discussionCategoryResponseItem = it
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
             if (immigrationViewModel.callAllImmigrationApi) {
-                immigrationViewModel.getAllImmigrationDiscussion(
-                    GetAllImmigrationRequest(
-                        categoryId = "${it.discCatId}",
-                        createdById = "",
-                        keywords =
-                        ""
+                if (searchKeyword.toString().isNotEmpty() && searchKeyword != "null") {
+
+                    immigrationViewModel.getAllImmigrationDiscussion(
+                        GetAllImmigrationRequest(
+                            categoryId = "${it.discCatId}",
+                            createdById = "",
+                            keywords = searchKeyword.toString()
+                        )
                     )
-                )
+                } else {
+                    immigrationViewModel.getAllImmigrationDiscussion(
+                        GetAllImmigrationRequest(
+                            categoryId = "${it.discCatId}",
+                            createdById = "",
+                            keywords =
+                            ""
+                        )
+                    )
+                }
             }
         }
 
         immigrationViewModel.immigrationSearchQuery.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (it != null && it != "null") {
                 immigrationViewModel.getAllImmigrationDiscussion(
                     GetAllImmigrationRequest(
                         categoryId = "${discussionCategoryResponseItem?.discCatId}",
@@ -125,7 +136,6 @@ class AllImmigrationFragment : Fragment() {
         }
 
         immigrationViewModel.immigrationFilterData.observe(viewLifecycleOwner) { filterData ->
-            Log.i("filterData", "onCreateView: $filterData")
             immigrationFilterModel = filterData
             var filteredList = mutableListOf<Discussion>()
 

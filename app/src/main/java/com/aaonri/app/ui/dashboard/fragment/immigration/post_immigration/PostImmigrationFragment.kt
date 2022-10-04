@@ -38,7 +38,7 @@ class PostImmigrationFragment : Fragment() {
         binding?.apply {
 
             navigateBack.setOnClickListener {
-                activity?.onBackPressed()
+                findNavController().navigateUp()
             }
 
             selectImmigrationCategory.setOnClickListener {
@@ -175,6 +175,7 @@ class PostImmigrationFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        immigrationViewModel.selectedPostingDiscussionScreenCategory.postValue(null)
         binding = null
     }
 }

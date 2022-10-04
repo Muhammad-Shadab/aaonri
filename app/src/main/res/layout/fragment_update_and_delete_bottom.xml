@@ -69,9 +69,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-4dp"
                         android:fontFamily="@font/sf_pro_display_light"
-                        android:text="I want to Stop this advertisement"
+                        android:text="I want to stop this advertisement"
                         android:textColor="#333333"
                         android:textSize="11sp" />
 
@@ -180,7 +179,6 @@
                         android:id="@+id/editOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-4dp"
                         android:fontFamily="@font/sf_pro_display_light"
                         android:text="I want edit my advertisement"
                         android:textColor="#333333"

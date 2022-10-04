@@ -52,10 +52,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
 
             checkoutBtn.setOnClickListener {
                 postAdvertiseViewModel.apply {
-
                     if (postAdvertiseViewModel.isRenewAdvertise) {
                         val advertiseData = AdvertiseStaticData.getAddDetails()
                         advertiseData?.let {
+                            checkoutBtn.isEnabled = false
                             postAdvertiseViewModel.renewAdvertise(
                                 RenewAdvertiseRequest(
                                     advertiseData.advertisementId,
@@ -66,6 +66,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                         findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
 
                     } else if (postAdvertiseViewModel.isUpdateAdvertise) {
+                        checkoutBtn.isEnabled = false
                         AdvertiseStaticData.getAddDetails()?.advertisementDetails?.advertisementDetailsId?.let { it1 ->
                             AdvertisementDetailsXXXX(
                                 adDescription = if (companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]?.isNotEmpty() == true) companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_AD_DESCRIPTION]!! else "",
@@ -91,6 +92,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                             )
                         }
                     } else {
+                        checkoutBtn.isEnabled = false
                         postAdvertiseViewModel.postAdvertise(
                             PostAdvertiseRequest(
                                 active = true,

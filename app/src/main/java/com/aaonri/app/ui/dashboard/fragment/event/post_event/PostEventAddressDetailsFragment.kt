@@ -166,6 +166,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                     } else {
                                         if (agreeCheckboxClassified.isChecked) {
                                             if (postEventViewModel.isUpdateEvent) {
+                                                classifiedDetailsNextBtn.isEnabled = false
                                                 postEventViewModel.setEventAddressDetailMap(
                                                     addressLine1 = eventAddressEt1.text.toString(),
                                                     addressLine2 = eventAddressEt2.text.toString(),
@@ -177,6 +178,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 )
                                                 updateEvent()
                                             } else {
+                                                classifiedDetailsNextBtn.isEnabled = false
                                                 postEventViewModel.setEventAddressDetailMap(
                                                     addressLine1 = eventAddressEt1.text.toString(),
                                                     addressLine2 = eventAddressEt2.text.toString(),
@@ -213,6 +215,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                             } else {
                                 if (agreeCheckboxClassified.isChecked) {
                                     if (postEventViewModel.isUpdateEvent) {
+                                        classifiedDetailsNextBtn.isEnabled = false
                                         postEventViewModel.setEventAddressDetailMap(
                                             addressLine1 = eventAddressEt1.text.toString(),
                                             addressLine2 = eventAddressEt2.text.toString(),
@@ -224,6 +227,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                         )
                                         updateEvent()
                                     } else {
+                                        classifiedDetailsNextBtn.isEnabled = false
                                         postEventViewModel.setEventAddressDetailMap(
                                             addressLine1 = eventAddressEt1.text.toString(),
                                             addressLine2 = eventAddressEt2.text.toString(),
@@ -262,7 +266,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                     }
                 }
             }
-
         }
 
 
@@ -318,7 +321,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                     }*/
                                 }
                             }
-
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)

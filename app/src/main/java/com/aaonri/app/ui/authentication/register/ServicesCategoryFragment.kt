@@ -1,9 +1,11 @@
 package com.aaonri.app.ui.authentication.register
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -33,10 +35,16 @@ import com.aaonri.app.data.authentication.register.model.services.ServicesRespon
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentServicesCategoryBinding
+import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.utils.*
 import com.aaonri.app.utils.custom.UserProfileStaticData
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -51,6 +59,7 @@ class ServicesCategoryFragment : Fragment() {
     private var adapter: ServicesItemAdapter? = null
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     var isServicesSelected = false
     var isJobSelected = false
     var isCompanyEmailCheckboxSelected = false
@@ -194,6 +203,72 @@ class ServicesCategoryFragment : Fragment() {
                     }
                 }
             }
+
+            deleteProfileBtn.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure you want to Delete your account? This action would be irreversible and you will not be able to use any services of aaonri.")
+                builder.setPositiveButton("Delete") { dialog, which ->
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_ZIP_CODE, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_CITY, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_STATE, "")
+
+                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_USER_LOGIN, false)
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PROFILE_PIC, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_FIRST_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_LAST_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_NAME, "")
+
+                    context?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_JOB_RECRUITER, false)
+
+                    context?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PHONE_NUMBER, "")
+
+                    context?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set(Constant.USER_ID, 0)
+
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.gmail_client_id))
+                        .requestEmail()
+                        .build()
+
+                    FirebaseAuth.getInstance().signOut()
+                    LoginManager.getInstance().logOut()
+                    mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
+                    mGoogleSignInClient.signOut()
+
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                }
+                builder.show()
+            }
+
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
         }
@@ -348,6 +423,7 @@ class ServicesCategoryFragment : Fragment() {
                 }
                 binding?.aliasNameServices?.setText(it.aliasName)
             }
+            binding?.deleteProfileBtn?.visibility = View.VISIBLE
         }
 
         requireActivity()
