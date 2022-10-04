@@ -176,6 +176,7 @@
             android:layout_marginBottom="@dimen/_30sdp">
 
             <LinearLayout
+                android:id="@+id/homeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -379,7 +380,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
-                        android:paddingEnd="15dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -459,7 +459,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
-                            android:paddingEnd="15dp"
                             android:visibility="visible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -527,14 +526,16 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/searchModuleFl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#D7FFFFFF"
             android:clickable="true"
             android:visibility="gone">
-
+            <com.github.mmin18.widget.RealtimeBlurView
+                android:id="@+id/blurView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -592,7 +593,7 @@
 
             </LinearLayout>
 
-        </FrameLayout>
+        </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

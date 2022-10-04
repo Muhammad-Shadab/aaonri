@@ -680,6 +680,16 @@ class HomeScreenFragment : Fragment() {
 
             searchViewll.setOnClickListener {
                 searchModuleFl.visibility = View.VISIBLE
+                binding?.blurView?.setBlurRadius(
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        25f,
+                        resources.displayMetrics
+                    )
+                )
+                stopAutoScrollBanner2()
+                stopAutoScrollBanner1()
+                ;
                 /*val action =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
                 findNavController().navigate(action)*/
@@ -689,6 +699,8 @@ class HomeScreenFragment : Fragment() {
                 searchModuleFl.visibility = View.GONE
                 searchView.setText("")
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                runAutoScrollBanner1()
+                runAutoScrollBanner2()
             }
 
             searchBtn.setOnClickListener {
@@ -755,13 +767,25 @@ class HomeScreenFragment : Fragment() {
             popularItemsRv.addItemDecoration(GridSpacingItemDecoration(2, 32, 40))
 
             adsAbovePopularSectionRv.adapter = adsGenericAdapter2
-            layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager2 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
             adsAbovePopularSectionRv.layoutManager = layoutManager2
+            adsAbovePopularSectionRv.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2,
+                    32, 0
+                )
+            )
 
 
             adsBelowFirstSectionRv.adapter = adsGenericAdapter1
-            layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager1 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
             adsBelowFirstSectionRv.layoutManager = layoutManager1
+            adsBelowFirstSectionRv.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2,
+                    32, 0
+                )
+            )
 
             availableModuleSearchRv.adapter = searchFilterModuleAdapter
             availableModuleSearchRv.layoutManager =
@@ -1439,6 +1463,11 @@ class HomeScreenFragment : Fragment() {
             timer2!!.schedule(timerTask2, 4000, 4000)
         }
 
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
     }
 }

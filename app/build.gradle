@@ -21,6 +21,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
 
     def BASE_URL = "BASE_URL"
@@ -166,7 +168,7 @@ dependencies {
     implementation "commons-io:commons-io:2.7"
 
     //Blur View for home screen
-    implementation 'com.revosleap.layout:blurrylayout:2.0.0'
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'

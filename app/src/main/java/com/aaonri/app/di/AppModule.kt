@@ -1,7 +1,7 @@
 package com.aaonri.app.di
 
 import com.aaonri.app.BuildConfig
-import com.example.errorhandling.exception.ResultCallAdapterFactory
+import com.aaonri.app.exception.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
