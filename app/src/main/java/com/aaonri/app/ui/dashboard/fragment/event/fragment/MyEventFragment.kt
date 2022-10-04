@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
@@ -18,6 +19,7 @@ import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentMyEventBinding
 import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
+import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
@@ -94,14 +96,26 @@ class MyEventFragment : Fragment() {
             if (ActiveAdvertiseStaticData.getEventTopBannerAds().isNotEmpty()) {
                 topAdvertiseRv.adapter = adsGenericAdapter1
                 layoutManager1 =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 topAdvertiseRv.layoutManager = layoutManager1
+                topAdvertiseRv.addItemDecoration(
+                    GridSpacingItemDecoration(
+                        2,
+                        32, 0
+                    )
+                )
             }
             if (ActiveAdvertiseStaticData.getEventBottomAds().isNotEmpty()) {
 
                 bottomAdvertiseRv.adapter = adsGenericAdapter2
-                layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager2 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 bottomAdvertiseRv.layoutManager = layoutManager2
+                bottomAdvertiseRv.addItemDecoration(
+                    GridSpacingItemDecoration(
+                        2,
+                        32, 0
+                    )
+                )
             }
 
             bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {

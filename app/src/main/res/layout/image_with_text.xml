@@ -2,9 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/imgWithTxtCl"
-    android:layout_width="@dimen/_120sdp"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/_100sdp"
-    android:layout_marginLeft="20dp"
     android:background="@drawable/image_with_text_border">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/imageOnlyCv"

@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
@@ -44,6 +45,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -148,9 +150,15 @@ class EventDetailsScreenFragment : Fragment() {
                 adsGenericAdapter?.items =
                     ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
 
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 bottomAdvertiseRv.layoutManager = layoutManager
                 bottomAdvertiseRv.adapter = adsGenericAdapter
+                bottomAdvertiseRv.addItemDecoration(
+                    GridSpacingItemDecoration(
+                        2,
+                        32, 0
+                    )
+                )
                 bottomAdvertiseRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                         super.onScrollStateChanged(recyclerView, newState)

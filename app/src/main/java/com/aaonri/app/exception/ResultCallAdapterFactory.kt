@@ -1,6 +1,5 @@
-package com.example.errorhandling.exception
+package com.aaonri.app.exception
 
-import com.aaonri.app.exception.ResultCall
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit

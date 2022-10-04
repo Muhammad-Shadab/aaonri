@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textOnlyFl"
-    android:layout_width="@dimen/_120sdp"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/_100sdp"
-    android:layout_marginLeft="20dp"
     android:background="@drawable/image_with_text_border">
 
     <TextView

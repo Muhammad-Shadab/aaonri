@@ -100,14 +100,25 @@ class AllClassifiedFragment : Fragment() {
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getClassifiedBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
-            layoutManager1 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager1 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
             topAdvertiseRv.layoutManager = layoutManager1
+            topAdvertiseRv.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2,
+                    32, 0
+                )
+            )
 
 
             bottomAdvertiseRv.adapter = adsGenericAdapter2
-            layoutManager2 = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager2 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
             bottomAdvertiseRv.layoutManager = layoutManager2
-
+            bottomAdvertiseRv.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2,
+                    32, 0
+                )
+            )
 
 //            if (ActiveAdvertiseStaticData.getClassifiedTopBannerAds() != null) {
 //                position = Int.MAX_VALUE / 2-1
