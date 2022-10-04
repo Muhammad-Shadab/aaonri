@@ -654,6 +654,9 @@ class HomeScreenFragment : Fragment() {
             }
 
             searchView.addTextChangedListener { editable ->
+                if (searchView.hasFocus()) {
+                    searchModuleFl.visibility = View.VISIBLE
+                }
                 if (searchView.text.toString().isNotEmpty()) {
                     cancelButton.visibility = View.VISIBLE
                     searchViewIcon.visibility = View.GONE
@@ -698,6 +701,7 @@ class HomeScreenFragment : Fragment() {
                 context?.let { it1 -> PreferenceManager<Int>(it1) }
                     ?.set("selectedSearchModule", -1)
                 searchView.setText("")
+                searchView.clearFocus()
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 runAutoScrollBanner1()
                 runAutoScrollBanner2()

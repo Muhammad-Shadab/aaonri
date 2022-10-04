@@ -158,6 +158,7 @@
         <entry key="app/src/main/res/layout/fragment_upload_event_pic.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/guest_user_login_dialog.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/home_filter_item.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />

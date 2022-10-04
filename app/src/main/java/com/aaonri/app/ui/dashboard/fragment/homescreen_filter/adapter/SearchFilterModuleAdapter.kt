@@ -316,6 +316,8 @@ class SearchFilterModuleAdapter(
                 }
 
                 if (context?.let { PreferenceManager<Int>(it)["selectedSearchModule", -1] } == position) {
+                    servicesGridCv.backgroundTintList =
+                        ContextCompat.getColorStateList(context, R.color.blueBtnColor)
                     servicesGridIv.setColorFilter(
                         ContextCompat.getColor(
                             context,
@@ -329,6 +331,8 @@ class SearchFilterModuleAdapter(
                         )
                     )
                 } else {
+                    servicesGridCv.backgroundTintList =
+                        ContextCompat.getColorStateList(context, R.color.white)
                     servicesGridIv.setColorFilter(
                         ContextCompat.getColor(
                             context,

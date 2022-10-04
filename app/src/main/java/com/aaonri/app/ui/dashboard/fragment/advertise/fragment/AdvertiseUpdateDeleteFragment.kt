@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -41,6 +42,7 @@ class AdvertiseUpdateDeleteFragment : BottomSheetDialogFragment() {
             }
 
             if (args.isAdvertiseExpired) {
+                Toast.makeText(context, "${args.isAdvertiseExpired}", Toast.LENGTH_SHORT).show()
                 renevAdvrstBtn.visibility = View.VISIBLE
             }
 
