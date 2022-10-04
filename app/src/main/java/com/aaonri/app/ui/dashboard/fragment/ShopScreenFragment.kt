@@ -185,15 +185,26 @@ class ShopScreenFragment : Fragment() {
             navigateBack.setOnClickListener {
                 if (shopWithUsWebView.canGoBack()) {
                     shopWithUsWebView.goBack()
+                } else {
+                    findNavController().navigateUp()
                 }
             }
+            navigateForward.setOnClickListener {
+                if (shopWithUsWebView.canGoForward()) {
+                    shopWithUsWebView.goForward()
+                }
+            }
+
             startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
             requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
-                        if (binding?.shopWithUsWebView?.canGoBack() == true)
+                        if (binding?.shopWithUsWebView?.canGoBack() == true) {
                             binding?.shopWithUsWebView?.goBack()
+                        } else {
+                            findNavController().navigateUp()
+                        }
                     }
                 })
         }

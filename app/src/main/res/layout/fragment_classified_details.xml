@@ -2,9 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainCl"
     tools:context=".ui.dashboard.fragment.classified.fragment.ClassifiedDetailsFragment">
 
     <com.ortiz.touchview.TouchImageView
@@ -343,7 +343,7 @@
                                             android:fontFamily="@font/sf_pro_regular"
                                             android:includeFontPadding="false"
                                             android:maxLines="1"
-                                            android:text="Posting expires on"
+                                            android:text="Post expires on"
                                             android:textColor="#8d959f"
                                             android:textSize="12sp" />
 
@@ -384,8 +384,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/sellerInformationLayout"
                             android:layout_width="match_parent"
-                             android:background="@drawable/classified_seller_bg_gradiant"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/classified_seller_bg_gradiant">
 
                             <TextView
                                 android:id="@+id/sellerInfoTv"

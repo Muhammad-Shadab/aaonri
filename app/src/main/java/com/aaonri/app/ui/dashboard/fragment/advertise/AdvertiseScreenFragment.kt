@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
@@ -282,6 +283,17 @@ class AdvertiseScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
+            recyclerViewAdvertise.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                }
+            })
+
             recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
             recyclerViewAdvertise.adapter = advertiseAdapter
             if (isGuestUser) {
@@ -307,25 +319,35 @@ class AdvertiseScreenFragment : Fragment() {
                 }
             })
 */
+            if (advertiseViewModel.searchQueryFromHomeScreen.isNotEmpty()) {
+                binding?.searchView?.setText(advertiseViewModel.searchQueryFromHomeScreen)
+                advertiseViewModel.setSearchQueryFromHomeScreenValue("")
+            }
+
+            if (searchView.text.toString().isEmpty()) {
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
+            } else {
+                cancelbutton.visibility = View.VISIBLE
+                searchViewIcon.visibility = View.GONE
+            }
+
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if (searchView.hasFocus()) {
-                        if (keyword.toString().isEmpty()) {
-                            cancelbutton.visibility = View.GONE
-                            searchViewIcon.visibility = View.VISIBLE
-                        } else {
-                            cancelbutton.visibility = View.VISIBLE
-                            searchViewIcon.visibility = View.GONE
-                        }
+                    if (keyword.toString().isEmpty()) {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
+                    } else {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
                     }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
                 }
 
             })

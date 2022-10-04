@@ -25,6 +25,8 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     val callAdvertiseApi: MutableLiveData<Boolean> = MutableLiveData()
 
+    var searchQueryFromHomeScreen = ""
+
     val callAdvertiseDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getAllAdvertise(userEmail: String) = viewModelScope.launch {
@@ -78,6 +80,10 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     fun setCallAdvertiseDetailsApiAfterUpdating(value: Boolean) {
         callAdvertiseDetailsApiAfterUpdating.postValue(value)
+    }
+
+    fun setSearchQueryFromHomeScreenValue(value: String) {
+        searchQueryFromHomeScreen = value
     }
 
 }

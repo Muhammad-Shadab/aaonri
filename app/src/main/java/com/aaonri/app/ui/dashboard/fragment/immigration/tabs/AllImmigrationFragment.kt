@@ -40,7 +40,7 @@ class AllImmigrationFragment : Fragment() {
 
         binding = FragmentAllImmigrationBinding.inflate(layoutInflater, container, false)
 
-        val searchKeyword = arguments?.get("searchKeyword")
+        var searchKeyword = arguments?.get("searchKeyword")
 
         immigrationAdapter = ImmigrationAdapter()
 
@@ -73,7 +73,6 @@ class AllImmigrationFragment : Fragment() {
             binding?.selectAllImmigrationSpinner?.text = it.discCatValue
             if (immigrationViewModel.callAllImmigrationApi) {
                 if (searchKeyword.toString().isNotEmpty() && searchKeyword != "null") {
-
                     immigrationViewModel.getAllImmigrationDiscussion(
                         GetAllImmigrationRequest(
                             categoryId = "${it.discCatId}",
@@ -81,6 +80,7 @@ class AllImmigrationFragment : Fragment() {
                             keywords = searchKeyword.toString()
                         )
                     )
+                    searchKeyword = ""
                 } else {
                     immigrationViewModel.getAllImmigrationDiscussion(
                         GetAllImmigrationRequest(

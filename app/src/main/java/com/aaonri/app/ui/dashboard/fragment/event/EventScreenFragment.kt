@@ -266,11 +266,16 @@ class EventScreenFragment : Fragment() {
                     eventsScreenTabLayout.getTabAt(0)?.select()
                     callEventApi(searchView.text.toString())
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
-                } else {
-
                 }
             }
 
+            if (searchView.text.toString().isNotEmpty()) {
+                cancelbutton.visibility = View.VISIBLE
+                searchViewIcon.visibility = View.GONE
+            } else {
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
+            }
 
             cancelbutton.setOnClickListener {
                 eventViewModel.setClearAllFilter(true)
@@ -291,17 +296,9 @@ class EventScreenFragment : Fragment() {
 
             searchView.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if (keyword.toString().isEmpty()) {
-                        cancelbutton.visibility = View.GONE
-                        searchViewIcon.visibility = View.VISIBLE
-                    } else {
-                        cancelbutton.visibility = View.VISIBLE
-                        searchViewIcon.visibility = View.GONE
-                    }
                     if (searchView.hasFocus()) {
                         if (keyword.toString().isEmpty()) {
                             cancelbutton.visibility = View.GONE
@@ -319,6 +316,9 @@ class EventScreenFragment : Fragment() {
 
                 }
             })
+
+
+
             if (isUserLogin == false) {
                 eventsScreenTabLayout.visibility = View.GONE
                 eventsScreenViewPager.setPadding(0, 40, 0, 0)

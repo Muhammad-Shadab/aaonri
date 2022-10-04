@@ -423,6 +423,7 @@ class ServicesCategoryFragment : Fragment() {
                 }
                 binding?.aliasNameServices?.setText(it.aliasName)
             }
+            binding?.aliasNameCardView?.margin(bottom = 60F)
             binding?.deleteProfileBtn?.visibility = View.VISIBLE
         }
 

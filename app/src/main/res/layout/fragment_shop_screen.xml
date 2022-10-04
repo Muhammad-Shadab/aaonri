@@ -23,13 +23,13 @@
         tools:layout_editor_absoluteY="31dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:innerRadius="0dp"
         android:outlineAmbientShadowColor="#291c2839"
         android:shape="ring"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/blueBtnColor"
         app:cardCornerRadius="@dimen/_11sdp"
         app:cardElevation="6dp"
@@ -74,10 +74,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginBottom="-50dp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationArrowCl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +85,6 @@
         <WebView
             android:id="@+id/shopWithUsWebView"
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_4sdp"
             android:paddingBottom="50dp" />
@@ -98,6 +96,41 @@
             android:layout_gravity="center"
             android:visibility="gone" />
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigationArrowCl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/navigateBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:rotation="180"
+            android:src="@drawable/arrow_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/navigateForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/arrow_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

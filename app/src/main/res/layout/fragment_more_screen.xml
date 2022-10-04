@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:ellipsize="end"
-                    android:fontFamily="@font/sf_pro_light_italic"
+                    android:fontFamily="@font/sf_pro_display_light"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="maulik.gupta@gmail.com"
@@ -99,6 +99,13 @@
                     android:translationY="-4dp" />
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:backgroundTint="@color/blueBtnColor"
+                android:src="@drawable/arrow_forward"
+                app:tint="@color/blueBtnColor" />
         </LinearLayout>
 
         <View

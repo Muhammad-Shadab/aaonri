@@ -42,6 +42,7 @@ class DashboardCommonViewModel : ViewModel() {
     fun setIsShopWithUsClicked(value: Boolean) {
         isShopWithUsClicked.postValue(value)
     }
+
     fun addServicesList(value: MutableList<ServicesResponseItem>) {
         selectedServicesList.postValue(value)
     }

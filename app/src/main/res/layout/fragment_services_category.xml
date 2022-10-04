@@ -52,6 +52,7 @@
                 android:visibility="gone">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/jobEmailAliasCv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_24sdp"
@@ -262,6 +263,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
@@ -273,7 +275,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:background="@drawable/light_green_btn_shape"
             android:elevation="@dimen/_6sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
@@ -290,7 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:background="@drawable/green_btn_shape"
             android:backgroundTint="@color/redcolor"
             android:elevation="6dp"

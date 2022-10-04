@@ -119,7 +119,6 @@ class AllEventFragment : Fragment() {
                     }
                 }
             })
-
         }
 
         eventViewModel.allEventData.observe(viewLifecycleOwner) { response ->
@@ -134,10 +133,23 @@ class AllEventFragment : Fragment() {
                         if (eventViewModel.isAllSelected) {
                             allEventAdapter?.setData(response.data.eventList)
                         } else if (eventViewModel.isFreeSelected) {
-                            allEventAdapter?.setData(response.data.eventList.filter { it.fee <= 0 })
+                            val freeEvent = response.data.eventList.filter { it.fee <= 0 }
+                            if (freeEvent.isNotEmpty()) {
+                                allEventAdapter?.setData(freeEvent)
+                                binding?.resultsNotFoundLL?.visibility = View.GONE
+                            } else {
+                                binding?.resultsNotFoundLL?.visibility = View.VISIBLE
+                            }
                         } else if (eventViewModel.isPaidSelected) {
-                            allEventAdapter?.setData(response.data.eventList.filter { it.fee > 0 })
+                            val paidEvent = response.data.eventList.filter { it.fee > 0 }
+                            if (paidEvent.isNotEmpty()) {
+                                allEventAdapter?.setData(paidEvent)
+                                binding?.resultsNotFoundLL?.visibility = View.GONE
+                            } else {
+                                binding?.resultsNotFoundLL?.visibility = View.VISIBLE
+                            }
                         } else {
+                            binding?.resultsNotFoundLL?.visibility = View.GONE
                             allEventAdapter?.setData(response.data.eventList)
                         }
 
@@ -155,7 +167,6 @@ class AllEventFragment : Fragment() {
                         binding?.recyclerViewEvent?.visibility = View.VISIBLE
                         binding?.topAdvertiseRv?.visibility = View.VISIBLE
                         binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
-                        binding?.resultsNotFoundLL?.visibility = View.GONE
                     } else {
                         binding?.recyclerViewEvent?.visibility = View.GONE
                         binding?.topAdvertiseRv?.visibility = View.GONE

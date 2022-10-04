@@ -1,7 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -55,15 +54,6 @@ class PostEventAddressDetailsFragment : Fragment() {
             FragmentPostEventAddressDetailsBinding.inflate(inflater, container, false)
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_ADDRESS_DETAILS)
-
-        if (!postEventViewModel.isEventOffline) {
-            binding?.zipCodeEt?.isEnabled = false
-            binding?.zipCodeEt?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
-            binding?.zipCodeEt?.hint = "Zipcode"
-        } else {
-            binding?.zipCodeEt?.hint = "Zipcode*"
-        }
 
         val text = resources.getString(R.string.if_you_want_event)
 
@@ -131,6 +121,15 @@ class PostEventAddressDetailsFragment : Fragment() {
 
 
         binding?.apply {
+
+            if (!postEventViewModel.isEventOffline) {
+                eventAddressEt1.visibility = View.GONE
+                eventAddressEt2.visibility = View.GONE
+                cityNameEt.visibility = View.GONE
+                zipCodeEt.visibility = View.GONE
+                landmarkEt.visibility = View.GONE
+                stateEt.visibility = View.GONE
+            }
 
             textDesc1.text = ss
             privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
@@ -403,9 +402,9 @@ class PostEventAddressDetailsFragment : Fragment() {
                 binding?.cityNameEt?.setText(city)
                 if (zipCode.isNotEmpty()) {
                     binding?.zipCodeEt?.setText(zipCode)
-                } else {
-                    binding?.zipCodeEt?.isEnabled = false
-                }
+                } /*else {
+                    binding?.zipCodeEt?.isEnabled = true
+                }*/
                 binding?.landmarkEt?.setText(eventPlace)
                 binding?.stateEt?.setText(state)
                 binding?.socialMediaLinkEt?.setText(socialMediaLink)

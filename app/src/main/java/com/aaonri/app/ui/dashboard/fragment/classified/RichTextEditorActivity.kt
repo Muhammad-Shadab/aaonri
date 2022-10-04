@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.classified
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
 import android.text.InputFilter
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -39,7 +40,8 @@ class RichTextEditorActivity : AppCompatActivity() {
                 intent.getBooleanExtra("isFromAdvertiseBasicDetails", false)
             imm.showSoftInput(arEditText, InputMethodManager.SHOW_IMPLICIT)
             data = intent.getStringExtra("data")
-            arEditText.fromHtml(data)
+            //arEditText.fromHtml(data)
+            arEditText.setText(Html.fromHtml(data))
 
             if (isFromAdvertiseBasicDetails) {
                 arEditText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(30))

@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -85,6 +86,17 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 }
             })
 
+            rvBottomFragment.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                }
+            })
+
             communitySubmitBtn.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -106,13 +118,15 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                 is Resource.Success -> {
                     val sortedList = response.data?.community?.sortedBy { it.communityName }
                     response.data?.community?.let { searchCommunity(it) }
-                    response.data?.community?.let {
+                    sortedList?.let { communityItemAdapter?.setData(it) }
+                    /*response.data?.community?.let {
                         sortedList?.let { it1 ->
                             communityItemAdapter?.setData(
                                 it1
                             )
                         }
-                    }
+                    }*/
+
                     /*if (sortedList != null) {
                     }*/
                 }

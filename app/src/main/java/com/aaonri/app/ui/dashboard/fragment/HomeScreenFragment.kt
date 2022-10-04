@@ -26,7 +26,6 @@ import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
-import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.home.model.InterestResponseItem
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
@@ -65,7 +64,6 @@ class HomeScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val homeViewModel: HomeViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
-    val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
@@ -687,6 +685,8 @@ class HomeScreenFragment : Fragment() {
 
             closeSearchScreen.setOnClickListener {
                 searchModuleFl.visibility = View.GONE
+                context?.let { it1 -> PreferenceManager<Int>(it1) }
+                    ?.set("selectedSearchModule", -1)
                 searchView.setText("")
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
             }
@@ -695,8 +695,7 @@ class HomeScreenFragment : Fragment() {
 
                 if (searchView.text.toString().isNotEmpty()) {
                     if (interestServiceResponseItem?.id == classifiedId) {
-                        postClassifiedViewModel.setSearchQuery(searchView.text.toString())
-                        postClassifiedViewModel.setClickedOnFilter(true)
+                        classifiedViewModel.setSearchQueryFromHomeScreen(searchView.text.toString())
                         dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
                         searchView.setText("")
                     } else if (interestServiceResponseItem?.id == immigrationId) {
@@ -714,6 +713,10 @@ class HomeScreenFragment : Fragment() {
                             R.id.action_homeScreenFragment_to_eventScreenFragment,
                             bundle
                         )
+                        searchView.setText("")
+                    } else if (interestServiceResponseItem?.id == advertiseId) {
+                        dashboardCommonViewModel.setIsAdvertiseClicked(true)
+                        advertiseViewModel.setSearchQueryFromHomeScreenValue(searchView.text.toString())
                         searchView.setText("")
                     } else {
                         activity?.let { it1 ->
@@ -1086,7 +1089,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     val activeServiceList = mutableListOf<InterestResponseItem>()
                     if (response.data?.isNotEmpty() == true) {
-                        searchFilterModuleAdapter?.setData(response.data.filter { it.id == immigrationId || it.id == classifiedId || it.id == eventId })
+                        searchFilterModuleAdapter?.setData(response.data.filter { it.id == immigrationId || it.id == classifiedId || it.id == eventId || (it.id == advertiseId && !guestUser) })
                         if (interests?.isNotEmpty() == true) {
                             response.data.forEach {
                                 if (!activeServiceList.contains(it) && it.active && interests.contains(

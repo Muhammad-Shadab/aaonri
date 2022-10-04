@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.event.post_event.PostEventAddressDetailsFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -35,6 +35,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/eventAddressEt2"
                 android:layout_width="match_parent"
@@ -86,7 +87,7 @@
                 android:layout_marginEnd="@dimen/_28sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/sf_pro_regular"
-                android:hint="Zip Code"
+                android:hint="Zip Code*"
                 android:inputType="number"
                 android:lines="1"
                 android:maxLength="6"
@@ -98,6 +99,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/landmarkEt"
                 android:layout_width="match_parent"
@@ -118,6 +120,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/stateEt"
                 android:layout_width="match_parent"
@@ -138,6 +141,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/socialMediaLinkEt"
                 android:layout_width="match_parent"
@@ -158,6 +162,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -294,7 +294,6 @@ class ClassifiedScreenFragment : Fragment() {
                 searchViewIcon.visibility = View.VISIBLE
                 postClassifiedViewModel.setClearAllFilter(true)
                 postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
-                postClassifiedViewModel.setSearchQuery("")
             }
 
             context?.let {
@@ -643,12 +642,12 @@ class ClassifiedScreenFragment : Fragment() {
             if (it) {
                 callGetAllClassifiedApi()
                 binding?.searchView?.setText("")
+                postClassifiedViewModel.setClickOnClearAllFilterBtn(false)
             }
         }
 
         postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
-
                 postClassifiedViewModel.setMinValue("")
                 postClassifiedViewModel.setMaxValue("")
                 postClassifiedViewModel.setIsMyLocationChecked(false)
@@ -686,8 +685,6 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.setClearAllFilter(false)
         }
 
-
-
         classifiedViewModel.navigateFromClassifiedScreenToAdvertiseWebView.observe(
             viewLifecycleOwner
         ) {
@@ -701,7 +698,6 @@ class ClassifiedScreenFragment : Fragment() {
             }
         }
 
-        binding?.searchView?.setText(postClassifiedViewModel.searchQueryFilter)
 
         return binding?.root
     }
@@ -795,7 +791,6 @@ class ClassifiedScreenFragment : Fragment() {
 
     private fun callGetAllClassifiedApi(searchQuery: String = "") {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
         classifiedViewModel.getClassifiedByUser(
             GetClassifiedByUserRequest(
                 category = "",
