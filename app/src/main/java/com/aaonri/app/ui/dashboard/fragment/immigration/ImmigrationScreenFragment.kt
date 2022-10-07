@@ -102,8 +102,10 @@ class ImmigrationScreenFragment : Fragment() {
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
-            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+            Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .circleCrop().error(R.drawable.profile_pic_placeholder)
                 .into(dialogProfileIv)
         }
 
@@ -204,8 +206,7 @@ class ImmigrationScreenFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
+
 
         loginBtn.setOnClickListener {
             activity?.finish()
@@ -217,8 +218,10 @@ class ImmigrationScreenFragment : Fragment() {
         binding?.apply {
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
             immigrationScreenViewPager.isUserInputEnabled = false
@@ -250,7 +253,6 @@ class ImmigrationScreenFragment : Fragment() {
                         )
                     findNavController().navigate(action)
                 } else {
-                    dialogDescTv.text = "Please login to post a discussion"
                     guestUserLoginDialog.show()
                 }
             }

@@ -43,6 +43,7 @@ class ReviewAdvertiseFragment : BottomSheetDialogFragment() {
             context?.let {
                 Glide.with(it)
                     .load(postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI])
+                    .error(R.drawable.small_image_placeholder)
                     .into(advertisementImage)
             }
 

@@ -55,6 +55,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 val data = result.data?.getStringExtra("result")
                 if (data?.isNotEmpty() == true) {
                     binding?.advertiseDescEt?.fromHtml(data.trim())
+                    //binding?.descLength?.text = data.toString().trim().length.toString()
                     description = data.trim()
                 } else {
                     binding?.advertiseDescEt?.text = ""
@@ -314,6 +315,10 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 is Resource.Success -> {
                     val templateName = mutableListOf<String>()
 
+                    if (!templateName.contains("Choose Template")) {
+                        templateName.add("Choose Template")
+                    }
+
                     if (advertisePageLocationResponseItem?.type == "BOTH") {
                         binding?.advertiseDescEt?.isEnabled = true
                         response.data?.forEach {
@@ -409,8 +414,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
     private fun enableDisableBtn() {
         if (isBoth) {
-            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.white))
+            binding?.advertiseDescEtNestedScroll?.visibility = View.VISIBLE
+            /*binding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.white))*/
             if (binding?.titleAdvertisedEt?.text.toString().length >= 3 && binding?.advertiseDescEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
                     if (binding?.advertiseDescEt?.text.toString().length >= 3) {
@@ -438,8 +444,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     ColorStateList.valueOf(resources.getColor(R.color.lightBlueBtnColor))
             }
         } else if (isTextOnly) {
-            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.white))
+            binding?.advertiseDescEtNestedScroll?.visibility = View.VISIBLE
+            /*binding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.white))*/
 
             if (binding?.titleAdvertisedEt?.text.toString().length >= 3 && binding?.advertiseDescEt?.text.toString().length >= 3) {
                 if (binding?.advertiseDescEt?.text.toString().length >= 3) {
@@ -460,8 +467,9 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             }
             openPreview = false
         } else if (isImageOnly) {
-            binding?.advertiseDescEtNestedScroll?.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.graycolor))
+            binding?.advertiseDescEtNestedScroll?.visibility = View.GONE
+            /* binding?.advertiseDescEtNestedScroll?.backgroundTintList =
+                 ColorStateList.valueOf(resources.getColor(R.color.graycolor))*/
             if (binding?.titleAdvertisedEt?.text.toString().length >= 3) {
                 if (advertiseImage?.isNotEmpty() == true) {
                     binding?.advertiseDetailsNextBtn?.backgroundTintList =
@@ -592,6 +600,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load(advertiseImage)
+                        .error(R.drawable.small_image_placeholder)
                         .into(it)
 
                 }

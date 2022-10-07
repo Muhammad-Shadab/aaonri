@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -49,9 +48,12 @@ class AdvertiseScreenFragment : Fragment() {
     var binding: FragmentAdvertiseScreenBinding? = null
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
+    var layoutManager: LinearLayoutManager? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
     var advertiseAdapter: AdvertiseAdapter? = null
     var isAdvertiseExpired: Boolean? = null
+    var data: List<AllAdvertiseResponseItem>? = null
+    var enableSearch = false
 
     //var advertiseIdList = mutableListOf<Int>()
 
@@ -59,7 +61,7 @@ class AdvertiseScreenFragment : Fragment() {
 
     var isGuestUser = false
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +75,12 @@ class AdvertiseScreenFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val isUserLogin =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
+
+
+        layoutManager = LinearLayoutManager(context)
 
         val ss = SpannableString(resources.getString(R.string.login_to_view_Advertisement))
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
@@ -118,8 +126,10 @@ class AdvertiseScreenFragment : Fragment() {
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
-            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+            Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .circleCrop().error(R.drawable.profile_pic_placeholder)
                 .into(dialogProfileIv)
         }
 
@@ -206,6 +216,27 @@ class AdvertiseScreenFragment : Fragment() {
             updateLogoutDialog.dismiss()
         }
 
+        /** Dialog for guest user **/
+        val guestUserLoginDialog = Dialog(requireContext())
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
+
         advertiseAdapter = AdvertiseAdapter { selectedService, isMoreMenuBtnClicked ->
 
             var d1 = DateTimeFormatter.ofPattern("MM-dd-yyyy")
@@ -252,6 +283,7 @@ class AdvertiseScreenFragment : Fragment() {
 
         binding = FragmentAdvertiseScreenBinding.inflate(inflater, container, false)
         binding?.apply {
+
             loginToViewAdvertisement.textSize = 16F
             loginToViewAdvertisement.text = ss
             loginToViewAdvertisement.movementMethod = LinkMovementMethod.getInstance()
@@ -273,13 +305,20 @@ class AdvertiseScreenFragment : Fragment() {
             }
 
             floatingActionBtnEvents.setOnClickListener {
-                val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
-                startActivityForResult(intent, 3)
+                if (isUserLogin == true) {
+                    val intent = Intent(requireContext(), AdvertiseScreenActivity::class.java)
+                    startActivityForResult(intent, 3)
+                } else {
+                    guestUserLoginDialog.show()
+                }
+
             }
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
 
@@ -294,24 +333,22 @@ class AdvertiseScreenFragment : Fragment() {
                 }
             })
 
-            recyclerViewAdvertise.layoutManager = LinearLayoutManager(context)
+            recyclerViewAdvertise.layoutManager = layoutManager
             recyclerViewAdvertise.adapter = advertiseAdapter
-            if (isGuestUser) {
+            /*if (isGuestUser) {
                 isGuestUser = true
                 binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
                 binding?.yourText?.visibility = View.GONE
                 binding?.postingofAdTv?.visibility = View.GONE
                 binding?.recyclerViewAdvertise?.visibility = View.GONE
-                binding?.floatingActionBtnEvents?.visibility = View.GONE
             } else {
                 isGuestUser = false
                 binding?.loginToViewAdvertisement?.visibility = View.GONE
                 binding?.yourText?.visibility = View.VISIBLE
                 binding?.postingofAdTv?.visibility = View.VISIBLE
                 binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                binding?.floatingActionBtnEvents?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
-            }
+            }*/
 
             /*nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
@@ -319,9 +356,10 @@ class AdvertiseScreenFragment : Fragment() {
                 }
             })
 */
-            if (advertiseViewModel.searchQueryFromHomeScreen.isNotEmpty()) {
-                binding?.searchView?.setText(advertiseViewModel.searchQueryFromHomeScreen)
-                advertiseViewModel.setSearchQueryFromHomeScreenValue("")
+            if (advertiseViewModel.searchQueryToSetOnSearchView.isNotEmpty()) {
+                binding?.searchView?.setText(advertiseViewModel.searchQueryToSetOnSearchView)
+                advertiseViewModel.setSearchQueryFromHomeScreenValue(advertiseViewModel.searchQueryToSetOnSearchView)
+                advertiseViewModel.setSearchQueryToSetOnSearchViewValue("")
             }
 
             if (searchView.text.toString().isEmpty()) {
@@ -338,6 +376,7 @@ class AdvertiseScreenFragment : Fragment() {
                 }
 
                 override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    advertiseViewModel.setSearchQueryFromHomeScreenValue(keyword.toString())
                     if (keyword.toString().isEmpty()) {
                         cancelbutton.visibility = View.GONE
                         searchViewIcon.visibility = View.VISIBLE
@@ -348,6 +387,7 @@ class AdvertiseScreenFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
+
                 }
 
             })
@@ -361,6 +401,7 @@ class AdvertiseScreenFragment : Fragment() {
 
             }
 
+            layoutManager?.smoothScrollToPosition(recyclerViewAdvertise, null, 0)
 
         }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
@@ -370,13 +411,11 @@ class AdvertiseScreenFragment : Fragment() {
                 binding?.yourText?.visibility = View.GONE
                 binding?.postingofAdTv?.visibility = View.GONE
                 binding?.recyclerViewAdvertise?.visibility = View.GONE
-                binding?.floatingActionBtnEvents?.visibility = View.GONE
             } else {
                 binding?.loginToViewAdvertisement?.visibility = View.GONE
                 binding?.yourText?.visibility = View.VISIBLE
                 binding?.postingofAdTv?.visibility = View.VISIBLE
                 binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                binding?.floatingActionBtnEvents?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }
         }
@@ -389,18 +428,29 @@ class AdvertiseScreenFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     if (response.data?.isEmpty() == true) {
+                        enableSearch = false
                         binding?.noResultFound?.visibility = View.VISIBLE
+                        binding?.noResultFoundIv?.setImageDrawable(
+                            context?.let {
+                                ContextCompat.getDrawable(
+                                    it,
+                                    R.drawable.empty_my_classified
+                                )
+                            }
+                        )
                         binding?.emptyTextVew?.text = "You haven't listed anything yet"
                         binding?.recyclerViewAdvertise?.visibility = View.GONE
 
                     } else {
+                        enableSearch = true
                         /*response.data?.forEach {
                             if (!advertiseIdList.contains(it.advertisementId)) {
                                 advertiseIdList.add(it.advertisementId)
                             }
                         }*/
                         response.data?.let { advertiseAdapter?.setData(it) }
-                        response.data?.let { searchAdvertisement(it) }
+                        response.data?.let { data = it }
+                        //response.data?.let { searchAdvertisement(it) }
                         binding?.noResultFound?.visibility = View.GONE
                         binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
                     }
@@ -459,6 +509,57 @@ class AdvertiseScreenFragment : Fragment() {
             }
         }
 
+        advertiseViewModel.searchQueryFromHomeScreen.observe(viewLifecycleOwner) { editable ->
+            if (enableSearch) {
+                advertisementList.clear()
+                val searchText = editable.toString().lowercase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    data?.forEach {
+                        if (it.advertisementDetails.adTitle.lowercase(Locale.getDefault())
+                                .contains(searchText)
+                        ) {
+                            advertisementList.add(it)
+                        }
+                    }
+                } else {
+                    advertisementList.clear()
+                    data.let {
+                        if (it != null) {
+                            advertisementList.addAll(it)
+                        }
+                    }
+                }
+                if (isUserLogin == true) {
+                    if (advertisementList.isEmpty()) {
+                        binding?.noResultFound?.visibility = View.VISIBLE
+                        binding?.noResultFoundIv?.setImageDrawable(
+                            context?.let {
+                                ContextCompat.getDrawable(
+                                    it,
+                                    R.drawable.no_immigration_found
+                                )
+                            }
+                        )
+                        binding?.emptyTextVew?.text = "Results not found"
+                        binding?.recyclerViewAdvertise?.visibility = View.GONE
+                    } else {
+                        binding?.noResultFound?.visibility = View.GONE
+                        binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                    }
+                }
+
+                advertiseAdapter?.setData(advertisementList)
+                binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
+            }
+        }
+
+        if (isUserLogin == false) {
+            binding?.searchView?.isEnabled = false
+            binding?.searchView?.isFocusable = false
+            binding?.searchView?.isFocusableInTouchMode = false
+            binding?.noResultFound?.visibility = View.GONE
+        }
+
         /*if (advertiseIdList.isNotEmpty()) {
             advertiseIdList.forEachIndexed { index, i ->
                 if (index == 0) {
@@ -471,7 +572,7 @@ class AdvertiseScreenFragment : Fragment() {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifyDataSetChanged")
     private fun searchAdvertisement(data: List<AllAdvertiseResponseItem>) {
         binding?.searchView?.addTextChangedListener { editable ->
             advertisementList.clear()
@@ -499,7 +600,7 @@ class AdvertiseScreenFragment : Fragment() {
             advertiseAdapter?.setData(advertisementList)
             binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
-    }
+    }*/
 
     private fun getCalculatedDate(dateFormat: String?, days: Int): String {
         val cal = Calendar.getInstance()

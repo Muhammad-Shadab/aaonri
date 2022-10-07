@@ -28,5 +28,5 @@ data class EventDetailsResponse(
     val title: String,
     val totalFavourite: Int,
     val totalVisiting: Int,
-    val zipCode: String
+    val zipCode: String?
 )

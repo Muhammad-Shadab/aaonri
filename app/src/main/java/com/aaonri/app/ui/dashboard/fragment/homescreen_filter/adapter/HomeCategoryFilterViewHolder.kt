@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
 import com.aaonri.app.data.event.model.Event
 import com.aaonri.app.data.event.model.UserEvent
@@ -119,6 +120,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                                     "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data.images[index].imagePath}"
                                 placeholder.visibility = View.GONE
                                 Glide.with(context).load(image)
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(eventImageView)
                             }
                         }
@@ -127,6 +129,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                             "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${data.images[0].imagePath}"
                         placeholder.visibility = View.GONE
                         Glide.with(context).load(image)
+                            .error(R.drawable.small_image_placeholder)
                             .into(eventImageView)
                     }
                     eventName.text = data.title
@@ -135,7 +138,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                     totalFavourite.text = data.totalFavourite.toString()
                     try {
                         eventLocationZip.text =
-                            if (data.city.isNotEmpty()) "${data.city}" else "" + (if (data.zipCode.isNotEmpty() && data.city.isNotEmpty()) "-" else "") + if (data.zipCode.isNotEmpty()) "${data.zipCode}" else ""
+                            if (data.city?.isNotEmpty() == true) "${data.city}" else "" + (if (data.zipCode?.isNotEmpty() == true && data.city?.isNotEmpty() == true) "-" else "") + if (data.zipCode?.isNotEmpty() == true) "${data.zipCode}" else ""
                     } catch (e: Exception) {
 
                     }
@@ -155,7 +158,7 @@ sealed class HomeCategoryFilterViewHolder(binding: ViewBinding) :
                     totalFavourite.text = data.totalFavourite.toString()
                     try {
                         eventLocationZip.text =
-                            if (data.city.isNotEmpty()) "${data.city}" else "" + (if (data.zipCode.isNotEmpty() && data.city.isNotEmpty()) "-" else "") + if (data.zipCode.isNotEmpty()) "${data.zipCode}" else ""
+                            if (data.city?.isNotEmpty() == true) "${data.city}" else "" + (if (data.zipCode?.isNotEmpty() == true && data.city?.isNotEmpty() == true) "-" else "") + if (data.zipCode?.isNotEmpty() == true) "${data.zipCode}" else ""
                     } catch (e: Exception) {
 
                     }

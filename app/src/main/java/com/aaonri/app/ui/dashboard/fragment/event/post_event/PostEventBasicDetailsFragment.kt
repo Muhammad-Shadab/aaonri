@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -272,6 +271,26 @@ class PostEventBasicDetailsFragment : Fragment() {
 
             val eventDetails = EventStaticData.getEventDetailsData()
 
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+            val outputFormat = SimpleDateFormat("MM-dd-yyyy")
+
+            val startDateParsed =
+                eventDetails?.startDate?.let {
+                    inputFormat.parse(
+                        it
+                    )
+                }
+
+            val endDateParsed = eventDetails?.endDate?.let {
+                inputFormat.parse(
+                    it
+                )
+            }
+
+            startDate = outputFormat.format(startDateParsed)
+            endDate = outputFormat.format(endDateParsed)
+
+
             if (postEventViewModel.isNavigateBackBasicDetails) {
                 setData()
                 postEventViewModel.setIsNavigateBackToBasicDetails(false)
@@ -284,13 +303,15 @@ class PostEventBasicDetailsFragment : Fragment() {
                 }
                 binding?.titleEvent?.setText(eventDetails?.title)
                 binding?.selectCategoryEvent?.text = eventDetails?.category
-                binding?.selectstartDate?.text =
-                    eventDetails?.startDate?.split("T")?.get(0)
+                /*binding?.selectstartDate?.text =
+                    eventDetails?.startDate?.split("T")?.get(0)*/
+                binding?.selectstartDate?.text = startDate
                 binding?.selectStartTime?.text =
                     displayFormat.format(parseFormat.parse(eventDetails?.startTime)).toString()
                 startTime = eventDetails?.startTime.toString()
-                binding?.selectEndDate?.text =
-                    eventDetails?.endDate?.split("T")?.get(0)
+                binding?.selectEndDate?.text = endDate
+                /*binding?.selectEndDate?.text =
+                    eventDetails?.endDate?.split("T")?.get(0)*/
                 binding?.selectEndTime?.text =
                     displayFormat.format(parseFormat.parse(eventDetails?.endTime)).toString()
                 binding?.eventTimezone?.text = eventDetails?.timeZone
@@ -469,25 +490,27 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                     selectedMonth = "${monthOfYear + 1}"
                     seletedDay = dayOfMonth.toString()
-                    if (monthOfYear + 1 <=9) {
+                    if (monthOfYear + 1 <= 9) {
                         selectedMonth = "0${monthOfYear + 1}"
                     }
                     if (dayOfMonth < 10) {
                         seletedDay = "0${dayOfMonth}"
                     }
 
-                    selectedDate = "${year}-${selectedMonth}-${seletedDay}"
+                    selectedDate = "${selectedMonth}-${seletedDay}-${year}"
                     selectstartDate?.text = "${selectedDate}"
                     if (isStartdate) {
-
                         endDate = ""
+                        endTime = ""
+                        startTime = ""
+                        binding?.selectStartTime?.text = ""
                         binding?.selectEndDate?.text = ""
+                        binding?.selectEndTime?.text = ""
                         startDate = selectedDate
                     } else {
                         endDate = selectedDate
                         binding?.selectEndTime?.text = ""
                     }
-
                 },
                 year,
                 month,
@@ -495,13 +518,11 @@ class PostEventBasicDetailsFragment : Fragment() {
             )
         }
         try {
-
             if (isStartdate) {
                 datepicker?.datePicker?.minDate = System.currentTimeMillis() - 1000
             } else {
-                val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDate)
+                val date = SimpleDateFormat("MM-dd-yyyy").parse(selectedDate)
                 datepicker?.datePicker?.minDate = date.time - 1000 + (1000 * 60 * 60 * 24)
-
             }
         } catch (e: Exception) {
 //            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
@@ -558,20 +579,35 @@ class PostEventBasicDetailsFragment : Fragment() {
                     //this is for startTime
                     selectStartTime.text = displayFormat.format(date)
                     binding?.selectEndTime?.text = ""
-
                 } else {
                     var time =
                         parseFormat.format(displayFormat.parse(binding?.selectStartTime?.text.toString()))
                     var startHour: Int? = time?.split(":")?.get(0)?.toInt()
                     var startMin: Int? = time?.split(":")?.get(1)?.toInt()
+
+
                     //this is for  endTime
                     if (binding?.selectstartDate?.text.toString() == binding?.selectEndDate?.text.toString()) {
-                        if (hourOfDay > startHour!! || hourOfDay == startHour && minute!! > startMin!!) {
+                        if (hoursOfTheDay > startHour!!) {
+                            selectStartTime.text = displayFormat.format(date)
+                            endTime = parseFormat.format(date).toString()
+                        } else if (hourOfDay == startHour) {
+                            if (startMin!! + 30 < minute) {
+                                selectStartTime.text = displayFormat.format(date)
+                                endTime = parseFormat.format(date).toString()
+                            } else {
+                                showAlert("Please select valid time")
+                            }
+                        } else if (hourOfDay < startHour) {
+                            showAlert("Please select valid time")
+                        }
+
+                        /*if (hourOfDay > startHour!! || hourOfDay == startHour && minute!! > startMin!!) {
                             selectStartTime.text = displayFormat.format(date)
                             endTime = parseFormat.format(date).toString()
                         } else {
                             showAlert("Please select valid time")
-                        }
+                        }*/
                     } else {
                         selectStartTime.text = displayFormat.format(date)
                         endTime = parseFormat.format(date).toString()
@@ -583,8 +619,9 @@ class PostEventBasicDetailsFragment : Fragment() {
         mTimePicker.show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 

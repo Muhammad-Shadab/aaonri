@@ -52,8 +52,10 @@ class JobScreenFragment : Fragment() {
 
         binding?.apply {
 
-            context?.let { Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv) }
+            context?.let { Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv) }
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()

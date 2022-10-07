@@ -41,11 +41,15 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.text.SimpleDateFormat
 
 
 class PostEventAddressDetailsFragment : Fragment() {
     var binding: FragmentPostEventAddressDetailsBinding? = null
     val postEventViewModel: PostEventViewModel by activityViewModels()
+    var startDate = ""
+    var endDate = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -118,6 +122,25 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
         SpanString.setSpan(teremsAndCondition, 50, 62, 0)
         SpanString.setSpan(privacy, 71, 85, 0)
+
+        val inputFormat = SimpleDateFormat("MM-dd-yyyy")
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd")
+        val startDateParsed =
+            postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]?.let {
+                inputFormat.parse(
+                    it
+                )
+            }
+
+        val endDateParsed =
+            postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]?.let {
+                inputFormat.parse(
+                    it
+                )
+            }
+
+        startDate = outputFormat.format(startDateParsed)
+        endDate = outputFormat.format(endDateParsed)
 
 
         binding?.apply {
@@ -277,6 +300,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
+                            postEventViewModel.listOfImagesUri.reverse()
                             postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
                                 if (!uri.toString().startsWith("htt")) {
                                     callUploadClassifiedPicApi(
@@ -400,7 +424,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 binding?.eventAddressEt1?.setText(address1)
                 binding?.eventAddressEt2?.setText(address2)
                 binding?.cityNameEt?.setText(city)
-                if (zipCode.isNotEmpty()) {
+                if (zipCode?.isNotEmpty() == true) {
                     binding?.zipCodeEt?.setText(zipCode)
                 } /*else {
                     binding?.zipCodeEt?.isEnabled = true
@@ -512,7 +536,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate = endDate,
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]!! else "",
                 favorite = false,
@@ -522,7 +546,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = startDate,
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,
@@ -535,7 +559,7 @@ class PostEventAddressDetailsFragment : Fragment() {
     }
 
 
-    fun updateEvent() {
+    private fun updateEvent() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         postEventViewModel.updateEvent(
@@ -550,7 +574,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 createdOn = "",
                 delImages = null,
                 description = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_DESC]!!,
-                endDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_DATE]!!,
+                endDate = endDate,
                 endTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_END_TIME]!!,
                 eventPlace = if (postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]?.isNotEmpty() == true) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_LANDMARK]!! else "",
                 favorite = false,
@@ -560,7 +584,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 isActive = true,
                 isFree = postEventViewModel.isEventFree,
                 socialMediaLink = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_SOCIAL_MEDIA_LINK]!!,
-                startDate = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_DATE]!!,
+                startDate = startDate,
                 startTime = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_START_TIME]!!,
                 state = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_STATE]!!,
                 timeZone = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TIMEZONE]!!,

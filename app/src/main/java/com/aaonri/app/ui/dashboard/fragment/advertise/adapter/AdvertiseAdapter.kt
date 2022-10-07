@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,10 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.advertise.model.AllAdvertiseResponseItem
 import com.aaonri.app.databinding.AdvertisementItemBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import java.time.format.DateTimeFormatter
 
 class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseResponseItem, isMoreMenuBtnClicked: Boolean) -> Unit)) :
@@ -44,13 +49,33 @@ class AdvertiseAdapter(private var selectedServices: ((value: AllAdvertiseRespon
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${data[position].advertisementDetails.adImage}")
+                        .listener(object : RequestListener<Drawable?> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable?>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                placeholder.visibility = View.VISIBLE
+                                advertisementImage.visibility = View.GONE
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable?>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                return false
+                            }
+                        })
                         .into(advertisementImage)
                 }
-                imageFl.visibility = View.INVISIBLE
-                advertisementImage.visibility = View.VISIBLE
+
             } else {
-                advertisementImage.visibility = View.GONE
-                imageFl.visibility = View.VISIBLE
+
             }
 
             //Glide.with(context).load(advertisemntImage).into(advertisemntImage)

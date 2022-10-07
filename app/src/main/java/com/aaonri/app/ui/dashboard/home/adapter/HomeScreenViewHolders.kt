@@ -137,6 +137,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(binding.classifiedImageOnlyItemIv)
                         }
                     }
@@ -155,6 +156,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(binding.classifiedImageWithTextIv)
                         }
                     }
@@ -334,6 +336,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(binding.imageOnlyIv)
                         }
                     }
@@ -352,6 +355,7 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(binding.imageWithTextIv)
                         }
                     }

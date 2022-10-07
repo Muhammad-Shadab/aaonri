@@ -7,7 +7,6 @@
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.authentication.login.LoginFragment">
 
-
     <TextView
         android:id="@+id/registrationText"
         android:layout_width="wrap_content"
@@ -30,7 +29,6 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_22sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -44,6 +42,7 @@
             android:layout_marginTop="40dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_22sdp"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.card.MaterialCardView
@@ -112,8 +111,12 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/_22sdp"
             android:layout_marginTop="@dimen/_23sdp"
             android:background="#C9C9C9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileInfoLl" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -121,9 +124,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
             android:numColumns="3"
-            android:paddingTop="@dimen/_15sdp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toTopOf="@+id/versionTv"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -134,7 +139,7 @@
             android:layout_gravity="center"
             android:layout_marginVertical="@dimen/_12sdp"
             android:fontFamily="@font/sf_pro_regular"
-            android:text="Version: 1.0(1)"
+            android:text="Version: 1.0.8"
             android:textColor="#676767"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"

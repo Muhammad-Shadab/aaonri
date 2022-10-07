@@ -20,6 +20,8 @@ class DashboardCommonViewModel : ViewModel() {
 
     var isFilterApplied: MutableLiveData<String> = MutableLiveData()
 
+    var showBottomNavigation: MutableLiveData<Boolean> = MutableLiveData()
+
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
 
@@ -45,6 +47,10 @@ class DashboardCommonViewModel : ViewModel() {
 
     fun addServicesList(value: MutableList<ServicesResponseItem>) {
         selectedServicesList.postValue(value)
+    }
+
+    fun setShowBottomNavigation(value: Boolean) {
+        showBottomNavigation.postValue(value)
     }
 
 

@@ -3,7 +3,9 @@ package com.aaonri.app.ui.dashboard.fragment.classified
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
@@ -54,7 +57,7 @@ class ClassifiedScreenFragment : Fragment() {
     var addId = 0
     var isUserLogin: Boolean? = null
     private val tabTitles =
-        arrayListOf("All Classifieds", "My Classifieds", "My Favorite Classifieds")
+        arrayListOf("All Classifieds", "My Classifieds", "My Favourite Classifieds")
     var noOfSelection = 0
 
     @SuppressLint("InflateParams")
@@ -109,8 +112,10 @@ class ClassifiedScreenFragment : Fragment() {
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
-            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+            Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .circleCrop().error(R.drawable.profile_pic_placeholder)
                 .into(dialogProfileIv)
         }
 
@@ -211,9 +216,6 @@ class ClassifiedScreenFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
-        dialogDescTv.text = "Please login to post a Classified"
         loginBtn.setOnClickListener {
             activity?.finish()
         }
@@ -298,7 +300,8 @@ class ClassifiedScreenFragment : Fragment() {
 
             context?.let {
                 Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
 
@@ -469,6 +472,7 @@ class ClassifiedScreenFragment : Fragment() {
                     return
                 }
             })
+
         }
         /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
             if (isClearAll) {
@@ -826,6 +830,26 @@ class ClassifiedScreenFragment : Fragment() {
             postClassifiedViewModel.setSubCategoryFilter("")
         }
     }
+
+    /*private fun dynamicSetTabLayoutMode(tabLayout: TabLayout) {
+        val tabWidth = calculateTabWidth(tabLayout)
+        val screenWidth = Resources.getSystem().displayMetrics.widthPixels
+        if (tabWidth <= screenWidth) {
+            tabLayout.tabMode = TabLayout.MODE_AUTO
+        } else {
+            tabLayout.tabMode = TabLayout.MODE_FIXED
+        }
+    }
+
+    private fun calculateTabWidth(tabLayout: TabLayout): Int {
+        var tabWidth = 0
+        for (i in 0 until tabLayout.childCount) {
+            val view = tabLayout.getChildAt(i)
+            view.measure(0, 0)
+            tabWidth += view.measuredWidth
+        }
+        return tabWidth
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

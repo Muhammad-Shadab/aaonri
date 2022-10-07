@@ -47,32 +47,7 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
             } else {
                 Glide.with(context)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data[position].userAdsImages[0].imagePath}")
-                    .listener(object : RequestListener<Drawable?> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable?>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            classifiedItemIv.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    context,
-                                    R.drawable.ic_image_placeholder
-                                )
-                            )
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable?>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            return false
-                        }
-                    })
+                    .error(R.drawable.small_image_placeholder)
                     .into(classifiedItemIv)
                 classifiedPriceTv.text = "$$roundoff"
                 classifiedTitleTv.text = data[position].adTitle

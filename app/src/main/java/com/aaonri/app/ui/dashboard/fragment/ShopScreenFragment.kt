@@ -77,8 +77,10 @@ class ShopScreenFragment : Fragment() {
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
-            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+            Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .circleCrop().error(R.drawable.profile_pic_placeholder)
                 .into(dialogProfileIv)
         }
 
@@ -178,15 +180,15 @@ class ShopScreenFragment : Fragment() {
             }
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
             navigateBack.setOnClickListener {
                 if (shopWithUsWebView.canGoBack()) {
                     shopWithUsWebView.goBack()
-                } else {
-                    findNavController().navigateUp()
                 }
             }
             navigateForward.setOnClickListener {
@@ -194,6 +196,11 @@ class ShopScreenFragment : Fragment() {
                     shopWithUsWebView.goForward()
                 }
             }
+
+            /*openInBrowser.setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling"));
+                activity?.startActivity(browserIntent)
+            }*/
 
             startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
             requireActivity()
@@ -251,6 +258,10 @@ class ShopScreenFragment : Fragment() {
 
 
         binding?.shopWithUsWebView?.loadUrl(url)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onDestroyView() {

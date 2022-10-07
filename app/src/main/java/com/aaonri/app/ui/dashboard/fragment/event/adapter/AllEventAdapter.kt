@@ -51,8 +51,10 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                 /*endTimeOfEvent = LocalTime.parse(data[position].endTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))*/
                 timeZone = data[position].timeZone
+                startTimeOfEvent =
+                    startTimeOfEvent.toString().replace("pm", " PM").replace("am", " AM").toString()
                 eventTiming.text =
-                    "Starts From $startDate, $startTimeOfEvent $timeZone" /* - $endTimeOfEvent  $timeZone*/
+                    "Starts From $startDate, $startTimeOfEvent  $timeZone" /* - $endTimeOfEvent  $timeZone*/
             } catch (e: Exception) {
 
             }
@@ -66,8 +68,10 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
             if (data[position].city != null) {
                 location += "${data[position].city}"
             }
-            if (data[position].zipCode != null) {
+            if (data[position].zipCode != null && data[position].zipCode?.isNotEmpty() == true) {
                 location += " - ${data[position].zipCode}"
+            } else {
+                location = "This is an online event"
             }
 
 

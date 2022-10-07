@@ -87,7 +87,7 @@ class BasicDetailsFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
                 binding?.emailAddressBasicDetails?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-                context?.let { Glide.with(it).load(socialProfile).circleCrop().into(addProfileIv) }
+                context?.let { Glide.with(it).load(socialProfile).circleCrop().error(R.drawable.profile_pic_placeholder).into(addProfileIv) }
                 if (socialProfile != null) {
                     profile = socialProfile
                 }
@@ -383,6 +383,7 @@ class BasicDetailsFragment : Fragment() {
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(true)
                             .circleCrop()
+                            .error(R.drawable.profile_pic_placeholder)
                             .into(
                                 it1
                             )
@@ -414,7 +415,7 @@ class BasicDetailsFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
+
                 }
                 is Resource.Error -> {
 
@@ -471,7 +472,10 @@ class BasicDetailsFragment : Fragment() {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load(profile)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .circleCrop()
+                        .error(R.drawable.profile_pic_placeholder)
                         .into(it)
                 }
             }
@@ -481,6 +485,7 @@ class BasicDetailsFragment : Fragment() {
                     Glide.with(it1)
                         .load(R.drawable.profile_pic_placeholder)
                         .circleCrop()
+                        .error(R.drawable.profile_pic_placeholder)
                         .into(it)
                 }
             }

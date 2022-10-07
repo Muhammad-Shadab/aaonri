@@ -23,13 +23,14 @@
         tools:layout_editor_absoluteY="31dp" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:innerRadius="0dp"
         android:outlineAmbientShadowColor="#291c2839"
         android:shape="ring"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardBackgroundColor="@color/blueBtnColor"
         app:cardCornerRadius="@dimen/_11sdp"
         app:cardElevation="6dp"
@@ -38,6 +39,31 @@
         app:layout_constraintTop_toTopOf="@+id/registrationText"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateForward"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        android:rotation="180"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@id/navigateBack"
+        app:layout_constraintEnd_toStartOf="@id/registrationText"
+        app:layout_constraintStart_toEndOf="@id/navigateBack"
+        app:layout_constraintTop_toTopOf="@id/navigateBack">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -76,7 +102,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/navigationArrowCl"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +123,7 @@
             android:visibility="gone" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navigationArrowCl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,9 +154,26 @@
             android:src="@drawable/arrow_forward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.307"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <ImageView
+            android:id="@+id/openInBrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/open_in_browser"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="@dimen/_50sdp"
             app:tint="@color/black" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

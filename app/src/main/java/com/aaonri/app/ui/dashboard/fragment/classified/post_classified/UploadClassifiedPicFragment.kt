@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,6 +26,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -162,8 +162,18 @@ class UploadClassifiedPicFragment : Fragment() {
                         showingImagesList.add(image4Uri.toUri())
                     }
                 }
-                postClassifiedViewModel.setListOfUploadImagesUri(showingImagesList)
-                findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
+
+                if (showingImagesList.size >= 1) {
+                    postClassifiedViewModel.setListOfUploadImagesUri(showingImagesList)
+                    findNavController().navigate(R.id.action_uploadClassifiedPicFragment_to_addressDetailsClassifiedFragment)
+                } else {
+                    activity?.let { it1 ->
+                        Snackbar.make(
+                            it1.findViewById(android.R.id.content),
+                            "Please upload at least one classified image", Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
         }
 
@@ -222,16 +232,18 @@ class UploadClassifiedPicFragment : Fragment() {
                     selectPicIndex = 0
                     binding?.uploadedImage1?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image1Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image1Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image1Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image1Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage1?.visibility = View.VISIBLE
@@ -246,16 +258,18 @@ class UploadClassifiedPicFragment : Fragment() {
                     selectPicIndex = 1
                     binding?.uploadedImage2?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image2Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image2Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage2?.visibility = View.VISIBLE
@@ -270,16 +284,18 @@ class UploadClassifiedPicFragment : Fragment() {
                     selectPicIndex = 2
                     binding?.uploadedImage3?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image3Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image3Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image3Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image3Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage3?.visibility = View.VISIBLE
@@ -294,16 +310,18 @@ class UploadClassifiedPicFragment : Fragment() {
                     selectPicIndex = 3
                     binding?.uploadedImage4?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image4Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image4Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image4Uri).into(
-                                it
-                            )
+                            Glide.with(it1).load(image4Uri)
+                                .error(R.drawable.small_image_placeholder).into(
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage4?.visibility = View.VISIBLE

@@ -184,7 +184,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                     findNavController().navigate(action)
                     postClassifiedViewModel.setClickedOnFilter(true)
-                } else if (postClassifiedViewModel.changeSortTriplet.first || postClassifiedViewModel.changeSortTriplet.second || postClassifiedViewModel.changeSortTriplet.third) {
+                } else if (isDatePublishedSelected || isPriceHighToLowSelected || isPriceLowToHighSelected/*postClassifiedViewModel.changeSortTriplet.first || postClassifiedViewModel.changeSortTriplet.second || postClassifiedViewModel.changeSortTriplet.third*/) {
 
                     postClassifiedViewModel.setChangeSortTripletFilter(
                         isDatePublishedSelected,
@@ -299,11 +299,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isDatePublishedSelected = !isDatePublishedSelected
                 isPriceHighToLowSelected = false
                 isPriceLowToHighSelected = false
-                postClassifiedViewModel.setChangeSortTripletFilter(
+                /*postClassifiedViewModel.setChangeSortTripletFilter(
                     isDatePublishedSelected,
                     isPriceLowToHighSelected,
                     isPriceHighToLowSelected
-                )
+                )*/
                 /* isRelevanceSelected = false
                  isDistanceSelected = false*/
             }
@@ -496,11 +496,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isPriceLowToHighSelected = !isPriceLowToHighSelected
                 isPriceHighToLowSelected = false
                 isDatePublishedSelected = false
-                postClassifiedViewModel.setChangeSortTripletFilter(
+                /*postClassifiedViewModel.setChangeSortTripletFilter(
                     isDatePublishedSelected,
                     isPriceLowToHighSelected,
                     isPriceHighToLowSelected
-                )
+                )*/
             }
 
             priceHighToLow.setOnClickListener {
@@ -560,11 +560,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 isPriceHighToLowSelected = !isPriceHighToLowSelected
                 isPriceLowToHighSelected = false
                 isDatePublishedSelected = false
-                postClassifiedViewModel.setChangeSortTripletFilter(
+                /*postClassifiedViewModel.setChangeSortTripletFilter(
                     isDatePublishedSelected,
                     isPriceLowToHighSelected,
                     isPriceHighToLowSelected
-                )
+                )*/
             }
         }
 

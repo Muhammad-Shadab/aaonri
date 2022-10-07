@@ -47,7 +47,7 @@ class PostAdvertiseTermConditionFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        val text1 = SpannableString(
+        /*val text1 = SpannableString(
             resources.getString(R.string.after_submit_request_text)
         )
         val text2 = SpannableString(
@@ -58,9 +58,9 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         )
         val text4 = SpannableString(
             resources.getString(R.string.for_any_other)
-        )
+        )*/
 
-        val aoonrilink: ClickableSpan = object : ClickableSpan() {
+        /*val aoonrilink: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
 //                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
 
@@ -96,26 +96,22 @@ class PostAdvertiseTermConditionFragment : Fragment() {
             }
         }
         text4.setSpan(advertiseLink, 46, 66, 0)
-
+*/
 
 
         binding?.apply {
 
 
             textTv1.movementMethod = LinkMovementMethod.getInstance()
-            textTv1.setText(text1, TextView.BufferType.SPANNABLE)
             textTv1.isSelected = true
 
             textTv2.movementMethod = LinkMovementMethod.getInstance()
-            textTv2.setText(text2, TextView.BufferType.SPANNABLE)
             textTv2.isSelected = true
 
             textTv3.movementMethod = LinkMovementMethod.getInstance()
-            textTv3.setText(text3, TextView.BufferType.SPANNABLE)
             textTv3.isSelected = true
 
             textTv4.movementMethod = LinkMovementMethod.getInstance()
-            textTv4.setText(text4, TextView.BufferType.SPANNABLE)
             textTv4.isSelected = true
 
             advertisePostNextBtn.setOnClickListener {

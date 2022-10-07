@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.UserDictionary
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -34,6 +36,7 @@ import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import com.aaonri.app.utils.custom.UserProfileStaticData
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -79,6 +82,19 @@ class MainActivity : BaseActivity() {
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedHomeServiceRow", -1)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            // On JellyBean & above, you can provide a shortcut and an explicit Locale
+            UserDictionary.Words.addWord(this, "MadeUpWord", 10, "Mad", Locale.getDefault());
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            UserDictionary.Words.addWord(
+                this,
+                "MadeUpWord",
+                10,
+                UserDictionary.Words.LOCALE_TYPE_CURRENT
+            );
+        }
+
+
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
 
@@ -95,6 +111,7 @@ class MainActivity : BaseActivity() {
                 } else {
                     bottomNavigation.visibility = View.GONE
                 }
+
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.shopScreenFragment || destination.id == R.id.advertiseScreenFragment || destination.id == R.id.moreScreenFragment) {
                     if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
                         postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
@@ -119,7 +136,14 @@ class MainActivity : BaseActivity() {
                         )
                     )
                 }
+            }
 
+            dashboardCommonViewModel.showBottomNavigation.observe(this@MainActivity) {
+                if (it) {
+                    bottomNavigation.visibility = View.VISIBLE
+                } else {
+                    bottomNavigation.visibility = View.GONE
+                }
             }
         }
 

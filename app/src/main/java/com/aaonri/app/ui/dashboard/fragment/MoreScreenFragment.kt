@@ -39,6 +39,7 @@ class MoreScreenFragment : Fragment() {
     val dashboardCommonViewModel: DashboardCommonViewModel by activityViewModels()
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     private var adapter: ServicesItemAdapter? = null
+    var gridLayoutManager: GridLayoutManager? = null
     var isJobSelected = false
     lateinit var mGoogleSignInClient: GoogleSignInClient
     override fun onCreateView(
@@ -53,6 +54,8 @@ class MoreScreenFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val userNamePref = context?.let { PreferenceManager<String>(it)[Constant.USER_NAME, ""] }
+
+        gridLayoutManager = GridLayoutManager(context, 3)
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
             authCommonViewModel.addServicesList(selectedCommunity)
@@ -130,17 +133,22 @@ class MoreScreenFragment : Fragment() {
             userEmailDialogTv.text = email
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().into(dialogProfileIv)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
+                    .into(dialogProfileIv)
             }
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
 
-            profilePicCv.setOnClickListener {
+            profileInfoLl.setOnClickListener {
                 val action =
                     MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment()
                 findNavController().navigate(action)
@@ -225,7 +233,8 @@ class MoreScreenFragment : Fragment() {
             }
 
             servicesGridRecyclerView.adapter = adapter
-            servicesGridRecyclerView.layoutManager = GridLayoutManager(context, 3)
+            servicesGridRecyclerView.layoutManager = gridLayoutManager
+            gridLayoutManager?.smoothScrollToPosition(servicesGridRecyclerView, null, 0)
         }
 
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->

@@ -103,8 +103,6 @@ class ClassifiedDetailsFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
 
         loginBtn.setOnClickListener {
             activity?.finish()
@@ -224,7 +222,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         callLikeDislikeApi()
                     }
                 } else {
-                    dialogDescTv.text = "Please login to like the content"
                     guestUserLoginDialog.show()
                 }
             }
@@ -284,7 +281,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    dialogDescTv.text = "Please login to share the content"
                     guestUserLoginDialog.show()
                 }
             }
@@ -382,6 +378,7 @@ class ClassifiedDetailsFragment : Fragment() {
             }
         }
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
+
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
 
             when (index) {
@@ -390,16 +387,17 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
-
                 }
                 1 -> {
                     binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -409,6 +407,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -418,6 +417,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -432,39 +432,40 @@ class ClassifiedDetailsFragment : Fragment() {
                     binding?.image1?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .error(R.drawable.small_image_placeholder)
                             .into(it1)
                     }
                 }
             }
             if (userAdsImage.sequenceNumber == 2) {
-
                 binding?.image2CardView?.visibility = View.VISIBLE
                 context?.let {
                     binding?.image2?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .error(R.drawable.small_image_placeholder)
                             .into(it1)
                     }
                 }
             }
             if (userAdsImage.sequenceNumber == 3) {
-
                 binding?.image3CardView?.visibility = View.VISIBLE
                 context?.let {
                     binding?.image3?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .error(R.drawable.small_image_placeholder)
                             .into(it1)
                     }
                 }
             }
             if (userAdsImage.sequenceNumber == 4) {
-
                 binding?.image4CardView?.visibility = View.VISIBLE
                 context?.let {
                     binding?.image4?.let { it1 ->
                         Glide.with(it)
                             .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                            .error(R.drawable.small_image_placeholder)
                             .into(it1)
                     }
                 }
@@ -476,6 +477,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 context?.let { it1 ->
                     Glide.with(it1)
                         .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                        .error(R.drawable.small_image_placeholder)
                         .into(it)
                 }
             }
@@ -489,6 +491,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -507,6 +510,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -521,6 +525,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }
@@ -535,6 +540,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it)
                         }
                     }

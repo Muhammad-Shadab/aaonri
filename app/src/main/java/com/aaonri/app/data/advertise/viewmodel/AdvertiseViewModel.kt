@@ -25,7 +25,9 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
 
     val callAdvertiseApi: MutableLiveData<Boolean> = MutableLiveData()
 
-    var searchQueryFromHomeScreen = ""
+    var searchQueryFromHomeScreen: MutableLiveData<String> = MutableLiveData()
+
+    var searchQueryToSetOnSearchView = ""
 
     val callAdvertiseDetailsApiAfterUpdating: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -83,7 +85,11 @@ class AdvertiseViewModel @Inject constructor(private val advertiseRepository: Ad
     }
 
     fun setSearchQueryFromHomeScreenValue(value: String) {
-        searchQueryFromHomeScreen = value
+        searchQueryFromHomeScreen.postValue(value)
+    }
+
+    fun setSearchQueryToSetOnSearchViewValue(value: String) {
+        searchQueryToSetOnSearchView = value
     }
 
 }

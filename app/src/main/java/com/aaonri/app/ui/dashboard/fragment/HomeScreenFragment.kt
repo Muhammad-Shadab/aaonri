@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -8,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -120,6 +123,7 @@ class HomeScreenFragment : Fragment() {
     var studentService = 0
     var travelStay = 0
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -353,9 +357,7 @@ class HomeScreenFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
-        dialogDescTv.text = "Please login to view profile"
+
         genericAdapterForClassified = ClassifiedGenericAdapter()
         genericAdapterForEvent = EventGenericAdapter()
         adsGenericAdapter1 = AdsGenericAdapter()
@@ -609,6 +611,11 @@ class HomeScreenFragment : Fragment() {
 
         binding?.apply {
 
+            homeNestedScrollView.post {
+                homeNestedScrollView.fling(0)
+                homeNestedScrollView.smoothScrollTo(0, 0)
+            }
+
             loginBtn.setOnClickListener {
                 activity?.finish()
             }
@@ -653,35 +660,23 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            searchView.addTextChangedListener { editable ->
-                if (searchView.hasFocus()) {
-                    searchModuleFl.visibility = View.VISIBLE
-                }
-                if (searchView.text.toString().isNotEmpty()) {
-                    cancelButton.visibility = View.VISIBLE
-                    searchViewIcon.visibility = View.GONE
-                } else {
-                    context?.let { it1 -> PreferenceManager<Int>(it1) }
-                        ?.set("selectedSearchModule", -1)
-                    cancelButton.visibility = View.GONE
-                    searchViewIcon.visibility = View.VISIBLE
-                }
-                if (searchView.hasFocus()) {
-                    if (editable.toString().isNotEmpty()) {
-                        searchModuleFl.visibility = View.VISIBLE
-                    } else {
-                        searchModuleFl.visibility = View.GONE
-                    }
-                }
-            }
 
             cancelButton.setOnClickListener {
                 searchView.setText("")
             }
 
             searchViewll.setOnClickListener {
+                dashboardCommonViewModel.setShowBottomNavigation(false)
+                searchView.requestFocus()
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+
                 searchModuleFl.visibility = View.VISIBLE
-                binding?.blurView?.setBlurRadius(
+                blurView.setBlurRadius(
                     TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP,
                         25f,
@@ -696,62 +691,78 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)*/
             }
 
+            searchView.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+                dashboardCommonViewModel.setShowBottomNavigation(false)
+                searchView.requestFocus()
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+
+                searchModuleFl.visibility = View.VISIBLE
+                blurView.setBlurRadius(
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        25f,
+                        resources.displayMetrics
+                    )
+                )
+                stopAutoScrollBanner2()
+                stopAutoScrollBanner1()
+                return@OnTouchListener true
+            })
+
+            searchView.addTextChangedListener { editable ->
+                if (searchView.hasFocus()) {
+                    searchModuleFl.visibility = View.VISIBLE
+                }
+                if (searchView.text.toString().isNotEmpty()) {
+                    cancelButton.visibility = View.VISIBLE
+                    searchViewIcon.visibility = View.GONE
+                } else {
+                    context?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set("selectedSearchModule", -1)
+                    cancelButton.visibility = View.GONE
+                    searchViewIcon.visibility = View.VISIBLE
+                }
+                /* if (searchView.hasFocus()) {
+                     if (editable.toString().isNotEmpty()) {
+                         searchModuleFl.visibility = View.VISIBLE
+                     } else {
+                         searchModuleFl.visibility = View.GONE
+                     }
+                 }*/
+            }
+
             closeSearchScreen.setOnClickListener {
-                searchModuleFl.visibility = View.GONE
                 context?.let { it1 -> PreferenceManager<Int>(it1) }
                     ?.set("selectedSearchModule", -1)
-                searchView.setText("")
+                searchFilterModuleAdapter?.notifyDataSetChanged()
+                dashboardCommonViewModel.setShowBottomNavigation(true)
                 searchView.clearFocus()
+                searchModuleFl.visibility = View.GONE
+                searchView.setText("")
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 runAutoScrollBanner1()
                 runAutoScrollBanner2()
             }
 
             searchBtn.setOnClickListener {
-
-                if (searchView.text.toString().isNotEmpty()) {
-                    if (interestServiceResponseItem?.id == classifiedId) {
-                        classifiedViewModel.setSearchQueryFromHomeScreen(searchView.text.toString())
-                        dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
-                        searchView.setText("")
-                    } else if (interestServiceResponseItem?.id == immigrationId) {
-                        val bundle = Bundle()
-                        bundle.putString("searchKeyword", searchView.text.toString())
-                        findNavController().navigate(
-                            R.id.action_homeScreenFragment_to_immigrationScreenFragment,
-                            bundle
-                        )
-                        searchView.setText("")
-                    } else if (interestServiceResponseItem?.id == eventId) {
-                        val bundle = Bundle()
-                        bundle.putString("searchKeyword", searchView.text.toString())
-                        findNavController().navigate(
-                            R.id.action_homeScreenFragment_to_eventScreenFragment,
-                            bundle
-                        )
-                        searchView.setText("")
-                    } else if (interestServiceResponseItem?.id == advertiseId) {
-                        dashboardCommonViewModel.setIsAdvertiseClicked(true)
-                        advertiseViewModel.setSearchQueryFromHomeScreenValue(searchView.text.toString())
-                        searchView.setText("")
-                    } else {
-                        activity?.let { it1 ->
-                            Snackbar.make(
-                                it1.findViewById(android.R.id.content),
-                                "Please choose category", Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                } else {
-                    activity?.let { it1 ->
-                        Snackbar.make(
-                            it1.findViewById(android.R.id.content),
-                            "Please enter valid keyword", Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                }
-
+                dashboardCommonViewModel.setShowBottomNavigation(true)
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                searchQuery()
             }
+
+            searchView.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    dashboardCommonViewModel.setShowBottomNavigation(true)
+                    searchQuery()
+                }
+                false
+            }
+
 
             /*seeAllPopularItems.setOnClickListener {
                 val action =
@@ -795,8 +806,7 @@ class HomeScreenFragment : Fragment() {
             )
 
             availableModuleSearchRv.adapter = searchFilterModuleAdapter
-            availableModuleSearchRv.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            availableModuleSearchRv.layoutManager = GridLayoutManager(context, 3)
 
             adsAbovePopularSectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -1070,6 +1080,54 @@ class HomeScreenFragment : Fragment() {
         }
 
         return binding?.root
+    }
+
+    private fun searchQuery() {
+        if (binding?.searchView?.text?.toString()?.isNotEmpty() == true) {
+            if (interestServiceResponseItem?.id == classifiedId) {
+                classifiedViewModel.setSearchQueryFromHomeScreen(binding?.searchView?.text.toString())
+                dashboardCommonViewModel.setIsSeeAllClassifiedClicked(true)
+                binding?.searchView?.setText("")
+                interestServiceResponseItem = null
+            } else if (interestServiceResponseItem?.id == immigrationId) {
+                val bundle = Bundle()
+                bundle.putString("searchKeyword", binding?.searchView?.text.toString())
+                findNavController().navigate(
+                    R.id.action_homeScreenFragment_to_immigrationScreenFragment,
+                    bundle
+                )
+                binding?.searchView?.setText("")
+                interestServiceResponseItem = null
+            } else if (interestServiceResponseItem?.id == eventId) {
+                val bundle = Bundle()
+                bundle.putString("searchKeyword", binding?.searchView?.text.toString())
+                findNavController().navigate(
+                    R.id.action_homeScreenFragment_to_eventScreenFragment,
+                    bundle
+                )
+                binding?.searchView?.setText("")
+                interestServiceResponseItem = null
+            } else if (interestServiceResponseItem?.id == advertiseId) {
+                dashboardCommonViewModel.setIsAdvertiseClicked(true)
+                advertiseViewModel.setSearchQueryToSetOnSearchViewValue(binding?.searchView?.text.toString())
+                binding?.searchView?.setText("")
+                interestServiceResponseItem = null
+            } else {
+                activity?.let { it1 ->
+                    Snackbar.make(
+                        it1.findViewById(android.R.id.content),
+                        "Please select one of the options to continue", Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        } else {
+            activity?.let { it1 ->
+                Snackbar.make(
+                    it1.findViewById(android.R.id.content),
+                    "Please enter valid keyword", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     /*fun captureScreenShot(view: View): Bitmap? {

@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Sorry! No result found"
+            android:text="Sorry! No result found :("
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>

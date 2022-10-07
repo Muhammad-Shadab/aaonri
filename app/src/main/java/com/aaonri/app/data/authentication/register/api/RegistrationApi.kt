@@ -2,11 +2,14 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.register.model.ProfileUploadResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.*
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -41,5 +44,12 @@ interface RegistrationApi {
     suspend fun updateProfile(
         @Body updateProfileRequest: UpdateProfileRequest
     ): Response<RegistrationResponse>
+
+    @Multipart
+    @POST("/api/v1/common/uploadProfilePicExtended")
+    suspend fun uploadProfilePic(
+        @Part file: MultipartBody.Part,
+        @Part("userId") userId: RequestBody,
+    ): Response<ProfileUploadResponse>
 
 }

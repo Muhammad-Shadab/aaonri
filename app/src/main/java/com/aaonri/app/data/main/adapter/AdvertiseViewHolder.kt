@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.databinding.ImageOnlyViewHolderBinding
 import com.aaonri.app.databinding.ImageWithTextBinding
@@ -60,6 +61,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             context?.let { it1 ->
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                    .error(R.drawable.small_image_placeholder)
                     .into(binding.imageView)
             }
             binding.textOnlyFl.layoutParams.width = getScreenWidth() / 2 - 56
@@ -101,6 +103,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             context?.let { it1 ->
                 Glide.with(it1)
                     .load("${BuildConfig.BASE_URL}/api/v1/common/advertisementFile/${findAllActiveAdvertiseResponseItem.advertisementDetails.adImage}")
+                    .error(R.drawable.small_image_placeholder)
                     .into(binding.imageView)
             }
             binding.apply {

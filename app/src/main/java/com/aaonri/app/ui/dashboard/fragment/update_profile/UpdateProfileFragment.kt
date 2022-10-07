@@ -20,9 +20,13 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.UserProfileStaticData
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -124,7 +128,7 @@ class UpdateProfileFragment : Fragment() {
         }
 
         authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
-            if (authCommonViewModel.uploadProfilePicData != null) {
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
                         binding?.progressBar?.visibility = View.VISIBLE
@@ -141,6 +145,14 @@ class UpdateProfileFragment : Fragment() {
                                 "Profile Updated Successfully", Snackbar.LENGTH_LONG
                             ).show()
                         }
+
+                        CoroutineScope(Dispatchers.Main).launch {
+                            context?.let { Glide.get(it).clearMemory() }
+                        }
+                        CoroutineScope(Dispatchers.IO).launch {
+                            context?.let { Glide.get(it).clearDiskCache() }
+                        }
+
                         authCommonViewModel.uploadProfilePicData.postValue(null)
                     }
                     is Resource.Error -> {
@@ -212,8 +224,6 @@ class UpdateProfileFragment : Fragment() {
                         context?.let { it1 -> PreferenceManager<String>(it1) }
                             ?.set(Constant.USER_NAME, "$it ${response.data.lastName}")
                     }
-
-
                 }
                 is Resource.Error -> {
                     Toast.makeText(

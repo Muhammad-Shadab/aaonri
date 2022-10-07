@@ -113,8 +113,6 @@ class EventDetailsScreenFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
 
         loginBtn.setOnClickListener {
             activity?.finish()
@@ -279,7 +277,6 @@ class EventDetailsScreenFragment : Fragment() {
                         )
                     )
                 } else {
-                    dialogDescTv.text = "Please login to show interest"
                     guestUserLoginDialog.show()
                 }
             }
@@ -297,7 +294,6 @@ class EventDetailsScreenFragment : Fragment() {
                         )
                     )
                 } else {
-                    dialogDescTv.text = "Please login to show interest"
                     guestUserLoginDialog.show()
                 }
             }
@@ -343,7 +339,6 @@ class EventDetailsScreenFragment : Fragment() {
 
                     }
                 } else {
-                    dialogDescTv.text = "Please login to add to calender"
                     guestUserLoginDialog.show()
                 }
 
@@ -372,7 +367,6 @@ class EventDetailsScreenFragment : Fragment() {
                     } catch (e: Exception) {
                     }
                 } else {
-                    dialogDescTv.text = "Please login to share the content"
                     guestUserLoginDialog.show()
                 }
             }
@@ -565,32 +559,7 @@ class EventDetailsScreenFragment : Fragment() {
                         binding?.addImage?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .listener(object : RequestListener<Drawable?> {
-                                    override fun onLoadFailed(
-                                        e: GlideException?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        it1.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                context!!,
-                                                R.drawable.ic_image_placeholder
-                                            )
-                                        )
-                                        return false
-                                    }
-
-                                    override fun onResourceReady(
-                                        resource: Drawable?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        dataSource: DataSource?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        return false
-                                    }
-                                })
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it1)
                         }
                     }
@@ -599,32 +568,7 @@ class EventDetailsScreenFragment : Fragment() {
                         binding?.image2?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .listener(object : RequestListener<Drawable?> {
-                                    override fun onLoadFailed(
-                                        e: GlideException?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        it1.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                context!!,
-                                                R.drawable.ic_image_placeholder
-                                            )
-                                        )
-                                        return false
-                                    }
-
-                                    override fun onResourceReady(
-                                        resource: Drawable?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        dataSource: DataSource?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        return false
-                                    }
-                                })
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it1)
                         }
                     }
@@ -648,32 +592,7 @@ class EventDetailsScreenFragment : Fragment() {
                         binding?.image3?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .listener(object : RequestListener<Drawable?> {
-                                    override fun onLoadFailed(
-                                        e: GlideException?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        it1.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                context!!,
-                                                R.drawable.ic_image_placeholder
-                                            )
-                                        )
-                                        return false
-                                    }
-
-                                    override fun onResourceReady(
-                                        resource: Drawable?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        dataSource: DataSource?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        return false
-                                    }
-                                })
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it1)
                         }
                     }
@@ -693,32 +612,7 @@ class EventDetailsScreenFragment : Fragment() {
                         binding?.image4?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .listener(object : RequestListener<Drawable?> {
-                                    override fun onLoadFailed(
-                                        e: GlideException?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        it1.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                context!!,
-                                                R.drawable.ic_image_placeholder
-                                            )
-                                        )
-                                        return false
-                                    }
-
-                                    override fun onResourceReady(
-                                        resource: Drawable?,
-                                        model: Any?,
-                                        target: Target<Drawable?>?,
-                                        dataSource: DataSource?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        return false
-                                    }
-                                })
+                                .error(R.drawable.small_image_placeholder)
                                 .into(it1)
                         }
                     }
@@ -731,29 +625,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .listener(object : RequestListener<Drawable?> {
-                                        override fun onLoadFailed(
-                                            e: GlideException?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            binding?.eventImagePlaceHolder?.visibility =
-                                                View.VISIBLE
-
-                                            return false
-                                        }
-
-                                        override fun onResourceReady(
-                                            resource: Drawable?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            return false
-                                        }
-                                    })
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -771,28 +643,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.image1?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .listener(object : RequestListener<Drawable?> {
-                                        override fun onLoadFailed(
-                                            e: GlideException?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            binding?.eventImagePlaceHolder?.visibility =
-                                                View.VISIBLE
-                                            return false
-                                        }
-
-                                        override fun onResourceReady(
-                                            resource: Drawable?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            return false
-                                        }
-                                    })
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -813,28 +664,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.image2?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .listener(object : RequestListener<Drawable?> {
-                                        override fun onLoadFailed(
-                                            e: GlideException?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            binding?.eventImagePlaceHolder?.visibility =
-                                                View.VISIBLE
-                                            return false
-                                        }
-
-                                        override fun onResourceReady(
-                                            resource: Drawable?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            return false
-                                        }
-                                    })
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -946,6 +776,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -958,6 +789,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -978,6 +810,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -990,6 +823,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -1009,6 +843,7 @@ class EventDetailsScreenFragment : Fragment() {
                             binding?.addImage?.let { it1 ->
                                 Glide.with(it)
                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                    .error(R.drawable.small_image_placeholder)
                                     .into(it1)
                             }
                         }
@@ -1077,7 +912,16 @@ class EventDetailsScreenFragment : Fragment() {
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"
         val text2: String = "$address ${if (!event.zipCode.isNullOrEmpty()) event.zipCode else ""}"
         eventLocationText = text2
+
         val spannable: Spannable = SpannableString(text2)
+
+        if (event.zipCode == null || event.zipCode.isEmpty()) {
+            eventLocationText = "This is an online event"
+            binding?.locationEventTv?.text = eventLocationText
+        } else {
+            binding?.locationEventTv?.setText(spannable, TextView.BufferType.SPANNABLE)
+        }
+
 
         spannable.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.zipcodecolor)),
@@ -1086,7 +930,6 @@ class EventDetailsScreenFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        binding?.locationEventTv?.setText(spannable, TextView.BufferType.SPANNABLE)
         //evenDetailsBinding?.eventLocationZip?.text = event.zipCode
         binding?.eventCategoryTv?.text = "Category: " + event.category
         binding?.eventDetailsBottom?.visibility = View.VISIBLE

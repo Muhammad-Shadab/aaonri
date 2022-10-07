@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:background="#ebebeb"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -39,24 +40,26 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#ebebeb"
+                    android:visibility="gone"
                     android:src="@drawable/small_image_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/advertisementImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:background="#ebebeb"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/small_image_placeholder"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </FrameLayout>
 
-            <ImageView
-                android:id="@+id/advertisementImage"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:background="#ebebeb"
-                android:scaleType="centerCrop"
-                android:src="@drawable/small_image_placeholder"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/advertiseNameTv"

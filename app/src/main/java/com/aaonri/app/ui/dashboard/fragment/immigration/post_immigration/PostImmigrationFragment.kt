@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -106,6 +107,11 @@ class PostImmigrationFragment : Fragment() {
                     descEt.setText(discussion.discussionDesc)
                 }
             }
+
+            descEt.addTextChangedListener { editable ->
+                descLength.text = "${editable.toString().length}/257"
+            }
+
         }
 
         immigrationViewModel.selectedPostingDiscussionScreenCategory.observe(viewLifecycleOwner) {

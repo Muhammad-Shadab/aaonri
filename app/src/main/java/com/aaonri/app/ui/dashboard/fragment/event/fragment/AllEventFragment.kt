@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -143,6 +144,7 @@ class AllEventFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     val listOfCity = mutableListOf<String>()
+
                     if (response.data?.eventList?.isNotEmpty() == true) {
                         if (eventViewModel.isAllSelected) {
                             allEventAdapter?.setData(response.data.eventList)
@@ -201,7 +203,7 @@ class AllEventFragment : Fragment() {
                 binding?.topAdvertiseRv?.visibility = View.VISIBLE
                 binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                 binding?.resultsNotFoundLL?.visibility = View.GONE
-                //allEventAdapter?.setData(eventViewModel.allEventList)
+                allEventAdapter?.setData(eventViewModel.allEventList)
             }
         }
 

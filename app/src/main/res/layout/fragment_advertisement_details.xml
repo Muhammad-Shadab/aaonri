@@ -9,11 +9,10 @@
     <ImageView
         android:id="@+id/addImage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_500sdp"
+        android:layout_height="@dimen/_400sdp"
         android:layout_gravity="top|center"
         android:layout_marginBottom="@dimen/_102sdp"
-        android:scaleType="fitXY" />
-
+        android:scaleType="centerInside" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

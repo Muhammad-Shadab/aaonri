@@ -2,7 +2,7 @@ package com.aaonri.app.data.advertise.model
 
 data class AdvertisementDetailsXXXXXX(
     val adDescription: String,
-    val adImage: String,
+    val adImage: String?,
     val adTitle: String,
     val advertisement: Any,
     val advertisementDetailsId: Int,

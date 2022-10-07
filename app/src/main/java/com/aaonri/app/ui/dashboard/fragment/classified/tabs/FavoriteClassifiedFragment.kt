@@ -70,6 +70,11 @@ FavoriteClassifiedFragment : Fragment() {
         }
         binding?.apply {
 
+            nestedScrollView1.post {
+                nestedScrollView.fling(0)
+                nestedScrollView.smoothScrollTo(0, 0)
+            }
+
             nestedScrollView1.setOnScrollChangeListener(object : View.OnScrollChangeListener {
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())

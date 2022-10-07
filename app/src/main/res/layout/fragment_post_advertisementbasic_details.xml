@@ -336,6 +336,19 @@
                     tools:ignore="RtlHardcoded" />
             </androidx.core.widget.NestedScrollView>
 
+            <!--<TextView
+                android:id="@+id/descLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_28sdp"
+                android:fontFamily="@font/sf_pro_regular"
+                android:text="0/30"
+                android:textColor="@color/hintColor"
+                android:textSize="12sp"
+                android:visibility="visible" />-->
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/previewAdvertiseBtn"
                 android:layout_width="wrap_content"

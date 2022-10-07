@@ -581,10 +581,12 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:visibility="gone">
+
             <com.github.mmin18.widget.RealtimeBlurView
                 android:id="@+id/blurView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -599,17 +601,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/sf_pro_semi_bold"
                         android:text="Select one of the options to continue..."
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/closeSearchScreen"
                         android:layout_width="@dimen/_14sdp"
                         android:layout_height="@dimen/_14sdp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/_8sdp"
                         android:backgroundTint="@color/black"
                         android:src="@drawable/ic_cross" />
 
@@ -620,15 +624,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:numColumns="3" />
+
+                <!--<androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/availableModuleSearchRv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp" />
+                    android:paddingRight="16dp" />-->
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/searchBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:background="@drawable/green_btn_shape"

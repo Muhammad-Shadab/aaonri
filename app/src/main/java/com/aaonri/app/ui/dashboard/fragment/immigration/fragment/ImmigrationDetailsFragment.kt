@@ -67,8 +67,6 @@ class ImmigrationDetailsFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
 
         loginBtn.setOnClickListener {
             activity?.finish()
@@ -102,7 +100,6 @@ class ImmigrationDetailsFragment : Fragment() {
                             context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                         imm.showSoftInput(postReplyEt, InputMethodManager.SHOW_IMPLICIT)
                     } else {
-                        dialogDescTv.text = "Please login to reply"
                         guestUserLoginDialog.show()
                     }
                 }
@@ -146,7 +143,6 @@ class ImmigrationDetailsFragment : Fragment() {
                         }
                     }
                 } else {
-                    dialogDescTv.text = "Please login to reply"
                     guestUserLoginDialog.show()
                 }
             }

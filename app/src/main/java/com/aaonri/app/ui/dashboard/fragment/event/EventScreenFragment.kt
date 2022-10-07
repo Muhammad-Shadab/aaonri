@@ -100,8 +100,10 @@ class EventScreenFragment : Fragment() {
         userNameTv.text = userName
         userEmailTv.text = email
         context?.let {
-            Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).circleCrop().error(R.drawable.profile_pic_placeholder)
+            Glide.with(it).load(profile)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .circleCrop().error(R.drawable.profile_pic_placeholder)
                 .into(dialogProfileIv)
         }
 
@@ -202,9 +204,6 @@ class EventScreenFragment : Fragment() {
             guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
         val loginBtn =
             guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
-        val dialogDescTv =
-            guestUserLoginDialog.findViewById<TextView>(R.id.dialogDescTv)
-        dialogDescTv.text = "Please login to post an event"
         loginBtn.setOnClickListener {
             activity?.finish()
         }
@@ -240,8 +239,10 @@ class EventScreenFragment : Fragment() {
             }
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
 
@@ -450,7 +451,6 @@ class EventScreenFragment : Fragment() {
 
         eventViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
             if (isFilterClicked) {
-
                 eventViewModel.getAllEvent(
                     AllEventRequest(
                         category = eventViewModel.categoryFilter.ifEmpty { "" },
@@ -553,7 +553,6 @@ class EventScreenFragment : Fragment() {
     private fun callEventApi(searchQuery: String = "") {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
         eventViewModel.getAllEvent(
             AllEventRequest(
                 category = "",

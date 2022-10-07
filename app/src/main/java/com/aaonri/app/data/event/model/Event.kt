@@ -6,7 +6,7 @@ data class Event(
     val address2: String,
     val approved: Boolean,
     val category: String,
-    val city: String,
+    val city: String?,
     val createdBy: String,
     val createdOn: String,
     val delImages: Any,
@@ -28,5 +28,5 @@ data class Event(
     val title: String,
     val totalFavourite: Int,
     val totalVisiting: Int,
-    val zipCode: String
+    val zipCode: String?
 )

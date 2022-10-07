@@ -22,6 +22,7 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
     private var startTimeOfEvent: String? = null
     private var endTimeOfEvent: String? = null
     private var timeZone: String? = null
+    private var location = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentEventHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -47,6 +48,14 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                     "Starts From $startDate, $startTimeOfEvent - $endTimeOfEvent  $timeZone"
             } catch (e: Exception) {
 
+            }
+            if (data[position].city != null) {
+                location += "${data[position].city}"
+            }
+            if (data[position].zipCode != null && data[position].zipCode?.isNotEmpty() == true) {
+                location += " - ${data[position].zipCode}"
+            } else {
+                location = "This is an online event"
             }
             if (data[position].images.isNotEmpty()) {
                 if (data[position].images[0].imagePath.contains(".cover") || data[position].images[0].imagePath.contains(
@@ -74,12 +83,12 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                try {
+                /*try {
                     eventLocationZip.text =
                         if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
                 } catch (e: Exception) {
 
-                }
+                }*/
                 if (data[position].fee > 0) {
                     val df = DecimalFormat("#,###.00")
                     df.roundingMode = RoundingMode.DOWN
@@ -90,22 +99,23 @@ class RecentEventAdapter(private var selectedServices: ((value: RecentEventRespo
                 }
 
             } else {
-
                 eventName.text = data[position].title
                 totalVisiting.text = data[position].totalVisiting.toString()
                 totalFavourite.text = data[position].totalFavourite.toString()
-                try {
+                /*try {
                     eventLocationZip.text =
                         if (data[position].city.isNotEmpty()) "${data[position].city}" else "" + (if (data[position].zipCode.isNotEmpty() && data[position].city.isNotEmpty()) "-" else "") + if (data[position].zipCode.isNotEmpty()) "${data[position].zipCode}" else ""
                 } catch (e: Exception) {
 
-                }
+                }*/
                 if (data[position].fee > 0) {
                     eventFee.text = "$" + data[position].fee.toString()
                 } else {
                     eventFee.text = "FREE"
                 }
             }
+            eventLocationZip.text = location
+            location = ""
         }
         holder.itemView.setOnClickListener {
             selectedServices(data[position])
