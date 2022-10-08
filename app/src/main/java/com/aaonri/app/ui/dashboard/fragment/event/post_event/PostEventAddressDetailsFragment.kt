@@ -225,46 +225,54 @@ class PostEventAddressDetailsFragment : Fragment() {
                         }
                     } else {
                         zipCodeEt.isEnabled = false
-                        if (landmarkEt.text.toString()
-                                .isNotEmpty() && landmarkEt.text.toString().length < 3
+                        if (socialMediaLinkEt.text.isNotEmpty() && Validator.urlValidation(
+                                socialMediaLinkEt.text.toString()
+                            )
                         ) {
-                            showAlert("Please enter valid landmark")
-                        } else {
-                            if (stateEt.text.toString()
-                                    .isNotEmpty() && stateEt.text.toString().length < 3
+                            if (landmarkEt.text.toString()
+                                    .isNotEmpty() && landmarkEt.text.toString().length < 3
                             ) {
-                                showAlert("Please enter valid state ")
+                                showAlert("Please enter valid landmark")
                             } else {
-                                if (agreeCheckboxClassified.isChecked) {
-                                    if (postEventViewModel.isUpdateEvent) {
-                                        classifiedDetailsNextBtn.isEnabled = false
-                                        postEventViewModel.setEventAddressDetailMap(
-                                            addressLine1 = eventAddressEt1.text.toString(),
-                                            addressLine2 = eventAddressEt2.text.toString(),
-                                            cityName = cityNameEt.text.toString(),
-                                            zipCode = zipCodeEt.text.toString(),
-                                            landmark = landmarkEt.text.toString(),
-                                            state = stateEt.text.toString(),
-                                            socialMediaLink = socialMediaLinkEt.text.toString()
-                                        )
-                                        updateEvent()
-                                    } else {
-                                        classifiedDetailsNextBtn.isEnabled = false
-                                        postEventViewModel.setEventAddressDetailMap(
-                                            addressLine1 = eventAddressEt1.text.toString(),
-                                            addressLine2 = eventAddressEt2.text.toString(),
-                                            cityName = cityNameEt.text.toString(),
-                                            zipCode = zipCodeEt.text.toString(),
-                                            landmark = landmarkEt.text.toString(),
-                                            state = stateEt.text.toString(),
-                                            socialMediaLink = socialMediaLinkEt.text.toString()
-                                        )
-                                        postEvent()
-                                    }
+                                if (stateEt.text.toString()
+                                        .isNotEmpty() && stateEt.text.toString().length < 3
+                                ) {
+                                    showAlert("Please enter valid state ")
                                 } else {
-                                    showAlert("Please accept terms & condition")
+
+                                    if (agreeCheckboxClassified.isChecked) {
+                                        if (postEventViewModel.isUpdateEvent) {
+                                            classifiedDetailsNextBtn.isEnabled = false
+                                            postEventViewModel.setEventAddressDetailMap(
+                                                addressLine1 = eventAddressEt1.text.toString(),
+                                                addressLine2 = eventAddressEt2.text.toString(),
+                                                cityName = cityNameEt.text.toString(),
+                                                zipCode = zipCodeEt.text.toString(),
+                                                landmark = landmarkEt.text.toString(),
+                                                state = stateEt.text.toString(),
+                                                socialMediaLink = socialMediaLinkEt.text.toString()
+                                            )
+                                            updateEvent()
+                                        } else {
+                                            classifiedDetailsNextBtn.isEnabled = false
+                                            postEventViewModel.setEventAddressDetailMap(
+                                                addressLine1 = eventAddressEt1.text.toString(),
+                                                addressLine2 = eventAddressEt2.text.toString(),
+                                                cityName = cityNameEt.text.toString(),
+                                                zipCode = zipCodeEt.text.toString(),
+                                                landmark = landmarkEt.text.toString(),
+                                                state = stateEt.text.toString(),
+                                                socialMediaLink = socialMediaLinkEt.text.toString()
+                                            )
+                                            postEvent()
+                                        }
+                                    } else {
+                                        showAlert("Please accept terms & condition")
+                                    }
                                 }
                             }
+                        } else {
+                            showAlert("Please enter valid ticket link")
                         }
                     }
                 }

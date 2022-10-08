@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -56,7 +57,8 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        //binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.gmail_client_id))
@@ -66,6 +68,10 @@ class LoginFragment : Fragment() {
         mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
         firebaseAuth = FirebaseAuth.getInstance()
         callbackManager = CallbackManager.Factory.create()
+
+        binding?.registrationViewModel = registrationViewModel
+        binding?.lifecycleOwner = viewLifecycleOwner
+
         binding?.apply {
 
             forgotPassTv.setOnClickListener {
@@ -89,7 +95,7 @@ class LoginFragment : Fragment() {
                         ?.trim()?.isNotEmpty() == true
                     && isEmailValid && isPasswordValid
                 ) {
-                    registrationViewModel.loginUser(
+                    registrationViewModel?.loginUser(
                         Login(
                             changePass = true,
                             emailId = userEmail,
@@ -128,7 +134,20 @@ class LoginFragment : Fragment() {
                 signInFacebook()
 //                LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment,Arrays.asList("public_profile"))
             }
+
+
+            loginEmailEt.addTextChangedListener { editable ->
+                registrationViewModel?.loginScreenEmail?.postValue(editable.toString())
+            }
+
+            /** Only for testing purpose that there is data available or not**/
+            registrationViewModel?.loginScreenEmail?.observe(viewLifecycleOwner) {
+                /** we can set the edit text value here**/
+                //Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+            }
+
         }
+
 
         binding?.loginEmailEt?.addTextChangedListener { editable ->
             editable?.let {

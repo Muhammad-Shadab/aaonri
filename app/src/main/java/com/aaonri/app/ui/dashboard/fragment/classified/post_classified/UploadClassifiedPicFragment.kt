@@ -76,7 +76,6 @@ class UploadClassifiedPicFragment : Fragment() {
                         .createIntent { intent ->
                             startForClassifiedImageResult.launch(intent)
                             progressBarPicUpload.visibility = View.VISIBLE
-
                         }
                 }
             }

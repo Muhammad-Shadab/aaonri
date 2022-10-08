@@ -6,7 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
-import com.aaonri.app.data.authentication.register.model.add_user.*
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
+import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
+import com.aaonri.app.data.authentication.register.model.add_user.RegisterRequest
+import com.aaonri.app.data.authentication.register.model.add_user.RegistrationResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponse
 import com.aaonri.app.data.authentication.register.repository.RegistrationRepository
 import com.aaonri.app.data.classified.model.FindByEmailDetailResponse
@@ -26,6 +29,10 @@ class RegistrationViewModel
 
     val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
+
+    val loginScreenEmail: MutableLiveData<String> = MutableLiveData()
+
+    val loginScreenPassword: MutableLiveData<String> = MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()

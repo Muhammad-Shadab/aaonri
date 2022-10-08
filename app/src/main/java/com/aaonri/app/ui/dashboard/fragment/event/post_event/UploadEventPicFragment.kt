@@ -6,18 +6,17 @@ import android.graphics.Outline
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -191,13 +190,14 @@ class UploadEventPicFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1)
                                 .load(image1Uri).error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image1Uri).error(R.drawable.small_image_placeholder).into(
+                            Glide.with(it1).load(image1Uri)
+                                .error(R.drawable.small_image_placeholder).into(
                                 it
                             )
                         }
@@ -214,14 +214,16 @@ class UploadEventPicFragment : Fragment() {
                     selectPicIndex = 1
                     binding?.uploadedImage2?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri).error(R.drawable.small_image_placeholder).into(
+                            Glide.with(it1).load(image2Uri)
+                                .error(R.drawable.small_image_placeholder).into(
                                 it
                             )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri).error(R.drawable.small_image_placeholder).into(
+                            Glide.with(it1).load(image2Uri)
+                                .error(R.drawable.small_image_placeholder).into(
                                 it
                             )
                         }
@@ -240,16 +242,16 @@ class UploadEventPicFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image3Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage3?.visibility = View.VISIBLE
@@ -266,16 +268,16 @@ class UploadEventPicFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image4Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage4?.visibility = View.VISIBLE
