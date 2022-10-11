@@ -257,7 +257,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     startActivity(Intent.createChooser(emailIntent, "Send email..."))
                 } else {
                     val intent = Intent(Intent.ACTION_DIAL)
-                    intent.data = Uri.parse("tel:<$isPhoneAvailable>")
+                    intent.data = Uri.parse("tel:$isPhoneAvailable")
                     startActivity(intent)
                 }
             }
