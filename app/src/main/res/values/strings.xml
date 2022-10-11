@@ -144,6 +144,7 @@
     <string name="create_your_job">Create your job alerts by filling below details\nand you can see alerts in your job alerts page in tags</string>
     <string name="please_review_your_details">Please review your details before applying for this job \nyou can also update your cover letter and resume.</string>
     <string name="we_are_using_your_default">we are using your default profile resume. if you need to change another resume, please click to (x) button and upload the resume from your device</string>
+    <string name="by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"><![CDATA[By tapping GET STARTED you agree our Privacy Policy & Terms Of Use]]></string>
 
 
     <string-array name="advertiseValidity">

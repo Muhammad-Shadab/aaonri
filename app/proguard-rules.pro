@@ -58,6 +58,9 @@
 -keep class com.aaonri.app.data.advertise.model.** { *; }
 -keepclassmembers class com.aaonri.app.data.advertise.model.** { *; }
 
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
+
 -keep class com.aaonri.app.data.authentication.login.model.** { *; }
 -keepclassmembers class com.aaonri.app.data.authentication.login.model.** { *; }
 
@@ -87,3 +90,18 @@
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
   * rewind();
 }
+
+-keepattributes SourceFile,LineNumberTable
+
+# Add this global rule
+-keepattributes Signature
+
+-keepclassmembers class com.aaonri.app.models.** {
+  *;
+}
+
+-keepattributes *Annotation*
+# in order to provide the most meaningful crash reports, add the following line:
+-keepattributes SourceFile,LineNumberTable
+# If you are using custom exceptions, add this line so that custom exception types are skipped during obfuscation:
+-keep public class * extends java.lang.Exception

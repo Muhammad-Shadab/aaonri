@@ -16,7 +16,7 @@ class RegistrationRepository @Inject constructor(
     private val registrationApi: RegistrationApi,
     private val countriesApi: CountriesApi,
     private val zipCodeApi: ZipCodeApi,
-    private val profilePicApi: ProfilePicApi
+    /*private val profilePicApi: ProfilePicApi*/
 ) {
 
     suspend fun getCommunitiesList() = registrationApi.getAllCommunities()
@@ -44,6 +44,6 @@ class RegistrationRepository @Inject constructor(
     suspend fun uploadProfilePic(
         file: MultipartBody.Part,
         userId: RequestBody
-    ) = profilePicApi.uploadProfilePic(file, userId)
+    ) = registrationApi.uploadProfilePic(file, userId)
 
 }

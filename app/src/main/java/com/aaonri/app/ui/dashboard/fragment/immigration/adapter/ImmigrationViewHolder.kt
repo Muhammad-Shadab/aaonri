@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -11,6 +12,7 @@ import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.databinding.*
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.noowenz.showmoreless.ShowMoreLess
 import java.time.format.DateTimeFormatter
 
 sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -67,6 +69,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                 val context = discussionNameTv.context
                 val userEmail =
                     context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
                 discussionNameTv.text = discussion.discussionTopic
                 discussionDesc.text = discussion.discussionDesc
                 postedByTv.text = "Posted by: ${discussion.createdBy}, ${
@@ -158,8 +161,10 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                     deleteReplyClickListener?.invoke(discussionDetailsResponseItem)
                 }
 
-                if (discussionDetailsResponseItem.createdBy == userId) {
-                    deleteComment.visibility = View.VISIBLE
+                if (userId != 0) {
+                    if (discussionDetailsResponseItem.createdBy == userId) {
+                        deleteComment.visibility = View.VISIBLE
+                    }
                 }
 
                 // deleteReplyClickListener?.invoke()

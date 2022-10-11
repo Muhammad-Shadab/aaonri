@@ -10,6 +10,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -81,6 +86,45 @@ class ServicesCategoryFragment : Fragment() {
         val socialProfile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        val ss =
+            SpannableString(resources.getString(R.string.by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use))
+
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                /*val action = ServicesCategoryFragmentDirections.actionServicesCategoryFragmentToAdvertiseWebViewFragment("https://aaonri.com/privacy-policy")
+                findNavController().navigate(action)*/
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                /*val action = ServicesCategoryFragmentDirections.actionServicesCategoryFragmentToAdvertiseWebViewFragment("https://aaonri.com/terms-&-conditions")
+                findNavController().navigate(action)*/
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        ss.setSpan(clickableSpan1, 37, 51, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan2, 54, 66, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
         getServicesInterestList()
 
         adapter = ServicesItemAdapter({ selectedCommunity ->
@@ -95,6 +139,9 @@ class ServicesCategoryFragment : Fragment() {
 
             companyEmailServices.isEnabled = false
             authCommonViewModel.addNavigationForStepper(AuthConstant.SERVICE_DETAILS_SCREEN)
+
+            privacyPolicyRegistrationTv.text = ss
+            privacyPolicyRegistrationTv.movementMethod = LinkMovementMethod.getInstance()
 
             isAliasNameCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 if (p1) {
@@ -295,6 +342,7 @@ class ServicesCategoryFragment : Fragment() {
                 binding?.visibilityCardView?.visibility = View.GONE
                 binding?.isRecruiterCheckBox?.isChecked = false
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
+                binding?.privacyPolicyRegistrationTv?.visibility = View.VISIBLE
                 binding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
             } else {
@@ -302,6 +350,7 @@ class ServicesCategoryFragment : Fragment() {
                 authCommonViewModel.addStepViewLastTick(false)
                 binding?.visibilityCardView?.visibility = View.GONE
                 binding?.aliasNameCardView?.visibility = View.GONE
+                binding?.privacyPolicyRegistrationTv?.visibility = View.GONE
                 binding?.servicesGridRecyclerView?.margin(bottom = 60f)
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.light_green_btn_shape)
             }

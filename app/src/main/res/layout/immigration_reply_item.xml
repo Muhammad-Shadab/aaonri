@@ -110,7 +110,6 @@
             android:layout_marginVertical="@dimen/_4sdp"
             android:fontFamily="@font/sf_pro_regular"
             android:paddingHorizontal="@dimen/_16sdp"
-            android:text="ed ut perspiciatis ihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
             android:textColor="#333333"
             android:textSize="12sp"
             app:colorClickableText="#2f6ca8"

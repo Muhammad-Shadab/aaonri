@@ -124,8 +124,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-        SpanString.setSpan(teremsAndCondition, 50, 62, 0)
-        SpanString.setSpan(privacy, 71, 85, 0)
+        /*SpanString.setSpan(teremsAndCondition, 50, 62, 0)
+        SpanString.setSpan(privacy, 71, 85, 0)*/
 
         val inputFormat = SimpleDateFormat("MM-dd-yyyy")
         val outputFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -159,9 +159,9 @@ class PostEventAddressDetailsFragment : Fragment() {
             }
 
             textDesc1.text = ss
-            privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
+            /*privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
             privacyTextTv.setText(SpanString, TextView.BufferType.SPANNABLE)
-            privacyTextTv.isSelected = true
+            privacyTextTv.isSelected = true*/
 
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 
