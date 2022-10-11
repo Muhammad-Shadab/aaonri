@@ -1,5 +1,28 @@
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
 # With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
 # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
+
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
 
@@ -31,29 +54,36 @@
 
 # Application classes that will be serialized/deserialized over Gson, keepclassmembers
 -keepattributes InnerClasses
--keep class com.aaonri.app.$ { ; }
--keep class com.aaonri.app.data.advertise.model
--keep class com.app.aon.models.** {; }
--keepclassmembers class com.app.bharatatm.models. { ; }
+-keep class com.aaonri.app.$ { *; }
+-keep class com.aaonri.app.data.advertise.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.advertise.model.** { *; }
 
--keep public class implements com.bumptech.glide.module.GlideModule
+-keep class com.aaonri.app.data.authentication.login.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.authentication.login.model.** { *; }
+
+-keep class com.aaonri.app.data.authentication.register.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.authentication.register.model.** { *; }
+
+-keep class com.aaonri.app.data.classified.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.classified.model.** { *; }
+
+-keep class com.aaonri.app.data.event.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.event.model.** { *; }
+
+-keep class com.aaonri.app.data.home.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.home.model.** { *; }
+
+-keep class com.aaonri.app.data.immigration.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.immigration.model.** { *; }
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
 -keep class * extends com.bumptech.glide.module.AppGlideModule {
  <init>(...);
 }
--keep public enum com.bumptech.glide.load.ImageHeaderParser$ {
-  *[] $VALUES;
-  public;
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
 }
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
   * rewind();
 }
-
--dontwarn okhttp3.**
--dontwarn okio.**
--dontwarn javax.annotation.**
--dontwarn org.conscrypt.**
-
-
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
--keep class com.aaonri.app*
-

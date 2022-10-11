@@ -365,18 +365,21 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.classifiedDeleteData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
+            if (response != null){
+                when (response) {
+                    is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    findNavController().navigateUp()
-                }
-                is Resource.Error -> {
+                    }
+                    is Resource.Success -> {
+                        findNavController().navigateUp()
+                        postClassifiedViewModel.classifiedDeleteData.postValue(null)
+                    }
+                    is Resource.Error -> {
 
+                    }
                 }
-                else -> {}
             }
+
         }
 
         classifiedViewModel.callClassifiedDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
