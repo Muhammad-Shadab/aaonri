@@ -93,7 +93,7 @@
     <string name="please_describe_about_the_event">Please describe about the event*</string>
     <string name="choose_1st_image_for_cover_photo">Choose 1st image for Cover photo</string>
     <string name="land_mark">Land Mark</string>
-    <string name="social_media_link">Buy Tickets Here*</string>
+    <string name="social_media_link">BUY TICKETS URL*</string>
     <string name="your_event_will">Your event will appear in the search and/or on the events section of AAONRI for 15 days at no charge</string>
     <string name="if_you_want_event">If you want your event to appear in the “Featured” section, please contact us at events@aaonri.com</string>
     <string name="submit_event">Submit Event</string>

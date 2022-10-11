@@ -53,7 +53,6 @@ class AdvertiseScreenFragment : Fragment() {
     var advertiseAdapter: AdvertiseAdapter? = null
     var isAdvertiseExpired: Boolean? = null
     var data: List<AllAdvertiseResponseItem>? = null
-    var enableSearch = false
 
     //var advertiseIdList = mutableListOf<Int>()
 
@@ -401,7 +400,12 @@ class AdvertiseScreenFragment : Fragment() {
 
             }
 
-            layoutManager?.smoothScrollToPosition(recyclerViewAdvertise, null, 0)
+            advertiseViewModel.advertiseContentScrollToTop.observe(viewLifecycleOwner) {
+                if (it) {
+                    layoutManager?.smoothScrollToPosition(recyclerViewAdvertise, null, 0)
+                    advertiseViewModel.setAdvertiseContentScrollToTop(false)
+                }
+            }
 
         }
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
@@ -428,7 +432,7 @@ class AdvertiseScreenFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     if (response.data?.isEmpty() == true) {
-                        enableSearch = false
+                        binding?.searchView?.isEnabled = false
                         binding?.noResultFound?.visibility = View.VISIBLE
                         binding?.noResultFoundIv?.setImageDrawable(
                             context?.let {
@@ -442,7 +446,7 @@ class AdvertiseScreenFragment : Fragment() {
                         binding?.recyclerViewAdvertise?.visibility = View.GONE
 
                     } else {
-                        enableSearch = true
+                        binding?.searchView?.isEnabled = true
                         /*response.data?.forEach {
                             if (!advertiseIdList.contains(it.advertisementId)) {
                                 advertiseIdList.add(it.advertisementId)
@@ -510,47 +514,45 @@ class AdvertiseScreenFragment : Fragment() {
         }
 
         advertiseViewModel.searchQueryFromHomeScreen.observe(viewLifecycleOwner) { editable ->
-            if (enableSearch) {
+            advertisementList.clear()
+            val searchText = editable.toString().lowercase(Locale.getDefault())
+            if (searchText.isNotEmpty()) {
+                data?.forEach {
+                    if (it.advertisementDetails.adTitle.lowercase(Locale.getDefault())
+                            .contains(searchText)
+                    ) {
+                        advertisementList.add(it)
+                    }
+                }
+            } else {
                 advertisementList.clear()
-                val searchText = editable.toString().lowercase(Locale.getDefault())
-                if (searchText.isNotEmpty()) {
-                    data?.forEach {
-                        if (it.advertisementDetails.adTitle.lowercase(Locale.getDefault())
-                                .contains(searchText)
-                        ) {
-                            advertisementList.add(it)
-                        }
-                    }
-                } else {
-                    advertisementList.clear()
-                    data.let {
-                        if (it != null) {
-                            advertisementList.addAll(it)
-                        }
+                data.let {
+                    if (it != null) {
+                        advertisementList.addAll(it)
                     }
                 }
-                if (isUserLogin == true) {
-                    if (advertisementList.isEmpty()) {
-                        binding?.noResultFound?.visibility = View.VISIBLE
-                        binding?.noResultFoundIv?.setImageDrawable(
-                            context?.let {
-                                ContextCompat.getDrawable(
-                                    it,
-                                    R.drawable.no_immigration_found
-                                )
-                            }
-                        )
-                        binding?.emptyTextVew?.text = "Results not found"
-                        binding?.recyclerViewAdvertise?.visibility = View.GONE
-                    } else {
-                        binding?.noResultFound?.visibility = View.GONE
-                        binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
-                    }
-                }
-
-                advertiseAdapter?.setData(advertisementList)
-                binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
             }
+            if (isUserLogin == true) {
+                if (advertisementList.isEmpty()) {
+                    binding?.noResultFound?.visibility = View.VISIBLE
+                    binding?.noResultFoundIv?.setImageDrawable(
+                        context?.let {
+                            ContextCompat.getDrawable(
+                                it,
+                                R.drawable.no_immigration_found
+                            )
+                        }
+                    )
+                    binding?.emptyTextVew?.text = "Results not found"
+                    binding?.recyclerViewAdvertise?.visibility = View.GONE
+                } else {
+                    binding?.noResultFound?.visibility = View.GONE
+                    binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
+                }
+            }
+
+            advertiseAdapter?.setData(advertisementList)
+            binding?.recyclerViewAdvertise?.adapter?.notifyDataSetChanged()
         }
 
         if (isUserLogin == false) {

@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +11,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -44,6 +47,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             }
         }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,7 +100,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                     if (companyLinkEt.text.toString()
                                             .isNotEmpty() && Validator.urlValidation(companyLinkEt.text.toString())
                                     ) {
-                                        if (advertiseDescEt.text.toString().length >= 3) {
+                                        if (advertiseDescEt.text.trim().toString().length >= 3) {
                                             postAdvertiseViewModel.addCompanyContactDetails(
                                                 companyName = companyNameEt.text.toString(),
                                                 location = companyAddress.text.toString(),
@@ -104,7 +108,8 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                                                 email = companyEmailEt.text.toString(),
                                                 services = companyProfessionEt.text.toString(),
                                                 link = companyLinkEt.text.toString(),
-                                                description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseDescEt.text.toString()
+                                                description = if (description?.isNotEmpty() == true) description?.trim()!! else advertiseDescEt.text.trim()
+                                                    .toString()
                                                     .trim()
                                             )
 
@@ -137,6 +142,20 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
                         showAlert("Please enter valid Company Name")
                     }
                 }
+            }
+            companyLinkEt.setOnTouchListener { view, motionEvent ->
+                if (!companyLinkEt.text.toString().contains("https://")) {
+                    companyLinkEt.setText("https://")
+                }
+                companyLinkEt.requestFocus()
+                companyLinkEt.setSelection(companyLinkEt.length())
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+                return@setOnTouchListener true
             }
         }
 

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
-import com.aaonri.app.data.authentication.register.model.ProfileUploadResponse
 import com.aaonri.app.data.authentication.register.model.community.CommunitiesListResponse
 import com.aaonri.app.data.authentication.register.model.countries.CountriesResponse
 import com.aaonri.app.data.authentication.register.model.services.ServicesResponseItem
@@ -48,7 +47,7 @@ class AuthCommonViewModel @Inject constructor(
 
     var selectedCommunityList: MutableLiveData<MutableList<CommunityAuth>> = MutableLiveData()
 
-    var uploadProfilePicData: MutableLiveData<Resource<ProfileUploadResponse>> = MutableLiveData()
+    var uploadProfilePicData: MutableLiveData<Resource<String>> = MutableLiveData()
 
     var profilePicUri: Uri? = null
 
@@ -257,7 +256,7 @@ class AuthCommonViewModel @Inject constructor(
         uploadProfilePicData.postValue(handleUploadImageResponse(response))
     }
 
-    private fun handleUploadImageResponse(response: Response<ProfileUploadResponse>): Resource<ProfileUploadResponse>? {
+    private fun handleUploadImageResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -265,6 +264,7 @@ class AuthCommonViewModel @Inject constructor(
         }
         return Resource.Error(response.message())
     }
+
 
     fun setProfilePicUriValue(value: Uri?) {
         profilePicUri = value

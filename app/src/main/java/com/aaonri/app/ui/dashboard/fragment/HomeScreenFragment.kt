@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -92,6 +93,8 @@ class HomeScreenFragment : Fragment() {
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService: MutableList<String>? = mutableListOf()
     var guestUser = false
+    var navigateBackToCloseApp = true
+
     var homeClassifiedWithAdList = mutableListOf<Any>()
 
     //var homeEventWithAdList = mutableListOf<Any>()
@@ -611,11 +614,6 @@ class HomeScreenFragment : Fragment() {
 
         binding?.apply {
 
-            homeNestedScrollView.post {
-                homeNestedScrollView.fling(0)
-                homeNestedScrollView.smoothScrollTo(0, 0)
-            }
-
             loginBtn.setOnClickListener {
                 activity?.finish()
             }
@@ -666,6 +664,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             searchViewll.setOnClickListener {
+                navigateBackToCloseApp = false
                 dashboardCommonViewModel.setShowBottomNavigation(false)
                 searchView.requestFocus()
                 val imm =
@@ -692,6 +691,7 @@ class HomeScreenFragment : Fragment() {
             }
 
             searchView.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+                navigateBackToCloseApp = false
                 dashboardCommonViewModel.setShowBottomNavigation(false)
                 searchView.requestFocus()
                 val imm =
@@ -716,6 +716,7 @@ class HomeScreenFragment : Fragment() {
 
             searchView.addTextChangedListener { editable ->
                 if (searchView.hasFocus()) {
+                    navigateBackToCloseApp = false
                     searchModuleFl.visibility = View.VISIBLE
                 }
                 if (searchView.text.toString().isNotEmpty()) {
@@ -737,6 +738,8 @@ class HomeScreenFragment : Fragment() {
             }
 
             closeSearchScreen.setOnClickListener {
+                navigateBackToCloseApp = true
+                interestServiceResponseItem = null
                 context?.let { it1 -> PreferenceManager<Int>(it1) }
                     ?.set("selectedSearchModule", -1)
                 searchFilterModuleAdapter?.notifyDataSetChanged()
@@ -835,7 +838,18 @@ class HomeScreenFragment : Fragment() {
             })
 
 
+            homeViewModel.homeContentScrollToTop.observe(viewLifecycleOwner) {
+                if (it) {
+                    homeNestedScrollView.post {
+                        homeNestedScrollView.fling(0)
+                        homeNestedScrollView.smoothScrollTo(0, 0)
+                        homeViewModel.setHomeContentScrollToTop(false)
+                    }
+
+                }
+            }
         }
+
 
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -1018,11 +1032,13 @@ class HomeScreenFragment : Fragment() {
 
         homeViewModel.adsBelowFirstSection.observe(viewLifecycleOwner) {
             adsGenericAdapter1?.items = it
+            binding?.adsBelowFirstSectionRv?.visibility = View.VISIBLE
             runAutoScrollBanner1()
         }
 
         homeViewModel.adsAbovePopularItem.observe(viewLifecycleOwner) {
             adsGenericAdapter2?.items = it
+            binding?.adsAbovePopularSectionRv?.visibility = View.VISIBLE
             runAutoScrollBanner2()
 
         }
@@ -1078,6 +1094,16 @@ class HomeScreenFragment : Fragment() {
                 }
             }
         }
+
+        /*requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (navigateBackToCloseApp) {
+                        activity?.finish()
+                    }
+                }
+            })*/
 
         return binding?.root
     }
@@ -1290,7 +1316,7 @@ class HomeScreenFragment : Fragment() {
                 priorityService = "Events"
                 binding?.priorityServiceRv?.margin(left = 20f, right = 14f)
                 binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 //homeScreenBinding?.priorityServiceRv?.adapter = homeEventAdapter
                 binding?.priorityServiceRv?.adapter = genericAdapterForEvent
 
@@ -1306,13 +1332,13 @@ class HomeScreenFragment : Fragment() {
                     )
                 )
                 binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 binding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests == "$jobId") {
                 //Jobs
                 priorityService = "Jobs"
                 binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
-                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 binding?.priorityServiceRv?.adapter = jobAdapter
             } else if (interests == "$shopWithUsId") {
                 //Shop With Us
@@ -1491,7 +1517,7 @@ class HomeScreenFragment : Fragment() {
                         binding?.adsBelowFirstSectionRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
-                        adRvposition1 += 2
+                        adRvposition1 += 3
                         binding?.adsBelowFirstSectionRv?.smoothScrollToPosition(adRvposition1)
                     }
                 }
@@ -1520,7 +1546,7 @@ class HomeScreenFragment : Fragment() {
                         binding?.adsAbovePopularSectionRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
-                        adRvposition2 += 2
+                        adRvposition2 += 3
                         binding?.adsAbovePopularSectionRv?.smoothScrollToPosition(adRvposition2)
                     }
                 }

@@ -1,11 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.post_classified
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Outline
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +62,18 @@ class UploadClassifiedPicFragment : Fragment() {
 
         setImagesForUpdatingClassified()
 
+        val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (!isGranted) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                val uri = Uri.fromParts("package", context?.getPackageName(), null)
+                intent.data = uri
+                startActivity(intent)
+            }
+        }
+
         /*postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
             Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
         }*/
@@ -68,15 +84,19 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadPicBtn.setOnClickListener {
 
-                if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
-                    ImagePicker.with(requireActivity())
-                        .compress(800)
-                        .maxResultSize(1080, 1080)
-                        .crop()
-                        .createIntent { intent ->
-                            startForClassifiedImageResult.launch(intent)
-                            progressBarPicUpload.visibility = View.VISIBLE
-                        }
+                if (checkPermissionCameraPermission(Manifest.permission.CAMERA)) {
+                    if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
+                        ImagePicker.with(requireActivity())
+                            .compress(800)
+                            .maxResultSize(1080, 1080)
+                            .crop()
+                            .createIntent { intent ->
+                                startForClassifiedImageResult.launch(intent)
+                                progressBarPicUpload.visibility = View.VISIBLE
+                            }
+                    }
+                } else {
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
                 }
             }
 
@@ -797,6 +817,15 @@ class UploadClassifiedPicFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun checkPermissionCameraPermission(permission: String): Boolean {
+        return context?.let {
+            ContextCompat.checkSelfPermission(
+                it,
+                permission
+            )
+        } == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onDestroyView() {

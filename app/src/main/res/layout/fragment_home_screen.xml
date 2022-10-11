@@ -205,6 +205,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/homeContentCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
@@ -428,8 +429,9 @@
                         android:id="@+id/adsBelowFirstSectionRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
                         android:clipToPadding="false"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/priorityServiceRv" />
@@ -439,6 +441,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         android:paddingVertical="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -508,7 +511,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 

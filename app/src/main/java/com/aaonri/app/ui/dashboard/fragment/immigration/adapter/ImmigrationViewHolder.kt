@@ -122,12 +122,21 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
             val context = binding.discussionUserReplyTv.context
+
+            val nameParts = discussionDetailsResponseItem.userFullName.split(" ").toTypedArray()
+            val firstName = nameParts[0]
+            val firstNameChar = firstName[0]
+            var lastNameChar = ""
+            if (nameParts.size > 1) {
+                val lastName = nameParts[nameParts.size - 1]
+                lastNameChar = lastName[0].toString()
+            }
+
             val userId =
                 context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
             binding.apply {
-                if (discussionDetailsResponseItem.createdBy == userId) {
-                    deleteComment.visibility = View.VISIBLE
-                }
+
+                userNameTv.text = firstNameChar + lastNameChar
                 discussionUserReplyTv.text = discussionDetailsResponseItem.userFullName
                 userReplyDate.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
@@ -147,6 +156,10 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
                 deleteComment.setOnClickListener {
                     deleteReplyClickListener?.invoke(discussionDetailsResponseItem)
+                }
+
+                if (discussionDetailsResponseItem.createdBy == userId) {
+                    deleteComment.visibility = View.VISIBLE
                 }
 
                 // deleteReplyClickListener?.invoke()
@@ -182,6 +195,11 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
             }
         }
+    }
+
+
+    open fun printInitials(name: String) {
+
     }
 
 

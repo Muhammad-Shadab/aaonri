@@ -22,6 +22,8 @@ class DashboardCommonViewModel : ViewModel() {
 
     var showBottomNavigation: MutableLiveData<Boolean> = MutableLiveData()
 
+    var moreScreenContentScrollToTop: MutableLiveData<Boolean> = MutableLiveData()
+
     var selectedServicesList: MutableLiveData<MutableList<ServicesResponseItem>> = MutableLiveData()
         private set
 
@@ -51,6 +53,10 @@ class DashboardCommonViewModel : ViewModel() {
 
     fun setShowBottomNavigation(value: Boolean) {
         showBottomNavigation.postValue(value)
+    }
+
+    fun setMoreScreenContentScrollToTop(value: Boolean) {
+        moreScreenContentScrollToTop.postValue(value)
     }
 
 

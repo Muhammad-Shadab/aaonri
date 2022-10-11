@@ -2,7 +2,7 @@ package com.aaonri.app.data.classified.model
 
 data class UserAdsXX(
     val active: Boolean,
-    val adDescription: String,
+    val adDescription: String?,
     val adEmail: String,
     val adExpireDT: String,
     val adImages: Any,

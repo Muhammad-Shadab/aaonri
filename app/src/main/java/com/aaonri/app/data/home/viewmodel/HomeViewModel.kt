@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.event.model.EventResponse
 import com.aaonri.app.data.home.model.InterestResponse
 import com.aaonri.app.data.home.model.PoplarClassifiedResponse
@@ -23,6 +22,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         private set
 
     var allInterestData: MutableLiveData<Resource<InterestResponse>> = MutableLiveData()
+        private set
+
+    var homeContentScrollToTop: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
     var homeClassifiedInlineAds: MutableLiveData<FindAllActiveAdvertiseResponseItem> =
@@ -119,6 +121,10 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun setHomeEventInlineAds(value: FindAllActiveAdvertiseResponseItem) {
         homeEventInlineAds.postValue(value)
+    }
+
+    fun setHomeContentScrollToTop(value: Boolean) {
+        homeContentScrollToTop.postValue(value)
     }
 
 

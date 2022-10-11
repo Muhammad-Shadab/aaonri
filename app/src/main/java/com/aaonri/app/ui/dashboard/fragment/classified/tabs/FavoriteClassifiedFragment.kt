@@ -70,11 +70,6 @@ FavoriteClassifiedFragment : Fragment() {
         }
         binding?.apply {
 
-            nestedScrollView1.post {
-                nestedScrollView.fling(0)
-                nestedScrollView.smoothScrollTo(0, 0)
-            }
-
             nestedScrollView1.setOnScrollChangeListener(object : View.OnScrollChangeListener {
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
@@ -138,6 +133,16 @@ FavoriteClassifiedFragment : Fragment() {
                     }
                 }
             })
+
+            classifiedViewModel.classifiedContentScrollToTop.observe(viewLifecycleOwner) {
+                if (it) {
+                    nestedScrollView1.post {
+                        nestedScrollView1.fling(0)
+                        nestedScrollView1.smoothScrollTo(0, 0)
+                    }
+                    classifiedViewModel.setClassifiedContentScrollToTop(false)
+                }
+            }
 
         }
 
@@ -270,7 +275,7 @@ FavoriteClassifiedFragment : Fragment() {
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
-                        adRvposition2 += 2
+                        adRvposition2 += 3
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
                     }
                 }

@@ -162,7 +162,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBarBasicDetails?.visibility = View.GONE
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
-                            "http:"
+                            "htt"
                         ) != true
                     ) {
                         response.data?.advertisementId?.let {

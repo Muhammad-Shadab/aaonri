@@ -8,9 +8,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.CalendarContract
-import android.provider.MediaStore
-import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -56,7 +55,9 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -88,6 +89,7 @@ class EventDetailsScreenFragment : Fragment() {
     var adRvposition = 0
     var timer: Timer? = null
     var timerTask: TimerTask? = null
+    var path = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -101,7 +103,7 @@ class EventDetailsScreenFragment : Fragment() {
         postEventViewModel.getEventDetails(args.eventId)
 
         val guestUserLoginDialog = Dialog(requireContext())
-        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.setContentView(com.aaonri.app.R.layout.guest_user_login_dialog)
         guestUserLoginDialog.window?.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
@@ -346,26 +348,54 @@ class EventDetailsScreenFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 if (isUserLogin == true) {
+                    val bitmap = addImage.drawable.toBitmap()
+                    val shareIntent: Intent
+                    var path =
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                            .toString() + "/Share.png"
+                    var out: OutputStream? = null
+                    val file = File(path)
                     try {
-                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
-                        val bytes = ByteArrayOutputStream()
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                        val path = MediaStore.Images.Media.insertImage(
-                            requireContext().contentResolver,
-                            bitmap,
-                            "tempimage",
-                            null
-                        )
-                        val uri = Uri.parse(path)
-                        intent.putExtra(Intent.EXTRA_STREAM, uri)
-                        intent.type = "text/plain"
-                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
-                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-                        startActivity(intent)
-                    } catch (e: Exception) {
+                        out = FileOutputStream(file)
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                        out.flush()
+                        out.close()
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
                     }
+                    path = file.path
+                    val bmpUri = Uri.parse("$path")
+                    shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/events/details/${args.eventId}"
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    shareIntent.type = "image/png"
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))
+//                    try {
+//                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+//                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
+//                        val bytes = ByteArrayOutputStream()
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+//                        val path = MediaStore.Images.Media.insertImage(
+//                            requireContext().contentResolver,
+//                            bitmap,
+//                            "tempimage",
+//                            null
+//                        )
+//
+//                        val uri = Uri.parse(path)
+//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+//                        intent.type = "text/plain"
+//                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+//                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
+//                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+//                        startActivity(intent)
+//
+//
+//                    } catch (e: Exception) {
+//                    }
                 } else {
                     guestUserLoginDialog.show()
                 }
@@ -496,6 +526,7 @@ class EventDetailsScreenFragment : Fragment() {
         return binding?.root
     }
 
+
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setEventdDetails(event: EventDetailsResponse) {
@@ -504,6 +535,11 @@ class EventDetailsScreenFragment : Fragment() {
         eventTimeZone = event.timeZone
         binding?.ll1?.visibility = View.VISIBLE
 
+        /* var startTimeOfEvent =
+             LocalTime.parse(event.startTime).format(DateTimeFormatter.ofPattern("h:mma"))
+         var endTimeOfEvent =
+             LocalTime.parse(event.endTime).format(DateTimeFormatter.ofPattern("h:mma"))
+         Toast.makeText(context, "$startTimeOfEvent", Toast.LENGTH_SHORT).show()*/
         startDate = "${event.startDate.split("T")[0]}T${event.startTime}:00"
         endDate = "${event.endDate.split("T")[0]}T${event.endTime}:00"
         eventTitleName = event.title
@@ -906,7 +942,9 @@ class EventDetailsScreenFragment : Fragment() {
         }
         binding?.eventTitle?.text = event.title
         binding?.eventDescTv?.textSize = 14F
-        binding?.eventDescTv?.text = Html.fromHtml(event.description)
+        if (event.description != null && event.description.isNotEmpty()) {
+            binding?.eventDescTv?.fromHtml(event.description)
+        }
         binding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
             "${if (!event.address1.isNullOrEmpty()) event.address1 + ", " else ""} ${if (!event.address2.isNullOrEmpty()) event.address2 + ", " else ""} ${if (!event.city.isNullOrEmpty()) event.city + ", " else ""} ${if (!event.state.isNullOrEmpty()) event.state + ", " else ""}"

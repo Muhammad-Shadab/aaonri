@@ -22,6 +22,8 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     val callClassifiedApiAfterDelete: MutableLiveData<Boolean> = MutableLiveData()
 
+    val classifiedContentScrollToTop: MutableLiveData<Boolean> = MutableLiveData()
+
     var classifiedAdvertiseUrl: String = ""
 
     val favoriteClassifiedData: MutableLiveData<Resource<FavoriteClassifiedResponse>> =
@@ -199,6 +201,10 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
 
     fun setSearchQueryFromHomeScreen(value: String) {
         searchQueryFromHomeScreen.postValue(value)
+    }
+
+    fun setClassifiedContentScrollToTop(value: Boolean) {
+        classifiedContentScrollToTop.postValue(value)
     }
 
 }

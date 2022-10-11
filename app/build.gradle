@@ -47,7 +47,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -60,9 +60,6 @@ android {
     }
     viewBinding {
         enabled = true
-    }
-    buildFeatures{
-        dataBinding true
     }
     lintOptions {
         checkReleaseBuilds false
@@ -175,6 +172,9 @@ dependencies {
 
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
+    // Run time permission
+    implementation 'com.github.AraujoJordan:ExcuseMe:0.9.5'
 
 
 }

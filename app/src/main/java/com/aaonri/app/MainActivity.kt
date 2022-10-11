@@ -98,12 +98,23 @@ class MainActivity : BaseActivity() {
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
 
+
         binding?.apply {
 
             bottomNavigation.setupWithNavController(navController)
 
+            bottomNavigation.setOnItemReselectedListener {
+                when (it.title) {
+                    "Home" -> homeViewModel.setHomeContentScrollToTop(true)
+                    "Classifieds" -> classifiedViewModel.setClassifiedContentScrollToTop(true)
+                    "Advertise" -> advertiseViewModel.setAdvertiseContentScrollToTop(true)
+                    "More" -> dashboardCommonViewModel.setMoreScreenContentScrollToTop(true)
+                }
+            }
+
             /** Clearing the filter data when user navigate to the non filter screens**/
             navController.addOnDestinationChangedListener { _, destination, _ ->
+
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.classifiedScreenFragment || destination.id == R.id.advertiseScreenFragment ||
                     destination.id == R.id.shopScreenFragment || destination.id == R.id.moreScreenFragment
                 ) {

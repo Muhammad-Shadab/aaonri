@@ -74,11 +74,6 @@ class MyClassifiedFragment : Fragment() {
         }
         binding?.apply {
 
-            nestedScrollView.post {
-                nestedScrollView.fling(0)
-                nestedScrollView.smoothScrollTo(0, 0)
-            }
-
             nestedScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener {
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
@@ -93,7 +88,7 @@ class MyClassifiedFragment : Fragment() {
             adsGenericAdapter2?.items = ActiveAdvertiseStaticData.getClassifiedBottomAds()
 
             topAdvertiseRv.adapter = adsGenericAdapter1
-            layoutManager1 =  GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
+            layoutManager1 = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
             topAdvertiseRv.layoutManager = layoutManager1
             topAdvertiseRv.addItemDecoration(
                 GridSpacingItemDecoration(
@@ -137,6 +132,16 @@ class MyClassifiedFragment : Fragment() {
                     }
                 }
             })
+
+            classifiedViewModel.classifiedContentScrollToTop.observe(viewLifecycleOwner) {
+                if (it) {
+                    nestedScrollView.post {
+                        nestedScrollView.fling(0)
+                        nestedScrollView.smoothScrollTo(0, 0)
+                    }
+                    classifiedViewModel.setClassifiedContentScrollToTop(false)
+                }
+            }
 
         }
 
@@ -238,15 +243,12 @@ class MyClassifiedFragment : Fragment() {
     }
 
 
-
-
-
-
     override fun onPause() {
         super.onPause()
         stopAutoScrollBanner2()
         stopAutoScrollBanner1()
     }
+
     fun stopAutoScrollBanner1() {
         if (timer1 != null && timerTask1 != null) {
             timerTask1!!.cancel()
@@ -270,7 +272,7 @@ class MyClassifiedFragment : Fragment() {
                         binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
-                        adRvposition1 += 2
+                        adRvposition1 += 3
                         binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
                     }
                 }
@@ -279,8 +281,8 @@ class MyClassifiedFragment : Fragment() {
         }
 
 
-
     }
+
     fun stopAutoScrollBanner2() {
         if (timer2 != null && timerTask2 != null) {
             timerTask2!!.cancel()
@@ -292,7 +294,7 @@ class MyClassifiedFragment : Fragment() {
     }
 
     fun runAutoScrollBanner2() {
-              if (timer2 == null && timerTask2 == null) {
+        if (timer2 == null && timerTask2 == null) {
             timer2 = Timer()
             timerTask2 = object : TimerTask() {
 
@@ -303,14 +305,13 @@ class MyClassifiedFragment : Fragment() {
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
-                        adRvposition2 += 2
+                        adRvposition2 += 3
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
                     }
                 }
             }
             timer2!!.schedule(timerTask2, 3000, 4000)
         }
-
 
 
     }

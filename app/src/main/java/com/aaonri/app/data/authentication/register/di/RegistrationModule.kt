@@ -44,19 +44,20 @@ object RegistrationModule {
             .build()
             .create(ZipCodeApi::class.java)
 
-    /*@Provides
+    @Provides
     @ViewModelScoped
     fun providesProfilePicApi(@Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder): ProfilePicApi =
-        retrofit.build().create(ProfilePicApi::class.java)*/
+        retrofit.build().create(ProfilePicApi::class.java)
 
     @Provides
     @ViewModelScoped
     fun provideRegistrationRepository(
         registrationApi: RegistrationApi,
         countriesApi: CountriesApi,
-        zipCodeApi: ZipCodeApi
+        zipCodeApi: ZipCodeApi,
+        profilePicApi: ProfilePicApi
     ) =
-        RegistrationRepository(registrationApi, countriesApi, zipCodeApi)
+        RegistrationRepository(registrationApi, countriesApi, zipCodeApi, profilePicApi)
 
 
 }

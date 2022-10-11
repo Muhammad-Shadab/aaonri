@@ -16,7 +16,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -105,7 +104,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                                                     .toDouble() < 999999999 && askingFee.text.toString()
                                                     .toDouble() > 0 || isFreeEntryCheckBox.isChecked
                                             ) {
-                                                if (eventDescEt.text.isNotEmpty()) {
+                                                if (eventDescEt.text.trim().isNotEmpty()) {
                                                     postEventViewModel.setIsEventOffline(
                                                         offlineRadioBtn.isChecked
                                                     )
@@ -157,9 +156,7 @@ class PostEventBasicDetailsFragment : Fragment() {
                     showAlert("Please enter valid event title")
                 }
             }
-            eventDescEt.addTextChangedListener { editable ->
-                descLength.text = "${editable.toString().length}/2000"
-            }
+
             selectCategoryEvent.setOnClickListener {
                 findNavController().navigate(R.id.action_postEventBasicDetailsFragment_to_eventCategoryBottom)
             }
@@ -577,7 +574,9 @@ class PostEventBasicDetailsFragment : Fragment() {
 
                 if (isStartTime) {
                     //this is for startTime
-                    selectStartTime.text = displayFormat.format(date)
+                    selectStartTime.text =
+                        displayFormat.format(date).replace("am", "AM").replace("pm", "PM")
+
                     binding?.selectEndTime?.text = ""
                 } else {
                     var time =
@@ -585,15 +584,17 @@ class PostEventBasicDetailsFragment : Fragment() {
                     var startHour: Int? = time?.split(":")?.get(0)?.toInt()
                     var startMin: Int? = time?.split(":")?.get(1)?.toInt()
 
-
                     //this is for  endTime
                     if (binding?.selectstartDate?.text.toString() == binding?.selectEndDate?.text.toString()) {
                         if (hoursOfTheDay > startHour!!) {
-                            selectStartTime.text = displayFormat.format(date)
+                            selectStartTime.text =
+                                displayFormat.format(date).replace("am", "AM").replace("pm", "PM")
                             endTime = parseFormat.format(date).toString()
                         } else if (hourOfDay == startHour) {
                             if (startMin!! + 30 < minute) {
-                                selectStartTime.text = displayFormat.format(date)
+                                selectStartTime.text =
+                                    displayFormat.format(date).replace("am", "AM")
+                                        .replace("pm", "PM")
                                 endTime = parseFormat.format(date).toString()
                             } else {
                                 showAlert("Please select valid time")
@@ -609,7 +610,8 @@ class PostEventBasicDetailsFragment : Fragment() {
                             showAlert("Please select valid time")
                         }*/
                     } else {
-                        selectStartTime.text = displayFormat.format(date)
+                        selectStartTime.text =
+                            displayFormat.format(date).replace("am", "AM").replace("pm", "PM")
                         endTime = parseFormat.format(date).toString()
                     }
                 }

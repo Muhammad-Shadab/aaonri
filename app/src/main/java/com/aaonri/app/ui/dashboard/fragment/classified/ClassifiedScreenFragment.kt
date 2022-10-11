@@ -57,7 +57,7 @@ class ClassifiedScreenFragment : Fragment() {
     var addId = 0
     var isUserLogin: Boolean? = null
     private val tabTitles =
-        arrayListOf("All Classifieds", "My Classifieds", "My Favourite Classifieds")
+        arrayListOf("All Classifieds", "My Classifieds", "Fav Classifieds")
     var noOfSelection = 0
 
     @SuppressLint("InflateParams")

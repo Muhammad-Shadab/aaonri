@@ -145,7 +145,7 @@
                                     android:gravity="center_vertical"
                                     android:includeFontPadding="false"
                                     android:maxLines="1"
-                                    android:text="Posted On"
+                                    android:text="Posted on"
                                     android:textColor="#484747"
                                     android:textSize="12sp"
                                     app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />
@@ -159,7 +159,7 @@
                                     android:gravity="center_vertical"
                                     android:includeFontPadding="false"
                                     android:maxLines="1"
-                                    android:text="Valid Up To"
+                                    android:text="Valid up to"
                                     android:textColor="#484747"
                                     android:textSize="12sp"
                                     app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv" />

@@ -1,5 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -12,6 +14,7 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -50,6 +53,7 @@ class PostEventAddressDetailsFragment : Fragment() {
     var startDate = ""
     var endDate = ""
 
+    @SuppressLint("ClickableViewAccessibility", "ServiceCast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -296,6 +300,23 @@ class PostEventAddressDetailsFragment : Fragment() {
                     }
                 }
             }
+
+            socialMediaLinkEt.setOnTouchListener { view, motionEvent ->
+                if (!socialMediaLinkEt.text.toString().contains("https://")) {
+                    socialMediaLinkEt.setText("https://")
+                }
+                socialMediaLinkEt.requestFocus()
+                socialMediaLinkEt.setSelection(socialMediaLinkEt.length())
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_FORCED,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+                return@setOnTouchListener true
+            }
+
+
         }
 
 

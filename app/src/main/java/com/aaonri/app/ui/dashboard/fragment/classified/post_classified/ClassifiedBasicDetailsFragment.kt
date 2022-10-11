@@ -82,7 +82,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                         ) {
                             if (price.isNotEmpty() && price.length < 9) {
                                 if (price.toDouble() < 999999999 && price.toDouble() >= 1) {
-                                    if (classifiedDescEt.text.isNotEmpty()) {
+                                    if (classifiedDescEt.text.trim().isNotEmpty()) {
                                         postClassifiedViewModel.addIsProductNewCheckBox(
                                             isProductNewCheckBox.isChecked
                                         )
@@ -123,7 +123,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
             classifiedDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditorActivity::class.java)
                 intent.putExtra("data", description)
-                intent.putExtra("placeholder", "Please describe what you are selling?")
+                intent.putExtra("placeholder", "Please describe what you are selling?*")
                 resultLauncher.launch(intent)
             }
 

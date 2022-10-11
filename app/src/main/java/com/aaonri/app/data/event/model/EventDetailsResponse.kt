@@ -10,7 +10,7 @@ data class EventDetailsResponse(
     val createdBy: String,
     val createdOn: String,
     val delImages: Any,
-    val description: String,
+    val description: String?,
     val endDate: String,
     val endTime: String,
     val eventPlace: String,

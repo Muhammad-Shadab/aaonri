@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/textOnlyFl"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_100sdp"
-    android:id="@+id/textOnlyFl"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/image_with_text_border">
+
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imageOnlyCv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageOnlyCv"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp">
-
 
 
         <ImageView
@@ -25,14 +25,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/ad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ad_backdround_shape"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:gravity="center"
-            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
             android:textColor="#FC0000"

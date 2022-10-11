@@ -392,6 +392,7 @@
             android:id="@+id/classifiedScreenTabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/tab_background_shape"
             app:layout_constraintEnd_toEndOf="parent"
@@ -399,7 +400,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="auto"
+            app:tabMode="fixed"
             app:tabPaddingEnd="@dimen/_2sdp"
             app:tabPaddingStart="@dimen/_2sdp"
             app:tabRippleColor="@null" />

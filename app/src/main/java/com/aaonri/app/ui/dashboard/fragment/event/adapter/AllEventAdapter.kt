@@ -46,8 +46,7 @@ class AllEventAdapter(private var selectedServices: ((value: Event) -> Unit)) :
                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         .parse(data[position].startDate.split("T")[0])
                 )
-                startTimeOfEvent = LocalTime.parse(data[position].startTime)
-                    .format(DateTimeFormatter.ofPattern("h:mma"))
+                startTimeOfEvent = LocalTime.parse(data[position].startTime).format(DateTimeFormatter.ofPattern("h:mma"))
                 /*endTimeOfEvent = LocalTime.parse(data[position].endTime)
                     .format(DateTimeFormatter.ofPattern("h:mma"))*/
                 timeZone = data[position].timeZone

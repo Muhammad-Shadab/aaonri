@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.model.UserEvent
-import com.aaonri.app.ui.dashboard.home.adapter.HomeScreenViewHolders
 import com.aaonri.app.databinding.EventAdvertiseItemBinding
 import com.aaonri.app.databinding.EventItemBinding
+import com.aaonri.app.ui.dashboard.home.adapter.HomeScreenViewHolders
 
 class EventGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
 
@@ -67,12 +67,12 @@ class EventGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
         }
     }
 
-    override fun getItemCount(): Int = if (items?.isNotEmpty() == true) 4 else 0
+    override fun getItemCount(): Int = if (items?.isNotEmpty() == true) items?.size!! else 0
 
     override fun getItemViewType(position: Int): Int {
         return when (items?.get(position)) {
             is UserEvent -> R.layout.event_item
-            is FindAllActiveAdvertiseResponseItem -> R.layout.event_advertise_item
+            //is FindAllActiveAdvertiseResponseItem -> R.layout.event_advertise_item
             else -> R.layout.event_item
         }
     }

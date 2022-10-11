@@ -14,6 +14,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -561,7 +562,13 @@ class ClassifiedDetailsFragment : Fragment() {
         binding?.addTitle?.visibility = View.VISIBLE
         binding?.navigateBack?.visibility = View.VISIBLE
         binding?.classifiedDescTv?.textSize = 14F
-        binding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
+        if (data.adDescription != null && data.adDescription.isNotEmpty()) {
+            binding?.classifiedDescTv?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(data.adDescription, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(data.adDescription)
+            }
+        }
         binding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
         binding?.sellerName?.text =

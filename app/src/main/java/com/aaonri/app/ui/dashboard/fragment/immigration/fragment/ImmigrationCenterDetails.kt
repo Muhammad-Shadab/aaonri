@@ -59,9 +59,11 @@ class ImmigrationCenterDetails : Fragment() {
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
+
         }
         return binding?.root
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null

@@ -237,7 +237,7 @@ class MyEventFragment : Fragment() {
                         binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
 
                     } else {
-                        adRvposition1 += 2
+                        adRvposition1 += 3
                         binding?.topAdvertiseRv?.smoothScrollToPosition(adRvposition1)
                     }
                 }
@@ -270,7 +270,7 @@ class MyEventFragment : Fragment() {
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
 
                     } else {
-                        adRvposition2 += 2
+                        adRvposition2 += 3
                         binding?.bottomAdvertiseRv?.smoothScrollToPosition(adRvposition2)
                     }
                 }

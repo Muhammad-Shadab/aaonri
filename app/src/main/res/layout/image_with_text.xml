@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_100sdp"
     android:background="@drawable/image_with_text_border">
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/imageOnlyCv"
         android:layout_width="match_parent"
@@ -28,16 +29,16 @@
             android:id="@+id/ad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ad_backdround_shape"
             android:ellipsize="end"
             android:fontFamily="@font/sf_pro_semi_bold"
             android:gravity="center"
-            android:background="@drawable/ad_backdround_shape"
             android:maxLines="1"
             android:text="ad"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:textColor="#FC0000"
-            android:textSize="@dimen/_8sdp" />
+            android:textSize="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <LinearLayout
@@ -57,15 +58,15 @@
                 android:id="@+id/advertiseDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ad_txt_only_bg"
                 android:ellipsize="end"
-                android:padding="@dimen/_4sdp"
                 android:fontFamily="@font/sf_pro_regular"
                 android:gravity="center_horizontal"
-                android:maxLines="3"
-                android:shadowColor="@color/lightGrey"
                 android:includeFontPadding="false"
+                android:maxLines="3"
+                android:padding="@dimen/_4sdp"
+                android:shadowColor="@color/lightGrey"
                 android:shadowRadius="2"
-                android:background="@drawable/ad_txt_only_bg"
                 android:text="Demzczxczxczxczxasdasdasdasdasdasdasdczxo"
                 android:textColor="@color/black"
                 android:textSize="12sp" />

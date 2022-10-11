@@ -1,11 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.event.post_event
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Outline
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,21 +60,48 @@ class UploadEventPicFragment : Fragment() {
 
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_UPLOAD_PICS)
 
+        val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (!isGranted) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                val uri = Uri.fromParts("package", context?.getPackageName(), null)
+                intent.data = uri
+                startActivity(intent)
+            }
+        }
+
         binding?.apply {
             uploadPicBtn.setOnClickListener {
 
-                if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
-                    ImagePicker.with(requireActivity())
-                        .compress(800)
-                        .maxResultSize(1080, 1080)
-                        .crop()
-                        .createIntent { intent ->
-                            startForClassifiedImageResult.launch(intent)
-                            progressBarPicUpload.visibility = View.VISIBLE
+                if (checkPermissionCameraPermission(Manifest.permission.CAMERA)) {
 
+                    if (image1Uri.isEmpty() || image2Uri.isEmpty() || image3Uri.isEmpty() || image4Uri.isEmpty()) {
+                        if (image1Uri.isEmpty()) {
+                            ImagePicker.with(requireActivity())
+                                .compress(800)
+                                .maxResultSize(1080, 1080)
+                                .crop(3F, 2F)
+                                .createIntent { intent ->
+                                    startForClassifiedImageResult.launch(intent)
+                                    progressBarPicUpload.visibility = View.VISIBLE
+
+                                }
+                        } else {
+                            ImagePicker.with(requireActivity())
+                                .compress(800)
+                                .maxResultSize(1080, 1080)
+                                .crop()
+                                .createIntent { intent ->
+                                    startForClassifiedImageResult.launch(intent)
+                                    progressBarPicUpload.visibility = View.VISIBLE
+
+                                }
                         }
+                    }
                 } else {
-
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
                 }
             }
 
@@ -198,8 +229,8 @@ class UploadEventPicFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1).load(image1Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage1?.visibility = View.VISIBLE
@@ -216,16 +247,16 @@ class UploadEventPicFragment : Fragment() {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.selectedImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1).load(image2Uri)
                                 .error(R.drawable.small_image_placeholder).into(
-                                it
-                            )
+                                    it
+                                )
                         }
                     }
                     binding?.deleteImage2?.visibility = View.VISIBLE
@@ -757,8 +788,17 @@ class UploadEventPicFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun checkPermissionCameraPermission(permission: String): Boolean {
+        return context?.let {
+            ContextCompat.checkSelfPermission(
+                it,
+                permission
+            )
+        } == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

@@ -179,7 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_light"
-                        android:text="I want edit my advertisement"
+                        android:text="I want to edit my advertisement"
                         android:textColor="#333333"
                         android:textSize="11sp" />
 

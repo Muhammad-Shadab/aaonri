@@ -234,7 +234,14 @@ class MoreScreenFragment : Fragment() {
 
             servicesGridRecyclerView.adapter = adapter
             servicesGridRecyclerView.layoutManager = gridLayoutManager
-            gridLayoutManager?.smoothScrollToPosition(servicesGridRecyclerView, null, 0)
+
+            dashboardCommonViewModel.moreScreenContentScrollToTop.observe(viewLifecycleOwner) {
+                if (it) {
+                    gridLayoutManager?.smoothScrollToPosition(servicesGridRecyclerView, null, 0)
+                    dashboardCommonViewModel.setMoreScreenContentScrollToTop(false)
+                }
+            }
+
         }
 
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->

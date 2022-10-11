@@ -316,6 +316,7 @@
                     android:layout_marginStart="@dimen/_32sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_32sdp"
+                    android:layout_marginBottom="@dimen/_60sdp"
                     android:background="@drawable/multiline_textfield_shape"
                     android:fillViewport="true">
 
@@ -364,20 +365,6 @@
                          android:textSize="16sp"
                          tools:ignore="RtlHardcoded" />
                  </androidx.core.widget.NestedScrollView>-->
-
-                <TextView
-                    android:id="@+id/descLength"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_28sdp"
-                    android:layout_marginBottom="@dimen/_50sdp"
-                    android:fontFamily="@font/sf_pro_regular"
-                    android:text="0/2000"
-                    android:textColor="@color/hintColor"
-                    android:textSize="12sp"
-                    android:visibility="visible" />
 
 
             </LinearLayout>

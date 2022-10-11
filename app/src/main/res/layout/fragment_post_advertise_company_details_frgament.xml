@@ -175,7 +175,7 @@
                     android:layout_margin="@dimen/_2sdp"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="left"
-                    android:hint="Please describe your business or service"
+                    android:hint="Please describe your business or service*"
                     android:includeFontPadding="false"
                     android:maxLength="2000"
                     android:padding="@dimen/_5sdp"

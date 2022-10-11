@@ -37,6 +37,28 @@ class PostAdvertiseTermConditionFragment : Fragment() {
 
         postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TERMS_AND_CONDITION)
 
+        val contactUsText = SpannableString(
+            resources.getString(R.string.for_any_other)
+        )
+
+        val aoonriLink: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+//                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
+
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        contactUsText.setSpan(aoonriLink, 46, 66, 0)
+
         if (postAdvertiseViewModel.isRenewAdvertise) {
             findNavController().navigate(R.id.action_postAdvertiseTermConditionFragment2_to_postAdvertiseCheckout)
         }
@@ -101,18 +123,20 @@ class PostAdvertiseTermConditionFragment : Fragment() {
 
         binding?.apply {
 
-
-            textTv1.movementMethod = LinkMovementMethod.getInstance()
+            /*textTv1.movementMethod = LinkMovementMethod.getInstance()
             textTv1.isSelected = true
 
             textTv2.movementMethod = LinkMovementMethod.getInstance()
             textTv2.isSelected = true
 
             textTv3.movementMethod = LinkMovementMethod.getInstance()
-            textTv3.isSelected = true
+            textTv3.isSelected = true*/
 
+            textTv4.setText(contactUsText, TextView.BufferType.SPANNABLE)
             textTv4.movementMethod = LinkMovementMethod.getInstance()
             textTv4.isSelected = true
+
+
 
             advertisePostNextBtn.setOnClickListener {
                 if (agreeCheckboxClassified.isChecked) {

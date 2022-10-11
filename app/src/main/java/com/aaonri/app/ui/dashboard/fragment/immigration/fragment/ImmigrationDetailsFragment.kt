@@ -17,7 +17,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.*
@@ -37,7 +36,6 @@ class ImmigrationDetailsFragment : Fragment() {
     var binding: FragmentImmigrationDetailsFrgamentBinding? = null
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     var immigrationAdapter: ImmigrationAdapter? = null
-    val args: ImmigrationDetailsFragmentArgs by navArgs()
     var discussion: Discussion? = null
     var callAllImmigrationApi = false
 
@@ -125,7 +123,7 @@ class ImmigrationDetailsFragment : Fragment() {
                         immigrationViewModel.replyDiscussion(
                             ReplyDiscussionRequest(
                                 createdByUserId = userId ?: 0,
-                                discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else args.discussionId.toString(),
+                                discussionId = if (discussion?.discussionId != null) discussion?.discussionId.toString() else "",
                                 id = 0,
                                 parentId = 0,
                                 replyDesc = postReplyEt.text.toString(),
@@ -194,12 +192,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (args.discussionId != 0) {
-                        /** If user comes from the home screen search then it wil not be zero **/
-                        immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
-                    } else {
-                        immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
-                    }
+                    immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -231,23 +224,17 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (args.discussionId != 0) {
-                        /** If user comes from the home screen search then it wil not be zero **/
-                        immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
-                    } else {
-                        immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
-                    }
+                    immigrationViewModel.getDiscussionDetailsById(discussion?.discussionId.toString())
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
-
         }
 
-        if (args.discussionId != 0) {
+        /*if (args.discussionId != 0) {
             immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
-        }
+        }*/
 
         /* requireActivity()
              .onBackPressedDispatcher
