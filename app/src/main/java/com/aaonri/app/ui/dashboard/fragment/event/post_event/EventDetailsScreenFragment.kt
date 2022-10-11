@@ -147,8 +147,7 @@ class EventDetailsScreenFragment : Fragment() {
             }
 
             if (ActiveAdvertiseStaticData.getAdvertiseOnEventDetails().isNotEmpty()) {
-                adsGenericAdapter?.items =
-                    ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
+                adsGenericAdapter?.items = ActiveAdvertiseStaticData.getAdvertiseOnEventDetails()
 
                 layoutManager = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
                 bottomAdvertiseRv.layoutManager = layoutManager

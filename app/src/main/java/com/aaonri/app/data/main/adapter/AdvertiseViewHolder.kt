@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.text.Html
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.BuildConfig
@@ -35,6 +36,7 @@ sealed class AdvertiseViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     )
                 }
             }
+
             binding.advertiseDesc.text =
                 Html.fromHtml(findAllActiveAdvertiseResponseItem.advertisementDetails.adDescription)
                     .trim()

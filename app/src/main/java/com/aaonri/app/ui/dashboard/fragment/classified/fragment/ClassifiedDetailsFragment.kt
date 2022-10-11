@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -53,6 +54,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
@@ -260,27 +264,55 @@ class ClassifiedDetailsFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 if (isUserLogin == true) {
+
+                    val bitmap = addImage.drawable.toBitmap()
+                    val shareIntent: Intent
+                    var path =
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                            .toString() + "/Share.png"
+                    var out: OutputStream? = null
+                    val file = File(path)
                     try {
-                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
-                        val bytes = ByteArrayOutputStream()
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                        val path = MediaStore.Images.Media.insertImage(
-                            requireContext().contentResolver,
-                            bitmap,
-                            "tempimage",
-                            null
-                        )
-                        val uri = Uri.parse(path)
-                        intent.putExtra(Intent.EXTRA_STREAM, uri)
-                        intent.type = "text/plain"
-                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                        val shareSub = "${baseUrl}/classified/details/${args.addId}"
-                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-                        startActivity(intent)
-                    } catch (e: Exception) {
-                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                        out = FileOutputStream(file)
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                        out.flush()
+                        out.close()
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
                     }
+                    path = file.path
+                    val bmpUri = Uri.parse("$path")
+                    shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/classified/details/${args.addId}"
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    shareIntent.type = "image/png"
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))
+
+//                    try {
+//                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+//                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
+//                        val bytes = ByteArrayOutputStream()
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+//                        val path = MediaStore.Images.Media.insertImage(
+//                            requireContext().contentResolver,
+//                            bitmap,
+//                            "tempimage",
+//                            null
+//                        )
+//                        val uri = Uri.parse(path)
+//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+//                        intent.type = "text/plain"
+//                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+//                        val shareSub = "${baseUrl}/classified/details/${args.addId}"
+//                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
+//                        startActivity(intent)
+//                    } catch (e: Exception) {
+//                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+//                    }
+
                 } else {
                     guestUserLoginDialog.show()
                 }
@@ -288,26 +320,30 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
 
-                    response.data?.let {
-                        setClassifiedDetails(it.userAds)
-                        ClassifiedStaticData.updateAddDetails(it)
+                        response.data?.let {
+                            setClassifiedDetails(it.userAds)
+                            ClassifiedStaticData.updateAddDetails(it)
+                        }
+                        postClassifiedViewModel.classifiedAdDetailsData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    else -> {
                     }
                 }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-                }
             }
+
         }
 
         classifiedViewModel.classifiedSellerNameData.observe(viewLifecycleOwner) { response ->
@@ -381,7 +417,6 @@ class ClassifiedDetailsFragment : Fragment() {
         data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
 
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
-
             when (index) {
                 0 -> {
                     binding?.addImage?.let {
@@ -487,7 +522,6 @@ class ClassifiedDetailsFragment : Fragment() {
         binding?.image1?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 0) {
-
                     binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
@@ -616,7 +650,21 @@ class ClassifiedDetailsFragment : Fragment() {
         )
 
 
-        if (data.adEmail.isNotEmpty()) {
+        if (data.contactType == "Email") {
+            if (data.adEmail.isNotEmpty()) {
+                isEmailAvailable = data.adEmail
+                isPhoneAvailable = ""
+                binding?.emailTv?.text = "Email"
+                binding?.classifiedSellerEmail?.text = data.adEmail
+            }
+        } else {
+            isEmailAvailable = ""
+            isPhoneAvailable = data.adPhone
+            binding?.emailTv?.text = "Phone"
+            binding?.classifiedSellerEmail?.text = data.adPhone
+        }
+
+        /*if (data.adEmail.isNotEmpty()) {
             isEmailAvailable = data.adEmail
             isPhoneAvailable = data.adPhone
             binding?.emailTv?.text = "Email"
@@ -626,7 +674,7 @@ class ClassifiedDetailsFragment : Fragment() {
             isPhoneAvailable = data.adPhone
             binding?.emailTv?.text = "Phone"
             binding?.classifiedSellerEmail?.text = data.adPhone
-        }
+        }*/
 
         if (isUserLogin == false) {
             binding?.sellerInformationLayout?.visibility = View.GONE
@@ -959,28 +1007,8 @@ class ClassifiedDetailsFragment : Fragment() {
             }
             timer!!.schedule(timerTask, 4000, 4000)
         }
-
-
     }
 
-    fun showSnckBar() {
-        val snackbar =
-            binding?.let {
-                Snackbar.make(it.mainCl, "Please Login First", Snackbar.LENGTH_SHORT)
-                    .setActionTextColor(
-                        resources.getColor(
-                            R.color
-                                .lightRedColor
-                        )
-                    )
-                    .setAction(
-                        "Login"
-                    ) {
-                        activity?.finish()
-                    }
-            }
-        snackbar?.show()
-    }
 
 }
 
