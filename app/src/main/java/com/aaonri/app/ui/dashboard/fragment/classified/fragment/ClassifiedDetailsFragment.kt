@@ -408,6 +408,9 @@ class ClassifiedDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
+
+        classifiedViewModel.getClassifiedSellerName(data.userId)
+
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
             if (!data.approved) {
@@ -535,9 +538,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 }
             }
         }
-
-
-
         binding?.image2?.setOnClickListener {
             data.userAdsImages.forEachIndexed { index, userAdsImage ->
                 if (index == 1) {
@@ -603,10 +603,9 @@ class ClassifiedDetailsFragment : Fragment() {
                 Html.fromHtml(data.adDescription)
             }
         }
+
         binding?.classifiedLocationDetails?.text =
             data.adLocation + " - " + data.adZip
-        binding?.sellerName?.text =
-            classifiedViewModel.getClassifiedSellerName(data.adEmail).toString()
 
         binding?.postedDate1?.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(data.createdOn.split("T")[0]))
