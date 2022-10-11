@@ -61,6 +61,9 @@
 -keep class com.aaonri.app.data.authentication.login.model.** { *; }
 -keepclassmembers class com.aaonri.app.data.authentication.login.model.** { *; }
 
+-keep class com.aaonri.app.data.authentication.register.model.** { *; }
+-keepclassmembers class com.aaonri.app.data.authentication.register.model.** { *; }
+
 -keep class com.aaonri.app.data.classified.model.** { *; }
 -keepclassmembers class com.aaonri.app.data.classified.model.** { *; }
 
