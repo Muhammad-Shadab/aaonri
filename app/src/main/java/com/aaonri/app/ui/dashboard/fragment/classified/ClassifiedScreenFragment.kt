@@ -72,10 +72,6 @@ class ClassifiedScreenFragment : Fragment() {
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
 
-        val intent = Intent(context, LoginActivity::class.java)
-        startActivity(intent)
-        activity?.finish()
-
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
