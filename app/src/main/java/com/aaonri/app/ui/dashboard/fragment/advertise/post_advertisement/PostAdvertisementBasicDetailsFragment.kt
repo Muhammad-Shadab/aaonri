@@ -85,7 +85,15 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             chooseTemplatell.setOnClickListener {
 
                 if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                    if (advertiseImage?.isEmpty() == true || postAdvertiseViewModel.isUpdateAdvertise) {
+                    ImagePicker.with(requireActivity())
+                        .compress(1024)
+                        .cropSquare()
+                        .maxResultSize(1080, 1080)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                            progressBarBasicDetails.visibility = View.VISIBLE
+                        }
+                    /*if (advertiseImage?.isEmpty() == true || postAdvertiseViewModel.isUpdateAdvertise) {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
                             .cropSquare()
@@ -94,7 +102,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                                 startForProfileImageResult.launch(intent)
                                 progressBarBasicDetails.visibility = View.VISIBLE
                             }
-                    }
+                    }*/
                 }
             }
 
@@ -362,7 +370,6 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         binding?.selectAdvertiseTemplateSpinner?.isEnabled = false
                         binding?.chooseTemplatell?.visibility = View.GONE
                     } else if (advertisePageLocationResponseItem?.type == "IMGONLY") {
-
                         binding?.advertiseDescEt?.isEnabled = false
                         if (!templateName.contains("Image Only")) {
                             templateName.add("Image Only")
@@ -387,6 +394,23 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             true
                         )
                     }
+
+
+                    when(advertisePageLocationResponseItem?.type){
+                        "TXTONLY" -> {
+                            binding?.selectAdvertiseTemplateSpinner?.setSelection(
+                                1,
+                                true
+                            )
+                        }
+                        "IMGONLY" -> {
+                            binding?.selectAdvertiseTemplateSpinner?.setSelection(
+                                1,
+                                true
+                            )
+                        }
+                    }
+
                 }
                 is Resource.Error -> {
 
