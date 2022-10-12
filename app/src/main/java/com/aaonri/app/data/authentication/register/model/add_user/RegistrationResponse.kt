@@ -5,7 +5,7 @@ data class RegistrationResponse(
     val community: Any,
     val count: Int,
     val discusstion: Any,
-    val errorDetails: List<Any>,
+    val errorDetails: List<ErrorDetail>,
     val history: Any,
     val job: Any,
     val message: String,
@@ -15,7 +15,7 @@ data class RegistrationResponse(
     val totalActiveJobs: Int,
     val totalActiveUser: Int,
     val totalActiveUserAds: Int,
-    val user: User,
+    val user: UserX,
     val userAds: Any,
     val userEvent: Any,
     val userInterests: Any

@@ -88,7 +88,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     if (advertiseImage?.isEmpty() == true || postAdvertiseViewModel.isUpdateAdvertise) {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
-                            .crop()
+                            .cropSquare()
                             .maxResultSize(1080, 1080)
                             .createIntent { intent ->
                                 startForProfileImageResult.launch(intent)

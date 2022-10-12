@@ -203,7 +203,7 @@ class ShopScreenFragment : Fragment() {
             }*/
 
             startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
-            requireActivity()
+            /*requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
@@ -213,7 +213,7 @@ class ShopScreenFragment : Fragment() {
                             findNavController().navigateUp()
                         }
                     }
-                })
+                })*/
         }
         return binding?.root
     }

@@ -57,7 +57,7 @@ class ClassifiedScreenFragment : Fragment() {
     var addId = 0
     var isUserLogin: Boolean? = null
     private val tabTitles =
-        arrayListOf("All Classifieds", "My Classifieds", "Fav Classifieds")
+        arrayListOf("All Classifieds", "My Classifieds", "Favourites")
     var noOfSelection = 0
 
     @SuppressLint("InflateParams")
@@ -71,6 +71,10 @@ class ClassifiedScreenFragment : Fragment() {
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
         val fragment = this
         val classifiedPagerAdapter = ClassifiedPagerAdapter(fragment)
+
+        val intent = Intent(context, LoginActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }

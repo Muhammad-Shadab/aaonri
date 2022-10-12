@@ -400,11 +400,14 @@ class ServicesCategoryFragment : Fragment() {
                             }
                         }
                     } else {
-                        Toast.makeText(
-                            context,
-                            response.data?.errorDetails.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        response.data?.errorDetails?.forEachIndexed { index, errorDetail ->
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "${errorDetail.errorMessage.replace("<","").replace(">","")}", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
                 }
                 is Resource.Error -> {

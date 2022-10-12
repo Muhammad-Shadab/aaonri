@@ -86,7 +86,6 @@ class UploadEventPicFragment : Fragment() {
                                 .createIntent { intent ->
                                     startForClassifiedImageResult.launch(intent)
                                     progressBarPicUpload.visibility = View.VISIBLE
-
                                 }
                         } else {
                             ImagePicker.with(requireActivity())

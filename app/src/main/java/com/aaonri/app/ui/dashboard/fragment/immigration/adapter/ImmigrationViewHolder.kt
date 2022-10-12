@@ -164,7 +164,11 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                 if (userId != 0) {
                     if (discussionDetailsResponseItem.createdBy == userId) {
                         deleteComment.visibility = View.VISIBLE
+                    } else {
+                        deleteComment.visibility = View.GONE
                     }
+                } else {
+                    deleteComment.visibility = View.GONE
                 }
 
                 // deleteReplyClickListener?.invoke()
