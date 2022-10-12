@@ -50,6 +50,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
     var isTextOnly = false
     var isBoth = false
     var chooseTemplateSelected = false
+    var isNeedToUploadProfile = false
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -85,14 +86,19 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             chooseTemplatell.setOnClickListener {
 
                 if (advertisePageLocationResponseItem?.type != "TXTONLY") {
-                    ImagePicker.with(requireActivity())
-                        .compress(1024)
-                        .cropSquare()
-                        .maxResultSize(1080, 1080)
-                        .createIntent { intent ->
-                            startForProfileImageResult.launch(intent)
-                            progressBarBasicDetails.visibility = View.VISIBLE
-                        }
+                    if (isNeedToUploadProfile) {
+                        ImagePicker.with(requireActivity())
+                            .compress(1024)
+                            .cropSquare()
+                            .maxResultSize(1080, 1080)
+                            .createIntent { intent ->
+                                startForProfileImageResult.launch(intent)
+                                progressBarBasicDetails.visibility = View.VISIBLE
+                            }
+                    } else {
+                        showAlert("Please choose template")
+                    }
+
                     /*if (advertiseImage?.isEmpty() == true || postAdvertiseViewModel.isUpdateAdvertise) {
                         ImagePicker.with(requireActivity())
                             .compress(1024)
@@ -244,6 +250,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             binding?.advertiseDescEt?.setText("")
                             description = ""
                             spinnerTemplateCode = ""
+                            isNeedToUploadProfile = false
                             chooseTemplateSelected = true
                             openRichTextEditor = false
                             isImageOnly = false
@@ -254,6 +261,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     "Image Only" -> {
                         binding?.advertiseDescEt?.setText("")
                         description = ""
+                        isNeedToUploadProfile = true
                         chooseTemplateSelected = false
                         spinnerTemplateCode = "IMON"
                         openRichTextEditor = false
@@ -263,6 +271,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     }
                     "Image with text on bottom" -> {
                         spinnerTemplateCode = "IMTB"
+                        isNeedToUploadProfile = true
                         chooseTemplateSelected = false
                         openRichTextEditor = true
                         isBoth = true
@@ -271,6 +280,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     }
                     "Image with text on left side" -> {
                         spinnerTemplateCode = "IMTL"
+                        isNeedToUploadProfile = true
                         openRichTextEditor = true
                         chooseTemplateSelected = false
                         isBoth = true
@@ -281,6 +291,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                         binding?.advertiseDescEt?.setText("")
                         description = ""
                         spinnerTemplateCode = "TXON"
+                        isNeedToUploadProfile = false
                         chooseTemplateSelected = false
                         openRichTextEditor = true
                         isTextOnly = true
@@ -396,19 +407,11 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                     }
 
 
-                    when(advertisePageLocationResponseItem?.type){
-                        "TXTONLY" -> {
-                            binding?.selectAdvertiseTemplateSpinner?.setSelection(
-                                1,
-                                true
-                            )
-                        }
-                        "IMGONLY" -> {
-                            binding?.selectAdvertiseTemplateSpinner?.setSelection(
-                                1,
-                                true
-                            )
-                        }
+                    if (advertisePageLocationResponseItem?.type == "TXTONLY" || advertisePageLocationResponseItem?.type == "IMGONLY") {
+                        binding?.selectAdvertiseTemplateSpinner?.setSelection(
+                            1,
+                            true
+                        )
                     }
 
                 }
@@ -439,6 +442,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "TXON") {
                 binding?.chooseTemplatell?.visibility = View.GONE
+                isNeedToUploadProfile = false
                 chooseTemplateSelected = false
                 openPreview = false
                 openRichTextEditor = false
@@ -449,6 +453,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "IMON") {
                 binding?.advertiseDescEtNestedScroll?.visibility = View.GONE
+                isNeedToUploadProfile = true
                 openPreview = false
                 chooseTemplateSelected = false
                 openRichTextEditor = false
@@ -459,6 +464,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "IMTB") {
                 binding?.advertiseDescEtNestedScroll?.visibility = View.VISIBLE
+                isNeedToUploadProfile = true
                 openPreview = true
                 chooseTemplateSelected = false
                 openRichTextEditor = true
@@ -469,6 +475,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
             if (AdvertiseStaticData.getAddDetails()?.template?.code == "IMTL") {
                 binding?.advertiseDescEtNestedScroll?.visibility = View.VISIBLE
+                isNeedToUploadProfile = true
                 openPreview = true
                 chooseTemplateSelected = false
                 openRichTextEditor = true
@@ -586,6 +593,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
             when (advertiseData?.advertisementPageLocation?.type) {
                 "IMGONLY" -> {
                     spinnerTemplateCode = "IMON"
+                    isNeedToUploadProfile = true
                     openRichTextEditor = false
                     isImageOnly = true
                     isBoth = false
@@ -593,12 +601,14 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 }
                 "TXTONLY" -> {
                     spinnerTemplateCode = "TXON"
+                    isNeedToUploadProfile = false
                     openRichTextEditor = true
                     isImageOnly = false
                     isBoth = false
                     isTextOnly = true
                 }
                 else -> {
+                    isNeedToUploadProfile = true
                     openRichTextEditor = true
                     isImageOnly = false
                     isBoth = true
@@ -716,6 +726,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
 
     override fun onDestroy() {
         super.onDestroy()
+        setPersistedItem(0)
         binding = null
     }
 }

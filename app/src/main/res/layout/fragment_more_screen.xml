@@ -139,7 +139,7 @@
             android:layout_gravity="center"
             android:layout_marginVertical="@dimen/_12sdp"
             android:fontFamily="@font/sf_pro_regular"
-            android:text="Version: 1.0"
+            android:text="Version: 1.1.2"
             android:textColor="#676767"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
