@@ -573,6 +573,21 @@
                             android:textColor="#333333"
                             android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/reportInappropriateTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_inappropriate"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center_horizontal"
+                            android:background="@color/graycolor"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:textSize="10sp"
+                            android:visibility="visible"
+                            android:layout_marginVertical="@dimen/_4sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/bottomAdvertiseRv"
                             android:layout_width="match_parent"

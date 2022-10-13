@@ -167,7 +167,23 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <TextView
+        android:id="@+id/reportInappropriateTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/report_inappropriate"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:paddingVertical="@dimen/_4sdp"
+        android:textSize="10sp"
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/_4sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/commentCv"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/commentCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
@@ -185,6 +201,7 @@
             android:layout_marginBottom="@dimen/_16sdp"
             android:background="@drawable/edit_text_shape_1"
             android:orientation="horizontal">
+
 
             <EditText
                 android:id="@+id/postReplyEt"

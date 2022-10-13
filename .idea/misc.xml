@@ -124,7 +124,6 @@
         <entry key="app/src/main/res/layout/fragment_home_screen_filter.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_immigartion_screen_frgament.xml" value="0.19972826086956522" />
         <entry key="app/src/main/res/layout/fragment_immigration_category_bottom_sheet.xml" value="0.3692708333333333" />
-        <entry key="app/src/main/res/layout/fragment_immigration_center_details.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_immigration_details_frgament.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_immigration_filter.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_job_details.xml" value="0.2" />
@@ -132,7 +131,7 @@
         <entry key="app/src/main/res/layout/fragment_job_screen.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_job_seeker_filter.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_location_details.xml" value="0.317481884057971" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.4689153439153439" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2568968399711278" />
         <entry key="app/src/main/res/layout/fragment_more_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_my_classified.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/fragment_my_discussion_immigration.xml" value="0.25" />
@@ -162,18 +161,16 @@
         <entry key="app/src/main/res/layout/fragment_upload_job_profile.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/guest_user_login_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/home_filter_item.xml" value="0.19166666666666668" />
-        <entry key="app/src/main/res/layout/image_only_view_holder.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/image_with_text.xml" value="0.19972826086956522" />
-        <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/immigration_reply_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/immigrations_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/services_grid_item.xml" value="0.9" />
         <entry key="app/src/main/res/layout/text_only_item.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/layout/update_profile_dialog.xml" value="0.67" />
-        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19270833333333334" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

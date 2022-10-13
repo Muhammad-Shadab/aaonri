@@ -319,9 +319,9 @@ class ClassifiedDetailsFragment : Fragment() {
                 selectorIntent.data = Uri.parse("mailto:")
 
                 val emailIntent = Intent(Intent.ACTION_SEND)
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@aaonri.com"))
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact Us!")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to say something...\n\n")
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/classified/details/${args.addId}")
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))

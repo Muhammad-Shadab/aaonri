@@ -399,6 +399,19 @@ class EventDetailsScreenFragment : Fragment() {
                     guestUserLoginDialog.show()
                 }
             }
+
+            reportInappropriateTv.setOnClickListener {
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/event/details/${args.eventId}")
+                emailIntent.selector = selectorIntent
+
+                activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
         }
 
 

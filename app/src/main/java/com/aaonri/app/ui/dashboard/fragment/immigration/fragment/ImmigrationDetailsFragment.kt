@@ -3,7 +3,9 @@ package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -173,6 +176,20 @@ class ImmigrationDetailsFragment : Fragment() {
                     immigrationViewModel.selectedDiscussionItem.postValue(null)
                 }
             }
+
+            reportInappropriateTv.setOnClickListener {
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/immigration-forum-details?forumId=${discussion?.discussionId}")
+                emailIntent.selector = selectorIntent
+
+                activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
         }
 
         binding?.postReplyEt?.addTextChangedListener { editable ->
