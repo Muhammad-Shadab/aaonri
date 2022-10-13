@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -161,9 +162,9 @@ class PostEventAddressDetailsFragment : Fragment() {
             }
 
             textDesc1.text = ss
-            /*privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
+            privacyTextTv.movementMethod = LinkMovementMethod.getInstance()
             privacyTextTv.setText(SpanString, TextView.BufferType.SPANNABLE)
-            privacyTextTv.isSelected = true*/
+            privacyTextTv.isSelected = true
 
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
 

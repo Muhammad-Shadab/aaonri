@@ -156,9 +156,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
             textDesc1.text = ss
             textDec2.text = ss1
-            /*textDec3.movementMethod = LinkMovementMethod.getInstance()
+            textDec3.movementMethod = LinkMovementMethod.getInstance()
             textDec3.setText(SpanString, TextView.BufferType.SPANNABLE)
-            textDec3.isSelected = true*/
+            textDec3.isSelected = true
             textDesc1.movementMethod = LinkMovementMethod.getInstance()
             textDec2.movementMethod = LinkMovementMethod.getInstance()
 
