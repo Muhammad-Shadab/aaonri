@@ -32,6 +32,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.authentication.AuthConstant
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
@@ -91,8 +92,9 @@ class ServicesCategoryFragment : Fragment() {
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                /*val action = ServicesCategoryFragmentDirections.actionServicesCategoryFragmentToAdvertiseWebViewFragment("https://aaonri.com/privacy-policy")
-                findNavController().navigate(action)*/
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -107,8 +109,9 @@ class ServicesCategoryFragment : Fragment() {
 
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                /*val action = ServicesCategoryFragmentDirections.actionServicesCategoryFragmentToAdvertiseWebViewFragment("https://aaonri.com/terms-&-conditions")
-                findNavController().navigate(action)*/
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/about-us")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -404,7 +407,8 @@ class ServicesCategoryFragment : Fragment() {
                             activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
-                                    "${errorDetail.errorMessage.replace("<","").replace(">","")}", Snackbar.LENGTH_LONG
+                                    "${errorDetail.errorMessage.replace("<", "").replace(">", "")}",
+                                    Snackbar.LENGTH_LONG
                                 ).show()
                             }
                         }
@@ -464,6 +468,7 @@ class ServicesCategoryFragment : Fragment() {
 
         if (authCommonViewModel.isUpdateProfile) {
             binding?.serviceSubmitBtn?.text = "UPDATE"
+            binding?.privacyPolicyRegistrationTv?.visibility = View.GONE
             UserProfileStaticData.getUserProfileDataValue()?.let {
                 adapter?.setSelectedServicesList(it.interests.replace("17", ""))
                 if (it.isJobRecruiter) {

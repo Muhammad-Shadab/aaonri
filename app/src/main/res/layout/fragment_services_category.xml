@@ -263,7 +263,7 @@
                 android:text="@string/by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"
                 android:textColor="@color/textViewColor"
                 android:textSize="12sp"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </LinearLayout>
 

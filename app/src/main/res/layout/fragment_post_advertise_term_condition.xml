@@ -274,12 +274,12 @@
                     android:minHeight="0dp" />
 
                 <TextView
-                    android:id="@+id/privacyTextTv"
+                    android:id="@+id/privacyPolicyTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:fontFamily="@font/sf_pro_regular"
-                    android:text="@string/by_posting_an_ad_on_aaonri_advertise"
+                    android:text="@string/by_continuing_you_agree_to_our_privacy_policy_terms_of_use"
                     android:textColor="@color/textViewColor"
                     android:textSize="12sp" />
 

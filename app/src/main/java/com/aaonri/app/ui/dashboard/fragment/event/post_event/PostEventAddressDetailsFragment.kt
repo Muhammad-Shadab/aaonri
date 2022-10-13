@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -24,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.PostEventRequest
@@ -69,7 +69,6 @@ class PostEventAddressDetailsFragment : Fragment() {
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
                 val emailIntent = Intent(
                     Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "events@aaonri.com", null
@@ -95,9 +94,11 @@ class PostEventAddressDetailsFragment : Fragment() {
             resources.getString(R.string.by_posting_an_ad)
         )
 
-        val teremsAndCondition: ClickableSpan = object : ClickableSpan() {
+        val termsAndCondition: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-//                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/about-us")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -111,8 +112,9 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
         val privacy: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-//                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
-
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -124,8 +126,8 @@ class PostEventAddressDetailsFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-        /*SpanString.setSpan(teremsAndCondition, 50, 62, 0)
-        SpanString.setSpan(privacy, 71, 85, 0)*/
+        SpanString.setSpan(termsAndCondition, 50, 62, 0)
+        SpanString.setSpan(privacy, 71, 85, 0)
 
         val inputFormat = SimpleDateFormat("MM-dd-yyyy")
         val outputFormat = SimpleDateFormat("yyyy-MM-dd")

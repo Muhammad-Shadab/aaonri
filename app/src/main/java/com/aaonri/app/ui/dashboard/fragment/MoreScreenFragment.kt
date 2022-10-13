@@ -3,6 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -162,6 +164,8 @@ class MoreScreenFragment : Fragment() {
                 dialog.dismiss()
             }
 
+
+
             logOutBtn.setOnClickListener {
                 dialog.dismiss()
                 val builder = AlertDialog.Builder(context)
@@ -230,6 +234,37 @@ class MoreScreenFragment : Fragment() {
 
             closeDialogBtn.setOnClickListener {
                 dialog.dismiss()
+            }
+
+            aboutAoonriCv.setOnClickListener {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url","https://aaonri.com/about-us")
+                activity?.startActivity(intent)
+            }
+
+            privacyPolicyCv.setOnClickListener {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url","https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
+            }
+
+            contactUsCv.setOnClickListener {
+                /*val intent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:" + "info@aaonri.com"))
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Contact Us!")
+                intent.putExtra(Intent.EXTRA_TEXT,"Dear aaonri admin, \n\nI would like to say something...\n\n")
+                activity?.startActivity(intent)*/
+
+
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@aaonri.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact Us!")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to say something...\n\n")
+                emailIntent.selector = selectorIntent
+
+                activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
             }
 
             servicesGridRecyclerView.adapter = adapter

@@ -1,14 +1,26 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.post_immigration
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
 import com.aaonri.app.data.immigration.model.PostDiscussionRequest
@@ -36,7 +48,52 @@ class PostImmigrationFragment : Fragment() {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+        val ss =
+            SpannableString(resources.getString(R.string.bu_submitting_you_agree_to_our_privacy_policy))
+
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/about-us")
+                activity?.startActivity(intent)
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        Toast.makeText(context, "${ss.indexOf("Privacy")}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "${ss.indexOf("&")}", Toast.LENGTH_SHORT).show()
+        ss.setSpan(clickableSpan1, 31, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan2, 49, 61, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         binding?.apply {
+
+            privacyPolicyTv.text = ss
+            privacyPolicyTv.movementMethod = LinkMovementMethod.getInstance()
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -54,38 +111,41 @@ class PostImmigrationFragment : Fragment() {
                 if (discussionTopicEt.text.toString().length >= 3) {
                     if (selectImmigrationCategory.text.toString().isNotEmpty()) {
                         if (descEt.text.toString().length >= 3) {
-
-                            if (args.isUpdateImmigration) {
-                                /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
-                                    false
-                                )
-                                immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
-                                    false
-                                )*/
-                                immigrationViewModel.updateDiscussion(
-                                    UpdateDiscussionRequest(
-                                        discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else if (discussionData?.discCatId != null) discussionData!!.discCatId else 0,
-                                        discussionDesc = descEt.text.toString(),
-                                        discussionTopic = discussionTopicEt.text.toString(),
-                                        userId = email ?: "",
-                                        discussionId = if (discussionData?.discussionId != null) discussionData?.discussionId!! else 0
+                            if (agreeCheckbox.isChecked) {
+                                if (args.isUpdateImmigration) {
+                                    /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                        false
                                     )
-                                )
+                                    immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                                        false
+                                    )*/
+                                    immigrationViewModel.updateDiscussion(
+                                        UpdateDiscussionRequest(
+                                            discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else if (discussionData?.discCatId != null) discussionData!!.discCatId else 0,
+                                            discussionDesc = descEt.text.toString(),
+                                            discussionTopic = discussionTopicEt.text.toString(),
+                                            userId = email ?: "",
+                                            discussionId = if (discussionData?.discussionId != null) discussionData?.discussionId!! else 0
+                                        )
+                                    )
+                                } else {
+                                    /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                        false
+                                    )
+                                    immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                                        false
+                                    )*/
+                                    immigrationViewModel.postDiscussion(
+                                        PostDiscussionRequest(
+                                            discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else 0,
+                                            discussionDesc = descEt.text.toString(),
+                                            discussionTopic = discussionTopicEt.text.toString(),
+                                            userId = email ?: ""
+                                        )
+                                    )
+                                }
                             } else {
-                                /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
-                                    false
-                                )
-                                immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
-                                    false
-                                )*/
-                                immigrationViewModel.postDiscussion(
-                                    PostDiscussionRequest(
-                                        discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else 0,
-                                        discussionDesc = descEt.text.toString(),
-                                        discussionTopic = discussionTopicEt.text.toString(),
-                                        userId = email ?: ""
-                                    )
-                                )
+                                showAlert("Please agree to Terms & Conditions")
                             }
                         } else {
                             showAlert("Please enter valid description")

@@ -1,8 +1,10 @@
 package com.aaonri.app.ui.dashboard.fragment.advertise.post_advertisement
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseTermConditionBinding
@@ -44,7 +47,6 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         val aoonriLink: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
 //                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
-
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -68,6 +70,46 @@ class PostAdvertiseTermConditionFragment : Fragment() {
                 PostAdvertiseTermConditionFragmentDirections.actionPostAdvertiseTermConditionFragment2ToPostAdvertiseCompanyDetailsFrgament2()
             findNavController().navigate(action)
         }
+
+        val ss =
+            SpannableString(resources.getString(R.string.by_continuing_you_agree_to_our_privacy_policy_terms_of_use))
+
+        val clickableSpan1: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/about-us")
+                activity?.startActivity(intent)
+            }
+
+            @RequiresApi(Build.VERSION_CODES.Q)
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = true
+                ds.underlineColor =
+                    context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+                ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
+            }
+        }
+
+        ss.setSpan(clickableSpan1, 31, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan2, 49, 61, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         /*val text1 = SpannableString(
             resources.getString(R.string.after_submit_request_text)
@@ -122,6 +164,9 @@ class PostAdvertiseTermConditionFragment : Fragment() {
 
 
         binding?.apply {
+
+            privacyPolicyTv.text = ss
+            privacyPolicyTv.movementMethod = LinkMovementMethod.getInstance()
 
             /*textTv1.movementMethod = LinkMovementMethod.getInstance()
             textTv1.isSelected = true

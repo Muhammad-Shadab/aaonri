@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
@@ -118,7 +119,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         val teremsAndCondition: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-//                Toast.makeText(context, "TeremsAndCondition", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/about-us")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -132,8 +135,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
         val privacy: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-//                Toast.makeText(context, "privacy", Toast.LENGTH_SHORT).show()
-
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                activity?.startActivity(intent)
             }
 
             @RequiresApi(Build.VERSION_CODES.Q)
@@ -145,8 +149,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 ds.color = context?.let { ContextCompat.getColor(it, R.color.blueBtnColor) }!!
             }
         }
-        //SpanString.setSpan(teremsAndCondition, 50, 62, 0)
-        //SpanString.setSpan(privacy, 71, 85, 0)
+        SpanString.setSpan(teremsAndCondition, 50, 62, 0)
+        SpanString.setSpan(privacy, 71, 85, 0)
 
         binding?.apply {
 

@@ -145,6 +145,8 @@
     <string name="please_review_your_details">Please review your details before applying for this job \nyou can also update your cover letter and resume.</string>
     <string name="we_are_using_your_default">we are using your default profile resume. if you need to change another resume, please click to (x) button and upload the resume from your device</string>
     <string name="by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"><![CDATA[By tapping GET STARTED you agree our Privacy Policy & Terms Of Use]]></string>
+    <string name="bu_submitting_you_agree_to_our_privacy_policy"><![CDATA[By submitting you agree to our Privacy Policy \n& Terms Of Use]]></string>
+    <string name="by_continuing_you_agree_to_our_privacy_policy_terms_of_use"><![CDATA[By continuing you agree to our Privacy Policy \n& Terms of Use]]></string>
 
 
     <string-array name="advertiseValidity">
