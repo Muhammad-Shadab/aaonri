@@ -10,12 +10,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,9 +49,7 @@ import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -317,6 +313,20 @@ class ClassifiedDetailsFragment : Fragment() {
                     guestUserLoginDialog.show()
                 }
             }
+
+            reportInappropriateTv.setOnClickListener {
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@aaonri.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact Us!")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to say something...\n\n")
+                emailIntent.selector = selectorIntent
+
+                activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
         }
 
         postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->

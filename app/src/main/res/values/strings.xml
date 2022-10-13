@@ -147,6 +147,7 @@
     <string name="by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"><![CDATA[By tapping GET STARTED you agree our Privacy Policy & Terms Of Use]]></string>
     <string name="bu_submitting_you_agree_to_our_privacy_policy"><![CDATA[By submitting you agree to our Privacy Policy \n& Terms Of Use]]></string>
     <string name="by_continuing_you_agree_to_our_privacy_policy_terms_of_use"><![CDATA[By continuing you agree to our Privacy Policy \n& Terms of Use]]></string>
+    <string name="report_inappropriate"><u>Report Inappropriate</u></string>
 
 
     <string-array name="advertiseValidity">

@@ -11,8 +11,6 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityWebViewBinding
 import com.aaonri.app.utils.custom.ConnectivityReceiver
@@ -86,7 +84,6 @@ class WebViewActivity : BaseActivity() {
         }
 
     }
-
 
 
     private fun startWebView(url: String) {
