@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.CalendarContract
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -955,7 +956,7 @@ class EventDetailsScreenFragment : Fragment() {
         binding?.eventTitle?.text = event.title
         binding?.eventDescTv?.textSize = 14F
         if (event.description != null && event.description.isNotEmpty()) {
-            binding?.eventDescTv?.fromHtml(event.description)
+            binding?.eventDescTv?.text = Html.fromHtml(event.description)
         }
         binding?.locationIconEvent?.visibility = View.VISIBLE
         val address =
