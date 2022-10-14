@@ -124,6 +124,9 @@ class ImmigrationScreenFragment : Fragment() {
             builder.setPositiveButton("OK") { dialog, which ->
 
                 context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.BLOCKED_USER_ID, "")
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(Constant.USER_EMAIL, "")
 
                 context?.let { it1 -> PreferenceManager<String>(it1) }

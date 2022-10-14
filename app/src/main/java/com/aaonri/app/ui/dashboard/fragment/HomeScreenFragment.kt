@@ -198,9 +198,6 @@ class HomeScreenFragment : Fragment() {
             userInterestedService = list.split(",") as MutableList<String>?
         }
 
-        context?.let { it1 -> PreferenceManager<String>(it1) }
-            ?.set(Constant.BLOCKED_USER_ID, "")
-
         /** Removing unnecessary User Interest service id **/
         if (userInterestedService?.size != null) {
             if (userInterestedService?.contains("$shopWithUsId") == true) {
@@ -278,6 +275,9 @@ class HomeScreenFragment : Fragment() {
             builder.setTitle("Confirm")
             builder.setMessage("Are you sure you want to Logout?")
             builder.setPositiveButton("OK") { dialog, which ->
+
+                context?.let { it1 -> PreferenceManager<String>(it1) }
+                    ?.set(Constant.BLOCKED_USER_ID, "")
 
                 context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(Constant.USER_EMAIL, "")
