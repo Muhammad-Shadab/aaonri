@@ -301,13 +301,6 @@ class ImmigrationDetailsFragment : Fragment() {
             findNavController().navigateUp()
         }*/
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                }
-            })
 
         return binding?.root
     }
