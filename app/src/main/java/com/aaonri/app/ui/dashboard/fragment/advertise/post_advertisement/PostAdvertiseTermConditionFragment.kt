@@ -77,7 +77,7 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                intent.putExtra("url", "https://aaonri.com/privacy-policy")
                 activity?.startActivity(intent)
             }
 
@@ -94,7 +94,7 @@ class PostAdvertiseTermConditionFragment : Fragment() {
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/about-us")
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
                 activity?.startActivity(intent)
             }
 

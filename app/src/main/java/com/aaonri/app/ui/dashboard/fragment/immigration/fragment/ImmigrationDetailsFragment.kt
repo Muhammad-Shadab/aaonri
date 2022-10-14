@@ -105,6 +105,14 @@ class ImmigrationDetailsFragment : Fragment() {
                     }
                 }
 
+            immigrationAdapter?.openUserProfile = { item ->
+                if (item is DiscussionDetailsResponseItem) {
+                    val action =
+                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(item.createdBy, item.userFullName,item.userEmail)
+                    findNavController().navigate(action)
+                }
+            }
+
             immigrationAdapter?.deleteReplyClickListener = { item ->
                 if (item is DiscussionDetailsResponseItem) {
                     immigrationViewModel.deleteImmigrationReply(
@@ -174,6 +182,18 @@ class ImmigrationDetailsFragment : Fragment() {
                     noOfReply.text = it.noOfReplies.toString()
                     discussionDetailsLl.visibility = View.VISIBLE
                     immigrationViewModel.selectedDiscussionItem.postValue(null)
+                }
+            }
+
+            postedByTv.setOnClickListener {
+                val action = discussion?.let { it1 ->
+                    discussion?.userId?.let { it2 ->
+                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
+                            it2.toInt(), it1.createdBy , discussion!!.userEmailId)
+                    }
+                }
+                if (action != null) {
+                    findNavController().navigate(action)
                 }
             }
 

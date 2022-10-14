@@ -22,6 +22,8 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
     var deleteReplyClickListener: ((item: Any) -> Unit)? = null
 
+    var openUserProfile: ((item: Any) -> Unit)? = null
+
     class ImmigrationCategoryViewHolder(private val binding: CategoryCardItemBinding) :
         ImmigrationViewHolder(binding) {
         fun bind(discussionCategoryResponseItem: DiscussionCategoryResponseItem) {
@@ -129,9 +131,10 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             val nameParts = discussionDetailsResponseItem.userFullName.split(" ").toTypedArray()
             val firstName = nameParts[0]
             val firstNameChar = firstName[0]
+            var lastName = ""
             var lastNameChar = ""
             if (nameParts.size > 1) {
-                val lastName = nameParts[nameParts.size - 1]
+                lastName = nameParts[nameParts.size - 1]
                 lastNameChar = lastName[0].toString()
             }
 
@@ -139,7 +142,12 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                 context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
             binding.apply {
 
+                if (discussionDetailsResponseItem.userImage != null){
+                    
+                }else{
                 userNameTv.text = firstNameChar + lastNameChar
+                }
+                
                 discussionUserReplyTv.text = discussionDetailsResponseItem.userFullName
                 userReplyDate.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .format(
@@ -159,6 +167,10 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
                 deleteComment.setOnClickListener {
                     deleteReplyClickListener?.invoke(discussionDetailsResponseItem)
+                }
+
+                userProfile.setOnClickListener {
+                    openUserProfile?.invoke(discussionDetailsResponseItem)
                 }
 
                 if (userId != 0) {

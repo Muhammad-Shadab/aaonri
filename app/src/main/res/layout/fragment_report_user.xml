@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background_gradient"
+    tools:context=".ui.dashboard.fragment.report_user.ReportUserFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navigateBack"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:innerRadius="0dp"
+        android:outlineAmbientShadowColor="#291c2839"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/blueBtnColor"
+        app:cardCornerRadius="@dimen/_11sdp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/registrationText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/registrationText"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/navigate_back" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/moreBtn"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:src="@drawable/bluemore"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/registrationText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/registrationText" />
+
+    <TextView
+        android:id="@+id/registrationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:text="@string/registration"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/top_rounded_corner_shape"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationText">
+
+        <FrameLayout
+            android:id="@+id/profilePicPlaceholder"
+            android:layout_width="@dimen/_66sdp"
+            android:layout_height="@dimen/_66sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/addProfileIv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:src="@drawable/profile_pic_placeholder" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/firstNameBasicDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:background="@drawable/edit_text_shape"
+            android:backgroundTint="@color/graycolor"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/first_name"
+            android:inputType="textCapSentences"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/hintColor"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicPlaceholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lastNameBasicDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:background="@drawable/edit_text_shape"
+            android:backgroundTint="@color/graycolor"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/last_name"
+            android:inputType="textCapSentences"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/hintColor"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameBasicDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/emailAddressBasicDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:background="@drawable/edit_text_shape"
+            android:backgroundTint="@color/graycolor"
+            android:fontFamily="@font/helvetica_regular"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:textColor="@color/editTextColor"
+            android:textColorHint="@color/hintColor"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/lastNameBasicDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:translationY="100dp"
+            android:src="@drawable/person" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarBasicDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

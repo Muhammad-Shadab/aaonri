@@ -98,7 +98,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         val termsAndCondition: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/about-us")
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
                 activity?.startActivity(intent)
             }
 
@@ -114,7 +114,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         val privacy: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                intent.putExtra("url", "https://aaonri.com/privacy-policy")
                 activity?.startActivity(intent)
             }
 

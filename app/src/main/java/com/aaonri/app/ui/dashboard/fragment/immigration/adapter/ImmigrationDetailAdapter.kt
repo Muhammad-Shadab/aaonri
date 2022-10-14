@@ -1,16 +1,5 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.data.immigration.model.DiscussionDetailsResponseItem
-import com.aaonri.app.databinding.ImmigrationReplyItemBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import java.time.format.DateTimeFormatter
-
 /*
 class ImmigrationDetailAdapter(private var deleteComment: ((value: DiscussionDetailsResponseItem) -> Unit)) :
     RecyclerView.Adapter<ImmigrationDetailAdapter.ImmigrationDetailViewHolder>() {

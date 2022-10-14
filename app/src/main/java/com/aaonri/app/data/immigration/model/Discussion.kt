@@ -17,5 +17,6 @@ data class Discussion(
     val reasonForFeedBack: Any,
     val status: String,
     val updatedOnTS: String,
-    val userId: String
+    val userId: String,
+    val userEmailId: String
 )

@@ -337,6 +337,9 @@
         <argument
             android:name="discussionId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_immigrationDetailsFragment_to_reportUserFragment"
+            app:destination="@id/reportUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/immigrationFilterFragment"
@@ -496,6 +499,21 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.homescreen_filter.FilterCategoryBottomSheet"
         android:label="fragment_filter_category_bottom_sheet"
         tools:layout="@layout/fragment_filter_category_bottom_sheet" />
+    <fragment
+        android:id="@+id/reportUserFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.report_user.ReportUserFragment"
+        android:label="fragment_report_user"
+        tools:layout="@layout/fragment_report_user" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

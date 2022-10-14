@@ -120,7 +120,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val teremsAndCondition: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/about-us")
+                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
                 activity?.startActivity(intent)
             }
 

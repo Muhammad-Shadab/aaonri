@@ -11,6 +11,8 @@ data class DiscussionDetailsResponseItem(
     val parentId: Int,
     val replyDesc: String,
     val updatedOnTS: Any,
+    val userEmail: String,
     val userFullName: String,
-    val userName: Any
+    val userImage: String?,
+    val userName: Any?
 )

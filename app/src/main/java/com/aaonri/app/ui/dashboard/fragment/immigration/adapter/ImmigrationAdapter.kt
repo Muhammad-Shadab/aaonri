@@ -20,6 +20,8 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
 
     var deleteReplyClickListener: ((item: Any) -> Unit)? = null
 
+    var openUserProfile: ((item: Any) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImmigrationViewHolder {
         return when (viewType) {
             R.layout.category_card_item -> {
@@ -75,6 +77,7 @@ class ImmigrationAdapter : RecyclerView.Adapter<ImmigrationViewHolder>() {
     override fun onBindViewHolder(holder: ImmigrationViewHolder, position: Int) {
         holder.itemClickListener = itemClickListener
         holder.deleteReplyClickListener = deleteReplyClickListener
+        holder.openUserProfile = openUserProfile
         when (holder) {
             is ImmigrationViewHolder.ImmigrationCategoryViewHolder -> {
                 if (data[position] is DiscussionCategoryResponseItem) {

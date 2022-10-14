@@ -26,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/userProfile"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:backgroundTint="#C1BEBE"
