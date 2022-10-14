@@ -16,6 +16,8 @@ import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +41,9 @@ class AllImmigrationFragment : Fragment() {
     ): View? {
 
         binding = FragmentAllImmigrationBinding.inflate(layoutInflater, container, false)
+
+        val blockedUsersId =
+            context?.let { PreferenceManager<String>(it)[Constant.BLOCKED_USER_ID, ""] }
 
         var searchKeyword = arguments?.get("searchKeyword")
 
@@ -115,7 +120,9 @@ class AllImmigrationFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
+                    response.data?.discussionList?.let {
+
+                        immigrationAdapter?.setData(it.filter { blockedUsersId?.contains(it.userId) == false }) }
                     if (response.data?.discussionList?.isNotEmpty() == true) {
                         binding?.resultsNotFoundLL?.visibility = View.GONE
                     } else {
@@ -203,7 +210,7 @@ class AllImmigrationFragment : Fragment() {
             } else {
                 binding?.resultsNotFoundLL?.visibility = View.VISIBLE
             }
-            immigrationAdapter?.setData(filteredList)
+            immigrationAdapter?.setData(filteredList.filter { blockedUsersId?.contains(it.userId) == false })
         }
 
         /*immigrationViewModel.keyImmigrationKeyboardListener.observe(viewLifecycleOwner) {

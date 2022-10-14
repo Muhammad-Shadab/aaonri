@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/userProfile"
+                android:id="@+id/userProfileCv"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:backgroundTint="#C1BEBE"
@@ -35,6 +35,13 @@
                 android:shape="ring"
                 app:cardCornerRadius="75dp"
                 app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    android:src="@drawable/profile_pic_placeholder"/>
 
                 <TextView
                     android:id="@+id/userNameTv"

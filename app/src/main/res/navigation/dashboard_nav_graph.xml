@@ -340,6 +340,9 @@
         <action
             android:id="@+id/action_immigrationDetailsFragment_to_reportUserFragment"
             app:destination="@id/reportUserFragment" />
+        <action
+            android:id="@+id/action_immigrationDetailsFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/immigrationFilterFragment"
@@ -513,6 +516,14 @@
         <argument
             android:name="email"
             app:argType="string" />
+        <argument
+            android:name="userProfile"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_reportUserFragment_to_immigrationScreenFragment"
+            app:destination="@id/immigrationScreenFragment"
+            app:popUpTo="@id/immigrationScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

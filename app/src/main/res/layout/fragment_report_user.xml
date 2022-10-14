@@ -71,12 +71,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/userProfileCv"
+            android:layout_width="@dimen/_66sdp"
+            android:layout_height="@dimen/_66sdp"
+            android:backgroundTint="#C1BEBE"
+            android:elevation="0dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            app:cardCornerRadius="75dp"
+            app:cardElevation="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/userProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:src="@drawable/profile_pic_placeholder" />
+
+            <TextView
+                android:id="@+id/userNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_pro_medium"
+                android:text="SS"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+       <!-- <FrameLayout
             android:id="@+id/profilePicPlaceholder"
             android:layout_width="@dimen/_66sdp"
             android:layout_height="@dimen/_66sdp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_8sdp"
+            android:backgroundTint="#C1BEBE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -86,9 +123,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="gone"
                 android:src="@drawable/profile_pic_placeholder" />
 
-        </FrameLayout>
+        </FrameLayout>-->
 
         <TextView
             android:id="@+id/firstNameBasicDetails"
@@ -110,7 +148,7 @@
             android:paddingBottom="@dimen/_6sdp"
             android:textColor="@color/editTextColor"
             android:textColorHint="@color/hintColor"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicPlaceholder"
+            app:layout_constraintTop_toBottomOf="@+id/userProfileCv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="16sp" />

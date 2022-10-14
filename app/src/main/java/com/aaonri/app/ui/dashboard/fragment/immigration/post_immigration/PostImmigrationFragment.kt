@@ -11,7 +11,6 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -85,8 +84,6 @@ class PostImmigrationFragment : Fragment() {
             }
         }
 
-        Toast.makeText(context, "${ss.indexOf("Privacy")}", Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "${ss.indexOf("&")}", Toast.LENGTH_SHORT).show()
         ss.setSpan(clickableSpan1, 31, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(clickableSpan2, 49, 61, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 

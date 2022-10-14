@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -30,6 +31,7 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
+import com.chinalwb.are.android.inner.Html
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
@@ -55,6 +57,12 @@ class ImmigrationDetailsFragment : Fragment() {
         val isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
 
+        val blockedUsersId =
+            context?.let { PreferenceManager<String>(it)[Constant.BLOCKED_USER_ID, ""] }
+
+        val userId =
+            context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
+
         val guestUserLoginDialog = Dialog(requireContext())
         guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
         guestUserLoginDialog.window?.setBackgroundDrawable(
@@ -77,9 +85,6 @@ class ImmigrationDetailsFragment : Fragment() {
         }
 
         immigrationAdapter = ImmigrationAdapter()
-
-        val userId =
-            context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
 
         binding?.apply {
 
@@ -108,7 +113,10 @@ class ImmigrationDetailsFragment : Fragment() {
             immigrationAdapter?.openUserProfile = { item ->
                 if (item is DiscussionDetailsResponseItem) {
                     val action =
-                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(item.createdBy, item.userFullName,item.userEmail)
+                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
+                            item.createdBy, item.userFullName, item.userEmail,
+                            item.userImage ?: ""
+                        )
                     findNavController().navigate(action)
                 }
             }
@@ -174,26 +182,32 @@ class ImmigrationDetailsFragment : Fragment() {
                     discussionTitle.text = it.discussionTopic
                     immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                     discussionNameTv.text = it.discussionTopic
-                    postedByTv.text = "Posted by: ${it.createdBy} on ${
+                    val createdByUnderLine = "<u>${it.createdBy}</u>"
+                    postedByTv.text = "Posted by: ${Html.fromHtml(createdByUnderLine)} on ${
                         DateTimeFormatter.ofPattern("MM-dd-yyyy")
                             .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
                     }"
                     discussionDesc.text = it.discussionDesc
                     noOfReply.text = it.noOfReplies.toString()
                     discussionDetailsLl.visibility = View.VISIBLE
-                    immigrationViewModel.selectedDiscussionItem.postValue(null)
                 }
             }
 
             postedByTv.setOnClickListener {
-                val action = discussion?.let { it1 ->
-                    discussion?.userId?.let { it2 ->
-                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
-                            it2.toInt(), it1.createdBy , discussion!!.userEmailId)
+
+                if (userId == discussion?.userId?.toInt()) {
+                    findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
+                } else {
+                    val action = discussion?.let { it1 ->
+                        discussion?.userId?.let { it2 ->
+                            ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
+                                it2.toInt(), it1.createdBy, discussion!!.userEmailId, ""
+                            )
+                        }
                     }
-                }
-                if (action != null) {
-                    findNavController().navigate(action)
+                    if (action != null) {
+                        findNavController().navigate(action)
+                    }
                 }
             }
 
@@ -204,7 +218,15 @@ class ImmigrationDetailsFragment : Fragment() {
                 val emailIntent = Intent(Intent.ACTION_SEND)
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/immigration-forum-details?forumId=${discussion?.discussionId}")
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${
+                        BuildConfig.BASE_URL.replace(
+                            ":8444",
+                            ""
+                        )
+                    }/immigration-forum-details?forumId=${discussion?.discussionId}"
+                )
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
@@ -246,7 +268,13 @@ class ImmigrationDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     binding?.discussionDetailsLl?.visibility = View.VISIBLE
                     binding?.noOfReply?.text = response.data?.size.toString()
-                    response.data?.let { immigrationAdapter?.setData(it) }
+                    response.data?.let { it ->
+                        immigrationAdapter?.setData(it.filter {
+                            blockedUsersId?.contains(
+                                it.createdBy.toString()
+                            ) == false
+                        })
+                    }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -269,33 +297,25 @@ class ImmigrationDetailsFragment : Fragment() {
             }
         }
 
-        /*if (args.discussionId != 0) {
-            immigrationViewModel.getDiscussionDetailsById(args.discussionId.toString())
+        /*val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigateUp()
         }*/
 
-        /* requireActivity()
-             .onBackPressedDispatcher
-             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                 override fun handleOnBackPressed() {
-                     if (args.isFromAllDiscussionScreen) {
-                         immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
-                             DoNotCallImmigrationApi
-                         )
-                     } else {
-                         immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
-                             DoNotCallImmigrationApi
-                         )
-                     }
-                     findNavController().navigateUp()
-                 }
-            })*/
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+                }
+            })
 
         return binding?.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        immigrationViewModel.discussionDetailsData.value = null
+        immigrationViewModel.discussionDetailsData.postValue(null)
+        immigrationViewModel.selectedDiscussionItem.postValue(null)
         immigrationViewModel.setCallImmigrationApi(callAllImmigrationApi)
         binding = null
     }

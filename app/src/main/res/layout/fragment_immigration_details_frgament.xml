@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_light"
                         android:includeFontPadding="false"
-                        android:text="Posted by: Mannan Kumar on Mar 09, 2022"
+                        android:text=""
                         android:textColor="@color/immigaration_text_color"
                         android:textSize="12sp" />
 
@@ -175,9 +175,9 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:paddingVertical="@dimen/_4sdp"
+        android:background="@color/graycolor"
         android:textSize="10sp"
         android:visibility="visible"
-        android:layout_marginBottom="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/commentCv"
         app:layout_constraintEnd_toEndOf="parent"/>

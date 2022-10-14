@@ -19,6 +19,7 @@ object Constant {
     const val IS_JOB_RECRUITER = "IS_JOB_RECRUITER"
     const val ORIGIN_COUNTRY = "ORIGIN_COUNTRY"
     const val USER_NAME = "USER_NAME"
+    const val BLOCKED_USER_ID = "BLOCKED_USER_ID"
 
 
 

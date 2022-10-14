@@ -198,6 +198,9 @@ class HomeScreenFragment : Fragment() {
             userInterestedService = list.split(",") as MutableList<String>?
         }
 
+        context?.let { it1 -> PreferenceManager<String>(it1) }
+            ?.set(Constant.BLOCKED_USER_ID, "")
+
         /** Removing unnecessary User Interest service id **/
         if (userInterestedService?.size != null) {
             if (userInterestedService?.contains("$shopWithUsId") == true) {
