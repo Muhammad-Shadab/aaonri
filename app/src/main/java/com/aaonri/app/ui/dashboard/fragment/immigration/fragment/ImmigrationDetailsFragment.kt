@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -196,7 +197,7 @@ class ImmigrationDetailsFragment : Fragment() {
             postedByTv.setOnClickListener {
 
                 if (userId == discussion?.userId?.toInt()) {
-                    findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
+                    //findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
                 } else {
                     val action = discussion?.let { it1 ->
                         discussion?.userId?.let { it2 ->
@@ -301,6 +302,14 @@ class ImmigrationDetailsFragment : Fragment() {
             findNavController().navigateUp()
         }*/
 
+        /*requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+
+                }
+            })*/
 
         return binding?.root
     }
