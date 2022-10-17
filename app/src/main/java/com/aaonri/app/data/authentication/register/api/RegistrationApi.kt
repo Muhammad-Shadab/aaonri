@@ -27,7 +27,7 @@ interface RegistrationApi {
         @Query("email") userEmail: String
     ): Response<FindByEmailDetailResponse>
 
-    @GET("api/v1/user/resendVerificationEmail")
+    @POST("api/v1/user/resendVerificationEmail")
     suspend fun resendEmailVerification(
         @Query("email") email: String
     ): Response<ResendEmailResponse>

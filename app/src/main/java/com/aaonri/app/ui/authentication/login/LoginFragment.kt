@@ -322,6 +322,9 @@ class LoginFragment : Fragment() {
                                 builder.setTitle("Confirm")
                                 builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
                                 builder.setPositiveButton("Resend") { dialog, which ->
+                                    val userEmail =
+                                        context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                                    registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
                                     binding?.loginEmailEt?.text?.toString()
                                         ?.let { registrationViewModel.resendEmailVerification(it) }
                                 }
@@ -345,6 +348,9 @@ class LoginFragment : Fragment() {
                             builder.setTitle("Confirm")
                             builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
                             builder.setPositiveButton("Resend") { dialog, which ->
+                                val userEmail =
+                                    context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                                registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
                                 binding?.loginEmailEt?.text?.toString()
                                     ?.let { registrationViewModel.resendEmailVerification(it) }
                             }
@@ -498,6 +504,9 @@ class LoginFragment : Fragment() {
                             builder.setTitle("Confirm")
                             builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
                             builder.setPositiveButton("Resend") { dialog, which ->
+                                val userEmail =
+                                    context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+                                registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
                                 binding?.loginEmailEt?.text?.toString()
                                     ?.let { registrationViewModel.resendEmailVerification(it) }
                             }
