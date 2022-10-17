@@ -94,7 +94,7 @@ class ReportUserFragment : Fragment() {
             val emailIntent = Intent(Intent.ACTION_SEND)
             emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report User!")
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "I would like to report this abusive user. Please take necessary action. \n\n ${args.email}")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "I would like to report this abusive user. Please take necessary action. \n\nUser Email: ${args.email}")
             emailIntent.selector = selectorIntent
 
             activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))

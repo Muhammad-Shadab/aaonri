@@ -572,13 +572,12 @@ class ImmigrationScreenFragment : Fragment() {
             binding?.searchView?.setText(searchKeyword.toString())
         }
 
-        requireActivity()
+       /* requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
                 }
-            })
+            })*/
 
         return binding?.root
     }

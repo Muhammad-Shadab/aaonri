@@ -247,7 +247,7 @@ class MoreScreenFragment : Fragment() {
 
             privacyPolicyCv.setOnClickListener {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url","https://aaonri.com/terms-&-conditions")
+                intent.putExtra("url","https://aaonri.com/privacy-policy")
                 activity?.startActivity(intent)
             }
 
