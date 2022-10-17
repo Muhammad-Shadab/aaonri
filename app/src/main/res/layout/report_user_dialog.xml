@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_16sdp">
-
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:layout_marginHorizontal="@dimen/_16sdp">
 
     <LinearLayout
         android:id="@+id/profileDetailsLl"
@@ -13,7 +13,6 @@
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/_6sdp"
         android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +27,7 @@
             android:text="Block User"
             android:textAlignment="center"
             android:textColor="@color/blueBtnColor"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
@@ -43,7 +42,7 @@
             android:text="Report User"
             android:textAlignment="center"
             android:textColor="@color/blueBtnColor"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
@@ -58,7 +57,7 @@
             android:text="Cancel"
             android:textAlignment="center"
             android:textColor="@color/redcolor"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>

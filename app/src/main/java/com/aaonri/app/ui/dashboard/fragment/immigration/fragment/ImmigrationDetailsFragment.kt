@@ -111,12 +111,16 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationAdapter?.openUserProfile = { item ->
                 if (item is DiscussionDetailsResponseItem) {
-                    val action =
-                        ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
-                            item.createdBy, item.userFullName, item.userEmail,
-                            item.userImage ?: ""
-                        )
-                    findNavController().navigate(action)
+                    if (userId != item.createdBy){
+                        val action =
+                            ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
+                                item.createdBy, item.userFullName, item.userEmail,
+                                item.userImage ?: ""
+                            )
+                        findNavController().navigate(action)
+                    }else{
+                        findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
+                    }
                 }
             }
 
