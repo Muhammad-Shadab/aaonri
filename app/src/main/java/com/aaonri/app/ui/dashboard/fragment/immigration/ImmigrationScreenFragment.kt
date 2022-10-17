@@ -11,7 +11,6 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -572,13 +571,13 @@ class ImmigrationScreenFragment : Fragment() {
             binding?.searchView?.setText(searchKeyword.toString())
         }
 
-        requireActivity()
+        /*requireActivity()
             .onBackPressedDispatcher
             .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
                 }
-            })
+            })*/
 
         return binding?.root
     }

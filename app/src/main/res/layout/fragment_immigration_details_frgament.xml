@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/send_btn_shape"
-                android:backgroundTint="@color/greenBtnColor"
+                android:backgroundTint="@color/lightGreenBtnColor"
                 android:paddingHorizontal="@dimen/_5sdp"
                 android:paddingVertical="@dimen/_8sdp"
                 android:src="@drawable/send_icon" />

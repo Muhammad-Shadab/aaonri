@@ -426,6 +426,7 @@ class ClassifiedDetailsFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
+            binding?.reportInappropriateTv?.visibility = View.GONE
             if (!data.approved) {
                 binding?.moreClassifiedOption?.visibility = View.VISIBLE
             }

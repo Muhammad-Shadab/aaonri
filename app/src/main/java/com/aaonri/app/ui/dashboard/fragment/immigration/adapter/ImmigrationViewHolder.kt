@@ -3,13 +3,12 @@ package com.aaonri.app.ui.dashboard.fragment.immigration.adapter
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Build
-import com.aaonri.app.BuildConfig
-import android.os.Build.VERSION_CODES.BASE
 import android.text.Html
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.databinding.*
 import com.aaonri.app.utils.Constant
@@ -131,7 +130,9 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
             val context = binding.discussionUserReplyTv.context
 
-            val nameParts = discussionDetailsResponseItem.userFullName.split(" ").toTypedArray()
+            val nameParts =
+                discussionDetailsResponseItem.userFullName.trim().replace("  ", " ").split(" ")
+                    .toTypedArray()
             val firstName = nameParts[0]
             val firstNameChar = firstName[0]
             var lastName = ""
@@ -146,6 +147,8 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             binding.apply {
 
                 userNameTv.text = firstNameChar + lastNameChar
+                userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
+
                 if (discussionDetailsResponseItem.userImage != null) {
                     Glide.with(context)
                         .load("${BuildConfig.BASE_URL}/api/v1/common/profileFile/${discussionDetailsResponseItem.userImage}")
@@ -183,7 +186,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                         DateTimeFormatter.ofPattern("dd MMM yyyy")
                             .parse(discussionDetailsResponseItem.createdOn)
                     )
-                userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
+
                 replyBtn.setOnClickListener {
                     itemClickListener?.invoke(
                         it,

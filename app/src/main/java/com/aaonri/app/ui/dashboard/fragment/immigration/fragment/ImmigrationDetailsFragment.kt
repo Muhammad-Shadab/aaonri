@@ -13,8 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -45,7 +43,7 @@ class ImmigrationDetailsFragment : Fragment() {
     var discussion: Discussion? = null
     var callAllImmigrationApi = false
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,13 +88,13 @@ class ImmigrationDetailsFragment : Fragment() {
         binding?.apply {
 
             if (isUserLogin == false) {
-                binding?.postReplyEt?.isFocusable = false
-                binding?.postReplyEt?.isEnabled = false
-                binding?.postReplyEt?.isCursorVisible = false
-                binding?.postReplyEt?.keyListener = null
-                binding?.postReplyEtLl?.backgroundTintList =
+                postReplyEt.isFocusable = false
+                //postReplyEt.isEnabled = false
+                postReplyEt.isCursorVisible = false
+                postReplyEt.keyListener = null
+                postReplyEtLl.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lightGrey))
-                binding?.postReplyBtn?.isEnabled = false
+                postReplyBtn.isEnabled = false
             }
 
             immigrationAdapter?.itemClickListener =
@@ -183,7 +181,7 @@ class ImmigrationDetailsFragment : Fragment() {
                     discussionTitle.text = it.discussionTopic
                     immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                     discussionNameTv.text = it.discussionTopic
-                    val createdByUnderLine = "<u>${it.createdBy}</u>"
+                    val createdByUnderLine = "<html><u>${it.createdBy}</u></html>"
                     postedByTv.text = "Posted by: ${Html.fromHtml(createdByUnderLine)} on ${
                         DateTimeFormatter.ofPattern("MM-dd-yyyy")
                             .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
@@ -197,7 +195,7 @@ class ImmigrationDetailsFragment : Fragment() {
             postedByTv.setOnClickListener {
 
                 if (userId == discussion?.userId?.toInt()) {
-                    //findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
+                    findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
                 } else {
                     val action = discussion?.let { it1 ->
                         discussion?.userId?.let { it2 ->
@@ -231,6 +229,22 @@ class ImmigrationDetailsFragment : Fragment() {
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+
+            postReplyEt.setOnTouchListener { view, motionEvent ->
+                if (isUserLogin == false) {
+                    guestUserLoginDialog.show()
+                } else {
+                    postReplyEt.requestFocus()
+                    val imm =
+                        requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.toggleSoftInput(
+                        InputMethodManager.SHOW_FORCED,
+                        InputMethodManager.HIDE_IMPLICIT_ONLY
+                    )
+                }
+                return@setOnTouchListener true
             }
 
         }

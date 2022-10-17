@@ -160,7 +160,6 @@ dependencies {
 
     // expandable text view
     implementation 'com.borjabravo:readmoretextview:2.1.0'
-    implementation 'com.github.noowenz:ShowMoreLess:1.0.3'
 
     // Swipe layout my immigration
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"

@@ -559,6 +559,7 @@ class EventDetailsScreenFragment : Fragment() {
         binding?.navigateBack?.visibility = View.VISIBLE
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (event.createdBy == email) {
+            binding?.reportInappropriateTv?.visibility = View.GONE
             binding?.moreBtn?.visibility = View.VISIBLE
         }
         if (event.fee <= 0) {
