@@ -2,6 +2,7 @@ package com.aaonri.app.data.authentication.register.api
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.login.model.ResendEmailResponse
 import com.aaonri.app.data.authentication.register.model.ProfileUploadResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.*
@@ -25,6 +26,11 @@ interface RegistrationApi {
     suspend fun findByEmail(
         @Query("email") userEmail: String
     ): Response<FindByEmailDetailResponse>
+
+    @GET("api/v1/user/resendVerificationEmail")
+    suspend fun resendEmailVerification(
+        @Query("email") email: String
+    ): Response<ResendEmailResponse>
 
     @Headers("Content-Type:application/json")
     @POST("/api/v1/user/userExists")

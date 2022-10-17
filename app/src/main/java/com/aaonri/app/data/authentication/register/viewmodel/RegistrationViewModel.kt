@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
+import com.aaonri.app.data.authentication.login.model.ResendEmailResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
@@ -33,6 +34,8 @@ class RegistrationViewModel
     val loginScreenEmail: MutableLiveData<String> = MutableLiveData()
 
     val loginScreenPassword: MutableLiveData<String> = MutableLiveData()
+
+    val resendEmailVerificationData: MutableLiveData<Resource<ResendEmailResponse>> = MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()
@@ -117,6 +120,21 @@ class RegistrationViewModel
     }
 
     private fun handleClassifiedSellerNameResponse(response: Response<FindByEmailDetailResponse>): Resource<FindByEmailDetailResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun resendEmailVerification(email: String) = viewModelScope.launch {
+        resendEmailVerificationData.postValue(Resource.Loading())
+        val response = repository.resendEmailVerification(email)
+        resendEmailVerificationData.postValue(handleResendEmailVerification(response))
+    }
+
+    private fun handleResendEmailVerification(response: Response<ResendEmailResponse>): Resource<ResendEmailResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

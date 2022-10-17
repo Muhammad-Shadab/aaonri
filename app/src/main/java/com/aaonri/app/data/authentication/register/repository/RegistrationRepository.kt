@@ -30,6 +30,8 @@ class RegistrationRepository @Inject constructor(
     suspend fun isEmailAlreadyRegistered(emailVerifyRequest: EmailVerifyRequest) =
         registrationApi.isEmailAlreadyRegistered(emailVerifyRequest)
 
+    suspend fun resendEmailVerification(email: String) = registrationApi.resendEmailVerification(email)
+
     suspend fun loginUser(login: Login) = registrationApi.userLogin(login)
 
     suspend fun registerUser(registerRequest: RegisterRequest) =

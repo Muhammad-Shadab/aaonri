@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.authentication.login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -317,23 +318,47 @@ class LoginFragment : Fragment() {
                                 context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                                     ?.set(Constant.IS_USER_LOGIN, false)
 
-                                activity?.let { it1 ->
+                                val builder = AlertDialog.Builder(context)
+                                builder.setTitle("Confirm")
+                                builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
+                                builder.setPositiveButton("Resend") { dialog, which ->
+                                    binding?.loginEmailEt?.text?.toString()
+                                        ?.let { registrationViewModel.resendEmailVerification(it) }
+                                }
+                                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                                }
+                                builder.show()
+
+                                /*activity?.let { it1 ->
                                     Snackbar.make(
                                         it1.findViewById(android.R.id.content),
                                         "Email address is not verified yet", Snackbar.LENGTH_LONG
                                     ).show()
-                                }
+                                }*/
                             }
                         } else {
                             context?.let { it1 -> PreferenceManager<Boolean>(it1) }
                                 ?.set(Constant.IS_USER_LOGIN, false)
 
-                            activity?.let { it1 ->
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
+                            builder.setPositiveButton("Resend") { dialog, which ->
+                                binding?.loginEmailEt?.text?.toString()
+                                    ?.let { registrationViewModel.resendEmailVerification(it) }
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
+
+                            }
+                            builder.show()
+
+                            /*activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
                                     "${response.data?.massage}", Snackbar.LENGTH_LONG
                                 ).show()
-                            }
+                            }*/
                         }
                     }
                 }
@@ -347,14 +372,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    activity?.finish()
-                }
-            })
 
         /* try {
              val info: PackageInfo? = activity?.packageManager?.getPackageInfo(
@@ -476,12 +493,25 @@ class LoginFragment : Fragment() {
                             LoginManager.getInstance().logOut()
                             context?.let { it1 -> PreferenceManager<String>(it1) }
                                 ?.set(Constant.USER_PROFILE_PIC, "")
-                            activity?.let { it1 ->
+
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
+                            builder.setPositiveButton("Resend") { dialog, which ->
+                                binding?.loginEmailEt?.text?.toString()
+                                    ?.let { registrationViewModel.resendEmailVerification(it) }
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
+
+                            }
+                            builder.show()
+
+                            /*activity?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(android.R.id.content),
                                     "Email address is not verified yet", Snackbar.LENGTH_LONG
                                 ).show()
-                            }
+                            }*/
                         }
                     } else {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }
@@ -531,6 +561,28 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+        registrationViewModel.resendEmailVerificationData.observe(viewLifecycleOwner){response ->
+            when(response){
+                is Resource.Loading -> {
+                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                }
+            }
+        }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            })
 
 
         return binding?.root
