@@ -478,7 +478,11 @@
         android:id="@+id/updateProfileFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileFragment"
         android:label="fragment_update_profile"
-        tools:layout="@layout/fragment_update_profile" />
+        tools:layout="@layout/fragment_update_profile">
+        <action
+            android:id="@+id/action_updateProfileFragment_to_selectCountryBottomFragment2"
+            app:destination="@id/selectCountryBottomFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/homeScreenFilter"
         android:name="com.aaonri.app.ui.dashboard.fragment.homescreen_filter.HomeScreenFilter"
@@ -525,6 +529,14 @@
             app:popUpTo="@id/immigrationScreenFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/selectCountryBottomFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.SelectCountryBottomFragment"
+        android:label="SelectCountryBottomFragment">
+        <argument
+            android:name="isAddressScreen"
+            app:argType="boolean" />
+    </dialog>
 
 
 </navigation>

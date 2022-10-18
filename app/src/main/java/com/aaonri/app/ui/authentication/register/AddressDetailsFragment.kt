@@ -383,7 +383,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 stateName = if (it.state != null) it.state.toString() else ""
                 zipCode = it.zipcode
                 if (it.country != null) {
-                    Toast.makeText(context, "${it.country}", Toast.LENGTH_SHORT).show()
                     binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.country))
                 }
                 //binding?.countryPickerLl?.visibility = View.GONE
@@ -407,7 +406,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
 
 
         activity?.onBackPressedDispatcher
-            ?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            ?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
                     /*  stateName = ""

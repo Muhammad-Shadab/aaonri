@@ -200,7 +200,7 @@ class UploadEventPicFragment : Fragment() {
 
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     postEventViewModel.setIsNavigateBackToBasicDetails(true)
                     findNavController().navigateUp()

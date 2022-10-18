@@ -54,7 +54,7 @@ class AdvertiseWebViewFragment : Fragment() {
 
             /*requireActivity()
                 .onBackPressedDispatcher
-                .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
                         if (advertiseWebView.canGoBack()) {
                             advertiseWebView.goBack()

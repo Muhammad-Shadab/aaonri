@@ -3,7 +3,6 @@ package com.aaonri.app.ui.authentication.register
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentLocationDetailsBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.authentication.register.adapter.SelectedCommunityAdapter
+import com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -110,11 +110,19 @@ class LocationDetailsFragment : Fragment() {
             }
 
             selectCountryOrigin.setOnClickListener {
-                val action =
-                    LocationDetailsFragmentDirections.actionLocationDetailsFragmentToSelectCountryBottomFragment(
-                        false
-                    )
-                findNavController().navigate(action)
+                if (authCommonViewModel.isUpdateProfile) {
+                    val action =
+                        UpdateProfileFragmentDirections.actionUpdateProfileFragmentToSelectCountryBottomFragment2(
+                            false
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        LocationDetailsFragmentDirections.actionLocationDetailsFragmentToSelectCountryBottomFragment(
+                            false
+                        )
+                    findNavController().navigate(action)
+                }
             }
 
             rvLocationDetails.layoutManager = FlexboxLayoutManager(context)
@@ -217,10 +225,9 @@ class LocationDetailsFragment : Fragment() {
 
         if (authCommonViewModel.isUpdateProfile) {
             UserProfileStaticData.getUserProfileDataValue()?.let {
-                binding?.selectCountryOrigin?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                //binding?.selectCountryOrigin?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
                 binding?.selectCountryLocation?.text = it.originCountry
-                binding?.selectCountryOrigin?.isEnabled = false
+                //binding?.selectCountryOrigin?.isEnabled = false
                 binding?.stateLocationDetails?.setText(it.originState)
                 binding?.cityLocationDetails?.setText(it.originCity)
                 binding?.selectCommunityEt?.visibility = View.GONE
@@ -294,7 +301,7 @@ class LocationDetailsFragment : Fragment() {
 
 
         activity?.onBackPressedDispatcher
-            ?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            ?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
                     /*    authCommonViewModel.selectedCommunityList.value?.clear()
@@ -328,7 +335,7 @@ class LocationDetailsFragment : Fragment() {
                     lastName = it.lastName,
                     newsletter = false,
                     originCity = binding?.cityLocationDetails?.text?.toString(),
-                    originCountry = it.originCountry,
+                    originCountry = binding?.selectCountryLocation?.text.toString(),
                     originState = binding?.stateLocationDetails?.text?.toString(),
                     password = it.password,
                     phoneNo = it.phoneNo,

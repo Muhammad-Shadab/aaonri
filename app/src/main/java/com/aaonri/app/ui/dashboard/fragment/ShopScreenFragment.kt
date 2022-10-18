@@ -208,12 +208,12 @@ class ShopScreenFragment : Fragment() {
             startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
             requireActivity()
                 .onBackPressedDispatcher
-                .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
                         if (binding?.shopWithUsWebView?.canGoBack() == true) {
                             binding?.shopWithUsWebView?.goBack()
                         } else {
-                            //findNavController().navigateUp()
+                            findNavController().navigateUp()
                         }
                     }
                 })
