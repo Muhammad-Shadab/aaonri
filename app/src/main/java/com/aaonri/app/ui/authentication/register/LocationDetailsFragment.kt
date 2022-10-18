@@ -338,6 +338,7 @@ class LocationDetailsFragment : Fragment() {
                     zipcode = it.zipcode,
                     state = it.state,
                     userType = it.userType,
+                    country = it.country
                 )
             )
         }

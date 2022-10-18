@@ -29,5 +29,6 @@ data class UpdateProfileRequest(
     val state: Any? = null,
     val userName: String? = null,
     val userType: Any? = null,
-    val zipcode: String? = null
+    val zipcode: String? = null,
+    val country: String? = null,
 )

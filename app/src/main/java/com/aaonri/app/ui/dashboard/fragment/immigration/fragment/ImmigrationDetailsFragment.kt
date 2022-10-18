@@ -8,6 +8,8 @@ import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,10 +32,10 @@ import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
-import com.chinalwb.are.android.inner.Html
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
+
 
 @AndroidEntryPoint
 class ImmigrationDetailsFragment : Fragment() {
@@ -52,6 +54,8 @@ class ImmigrationDetailsFragment : Fragment() {
 
         binding =
             FragmentImmigrationDetailsFrgamentBinding.inflate(layoutInflater, container, false)
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val isUserLogin =
             context?.let { PreferenceManager<Boolean>(it)[Constant.IS_USER_LOGIN, false] }
@@ -172,6 +176,9 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
                 if (it != null) {
+                    if (it.userId == email) {
+                        reportInappropriateTv.visibility = View.GONE
+                    }
                     discussion = it
                     if (discussion?.approved == false) {
                         binding?.postReplyEt?.isFocusable = false
@@ -185,11 +192,16 @@ class ImmigrationDetailsFragment : Fragment() {
                     discussionTitle.text = it.discussionTopic
                     immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                     discussionNameTv.text = it.discussionTopic
-                    val createdByUnderLine = "<html><u>${it.createdBy}</u></html>"
-                    postedByTv.text = "Posted by: ${Html.fromHtml(createdByUnderLine)} on ${
-                        DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                            .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn))
-                    }"
+                    val content = SpannableString("${it.createdBy}")
+                    content.setSpan(UnderlineSpan(), 0, content.length, 0)
+                    postedByTv.setText(
+                        "Posted by: ${content} on ${
+                            DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                                .format(
+                                    DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn)
+                                )
+                        }"
+                    )
                     discussionDesc.text = it.discussionDesc
                     noOfReply.text = it.noOfReplies.toString()
                     discussionDetailsLl.visibility = View.VISIBLE

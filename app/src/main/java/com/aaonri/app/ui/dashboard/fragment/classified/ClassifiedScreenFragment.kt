@@ -3,9 +3,7 @@ package com.aaonri.app.ui.dashboard.fragment.classified
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
@@ -57,7 +54,7 @@ class ClassifiedScreenFragment : Fragment() {
     var addId = 0
     var isUserLogin: Boolean? = null
     private val tabTitles =
-        arrayListOf("All Classifieds", "My Classifieds", "Favourites")
+        arrayListOf("All Classifieds", "My Classifieds", "Favorites")
     var noOfSelection = 0
 
     @SuppressLint("InflateParams")

@@ -2,7 +2,6 @@ package com.aaonri.app.ui.authentication.register
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -52,9 +51,10 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
     lateinit var mGoogleSignInClient: GoogleSignInClient
     var cityName: String = ""
     var stateName: String = ""
+    var zipCode: String = ""
     private var countryCode: String? = null
     private var countryName: String? = null
-
+    var clearAllData = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,7 +101,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             }
 
 
-            stateNameAddressDetails.text = stateName
+            stateNameAddressDetails.setText(stateName)
             cityNameAddressDetails.setText(cityName)
 
 
@@ -128,23 +128,19 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
 
                 if (triple.first.isNotEmpty() || triple.third.isNotEmpty()) {
                     zipCodeAddressDetails.addTextChangedListener { editable ->
-                        if (authCommonViewModel.isUpdateProfile) {
-
-                        } else {
-                            job?.cancel()
-                            job = MainScope().launch {
-                                delay(300L)
-                                editable?.let {
-                                    if (editable.toString()
-                                            .isNotEmpty() && editable.toString().length >= 5
-                                    ) {
-                                        authCommonViewModel.getLocationByZipCode(
-                                            editable.toString(),
-                                            triple.third
-                                        )
-                                    } else {
-                                        invalidZipCodeTv.visibility = View.GONE
-                                    }
+                        job?.cancel()
+                        job = MainScope().launch {
+                            delay(300L)
+                            editable?.let {
+                                if (editable.toString()
+                                        .isNotEmpty() && editable.toString().length >= 5
+                                ) {
+                                    authCommonViewModel.getLocationByZipCode(
+                                        editable.toString(),
+                                        triple.third
+                                    )
+                                } else {
+                                    invalidZipCodeTv.visibility = View.GONE
                                 }
                             }
                         }
@@ -291,12 +287,11 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 }
                 builder.show()
             }
-
         }
 
         authCommonViewModel.countryClicked.observe(viewLifecycleOwner) {
             if (it) {
-                binding?.stateNameAddressDetails?.text = ""
+                binding?.stateNameAddressDetails?.setText("")
                 stateName = ""
                 cityName = ""
                 binding?.cityNameAddressDetails?.setText("")
@@ -311,6 +306,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                     binding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
                 }
+
             }
         }
 
@@ -360,15 +356,14 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         )
 
                         binding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
-                        binding?.stateNameAddressDetails?.text =
-                            if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName
+                        binding?.stateNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName)
 
 
                         binding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
                         binding?.cityNameAddressDetails?.setText("")
                         binding?.invalidZipCodeTv?.visibility = View.VISIBLE
-                        binding?.stateNameAddressDetails?.text = ""
+                        binding?.stateNameAddressDetails?.setText("")
                         cityName = ""
                     }
 
@@ -386,22 +381,22 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
             UserProfileStaticData.getUserProfileDataValue()?.let {
                 cityName = it.city
                 stateName = if (it.state != null) it.state.toString() else ""
-                //binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.originCountry))
-                binding?.countryPickerLl?.visibility = View.GONE
+                zipCode = it.zipcode
+                if (it.country != null) {
+                    binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.country))
+                }
+                //binding?.countryPickerLl?.visibility = View.GONE
                 binding?.address1?.setText(it.address1)
                 binding?.address2?.setText(it.address2)
                 binding?.zipCodeAddressDetails?.setText(it.zipcode)
-                binding?.zipCodeAddressDetails?.isEnabled = false
-                binding?.zipCodeAddressDetails?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                //binding?.zipCodeAddressDetails?.isEnabled = false
+                //binding?.zipCodeAddressDetails?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
                 binding?.cityNameAddressDetails?.setText(it.city)
-                binding?.cityNameAddressDetails?.isEnabled = false
-                binding?.cityNameAddressDetails?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-                binding?.stateNameAddressDetails?.isEnabled = false
-                binding?.stateNameAddressDetails?.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-                binding?.stateNameAddressDetails?.text = stateName
+                //binding?.cityNameAddressDetails?.isEnabled = false
+                //binding?.cityNameAddressDetails?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                //binding?.stateNameAddressDetails?.isEnabled = false
+                //binding?.stateNameAddressDetails?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
+                binding?.stateNameAddressDetails?.setText(stateName)
                 //if (it.state != null) it.state.toString() else ""
                 binding?.phoneNumberAddressDetails?.setText(it.phoneNo)
                 binding?.addressDetailsNextBtn?.text = "UPDATE"
@@ -466,6 +461,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         zipcode = it.zipcode,
                         state = it.state,
                         userType = it.userType,
+                        country = it.country
                     )
                 )
             }
@@ -502,8 +498,14 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         countryCode = binding?.countryCodePicker?.selectedCountryCode
         countryName = binding?.countryCodePicker?.selectedCountryName
         binding?.selectedCountryName?.text = countryName
-
-        authCommonViewModel.addCountryClicked(true)
+        if (authCommonViewModel.isUpdateProfile) {
+            if (clearAllData) {
+                authCommonViewModel.addCountryClicked(true)
+            }
+            clearAllData = true
+        } else {
+            authCommonViewModel.addCountryClicked(true)
+        }
         binding?.countryCodePicker?.selectedCountryNameCode?.let {
             binding?.countryCodePicker?.selectedCountryName?.let { it1 ->
                 authCommonViewModel.setSelectedCountryAddressScreen(

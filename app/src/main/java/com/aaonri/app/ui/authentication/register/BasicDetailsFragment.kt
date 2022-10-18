@@ -55,6 +55,7 @@ class BasicDetailsFragment : Fragment() {
     var isEmailValid = false
     var isPasswordValid = false
     var profile = ""
+    var userId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -87,7 +88,10 @@ class BasicDetailsFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
                 binding?.emailAddressBasicDetails?.backgroundTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
-                context?.let { Glide.with(it).load(socialProfile).circleCrop().error(R.drawable.profile_pic_placeholder).into(addProfileIv) }
+                context?.let {
+                    Glide.with(it).load(socialProfile).circleCrop()
+                        .error(R.drawable.profile_pic_placeholder).into(addProfileIv)
+                }
                 if (socialProfile != null) {
                     profile = socialProfile
                 }
@@ -112,11 +116,20 @@ class BasicDetailsFragment : Fragment() {
                             startForProfileImageResult.launch(intent)
                             progressBarBasicDetails.visibility = View.VISIBLE
                         }
+                } else if (profile.contains("null")) {
+                    ImagePicker.with(requireActivity())
+                        .compress(1024)
+                        .crop()
+                        .maxResultSize(1080, 1080)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                            progressBarBasicDetails.visibility = View.VISIBLE
+                        }
                 } else {
                     val materialAlertDialogBuilder =
                         context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
-                    materialAlertDialogBuilder?.setTitle("Profile Photo")
-                        ?.setMessage("Change profile photo? ")
+                    materialAlertDialogBuilder?.setTitle("Profile Image")
+                        ?.setMessage("Change profile image?")
                         ?.setPositiveButton("CHANGE") { dialog, _ ->
                             ImagePicker.with(requireActivity())
                                 .compress(1024)
@@ -129,10 +142,28 @@ class BasicDetailsFragment : Fragment() {
                             dialog.dismiss()
                         }
                         ?.setNegativeButton("REMOVE") { dialog, _ ->
-                            profile = ""
-                            setImage()
-                            addProfileBtn.visibility = View.VISIBLE
-                            dialog.dismiss()
+                            if (profile.startsWith("htt")) {
+                                profile = ""
+                                registrationViewModel.deleteProfileImage(userId)
+                                /*val materialAlertDialogBuilder =
+                                    context?.let { it1 -> MaterialAlertDialogBuilder(it1) }
+                                materialAlertDialogBuilder?.setTitle("Profile Image")
+                                    ?.setMessage("Are you sure you want to remove the profile image?")
+                                    ?.setPositiveButton("Remove") { dialog, _ ->
+                                        registrationViewModel.deleteProfileImage(userId)
+                                    }
+                                    ?.setNegativeButton("Cancel") { dialog, _ ->
+                                    }
+                                    ?.show()
+                                addProfileBtn.visibility = View.VISIBLE
+                                dialog.dismiss()*/
+                            } else {
+                                profile = ""
+                                userId = 0
+                                setImage()
+                                addProfileBtn.visibility = View.VISIBLE
+                                /*dialog.dismiss()*/
+                            }
                         }
                         ?.show()
                 }
@@ -253,6 +284,7 @@ class BasicDetailsFragment : Fragment() {
                                         zipcode = it.zipcode,
                                         state = it.state,
                                         userType = it.userType,
+                                        country = it.country
                                     )
                                 )
                             }
@@ -373,6 +405,7 @@ class BasicDetailsFragment : Fragment() {
 
         if (authCommonViewModel.isUpdateProfile) {
             UserProfileStaticData.getUserProfileDataValue()?.let {
+                userId = it.userId
                 binding?.textHintTv?.visibility = View.GONE
                 profile =
                     "${BuildConfig.BASE_URL}/api/v1/common/profileFile/${it.profilePic}"
@@ -407,6 +440,34 @@ class BasicDetailsFragment : Fragment() {
                 binding?.basicDetailsNextBtn?.text = "UPDATE"
             }
             binding?.deleteProfileBtn?.visibility = View.VISIBLE
+        }
+
+        registrationViewModel.deleteProfileImageData.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBarBasicDetails?.visibility = View.GONE
+                        if (response.data?.status == true) {
+                            profile = ""
+                            userId = 0
+                            setImage()
+                            /*activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Profile image removed successfully", Snackbar.LENGTH_LONG
+                                ).show()
+                            }*/
+                        }
+                        registrationViewModel.deleteProfileImageData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBarBasicDetails?.visibility = View.GONE
+                    }
+                }
+            }
         }
 
         authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->

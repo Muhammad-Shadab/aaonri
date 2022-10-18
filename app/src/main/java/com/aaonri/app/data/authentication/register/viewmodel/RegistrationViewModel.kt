@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.login.model.ResendEmailResponse
+import com.aaonri.app.data.authentication.register.model.DeleteProfileResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerificationResponse
 import com.aaonri.app.data.authentication.register.model.add_user.EmailVerifyRequest
@@ -28,6 +29,8 @@ class RegistrationViewModel
 
     var service: MutableLiveData<Resource<ServicesResponse>> = MutableLiveData()
 
+    var deleteProfileImageData: MutableLiveData<Resource<DeleteProfileResponse>> = MutableLiveData()
+
     val findByEmailData: MutableLiveData<Resource<FindByEmailDetailResponse>> =
         MutableLiveData()
 
@@ -35,7 +38,8 @@ class RegistrationViewModel
 
     val loginScreenPassword: MutableLiveData<String> = MutableLiveData()
 
-    val resendEmailVerificationData: MutableLiveData<Resource<ResendEmailResponse>> = MutableLiveData()
+    val resendEmailVerificationData: MutableLiveData<Resource<ResendEmailResponse>> =
+        MutableLiveData()
 
     val emailAlreadyRegisterData: MutableLiveData<Resource<EmailVerificationResponse>> =
         MutableLiveData()
@@ -135,6 +139,21 @@ class RegistrationViewModel
     }
 
     private fun handleResendEmailVerification(response: Response<ResendEmailResponse>): Resource<ResendEmailResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun deleteProfileImage(userId: Int) = viewModelScope.launch {
+        deleteProfileImageData.postValue(Resource.Loading())
+        val response = repository.deleteProfileImage(userId)
+        deleteProfileImageData.postValue(handleDeleteProfileResponse(response))
+    }
+
+    private fun handleDeleteProfileResponse(response: Response<DeleteProfileResponse>): Resource<DeleteProfileResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

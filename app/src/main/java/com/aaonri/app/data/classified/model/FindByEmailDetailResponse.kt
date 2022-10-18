@@ -33,11 +33,12 @@ data class FindByEmailDetailResponse(
     val profilePic: Any,
     val regdEmailSent: Boolean,
     val registeredBy: String,
-    val state: Any,
+    val state: Any?,
     val userFlags: List<UserFlag>,
     val userId: Int,
     val userInterests: List<Any>,
     val userName: String,
     val userType: Any,
-    val zipcode: String
+    val zipcode: String,
+    val country: String?,
 )

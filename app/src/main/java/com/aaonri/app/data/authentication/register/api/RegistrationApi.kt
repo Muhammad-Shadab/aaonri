@@ -3,6 +3,7 @@ package com.aaonri.app.data.authentication.register.api
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.login.model.LoginResponse
 import com.aaonri.app.data.authentication.login.model.ResendEmailResponse
+import com.aaonri.app.data.authentication.register.model.DeleteProfileResponse
 import com.aaonri.app.data.authentication.register.model.ProfileUploadResponse
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.model.add_user.*
@@ -57,5 +58,10 @@ interface RegistrationApi {
         @Part file: MultipartBody.Part,
         @Part("userId") userId: RequestBody,
     ): Response<ProfileUploadResponse>
+
+    @POST("api/v1/common/deleteProfilePic")
+    suspend fun deleteProfileImage(
+        @Query("userId") userId: Int
+    ): Response<DeleteProfileResponse>
 
 }

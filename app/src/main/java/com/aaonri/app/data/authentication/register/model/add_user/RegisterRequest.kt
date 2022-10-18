@@ -31,5 +31,6 @@ data class RegisterRequest(
     val registeredBy: String,
     val userName: String,
     val zipcode: String,
-    val state: String
+    val state: String,
+    val country: String,
 )

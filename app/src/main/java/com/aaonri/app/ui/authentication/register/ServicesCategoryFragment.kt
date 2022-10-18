@@ -659,7 +659,7 @@ class ServicesCategoryFragment : Fragment() {
                 lastName = authCommonViewModel.basicDetailsMap["lastName"]!!,
                 newsletter = false,
                 originCity = if (authCommonViewModel.originLocationDetails["originCity"]?.isNotEmpty() == true) authCommonViewModel.originLocationDetails["originCity"]!! else "",
-                originCountry = authCommonViewModel.selectedCountryAddressScreen!!.value!!.first,
+                originCountry = authCommonViewModel.selectedCountryLocationScreen!!.value!!.first,
                 originState = if (authCommonViewModel.originLocationDetails["originState"]?.isNotEmpty() == true) authCommonViewModel.originLocationDetails["originState"]!! else "",
                 password = authCommonViewModel.basicDetailsMap["password"]!!,
                 phoneNo = authCommonViewModel.addressDetails["phoneNumber"]!!,
@@ -669,6 +669,7 @@ class ServicesCategoryFragment : Fragment() {
                 userName = aliasName,
                 zipcode = authCommonViewModel.locationDetails["zipCode"]!!,
                 state = if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"]!! else "",
+                country = authCommonViewModel.selectedCountryAddressScreen!!.value!!.first,
             )
         )
     }

@@ -2,7 +2,6 @@ package com.aaonri.app.data.authentication.register.repository
 
 import com.aaonri.app.data.authentication.login.model.Login
 import com.aaonri.app.data.authentication.register.api.CountriesApi
-import com.aaonri.app.data.authentication.register.api.ProfilePicApi
 import com.aaonri.app.data.authentication.register.api.RegistrationApi
 import com.aaonri.app.data.authentication.register.api.ZipCodeApi
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
@@ -47,5 +46,7 @@ class RegistrationRepository @Inject constructor(
         file: MultipartBody.Part,
         userId: RequestBody
     ) = registrationApi.uploadProfilePic(file, userId)
+
+    suspend fun deleteProfileImage(userId: Int) = registrationApi.deleteProfileImage(userId)
 
 }

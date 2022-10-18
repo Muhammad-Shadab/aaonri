@@ -4,6 +4,7 @@ data class RegistrationResponse(
     val code: String,
     val community: Any,
     val count: Int,
+    val country: String,
     val discusstion: Any,
     val errorDetails: List<ErrorDetail>,
     val history: Any,

@@ -320,13 +320,11 @@ class LoginFragment : Fragment() {
 
                                 val builder = AlertDialog.Builder(context)
                                 builder.setTitle("Confirm")
-                                builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
+                                builder.setMessage("${response.data.massage}")
                                 builder.setPositiveButton("Resend") { dialog, which ->
                                     val userEmail =
                                         context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
                                     registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
-                                    binding?.loginEmailEt?.text?.toString()
-                                        ?.let { registrationViewModel.resendEmailVerification(it) }
                                 }
                                 builder.setNegativeButton("Cancel") { dialog, which ->
 
@@ -346,13 +344,11 @@ class LoginFragment : Fragment() {
 
                             val builder = AlertDialog.Builder(context)
                             builder.setTitle("Confirm")
-                            builder.setMessage("Looks like your email has not been verified yet. Please do so by following the steps mentioned the email we sent at the time of registration.")
+                            builder.setMessage("${response.data?.massage}")
                             builder.setPositiveButton("Resend") { dialog, which ->
                                 val userEmail =
                                     context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
                                 registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
-                                binding?.loginEmailEt?.text?.toString()
-                                    ?.let { registrationViewModel.resendEmailVerification(it) }
                             }
                             builder.setNegativeButton("Cancel") { dialog, which ->
 
@@ -507,8 +503,6 @@ class LoginFragment : Fragment() {
                                 val userEmail =
                                     context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
                                 registrationViewModel.resendEmailVerification(if (userEmail?.isNotEmpty() == true) userEmail else binding?.loginEmailEt?.text.toString())
-                                binding?.loginEmailEt?.text?.toString()
-                                    ?.let { registrationViewModel.resendEmailVerification(it) }
                             }
                             builder.setNegativeButton("Cancel") { dialog, which ->
 
@@ -571,16 +565,25 @@ class LoginFragment : Fragment() {
             }
         }
 
-        registrationViewModel.resendEmailVerificationData.observe(viewLifecycleOwner){response ->
-            when(response){
-                is Resource.Loading -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
-                }
-                is Resource.Error -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+        registrationViewModel.resendEmailVerificationData.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        activity?.let { it1 ->
+                            Snackbar.make(
+                                it1.findViewById(android.R.id.content),
+                                "${response.data?.message}", Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        binding?.progressBarCommunityBottom?.visibility = View.GONE
+                        registrationViewModel.resendEmailVerificationData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    }
                 }
             }
         }
