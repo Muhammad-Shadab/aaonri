@@ -16,7 +16,7 @@ data class ClassifiedAdDetailsResponse(
     val totalActiveUser: Int,
     val totalActiveUserAds: Int,
     val user: Any,
-    val userAds: UserAdsXX,
+    val userAds: UserAdsXX?,
     val userEvent: Any,
     val userInterests: Any
 )

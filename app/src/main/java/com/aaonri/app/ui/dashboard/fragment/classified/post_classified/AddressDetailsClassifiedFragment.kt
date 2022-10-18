@@ -42,6 +42,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
     var binding: FragmentAddressDetailsClassifiedBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var isEmailValid = false
+    var addId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,7 +112,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
 
         ss.setSpan(clickableSpan1, 174, 201, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss1.setSpan(clickableSpan2, 86, 105, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss1.setSpan(clickableSpan2, 86, 107, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         val SpanString = SpannableString(
             resources.getString(R.string.by_posting_an_ad)
@@ -327,13 +328,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
+                        addId = response.data?.id!!
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
-                            postClassifiedViewModel.listOfImagesUri.forEach {
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
+                            if (postClassifiedViewModel.listOfImagesUri.size > 0){
+                                callUploadClassifiedPicApi(postClassifiedViewModel.listOfImagesUri[0],
+                                    response.data.id, response.data.id
+                                )
+                                postClassifiedViewModel.listOfImagesUri.removeAt(0)
                             }
-                            val action =
-                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                            findNavController().navigate(action)
                         } else {
                             val action =
                                 AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
@@ -438,12 +440,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-
+                    binding?.progressBar?.visibility = View.GONE
+                    if (postClassifiedViewModel.listOfImagesUri.size > 0){
+                        callUploadClassifiedPicApi(postClassifiedViewModel.listOfImagesUri[0], addId, addId)
+                        postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                    }else{
+                        val action =
+                            AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                        findNavController().navigate(action)
+                    }
                 }
                 is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}

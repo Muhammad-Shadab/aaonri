@@ -53,6 +53,7 @@ class PostEventAddressDetailsFragment : Fragment() {
     val postEventViewModel: PostEventViewModel by activityViewModels()
     var startDate = ""
     var endDate = ""
+    var addId = 0
 
     @SuppressLint("ClickableViewAccessibility", "ServiceCast")
     override fun onCreateView(
@@ -293,10 +294,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                         if (editable.toString()
                                 .isNotEmpty() && editable.toString().length >= 5
                         ) {
-                            postEventViewModel.getLocationByZipCode(
+                            /*postEventViewModel.getLocationByZipCode(
                                 editable.toString(),
                                 "US"
-                            )
+                            )*/
                         } else {
                             //invalidZipCodeTv.visibility = View.GONE
                         }
@@ -331,52 +332,17 @@ class PostEventAddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
+                        addId = response.data?.id!!
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            postEventViewModel.listOfImagesUri.reverse()
-                            postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
-                                if (!uri.toString().startsWith("htt")) {
-                                    callUploadClassifiedPicApi(
-                                        uri,
-                                        response.data?.id,
-                                        response.data?.id,
+                            //postEventViewModel.listOfImagesUri.reverse()
+                            if (postEventViewModel.listOfImagesUri.size > 0){
+                                if (!postEventViewModel.listOfImagesUri[0].toString().startsWith("htt")){
+                                    callUploadClassifiedPicApi(postEventViewModel.listOfImagesUri[0],
+                                        response.data.id, response.data.id
                                     )
-                                    /*when (index) {
-                                        0 -> {
-                                            callUploadClassifiedPicApi(
-                                                uri,
-                                                response.data?.id,
-                                                response.data?.id,
-                                                imageName = "cover.png"
-                                            )
-                                        }
-                                        1 -> {
-                                            callUploadClassifiedPicApi(
-                                                uri,
-                                                response.data?.id,
-                                                response.data?.id,
-                                                imageName = "first.png"
-                                            )
-                                        }
-                                        2 -> {
-                                            callUploadClassifiedPicApi(
-                                                uri,
-                                                response.data?.id,
-                                                response.data?.id,
-                                                imageName = "second.png"
-                                            )
-                                        }
-                                        3 -> {
-                                            callUploadClassifiedPicApi(
-                                                uri,
-                                                response.data?.id,
-                                                response.data?.id,
-                                                imageName = "third.png"
-                                            )
-                                        }
-                                    }*/
+                                    postEventViewModel.listOfImagesUri.removeAt(0)
                                 }
                             }
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
@@ -438,6 +404,18 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
+                        if (postEventViewModel.listOfImagesUri.size > 0){
+                            if (!postEventViewModel.listOfImagesUri[0].toString().startsWith("htt")){
+                                callUploadClassifiedPicApi(postEventViewModel.listOfImagesUri[0],
+                                    addId, addId
+                                )
+                                postEventViewModel.listOfImagesUri.removeAt(0)
+                            }
+                        }
+                    } else {
+                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                    }
                     binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {

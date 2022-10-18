@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -147,7 +148,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             binding.apply {
 
                 userNameTv.text = firstNameChar + lastNameChar
-                userReplyDescTv.text = discussionDetailsResponseItem.replyDesc
+                userReplyDescTv.setText(discussionDetailsResponseItem.replyDesc)
 
                 if (discussionDetailsResponseItem.userImage != null) {
                     Glide.with(context)
@@ -229,6 +230,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                         false
                     )
                 }*/
+
             }
         }
     }

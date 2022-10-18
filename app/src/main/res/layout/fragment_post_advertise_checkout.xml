@@ -112,7 +112,7 @@
                                 android:id="@+id/addPageLocationTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="right"
+                                android:textAlignment="textEnd"
                                 android:fontFamily="@font/sf_pro_medium"
                                 android:text="DashBoard Belo"
                                 android:textColor="@color/light_black_color"

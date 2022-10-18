@@ -89,7 +89,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 }
                 if (authCommonViewModel.addressDetails["address2"]?.isNotEmpty() == true) {
                     binding?.address2?.setText(authCommonViewModel.addressDetails.get("address2"))
-
                 }
                 if (authCommonViewModel.addressDetails["phoneNumber"]?.isNotEmpty() == true) {
                     binding?.phoneNumberAddressDetails?.setText(
@@ -140,7 +139,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                                         triple.third
                                     )
                                 } else {
-                                    invalidZipCodeTv.visibility = View.GONE
+                                    //invalidZipCodeTv.visibility = View.GONE
                                 }
                             }
                         }
@@ -168,17 +167,20 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 val address2 = address2.text
                 val phoneNumber = phoneNumberAddressDetails.text.toString().replace("-", "")
                 val userEnteredCity = cityNameAddressDetails.text
+                val userEnteredState = stateNameAddressDetails.text
                 val zipCode = zipCodeAddressDetails.text
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 countryCodePicker.imageViewFlag.invalidate()
                 val drawable = countryCodePicker.imageViewFlag.drawable
                 authCommonViewModel.countryFlagBmp(drawable.toBitmap())
-                if (stateName.isNotEmpty() && userEnteredCity.toString().length >= 2 && zipCode.toString()
-                        .isNotEmpty() && zipCode.toString().length >= 4
+                if (userEnteredCity.toString().length >= 2 && zipCode.toString().isNotEmpty() && zipCode.toString().length >= 4 && userEnteredState.toString().length >= 2
                 ) {
                     if (cityName.isEmpty()) {
                         cityName = userEnteredCity.toString()
+                    }
+                    if (stateName.isEmpty()) {
+                        stateName = userEnteredState.toString()
                     }
                     authCommonViewModel.addLocationDetails(
                         zipCode = zipCode.toString(),
@@ -306,7 +308,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 if (authCommonViewModel.locationDetails["zipCode"]?.isNotEmpty() == true) {
                     binding?.zipCodeAddressDetails?.setText(authCommonViewModel.locationDetails["zipCode"].toString())
                 }
-
             }
         }
 
@@ -338,7 +339,6 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 is Resource.Loading -> {
 
                 }
-
                 is Resource.Success -> {
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     if (response.data?.result?.isNotEmpty() == true) {
@@ -358,11 +358,10 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         binding?.cityNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["city"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["city"].toString() else cityName)
                         binding?.stateNameAddressDetails?.setText(if (authCommonViewModel.locationDetails["state"]?.isNotEmpty() == true) authCommonViewModel.locationDetails["state"].toString() else stateName)
 
-
-                        binding?.invalidZipCodeTv?.visibility = View.GONE
+                        //binding?.invalidZipCodeTv?.visibility = View.GONE
                     } else {
                         binding?.cityNameAddressDetails?.setText("")
-                        binding?.invalidZipCodeTv?.visibility = View.VISIBLE
+                        //binding?.invalidZipCodeTv?.visibility = View.VISIBLE
                         binding?.stateNameAddressDetails?.setText("")
                         cityName = ""
                     }
@@ -398,7 +397,11 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 //binding?.stateNameAddressDetails?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.advertiseTextBgCOlor))
                 binding?.stateNameAddressDetails?.setText(stateName)
                 //if (it.state != null) it.state.toString() else ""
-                binding?.phoneNumberAddressDetails?.setText(it.phoneNo)
+
+                binding?.phoneNumberAddressDetails?.setText(
+                    it.phoneNo.replace("""[(,), ]""".toRegex(), "")
+                        .replace("-", "").replaceFirst("(\\d{3})(\\d{3})(\\d+)".toRegex(), "$1-$2-$3")
+                )
                 binding?.addressDetailsNextBtn?.text = "UPDATE"
             }
             binding?.deleteProfileBtn?.visibility = View.VISIBLE

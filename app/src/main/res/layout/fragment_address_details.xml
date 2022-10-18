@@ -163,7 +163,7 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/invalidZipCodeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
                 android:text="Please enter valid zipcode"
                 android:textColor="#FF0000"
                 android:textSize="@dimen/_10sdp"
-                android:visibility="gone" />
+                android:visibility="gone" />-->
 
 
             <EditText

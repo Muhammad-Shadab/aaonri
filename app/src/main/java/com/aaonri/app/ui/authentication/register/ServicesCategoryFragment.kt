@@ -152,7 +152,7 @@ class ServicesCategoryFragment : Fragment() {
                     if (authCommonViewModel.basicDetailsMap["firstName"] != null) {
                         aliasNameServices.setText(authCommonViewModel.basicDetailsMap["firstName"] + " " + authCommonViewModel.basicDetailsMap["lastName"])
                     } else {
-                        aliasNameServices.setText(UserProfileStaticData.getUserProfileDataValue()?.aliasName)
+                        aliasNameServices.setText(UserProfileStaticData.getUserProfileDataValue()?.firstName+" "+UserProfileStaticData.getUserProfileDataValue()?.lastName)
                     }
                 } else {
                     aliasNameServices.setText("")

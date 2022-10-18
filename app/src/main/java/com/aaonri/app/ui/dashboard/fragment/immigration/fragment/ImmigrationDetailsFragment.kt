@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -177,7 +178,7 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    if (it.userId == email) {
+                    if (it.userId.toInt() == userId) {
                         reportInappropriateTv.visibility = View.GONE
                     }
                     discussion = it

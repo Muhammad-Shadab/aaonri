@@ -71,12 +71,12 @@ class ImmigrationCenterDetails : Fragment() {
             }
 
             immigrationViewModel.immigrationCenterDesc.observe(viewLifecycleOwner) {
-                if (it.id == 2) {
+                if (it.title == "Which are the STEM Professions?") {
                     val ss = SpannableString(Html.fromHtml(it.description))
                     ss.setSpan(
                         clickableSpan1,
-                        ss.indexOf("htt"),
-                        ss.indexOf("2165"),
+                        ss.indexOf("http://nces"),
+                        ss.indexOf("2165")+4,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                     subtitleTv.text = Html.fromHtml(it.title)

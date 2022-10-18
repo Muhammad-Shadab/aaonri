@@ -339,7 +339,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
 
                         response.data?.let {
-                            setClassifiedDetails(it.userAds)
+                            it.userAds?.let { it1 -> setClassifiedDetails(it1) }
                             ClassifiedStaticData.updateAddDetails(it)
                         }
                         postClassifiedViewModel.classifiedAdDetailsData.postValue(null)
@@ -348,8 +348,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
                         Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                             .show()
-                    }
-                    else -> {
                     }
                 }
             }
@@ -746,13 +744,10 @@ class ClassifiedDetailsFragment : Fragment() {
                     } else {
                         binding?.likeDislikeBtn?.load(R.drawable.heart_grey)
                     }
-
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
                 }
             }
         }
