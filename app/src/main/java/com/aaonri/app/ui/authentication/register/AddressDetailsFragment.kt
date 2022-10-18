@@ -383,6 +383,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 stateName = if (it.state != null) it.state.toString() else ""
                 zipCode = it.zipcode
                 if (it.country != null) {
+                    Toast.makeText(context, "${it.country}", Toast.LENGTH_SHORT).show()
                     binding?.countryCodePicker?.setCountryForNameCode(getCountryCode(it.country))
                 }
                 //binding?.countryPickerLl?.visibility = View.GONE
@@ -405,9 +406,8 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         }
 
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+        activity?.onBackPressedDispatcher
+            ?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
                     /*  stateName = ""
@@ -437,7 +437,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         address2 = binding?.address2?.text?.toString(),
                         aliasName = it.aliasName,
                         authorized = true,
-                        city = it.city,
+                        city = binding?.cityNameAddressDetails?.text.toString(),
                         community = it.community,
                         companyEmail = it.companyEmail,
                         emailId = it.emailId,
@@ -458,10 +458,10 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                         regdEmailSent = false,
                         registeredBy = "manual",
                         userName = it.userName,
-                        zipcode = it.zipcode,
-                        state = it.state,
+                        zipcode = binding?.zipCodeAddressDetails?.text.toString(),
+                        state = binding?.stateNameAddressDetails?.text.toString(),
                         userType = it.userType,
-                        country = it.country
+                        country = binding?.selectedCountryName?.text.toString()
                     )
                 )
             }
@@ -516,8 +516,8 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

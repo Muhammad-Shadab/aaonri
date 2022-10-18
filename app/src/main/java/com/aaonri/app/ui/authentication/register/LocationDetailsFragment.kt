@@ -292,9 +292,9 @@ class LocationDetailsFragment : Fragment() {
             binding?.deleteProfileBtn?.visibility = View.VISIBLE
         }
 
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+
+        activity?.onBackPressedDispatcher
+            ?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigateUp()
                     /*    authCommonViewModel.selectedCommunityList.value?.clear()
