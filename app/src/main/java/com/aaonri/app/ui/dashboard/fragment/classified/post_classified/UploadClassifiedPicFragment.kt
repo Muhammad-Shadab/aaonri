@@ -450,6 +450,7 @@ class UploadClassifiedPicFragment : Fragment() {
     }
 
     private fun setImageOnNavigatingBack() {
+
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
             binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
@@ -460,6 +461,8 @@ class UploadClassifiedPicFragment : Fragment() {
             }
             image1 = false
             changeCardViewBg(0)
+        } else {
+            deleteImage(0)
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
@@ -471,6 +474,8 @@ class UploadClassifiedPicFragment : Fragment() {
             }
             image2 = false
             changeCardViewBg(1)
+        } else {
+            deleteImage(1)
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
@@ -482,6 +487,8 @@ class UploadClassifiedPicFragment : Fragment() {
             }
             image3 = false
             changeCardViewBg(2)
+        } else {
+            deleteImage(2)
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
@@ -493,8 +500,11 @@ class UploadClassifiedPicFragment : Fragment() {
             }
             image4 = false
             changeCardViewBg(3)
+        } else {
+            deleteImage(3)
         }
         disableUploadBtnColor()
+
     }
 
     private fun deleteImage(index: Int) {

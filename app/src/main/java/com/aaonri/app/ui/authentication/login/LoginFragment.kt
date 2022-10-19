@@ -411,15 +411,13 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.status == "true") {
+
                         context?.let {
                             PreferenceManager<String>(
                                 it
                             )[Constant.USER_EMAIL, ""]
                         }?.let { registrationViewModel.findByEmail(it) }
 
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
                     } else {
                         FirebaseAuth.getInstance().signOut()
                         mGoogleSignInClient.signOut()
@@ -628,6 +626,9 @@ class LoginFragment : Fragment() {
         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
             binding?.progressBarCommunityBottom?.visibility = View.GONE
+            FirebaseAuth.getInstance().signOut()
+            mGoogleSignInClient.signOut()
+            LoginManager.getInstance().logOut()
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
             binding?.progressBarCommunityBottom?.visibility = View.GONE

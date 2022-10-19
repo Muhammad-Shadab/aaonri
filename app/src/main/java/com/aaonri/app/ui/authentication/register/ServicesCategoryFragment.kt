@@ -721,8 +721,12 @@ class ServicesCategoryFragment : Fragment() {
 
     override fun onDestroy() {
         binding = null
-        adapter = null
         super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 }
