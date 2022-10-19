@@ -360,66 +360,72 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    if (response.data?.status.equals("true")) {
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        if (response.data?.status.equals("true")) {
 
-                        if (socialProfile?.isEmpty() == true) {
-                            /**If social profile is empty that's mean user changed their profile in case of gmail login**/
-                            if (authCommonViewModel.profilePicUri != null) {
-                                uploadProfilePicture(
-                                    response.data?.user?.userId,
-                                    authCommonViewModel.profilePicUri!!,
-                                    false
-                                )
-                            } else {
-                                dialog.setContentView(R.layout.success_register_dialog)
-                                dialog.window?.setBackgroundDrawable(
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.dialog_shape
+                            if (socialProfile?.isEmpty() == true) {
+                                /**If social profile is empty that's mean user changed their profile in case of gmail login**/
+                                if (authCommonViewModel.profilePicUri != null) {
+                                    uploadProfilePicture(
+                                        response.data?.user?.userId,
+                                        authCommonViewModel.profilePicUri!!,
+                                        false
                                     )
-                                )
-                                dialog.setCancelable(false)
-                                dialog.show()
-                                val continueBtn =
-                                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                                continueBtn.setOnClickListener {
-                                    dialog.dismiss()
-                                    activity?.finish()
+                                } else {
+                                    dialog.setContentView(R.layout.success_register_dialog)
+                                    dialog.window?.setBackgroundDrawable(
+                                        ContextCompat.getDrawable(
+                                            requireContext(),
+                                            R.drawable.dialog_shape
+                                        )
+                                    )
+                                    dialog.setCancelable(false)
+                                    dialog.show()
+                                    val continueBtn =
+                                        dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                                    continueBtn.setOnClickListener {
+                                        dialog.dismiss()
+                                        activity?.finish()
+                                    }
+                                }
+                            } else {
+                                /** Download social profile and upload the file **/
+                                if (downloadImage(socialProfile, "Profile")) {
+                                    uploadProfilePicture(
+                                        response.data?.user?.userId,
+                                        isSocialProfile = true
+                                    )
                                 }
                             }
                         } else {
-                            /** Download social profile and upload the file **/
-                            if (downloadImage(socialProfile, "Profile")) {
-                                uploadProfilePicture(
-                                    response.data?.user?.userId,
-                                    isSocialProfile = true
-                                )
+                            response.data?.errorDetails?.forEachIndexed { index, errorDetail ->
+                                activity?.let { it1 ->
+                                    Snackbar.make(
+                                        it1.findViewById(android.R.id.content),
+                                        "${
+                                            errorDetail.errorMessage.replace("<", "")
+                                                .replace(">", "")
+                                        }",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
                             }
                         }
-                    } else {
-                        response.data?.errorDetails?.forEachIndexed { index, errorDetail ->
-                            activity?.let { it1 ->
-                                Snackbar.make(
-                                    it1.findViewById(android.R.id.content),
-                                    "${errorDetail.errorMessage.replace("<", "").replace(">", "")}",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
-                        }
+                        registrationViewModel.registerData.postValue(null)
                     }
-                }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    else -> {
+                    }
                 }
             }
         }

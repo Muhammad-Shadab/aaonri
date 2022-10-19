@@ -417,9 +417,9 @@ class LoginFragment : Fragment() {
                             )[Constant.USER_EMAIL, ""]
                         }?.let { registrationViewModel.findByEmail(it) }
 
-                        /*val intent = Intent(requireContext(), MainActivity::class.java)
+                        val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
-                        activity?.finish()*/
+                        activity?.finish()
                     } else {
                         FirebaseAuth.getInstance().signOut()
                         mGoogleSignInClient.signOut()
@@ -659,7 +659,6 @@ class LoginFragment : Fragment() {
             }
 
 
-
             it.user?.photoUrl?.let { it1 ->
                 context?.let { it1 -> PreferenceManager<String>(it1) }
                     ?.set(Constant.USER_PROFILE_PIC, it1.toString())
@@ -748,13 +747,6 @@ class LoginFragment : Fragment() {
                 }?.let { registrationViewModel.isEmailAlreadyRegister(it) }
             }
         }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-//        binding?.loginEmailEt?.setText("")
-//        binding?.loginPasswordEt?.setText("")
     }
 
     override fun onDestroyView() {
