@@ -627,7 +627,6 @@ class LoginFragment : Fragment() {
 
         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
-
             binding?.progressBarCommunityBottom?.visibility = View.GONE
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {

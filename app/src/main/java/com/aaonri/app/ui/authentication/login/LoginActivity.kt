@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
     private fun printKeyHash() {
         try {
             val info =
-                packageManager.getPackageInfo("com.aaonri.app.dev", PackageManager.GET_SIGNATURES)
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
             for (signature in info.signatures) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())

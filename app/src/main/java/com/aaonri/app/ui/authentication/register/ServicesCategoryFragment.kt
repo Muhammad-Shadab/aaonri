@@ -152,7 +152,7 @@ class ServicesCategoryFragment : Fragment() {
                     if (authCommonViewModel.basicDetailsMap["firstName"] != null) {
                         aliasNameServices.setText(authCommonViewModel.basicDetailsMap["firstName"] + " " + authCommonViewModel.basicDetailsMap["lastName"])
                     } else {
-                        aliasNameServices.setText(UserProfileStaticData.getUserProfileDataValue()?.firstName+" "+UserProfileStaticData.getUserProfileDataValue()?.lastName)
+                        aliasNameServices.setText(UserProfileStaticData.getUserProfileDataValue()?.firstName + " " + UserProfileStaticData.getUserProfileDataValue()?.lastName)
                     }
                 } else {
                     aliasNameServices.setText("")
@@ -360,72 +360,68 @@ class ServicesCategoryFragment : Fragment() {
         }
 
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
-            if (response != null) {
-                when (response) {
-                    is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        if (response.data?.status.equals("true")) {
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    if (response.data?.status.equals("true")) {
 
-                            if (socialProfile?.isEmpty() == true) {
-                                /**If social profile is empty that's mean user changed their profile in case of gmail login**/
-                                if (authCommonViewModel.profilePicUri != null) {
-                                    uploadProfilePicture(
-                                        response.data?.user?.userId,
-                                        authCommonViewModel.profilePicUri!!,
-                                        false
-                                    )
-                                } else {
-                                    dialog.setContentView(R.layout.success_register_dialog)
-                                    dialog.window?.setBackgroundDrawable(
-                                        ContextCompat.getDrawable(
-                                            requireContext(),
-                                            R.drawable.dialog_shape
-                                        )
-                                    )
-                                    dialog.setCancelable(false)
-                                    dialog.show()
-                                    val continueBtn =
-                                        dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                                    continueBtn.setOnClickListener {
-                                        dialog.dismiss()
-                                        activity?.finish()
-                                    }
-                                }
+                        if (socialProfile?.isEmpty() == true) {
+                            /**If social profile is empty that's mean user changed their profile in case of gmail login**/
+                            if (authCommonViewModel.profilePicUri != null) {
+                                uploadProfilePicture(
+                                    response.data?.user?.userId,
+                                    authCommonViewModel.profilePicUri!!,
+                                    false
+                                )
                             } else {
-                                /** Download social profile and upload the file **/
-                                if (downloadImage(socialProfile, "Profile")) {
-                                    uploadProfilePicture(
-                                        response.data?.user?.userId,
-                                        isSocialProfile = true
+                                dialog.setContentView(R.layout.success_register_dialog)
+                                dialog.window?.setBackgroundDrawable(
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.dialog_shape
                                     )
+                                )
+                                dialog.setCancelable(false)
+                                dialog.show()
+                                val continueBtn =
+                                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                                continueBtn.setOnClickListener {
+                                    dialog.dismiss()
+                                    activity?.finish()
                                 }
                             }
                         } else {
-                            response.data?.errorDetails?.forEachIndexed { index, errorDetail ->
-                                activity?.let { it1 ->
-                                    Snackbar.make(
-                                        it1.findViewById(android.R.id.content),
-                                        "${
-                                            errorDetail.errorMessage.replace("<", "")
-                                                .replace(">", "")
-                                        }",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
-                                }
+                            /** Download social profile and upload the file **/
+                            if (downloadImage(socialProfile, "Profile")) {
+                                uploadProfilePicture(
+                                    response.data?.user?.userId,
+                                    isSocialProfile = true
+                                )
                             }
                         }
-                        registrationViewModel.registerData.postValue(null)
+                    } else {
+                        response.data?.errorDetails?.forEachIndexed { index, errorDetail ->
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "${
+                                        errorDetail.errorMessage.replace("<", "")
+                                            .replace(">", "")
+                                    }",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
-                    is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    else -> {
-                    }
+                    registrationViewModel.registerData.postValue(null)
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
