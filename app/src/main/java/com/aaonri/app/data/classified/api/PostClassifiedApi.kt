@@ -21,6 +21,13 @@ interface PostClassifiedApi {
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<ClassifiedUploadPicResponse>
 
+    @Multipart
+    @POST("/api/v1/asd/uploadImages")
+    suspend fun deleteClassifiedPics(
+        @Part("adId") adId: RequestBody,
+        @Part("delImageIds") delImageIds: RequestBody
+    ): Response<ClassifiedUploadPicResponse>
+
     @Headers("Content-Type:application/json")
     @POST("/api/v1/asd/add")
     suspend fun postClassified(

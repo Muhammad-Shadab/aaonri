@@ -105,6 +105,9 @@ class PostClassifiedViewModel @Inject constructor(
     var uploadClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
         MutableLiveData()
 
+    var deleteClassifiedPics: MutableLiveData<Resource<ClassifiedUploadPicResponse>> =
+        MutableLiveData()
+
     var classifiedUploadedImagesIdList = mutableListOf<Int>()
         private set
 
@@ -314,6 +317,24 @@ class PostClassifiedViewModel @Inject constructor(
         }
 
     private fun handleClassifiedPicUploadResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun deleteClassifiedPics(
+        addId: RequestBody,
+        dellId: RequestBody
+    ) = viewModelScope.launch {
+        deleteClassifiedPics.postValue(Resource.Loading())
+        val response = classifiedRepository.deleteClassifiedPics(addId, dellId)
+        deleteClassifiedPics.postValue(handleClassifiedPicDeleteResponse(response))
+    }
+
+    private fun handleClassifiedPicDeleteResponse(response: Response<ClassifiedUploadPicResponse>): Resource<ClassifiedUploadPicResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

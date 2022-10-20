@@ -30,6 +30,12 @@ class ClassifiedRepository @Inject constructor(
     ) =
         postClassifiedApi.uploadClassifiedPics(files, addId, dellId)
 
+    suspend fun deleteClassifiedPics(
+        addId: RequestBody,
+        dellId: RequestBody
+    ) =
+        postClassifiedApi.deleteClassifiedPics(addId, dellId)
+
     suspend fun getClassifiedSellerName(email: String) =
         classifiedApi.getClassifiedSellerInfo(email)
 

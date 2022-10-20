@@ -178,7 +178,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
 
                 binding?.classifiedDescEt?.fromHtml(addDetails?.userAds?.adDescription.toString())
                 addDetails?.userAds?.userAdsImages?.forEach {
-                    uploadedImagesIdList.add(it.imageId)
+                    if (!uploadedImagesIdList.contains(it.imageId)) {
+                        uploadedImagesIdList.add(it.imageId)
+                    }
                     uploadedImages.add("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${it.imagePath}".toUri())
                 }
 

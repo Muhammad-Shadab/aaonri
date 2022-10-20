@@ -480,6 +480,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
     private fun postClassifiedRequest(
         adEmail: String,
+
         adPhone: String,
         adKeywords: String,
         cityName: String,

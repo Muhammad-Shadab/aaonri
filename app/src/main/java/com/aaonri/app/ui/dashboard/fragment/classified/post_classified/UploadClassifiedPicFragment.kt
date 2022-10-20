@@ -23,7 +23,6 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -137,25 +136,29 @@ class UploadClassifiedPicFragment : Fragment() {
 
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
-                    selectedImage.load(image1Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image1Uri).into(selectedImage) }
+                    //selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
-                    selectedImage.load(image2Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
+                    //selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
-                    selectedImage.load(image3Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image3Uri).into(selectedImage) }
+                    //selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
-                    selectedImage.load(image4Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
+                    //selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
             }
@@ -196,6 +199,7 @@ class UploadClassifiedPicFragment : Fragment() {
             }
         }
 
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -215,6 +219,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
+                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
+                            showingImagesList.removeAt(idIndex)
+                            deleteImage(index)
                         }
                     }
                 }
@@ -222,6 +229,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
+                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
+                            showingImagesList.removeAt(idIndex)
+                            deleteImage(index)
                         }
                     }
                 }
@@ -229,6 +239,9 @@ class UploadClassifiedPicFragment : Fragment() {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
+                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
+                            showingImagesList.removeAt(idIndex)
+                            deleteImage(index)
                         }
                     }
                 }
@@ -236,12 +249,16 @@ class UploadClassifiedPicFragment : Fragment() {
                     if (idIndex == index) {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
+                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
+                            showingImagesList.removeAt(idIndex)
+                            deleteImage(index)
                         }
                     }
                 }
             }
         }
     }
+
 
     private fun setImagesForUpdatingClassified() {
         postClassifiedViewModel.listOfImagesUri.forEachIndexed { index, uri ->
