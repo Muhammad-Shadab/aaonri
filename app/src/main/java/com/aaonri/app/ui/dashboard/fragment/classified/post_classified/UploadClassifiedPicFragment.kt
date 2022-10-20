@@ -73,10 +73,6 @@ class UploadClassifiedPicFragment : Fragment() {
             }
         }
 
-        /*postClassifiedViewModel.classifiedUploadedImagesIdList.forEach {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-        }*/
-
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.UPLOAD_PIC_SCREEN)
 
         binding?.apply {
@@ -220,7 +216,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
                             postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(idIndex)
+                            showingImagesList.removeAt(index)
                             deleteImage(index)
                         }
                     }
@@ -230,7 +226,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
                             postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(idIndex)
+                            showingImagesList.removeAt(index)
                             deleteImage(index)
                         }
                     }
@@ -240,7 +236,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
                             postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(idIndex)
+                            showingImagesList.removeAt(index)
                             deleteImage(index)
                         }
                     }
@@ -250,7 +246,7 @@ class UploadClassifiedPicFragment : Fragment() {
                         if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
                             postClassifiedViewModel.imageIdGoingToRemove.add(i)
                             postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(idIndex)
+                            showingImagesList.removeAt(index)
                             deleteImage(index)
                         }
                     }

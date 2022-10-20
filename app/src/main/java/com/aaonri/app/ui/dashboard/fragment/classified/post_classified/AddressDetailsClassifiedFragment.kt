@@ -43,6 +43,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var isEmailValid = false
     var addId = 0
+    var imageIdToBeDeleted = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,9 +57,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
-        /*postClassifiedViewModel.imageIdGoindToRemove.forEach {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-        }*/
+
+        for (i in 0..postClassifiedViewModel.imageIdGoingToRemove.size) {
+            if (i != postClassifiedViewModel.imageIdGoingToRemove.size - 1) {
+                imageIdToBeDeleted += "${postClassifiedViewModel.imageIdGoingToRemove[i]},"
+            }
+            Toast.makeText(context, "$imageIdToBeDeleted", Toast.LENGTH_SHORT).show()
+        }
+
 
         val text = resources.getString(R.string.your_classified_will)
 
