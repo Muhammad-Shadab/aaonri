@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class UploadClassifiedPicFragment : Fragment() {
     var binding: FragmentUploadClassifiedPicBinding? = null
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    val showingImagesList = mutableListOf<Uri>()
+    var showingImagesList = mutableListOf<Uri>()
     var image1Uri = ""
     var image2Uri = ""
     var image3Uri = ""
@@ -194,6 +194,8 @@ class UploadClassifiedPicFragment : Fragment() {
                 }
             }
         }
+
+
 
 
         requireActivity()

@@ -57,15 +57,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
-
-        for (i in 0..postClassifiedViewModel.imageIdGoingToRemove.size) {
-            if (i != postClassifiedViewModel.imageIdGoingToRemove.size - 1) {
-                imageIdToBeDeleted += "${postClassifiedViewModel.imageIdGoingToRemove[i]},"
-            }
-            Toast.makeText(context, "$imageIdToBeDeleted", Toast.LENGTH_SHORT).show()
-        }
-
-
         val text = resources.getString(R.string.your_classified_will)
 
         val ss = SpannableString(text)
