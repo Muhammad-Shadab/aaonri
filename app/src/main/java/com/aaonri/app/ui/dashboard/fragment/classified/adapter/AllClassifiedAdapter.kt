@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.UserAds
@@ -40,7 +41,9 @@ class AllClassifiedAdapter(private var selectedServices: ((value: UserAds) -> Un
             val roundoff = df.format(random)
 
             if (data[position].favorite) {
-                like.visibility = View.VISIBLE
+                like.load(R.drawable.heart)
+            } else {
+                like.load(R.drawable.heart_grey)
             }
 
             if (data[position].userAdsImages.isEmpty()) {

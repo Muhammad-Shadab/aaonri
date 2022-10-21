@@ -222,6 +222,7 @@ class ClassifiedDetailsFragment : Fragment() {
                         likeDislikeBtn.load(R.drawable.heart_grey)
                         callLikeDislikeApi()
                     }
+                    classifiedViewModel.setCallClassifiedApiAfterDelete(true)
                 } else {
                     guestUserLoginDialog.show()
                 }

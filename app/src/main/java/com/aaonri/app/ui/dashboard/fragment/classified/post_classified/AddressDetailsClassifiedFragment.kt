@@ -25,6 +25,7 @@ import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.data.classified.model.PostClassifiedRequest
+import com.aaonri.app.data.classified.model.UserAdsImage
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
@@ -44,7 +45,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     var isEmailValid = false
     var addId = 0
+    var deletedItemList = mutableListOf<UserAdsImage>()
     var imageIdToBeDeleted = ""
+    var isUserUploadedNewImages = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -328,11 +331,15 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         addId = response.data?.id!!
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                                callUploadClassifiedPicApi(
-                                    postClassifiedViewModel.listOfImagesUri[0],
-                                    response.data.id, response.data.id
-                                )
-                                postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                                if (!postClassifiedViewModel.listOfImagesUri[0].toString()
+                                        .startsWith("http")
+                                ) {
+                                    callUploadClassifiedPicApi(
+                                        postClassifiedViewModel.listOfImagesUri[0],
+                                        response.data.id, response.data.id
+                                    )
+                                    postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                                }
                             }
                         } else {
                             val action =
@@ -357,20 +364,24 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
+                        deleteClassifiedPic(response.data?.id)
 
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
-                            postClassifiedViewModel.listOfImagesUri.forEach {
-                                if (!it.toString().startsWith("htt")) {
+                            if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                                if (!postClassifiedViewModel.listOfImagesUri[0].toString()
+                                        .startsWith("http")
+                                ) {
                                     callUploadClassifiedPicApi(
-                                        it,
-                                        postClassifiedViewModel.updateClassifiedId,
-                                        response.data?.id
+                                        postClassifiedViewModel.listOfImagesUri[0],
+                                        response.data?.id, response.data?.id
                                     )
+                                    postClassifiedViewModel.listOfImagesUri.removeAt(0)
                                 }
                             }
-                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
                         } else {
-                            findNavController().navigate(R.id.action_addressDetailsClassifiedFragment_to_classifiedPostSuccessBottom)
+                            val action =
+                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                            findNavController().navigate(action)
                         }
                     }
                     binding?.progressBar?.visibility = View.GONE
@@ -379,7 +390,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
-                else -> {}
             }
         }
 
@@ -401,33 +411,24 @@ class AddressDetailsClassifiedFragment : Fragment() {
             }
 
             /** Finding deleted images **/
-            /*if (addDetails?.userAds?.userAdsImages?.size!! >= postClassifiedViewModel.listOfImagesUri.size) {
-                addDetails.userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
-                    postClassifiedViewModel.listOfImagesUri.forEach { uri ->
-                        val index = userAdsImage.imagePath.indexOfFirst{"${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/$it" == uri.toString()}
-                        Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
+            var data: UserAdsImage? = null
+            addDetails?.userAds?.userAdsImages?.forEachIndexed { index, userAdsImage ->
+                val innerIndex =
+                    postClassifiedViewModel.listOfImagesUri.indexOfFirst { it.toString() == "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}" }
+                if (innerIndex == -1) {
+                    data = addDetails.userAds.userAdsImages[index]
+                    if (!deletedItemList.contains(data)) {
+                        deletedItemList.add(data!!)
                     }
                 }
-            }*/
+            }
 
-            /*if (addDetails?.userAds?.userAdsImages?.size!! >= postClassifiedViewModel.listOfImagesUri.size) {
-                for (userAdsIndex in 0 until addDetails.userAds.userAdsImages.size!!) {
-                    for (uriIndex in 0 until postClassifiedViewModel.listOfImagesUri.size) {
-                        if (postClassifiedViewModel.listOfImagesUri[uriIndex].toString()
-                                .contains("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${addDetails.userAds.userAdsImages[userAdsIndex].imagePath}")
-                        ) {
-                            break
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "${addDetails.userAds.userAdsImages[userAdsIndex].imageId}",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
-                    }
-                }
-            }*/
+            var i = 0
+            var len = addDetails?.userAds?.userAdsImages?.size
+            deletedItemList.forEach {
+                i++
+                imageIdToBeDeleted += "${it.imageId}${if (i != len) "," else ""}"
+            }
 
 
         }
@@ -441,12 +442,16 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                        callUploadClassifiedPicApi(
-                            postClassifiedViewModel.listOfImagesUri[0],
-                            addId,
-                            addId
-                        )
-                        postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                        if (!postClassifiedViewModel.listOfImagesUri[0].toString()
+                                .startsWith("http")
+                        ) {
+                            callUploadClassifiedPicApi(
+                                postClassifiedViewModel.listOfImagesUri[0],
+                                addId,
+                                addId
+                            )
+                            postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                        }
                     } else {
                         val action =
                             AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
@@ -457,7 +462,21 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
-                else -> {}
+            }
+        }
+
+        postClassifiedViewModel.deleteClassifiedPics.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -478,9 +497,16 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.uploadClassifiedPics(requestImage, addId, delId)
     }
 
+    private fun deleteClassifiedPic(id: Int?) {
+
+        val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        postClassifiedViewModel.deleteClassifiedPics(addId, delId)
+    }
+
     private fun postClassifiedRequest(
         adEmail: String,
-
         adPhone: String,
         adKeywords: String,
         cityName: String,

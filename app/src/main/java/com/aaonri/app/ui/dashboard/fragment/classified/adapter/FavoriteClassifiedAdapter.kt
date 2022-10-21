@@ -1,20 +1,15 @@
 package com.aaonri.app.ui.dashboard.fragment.classified.adapter
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.model.Classified
 import com.aaonri.app.databinding.ClassifiedCardItemsBinding
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -33,6 +28,13 @@ class FavoriteClassifiedAdapter(private var selectedServices: ((value: Classifie
         val context = holder.itemView.context
         holder.binding.apply {
             val random = data[position].askingPrice
+
+            like.load(R.drawable.heart)
+            /*if (data[position].favorite) {
+
+            }else{
+                like.load(R.drawable.heart_grey)
+            }*/
 
             val df = DecimalFormat("#,###.00")
             df.roundingMode = RoundingMode.DOWN

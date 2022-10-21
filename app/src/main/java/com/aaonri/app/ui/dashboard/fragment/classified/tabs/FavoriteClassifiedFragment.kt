@@ -176,9 +176,6 @@ FavoriteClassifiedFragment : Fragment() {
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
-                else -> {
-
-                }
             }
         }
 

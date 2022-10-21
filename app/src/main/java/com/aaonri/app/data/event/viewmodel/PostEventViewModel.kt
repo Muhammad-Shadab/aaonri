@@ -76,6 +76,8 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
 
     val uploadPictureData: MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
 
+    val deletePictureData: MutableLiveData<Resource<UploadEventPicResponse>> = MutableLiveData()
+
     val addInterestedData: MutableLiveData<Resource<EventAddInterestedResponse>> = MutableLiveData()
 
     val addGoingData: MutableLiveData<Resource<EventAddGoingResponse>> = MutableLiveData()
@@ -206,6 +208,25 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
             val response = eventRepository.uploadEventPicture(files, eventId, delImageIds)
             uploadPictureData.postValue(handleUploadPictureResponse(response))
         }
+
+    fun deleteEventPicture(
+        eventId: RequestBody,
+        delImageIds: RequestBody
+    ) =
+        viewModelScope.launch {
+            deletePictureData.postValue(Resource.Loading())
+            val response = eventRepository.deleteEventPicture(eventId, delImageIds)
+            deletePictureData.postValue(handleDeletePictureResponse(response))
+        }
+
+    private fun handleDeletePictureResponse(response: Response<UploadEventPicResponse>): Resource<UploadEventPicResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     private fun handleUploadPictureResponse(response: Response<UploadEventPicResponse>): Resource<UploadEventPicResponse>? {
         if (response.isSuccessful) {

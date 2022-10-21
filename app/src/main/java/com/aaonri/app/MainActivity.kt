@@ -632,37 +632,41 @@ class MainActivity : BaseActivity() {
         }
 
         classifiedViewModel.callClassifiedApiAfterDelete.observe(this) {
-            classifiedViewModel.getClassifiedByUser(
-                GetClassifiedByUserRequest(
-                    category = "",
-                    email = if (email?.isNotEmpty() == true) email else "",
-                    fetchCatSubCat = true,
-                    keywords = "",
-                    location = "",
-                    maxPrice = 0,
-                    minPrice = 0,
-                    myAdsOnly = false,
-                    popularOnAoonri = null,
-                    subCategory = "",
-                    zipCode = ""
+            if (it) {
+                classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
                 )
-            )
 
-            classifiedViewModel.getMyClassified(
-                GetClassifiedByUserRequest(
-                    category = "",
-                    email = if (email?.isNotEmpty() == true) email else "",
-                    fetchCatSubCat = true,
-                    keywords = "",
-                    location = "",
-                    maxPrice = 0,
-                    minPrice = 0,
-                    myAdsOnly = true,
-                    popularOnAoonri = null,
-                    subCategory = "",
-                    zipCode = ""
+                classifiedViewModel.getMyClassified(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = true,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
                 )
-            )
+                classifiedViewModel.callClassifiedApiAfterDelete.postValue(false)
+            }
+
         }
 
         eventViewModel.callEventApiAfterDelete.observe(this) {
@@ -709,7 +713,10 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+
+
     }
+
 
     /*private fun callApiAccordingToInterest(interests: String?) {
 

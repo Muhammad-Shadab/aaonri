@@ -23,10 +23,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.EventStaticData
+import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.model.PostEventRequest
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
@@ -54,6 +56,9 @@ class PostEventAddressDetailsFragment : Fragment() {
     var startDate = ""
     var endDate = ""
     var addId = 0
+    var deletedItemList = mutableListOf<ImageXX>()
+    var imageIdToBeDeleted = ""
+    var isUserUploadedNewImages = false
 
     @SuppressLint("ClickableViewAccessibility", "ServiceCast")
     override fun onCreateView(
@@ -334,10 +339,12 @@ class PostEventAddressDetailsFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         addId = response.data?.id!!
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            //postEventViewModel.listOfImagesUri.reverse()
-                            if (postEventViewModel.listOfImagesUri.size > 0){
-                                if (!postEventViewModel.listOfImagesUri[0].toString().startsWith("htt")){
-                                    callUploadClassifiedPicApi(postEventViewModel.listOfImagesUri[0],
+                            if (postEventViewModel.listOfImagesUri.size > 0) {
+                                if (!postEventViewModel.listOfImagesUri[0].toString()
+                                        .startsWith("htt")
+                                ) {
+                                    callUploadClassifiedPicApi(
+                                        postEventViewModel.listOfImagesUri[0],
                                         response.data.id, response.data.id
                                     )
                                     postEventViewModel.listOfImagesUri.removeAt(0)
@@ -363,31 +370,25 @@ class PostEventAddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
+                        addId = response.data?.id!!
+                        deleteEventData(addId)
+
                         if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
-                                when (index) {
-                                    0 -> {
-                                        callUploadClassifiedPicApi(
-                                            uri,
-                                            response.data?.id,
-                                            response.data?.id
-                                        )
-                                    }
-                                    1 -> {
-
-                                    }
-                                    2 -> {
-
-                                    }
-                                    3 -> {
-
-                                    }
+                            if (postEventViewModel.listOfImagesUri.size > 0) {
+                                if (!postEventViewModel.listOfImagesUri[0].toString()
+                                        .startsWith("http")
+                                ) {
+                                    callUploadClassifiedPicApi(
+                                        postEventViewModel.listOfImagesUri[0],
+                                        response.data.id, response.data.id
+                                    )
+                                    postEventViewModel.listOfImagesUri.removeAt(0)
                                 }
                             }
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         } else {
                             findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
+
                     }
                     binding?.progressBar?.visibility = View.GONE
                 }
@@ -405,9 +406,12 @@ class PostEventAddressDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                        if (postEventViewModel.listOfImagesUri.size > 0){
-                            if (!postEventViewModel.listOfImagesUri[0].toString().startsWith("htt")){
-                                callUploadClassifiedPicApi(postEventViewModel.listOfImagesUri[0],
+                        if (postEventViewModel.listOfImagesUri.size > 0) {
+                            if (!postEventViewModel.listOfImagesUri[0].toString()
+                                    .startsWith("htt")
+                            ) {
+                                callUploadClassifiedPicApi(
+                                    postEventViewModel.listOfImagesUri[0],
                                     addId, addId
                                 )
                                 postEventViewModel.listOfImagesUri.removeAt(0)
@@ -445,40 +449,29 @@ class PostEventAddressDetailsFragment : Fragment() {
                 binding?.agreeCheckboxClassified?.isChecked =
                     acceptedTermsAndConditions
 
+                /** Finding deleted images **/
+                var data: ImageXX? = null
+                eventDetails.images.forEachIndexed { index, userAdsImage ->
+                    val innerIndex =
+                        postEventViewModel.listOfImagesUri.indexOfFirst { it.toString() == "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}" }
+                    if (innerIndex == -1) {
+                        data = eventDetails.images[index]
+                        if (!deletedItemList.contains(data)) {
+                            deletedItemList.add(data!!)
+                        }
+                    }
+                }
+
+                var i = 0
+                var len = eventDetails.images.size
+                deletedItemList.forEach {
+                    i++
+                    imageIdToBeDeleted += "${it.imageId}${if (i != len) "," else ""}"
+                }
+
             }
         }
 
-        /*postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
-                    response.data?.apply {
-                        postEventAddressBinding?.eventAddressEt1?.setText(address1)
-                        postEventAddressBinding?.eventAddressEt2?.setText(address2)
-                        postEventAddressBinding?.cityNameEt?.setText(city)
-                        if (zipCode.isNotEmpty()) {
-                            postEventAddressBinding?.zipCodeEt?.setText(zipCode)
-                        } else {
-                            postEventAddressBinding?.zipCodeEt?.isEnabled = false
-                        }
-                        postEventAddressBinding?.landmarkEt?.setText(eventPlace)
-                        postEventAddressBinding?.stateEt?.setText(state)
-                        postEventAddressBinding?.socialMediaLinkEt?.setText(socialMediaLink)
-                    }
-                }
-                is Resource.Error -> {
-                    postEventAddressBinding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-
-                }
-            }
-        }*/
 
         postEventViewModel.zipCodeData.observe(
             viewLifecycleOwner
@@ -516,6 +509,13 @@ class PostEventAddressDetailsFragment : Fragment() {
         }
 
         return binding?.root
+    }
+
+    private fun deleteEventData(eventId: Int) {
+        val addId = eventId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        postEventViewModel.deleteEventPicture(addId, delId)
     }
 
     private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, id1: Int?) {

@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import coil.load
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
@@ -50,7 +51,9 @@ sealed class HomeScreenViewHolders(binding: ViewBinding) : RecyclerView.ViewHold
                 val roundoff = df.format(random)
 
                 if (userAds.favorite) {
-                    like.visibility = View.VISIBLE
+                    like.load(R.drawable.heart)
+                } else {
+                    like.load(R.drawable.heart_grey)
                 }
 
                 if (userAds.userAdsImages.isEmpty()) {

@@ -50,6 +50,13 @@ interface EventApi {
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<UploadEventPicResponse>
 
+    @Multipart
+    @POST("/api/v1/event/uploadImages")
+    suspend fun deleteEventPicture(
+        @Part("eventId") adId: RequestBody,
+        @Part("delImageIds") delImageIds: RequestBody
+    ): Response<UploadEventPicResponse>
+
     @POST("/api/v1/favourite/add")
     suspend fun addEventfav(
         @Body addEvnetInterestedRequest: EventAddInterestedRequest
