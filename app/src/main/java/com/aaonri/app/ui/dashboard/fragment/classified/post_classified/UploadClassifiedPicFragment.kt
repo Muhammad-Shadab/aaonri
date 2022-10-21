@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,7 +48,6 @@ class UploadClassifiedPicFragment : Fragment() {
     var image3 = true
     var image4 = true
     var selectPicIndex = -1
-    var rotatedBitmap: Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,8 +58,6 @@ class UploadClassifiedPicFragment : Fragment() {
         val curveRadius = 10F
 
         setImageOnNavigatingBack()
-
-        setImagesForUpdatingClassified()
 
         val requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -95,23 +93,6 @@ class UploadClassifiedPicFragment : Fragment() {
                 }
             }
 
-            deleteImage1.setOnClickListener {
-                deleteImage(0)
-                deleteImageWithId(0)
-            }
-            deleteImage2.setOnClickListener {
-                deleteImage(1)
-                deleteImageWithId(1)
-            }
-            deleteImage3.setOnClickListener {
-                deleteImage(2)
-                deleteImageWithId(2)
-            }
-            deleteImage4.setOnClickListener {
-                deleteImage(3)
-                deleteImageWithId(3)
-            }
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                 selectedImage.outlineProvider = object : ViewOutlineProvider() {
@@ -133,30 +114,39 @@ class UploadClassifiedPicFragment : Fragment() {
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
                     context?.let { it1 -> Glide.with(it1).load(image1Uri).into(selectedImage) }
-                    //selectedImage.load(image1Uri)
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
                     context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
-                    //selectedImage.load(image2Uri)
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
                     context?.let { it1 -> Glide.with(it1).load(image3Uri).into(selectedImage) }
-                    //selectedImage.load(image3Uri)
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
                     context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
-                    //selectedImage.load(image4Uri)
                     changeCardViewBg(3)
                 }
+            }
+
+            deleteImage1.setOnClickListener {
+                deleteImage(0)
+            }
+            deleteImage2.setOnClickListener {
+                deleteImage(1)
+            }
+            deleteImage3.setOnClickListener {
+                deleteImage(2)
+            }
+            deleteImage4.setOnClickListener {
+                deleteImage(3)
             }
 
             classifiedUploadPicNextBtn.setOnClickListener {
@@ -195,7 +185,23 @@ class UploadClassifiedPicFragment : Fragment() {
             }
         }
 
-
+        postClassifiedViewModel.listOfImagesUri.forEachIndexed { index, uri ->
+            when(index){
+                0 -> {
+                    image1Uri = uri.toString()
+                }
+                1 -> {
+                    image2Uri = uri.toString()
+                }
+                2 -> {
+                    image3Uri = uri.toString()
+                }
+                3 -> {
+                    image4Uri = uri.toString()
+                }
+            }
+            setImage()
+        }
 
 
         requireActivity()
@@ -210,165 +216,6 @@ class UploadClassifiedPicFragment : Fragment() {
         return binding?.root
     }
 
-    private fun deleteImageWithId(idIndex: Int) {
-        postClassifiedViewModel.classifiedUploadedImagesIdList.forEachIndexed { index, i ->
-            when (index) {
-                0 -> {
-                    if (idIndex == index) {
-                        if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
-                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(index)
-                            deleteImage(index)
-                        }
-                    }
-                }
-                1 -> {
-                    if (idIndex == index) {
-                        if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
-                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(index)
-                            deleteImage(index)
-                        }
-                    }
-                }
-                2 -> {
-                    if (idIndex == index) {
-                        if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
-                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(index)
-                            deleteImage(index)
-                        }
-                    }
-                }
-                3 -> {
-                    if (idIndex == index) {
-                        if (postClassifiedViewModel.classifiedUploadedImagesIdList.contains(i)) {
-                            postClassifiedViewModel.imageIdGoingToRemove.add(i)
-                            postClassifiedViewModel.listOfImagesUri.removeAt(idIndex)
-                            showingImagesList.removeAt(index)
-                            deleteImage(index)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun setImagesForUpdatingClassified() {
-        postClassifiedViewModel.listOfImagesUri.forEachIndexed { index, uri ->
-            when (index) {
-                0 -> {
-                    image1Uri = uri.toString()
-                    selectPicIndex = 0
-                    binding?.uploadedImage1?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image1Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.selectedImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image1Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.deleteImage1?.visibility = View.VISIBLE
-                    if (!showingImagesList.contains(image1Uri.toUri())) {
-                        showingImagesList.add(image1Uri.toUri())
-                    }
-                    image1 = false
-                    changeCardViewBg(0)
-                }
-                1 -> {
-                    image2Uri = uri.toString()
-                    selectPicIndex = 1
-                    binding?.uploadedImage2?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.selectedImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image2Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.deleteImage2?.visibility = View.VISIBLE
-                    if (!showingImagesList.contains(image2Uri.toUri())) {
-                        showingImagesList.add(image2Uri.toUri())
-                    }
-                    image2 = false
-                    changeCardViewBg(1)
-                }
-                2 -> {
-                    image3Uri = uri.toString()
-                    selectPicIndex = 2
-                    binding?.uploadedImage3?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image3Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.selectedImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image3Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.deleteImage3?.visibility = View.VISIBLE
-                    if (!showingImagesList.contains(image3Uri.toUri())) {
-                        showingImagesList.add(image3Uri.toUri())
-                    }
-                    image3 = false
-                    changeCardViewBg(2)
-                }
-                3 -> {
-                    image4Uri = uri.toString()
-                    selectPicIndex = 3
-                    binding?.uploadedImage4?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image4Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.selectedImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1).load(image4Uri)
-                                .error(R.drawable.small_image_placeholder).into(
-                                    it
-                                )
-                        }
-                    }
-                    binding?.deleteImage4?.visibility = View.VISIBLE
-                    if (!showingImagesList.contains(image4Uri.toUri())) {
-                        showingImagesList.add(image4Uri.toUri())
-                    }
-                    image4 = false
-                    changeCardViewBg(3)
-                }
-            }
-        }
-        disableUploadBtnColor()
-    }
 
     private val startForClassifiedImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -397,7 +244,6 @@ class UploadClassifiedPicFragment : Fragment() {
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 binding?.progressBarPicUpload?.visibility = View.GONE
-                //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
                 binding?.progressBarPicUpload?.visibility = View.GONE
             }
@@ -406,9 +252,9 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -416,9 +262,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -426,9 +272,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -436,9 +282,9 @@ class UploadClassifiedPicFragment : Fragment() {
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -465,12 +311,11 @@ class UploadClassifiedPicFragment : Fragment() {
     }
 
     private fun setImageOnNavigatingBack() {
-
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -481,9 +326,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -494,9 +339,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -507,9 +352,9 @@ class UploadClassifiedPicFragment : Fragment() {
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -519,7 +364,6 @@ class UploadClassifiedPicFragment : Fragment() {
             deleteImage(3)
         }
         disableUploadBtnColor()
-
     }
 
     private fun deleteImage(index: Int) {
@@ -608,16 +452,40 @@ class UploadClassifiedPicFragment : Fragment() {
     private fun setImageAfterDelete() {
         if (showingImagesList.size != 0) {
             if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(3)
             } else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(2)
             } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(1)
             } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(0)
             }
         } else {

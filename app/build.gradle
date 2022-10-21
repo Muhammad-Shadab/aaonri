@@ -129,7 +129,7 @@ dependencies {
     implementation 'com.google.android:flexbox:2.0.1'
 
     // Custom floating action button
-    implementation 'com.github.JediBurrell:customFloatingActionButton:-SNAPSHOT'
+    //implementation 'com.github.JediBurrell:customFloatingActionButton:-SNAPSHOT'
 
     // Image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'

@@ -166,7 +166,7 @@ class PostImmigrationFragment : Fragment() {
             }
 
             descEt.addTextChangedListener { editable ->
-                descLength.text = "${editable.toString().length}/257"
+                descLength.text = "${editable.toString().length}/2000"
             }
 
         }

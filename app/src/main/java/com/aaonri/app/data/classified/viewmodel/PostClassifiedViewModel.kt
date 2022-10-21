@@ -95,7 +95,7 @@ class PostClassifiedViewModel @Inject constructor(
 
     val updateClassifiedData: MutableLiveData<Resource<PostClassifiedRequest>> = MutableLiveData()
 
-    val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
+    //val uploadImagesData: MutableLiveData<Resource<UploadImagesResponse>> = MutableLiveData()
 
     var listOfImagesUri = mutableListOf<Uri>()
         private set

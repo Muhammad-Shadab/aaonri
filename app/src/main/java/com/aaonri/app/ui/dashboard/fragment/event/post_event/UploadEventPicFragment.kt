@@ -56,8 +56,6 @@ class UploadEventPicFragment : Fragment() {
 
         setImageOnNavigatingBack()
 
-        setImagesForUpdatingEvent()
-
         postEventViewModel.addNavigationForStepper(EventConstants.EVENT_UPLOAD_PICS)
 
         val requestPermissionLauncher = registerForActivityResult(
@@ -137,25 +135,25 @@ class UploadEventPicFragment : Fragment() {
 
             uploadedImage1.setOnClickListener {
                 if (image1Uri.isNotBlank()) {
-                    selectedImage.load(image1Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image1Uri).into(selectedImage) }
                     changeCardViewBg(0)
                 }
             }
             uploadedImage2.setOnClickListener {
                 if (image2Uri.isNotBlank()) {
-                    selectedImage.load(image2Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image2Uri).into(selectedImage) }
                     changeCardViewBg(1)
                 }
             }
             uploadedImage3.setOnClickListener {
                 if (image3Uri.isNotBlank()) {
-                    selectedImage.load(image3Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image3Uri).into(selectedImage) }
                     changeCardViewBg(2)
                 }
             }
             uploadedImage4.setOnClickListener {
                 if (image4Uri.isNotBlank()) {
-                    selectedImage.load(image4Uri)
+                    context?.let { it1 -> Glide.with(it1).load(image4Uri).into(selectedImage) }
                     changeCardViewBg(3)
                 }
             }
@@ -198,6 +196,24 @@ class UploadEventPicFragment : Fragment() {
             }
         }
 
+        postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
+            when(index){
+                0 -> {
+                    image1Uri = uri.toString()
+                }
+                1 -> {
+                    image2Uri = uri.toString()
+                }
+                2 -> {
+                    image3Uri = uri.toString()
+                }
+                3 -> {
+                    image4Uri = uri.toString()
+                }
+            }
+            setImage()
+        }
+
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -210,7 +226,7 @@ class UploadEventPicFragment : Fragment() {
         return binding?.root
     }
 
-    private fun setImagesForUpdatingEvent() {
+    /*private fun setImagesForUpdatingEvent() {
         postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
             when (index) {
                 0 -> {
@@ -320,7 +336,7 @@ class UploadEventPicFragment : Fragment() {
             }
         }
         disableUploadBtnColor()
-    }
+    }*/
 
 
     private val startForClassifiedImageResult =
@@ -359,9 +375,9 @@ class UploadEventPicFragment : Fragment() {
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -369,9 +385,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -379,9 +395,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -389,9 +405,9 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -420,47 +436,55 @@ class UploadEventPicFragment : Fragment() {
     private fun setImageOnNavigatingBack() {
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.setImageURI(image1Uri.toUri())
+            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image1Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
             image1 = false
             changeCardViewBg(0)
+        } else {
+            deleteImage(0)
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.setImageURI(image2Uri.toUri())
+            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image2Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
             image2 = false
             changeCardViewBg(1)
+        } else {
+            deleteImage(1)
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.setImageURI(image3Uri.toUri())
+            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image3Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
             image3 = false
             changeCardViewBg(2)
+        } else {
+            deleteImage(2)
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.setImageURI(image4Uri.toUri())
+            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.setImageURI(image4Uri.toUri())
+            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
             image4 = false
             changeCardViewBg(3)
+        } else {
+            deleteImage(3)
         }
         disableUploadBtnColor()
     }
@@ -551,16 +575,40 @@ class UploadEventPicFragment : Fragment() {
     private fun setImageAfterDelete() {
         if (showingImagesList.size != 0) {
             if (showingImagesList[showingImagesList.size - 1] == image4Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(3)
             } else if (showingImagesList[showingImagesList.size - 1] == image3Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(2)
             } else if (showingImagesList[showingImagesList.size - 1] == image2Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(1)
             } else if (showingImagesList[showingImagesList.size - 1] == image1Uri.toUri()) {
-                binding?.selectedImage?.setImageURI(showingImagesList[showingImagesList.size - 1])
+                binding?.selectedImage?.let {
+                    context?.let { it1 ->
+                        Glide.with(it1).load(showingImagesList[showingImagesList.size - 1]).into(
+                            it
+                        )
+                    }
+                }
                 changeCardViewBg(0)
             }
         } else {

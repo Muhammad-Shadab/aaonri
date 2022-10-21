@@ -19,6 +19,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.classified.ClassifiedConstant
@@ -61,7 +62,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
         val ss = SpannableString(text)
         val ss1 = SpannableString(resources.getString(R.string.if_you_want))
-
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -327,8 +327,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         addId = response.data?.id!!
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postClassifiedViewModel.listOfImagesUri.size > 0){
-                                callUploadClassifiedPicApi(postClassifiedViewModel.listOfImagesUri[0],
+                            if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                                callUploadClassifiedPicApi(
+                                    postClassifiedViewModel.listOfImagesUri[0],
                                     response.data.id, response.data.id
                                 )
                                 postClassifiedViewModel.listOfImagesUri.removeAt(0)
@@ -356,13 +357,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
-                        /* postClassifiedViewModel.imageIdGoindToRemove.forEach {
-                             callUploadClassifiedPicApi(
-                                 "".toUri(),
-                                 response.data?.id,
-                                 response.data?.id
-                             )
-                         }*/
+
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             postClassifiedViewModel.listOfImagesUri.forEach {
                                 if (!it.toString().startsWith("htt")) {
@@ -404,35 +399,39 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 binding?.phoneRadioBtn?.isChecked = true
                 binding?.phoneNumberAddressDetails?.setText(addDetails?.userAds?.adPhone)
             }
-        }
 
-        /*postClassifiedViewModel.classifiedAdDetailsData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.GONE
-
-                    addressDetailsBinding?.cityNameAddressDetails?.setText(response.data?.userAds?.adLocation)
-                    addressDetailsBinding?.zipCodeAddressDetails?.setText(response.data?.userAds?.adZip)
-                    addressDetailsBinding?.classifiedKeywordEt?.setText(response.data?.userAds?.adKeywords)
-                    addressDetailsBinding?.agreeCheckboxClassified?.isChecked =
-                        response.data?.userAds?.isTermsAndConditionAccepted == true
-                    if (response.data?.userAds?.adEmail?.isNotEmpty() == true) {
-                        addressDetailsBinding?.emailRadioBtn?.isChecked = true
-                        addressDetailsBinding?.emailAddressBasicDetails?.setText(response.data.userAds.adEmail)
-                    } else {
-                        addressDetailsBinding?.phoneRadioBtn?.isChecked = true
-                        addressDetailsBinding?.phoneNumberAddressDetails?.setText(response.data?.userAds?.adPhone)
+            /** Finding deleted images **/
+            /*if (addDetails?.userAds?.userAdsImages?.size!! >= postClassifiedViewModel.listOfImagesUri.size) {
+                addDetails.userAds.userAdsImages.forEachIndexed { index, userAdsImage ->
+                    postClassifiedViewModel.listOfImagesUri.forEach { uri ->
+                        val index = userAdsImage.imagePath.indexOfFirst{"${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/$it" == uri.toString()}
+                        Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
                     }
                 }
-                is Resource.Error -> {
-                    addressDetailsBinding?.progressBar?.visibility = View.VISIBLE
+            }*/
+
+            /*if (addDetails?.userAds?.userAdsImages?.size!! >= postClassifiedViewModel.listOfImagesUri.size) {
+                for (userAdsIndex in 0 until addDetails.userAds.userAdsImages.size!!) {
+                    for (uriIndex in 0 until postClassifiedViewModel.listOfImagesUri.size) {
+                        if (postClassifiedViewModel.listOfImagesUri[uriIndex].toString()
+                                .contains("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${addDetails.userAds.userAdsImages[userAdsIndex].imagePath}")
+                        ) {
+                            break
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "${addDetails.userAds.userAdsImages[userAdsIndex].imageId}",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                    }
                 }
-                else -> {}
-            }
-        }*/
+            }*/
+
+
+        }
+
 
         postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -441,10 +440,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (postClassifiedViewModel.listOfImagesUri.size > 0){
-                        callUploadClassifiedPicApi(postClassifiedViewModel.listOfImagesUri[0], addId, addId)
+                    if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                        callUploadClassifiedPicApi(
+                            postClassifiedViewModel.listOfImagesUri[0],
+                            addId,
+                            addId
+                        )
                         postClassifiedViewModel.listOfImagesUri.removeAt(0)
-                    }else{
+                    } else {
                         val action =
                             AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                         findNavController().navigate(action)

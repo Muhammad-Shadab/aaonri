@@ -205,7 +205,7 @@ class ShopScreenFragment : Fragment() {
                 activity?.startActivity(browserIntent)
             }*/
 
-            startWebView("${BuildConfig.BASE_URL.replace(":8444", "")}/StartSelling")
+            startWebView("https://shopwithus.aaonri.com/shop/")
             requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
