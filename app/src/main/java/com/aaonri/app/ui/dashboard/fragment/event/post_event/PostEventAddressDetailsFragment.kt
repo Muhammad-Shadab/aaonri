@@ -201,7 +201,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                     } else {
                                         if (agreeCheckboxClassified.isChecked) {
                                             if (postEventViewModel.isUpdateEvent) {
-                                                classifiedDetailsNextBtn.isEnabled = false
                                                 postEventViewModel.setEventAddressDetailMap(
                                                     addressLine1 = eventAddressEt1.text.toString(),
                                                     addressLine2 = eventAddressEt2.text.toString(),
@@ -213,7 +212,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 )
                                                 updateEvent()
                                             } else {
-                                                classifiedDetailsNextBtn.isEnabled = false
                                                 postEventViewModel.setEventAddressDetailMap(
                                                     addressLine1 = eventAddressEt1.text.toString(),
                                                     addressLine2 = eventAddressEt2.text.toString(),
@@ -255,7 +253,6 @@ class PostEventAddressDetailsFragment : Fragment() {
 
                                     if (agreeCheckboxClassified.isChecked) {
                                         if (postEventViewModel.isUpdateEvent) {
-                                            classifiedDetailsNextBtn.isEnabled = false
                                             postEventViewModel.setEventAddressDetailMap(
                                                 addressLine1 = eventAddressEt1.text.toString(),
                                                 addressLine2 = eventAddressEt2.text.toString(),
@@ -267,7 +264,6 @@ class PostEventAddressDetailsFragment : Fragment() {
                                             )
                                             updateEvent()
                                         } else {
-                                            classifiedDetailsNextBtn.isEnabled = false
                                             postEventViewModel.setEventAddressDetailMap(
                                                 addressLine1 = eventAddressEt1.text.toString(),
                                                 addressLine2 = eventAddressEt2.text.toString(),
@@ -324,42 +320,42 @@ class PostEventAddressDetailsFragment : Fragment() {
                 )
                 return@setOnTouchListener true
             }
-
-
         }
 
 
 
         postEventViewModel.postEventData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    if (response.data?.id.toString().isNotEmpty()) {
-                        addId = response.data?.id!!
-                        if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postEventViewModel.listOfImagesUri.size > 0) {
-                                if (!postEventViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("htt")
-                                ) {
-                                    callUploadClassifiedPicApi(
-                                        postEventViewModel.listOfImagesUri[0],
-                                        response.data.id, response.data.id
-                                    )
-                                    postEventViewModel.listOfImagesUri.removeAt(0)
-                                }
-                            }
-                        } else {
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                        }
+            if (response != null){
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    is Resource.Success -> {
+                        if (response.data?.id.toString().isNotEmpty()) {
+                            addId = response.data?.id!!
+                            if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
+                                if (postEventViewModel.listOfImagesUri.size > 0) {
+                                    if (!postEventViewModel.listOfImagesUri[0].toString()
+                                            .startsWith("htt")
+                                    ) {
+                                        callUploadClassifiedPicApi(
+                                            postEventViewModel.listOfImagesUri[0],
+                                            response.data.id, response.data.id
+                                        )
+                                        postEventViewModel.listOfImagesUri.removeAt(0)
+                                    }
+                                }
+                            } else {
+                                findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                            }
+                        }
+                        binding?.progressBar?.visibility = View.GONE
+                        postEventViewModel.postEventData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                    }
                 }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
-                }
-                else -> {}
             }
         }
 
@@ -369,33 +365,22 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (response.data?.id.toString().isNotEmpty()) {
-                        addId = response.data?.id!!
-                        deleteEventData(addId)
-
-                        if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postEventViewModel.listOfImagesUri.size > 0) {
-                                if (!postEventViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("http")
-                                ) {
-                                    callUploadClassifiedPicApi(
-                                        postEventViewModel.listOfImagesUri[0],
-                                        response.data.id, response.data.id
-                                    )
-                                    postEventViewModel.listOfImagesUri.removeAt(0)
-                                }
+                    response.data?.id?.let { deleteEventPicture(it) }
+                    if (postEventViewModel.listOfImagesUri.isNotEmpty()){
+                        postEventViewModel.listOfImagesUri.forEach {
+                            if (!it.toString().startsWith("htt")){
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
-                        } else {
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
-
+                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                    }else{
+                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     }
                     binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                 }
-                else -> {}
             }
         }
 
@@ -405,20 +390,22 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                        if (postEventViewModel.listOfImagesUri.size > 0) {
-                            if (!postEventViewModel.listOfImagesUri[0].toString()
-                                    .startsWith("htt")
-                            ) {
-                                callUploadClassifiedPicApi(
-                                    postEventViewModel.listOfImagesUri[0],
-                                    addId, addId
-                                )
-                                postEventViewModel.listOfImagesUri.removeAt(0)
+                    if (!postEventViewModel.isUpdateEvent){
+                        if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
+                            if (postEventViewModel.listOfImagesUri.size > 0) {
+                                if (!postEventViewModel.listOfImagesUri[0].toString()
+                                        .startsWith("htt")
+                                ) {
+                                    callUploadClassifiedPicApi(
+                                        postEventViewModel.listOfImagesUri[0],
+                                        addId, addId
+                                    )
+                                    postEventViewModel.listOfImagesUri.removeAt(0)
+                                }
                             }
+                        } else {
+                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                         }
-                    } else {
-                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     }
                     binding?.progressBar?.visibility = View.GONE
                 }
@@ -511,7 +498,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         return binding?.root
     }
 
-    private fun deleteEventData(eventId: Int) {
+    private fun deleteEventPicture(eventId: Int) {
         val addId = eventId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 

@@ -177,6 +177,22 @@ class MainActivity : BaseActivity() {
                     )
                 )
 
+                classifiedViewModel.getClassifiedForHomeScreen(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+
                 eventViewModel.getAllEvent(
                     AllEventRequest(
                         category = "",
@@ -201,6 +217,22 @@ class MainActivity : BaseActivity() {
                 }
 
                 classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+
+                classifiedViewModel.getClassifiedForHomeScreen(
                     GetClassifiedByUserRequest(
                         category = "",
                         email = if (email?.isNotEmpty() == true) email else "",
@@ -634,6 +666,22 @@ class MainActivity : BaseActivity() {
         classifiedViewModel.callClassifiedApiAfterDelete.observe(this) {
             if (it) {
                 classifiedViewModel.getClassifiedByUser(
+                    GetClassifiedByUserRequest(
+                        category = "",
+                        email = if (email?.isNotEmpty() == true) email else "",
+                        fetchCatSubCat = true,
+                        keywords = "",
+                        location = "",
+                        maxPrice = 0,
+                        minPrice = 0,
+                        myAdsOnly = false,
+                        popularOnAoonri = null,
+                        subCategory = "",
+                        zipCode = ""
+                    )
+                )
+
+                classifiedViewModel.getClassifiedForHomeScreen(
                     GetClassifiedByUserRequest(
                         category = "",
                         email = if (email?.isNotEmpty() == true) email else "",

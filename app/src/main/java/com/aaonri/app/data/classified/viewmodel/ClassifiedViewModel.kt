@@ -32,6 +32,9 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
     val classifiedByUserData: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
+    val classifiedForHomeScreen: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
+        MutableLiveData()
+
     val myClassified: MutableLiveData<Resource<GetClassifiedsByUserResponse>> =
         MutableLiveData()
 
@@ -97,6 +100,22 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
             val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
             classifiedByUserData.postValue(handleGetClassifiedUserResponse(response))
         }
+
+    fun getClassifiedForHomeScreen(getClassifiedsByUserRequest: GetClassifiedByUserRequest) =
+        viewModelScope.launch {
+            classifiedForHomeScreen.postValue(Resource.Loading())
+            val response = classifiedRepository.getClassifiedByUser(getClassifiedsByUserRequest)
+            classifiedForHomeScreen.postValue(handleHomeScreenClassifiedResponse(response))
+        }
+
+    private fun handleHomeScreenClassifiedResponse(response: Response<GetClassifiedsByUserResponse>): Resource<GetClassifiedsByUserResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     fun getMyClassified(getClassifiedRequest: GetClassifiedByUserRequest) = viewModelScope.launch {
         myClassified.postValue((Resource.Loading()))

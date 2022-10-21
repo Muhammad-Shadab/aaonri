@@ -171,7 +171,16 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     fun updateEvent(postEventRequest: PostEventRequest) = viewModelScope.launch {
         updateEventData.postValue(Resource.Loading())
         val response = eventRepository.updateEvent(postEventRequest)
-        postEventData.postValue(handlePostEventResponse(response))
+        updateEventData.postValue(handleUpdateEventResponse(response))
+    }
+
+    private fun handleUpdateEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
     private fun handlePostEventResponse(response: Response<PostEventResponse>): Resource<PostEventResponse>? {

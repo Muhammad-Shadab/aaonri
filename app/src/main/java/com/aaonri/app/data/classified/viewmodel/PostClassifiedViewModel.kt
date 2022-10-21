@@ -211,7 +211,16 @@ class PostClassifiedViewModel @Inject constructor(
     fun updateClassified(postClassifiedRequest: PostClassifiedRequest) = viewModelScope.launch {
         updateClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.updateClassified(postClassifiedRequest)
-        updateClassifiedData.postValue(handlePostClassifiedResponse(response))
+        updateClassifiedData.postValue(handleUpdateClassifiedResponse(response))
+    }
+
+    private fun handleUpdateClassifiedResponse(response: Response<PostClassifiedRequest>): Resource<PostClassifiedRequest>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
     fun deleteClassified(classifiedId: Int) = viewModelScope.launch {

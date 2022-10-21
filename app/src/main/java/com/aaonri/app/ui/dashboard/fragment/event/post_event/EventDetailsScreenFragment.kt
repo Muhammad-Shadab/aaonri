@@ -497,6 +497,7 @@ class EventDetailsScreenFragment : Fragment() {
             if (it) {
                 postEventViewModel.getEventDetails(args.eventId)
                 eventViewModel.setCallEventDetailsApiAfterUpdating(false)
+                findNavController().navigateUp()
             }
         }
 

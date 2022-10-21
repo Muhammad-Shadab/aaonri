@@ -322,7 +322,15 @@ class ClassifiedDetailsFragment : Fragment() {
                 val emailIntent = Intent(Intent.ACTION_SEND)
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/classified/details/${args.addId}")
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${
+                        BuildConfig.BASE_URL.replace(
+                            ":8444",
+                            ""
+                        )
+                    }/classified/details/${args.addId}"
+                )
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
@@ -374,7 +382,7 @@ class ClassifiedDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.classifiedDeleteData.observe(viewLifecycleOwner) { response ->
-            if (response != null){
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
 
@@ -388,13 +396,13 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
             }
-
         }
 
         classifiedViewModel.callClassifiedDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
             if (it) {
                 postClassifiedViewModel.getClassifiedAdDetails(args.addId)
                 classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(false)
+                findNavController().navigateUp()
             }
         }
 

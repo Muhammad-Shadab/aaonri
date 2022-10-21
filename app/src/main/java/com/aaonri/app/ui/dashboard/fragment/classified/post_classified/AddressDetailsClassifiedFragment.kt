@@ -332,7 +332,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                                 if (!postClassifiedViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("http")
+                                        .startsWith("http:")
                                 ) {
                                     callUploadClassifiedPicApi(
                                         postClassifiedViewModel.listOfImagesUri[0],
@@ -363,26 +363,20 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (response.data?.id.toString().isNotEmpty()) {
-                        deleteClassifiedPic(response.data?.id)
-
-                        if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                                if (!postClassifiedViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("http")
-                                ) {
-                                    callUploadClassifiedPicApi(
-                                        postClassifiedViewModel.listOfImagesUri[0],
-                                        response.data?.id, response.data?.id
-                                    )
-                                    postClassifiedViewModel.listOfImagesUri.removeAt(0)
-                                }
+                    response.data?.id?.let { deleteClassifiedPic(it) }
+                    if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()){
+                        postClassifiedViewModel.listOfImagesUri.forEach {
+                            if (!it.toString().startsWith("htt")){
+                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
                             }
-                        } else {
-                            val action =
-                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                            findNavController().navigate(action)
                         }
+                        val action =
+                            AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                        findNavController().navigate(action)
+                    }else{
+                        val action =
+                            AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                        findNavController().navigate(action)
                     }
                     binding?.progressBar?.visibility = View.GONE
                 }
@@ -441,21 +435,23 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                        if (!postClassifiedViewModel.listOfImagesUri[0].toString()
-                                .startsWith("http")
-                        ) {
-                            callUploadClassifiedPicApi(
-                                postClassifiedViewModel.listOfImagesUri[0],
-                                addId,
-                                addId
-                            )
-                            postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                    if (!postClassifiedViewModel.isUpdateClassified){
+                        if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                            if (!postClassifiedViewModel.listOfImagesUri[0].toString()
+                                    .startsWith("http")
+                            ) {
+                                callUploadClassifiedPicApi(
+                                    postClassifiedViewModel.listOfImagesUri[0],
+                                    addId,
+                                    addId
+                                )
+                                postClassifiedViewModel.listOfImagesUri.removeAt(0)
+                            }
+                        } else {
+                            val action =
+                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                            findNavController().navigate(action)
                         }
-                    } else {
-                        val action =
-                            AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                        findNavController().navigate(action)
                     }
                 }
                 is Resource.Error -> {
@@ -484,6 +480,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
     }
 
     private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, deleteId: Int?) {
+
 
         val file = File(uri.toString().replace("file:", ""))
 
