@@ -325,7 +325,7 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version: 1.1.4"
+        android:text="Version: 1.2"
         android:textColor="@color/hintColor"
         android:textSize="10sp"
         android:translationY="@dimen/_102sdp"
