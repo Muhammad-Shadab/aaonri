@@ -963,7 +963,7 @@ class HomeScreenFragment : Fragment() {
             }
         }
 
-        classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
+        classifiedViewModel.classifiedForHomeScreen.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
 
@@ -994,14 +994,12 @@ class HomeScreenFragment : Fragment() {
                             )
                         )*//*
                     } else {
-
                         //genericAdapter?.items = classifiedViewModel.allClassifiedList
                         //allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
                         //allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
                     }*/
                     homeClassifiedWithAdList = classifiedViewModel.allClassifiedList.toMutableList()
-                    genericAdapterForClassified?.items = homeClassifiedWithAdList
-
+                    genericAdapterForClassified?.items = response.data?.userAdsList
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
