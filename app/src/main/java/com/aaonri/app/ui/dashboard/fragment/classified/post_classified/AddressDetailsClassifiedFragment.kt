@@ -48,6 +48,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
     var deletedItemList = mutableListOf<UserAdsImage>()
     var imageIdToBeDeleted = ""
     var isUserUploadedNewImages = false
+    var imagesUriWhileUpdating = mutableListOf<Uri>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -363,16 +364,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     response.data?.id?.let { deleteClassifiedPic(it) }
-                    if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()){
-                        postClassifiedViewModel.listOfImagesUri.forEach {
-                            if (!it.toString().startsWith("htt")){
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
-                            }
-                        }
-                        val action =
-                            AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                        findNavController().navigate(action)
-                    }else{
+                    if (imagesUriWhileUpdating.isNotEmpty()) {
+                        callUploadClassifiedPicApi(
+                            imagesUriWhileUpdating[0],
+                            postClassifiedViewModel.updateClassifiedId,
+                            response.data?.id
+                        )
+                        imagesUriWhileUpdating.removeAt(0)
+                    } else {
                         val action =
                             AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                         findNavController().navigate(action)
@@ -423,6 +422,14 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 imageIdToBeDeleted += "${it.imageId}${if (i != len) "," else ""}"
             }
 
+            postClassifiedViewModel.listOfImagesUri.forEach { imageUri ->
+                if (!imageUri.toString().startsWith("htt")) {
+                    if (!imagesUriWhileUpdating.contains(imageUri)) {
+                        imagesUriWhileUpdating.add(imageUri)
+                    }
+                }
+            }
+
 
         }
 
@@ -434,7 +441,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (!postClassifiedViewModel.isUpdateClassified){
+                    if (!postClassifiedViewModel.isUpdateClassified) {
                         if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                             if (!postClassifiedViewModel.listOfImagesUri[0].toString()
                                     .startsWith("http")
@@ -446,6 +453,19 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 )
                                 postClassifiedViewModel.listOfImagesUri.removeAt(0)
                             }
+                        } else {
+                            val action =
+                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                            findNavController().navigate(action)
+                        }
+                    } else {
+                        if (imagesUriWhileUpdating.size > 0) {
+                            callUploadClassifiedPicApi(
+                                imagesUriWhileUpdating[0],
+                                postClassifiedViewModel.updateClassifiedId,
+                                addId
+                            )
+                            imagesUriWhileUpdating.removeAt(0)
                         } else {
                             val action =
                                 AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
