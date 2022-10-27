@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeScreenFragment"
+        android:icon="@drawable/ic_home_1"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/classifiedScreenFragment"
+        android:icon="@drawable/ic_classified"
+        android:title="Classifieds" />
+
+    <item
+        android:id="@+id/shopScreenFragment"
+        android:icon="@drawable/ic_shop"
+        android:title="Shop" />
+
+    <item
+        android:id="@+id/advertiseScreenFragment"
+        android:icon="@drawable/ic_advertise"
+        android:title="Advertise" />
+
+    <item
+        android:id="@+id/moreScreenFragment"
+        android:icon="@drawable/more_icon_"
+        android:title="More" />
+
+</menu>

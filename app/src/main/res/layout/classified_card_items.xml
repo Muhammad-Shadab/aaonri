@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/classifiedCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/classifiedItemIv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_88sdp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_image_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/classifiedPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:text="$29.99"
+                    android:textColor="#114591"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/popularTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/blue_capsule_shape"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:textAlignment="center"
+                    android:text="Popular"
+                    android:layout_weight="1"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"
+                    app:layout_constraintStart_toEndOf="@+id/classifiedPriceTv"
+                    app:layout_constraintTop_toBottomOf="@+id/classifiedItemIv"
+                    app:layout_constraintTop_toTopOf="@id/classifiedPriceTv" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/classifiedTitleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:maxLines="1"
+                android:text="7 Ports USB3.0"
+                android:textColor="#1b1b1b"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/classifiedPostDateTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Posted On: 06-02-2022 "
+                android:textColor="#797979"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/classifiedDescTv" />
+
+            <View
+                android:id="@+id/dividerClassified"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:background="#69C9C9C9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/classifiedPostDateTv" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/locationIconClassified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintBottom_toBottomOf="@+id/locationClassifiedTv"
+                    app:layout_constraintEnd_toStartOf="@+id/locationClassifiedTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/locationClassifiedTv" />
+
+                <TextView
+                    android:id="@+id/locationClassifiedTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:maxLines="1"
+                    android:text="New York-08512"
+                    android:textColor="#797979"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/locationIconClassified"
+                    app:layout_constraintTop_toBottomOf="@+id/dividerClassified" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/like"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:visibility="visible"
+            android:src="@drawable/heart_grey" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

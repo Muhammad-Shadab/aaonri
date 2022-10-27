@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro_graph"
+    app:startDestination="@id/splashScreenFragment">
+    <include app:graph="@navigation/dashboard_nav_graph" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.aaonri.app.ui.authentication.login.LoginFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_dashboard_nav_graph"
+            app:destination="@id/dashboard_nav_graph" />
+        <action
+            android:id="@+id/action_loginFragment_to_resetPassword"
+            app:destination="@id/resetPassword" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resetPassword"
+        android:name="com.aaonri.app.ui.authentication.forgot_password.ResetMyPasswordFragment"
+        android:label="ResetPassword">
+        <action
+            android:id="@+id/action_resetPassword_to_checkYourEmailFragment"
+            app:destination="@id/checkYourEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkYourEmailFragment"
+        android:name="com.aaonri.app.ui.authentication.forgot_password.CheckYourEmailFragment"
+        android:label="CheckYourEmailFragment">
+        <action
+            android:id="@+id/action_checkYourEmailFragment_to_resetPasswordInfoFragment"
+            app:destination="@id/resetPasswordInfoFragment" />
+        <action
+            android:id="@+id/action_checkYourEmailFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordInfoFragment"
+        android:name="com.aaonri.app.ui.authentication.forgot_password.ResetPasswordInfoFragment"
+        android:label="fragment_reset_password_info"
+        tools:layout="@layout/fragment_reset_password_info">
+        <argument
+            android:name="code"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://www.aaonri.com/#/passreset/{code}/{email}/{id}" />
+        <action
+            android:id="@+id/action_resetPasswordInfoFragment_to_createNewPasswordFragment"
+            app:destination="@id/createNewPasswordFragment" />
+        <action
+            android:id="@+id/action_resetPasswordInfoFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewPasswordFragment"
+        android:name="com.aaonri.app.ui.authentication.forgot_password.CreateNewPasswordFragment"
+        android:label="fragment_create_new_password"
+        tools:layout="@layout/fragment_create_new_password">
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_createNewPasswordFragment_to_passwordResetSuccessBottom"
+            app:destination="@id/passwordResetSuccessBottom" />
+    </fragment>
+    <dialog
+        android:id="@+id/passwordResetSuccessBottom"
+        android:name="com.aaonri.app.ui.authentication.forgot_password.PasswordResetSuccessBottom"
+        android:label="fragment_password_reset_success_bottom"
+        tools:layout="@layout/fragment_password_reset_success_bottom">
+        <action
+            android:id="@+id/action_passwordResetSuccessBottom_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.aaonri.app.ui.authentication.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,111 @@
+package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.R
+import com.aaonri.app.data.immigration.model.DiscussionCategoryResponseItem
+import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
+import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
+import com.aaonri.app.databinding.FragmentImmigrationCategoryBottomSheetBinding
+import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.utils.Resource
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class ImmigrationCategoryBottomSheet : BottomSheetDialogFragment() {
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    var binding: FragmentImmigrationCategoryBottomSheetBinding? = null
+    val immigrationViewModel: ImmigrationViewModel by activityViewModels()
+    var immigrationAdapter: ImmigrationAdapter? = null
+    val args: ImmigrationCategoryBottomSheetArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        isCancelable = false
+
+        binding =
+            FragmentImmigrationCategoryBottomSheetBinding.inflate(layoutInflater, container, false)
+
+        immigrationAdapter = ImmigrationAdapter()
+
+        immigrationAdapter?.itemClickListener =
+            { _, item, _, _, _ ->
+                if (item is DiscussionCategoryResponseItem) {
+                    when (args.screenName) {
+                        "FromAllDiscussionScreen" -> {
+                            /**This will call the immigration api with different category or selected category**/
+                            /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
+                                false
+                            )*/
+
+                            immigrationViewModel.setFilterData(
+                                ImmigrationFilterModel(
+                                    fifteenDaysSelected = false,
+                                    threeMonthSelected = false,
+                                    oneYearSelected = false,
+                                    activeDiscussion = false,
+                                    atLeastOnDiscussion = false
+                                )
+                            )
+                            immigrationViewModel.setClearSearchViewText(true)
+                            immigrationViewModel.setCallImmigrationApi(true)
+                            immigrationViewModel.setSelectedAllDiscussionCategory(item)
+                        }
+
+                        "FromMyDiscussionScreen" -> {
+                            /**This will call the immigration api with different category or selected category**/
+                            /*immigrationViewModel.setIsNavigateBackFromMyImmigrationDetailScreen(
+                                false
+                            )*/
+                            immigrationViewModel.setSelectedMyDiscussionScreenCategory(item)
+                        }
+
+                        "PostImmigrationScreen" -> {
+                            immigrationViewModel.setSelectedPostingDiscussionScreenCategory(item)
+                        }
+                        /*"FromFilterScreen" -> {
+
+                            }*/
+                    }
+                    dismiss()
+                }
+            }
+
+        binding?.apply {
+
+            closeBttomSheetBtn.setOnClickListener {
+                dismiss()
+            }
+            immigrationCategoryRv.layoutManager = LinearLayoutManager(context)
+            immigrationCategoryRv.adapter = immigrationAdapter
+        }
+
+        immigrationViewModel.discussionCategoryData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    response.data?.let { immigrationAdapter?.setData(it) }
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
+
+        return binding?.root
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+}

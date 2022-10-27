@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.fragment.advertise.fragment.ReviewAdvertiseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_12sdp">
+
+            <LinearLayout
+                android:id="@+id/mainll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:text="Preview"
+                    android:textColor="@color/editTextColor"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/closeCommunityBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_close" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/advertisementImageFL"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_310sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainll">
+
+                <ImageView
+                    android:id="@+id/advertisementImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_310sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:src="@drawable/image_place_holder"
+                    app:layout_constraintTop_toBottomOf="@+id/mainll" />
+
+                <com.chinalwb.are.render.AreTextView
+                    android:id="@+id/advertiseDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/ad_txt_only_bg"
+                    android:fontFamily="@font/sf_pro_regular"
+                    android:lineSpacingExtra="5dp"
+                    android:padding="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:fontFamily="@font/sf_pro_regular" />
+
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/advertiseNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="Yoga &amp; Fitness Classes"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertisementImageFL" />
+
+            <TextView
+                android:id="@+id/advertiseLocationTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_display_light"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="New York 0852"
+                android:textColor="#707070"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseNameTv" />
+
+            <LinearLayout
+                android:id="@+id/advertisePostDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseLocationTv">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_time_watch"
+                    app:layout_constraintBottom_toBottomOf="@+id/locationEventTv"
+                    app:layout_constraintEnd_toStartOf="@+id/locationEventTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/locationEventTv" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="From"
+                            android:textColor="#484747"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/postedDate1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:includeFontPadding="false"
+                            android:maxLines="2"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="To"
+                            android:textColor="#484747"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/postedDate2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_display_light"
+                            android:includeFontPadding="false"
+                            android:maxLines="2"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/advertiseLinkTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:drawableLeft="@drawable/link_icon"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/sf_pro_medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="https://yogafitness.com/"
+                android:textColor="#124c94"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertisePostDate" />
+
+
+            <com.chinalwb.are.render.AreTextView
+                android:id="@+id/companyDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/helvetica_regular"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/darkGrayColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertiseLinkTv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

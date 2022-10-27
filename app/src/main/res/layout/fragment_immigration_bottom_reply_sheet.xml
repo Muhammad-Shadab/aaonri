@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_16sdp"
+    tools:context=".ui.dashboard.fragment.immigration.fragment.ImmigrationBottomReplySheet">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_34sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/selectCategoryTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="Reply"
+            android:textColor="@color/textViewColor"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:id="@+id/closeReplyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_close" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_16sdp"
+        >
+        <ImageView
+            android:id="@+id/profilePicIv"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:scaleType="fitXY"
+            android:padding="@dimen/_1sdp"
+            android:src="@drawable/profile_pic_placeholder" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_6sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Krishan Mohan"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/dateTv"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_light_italic"
+                android:text="Mar 09,2022"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/descTv"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_regular"
+        android:text="You are allowed to extend your tourist visa and extend your business date if you are a B1 or B2 holder. The typical amount of time granted to a B visa holder is one to six months. The maximum amount of time you can extend on  a B-1 visa is up to 6 months, for a total of 1 year."
+        android:includeFontPadding="false"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/replyEt"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:hint="Add Reply"
+        android:gravity="top"
+        android:inputType="textCapSentences"
+        android:textSize="15sp"
+        android:textColor="#d9d9d9"
+        android:padding="@dimen/_8sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:background="@drawable/multiline_textfield_shape"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sendBtn"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/green_btn_shape"
+        android:fontFamily="@font/sf_pro_semi_bold"
+        android:minHeight="0dp"
+        android:paddingVertical="@dimen/_6sdp"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:text="SEND"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>

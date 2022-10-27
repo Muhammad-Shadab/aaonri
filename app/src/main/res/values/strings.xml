@@ -1,9 +1,163 @@
 <resources>
-    <string name="app_name">Aaonri</string>
+    <string name="app_name">aaonri</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="experience_the_power_of_our_south_asian_community">EXPERIENCE THE POWER OF OUR SOUTH ASIAN COMMUNITY</string>
+    <string name="login_to_explore">LOGIN TO EXPLORE ALL SERVICE\n OFFERINGS BY AAONRI</string>
     <string name="register_now">REGISTER NOW</string>
     <string name="guest_user"><u>Guest User</u></string>
+    <string name="forgot_password"><u>Forgot Password?</u></string>
+    <string name="back_to_signin"><u>Back to Sign In</u></string>
+    <string name="skip_will_confirm"><u>Skip, I’ll confirm later</u></string>
+    <string name="create_account"><u>Create New Account</u></string>
     <string name="registration">Registration</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City*</string>
+    <string name="state">State*</string>
+    <string name="login">LOGIN</string>
+    <string name="email_address">Email Address*</string>
+    <string name="password">Password*</string>
+    <string name="new_user">New User?</string>
+    <string name="connect_with">Connect with</string>
+    <string name="first_name">First Name*</string>
+    <string name="last_name">Last Name*</string>
+    <string name="password_must_contains_8_characters_1_uppercase_1_number"><![CDATA[Password must contains 8 characters, 1 uppercase & 1 number]]></string>
+    <string name="next">NEXT</string>
+    <string name="zip_code">Zip Code*</string>
+    <string name="select_country_of_origin">Select country of origin*</string>
+    <string name="select_your_community">Select your community*</string>
+    <string name="select_one_or_multiple_communities">Select one or multiple communities</string>
+    <string name="you_have_selected_communities">You have selected 0 community</string>
+    <string name="submit">SUBMIT</string>
+    <string name="choose_any_three_or_more_categories">Choose any three or more Categories</string>
+    <string name="as_you_have_selected">As you have selected Jobs module on aaonri, check the box if you are a recruiter.</string>
+    <string name="your_company_s_email">Your Company\'s email</string>
+    <string name="choose_an_alias">Choose an alias name to be used on aaonri \n (Chat, Immigration, and Messanger)</string>
+    <string name="your_company_s_email_id">Your Company\'s Email ID</string>
+    <string name="alias_name">Alias Name</string>
+    <string name="belong_to_any_cricket_league_in_nj_yes_or_no">Belong to any Cricket League in NJ? Yes or No</string>
+    <string name="just_want_my_full_name_as_my_alias_name">Just want my full name as my alias name.</string>
+    <string name="register_to_explore_all_services_offering_by_aaonri">REGISTER TO EXPLORE ALL SERVICES OFFERING BY AAONRI?</string>
+    <string name="your_selected_community_3">Your selected community (3)</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_your_country">Select your country</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="reset_my_password">Reset My Password</string>
+    <string name="enter_the_email">Enter the email associated with your account and we’ll send an email with instructions to reset your password.</string>
+    <string name="verification">Verification email sent to your Email ID. \n please come back to the app and click the \'Continue\' button below once your account verification process is completed</string>
+    <string name="need_to_reset_your_password">Need to reset your password? No problem! Just click the button below and you’ll be on your way. If you did not make this request, please ignore this email.</string>
+    <string name="_2022_aaonri_all_rights_reserved">© 2022 aaonri \nAll Rights Reserved.</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="congratulations_your_new_password_has_been_reset_successfully_please_click_below_on_login_to_continue">Congratulations \nYour new password has been reset successfully, \nplease click below on login to continue</string>
+    <string name="classifieds">Classifieds</string>
+    <string name="you_haven_t_listed_anything_yet">You haven\'t listed anything yet</string>
+    <string name="discover">Discover</string>
+    <string name="spannableText1">Did you not receive the email? Check your spam filter, </string>
+    <string name="try_another_email_address"><u>Try another email address. or </u></string>
+    <string name="spannableText2"><u>Try another email address.</u></string>
+    <string name="post_a_classified">Post a Classified</string>
+    <string name="title_of_your_classified">Title of your Classified*</string>
+    <string name="is_the_listed_product_new">Is the listed product new?</string>
+    <string name="please_describe_what_you_are_selling">Please describe what you are selling ?*</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="image_can_be_upload_upto_max_size_2mb">Image can be upload upto max size 2MB</string>
+    <string name="how_would_you_like_to_be_contacted">How would you like to be Contacted?</string>
+    <string name="submit_a_classified">SUBMIT A CLASSIFIED</string>
+    <string name="your_classified_will">Your Classified will appear in search\n and / or on classifieds section of aaonri\n for 15 days at no charge: If you wish to\n extend your ad after 15 days, please\n email us at adminclassifieds@aaonri.com</string>
+    <string name="your_classified">Your Classified will appear in search\n and / or on classifieds section of aaonri for 15 days at no charge: If you wish to extend your ad after 15 days, please email us at adminclassifieds@aaonri.com</string>
+    <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your ad, which will be used for search by other users</string>
+    <string name="if_you_want">If you want your ad to appear in the \n\"Featured\" section, please contact us at \nadmin Classfieds@aaonri.com</string>
+    <string name="please_review_your_information">Please review your information, you will \nnot be able to update the changes once\nthe Ad is approved by the aaonri administrator.</string>
+    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms of use and our Privacy Policy</string>
+    <string name="congratulations_you_have_successfully_posted_your_classified">Congratulations \n You have successfully posted your Classified</string>
+    <string name="if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com">If a user wishes to make an ad Popular/Hot\n Please email to admin@aaonri.com</string>
+    <string name="view_your_classified">VIEW YOUR CLASSIFIEDS</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="apply">APPLY</string>
+    <string name="clear_all">CLEAR ALL</string>
+    <string name="category_d_cor_sub_category_art_crafts"><![CDATA[Category: Décor  |  Sub Category: Art & Crafts]]></string>
+    <string name="more"><u>More+</u></string>
+    <string name="see_all">See All</string>
+    <string name="three_generations_of_the_world">Three Generations of the World</string>
+    <string name="events">Events</string>
+    <string name="post_your_event">Post your Event</string>
+    <string name="offline_event">Offline Event</string>
+    <string name="online_evnet">Online Evnet</string>
+    <string name="title_of_your_event">Title of your Event*</string>
+    <string name="select_category">Select Category*</string>
+    <string name="start_time">Start Time*</string>
+    <string name="end_date">End Date*</string>
+    <string name="start_date">Start Date*</string>
+    <string name="end_time">End Time*</string>
+    <string name="asking_fee_in">Asking Fee in ($)*</string>
+    <string name="please_describe_about_the_event">Please describe about the event*</string>
+    <string name="choose_1st_image_for_cover_photo">Choose 1st image for Cover photo</string>
+    <string name="land_mark">Land Mark</string>
+    <string name="social_media_link">BUY TICKETS URL*</string>
+    <string name="your_event_will">Your event will appear in the search and/or on the events section of AAONRI for 15 days at no charge</string>
+    <string name="if_you_want_event">If you want your event to appear in the “Featured” section, please contact us at events@aaonri.com</string>
+    <string name="submit_event">Submit Event</string>
+    <string name="view_your_event">VIEW YOUR EVENT</string>
+    <string name="congratulations_you_have_successfully">You have successfully posted your event</string>
+    <string name="category_food_amp_drink"><![CDATA[Category: Food & Drink]]></string>
+    <string name="going">Going</string>
+    <string name="interested">Interested</string>
+    <string name="shop_with_us">Shop\nWith Us</string>
+    //for gmail and facebook login
+    <string name="gmail_client_id">407216562924-651q4nf7ui96veen3q67utfdnfehi04a.apps.googleusercontent.com</string>
+    <!--<string name="facebook_app_id">2100091233496499</string>
+    <string name="fb_login_protocol_scheme">fb2100091233496499</string>
+    <string name="facebook_client_token">220973957b83fc29de946ed796627cf5</string>-->
+    <string name="facebook_app_id">1277490215989331</string>
+    <string name="fb_login_protocol_scheme">fb1277490215989331</string>
+    <string name="facebook_client_token">5e298f34b642d510ca6eca222d970924</string>
+    <string name="login_to_view_seller_information">Login to view Seller Information</string>
+    <string name="login_to_view_Advertisement">Login to explore Advertisement</string>
+    <string name="tap_now"><u>Tap Now</u></string>
+    <string name="view_cover_letter"><u>View Cover Letter</u></string>
+    <string name="view_resume"><u>View Resume</u></string>
+
+    <string name="dashboard_below_text">Dashboard Below Interest Area</string>
+    <string name="our_ad_approval_process_text">Our Ad approval process may take upto 24 hrs. Your Ad will be available on our portal from the next day of submitting an order,From &amp; To dates reflect based upon the time taken for approval and the duration you selected.</string>
+    <string name="your_advertisement_will_posted_text">Your advertisement will be posted on aaonri\nweb &amp; mobile platforms within 24 hrs after the\ncompletion of the approval process!</string>
+    <string name="your_advertisement_will_updates_text">Your advertisement will be updated on aaonri\nweb &amp; mobile platforms within 24 hrs after the\ncompletion of the approval process!</string>
+    <string name="after_submit_request_text">After submitting the request to post your Ad on aaonri mobile &amp; web platforms, you will have 24 hrs to make edits.</string>
+    <string name="our_ad_approval_process">Our Ad approval process may take upto 24 hrs.</string>
+    <string name="your_ad_will_be_available"><![CDATA[Your Ad will be available on our portal from the next day of submitting an order, From & To dates reflect based upon the time taken for approval and the duration you selected.]]></string>
+    <string name="once_the_ad">Once the Ad is posted on aaaonri mobile &amp; web platforms (after 24 hrs) of posting, no edits will be allowed</string>
+    <string name="please_review_details">Please review details that you input carefully, if there is any objectionable content found, the advertisement will not be posted on aaonri mobile &amp; web platforms</string>
+    <string name="all_sales_made">All sales made are final, no refund will be allowed after 24 hrs of posting an advertisement.</string>
+    <string name="payment_option_available">Payment option available is via PayPal.</string>
+    <string name="for_any_other">For any other questions, please contact us at advertise@aaonri.com</string>
+    <string name="post_advertisement">Post Advertisement</string>
+    <string name="search_jobs">Search Jobs by Keyword and Skillset</string>
+    <string name="select_a_page_on_the_website_mobile_to_display_your_advertisement">Select a page on the website &amp; mobile\n to display your advertisement</string>
+    <string name="the_highlighted_areas_in_red_are_the_places_where_you_can_place_your_ad">The highlighted areas in red, are the places where you\n can place your Ad</string>
+    <string name="your_advertisement_will_be_displayed_on_users_personal_dashboard_section_which_provides_more_visibility_of_your_ad_to_the_users_when_they_login_to_aaonri">Your advertisement will be displayed on users\n Personal Dashboard” section, which provides more\n visibility of your ad to the users\n when they login to aaonri.</string>
+    <string name="advertisement_details">Advertisement Details</string>
+    <string name="booking_summary_payment">Booking Summary &amp; Payment</string>
+    <string name="advertise_basic_details_desc"><font size="16">Ad description (Max 30 characters)</font></string>
+    <string name="company_brief_desc"><font size="16">Brief Description*</font></string>
+    <string name="by_posting_an_ad_on_aaonri_advertise"><![CDATA[By posting an Ad on aaonri, I have read & agree to the Terms & Conditions above]]></string>
+    <string name="see_less">\n - See Less</string>
+    <string name="see_more">\n + See More</string>
+    <string name="create_your_job">Create your job alerts by filling below details\nand you can see alerts in your job alerts page in tags</string>
+    <string name="please_review_your_details">Please review your details before applying for this job \nyou can also update your cover letter and resume.</string>
+    <string name="we_are_using_your_default">we are using your default profile resume. if you need to change another resume, please click to (x) button and upload the resume from your device</string>
+    <string name="by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"><![CDATA[By tapping GET STARTED you agree our Privacy Policy & Terms Of Use]]></string>
+    <string name="bu_submitting_you_agree_to_our_privacy_policy"><![CDATA[By submitting you agree to our Privacy Policy \n& Terms Of Use]]></string>
+    <string name="by_continuing_you_agree_to_our_privacy_policy_terms_of_use"><![CDATA[By continuing you agree to our Privacy Policy \n& Terms of Use]]></string>
+    <string name="report_inappropriate"><u>Report Inappropriate</u></string>
+
+
+    <string-array name="advertiseValidity">
+        <item>7 Days</item>
+        <!--<item>15 Days</item>
+        <item>30 Days</item>-->
+    </string-array>
+    <string-array name="allImmigrationcat">
+        <item>B1/B2 Visitor Visa</item>
+        <item>Green Card</item>
+        <item>H1B VISA</item>
+    </string-array>
 </resources>

@@ -1,14 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.authentication.register.fragment.ServicesCategoryFragment">
+    tools:context=".ui.authentication.register.ServicesCategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="Choose any three or more"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/servicesGridRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:numColumns="3" />
+
+            <LinearLayout
+                android:id="@+id/aliasNameCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/jobEmailAliasCv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:cardBackgroundColor="#EFEFEF"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:strokeColor="#E1E1E1"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/visibilityCardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <CheckBox
+                                    android:id="@+id/isRecruiterCheckBox"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_4sdp"
+                                    android:background="@color/white"
+                                    android:button="@drawable/custom_checkbox"
+                                    android:buttonTint="@drawable/custom_checkbox"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:layout_marginEnd="@dimen/_12sdp"
+                                    android:fontFamily="@font/sf_pro_regular"
+                                    android:text="@string/as_you_have_selected"
+                                    android:textColor="@color/textViewColor"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:background="@color/lightGrey" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:text="@string/your_company_s_email"
+                                android:textColor="@color/textViewColor"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:id="@+id/companyEmailServices"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:background="@drawable/edit_text_shape"
+                                android:fontFamily="@font/sf_pro_regular"
+                                android:hint="@string/your_company_s_email_id"
+                                android:inputType="textEmailAddress"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingStart="@dimen/_16sdp"
+                                android:paddingTop="@dimen/_6sdp"
+                                android:paddingEnd="@dimen/_16sdp"
+                                android:paddingBottom="@dimen/_6sdp"
+                                android:textColor="@color/editTextColor"
+                                android:textColorHint="@color/hintColor"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/invalidEmailTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_36sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_20sdp"
+                                android:layout_marginBottom="@dimen/_2sdp"
+                                android:fontFamily="@font/sf_pro_regular"
+                                android:text="Please enter valid email"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/_10sdp"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:text="@string/choose_an_alias"
+                            android:textColor="@color/textViewColor"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/aliasNameServices"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:background="@drawable/edit_text_shape"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:hint="@string/alias_name"
+                            android:inputType="textCapSentences"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_16sdp"
+                            android:paddingTop="@dimen/_6sdp"
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:paddingBottom="@dimen/_6sdp"
+                            android:textColor="@color/editTextColor"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/isAliasNameCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:button="@drawable/custom_checkbox"
+                                android:buttonTint="@drawable/custom_checkbox"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:fontFamily="@font/sf_pro_regular"
+                                android:text="@string/just_want_my_full_name_as_my_alias_name"
+                                android:textColor="@color/textViewColor"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginStart="@dimen/_40sdp"
+                     android:layout_marginTop="@dimen/_8sdp"
+                     android:layout_marginEnd="@dimen/_24sdp"
+                     android:orientation="horizontal">
+
+                     <CheckBox
+                         android:id="@+id/belongToCricketCheckBox"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@color/white"
+                         android:button="@drawable/custom_checkbox"
+                         android:buttonTint="@drawable/custom_checkbox"
+                         android:minWidth="0dp"
+                         android:minHeight="0dp" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="@dimen/_4sdp"
+                         android:fontFamily="@font/sf_pro_regular"
+                         android:text="@string/belong_to_any_cricket_league_in_nj_yes_or_no"
+                         android:textColor="@color/textViewColor"
+                         android:textSize="12sp" />
+
+                 </LinearLayout>-->
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/privacyPolicyRegistrationTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_36sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"
+                android:textColor="@color/textViewColor"
+                android:textSize="12sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/serviceSubmitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:background="@drawable/light_green_btn_shape"
+            android:elevation="@dimen/_6sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="Get Started"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteProfileBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@drawable/green_btn_shape"
+            android:backgroundTint="@color/redcolor"
+            android:elevation="6dp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="DELETE ACCOUNT"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

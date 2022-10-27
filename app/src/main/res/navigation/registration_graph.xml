@@ -3,20 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_na_graph"
-    app:startDestination="@id/basicDetailsFragment2">
+    app:startDestination="@id/basicDetailsFragment">
 
     <fragment
-        android:id="@+id/basicDetailsFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.BasicDetailsFragment"
+        android:id="@+id/basicDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.BasicDetailsFragment"
         android:label="fragment_basic_details"
-        tools:layout="@layout/fragment_basic_details" >
+        tools:layout="@layout/fragment_basic_details">
         <action
-            android:id="@+id/action_basicDetailsFragment2_to_addressDetailsFragment2"
-            app:destination="@id/addressDetailsFragment2" />
+            android:id="@+id/action_basicDetailsFragment_to_addressDetailsFragment"
+            app:destination="@id/addressDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addressDetailsFragment2"
-        android:name="com.aaonri.app.ui.authentication.register.fragment.AddressDetailsFragment"
+        android:id="@+id/addressDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.AddressDetailsFragment"
         android:label="fragment_address_details"
-        tools:layout="@layout/fragment_address_details" />
+        tools:layout="@layout/fragment_location_details">
+        <action
+            android:id="@+id/action_addressDetailsFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+        <action
+            android:id="@+id/action_addressDetailsFragment_to_selectCountryBottomFragment"
+            app:destination="@id/selectCountryBottomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.aaonri.app.ui.authentication.register.LocationDetailsFragment"
+        android:label="fragment_location_details"
+        tools:layout="@layout/fragment_location_details">
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_communityBottomFragment"
+            app:destination="@id/communityBottomFragment" />
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_selectCountryBottomFragment"
+            app:destination="@id/selectCountryBottomFragment" />
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_servicesCategoryFragment"
+            app:destination="@id/servicesCategoryFragment" />
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_selectCountryBottomFragment2"
+            app:destination="@id/selectCountryBottomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/servicesCategoryFragment"
+        android:name="com.aaonri.app.ui.authentication.register.ServicesCategoryFragment"
+        android:label="fragment_services_category"
+        tools:layout="@layout/fragment_services_category" >
+        <action
+            android:id="@+id/action_servicesCategoryFragment_to_advertiseWebViewFragment"
+            app:destination="@id/advertiseWebViewFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/communityBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.CommunityBottomFragment"
+        android:label="fragment_community_bottom"
+        tools:layout="@layout/fragment_community_bottom">
+
+    </dialog>
+    <dialog
+        android:id="@+id/selectCountryBottomFragment"
+        android:name="com.aaonri.app.ui.authentication.register.SelectCountryBottomFragment"
+        android:label="fragment_select_country_bottom"
+        tools:layout="@layout/fragment_select_country_bottom">
+
+        <argument
+            android:name="isAddressScreen"
+            app:argType="boolean" />
+    </dialog>
+    <fragment
+        android:id="@+id/advertiseWebViewFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.advertise.fragment.AdvertiseWebViewFragment"
+        android:label="fragment_advertise_webview"
+        tools:layout="@layout/fragment_advertise_webview" >
+        <argument
+            android:name="advertiseurl"
+            app:argType="string" />
+    </fragment>
 </navigation>

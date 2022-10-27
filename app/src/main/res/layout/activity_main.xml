@@ -6,5 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- <com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
+         android:id="@+id/bottomNavigation"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:itemTextColor="@color/blueBtnColor"
+         app:menu="@menu/bottom_navigation_menu"/>-->
+
+    <View
+        android:id="@+id/border"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/bottom_bar_shape"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.aaonri.app.utils.custom.BottomNavigationCircles
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="start|bottom"
+        android:elevation="@dimen/_20sdp"
+        android:outlineAmbientShadowColor="@color/grayColor_1"
+        app:customBackgroundShape="@drawable/circle_blue_shape"
+        app:elevation="@dimen/_10sdp"
+        app:itemIconTint="@color/bottom_navigtaion_selector"
+        app:itemTextColor="@color/bottom_navigtaion_selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/dashboardNavHost"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/dashboard_nav_graph" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
