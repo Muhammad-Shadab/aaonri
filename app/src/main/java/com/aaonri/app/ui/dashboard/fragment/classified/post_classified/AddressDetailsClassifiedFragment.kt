@@ -364,7 +364,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     response.data?.id?.let { deleteClassifiedPic(it) }
-                    if (imagesUriWhileUpdating.isNotEmpty()) {
+                    if (imagesUriWhileUpdating.size > 0) {
                         callUploadClassifiedPicApi(
                             imagesUriWhileUpdating[0],
                             postClassifiedViewModel.updateClassifiedId,

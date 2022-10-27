@@ -171,6 +171,7 @@
         android:orientation="horizontal"
         android:scrollbars="none"
         android:visibility="gone"
+        android:paddingHorizontal="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchViewll">
 

@@ -167,6 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
         android:scrollbars="none"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"

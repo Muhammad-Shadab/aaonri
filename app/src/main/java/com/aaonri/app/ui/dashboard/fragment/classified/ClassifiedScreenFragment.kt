@@ -601,45 +601,6 @@ class ClassifiedScreenFragment : Fragment() {
                 noOfSelection = 0
             }
             setFilterVisibility()
-            /*if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() || postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
-                if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) {
-                    classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                    classifiedScreenBinding?.filterText1?.text =
-                        "Range: \$${postClassifiedViewModel.minValueInFilterScreen} - \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                    noOfSelection++
-
-                } else {
-                    classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                }
-
-                *//*if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) {
-                    classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                    classifiedScreenBinding?.filterText2?.text =
-                        "Range: \$${postClassifiedViewModel.maxValueInFilterScreen}"
-                } else {
-                    classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                }*//*
-
-                if (postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                    classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                    classifiedScreenBinding?.filterText3?.text =
-                        "ZipCode: ${postClassifiedViewModel.zipCodeInFilterScreen}"
-                    noOfSelection++
-                } else {
-                    classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                }
-                onNoOfSelectedFilterItem(noOfSelection)
-            } else {
-                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-
-                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }*/
-            /* if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() && postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty()) {
-                 classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                 //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-             }*/
         }
 
         postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {

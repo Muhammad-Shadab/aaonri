@@ -39,6 +39,7 @@ import com.aaonri.app.data.event.EventStaticData
 import com.aaonri.app.data.event.model.EventAddGoingRequest
 import com.aaonri.app.data.event.model.EventAddInterestedRequest
 import com.aaonri.app.data.event.model.EventDetailsResponse
+import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
@@ -91,6 +92,10 @@ class EventDetailsScreenFragment : Fragment() {
     var timer: Timer? = null
     var timerTask: TimerTask? = null
     var path = ""
+    var image1Link = ""
+    var image2Link = ""
+    var image3Link = ""
+    var image4Link = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -197,7 +202,7 @@ class EventDetailsScreenFragment : Fragment() {
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
                         response.data?.let {
-                            setEventdDetails(it)
+                            setEventDetails(it)
                             EventStaticData.updateEventDetails(it)
                         }
                         binding?.linear?.viewTreeObserver?.addOnGlobalLayoutListener(
@@ -373,32 +378,41 @@ class EventDetailsScreenFragment : Fragment() {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
                     startActivity(Intent.createChooser(shareIntent, "Share with"))
-//                    try {
-//                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-//                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
-//                        val bytes = ByteArrayOutputStream()
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//                        val path = MediaStore.Images.Media.insertImage(
-//                            requireContext().contentResolver,
-//                            bitmap,
-//                            "tempimage",
-//                            null
-//                        )
-//
-//                        val uri = Uri.parse(path)
-//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
-//                        intent.type = "text/plain"
-//                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-//                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
-//                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-//                        startActivity(intent)
-//
-//
-//                    } catch (e: Exception) {
-//                    }
                 } else {
                     guestUserLoginDialog.show()
                 }
+            }
+
+            image1CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(0)
+            }
+
+            image2CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(1)
+            }
+
+            image3CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(2)
+            }
+
+            image4CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(3)
             }
 
             reportInappropriateTv.setOnClickListener {
@@ -408,7 +422,15 @@ class EventDetailsScreenFragment : Fragment() {
                 val emailIntent = Intent(Intent.ACTION_SEND)
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin@aaonri.com"))
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Report Inappropriate Content!")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${BuildConfig.BASE_URL.replace(":8444","")}/event/details/${args.eventId}")
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Dear aaonri admin, \n\nI would like to report this item, as inappropriate.\n\n${
+                        BuildConfig.BASE_URL.replace(
+                            ":8444",
+                            ""
+                        )
+                    }/event/details/${args.eventId}"
+                )
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
@@ -482,43 +504,22 @@ class EventDetailsScreenFragment : Fragment() {
                 is Resource.Success -> {
                     isVisiting = !response.data?.visiting!!
                     postEventViewModel.getEventDetails(args.eventId)
-
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
                 }
             }
         }
 
         eventViewModel.callEventDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
             if (it) {
-                postEventViewModel.getEventDetails(args.eventId)
+                /**this is used to call details api after updation event but now it will navigate to back and when user open details page then detail api call automatically**/
+                //postEventViewModel.getEventDetails(args.eventId)
                 eventViewModel.setCallEventDetailsApiAfterUpdating(false)
                 findNavController().navigateUp()
             }
         }
-
-//        eventViewModel.eventDetailsData..observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is Resource.Loading -> {
-//
-//                }
-//                is Resource.Success -> {
-//                    evenDetailsBinding?.sellerName?.text =
-//                        response.data?.firstName + " " + response.data?.lastName
-//                }
-//                is Resource.Error -> {
-//                    Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//                else -> {
-//                }
-//            }
-//        }
-
 
         postEventViewModel.deleteEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -532,7 +533,6 @@ class EventDetailsScreenFragment : Fragment() {
                 is Resource.Error -> {
 
                 }
-                else -> {}
             }
         }
 
@@ -543,7 +543,8 @@ class EventDetailsScreenFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setEventdDetails(event: EventDetailsResponse) {
+    private fun setEventDetails(event: EventDetailsResponse) {
+        var listOfEventImages = mutableListOf<ImageXX>()
         eventPremiumLink = event.socialMediaLink
         eventname = event.title
         eventTimeZone = event.timeZone
@@ -572,40 +573,30 @@ class EventDetailsScreenFragment : Fragment() {
             evenDetailsBinding?.buyTicket?.visibility = View.VISIBLE
         }*/
         //event.images.sortedWith(compareByDescending { it.imageId })
-        event.images.forEachIndexed { index, userAdsImage ->
-            if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
-                    ".second"
-                ) || userAdsImage.imagePath.contains(".third")
-            ) {
-                if (userAdsImage.imagePath.contains(".cover")) {
-                    /* evenDetailsBinding?.image1CardView?.visibility = View.VISIBLE
 
-                       context?.let {
-                           evenDetailsBinding?.addImage?.let { it1 ->
-                               Glide.with(it)
-                                   .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                   .into(it1)
-                           }
-                       }
-                         context?.let {
-                             evenDetailsBinding?.addImage?.let { it1 ->
-                                 Glide.with(it)
-                                     .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                     .into(it1)
-                             }
-                         }*/
-                    binding?.image1?.visibility = View.GONE
-//                    context?.let {
-//                        evenDetailsBinding?.image1?.let { it1 ->
-//                            Glide.with(it)
-//                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-//                                .into(it1)
-//                        }
-//                    }
+
+        /** Removing first index from list of images **/
+        if (event.images.size > 1) {
+            event.images.forEachIndexed { index, imageXX ->
+                if (index > 0) {
+                    if (!listOfEventImages.contains(imageXX)) {
+                        listOfEventImages.add(imageXX)
+                    }
                 }
-                if (userAdsImage.imagePath.contains(".first")) {
-                    binding?.image2CardView?.visibility = View.VISIBLE
+            }
+        } else {
+            event.images.forEach { imageXX ->
+                if (!listOfEventImages.contains(imageXX)) {
+                    listOfEventImages.add(imageXX)
+                }
+            }
+        }
 
+        listOfEventImages.forEachIndexed { index, userAdsImage ->
+            when (index) {
+                0 -> {
+                    image1Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}"
                     context?.let {
                         binding?.addImage?.let { it1 ->
                             Glide.with(it)
@@ -614,22 +605,7 @@ class EventDetailsScreenFragment : Fragment() {
                                 .into(it1)
                         }
                     }
-
-                    context?.let {
-                        binding?.image2?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it1)
-                        }
-                    }
-                    changeCardViewBorder(1)
-
-                }
-
-
-                if (userAdsImage.imagePath.contains(".second")) {
-                    binding?.image3CardView?.visibility = View.VISIBLE
+                    binding?.image1CardView?.visibility = View.VISIBLE
 
                     /*  context?.let {
                       evenDetailsBinding?.addImage?.let { it1 ->
@@ -640,7 +616,31 @@ class EventDetailsScreenFragment : Fragment() {
                   }*/
 
                     context?.let {
-                        binding?.image3?.let { it1 ->
+                        binding?.image1?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .error(R.drawable.small_image_placeholder)
+                                .into(it1)
+                        }
+                    }
+                    changeCardViewBorder(0)
+                }
+                1 -> {
+                    image2Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}"
+
+                    binding?.image2CardView?.visibility = View.VISIBLE
+
+                    /*  context?.let {
+                      evenDetailsBinding?.addImage?.let { it1 ->
+                          Glide.with(it)
+                              .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                              .into(it1)
+                      }
+                  }*/
+
+                    context?.let {
+                        binding?.image2?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
                                 .error(R.drawable.small_image_placeholder)
@@ -648,302 +648,97 @@ class EventDetailsScreenFragment : Fragment() {
                         }
                     }
                 }
-                if (userAdsImage.imagePath.contains(".third")) {
+                2 -> {
+                    image3Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}"
+
+                    binding?.image3CardView?.visibility = View.VISIBLE
+
+                    /* context?.let {
+                     evenDetailsBinding?.addImage?.let { it1 ->
+                         Glide.with(it)
+                             .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                             .into(it1)
+                     }
+                 }*/
+
+                    context?.let {
+                        binding?.image3?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                                .listener(object : RequestListener<Drawable?> {
+                                    override fun onLoadFailed(
+                                        e: GlideException?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        binding?.eventImagePlaceHolder?.visibility =
+                                            View.VISIBLE
+                                        return false
+                                    }
+
+                                    override fun onResourceReady(
+                                        resource: Drawable?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        dataSource: DataSource?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        return false
+                                    }
+                                })
+                                .into(it1)
+                        }
+                    }
+                }
+                3 -> {
+                    image4Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}"
+
                     binding?.image4CardView?.visibility = View.VISIBLE
 
-                    /*context?.let {
-                    evenDetailsBinding?.addImage?.let { it1 ->
-                        Glide.with(it)
-                            .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                            .into(it1)
-                    }
-                }*/
+                    /* context?.let {
+                     evenDetailsBinding?.addImage?.let { it1 ->
+                         Glide.with(it)
+                             .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
+                             .into(it1)
+                     }
+                 }*/
 
                     context?.let {
                         binding?.image4?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                .error(R.drawable.small_image_placeholder)
+                                .listener(object : RequestListener<Drawable?> {
+                                    override fun onLoadFailed(
+                                        e: GlideException?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        binding?.eventImagePlaceHolder?.visibility =
+                                            View.VISIBLE
+                                        return false
+                                    }
+
+                                    override fun onResourceReady(
+                                        resource: Drawable?,
+                                        model: Any?,
+                                        target: Target<Drawable?>?,
+                                        dataSource: DataSource?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        return false
+                                    }
+                                })
                                 .into(it1)
                         }
                     }
                 }
-            } else {
-
-                when (index) {
-                    0 -> {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-                        binding?.image1CardView?.visibility = View.VISIBLE
-
-                        /*  context?.let {
-                          evenDetailsBinding?.addImage?.let { it1 ->
-                              Glide.with(it)
-                                  .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                  .into(it1)
-                          }
-                      }*/
-
-                        context?.let {
-                            binding?.image1?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-                        changeCardViewBorder(0)
-                    }
-                    1 -> {
-                        binding?.image2CardView?.visibility = View.VISIBLE
-
-                        /*  context?.let {
-                          evenDetailsBinding?.addImage?.let { it1 ->
-                              Glide.with(it)
-                                  .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                  .into(it1)
-                          }
-                      }*/
-
-                        context?.let {
-                            binding?.image2?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-                    }
-                    2 -> {
-                        binding?.image3CardView?.visibility = View.VISIBLE
-
-                        /* context?.let {
-                         evenDetailsBinding?.addImage?.let { it1 ->
-                             Glide.with(it)
-                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                 .into(it1)
-                         }
-                     }*/
-
-                        context?.let {
-                            binding?.image3?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .listener(object : RequestListener<Drawable?> {
-                                        override fun onLoadFailed(
-                                            e: GlideException?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            binding?.eventImagePlaceHolder?.visibility =
-                                                View.VISIBLE
-                                            return false
-                                        }
-
-                                        override fun onResourceReady(
-                                            resource: Drawable?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            return false
-                                        }
-                                    })
-                                    .into(it1)
-                            }
-                        }
-                    }
-                    3 -> {
-                        binding?.image4CardView?.visibility = View.VISIBLE
-
-                        /* context?.let {
-                         evenDetailsBinding?.addImage?.let { it1 ->
-                             Glide.with(it)
-                                 .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                 .into(it1)
-                         }
-                     }*/
-
-                        context?.let {
-                            binding?.image4?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .listener(object : RequestListener<Drawable?> {
-                                        override fun onLoadFailed(
-                                            e: GlideException?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            binding?.eventImagePlaceHolder?.visibility =
-                                                View.VISIBLE
-                                            return false
-                                        }
-
-                                        override fun onResourceReady(
-                                            resource: Drawable?,
-                                            model: Any?,
-                                            target: Target<Drawable?>?,
-                                            dataSource: DataSource?,
-                                            isFirstResource: Boolean
-                                        ): Boolean {
-                                            return false
-                                        }
-                                    })
-                                    .into(it1)
-                            }
-                        }
-                    }
-                }
             }
         }
 
-        /*  if (event.images.isNotEmpty()) {
-              context?.let {
-                  evenDetailsBinding?.addImage?.let { it1 ->
-                      Glide.with(it)
-                          .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${event.images[0].imagePath}")
-                          .into(it1)
-                  }
-              }
-          }*/
-
-        binding?.image1?.setOnClickListener {
-            event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
-                        ".second"
-                    ) || userAdsImage.imagePath.contains(".third")
-                ) {
-                    if (userAdsImage.imagePath.contains(".cover")) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-
-                    }
-
-                } else {
-                    if (index == 0) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-                    }
-                }
-                changeCardViewBorder(0)
-            }
-        }
-
-        binding?.image2?.setOnClickListener {
-            event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
-                        ".second"
-                    ) || userAdsImage.imagePath.contains(".third")
-                ) {
-                    if (userAdsImage.imagePath.contains(".first")) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-
-                    }
-
-                } else {
-                    if (index == 1) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-                    }
-                }
-                changeCardViewBorder(1)
-            }
-        }
-        binding?.image3?.setOnClickListener {
-            event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
-                        ".second"
-                    ) || userAdsImage.imagePath.contains(".third")
-                ) {
-                    if (userAdsImage.imagePath.contains(".second")) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .error(R.drawable.small_image_placeholder)
-                                    .into(it1)
-                            }
-                        }
-
-                    }
-
-                } else {
-                    if (index == 2) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .into(it1)
-                            }
-                        }
-                    }
-                }
-                changeCardViewBorder(2)
-            }
-        }
-        binding?.image4?.setOnClickListener {
-            event.images.forEachIndexed { index, userAdsImage ->
-                if (userAdsImage.imagePath.contains(".cover") || userAdsImage.imagePath.contains(".first") || userAdsImage.imagePath.contains(
-                        ".second"
-                    ) || userAdsImage.imagePath.contains(".third")
-                ) {
-                    if (userAdsImage.imagePath.contains(".third")) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .into(it1)
-                            }
-                        }
-                    }
-                } else {
-                    if (index == 3) {
-                        context?.let {
-                            binding?.addImage?.let { it1 ->
-                                Glide.with(it)
-                                    .load("${BuildConfig.BASE_URL}/api/v1/common/eventFile/${userAdsImage.imagePath}")
-                                    .into(it1)
-                            }
-                        }
-                    }
-                }
-                changeCardViewBorder(3)
-            }
-        }
         if (event.fee > 0) {
             val random = event.fee
 

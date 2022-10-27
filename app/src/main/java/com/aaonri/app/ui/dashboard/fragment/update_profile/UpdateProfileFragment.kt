@@ -78,7 +78,7 @@ class UpdateProfileFragment : Fragment() {
         }
 
         registrationViewModel.updateUserData.observe(viewLifecycleOwner) { response ->
-            if (registrationViewModel.updateUserData != null) {
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
                         binding?.progressBar?.visibility = View.VISIBLE
@@ -121,8 +121,6 @@ class UpdateProfileFragment : Fragment() {
                         )
                             .show()
                     }
-                    else -> {
-                    }
                 }
             }
         }
@@ -145,14 +143,6 @@ class UpdateProfileFragment : Fragment() {
                                 "Profile Updated Successfully", Snackbar.LENGTH_LONG
                             ).show()
                         }
-
-                        CoroutineScope(Dispatchers.Main).launch {
-                            context?.let { Glide.get(it).clearMemory() }
-                        }
-                        CoroutineScope(Dispatchers.IO).launch {
-                            context?.let { Glide.get(it).clearDiskCache() }
-                        }
-
                         authCommonViewModel.uploadProfilePicData.postValue(null)
                     }
                     is Resource.Error -> {
@@ -189,11 +179,6 @@ class UpdateProfileFragment : Fragment() {
                                 "${BuildConfig.BASE_URL}/api/v1/common/profileFile/$it"
                             )
                     }
-
-                    /*response.data?.emailId?.let {
-                        context?.let { it1 -> PreferenceManager<String>(it1) }
-                            ?.set(Constant.USER_EMAIL, it)
-                    }*/
 
                     response.data?.isJobRecruiter?.let {
                         context?.let { it1 -> PreferenceManager<Boolean>(it1) }

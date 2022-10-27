@@ -76,6 +76,10 @@ class ClassifiedDetailsFragment : Fragment() {
     var adRvposition = 0
     var timer: Timer? = null
     var timerTask: TimerTask? = null
+    var image1Link = ""
+    var image2Link = ""
+    var image3Link = ""
+    var image4Link = ""
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -239,7 +243,6 @@ class ClassifiedDetailsFragment : Fragment() {
                 } else {
                     guestUserLoginDialog.show()
                 }
-
             }
 
             classifiedSellerEmail.setOnClickListener {
@@ -261,7 +264,6 @@ class ClassifiedDetailsFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 if (isUserLogin == true) {
-
                     val bitmap = addImage.drawable.toBitmap()
                     val shareIntent: Intent
                     var path =
@@ -287,32 +289,41 @@ class ClassifiedDetailsFragment : Fragment() {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
                     startActivity(Intent.createChooser(shareIntent, "Share with"))
-
-//                    try {
-//                        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
-//                        val bitmap = addImage.drawable.toBitmap() // your imageView here.
-//                        val bytes = ByteArrayOutputStream()
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//                        val path = MediaStore.Images.Media.insertImage(
-//                            requireContext().contentResolver,
-//                            bitmap,
-//                            "tempimage",
-//                            null
-//                        )
-//                        val uri = Uri.parse(path)
-//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
-//                        intent.type = "text/plain"
-//                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-//                        val shareSub = "${baseUrl}/classified/details/${args.addId}"
-//                        intent.putExtra(Intent.EXTRA_TEXT, shareSub)
-//                        startActivity(intent)
-//                    } catch (e: Exception) {
-//                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-//                    }
-
                 } else {
                     guestUserLoginDialog.show()
                 }
+            }
+
+            image1CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(0)
+            }
+
+            image2CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(1)
+            }
+
+            image3CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(2)
+            }
+
+            image4CardView.setOnClickListener {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Link).error(R.drawable.small_image_placeholder)
+                        .into(addImage)
+                }
+                changeCardViewBorder(3)
             }
 
             reportInappropriateTv.setOnClickListener {
@@ -346,12 +357,10 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
-
                         response.data?.let {
                             it.userAds?.let { it1 -> setClassifiedDetails(it1) }
                             ClassifiedStaticData.updateAddDetails(it)
                         }
-                        postClassifiedViewModel.classifiedAdDetailsData.postValue(null)
                     }
                     is Resource.Error -> {
                         binding?.progressBar?.visibility = View.GONE
@@ -400,7 +409,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
         classifiedViewModel.callClassifiedDetailsApiAfterUpdating.observe(viewLifecycleOwner) {
             if (it) {
-                postClassifiedViewModel.getClassifiedAdDetails(args.addId)
+                /**this is used to call details api after updation classified but now it will navigate to back and when user open details page then detail api call automatically**/
+                //postClassifiedViewModel.getClassifiedAdDetails(args.addId)
                 classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(false)
                 findNavController().navigateUp()
             }
@@ -438,20 +448,16 @@ class ClassifiedDetailsFragment : Fragment() {
                 binding?.moreClassifiedOption?.visibility = View.VISIBLE
             }
         }
-        data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
+
+        //data.userAdsImages.sortedWith(compareByDescending { it.sequenceNumber })
 
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {
+                    image1Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+
                     binding?.image1CardView?.visibility = View.VISIBLE
-                    context?.let {
-                        binding?.image1?.let { it1 ->
-                            Glide.with(it)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it1)
-                        }
-                    }
+
                     binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
@@ -460,17 +466,22 @@ class ClassifiedDetailsFragment : Fragment() {
                                 .into(it)
                         }
                     }
-                }
-                1 -> {
-                    binding?.image2CardView?.visibility = View.VISIBLE
+
                     context?.let {
-                        binding?.image2?.let { it1 ->
+                        binding?.image1?.let { it1 ->
                             Glide.with(it)
                                 .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
                                 .error(R.drawable.small_image_placeholder)
                                 .into(it1)
                         }
                     }
+
+                }
+                1 -> {
+                    image2Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+
+                    binding?.image2CardView?.visibility = View.VISIBLE
+
                     binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
@@ -479,8 +490,20 @@ class ClassifiedDetailsFragment : Fragment() {
                                 .into(it)
                         }
                     }
+
+                    context?.let {
+                        binding?.image2?.let { it1 ->
+                            Glide.with(it)
+                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}")
+                                .error(R.drawable.small_image_placeholder)
+                                .into(it1)
+                        }
+                    }
+
                 }
                 2 -> {
+                    image3Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+
                     binding?.image3CardView?.visibility = View.VISIBLE
                     context?.let {
                         binding?.image3?.let { it1 ->
@@ -500,6 +523,8 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
                 3 -> {
+                    image4Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+
                     binding?.image4CardView?.visibility = View.VISIBLE
                     context?.let {
                         binding?.image4?.let { it1 ->
@@ -509,6 +534,7 @@ class ClassifiedDetailsFragment : Fragment() {
                                 .into(it1)
                         }
                     }
+
                     binding?.addImage?.let {
                         context?.let { it1 ->
                             Glide.with(it1)
@@ -575,68 +601,6 @@ class ClassifiedDetailsFragment : Fragment() {
                         .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
                         .error(R.drawable.small_image_placeholder)
                         .into(it)
-                }
-            }
-        }
-
-        binding?.image1?.setOnClickListener {
-            data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                if (index == 0) {
-                    binding?.addImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[0].imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it)
-                        }
-                    }
-
-                    changeCardViewBorder(0)
-                }
-            }
-        }
-        binding?.image2?.setOnClickListener {
-            data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                if (index == 1) {
-                    binding?.addImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[1].imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it)
-                        }
-                    }
-                    changeCardViewBorder(1)
-                }
-            }
-        }
-        binding?.image3?.setOnClickListener {
-            data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                if (index == 2) {
-                    binding?.addImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[2].imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it)
-                        }
-                    }
-                    changeCardViewBorder(2)
-                }
-            }
-        }
-        binding?.image4?.setOnClickListener {
-            data.userAdsImages.forEachIndexed { index, userAdsImage ->
-                if (index == 3) {
-                    binding?.addImage?.let {
-                        context?.let { it1 ->
-                            Glide.with(it1)
-                                .load("${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${data.userAdsImages[3].imagePath}")
-                                .error(R.drawable.small_image_placeholder)
-                                .into(it)
-                        }
-                    }
-                    changeCardViewBorder(3)
                 }
             }
         }
@@ -994,23 +958,10 @@ class ClassifiedDetailsFragment : Fragment() {
         }
     }
 
-    fun getScreenWidth(): Int {
-        return Resources.getSystem().getDisplayMetrics().widthPixels
-    }
-
-    fun getScreenHeight(): Int {
-        return Resources.getSystem().getDisplayMetrics().heightPixels
-    }
-
-    fun dpFromPx(context: Context, px: Float): Float {
-        return px / context.getResources().getDisplayMetrics().density
-    }
-
-
     override fun onDestroy() {
         super.onDestroy()
-        postClassifiedViewModel.classifiedAdDetailsData.value = null
-        postClassifiedViewModel.classifiedDeleteData.value = null
+        postClassifiedViewModel.classifiedAdDetailsData.postValue(null)
+        postClassifiedViewModel.classifiedDeleteData.postValue(null)
         stopAutoScrollBanner()
     }
 
