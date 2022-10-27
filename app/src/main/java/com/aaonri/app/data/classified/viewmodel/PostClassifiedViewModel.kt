@@ -318,7 +318,7 @@ class PostClassifiedViewModel @Inject constructor(
         listOfImagesUri = uploadedImagesList
     }
 
-    fun uploadClassifiedPics(files: MultipartBody.Part, addId: RequestBody, dellId: RequestBody) =
+    fun uploadClassifiedPics(files: List<MultipartBody.Part>, addId: RequestBody, dellId: RequestBody) =
         viewModelScope.launch {
             uploadClassifiedPics.postValue(Resource.Loading())
             val response = classifiedRepository.uploadClassifiedPics(files, addId, dellId)
@@ -335,11 +335,12 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun deleteClassifiedPics(
+        files: MultipartBody.Part,
         addId: RequestBody,
         dellId: RequestBody
     ) = viewModelScope.launch {
         deleteClassifiedPics.postValue(Resource.Loading())
-        val response = classifiedRepository.deleteClassifiedPics(addId, dellId)
+        val response = classifiedRepository.deleteClassifiedPics(files, addId, dellId)
         deleteClassifiedPics.postValue(handleClassifiedPicDeleteResponse(response))
     }
 

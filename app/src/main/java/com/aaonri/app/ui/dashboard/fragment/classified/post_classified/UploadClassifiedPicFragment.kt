@@ -441,6 +441,9 @@ class UploadClassifiedPicFragment : Fragment() {
             if (showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.remove(image1Uri.toUri())
             }
+            if (postClassifiedViewModel.listOfImagesUri.contains(image1Uri.toUri())) {
+                postClassifiedViewModel.listOfImagesUri.remove(image1Uri.toUri())
+            }
             image1Uri = ""
             image1 = true
         } else if (index == 1) {
@@ -452,6 +455,9 @@ class UploadClassifiedPicFragment : Fragment() {
             })
             if (showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.remove(image2Uri.toUri())
+            }
+            if (postClassifiedViewModel.listOfImagesUri.contains(image2Uri.toUri())) {
+                postClassifiedViewModel.listOfImagesUri.remove(image2Uri.toUri())
             }
             binding?.deleteImage2?.visibility = View.GONE
             changeCardViewBg(1)
@@ -467,6 +473,9 @@ class UploadClassifiedPicFragment : Fragment() {
             if (showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.remove(image3Uri.toUri())
             }
+            if (postClassifiedViewModel.listOfImagesUri.contains(image3Uri.toUri())) {
+                postClassifiedViewModel.listOfImagesUri.remove(image3Uri.toUri())
+            }
             binding?.deleteImage3?.visibility = View.GONE
             changeCardViewBg(2)
             image3Uri = ""
@@ -480,6 +489,9 @@ class UploadClassifiedPicFragment : Fragment() {
             })
             if (showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.remove(image4Uri.toUri())
+            }
+            if (postClassifiedViewModel.listOfImagesUri.contains(image4Uri.toUri())) {
+                postClassifiedViewModel.listOfImagesUri.remove(image4Uri.toUri())
             }
             binding?.deleteImage4?.visibility = View.GONE
             changeCardViewBg(3)

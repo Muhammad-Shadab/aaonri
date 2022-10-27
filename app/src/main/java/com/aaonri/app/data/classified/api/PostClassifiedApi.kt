@@ -16,7 +16,7 @@ interface PostClassifiedApi {
     @Multipart
     @POST("/api/v1/asd/uploadImages")
     suspend fun uploadClassifiedPics(
-        @Part files: MultipartBody.Part,
+        @Part files: List<MultipartBody.Part>,
         @Part("adId") adId: RequestBody,
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<ClassifiedUploadPicResponse>
@@ -24,6 +24,7 @@ interface PostClassifiedApi {
     @Multipart
     @POST("/api/v1/asd/uploadImages")
     suspend fun deleteClassifiedPics(
+        @Part files: MultipartBody.Part,
         @Part("adId") adId: RequestBody,
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<ClassifiedUploadPicResponse>

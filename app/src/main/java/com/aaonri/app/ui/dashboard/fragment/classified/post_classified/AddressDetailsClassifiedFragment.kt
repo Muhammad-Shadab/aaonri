@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -331,7 +332,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     if (response.data?.id.toString().isNotEmpty()) {
                         addId = response.data?.id!!
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                            callUploadClassifiedPicApi(response.data.id, false)
+                            /*if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                                 if (!postClassifiedViewModel.listOfImagesUri[0].toString()
                                         .startsWith("http:")
                                 ) {
@@ -341,7 +343,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                     )
                                     postClassifiedViewModel.listOfImagesUri.removeAt(0)
                                 }
-                            }
+                            }*/
                         } else {
                             val action =
                                 AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
@@ -363,14 +365,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    response.data?.id?.let { deleteClassifiedPic(it) }
                     if (imagesUriWhileUpdating.size > 0) {
-                        callUploadClassifiedPicApi(
-                            imagesUriWhileUpdating[0],
-                            postClassifiedViewModel.updateClassifiedId,
-                            response.data?.id
-                        )
-                        imagesUriWhileUpdating.removeAt(0)
+                        callUploadClassifiedPicApi(postClassifiedViewModel.updateClassifiedId, true)
                     } else {
                         val action =
                             AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
@@ -441,7 +437,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (!postClassifiedViewModel.isUpdateClassified) {
+                    /*if (!postClassifiedViewModel.isUpdateClassified) {
                         if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                             if (!postClassifiedViewModel.listOfImagesUri[0].toString()
                                     .startsWith("http")
@@ -471,7 +467,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                                 AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                             findNavController().navigate(action)
                         }
-                    }
+                    }*/
+                    val action =
+                        AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                    findNavController().navigate(action)
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -498,19 +497,41 @@ class AddressDetailsClassifiedFragment : Fragment() {
         return binding?.root
     }
 
-    private fun callUploadClassifiedPicApi(uri: Uri, id: Int?, deleteId: Int?) {
+    private fun callUploadClassifiedPicApi(id: Int?, isUpdateClassified: Boolean) {
 
+        val listOfImages: MutableList<MultipartBody.Part> = mutableListOf()
 
-        val file = File(uri.toString().replace("file:", ""))
+        if (isUpdateClassified) {
+            imagesUriWhileUpdating.forEach {
+                if (!it.toString().startsWith("htt")) {
+                    val file = File(it.toString().replace("file:", ""))
+
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestImage =
+                        MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    listOfImages.add(requestImage)
+                }
+            }
+        } else {
+            postClassifiedViewModel.listOfImagesUri.forEach {
+                if (!it.toString().startsWith("htt")) {
+                    val file = File(it.toString().replace("file:", ""))
+
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestImage =
+                        MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    listOfImages.add(requestImage)
+                }
+            }
+        }
 
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId = if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("files", file.name, requestFile)
-
-        postClassifiedViewModel.uploadClassifiedPics(requestImage, addId, delId)
+        postClassifiedViewModel.uploadClassifiedPics(listOfImages, addId, delId)
     }
 
     private fun deleteClassifiedPic(id: Int?) {
@@ -518,7 +539,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        postClassifiedViewModel.deleteClassifiedPics(addId, delId)
+        //postClassifiedViewModel.deleteClassifiedPics(addId, delId)
     }
 
     private fun postClassifiedRequest(
