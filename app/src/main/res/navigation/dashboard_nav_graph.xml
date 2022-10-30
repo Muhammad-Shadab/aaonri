@@ -45,12 +45,6 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_immigrationDetailsFragment"
             app:destination="@id/immigrationDetailsFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_homeScreenFilter"
-            app:destination="@id/homeScreenFilter"
-            app:enterAnim="@anim/slide_up"
-            app:popEnterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -482,30 +476,11 @@
         <action
             android:id="@+id/action_updateProfileFragment_to_selectCountryBottomFragment2"
             app:destination="@id/selectCountryBottomFragment2" />
+        <action
+            android:id="@+id/action_updateProfileFragment_to_communityBottomFragment2"
+            app:destination="@id/communityBottomFragment2" />
     </fragment>
-    <fragment
-        android:id="@+id/homeScreenFilter"
-        android:name="com.aaonri.app.ui.dashboard.fragment.homescreen_filter.HomeScreenFilter"
-        android:label="fragment_home_screen_filter"
-        tools:layout="@layout/fragment_home_screen_filter">
-        <action
-            android:id="@+id/action_homeScreenFilter_to_filterCategoryBottomSheet"
-            app:destination="@id/filterCategoryBottomSheet" />
-        <action
-            android:id="@+id/action_homeScreenFilter_to_classifiedDetailsFragment"
-            app:destination="@id/classifiedDetailsFragment" />
-        <action
-            android:id="@+id/action_homeScreenFilter_to_immigrationDetailsFragment"
-            app:destination="@id/immigrationDetailsFragment" />
-        <action
-            android:id="@+id/action_homeScreenFilter_to_eventDetailsScreenFragment"
-            app:destination="@id/eventDetailsScreenFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/filterCategoryBottomSheet"
-        android:name="com.aaonri.app.ui.dashboard.fragment.homescreen_filter.FilterCategoryBottomSheet"
-        android:label="fragment_filter_category_bottom_sheet"
-        tools:layout="@layout/fragment_filter_category_bottom_sheet" />
+
     <fragment
         android:id="@+id/reportUserFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.report_user.ReportUserFragment"
@@ -537,6 +512,10 @@
             android:name="isAddressScreen"
             app:argType="boolean" />
     </dialog>
+    <dialog
+        android:id="@+id/communityBottomFragment2"
+        android:name="com.aaonri.app.ui.authentication.register.CommunityBottomFragment"
+        android:label="CommunityBottomFragment" />
 
 
 </navigation>

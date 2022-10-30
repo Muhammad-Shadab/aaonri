@@ -48,7 +48,6 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:maxLines="1"
-                    android:layout_weight="1"
                     android:text="$29.99"
                     android:textColor="#114591"
                     android:textSize="16sp" />
@@ -63,7 +62,6 @@
                     android:paddingHorizontal="@dimen/_4sdp"
                     android:textAlignment="center"
                     android:text="Popular"
-                    android:layout_weight="1"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/classifiedPriceTv"

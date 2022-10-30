@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.AuthConstant
+import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.data.authentication.register.model.UpdateProfileRequest
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
@@ -78,9 +79,6 @@ class LocationDetailsFragment : Fragment() {
             }
             authCommonViewModel.addNavigationForStepper(AuthConstant.LOCATION_DETAILS_SCREEN)
             countryFlagIcon.visibility = View.GONE
-            selectMoreCommunityIv.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
-            }
 
             locationDetailsNextBtn.setOnClickListener {
 
@@ -105,8 +103,21 @@ class LocationDetailsFragment : Fragment() {
                     }
                 }
             }
+
+            selectMoreCommunityIv.setOnClickListener {
+                if (authCommonViewModel.isUpdateProfile) {
+                    findNavController().navigate(R.id.action_updateProfileFragment_to_communityBottomFragment2)
+                } else {
+                    findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
+                }
+            }
+
             selectCommunityEt.setOnClickListener {
-                findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
+                if (authCommonViewModel.isUpdateProfile) {
+                    findNavController().navigate(R.id.action_updateProfileFragment_to_communityBottomFragment2)
+                } else {
+                    findNavController().navigate(R.id.action_locationDetailsFragment_to_communityBottomFragment)
+                }
             }
 
             selectCountryOrigin.setOnClickListener {
@@ -230,8 +241,10 @@ class LocationDetailsFragment : Fragment() {
                 //binding?.selectCountryOrigin?.isEnabled = false
                 binding?.stateLocationDetails?.setText(it.originState)
                 binding?.cityLocationDetails?.setText(it.originCity)
+                //authCommonViewModel.addCommunityList(it.community as MutableList<CommunityAuth>)
                 binding?.selectCommunityEt?.visibility = View.GONE
                 binding?.locationDetailsNextBtn?.text = "UPDATE"
+
             }
         }
 

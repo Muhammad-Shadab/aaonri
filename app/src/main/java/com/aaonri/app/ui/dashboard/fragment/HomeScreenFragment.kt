@@ -677,13 +677,13 @@ class HomeScreenFragment : Fragment() {
                 )
 
                 searchModuleFl.visibility = View.VISIBLE
-                blurView.setBlurRadius(
+                /*blurView.setBlurRadius(
                     TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP,
                         25f,
                         resources.displayMetrics
                     )
-                )
+                )*/
                 stopAutoScrollBanner2()
                 stopAutoScrollBanner1()
                 ;
@@ -704,13 +704,13 @@ class HomeScreenFragment : Fragment() {
                 )
 
                 searchModuleFl.visibility = View.VISIBLE
-                blurView.setBlurRadius(
+                /*blurView.setBlurRadius(
                     TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP,
                         25f,
                         resources.displayMetrics
                     )
-                )
+                )*/
                 stopAutoScrollBanner2()
                 stopAutoScrollBanner1()
                 return@OnTouchListener true

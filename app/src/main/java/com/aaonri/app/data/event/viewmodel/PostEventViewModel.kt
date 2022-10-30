@@ -208,7 +208,7 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun uploadEventPicture(
-        files: MultipartBody.Part,
+        files: List<MultipartBody.Part>,
         eventId: RequestBody,
         delImageIds: RequestBody
     ) =

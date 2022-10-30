@@ -134,7 +134,6 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                     Log.i("Loading", "Error: ${response.message}")
                 }
-                else -> {}
             }
         }
     }
@@ -182,8 +181,8 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

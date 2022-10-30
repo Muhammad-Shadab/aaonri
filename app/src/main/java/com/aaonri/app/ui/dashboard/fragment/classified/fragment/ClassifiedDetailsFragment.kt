@@ -2,14 +2,13 @@ package com.aaonri.app.ui.dashboard.fragment.classified.fragment
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
+import android.provider.MediaStore
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -50,9 +49,7 @@ import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
@@ -264,23 +261,56 @@ class ClassifiedDetailsFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 if (isUserLogin == true) {
-                    val bitmap = addImage.drawable.toBitmap()
+
+                    /*AsyncTask.execute {*/
+                        try {
+                            /*val url = URL(image1Link)
+                            var connection: HttpURLConnection? = null
+                            connection = url.openConnection() as HttpURLConnection?
+                            connection!!.connect()
+                            var inputStream: InputStream? = null
+                            inputStream = connection.inputStream*/
+                            val myBitmap = addImage.drawable.toBitmap()
+                            val share = Intent(Intent.ACTION_SEND)
+                            share.type = "Image/jpeg"
+                            share.type = "text/html"
+                            val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                            val shareSub = "${baseUrl}/classified/details/${args.addId}"
+                            share.putExtra(Intent.EXTRA_TEXT, shareSub)
+                            val bytes = ByteArrayOutputStream()
+                            myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                            val path = MediaStore.Images.Media.insertImage(
+                                activity?.getContentResolver(),
+                                myBitmap,
+                                "Title",
+                                null
+                            )
+                            val imageUri = Uri.parse(path)
+                            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+                            activity?.startActivity(Intent.createChooser(share, "Select"))
+                        } catch (e: Exception) {
+
+                        }
+                    /*}*/
+
+
+                    /*val bitmap = addImage.drawable.toBitmap()
                     val shareIntent: Intent
                     var path =
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                             .toString() + "/Share.png"
-                    var out: OutputStream? = null
+                    var out: OutputStream
                     val file = File(path)
                     try {
                         out = FileOutputStream(file)
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
                         out.flush()
                         out.close()
-                    } catch (e: java.lang.Exception) {
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
                     path = file.path
-                    val bmpUri = Uri.parse("$path")
+                    val bmpUri = Uri.parse(path)
                     shareIntent = Intent(Intent.ACTION_SEND)
                     shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri)
@@ -288,7 +318,7 @@ class ClassifiedDetailsFragment : Fragment() {
                     val shareSub = "${baseUrl}/classified/details/${args.addId}"
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
-                    startActivity(Intent.createChooser(shareIntent, "Share with"))
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))*/
                 } else {
                     guestUserLoginDialog.show()
                 }
@@ -435,11 +465,8 @@ class ClassifiedDetailsFragment : Fragment() {
         return binding?.root
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setClassifiedDetails(data: UserAdsXX) {
-
-        classifiedViewModel.getClassifiedSellerName(data.userId)
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         if (data.userId == email) {
@@ -454,7 +481,8 @@ class ClassifiedDetailsFragment : Fragment() {
         data.userAdsImages.forEachIndexed { index, userAdsImage ->
             when (index) {
                 0 -> {
-                    image1Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+                    image1Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
 
                     binding?.image1CardView?.visibility = View.VISIBLE
 
@@ -478,7 +506,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 1 -> {
-                    image2Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+                    image2Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
 
                     binding?.image2CardView?.visibility = View.VISIBLE
 
@@ -502,7 +531,8 @@ class ClassifiedDetailsFragment : Fragment() {
 
                 }
                 2 -> {
-                    image3Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+                    image3Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
 
                     binding?.image3CardView?.visibility = View.VISIBLE
                     context?.let {
@@ -523,7 +553,8 @@ class ClassifiedDetailsFragment : Fragment() {
                     }
                 }
                 3 -> {
-                    image4Link = "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
+                    image4Link =
+                        "${BuildConfig.BASE_URL}/api/v1/common/classifiedFile/${userAdsImage.imagePath}"
 
                     binding?.image4CardView?.visibility = View.VISIBLE
                     context?.let {
@@ -618,11 +649,7 @@ class ClassifiedDetailsFragment : Fragment() {
         binding?.navigateBack?.visibility = View.VISIBLE
         binding?.classifiedDescTv?.textSize = 14F
         if (data.adDescription != null && data.adDescription.isNotEmpty()) {
-            binding?.classifiedDescTv?.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(data.adDescription, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                Html.fromHtml(data.adDescription)
-            }
+            binding?.classifiedDescTv?.text = Html.fromHtml(data.adDescription)
         }
 
         binding?.classifiedLocationDetails?.text =
@@ -672,12 +699,14 @@ class ClassifiedDetailsFragment : Fragment() {
 
         if (data.contactType == "Email") {
             if (data.adEmail.isNotEmpty()) {
+                classifiedViewModel.getClassifiedSellerName(data.adEmail)
                 isEmailAvailable = data.adEmail
                 isPhoneAvailable = ""
                 binding?.emailTv?.text = "Email"
                 binding?.classifiedSellerEmail?.text = data.adEmail
             }
         } else {
+            classifiedViewModel.getClassifiedSellerName(data.userId)
             isEmailAvailable = ""
             isPhoneAvailable = data.adPhone
             binding?.emailTv?.text = "Phone"

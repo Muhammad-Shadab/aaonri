@@ -585,10 +585,16 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <com.github.mmin18.widget.RealtimeBlurView
+            <View
                 android:id="@+id/blurView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="#F2FFFFFF"/>
+
+            <!--<com.github.mmin18.widget.RealtimeBlurView
+                android:id="@+id/blurView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"

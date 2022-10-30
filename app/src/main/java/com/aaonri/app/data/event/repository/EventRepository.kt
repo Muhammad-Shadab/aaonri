@@ -30,7 +30,7 @@ class EventRepository @Inject constructor(
     suspend fun getEventCategory() = eventApi.getEventActiveCategory()
 
     suspend fun uploadEventPicture(
-        files: MultipartBody.Part,
+        files: List<MultipartBody.Part>,
         eventId: RequestBody,
         delImageIds: RequestBody
     ) = eventApi.uploadEventPicture(files, eventId, delImageIds)

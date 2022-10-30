@@ -434,7 +434,7 @@ class AdvertiseScreenFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (response.data?.isEmpty() == true) {
+                    if (response.data?.isEmpty() == true && binding?.searchView?.text.toString().isEmpty()) {
                         binding?.searchView?.isEnabled = false
                         binding?.noResultFound?.visibility = View.VISIBLE
                         binding?.noResultFoundIv?.setImageDrawable(
@@ -447,7 +447,6 @@ class AdvertiseScreenFragment : Fragment() {
                         )
                         binding?.emptyTextVew?.text = "You haven't listed anything yet"
                         binding?.recyclerViewAdvertise?.visibility = View.GONE
-
                     } else {
                         binding?.searchView?.isEnabled = true
                         /*response.data?.forEach {
@@ -536,18 +535,20 @@ class AdvertiseScreenFragment : Fragment() {
                 }
             }
             if (isUserLogin == true) {
-                if (advertisementList.isEmpty()) {
-                    binding?.noResultFound?.visibility = View.VISIBLE
-                    binding?.noResultFoundIv?.setImageDrawable(
-                        context?.let {
-                            ContextCompat.getDrawable(
-                                it,
-                                R.drawable.no_immigration_found
-                            )
-                        }
-                    )
-                    binding?.emptyTextVew?.text = "Results not found"
-                    binding?.recyclerViewAdvertise?.visibility = View.GONE
+                if (advertisementList.isEmpty() ) {
+                    if (binding?.searchView?.text.toString().isNotEmpty()){
+                        binding?.noResultFound?.visibility = View.VISIBLE
+                        binding?.noResultFoundIv?.setImageDrawable(
+                            context?.let {
+                                ContextCompat.getDrawable(
+                                    it,
+                                    R.drawable.no_immigration_found
+                                )
+                            }
+                        )
+                        binding?.emptyTextVew?.text = "Results not found"
+                        binding?.recyclerViewAdvertise?.visibility = View.GONE
+                    }
                 } else {
                     binding?.noResultFound?.visibility = View.GONE
                     binding?.recyclerViewAdvertise?.visibility = View.VISIBLE

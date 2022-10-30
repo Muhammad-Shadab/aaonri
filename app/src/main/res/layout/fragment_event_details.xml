@@ -562,7 +562,7 @@
 
                         </LinearLayout>
 
-                        <com.chinalwb.are.render.AreTextView
+                        <TextView
                             android:id="@+id/eventDescTv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

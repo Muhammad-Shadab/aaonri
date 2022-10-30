@@ -6,10 +6,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.CalendarContract
+import android.provider.MediaStore
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
@@ -57,9 +58,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -353,7 +352,39 @@ class EventDetailsScreenFragment : Fragment() {
 
             shareBtn.setOnClickListener {
                 if (isUserLogin == true) {
-                    val bitmap = addImage.drawable.toBitmap()
+
+                    /*AsyncTask.execute {*/
+                        try {
+                            /*val url = URL(image1Link)
+                            var connection: HttpURLConnection? = null
+                            connection = url.openConnection() as HttpURLConnection?
+                            connection!!.connect()
+                            var inputStream: InputStream? = null
+                            inputStream = connection.inputStream*/
+                            val myBitmap = addImage.drawable.toBitmap()
+                            val share = Intent(Intent.ACTION_SEND)
+                            share.type = "Image/jpeg"
+                            share.type = "text/html"
+                            val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                            val shareSub = "${baseUrl}/events/details/${args.eventId}"
+                            share.putExtra(Intent.EXTRA_TEXT, shareSub)
+                            val bytes = ByteArrayOutputStream()
+                            myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                            val path = MediaStore.Images.Media.insertImage(
+                                activity?.getContentResolver(),
+                                myBitmap,
+                                "Title",
+                                null
+                            )
+                            val imageUri = Uri.parse(path)
+                            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+                            activity?.startActivity(Intent.createChooser(share, "Select"))
+                        } catch (e: Exception) {
+
+                        }
+                    /*}*/
+
+                    /*val bitmap = addImage.drawable.toBitmap()
                     val shareIntent: Intent
                     var path =
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -377,7 +408,7 @@ class EventDetailsScreenFragment : Fragment() {
                     val shareSub = "${baseUrl}/events/details/${args.eventId}"
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
-                    startActivity(Intent.createChooser(shareIntent, "Share with"))
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))*/
                 } else {
                     guestUserLoginDialog.show()
                 }

@@ -32,7 +32,6 @@ import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.model.PostEventRequest
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.post_classified.AddressDetailsClassifiedFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -326,30 +325,22 @@ class PostEventAddressDetailsFragment : Fragment() {
 
 
         postEventViewModel.postEventData.observe(viewLifecycleOwner) { response ->
-            if (response != null){
+            if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+
                         if (response.data?.id.toString().isNotEmpty()) {
                             addId = response.data?.id!!
                             if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                                if (postEventViewModel.listOfImagesUri.size > 0) {
-                                    if (!postEventViewModel.listOfImagesUri[0].toString()
-                                            .startsWith("htt")
-                                    ) {
-                                        callUploadEventPicApi(
-                                            postEventViewModel.listOfImagesUri[0],
-                                            response.data.id, response.data.id
-                                        )
-                                        postEventViewModel.listOfImagesUri.removeAt(0)
-                                    }
-                                }
+                                callUploadEventPicApi(response.data.id, false)
                             } else {
                                 findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                             }
                         }
+
                         binding?.progressBar?.visibility = View.GONE
                         postEventViewModel.postEventData.postValue(null)
                     }
@@ -366,27 +357,11 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    response.data?.id?.let { deleteEventPicture(it) }
                     if (imagesUriWhileUpdating.size > 0) {
-                        callUploadEventPicApi(
-                            imagesUriWhileUpdating[0],
-                            response.data?.id,
-                            response.data?.id
-                        )
-                        imagesUriWhileUpdating.removeAt(0)
+                        callUploadEventPicApi(postEventViewModel.updateEventId, true)
                     } else {
                         findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     }
-                    /*if (postEventViewModel.listOfImagesUri.isNotEmpty()){
-                        postEventViewModel.listOfImagesUri.forEach {
-                            if (!it.toString().startsWith("htt")){
-                                callUploadClassifiedPicApi(it, response.data?.id, response.data?.id)
-                            }
-                        }
-                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                    }else{
-                        findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                    }*/
                     binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
@@ -401,41 +376,13 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (!postEventViewModel.isUpdateEvent){
-                        if (postEventViewModel.listOfImagesUri.isNotEmpty()) {
-                            if (postEventViewModel.listOfImagesUri.size > 0) {
-                                if (!postEventViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("htt")
-                                ) {
-                                    callUploadEventPicApi(
-                                        postEventViewModel.listOfImagesUri[0],
-                                        addId, addId
-                                    )
-                                    postEventViewModel.listOfImagesUri.removeAt(0)
-                                }
-                            }
-                        } else {
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                        }
-                    }else{
-                        if (imagesUriWhileUpdating.size > 0) {
-                            callUploadEventPicApi(
-                                imagesUriWhileUpdating[0],
-                                addId,
-                                addId
-                            )
-                            imagesUriWhileUpdating.removeAt(0)
-                        } else {
-                            findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                        }
-                    }
+                    findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     binding?.progressBar?.visibility = View.GONE
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
-                else -> {}
             }
         }
 
@@ -528,25 +475,59 @@ class PostEventAddressDetailsFragment : Fragment() {
         return binding?.root
     }
 
-    private fun deleteEventPicture(eventId: Int) {
-        val addId = eventId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        postEventViewModel.deleteEventPicture(addId, delId)
-    }
+    private fun callUploadEventPicApi(id: Int?, isUpdateEvent: Boolean) {
 
-    private fun callUploadEventPicApi(uri: Uri, id: Int?, id1: Int?) {
+        val listOfImages: MutableList<MultipartBody.Part> = mutableListOf()
 
-        val file = File(uri.toString().replace("file:", ""))
+        if (isUpdateEvent) {
+            imagesUriWhileUpdating.forEach {
+                if (!it.toString().startsWith("htt")) {
+                    val file = File(it.toString().replace("file:", ""))
+
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestImage =
+                        MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    if (!listOfImages.contains(requestImage)) {
+                        listOfImages.add(requestImage)
+                    }
+                }
+            }
+        } else {
+            postEventViewModel.listOfImagesUri.forEach {
+                if (!it.toString().startsWith("htt")) {
+                    val file = File(it.toString().replace("file:", ""))
+
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestImage =
+                        MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    if (!listOfImages.contains(requestImage)) {
+                        listOfImages.add(requestImage)
+                    }
+                }
+            }
+        }
 
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId =
+            if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString()
+                .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        val requestImage = MultipartBody.Part.createFormData("files", "", requestFile)
+        postEventViewModel.uploadEventPicture(listOfImages, addId, delId)
 
-        postEventViewModel.uploadEventPicture(requestImage, addId, delId)
+        /* val file = File(uri.toString().replace("file:", ""))
+
+         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+         val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+         val requestImage = MultipartBody.Part.createFormData("files", "", requestFile)
+
+         postEventViewModel.uploadEventPicture(requestImage, addId, delId)*/
     }
 
     private fun postEvent() {

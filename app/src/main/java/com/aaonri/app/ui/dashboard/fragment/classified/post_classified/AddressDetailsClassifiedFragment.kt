@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -333,17 +332,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         addId = response.data?.id!!
                         if (postClassifiedViewModel.listOfImagesUri.isNotEmpty()) {
                             callUploadClassifiedPicApi(response.data.id, false)
-                            /*if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                                if (!postClassifiedViewModel.listOfImagesUri[0].toString()
-                                        .startsWith("http:")
-                                ) {
-                                    callUploadClassifiedPicApi(
-                                        postClassifiedViewModel.listOfImagesUri[0],
-                                        response.data.id, response.data.id
-                                    )
-                                    postClassifiedViewModel.listOfImagesUri.removeAt(0)
-                                }
-                            }*/
                         } else {
                             val action =
                                 AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
@@ -437,37 +425,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    /*if (!postClassifiedViewModel.isUpdateClassified) {
-                        if (postClassifiedViewModel.listOfImagesUri.size > 0) {
-                            if (!postClassifiedViewModel.listOfImagesUri[0].toString()
-                                    .startsWith("http")
-                            ) {
-                                callUploadClassifiedPicApi(
-                                    postClassifiedViewModel.listOfImagesUri[0],
-                                    addId,
-                                    addId
-                                )
-                                postClassifiedViewModel.listOfImagesUri.removeAt(0)
-                            }
-                        } else {
-                            val action =
-                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                            findNavController().navigate(action)
-                        }
-                    } else {
-                        if (imagesUriWhileUpdating.size > 0) {
-                            callUploadClassifiedPicApi(
-                                imagesUriWhileUpdating[0],
-                                postClassifiedViewModel.updateClassifiedId,
-                                addId
-                            )
-                            imagesUriWhileUpdating.removeAt(0)
-                        } else {
-                            val action =
-                                AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
-                            findNavController().navigate(action)
-                        }
-                    }*/
                     val action =
                         AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                     findNavController().navigate(action)
@@ -510,7 +467,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val requestImage =
                         MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    listOfImages.add(requestImage)
+                    if (!listOfImages.contains(requestImage)){
+                        listOfImages.add(requestImage)
+                    }
                 }
             }
         } else {
@@ -522,13 +481,18 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val requestImage =
                         MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    listOfImages.add(requestImage)
+                    if (!listOfImages.contains(requestImage)){
+                        listOfImages.add(requestImage)
+                    }
                 }
             }
         }
 
         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val delId =
+            if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString()
+                .toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
 
 
         postClassifiedViewModel.uploadClassifiedPics(listOfImages, addId, delId)

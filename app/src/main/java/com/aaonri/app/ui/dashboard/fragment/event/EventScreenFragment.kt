@@ -542,7 +542,7 @@ class EventScreenFragment : Fragment() {
         eventViewModel.navigateFromEventScreenToAdvertiseWebView.observe(viewLifecycleOwner) {
             if (it) {
                 val action =
-                    ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToAdvertiseWebviewFragment(
+                    EventScreenFragmentDirections.actionEventScreenFragmentToAdvertiseWebviewFragment(
                         eventViewModel.eventAdvertiseUrl
                     )
                 findNavController().navigate(action)
