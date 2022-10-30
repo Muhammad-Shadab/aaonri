@@ -36,9 +36,10 @@ class EventRepository @Inject constructor(
     ) = eventApi.uploadEventPicture(files, eventId, delImageIds)
 
     suspend fun deleteEventPicture(
+        files: MultipartBody.Part,
         eventId: RequestBody,
         delImageIds: RequestBody
-    ) = eventApi.deleteEventPicture(eventId, delImageIds)
+    ) = eventApi.deleteEventPicture(files, eventId, delImageIds)
 
     suspend fun getEventDetails(eventID: Int) = eventApi.getEventDetails(eventID)
 

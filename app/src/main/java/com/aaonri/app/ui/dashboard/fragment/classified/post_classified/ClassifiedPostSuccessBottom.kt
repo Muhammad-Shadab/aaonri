@@ -76,6 +76,9 @@ class ClassifiedPostSuccessBottom : BottomSheetDialogFragment() {
             viewYourClassifiedBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callClassifiedApi", true)
+                if (postClassifiedViewModel.isUpdateClassified){
+                    intent.putExtra("isClassifiedUpdate", true)
+                }
                 activity?.setResult(Activity.RESULT_OK, intent)
                 activity?.finish()
             }

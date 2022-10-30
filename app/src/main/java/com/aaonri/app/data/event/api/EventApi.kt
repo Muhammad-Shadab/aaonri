@@ -53,6 +53,7 @@ interface EventApi {
     @Multipart
     @POST("/api/v1/event/uploadImages")
     suspend fun deleteEventPicture(
+        @Part files: MultipartBody.Part,
         @Part("eventId") adId: RequestBody,
         @Part("delImageIds") delImageIds: RequestBody
     ): Response<UploadEventPicResponse>

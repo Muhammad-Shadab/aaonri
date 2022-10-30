@@ -778,11 +778,17 @@ class MainActivity : BaseActivity() {
             val callClassifiedApi = data?.getBooleanExtra("callClassifiedApi", false)
             val callEventApi = data?.getBooleanExtra("callEventApi", false)
             val callAdvertiseApi = data?.getBooleanExtra("callAdvertiseApi", false)
+            val isClassifiedUpdate = data?.getBooleanExtra("isClassifiedUpdate", false)
+            val isEventUpdate = data?.getBooleanExtra("isEventUpdate", false)
+
+            if (isClassifiedUpdate == true) {
+                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
+            }
+            if (isEventUpdate == true) {
+                eventViewModel.setCallEventDetailsApiAfterUpdating(true)
+            }
 
             if (callClassifiedApi == true) {
-
-                classifiedViewModel.setCallClassifiedDetailsApiAfterUpdating(true)
-
                 classifiedViewModel.getMyClassified(
                     GetClassifiedByUserRequest(
                         category = "",
@@ -799,7 +805,6 @@ class MainActivity : BaseActivity() {
                     )
                 )
             } else if (callEventApi == true) {
-                eventViewModel.setCallEventDetailsApiAfterUpdating(true)
 
                 if (email != null) {
                     eventViewModel.getRecentEvent(email)

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -354,34 +353,34 @@ class EventDetailsScreenFragment : Fragment() {
                 if (isUserLogin == true) {
 
                     /*AsyncTask.execute {*/
-                        try {
-                            /*val url = URL(image1Link)
-                            var connection: HttpURLConnection? = null
-                            connection = url.openConnection() as HttpURLConnection?
-                            connection!!.connect()
-                            var inputStream: InputStream? = null
-                            inputStream = connection.inputStream*/
-                            val myBitmap = addImage.drawable.toBitmap()
-                            val share = Intent(Intent.ACTION_SEND)
-                            share.type = "Image/jpeg"
-                            share.type = "text/html"
-                            val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                            val shareSub = "${baseUrl}/events/details/${args.eventId}"
-                            share.putExtra(Intent.EXTRA_TEXT, shareSub)
-                            val bytes = ByteArrayOutputStream()
-                            myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                            val path = MediaStore.Images.Media.insertImage(
-                                activity?.getContentResolver(),
-                                myBitmap,
-                                "Title",
-                                null
-                            )
-                            val imageUri = Uri.parse(path)
-                            share.putExtra(Intent.EXTRA_STREAM, imageUri)
-                            activity?.startActivity(Intent.createChooser(share, "Select"))
-                        } catch (e: Exception) {
+                    try {
+                        /*val url = URL(image1Link)
+                        var connection: HttpURLConnection? = null
+                        connection = url.openConnection() as HttpURLConnection?
+                        connection!!.connect()
+                        var inputStream: InputStream? = null
+                        inputStream = connection.inputStream*/
+                        val myBitmap = addImage.drawable.toBitmap()
+                        val share = Intent(Intent.ACTION_SEND)
+                        share.type = "Image/jpeg"
+                        share.type = "text/html"
+                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
+                        share.putExtra(Intent.EXTRA_TEXT, shareSub)
+                        val bytes = ByteArrayOutputStream()
+                        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                        val path = MediaStore.Images.Media.insertImage(
+                            activity?.getContentResolver(),
+                            myBitmap,
+                            "Title",
+                            null
+                        )
+                        val imageUri = Uri.parse(path)
+                        share.putExtra(Intent.EXTRA_STREAM, imageUri)
+                        activity?.startActivity(Intent.createChooser(share, "Select"))
+                    } catch (e: Exception) {
 
-                        }
+                    }
                     /*}*/
 
                     /*val bitmap = addImage.drawable.toBitmap()

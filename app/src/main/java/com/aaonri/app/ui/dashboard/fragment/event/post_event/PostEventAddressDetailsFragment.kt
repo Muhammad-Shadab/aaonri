@@ -357,7 +357,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (imagesUriWhileUpdating.size > 0) {
+                    if (postEventViewModel.listOfImagesUri.size > 0) {
                         callUploadEventPicApi(postEventViewModel.updateEventId, true)
                     } else {
                         findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
@@ -457,17 +457,26 @@ class PostEventAddressDetailsFragment : Fragment() {
                         /* cityName = response.data.result.getOrNull(0)?.province.toString()
 
                          stateName = response.data.result.getOrNull(0)?.state.toString()*/
-
-                    } else {
-
                     }
-
                 }
                 is Resource.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
-                else -> {
+            }
+        }
 
+        postEventViewModel.deletePictureData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -515,19 +524,15 @@ class PostEventAddressDetailsFragment : Fragment() {
             if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString()
                 .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
+        if (listOfImages.size > 0) {
+            postEventViewModel.uploadEventPicture(listOfImages, addId, delId)
+        } else {
+            val attachmentEmpty = RequestBody.create("text/plain".toMediaTypeOrNull(), "");
+            val fileToUpload = MultipartBody.Part.createFormData("files", "", attachmentEmpty)
+            postEventViewModel.deleteEventPicture(fileToUpload, addId, delId)
+        }
 
-        postEventViewModel.uploadEventPicture(listOfImages, addId, delId)
 
-        /* val file = File(uri.toString().replace("file:", ""))
-
-         val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-         val delId = "".toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-         val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-         val requestImage = MultipartBody.Part.createFormData("files", "", requestFile)
-
-         postEventViewModel.uploadEventPicture(requestImage, addId, delId)*/
     }
 
     private fun postEvent() {

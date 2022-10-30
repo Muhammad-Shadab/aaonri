@@ -75,6 +75,9 @@ class EventPostSuccessfulBottom : BottomSheetDialogFragment() {
             bottomLoginBtn.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("callEventApi", true)
+                if (postEventViewModel.isUpdateEvent){
+                    intent.putExtra("isEventUpdate", true)
+                }
                 activity?.setResult(Activity.RESULT_OK, intent)
                 activity?.finish()
             }

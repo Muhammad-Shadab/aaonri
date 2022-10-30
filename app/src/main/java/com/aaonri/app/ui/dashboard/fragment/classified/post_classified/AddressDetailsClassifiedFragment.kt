@@ -31,6 +31,7 @@ import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -353,7 +354,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (imagesUriWhileUpdating.size > 0) {
+                    if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                         callUploadClassifiedPicApi(postClassifiedViewModel.updateClassifiedId, true)
                     } else {
                         val action =
@@ -443,6 +444,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
+                    val action =
+                        AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
+                    findNavController().navigate(action)
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -477,8 +481,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 if (!it.toString().startsWith("htt")) {
                     val file = File(it.toString().replace("file:", ""))
 
-                    val requestFile: RequestBody =
-                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val requestImage =
                         MultipartBody.Part.createFormData("files", file.name, requestFile)
                     if (!listOfImages.contains(requestImage)){
@@ -493,18 +496,15 @@ class AddressDetailsClassifiedFragment : Fragment() {
             if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString()
                 .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-
-
-        postClassifiedViewModel.uploadClassifiedPics(listOfImages, addId, delId)
+        if (listOfImages.size > 0){
+            postClassifiedViewModel.uploadClassifiedPics(listOfImages, addId, delId)
+        }else{
+            val attachmentEmpty = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "");
+            val fileToUpload = MultipartBody.Part.createFormData("files", "", attachmentEmpty)
+            postClassifiedViewModel.deleteClassifiedPics(fileToUpload, addId, delId)
+        }
     }
 
-    private fun deleteClassifiedPic(id: Int?) {
-
-        val addId = id.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val delId = imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-        //postClassifiedViewModel.deleteClassifiedPics(addId, delId)
-    }
 
     private fun postClassifiedRequest(
         adEmail: String,

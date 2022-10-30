@@ -146,13 +146,9 @@ class RecentEventFragment : Fragment() {
                         binding?.topAdvertiseRv?.visibility = View.GONE
                         binding?.bottomAdvertiseRv?.visibility = View.GONE
                         binding?.recyclerViewMyEvent?.visibility = View.GONE
-                        activity?.let { it1 ->
-                            Snackbar.make(
-                                it1.findViewById(android.R.id.content),
-                                "No result found", Snackbar.LENGTH_LONG
-                            ).show()
-                        }
+                        binding?.resultsNotFoundLL?.visibility = View.VISIBLE
                     } else {
+                        binding?.resultsNotFoundLL?.visibility = View.GONE
                         binding?.topAdvertiseRv?.visibility = View.VISIBLE
                         binding?.bottomAdvertiseRv?.visibility = View.VISIBLE
                         binding?.recyclerViewMyEvent?.visibility = View.VISIBLE

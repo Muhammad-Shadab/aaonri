@@ -219,12 +219,13 @@ class PostEventViewModel @Inject constructor(private val eventRepository: EventR
         }
 
     fun deleteEventPicture(
+        files: MultipartBody.Part,
         eventId: RequestBody,
         delImageIds: RequestBody
     ) =
         viewModelScope.launch {
             deletePictureData.postValue(Resource.Loading())
-            val response = eventRepository.deleteEventPicture(eventId, delImageIds)
+            val response = eventRepository.deleteEventPicture(files, eventId, delImageIds)
             deletePictureData.postValue(handleDeletePictureResponse(response))
         }
 
