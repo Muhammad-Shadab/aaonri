@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.recruiter.JobRecruiterScreenFragment">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
@@ -63,8 +64,8 @@
             android:id="@+id/profilePicIv"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:scaleType="fitXY"
             android:padding="@dimen/_1sdp"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -126,36 +127,35 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:clickable="true"
+            android:editable="false"
             android:focusable="true"
             android:fontFamily="@font/helvetica_regular"
             android:hint="Search Talent?"
             android:imeOptions="actionDone"
             android:inputType="none"
-            android:textColorHint="@color/black"
             android:maxLines="1"
-            android:editable="false"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_8sdp"
+            android:textColorHint="@color/black"
             android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/searchViewIcon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:backgroundTint="@color/graytxtcolor"
-            android:background="@drawable/ic_baseline_arrow_forward" />
+            android:background="@drawable/ic_baseline_arrow_forward"
+            android:backgroundTint="@color/graytxtcolor" />
 
     </LinearLayout>
 
 
-
     <ImageView
         android:id="@+id/filterEvent"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_icons_filter"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/searchViewll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/searchViewll"
@@ -340,11 +340,9 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-
         </LinearLayout>
 
     </HorizontalScrollView>
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -386,9 +384,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/jobsScreenTabLayout">
-        </androidx.viewpager2.widget.ViewPager2>
+            app:layout_constraintTop_toBottomOf="@id/jobsScreenTabLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/floatingActionBtnClassified"
         android:layout_width="@dimen/_40sdp"

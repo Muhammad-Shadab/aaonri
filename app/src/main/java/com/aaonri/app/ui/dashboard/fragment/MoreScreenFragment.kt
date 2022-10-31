@@ -297,7 +297,7 @@ class MoreScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let { servicesResponse ->
                         adapter?.setData(
-                            servicesResponse.filter { it.active && it.id != jobId },
+                            servicesResponse.filter { it.active /*&& it.id != jobId*/ },
                             true
                         )
                     }

@@ -686,10 +686,7 @@ class HomeScreenFragment : Fragment() {
                 )*/
                 stopAutoScrollBanner2()
                 stopAutoScrollBanner1()
-                ;
-                /*val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToHomeScreenFilter()
-                findNavController().navigate(action)*/
+
             }
 
             searchView.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
@@ -959,7 +956,6 @@ class HomeScreenFragment : Fragment() {
                     binding?.homeConstraintLayout?.visibility = View.GONE
                     binding?.progressBar?.visibility = View.GONE
                 }
-                else -> {}
             }
         }
 
@@ -1156,41 +1152,6 @@ class HomeScreenFragment : Fragment() {
         }
     }
 
-    /*fun captureScreenShot(view: View): Bitmap? {
-*//*
- * Creating a Bitmap of view with ARGB_4444.
- * *//*
-        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_4444)
-        val canvas = Canvas(bitmap)
-        val backgroundDrawable = view.background
-        if (backgroundDrawable != null) {
-            backgroundDrawable.draw(canvas)
-        } else {
-            canvas.drawColor(Color.parseColor("#80000000"))
-        }
-        view.draw(canvas)
-        return bitmap
-    }
-
-    fun blur(context: Context?, image: Bitmap): Bitmap? {
-        val BITMAP_SCALE = 0.4f
-        val BLUR_RADIUS = 7.5f
-        val width = Math.round(image.width * BITMAP_SCALE)
-        val height = Math.round(image.height * BITMAP_SCALE)
-        val inputBitmap = Bitmap.createScaledBitmap(image, width, height, false)
-        val outputBitmap = Bitmap.createBitmap(inputBitmap)
-        val rs = RenderScript.create(context)
-        val theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
-        val tmpIn = Allocation.createFromBitmap(rs, inputBitmap)
-        val tmpOut = Allocation.createFromBitmap(rs, outputBitmap)
-        theIntrinsic.setRadius(BLUR_RADIUS)
-        theIntrinsic.setInput(tmpIn)
-        theIntrinsic.forEach(tmpOut)
-        tmpOut.copyTo(outputBitmap)
-        return outputBitmap
-    }*/
-
-
     /** showing all the selected services horizontal tab for both login user and guest user**/
     private fun setUserInterestedServiceRow(interests: MutableList<String>? = null) {
         homeViewModel.allInterestData.observe(viewLifecycleOwner) { response ->
@@ -1214,7 +1175,7 @@ class HomeScreenFragment : Fragment() {
                         }
                         binding?.interestRecyclerView?.visibility = View.VISIBLE
                         binding?.interestBorder?.visibility = View.VISIBLE
-                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id != jobId })
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" /*&& it.id != jobId*/ })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
                             homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == eventId } as MutableList<InterestResponseItem>)
@@ -1249,9 +1210,19 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests == "$jobId" || interests == "Jobs") {
                 //Jobs
-                /*val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                findNavController().navigate(action)*/
+                val isJobRecruiter =
+                    context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
+
+                if (isJobRecruiter == true) {
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                    findNavController().navigate(action)
+                }
+
             } else if (interests == "$shopWithUsId" || interests == "Shop With Us") {
                 //Shop With Us
                 dashboardCommonViewModel.setIsShopWithUsClicked(true)
@@ -1338,7 +1309,8 @@ class HomeScreenFragment : Fragment() {
                 //Jobs
                 priorityService = "Jobs"
                 binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
-                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                binding?.priorityServiceRv?.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 binding?.priorityServiceRv?.adapter = jobAdapter
             } else if (interests == "$shopWithUsId") {
                 //Shop With Us
