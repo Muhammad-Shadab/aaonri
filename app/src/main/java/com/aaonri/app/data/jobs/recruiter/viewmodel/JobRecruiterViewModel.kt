@@ -16,6 +16,10 @@ import javax.inject.Inject
 class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepository) :
     ViewModel() {
 
+    val navigationForStepper: MutableLiveData<String> = MutableLiveData()
+
+    val stepViewLastTick: MutableLiveData<Boolean> = MutableLiveData()
+
     val allJobProfileData: MutableLiveData<Resource<AllJobProfileResponse>> = MutableLiveData()
 
     val allActiveIndustryData: MutableLiveData<Resource<AllActiveIndustryResponse>> =
@@ -34,6 +38,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     val navigateAllJobProfileScreenToTalentProfileDetailsScreen: MutableLiveData<Int> =
         MutableLiveData()
+
+    fun addNavigationForStepper(value: String) {
+        navigationForStepper.postValue(value)
+    }
 
     fun getAllJobProfile() = viewModelScope.launch {
         allJobProfileData.postValue(Resource.Loading())

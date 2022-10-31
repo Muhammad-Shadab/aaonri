@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobCompanyDetailsBinding
 import com.google.android.material.snackbar.Snackbar
@@ -26,6 +27,9 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
         )
 
         binding?.apply {
+
+            jobRecruiterViewModel.addNavigationForStepper(JobRecruiterConstant.RECRUITER_POST_JOB_REQUIREMENT_DETAILS_SCREEN)
+
             jobDescEt.textSize = 14F
 
             val salary =
