@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterTalentDetailsFragment">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
@@ -64,6 +65,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_26sdp"
             android:paddingVertical="@dimen/_26sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -88,8 +90,8 @@
                         android:id="@+id/namell"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center_horizontal"
+                        android:orientation="vertical"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -103,20 +105,19 @@
                             android:text="Android Developer"
                             android:textColor="@color/jobtxtcolor"
                             android:textSize="18sp" />
+
                         <TextView
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:id="@+id/profileNameTv"
+                            android:id="@+id/jobRoleTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
                             android:text="Android Developer"
-                            android:textSize="@dimen/_12sdp"
-                            android:textColor="@color/jobtxtcolor" />
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="@dimen/_12sdp" />
 
                     </LinearLayout>
-
-
 
 
                     <LinearLayout
@@ -237,7 +238,7 @@
                         android:textColor="@color/blackColor1"
                         android:textSize="14sp" />
 
-                    <com.chinalwb.are.render.AreTextView
+                    <TextView
                         android:id="@+id/jobDescTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -268,6 +269,7 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/connectBtn"
         android:layout_width="match_parent"
@@ -284,7 +286,7 @@
         android:text="CONNECT"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

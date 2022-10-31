@@ -5,16 +5,21 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentJobRecruiterScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterPagerAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
@@ -30,6 +35,33 @@ import com.google.firebase.auth.FirebaseAuth
 
 class JobRecruiterScreenFragment : Fragment() {
     var binding: FragmentJobRecruiterScreenBinding? = null
+    val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
+    private var clicked = false
+    private val rotateOpen: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.rotate_open_anim
+        )
+    }
+    private val rotateClose: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.rotate_close_anim
+        )
+    }
+    private val fromBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.from_bottom_anim
+        )
+    }
+    private val toBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            context,
+            R.anim.to_bottom_anim
+        )
+    }
+
     lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val tabTitles =
@@ -55,6 +87,8 @@ class JobRecruiterScreenFragment : Fragment() {
                 it?.let { it1 -> PreferenceManager<Boolean>(it1) }
                     ?.get(Constant.IS_USER_LOGIN, false)
             }
+
+        jobRecruiterViewModel.getAllJobProfile()
 
         val fragment = this
         val jobPagerAdapter = RecruiterPagerAdapter(fragment)
@@ -224,6 +258,23 @@ class JobRecruiterScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
+            floatingActionBtnClassified.setOnClickListener {
+                addOnFloatingBtnClick()
+            }
+
+            postAJob.setOnClickListener {
+                val intent = Intent(context, RecruiterPostJobActivity::class.java)
+                activity?.startActivity(intent)
+            }
+
+            uploadConsultantProfile.setOnClickListener {
+
+            }
+
+            searchTalentBtn.setOnClickListener {
+
+            }
+
             jobScreenViewPager.adapter = jobPagerAdapter
             TabLayoutMediator(
                 jobsScreenTabLayout,
@@ -266,10 +317,64 @@ class JobRecruiterScreenFragment : Fragment() {
         }
 
 
+        jobRecruiterViewModel.navigateAllJobProfileScreenToTalentProfileDetailsScreen.observe(
+            viewLifecycleOwner
+        ) {
+            if (it != null) {
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterTalentDetailsFragment(
+                        it
+                    )
+                findNavController().navigate(action)
+                jobRecruiterViewModel.navigateAllJobProfileScreenToTalentProfileDetailsScreen.postValue(
+                    null
+                )
+            }
+        }
+
+
 
 
 
         return binding?.root
+    }
+
+    private fun addOnFloatingBtnClick() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        clicked = !clicked
+    }
+
+    private fun setVisibility(clicked: Boolean) {
+        if (!clicked) {
+            binding?.searchTalentBtn?.visibility = View.VISIBLE
+            binding?.postAJob?.visibility = View.VISIBLE
+            binding?.uploadConsultantProfile?.visibility = View.VISIBLE
+            binding?.hideBackground?.visibility = View.VISIBLE
+            binding?.navigateBack?.visibility = View.GONE
+            binding?.profilePicCv?.visibility = View.GONE
+        } else {
+            binding?.searchTalentBtn?.visibility = View.GONE
+            binding?.postAJob?.visibility = View.GONE
+            binding?.uploadConsultantProfile?.visibility = View.GONE
+            binding?.hideBackground?.visibility = View.GONE
+            binding?.navigateBack?.visibility = View.VISIBLE
+            binding?.profilePicCv?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setAnimation(clicked: Boolean) {
+        if (!clicked) {
+            /*binding?.searchTalentBtn?.startAnimation(fromBottom)
+            binding?.postAJob?.startAnimation(fromBottom)
+            binding?.uploadConsultantProfile?.startAnimation(fromBottom)*/
+            binding?.floatingActionBtnClassified?.startAnimation(rotateOpen)
+        } else {
+            /*binding?.searchTalentBtn?.startAnimation(toBottom)
+            binding?.postAJob?.startAnimation(toBottom)
+            binding?.uploadConsultantProfile?.startAnimation(toBottom)*/
+            binding?.floatingActionBtnClassified?.startAnimation(rotateClose)
+        }
     }
 
     override fun onDestroyView() {

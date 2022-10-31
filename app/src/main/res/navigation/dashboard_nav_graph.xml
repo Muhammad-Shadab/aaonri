@@ -440,7 +440,14 @@
         android:id="@+id/jobRecruiterScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.JobRecruiterScreenFragment"
         android:label="fragment_job_recruiter_screen"
-        tools:layout="@layout/fragment_job_recruiter_screen" />
+        tools:layout="@layout/fragment_job_recruiter_screen" >
+        <action
+            android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterJobDetailsFragment"
+            app:destination="@id/recruiterJobDetailsFragment" />
+        <action
+            android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterTalentDetailsFragment"
+            app:destination="@id/recruiterTalentDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/jobApplyFragment"
@@ -485,7 +492,7 @@
         android:id="@+id/reportUserFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.report_user.ReportUserFragment"
         android:label="fragment_report_user"
-        tools:layout="@layout/fragment_report_user" >
+        tools:layout="@layout/fragment_report_user">
         <argument
             android:name="userId"
             app:argType="integer" />
@@ -516,6 +523,24 @@
         android:id="@+id/communityBottomFragment2"
         android:name="com.aaonri.app.ui.authentication.register.CommunityBottomFragment"
         android:label="CommunityBottomFragment" />
+    <fragment
+        android:id="@+id/recruiterJobDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterJobDetailsFragment"
+        android:label="fragment_recruiter_job_details"
+        tools:layout="@layout/fragment_recruiter_job_details" >
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/recruiterTalentDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterTalentDetailsFragment"
+        android:label="fragment_recruiter_talent_details"
+        tools:layout="@layout/fragment_recruiter_talent_details" >
+        <argument
+            android:name="profileId"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>

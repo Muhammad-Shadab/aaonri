@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,15 +24,14 @@
             <!--<ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_150sdp"
-                android:background="@drawable/resume"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -40,15 +40,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
+                    android:orientation="horizontal"
 
-                    android:orientation="horizontal">
+                    android:paddingHorizontal="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
+
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/profilePicCv"
                             android:layout_width="wrap_content"
@@ -63,43 +63,44 @@
                                 android:id="@+id/profilePicIv"
                                 android:layout_width="@dimen/_28sdp"
                                 android:layout_height="@dimen/_28sdp"
-                                android:scaleType="fitXY"
                                 android:padding="@dimen/_1sdp"
+                                android:scaleType="fitXY"
                                 android:src="@drawable/profile_pic_placeholder" />
                         </com.google.android.material.card.MaterialCardView>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/_6sdp"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/jobTitleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:includeFontPadding="false"
-        android:text="Operations Anlyst "
-        android:textColor="@color/jobtxtcolor"
-        android:textSize="15sp"
-        />
 
-    <TextView
-        android:id="@+id/jobCompanyNameTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:ellipsize="end"
-        android:fontFamily="@font/sf_pro_display_light"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:text="Android Developer"
-        android:textColor="@color/jobtxtcolor"
-        android:textSize="12sp"
-        android:translationY="-4dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_6sdp"
+                            android:orientation="vertical">
 
-</LinearLayout>
+                            <TextView
+                                android:id="@+id/jobSeekerNameTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:text="Operations Anlyst "
+                                android:textColor="@color/jobtxtcolor"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/jobSeekerRole"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_display_light"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:text="Android Developer"
+                                android:textColor="@color/jobtxtcolor"
+                                android:textSize="12sp"
+                                android:translationY="-4dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -145,7 +146,7 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/applyBtn"
+                        android:id="@+id/viewProfileBtn"
                         android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="bottom"
@@ -170,12 +171,12 @@
                     android:background="#802f6ca8" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/SkillsRv"
-                    android:layout_marginTop="@dimen/_7sdp"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:id="@+id/skillsRv"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginBottom="@dimen/_16sdp" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

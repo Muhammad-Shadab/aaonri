@@ -1,16 +1,16 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aaonri.app.R
+import androidx.fragment.app.Fragment
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RecruiterJobDetailsFragment : Fragment() {
-var binding:FragmentRecruiterJobDetailsBinding? = null
+    var binding: FragmentRecruiterJobDetailsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

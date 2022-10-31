@@ -1,23 +1,92 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aaonri.app.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobDetailsBinding
+import com.aaonri.app.utils.Validator
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecruiterPostJobDetailsFragment : Fragment() {
+    var binding: FragmentRecruiterPostJobDetailsBinding? = null
+    val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
 
-   var binding:FragmentRecruiterPostJobDetailsBinding?= null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentRecruiterPostJobDetailsBinding.inflate(inflater, container, false)
-        return  binding?.root
+
+        binding?.apply {
+
+            skillSetDescEt.textSize = 14F
+
+            nextBtn.setOnClickListener {
+
+                if (jobTitleEt.text.toString().length >= 3) {
+                    if (cityNameEt.text.toString().length >= 3) {
+                        if (selectStateTv.text.toString().isNotEmpty()) {
+                            if (selectCountryTv.text.toString().isNotEmpty()) {
+                                if (Validator.emailValidation(
+                                        recruiterEmailEt.text.toString().trim()
+                                    )
+                                ) {
+                                    if (recruiterNameEt.text.toString().length >= 3) {
+                                        if (skillSetDescEt.text.toString().trim().length >= 3) {
+
+                                            jobRecruiterViewModel.setRecruiterPostJobDetails(
+                                                jobTitle = jobTitleEt.text.toString(),
+                                                cityName = cityNameEt.text.toString(),
+                                                state = selectStateTv.text.toString(),
+                                                country = selectCountryTv.text.toString(),
+                                                contactPersonalEmail = recruiterEmailEt.text.toString(),
+                                                recruiterName = recruiterNameEt.text.toString(),
+                                                skillSet = skillSetDescEt.text.toString()
+                                            )
+
+                                        } else {
+                                            showAlert("Please enter valid skill set description")
+                                        }
+                                    } else {
+                                        showAlert("Please enter valid recruiter name")
+                                    }
+                                } else {
+                                    showAlert("Please enter valid contact personal email")
+                                }
+                            } else {
+                                showAlert("Please select valid city")
+                            }
+                        } else {
+                            showAlert("Please select valid state")
+                        }
+                    } else {
+                        showAlert("Please enter valid city name")
+                    }
+                } else {
+                    showAlert("Please enter valid Job title")
+                }
+            }
+
+
+        }
+
+        return binding?.root
+    }
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
 }

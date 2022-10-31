@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_job_nav"
+    app:startDestination="@id/recruiterPostJobDetailsFragment">
+
+    <fragment
+        android:id="@+id/recruiterPostJobDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobDetailsFragment"
+        android:label="fragment_recruiter_post_job_details"
+        tools:layout="@layout/fragment_recruiter_post_job_details" >
+        <action
+            android:id="@+id/action_recruiterPostJobDetailsFragment_to_recruiterPostJobCompanyDetailsFragment"
+            app:destination="@id/recruiterPostJobCompanyDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recruiterPostJobCompanyDetailsFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobRequirementsDetails"
+        android:label="fragment_recruiter_post_job_company_details"
+        tools:layout="@layout/fragment_recruiter_post_job_company_details" />
+
+
+</navigation>

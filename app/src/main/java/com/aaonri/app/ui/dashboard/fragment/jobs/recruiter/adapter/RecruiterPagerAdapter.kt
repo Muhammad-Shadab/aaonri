@@ -9,10 +9,6 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.tabs.RecruiterMyPoste
 class RecruiterPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    fun removeTabPage() {
-        notifyDataSetChanged()
-    }
-
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
