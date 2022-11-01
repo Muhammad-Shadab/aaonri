@@ -2,6 +2,7 @@ package com.aaonri.app.data.jobs.recruiter.api
 
 import com.aaonri.app.data.jobs.recruiter.model.*
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -25,8 +26,17 @@ interface JobRecruiterApi {
         @Path("jobProfileId") jobProfileId: Int
     ): Response<JobProfileDetailsByIdResponse>
 
-    //@POST("")
+    @GET("/api/v1/jobs/{jobId}")
+    suspend fun findJobDetailsById(
+        @Path("jobId") jobId: Int
+    ): Response<JobDetails>
 
+    @POST("/api/v1/jobs/search")
+    suspend fun jobSearchApi(
+        @Body jobSearchRequest: JobSearchRequest
+    ): Response<JobSearchResponse>
+
+    //@POST("")
 
 
 }

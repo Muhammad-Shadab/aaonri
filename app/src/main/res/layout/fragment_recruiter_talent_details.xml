@@ -107,7 +107,7 @@
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/jobRoleTv"
+                            android:id="@+id/roleTitleTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_2sdp"
@@ -234,18 +234,29 @@
                         android:layout_marginTop="@dimen/_19sdp"
                         android:fontFamily="@font/sf_pro_medium"
                         android:includeFontPadding="false"
-                        android:text="Job Description"
+                        android:text="Cover Letter"
                         android:textColor="@color/blackColor1"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/jobDescTv"
+                        android:id="@+id/jobCoverLetterTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/sf_pro_regular"
                         android:includeFontPadding="false"
                         android:textColor="@color/light_black_color"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/viewResumeTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:fontFamily="@font/sf_pro_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/view_resume"
+                        android:textColor="@color/blueBtnColor"
                         android:textSize="14sp" />
 
                     <TextView

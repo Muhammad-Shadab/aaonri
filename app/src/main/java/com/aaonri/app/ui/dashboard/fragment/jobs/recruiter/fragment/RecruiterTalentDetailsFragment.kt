@@ -1,12 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterTalentDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterJobKeySkillsAdapter
@@ -20,6 +25,8 @@ class RecruiterTalentDetailsFragment : Fragment() {
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
     val args: RecruiterTalentDetailsFragmentArgs by navArgs()
     var recruiterJobKeySkillsAdapter: RecruiterJobKeySkillsAdapter? = null
+    var talentEmail = ""
+    var talentResume = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,30 @@ class RecruiterTalentDetailsFragment : Fragment() {
             jobKeySkillsRv.layoutManager = FlexboxLayoutManager(context)
             jobKeySkillsRv.adapter = recruiterJobKeySkillsAdapter
 
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            viewResumeTv.setOnClickListener {
+                val intent = Intent(requireContext(), WebViewActivity::class.java)
+                intent.putExtra(
+                    "url",
+                    "http://docs.google.com/gview?embedded=true&url=${talentResume}"
+                )
+                startActivity(intent)
+            }
+
+            connectBtn.setOnClickListener {
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", talentEmail, null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
             jobRecruiterViewModel.jobProfileDetailsByIdData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
@@ -45,8 +76,11 @@ class RecruiterTalentDetailsFragment : Fragment() {
                     is Resource.Success -> {
                         response.data?.let {
                             userNameTv.text = it.firstName + " " + it.lastName
-                            jobRoleTv.text = it.coverLetter
+                            roleTitleTv.text = it.title
                             addressTv.text = it.location
+                            jobCoverLetterTv.text = Html.fromHtml(it.coverLetter)
+                            talentEmail = it.emailId
+                            talentResume = it.resumeName
                             //moneyTv.text = it.
                             experienceTv.text = it.experience
                             //jobCategoriesTv.text = it.

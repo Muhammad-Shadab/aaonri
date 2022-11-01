@@ -1,6 +1,8 @@
 package com.aaonri.app.data.jobs.recruiter.repository
 
 import com.aaonri.app.data.jobs.recruiter.api.JobRecruiterApi
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class JobRecruiterRepository @Inject constructor(val jobRecruiterApi: JobRecruiterApi) {
@@ -15,5 +17,11 @@ class JobRecruiterRepository @Inject constructor(val jobRecruiterApi: JobRecruit
 
     suspend fun findJobProfileById(jobProfileId: Int) =
         jobRecruiterApi.findJobProfileById(jobProfileId)
+
+    suspend fun findJobDetailsById(jobId: Int) = jobRecruiterApi.findJobDetailsById(jobId)
+
+    suspend fun jobSearch(
+        jobSearchRequest: JobSearchRequest
+    ) = jobRecruiterApi.jobSearchApi(jobSearchRequest)
 
 }

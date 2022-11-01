@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterJobDetailsFragment">
 
@@ -69,6 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +87,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:id="@+id/namell"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -101,34 +101,37 @@
                             app:alignItems="flex_start">
 
                             <TextView
+                                android:id="@+id/jobTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="15sp"
                                 android:fontFamily="@font/sf_pro_semi_bold"
-                                android:textColor="@color/jobtxtcolor"
                                 android:includeFontPadding="false"
-                                tools:text="Android Developer" />
+                                android:textColor="@color/jobtxtcolor"
+                                android:textSize="15sp"
+                                tools:text="Android" />
 
                             <TextView
+                                android:id="@+id/inactiveTv"
                                 android:layout_width="100dp"
                                 android:layout_height="match_parent"
-                                android:lines="1"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginTop="@dimen/_3sdp"
                                 android:gravity="center_vertical"
                                 android:includeFontPadding="false"
-                                android:layout_marginLeft="5dp"
+                                android:lines="1"
                                 android:textColor="#e31b1b"
                                 android:textSize="10sp"
                                 tools:text="Inactive" />
+
                         </com.google.android.flexbox.FlexboxLayout>
 
                         <ImageView
                             android:id="@+id/editJobIv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:backgroundTint="@color/blueBtnColor"
-                            android:background="@drawable/editicon" />
+                            android:background="@drawable/editicon"
+                            android:backgroundTint="@color/blueBtnColor" />
                     </LinearLayout>
 
                     <TextView
@@ -183,12 +186,11 @@
                                 android:background="@drawable/dollor_with_circle_bg" />
 
                             <TextView
-                                android:id="@+id/moneyTv"
+                                android:id="@+id/salaryTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="$150,000"
-
                                 android:textColor="@color/graytxtcolor"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -267,7 +269,7 @@
                                 android:includeFontPadding="false"
                                 android:text="Posted: "
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
                                 android:id="@+id/dateTv"
@@ -279,7 +281,7 @@
                                 android:maxLines="1"
                                 android:text="Mar 12,2022"
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
 
                         <View
@@ -306,10 +308,10 @@
                                 android:includeFontPadding="false"
                                 android:text="Job Views: "
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
-                                android:id="@+id/jobViewTv"
+                                android:id="@+id/jobViewCountTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
@@ -318,7 +320,7 @@
                                 android:maxLines="1"
                                 android:text="25"
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
 
                         <View
@@ -342,10 +344,10 @@
                                 android:includeFontPadding="false"
                                 android:text="Job Application: "
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
-                                android:id="@+id/jobApplicationTv"
+                                android:id="@+id/jobApplicantCountTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
@@ -354,7 +356,7 @@
                                 android:maxLines="1"
                                 android:text="251"
                                 android:textColor="@color/jobtxtcolor"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -374,7 +376,7 @@
                         android:textColor="@color/blackColor1"
                         android:textSize="14sp" />
 
-                    <com.chinalwb.are.render.AreTextView
+                    <TextView
                         android:id="@+id/jobDescTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -438,15 +440,15 @@
         android:layout_marginEnd="@dimen/_28sdp"
         android:layout_marginBottom="@dimen/_26sdp"
         android:background="@drawable/green_btn_shape"
+        android:backgroundTint="#20b8a1"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:minHeight="0dp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
         android:text="Activate this job"
-        android:backgroundTint="#20b8a1"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

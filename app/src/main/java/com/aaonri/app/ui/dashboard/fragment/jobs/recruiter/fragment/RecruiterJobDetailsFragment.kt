@@ -1,25 +1,116 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
+import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class RecruiterJobDetailsFragment : Fragment() {
     var binding: FragmentRecruiterJobDetailsBinding? = null
+    val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
+    val args: RecruiterJobDetailsFragmentArgs by navArgs()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentRecruiterJobDetailsBinding.inflate(inflater, container, false)
+
+        jobRecruiterViewModel.findJobDetailsById(args.jobId)
+
+
+        binding?.apply {
+
+
+            activateJobBtn.setOnClickListener {
+
+            }
+
+            deactivateBtn.setOnClickListener {
+
+            }
+
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            editJobIv.setOnClickListener {
+                val intent = Intent(context, RecruiterPostJobActivity::class.java)
+                activity?.startActivity(intent)
+            }
+
+            jobRecruiterViewModel.jobDetailsByIdData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        response.data?.let {
+
+                            jobTitle.text = it.title
+                            companyNameTv.text = it.company
+                            addressTv.text = it.state + ", " + it.country
+                            salaryTv.text = it.salaryRange
+                            experienceTv.text = it.experienceLevel
+                            jobCategoriesTv.text = it.jobType
+                            jobDescTv.text = Html.fromHtml(it.description)
+                            dateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                                .format(
+                                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                                        .parse(it.createdOn.split("T")[0])
+                                )
+                            jobKeySkillsTv.text = it.skillSet
+                            jobRequirementTv.text = it.applicability.toString()
+                            jobViewCountTv.text = it.viewCount.toString()
+                            jobApplicantCountTv.text = it.applyCount.toString()
+
+                            if (it.isActive) {
+                                deactivateBtn.visibility = View.VISIBLE
+                                inactiveTv.visibility = View.GONE
+                            } else {
+                                activateJobBtn.visibility = View.VISIBLE
+                                inactiveTv.visibility = View.VISIBLE
+                            }
+
+                            linearLayout.visibility = View.VISIBLE
+                        }
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
+
         return binding?.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        jobRecruiterViewModel.jobDetailsByIdData.postValue(null)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 }

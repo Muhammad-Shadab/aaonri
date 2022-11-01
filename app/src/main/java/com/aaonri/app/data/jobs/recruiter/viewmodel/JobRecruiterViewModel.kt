@@ -34,10 +34,18 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val jobProfileDetailsByIdData: MutableLiveData<Resource<JobProfileDetailsByIdResponse>> =
         MutableLiveData()
 
+    val jobSearchData: MutableLiveData<Resource<JobSearchResponse>> =
+        MutableLiveData()
+
     val recruiterPostJobDetails: MutableMap<String, String> = mutableMapOf()
 
     val navigateAllJobProfileScreenToTalentProfileDetailsScreen: MutableLiveData<Int> =
         MutableLiveData()
+
+    val navigateFromMyPostedJobToJobDetailsScreen: MutableLiveData<Int> =
+        MutableLiveData()
+
+    val jobDetailsByIdData: MutableLiveData<Resource<JobDetails>> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
@@ -136,10 +144,46 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         recruiterPostJobDetails[JobRecruiterConstant.SKILL_SET] = skillSet
     }
 
+    fun jobSearch(
+        jobSearchRequest: JobSearchRequest
+    ) = viewModelScope.launch {
+        jobSearchData.postValue(Resource.Loading())
+        val response = repository.jobSearch(jobSearchRequest)
+        jobSearchData.postValue(handleJobSearchResponse(response))
+    }
+
+    private fun handleJobSearchResponse(response: Response<JobSearchResponse>): Resource<JobSearchResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun findJobDetailsById(jobId: Int) = viewModelScope.launch {
+        jobDetailsByIdData.postValue(Resource.Loading())
+        val response = repository.findJobDetailsById(jobId)
+        jobDetailsByIdData.postValue(handleJobDetailsByIdResponse(response))
+    }
+
+    private fun handleJobDetailsByIdResponse(response: Response<JobDetails>): Resource<JobDetails>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     fun setNavigateAllJobProfileScreenToTalentProfileDetailsScreen(
         profileId: Int
     ) {
         navigateAllJobProfileScreenToTalentProfileDetailsScreen.postValue(profileId)
+    }
+
+    fun setNavigateFromMyPostedJobToJobDetailsScreen(value: Int) {
+        navigateFromMyPostedJobToJobDetailsScreen.postValue(value)
     }
 
 }

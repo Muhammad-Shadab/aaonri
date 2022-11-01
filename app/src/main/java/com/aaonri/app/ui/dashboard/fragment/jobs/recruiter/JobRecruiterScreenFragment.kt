@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentJobRecruiterScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -36,6 +37,7 @@ import com.google.firebase.auth.FirebaseAuth
 class JobRecruiterScreenFragment : Fragment() {
     var binding: FragmentJobRecruiterScreenBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
+
     private var clicked = false
     private val rotateOpen: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -89,6 +91,21 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
         jobRecruiterViewModel.getAllJobProfile()
+
+        /** calling api for my posted job screen **/
+        jobRecruiterViewModel.jobSearch(
+            JobSearchRequest(
+                city = "",
+                company = "",
+                createdByMe = true,
+                experience = "",
+                industry = "",
+                jobType = "",
+                keyWord = "",
+                skill = "",
+                userEmail = "$email"
+            )
+        )
 
         val fragment = this
         val jobPagerAdapter = RecruiterPagerAdapter(fragment)
@@ -263,16 +280,20 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             postAJob.setOnClickListener {
+                setVisibility(clicked)
+                setAnimation(clicked)
                 val intent = Intent(context, RecruiterPostJobActivity::class.java)
                 activity?.startActivity(intent)
             }
 
             uploadConsultantProfile.setOnClickListener {
-
+                setVisibility(clicked)
+                setAnimation(clicked)
             }
 
             searchTalentBtn.setOnClickListener {
-
+                setVisibility(clicked)
+                setAnimation(clicked)
             }
 
             jobScreenViewPager.adapter = jobPagerAdapter
@@ -327,6 +348,21 @@ class JobRecruiterScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 jobRecruiterViewModel.navigateAllJobProfileScreenToTalentProfileDetailsScreen.postValue(
+                    null
+                )
+            }
+        }
+
+        jobRecruiterViewModel.navigateFromMyPostedJobToJobDetailsScreen.observe(
+            viewLifecycleOwner
+        ) {
+            if (it != null) {
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterJobDetailsFragment(
+                        it
+                    )
+                findNavController().navigate(action)
+                jobRecruiterViewModel.navigateFromMyPostedJobToJobDetailsScreen.postValue(
                     null
                 )
             }

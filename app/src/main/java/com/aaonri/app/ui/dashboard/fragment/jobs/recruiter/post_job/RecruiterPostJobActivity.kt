@@ -27,6 +27,9 @@ class RecruiterPostJobActivity : BaseActivity() {
 
         binding?.apply {
 
+            navigateBack.setOnClickListener {
+                onBackPressed()
+            }
 
             jobRecruiterViewModel.navigationForStepper.observe(this@RecruiterPostJobActivity) { route ->
                 when (route) {
