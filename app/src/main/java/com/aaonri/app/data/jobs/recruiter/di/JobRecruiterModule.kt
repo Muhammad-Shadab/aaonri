@@ -1,5 +1,6 @@
 package com.aaonri.app.data.jobs.recruiter.di
 
+import com.aaonri.app.data.jobs.recruiter.api.DeactivateJobApi
 import com.aaonri.app.data.jobs.recruiter.api.JobRecruiterApi
 import com.aaonri.app.data.jobs.recruiter.repository.JobRecruiterRepository
 import dagger.Module
@@ -21,12 +22,19 @@ object JobRecruiterModule {
     ): JobRecruiterApi =
         retrofit.build().create(JobRecruiterApi::class.java)
 
+    @Provides
+    @ViewModelScoped
+    fun provideDeactivateJobRecruiterApi(
+        @Named("RetrofitForScalerConverter") retrofit: Retrofit.Builder
+    ): DeactivateJobApi =
+        retrofit.build().create(DeactivateJobApi::class.java)
 
     @Provides
     @ViewModelScoped
     fun provideJobRecruiterRepository(
-        jobRecruiterApi: JobRecruiterApi
-    ) = JobRecruiterRepository(jobRecruiterApi)
+        jobRecruiterApi: JobRecruiterApi,
+        deactivateJobApi: DeactivateJobApi
+    ) = JobRecruiterRepository(jobRecruiterApi, deactivateJobApi)
 
 
 }

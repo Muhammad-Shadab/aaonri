@@ -1,11 +1,14 @@
 package com.aaonri.app.data.jobs.recruiter.repository
 
+import com.aaonri.app.data.jobs.recruiter.api.DeactivateJobApi
 import com.aaonri.app.data.jobs.recruiter.api.JobRecruiterApi
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
-import retrofit2.http.Path
 import javax.inject.Inject
 
-class JobRecruiterRepository @Inject constructor(val jobRecruiterApi: JobRecruiterApi) {
+class JobRecruiterRepository @Inject constructor(
+    val jobRecruiterApi: JobRecruiterApi,
+    val deactivateJobApi: DeactivateJobApi
+) {
 
     suspend fun getAllJobProfile() = jobRecruiterApi.getAllJobProfile()
 
@@ -23,5 +26,8 @@ class JobRecruiterRepository @Inject constructor(val jobRecruiterApi: JobRecruit
     suspend fun jobSearch(
         jobSearchRequest: JobSearchRequest
     ) = jobRecruiterApi.jobSearchApi(jobSearchRequest)
+
+    suspend fun changeJobActiveStatus(jobId: Int, activeStatus: Boolean) =
+        deactivateJobApi.changeJobActiveStatus(jobId, activeStatus)
 
 }

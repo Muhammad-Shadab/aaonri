@@ -55,6 +55,9 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
                 jobViewCountTv.text = viewCount.toString()
                 jobApplicationCountTv.text = applyCount.toString()
 
+                /** In flexbox layout we need to add text through programmatically in order to visible the text **/
+                inactiveTv.text = "Inactive"
+
                 if (isActive) {
                     deactivateBtn.visibility = View.VISIBLE
                     editBtn.visibility = View.VISIBLE

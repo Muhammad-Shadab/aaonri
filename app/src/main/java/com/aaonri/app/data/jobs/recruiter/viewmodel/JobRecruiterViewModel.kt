@@ -47,6 +47,8 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     val jobDetailsByIdData: MutableLiveData<Resource<JobDetails>> = MutableLiveData()
 
+    val changeJobStatusData: MutableLiveData<Resource<String>> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -168,6 +170,21 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     }
 
     private fun handleJobDetailsByIdResponse(response: Response<JobDetails>): Resource<JobDetails>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun changeJobActiveStatus(jobId: Int, activeStatus: Boolean) = viewModelScope.launch {
+        changeJobStatusData.postValue(Resource.Loading())
+        val response = repository.changeJobActiveStatus(jobId, activeStatus)
+        changeJobStatusData.postValue(handleChangeJobStatusResponse(response))
+    }
+
+    private fun handleChangeJobStatusResponse(response: Response<String>): Resource<String>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

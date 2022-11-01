@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterMyPostedJobBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.MyPostedJobAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +28,10 @@ class RecruiterMyPostedJobFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentRecruiterMyPostedJobBinding.inflate(inflater, container, false)
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         myPostedJobAdapter =
             MyPostedJobAdapter { isEditBtnClicked, isActivateBtnClicked, isDeactivateBtnClicked, isJobCardClicked, value ->
@@ -33,9 +39,9 @@ class RecruiterMyPostedJobFragment : Fragment() {
                     val intent = Intent(context, RecruiterPostJobActivity::class.java)
                     activity?.startActivity(intent)
                 } else if (isActivateBtnClicked) {
-
+                    jobRecruiterViewModel.changeJobActiveStatus(value.jobId, true)
                 } else if (isDeactivateBtnClicked) {
-
+                    jobRecruiterViewModel.changeJobActiveStatus(value.jobId, false)
                 } else if (isJobCardClicked) {
                     jobRecruiterViewModel.setNavigateFromMyPostedJobToJobDetailsScreen(value.jobId)
                 }
@@ -61,7 +67,39 @@ class RecruiterMyPostedJobFragment : Fragment() {
                     }
                 }
             }
+
+            jobRecruiterViewModel.changeJobStatusData.observe(viewLifecycleOwner) { response ->
+                if (response != null) {
+                    when (response) {
+                        is Resource.Loading -> {
+                            progressBar.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            progressBar.visibility = View.GONE
+                            /** calling api for my posted job screen **/
+                            jobRecruiterViewModel.jobSearch(
+                                JobSearchRequest(
+                                    city = "",
+                                    company = "",
+                                    createdByMe = true,
+                                    experience = "",
+                                    industry = "",
+                                    jobType = "",
+                                    keyWord = "",
+                                    skill = "",
+                                    userEmail = "$email"
+                                )
+                            )
+                            jobRecruiterViewModel.changeJobStatusData.postValue(null)
+                        }
+                        is Resource.Error -> {
+                            progressBar.visibility = View.GONE
+                        }
+                    }
+                }
+            }
         }
+
 
         return binding?.root
     }
