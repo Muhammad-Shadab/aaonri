@@ -6,6 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
 import com.aaonri.app.data.jobs.recruiter.model.*
 import com.aaonri.app.data.jobs.recruiter.repository.JobRecruiterRepository
+import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
+import com.aaonri.app.data.jobs.seeker.model.AddJobProfileResponse
+import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponse
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -48,6 +51,15 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val jobDetailsByIdData: MutableLiveData<Resource<JobDetails>> = MutableLiveData()
 
     val changeJobStatusData: MutableLiveData<Resource<String>> = MutableLiveData()
+
+    val addConsultantProfileData: MutableLiveData<Resource<AddJobProfileResponse>> =
+        MutableLiveData()
+
+    val updateConsultantProfileData: MutableLiveData<Resource<AddJobProfileResponse>> =
+        MutableLiveData()
+
+    val getUserConsultantProfileData: MutableLiveData<Resource<UserJobProfileResponse>> =
+        MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
@@ -185,6 +197,56 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     }
 
     private fun handleChangeJobStatusResponse(response: Response<String>): Resource<String>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun addConsultantProfile(
+        addJobProfileRequest: AddJobProfileRequest
+    ) = viewModelScope.launch {
+        addConsultantProfileData.postValue(Resource.Loading())
+        val response = repository.addConsultantProfile(addJobProfileRequest)
+        addConsultantProfileData.postValue(handleAddConsultantProfileResponse(response))
+    }
+
+    private fun handleAddConsultantProfileResponse(response: Response<AddJobProfileResponse>): Resource<AddJobProfileResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun updateConsultantProfile(
+        consultantProfileId: Int,
+        addJobProfileRequest: AddJobProfileRequest
+    ) = viewModelScope.launch {
+        updateConsultantProfileData.postValue(Resource.Loading())
+        val response = repository.updateConsultantProfile(consultantProfileId, addJobProfileRequest)
+        updateConsultantProfileData.postValue(handleUpdateConsultantProfileResponse(response))
+    }
+
+    private fun handleUpdateConsultantProfileResponse(response: Response<AddJobProfileResponse>): Resource<AddJobProfileResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getUserConsultantProfile(emailId: String, isApplicant: Boolean) = viewModelScope.launch {
+        getUserConsultantProfileData.postValue(Resource.Loading())
+        val response = repository.getUserConsultantProfile(emailId, isApplicant)
+        getUserConsultantProfileData.postValue(handleUserConsultantProfileResponse(response))
+    }
+
+    private fun handleUserConsultantProfileResponse(response: Response<UserJobProfileResponse>): Resource<UserJobProfileResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

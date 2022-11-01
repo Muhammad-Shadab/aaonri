@@ -7,10 +7,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
-        app:cardElevation="@dimen/_3sdp"
         android:layout_marginVertical="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardElevation="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,8 +24,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_margin="@dimen/_11sdp"
+                android:orientation="vertical"
                 android:paddingBottom="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -40,22 +40,20 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/consultantNameTv"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:drawablePadding="@dimen/_8sdp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/sf_pro_semi_bold"
-                                android:includeFontPadding="false"
-                                android:text="Job Alert: BA/PM"
-                                android:textColor="@color/jobtxtcolor"
-                                android:textSize="18sp"
-                                />
 
-
+                        <TextView
+                            android:id="@+id/consultantNameTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/_8sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sf_pro_semi_bold"
+                            android:includeFontPadding="false"
+                            android:text="Job Alert: BA/PM"
+                            android:textColor="@color/jobtxtcolor"
+                            android:textSize="18sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
                         <TextView
@@ -64,14 +62,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:ellipsize="end"
-                            android:translationY="-4dp"
                             android:fontFamily="@font/sf_pro_light_italic"
                             android:maxLines="1"
                             android:text="jamwaladiti@gamil.com"
                             android:textColor="@color/graytxtcolor"
                             android:textSize="13sp"
-                            app:layout_constraintTop_toBottomOf="@+id/consultantNameTv"
-                            />
+                            android:translationY="-4dp"
+                            app:layout_constraintTop_toBottomOf="@+id/consultantNameTv" />
+
                         <TextView
                             android:id="@+id/consultantMobileTv"
                             android:layout_width="match_parent"
@@ -85,16 +83,17 @@
                             android:textSize="12sp"
                             android:translationY="-4dp"
                             app:layout_constraintTop_toBottomOf="@+id/consultantGmailTv" />
+
                         <TextView
                             android:id="@+id/consultantAddressTv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_6sdp"
+                            android:drawableLeft="@drawable/holo_location_icon"
+                            android:drawablePadding="7dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/sf_pro_text_light"
                             android:includeFontPadding="false"
-                            android:drawableLeft="@drawable/holo_location_icon"
-                            android:drawablePadding="7dp"
                             android:maxLines="1"
                             android:text="New York"
                             android:textColor="@color/graytxtcolor"
@@ -106,8 +105,6 @@
 
 
                 </LinearLayout>
-
-
 
 
             </LinearLayout>

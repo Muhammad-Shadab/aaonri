@@ -43,7 +43,7 @@ class RecruiterAllTalentsFragment : Fragment() {
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        response.data?.let { allJobProfileAdapter?.setData(it) }
+                        response.data?.let { allJobProfileAdapter?.setData(it.filter { it.isApplicant }) }
                         binding?.progressBar?.visibility = View.GONE
                     }
                     is Resource.Error -> {
