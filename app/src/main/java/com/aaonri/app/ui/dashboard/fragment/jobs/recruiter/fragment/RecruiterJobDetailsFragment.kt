@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
@@ -35,7 +34,6 @@ class RecruiterJobDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentRecruiterJobDetailsBinding.inflate(inflater, container, false)
 
-        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         jobRecruiterViewModel.findJobDetailsById(args.jobId)
 
@@ -88,9 +86,11 @@ class RecruiterJobDetailsFragment : Fragment() {
 
                             if (it.isActive) {
                                 deactivateBtn.visibility = View.VISIBLE
+                                activateJobBtn.visibility = View.GONE
                                 inactiveTv.visibility = View.GONE
                             } else {
                                 activateJobBtn.visibility = View.VISIBLE
+                                deactivateBtn.visibility = View.GONE
                                 inactiveTv.visibility = View.VISIBLE
                             }
 
@@ -113,19 +113,7 @@ class RecruiterJobDetailsFragment : Fragment() {
                             progressBar.visibility = View.GONE
 
                             jobRecruiterViewModel.findJobDetailsById(args.jobId)
-                            /*jobRecruiterViewModel.jobSearch(
-                                JobSearchRequest(
-                                    city = "",
-                                    company = "",
-                                    createdByMe = true,
-                                    experience = "",
-                                    industry = "",
-                                    jobType = "",
-                                    keyWord = "",
-                                    skill = "",
-                                    userEmail = "$email"
-                                )
-                            )*/
+
                             jobRecruiterViewModel.changeJobStatusData.postValue(null)
                         }
                         is Resource.Error -> {
