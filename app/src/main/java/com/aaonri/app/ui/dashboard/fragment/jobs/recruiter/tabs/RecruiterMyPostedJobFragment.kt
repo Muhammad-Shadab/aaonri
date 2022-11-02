@@ -34,7 +34,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         myPostedJobAdapter =
-            MyPostedJobAdapter { isEditBtnClicked, isActivateBtnClicked, isDeactivateBtnClicked, isJobCardClicked, value ->
+            MyPostedJobAdapter { isEditBtnClicked, isActivateBtnClicked, isDeactivateBtnClicked, isJobApplicantClicked, isJobCardClicked, value ->
                 if (isEditBtnClicked) {
                     val intent = Intent(context, RecruiterPostJobActivity::class.java)
                     activity?.startActivity(intent)
@@ -42,7 +42,9 @@ class RecruiterMyPostedJobFragment : Fragment() {
                     jobRecruiterViewModel.changeJobActiveStatus(value.jobId, true)
                 } else if (isDeactivateBtnClicked) {
                     jobRecruiterViewModel.changeJobActiveStatus(value.jobId, false)
-                } else if (isJobCardClicked) {
+                } else if (isJobApplicantClicked) {
+                    jobRecruiterViewModel.setNavigateFromMyPostedJobToJobApplicantScreen(value.jobId)
+                }else if (isJobCardClicked) {
                     jobRecruiterViewModel.setNavigateFromMyPostedJobToJobDetailsScreen(value.jobId)
                 }
             }

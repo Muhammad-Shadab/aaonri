@@ -11,7 +11,7 @@ import com.aaonri.app.data.jobs.recruiter.model.JobDetails
 import com.aaonri.app.databinding.MyPostedJobsItemBinding
 import java.time.format.DateTimeFormatter
 
-class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, isActivateBtnClicked: Boolean, isDeactivateBtnClicked: Boolean, isJobCardClicked: Boolean, value: JobDetails) -> Unit)) :
+class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, isActivateBtnClicked: Boolean, isDeactivateBtnClicked: Boolean, isJobApplicantClick: Boolean, isJobCardClicked: Boolean, value: JobDetails) -> Unit)) :
     RecyclerView.Adapter<MyPostedJobAdapter.MyPostedJobViewHolder>() {
 
     private var data = listOf<JobDetails>()
@@ -71,19 +71,23 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
                 }
 
                 editBtn.setOnClickListener {
-                    selectedJob(true, false, false, false, data[position])
+                    selectedJob(true, false, false, false, false, data[position])
                 }
 
                 activateJobBtn.setOnClickListener {
-                    selectedJob(false, true, false, false, data[position])
+                    selectedJob(false, true, false, false, false, data[position])
                 }
 
                 deactivateBtn.setOnClickListener {
-                    selectedJob(false, false, true, false, data[position])
+                    selectedJob(false, false, true, false, false, data[position])
                 }
 
                 jobCard.setOnClickListener {
-                    selectedJob(false, false, false, true, data[position])
+                    selectedJob(false, false, false, false, true, data[position])
+                }
+
+                jobApplicantLl.setOnClickListener {
+                    selectedJob(false, false, false, true, false, data[position])
                 }
 
                 userLocation = ""

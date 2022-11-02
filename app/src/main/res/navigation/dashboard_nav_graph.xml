@@ -563,7 +563,11 @@
         android:id="@+id/recruiterJobApplicantsFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterJobApplicantsFragment"
         android:label="fragment_recruiter_job_applicants"
-        tools:layout="@layout/fragment_recruiter_job_applicants" />
+        tools:layout="@layout/fragment_recruiter_job_applicants" >
+        <argument
+            android:name="jobId"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>

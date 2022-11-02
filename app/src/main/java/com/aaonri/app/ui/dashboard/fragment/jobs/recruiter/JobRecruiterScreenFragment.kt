@@ -369,6 +369,21 @@ class JobRecruiterScreenFragment : Fragment() {
             }
         }
 
+        jobRecruiterViewModel.navigateFromMyPostedJobToJobApplicantScreen.observe(
+            viewLifecycleOwner
+        ) {
+            if (it != null) {
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterJobApplicantsFragment(
+                        it
+                    )
+                findNavController().navigate(action)
+                jobRecruiterViewModel.navigateFromMyPostedJobToJobApplicantScreen.postValue(
+                    null
+                )
+            }
+        }
+
 
 
 

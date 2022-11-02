@@ -37,6 +37,11 @@ interface JobRecruiterApi {
         @Query("isApplicant") isApplicant: Boolean
     ): Response<UserJobProfileResponse>
 
+    @GET("/api/v1/jobs/allJobApplicants/{jobId}")
+    suspend fun getJobApplicantList(
+        @Path("jobId") jobId: Int
+    ): Response<JobApplicantResponse>
+
     @POST("/api/v1/jobs/search")
     suspend fun jobSearchApi(
         @Body jobSearchRequest: JobSearchRequest

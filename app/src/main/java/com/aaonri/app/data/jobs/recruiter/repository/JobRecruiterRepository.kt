@@ -27,6 +27,8 @@ class JobRecruiterRepository @Inject constructor(
     suspend fun getUserConsultantProfile(emailId: String, isApplicant: Boolean) =
         jobRecruiterApi.getUserConsultantProfile(emailId, isApplicant)
 
+    suspend fun getJobApplicantList(jobId: Int) = jobRecruiterApi.getJobApplicantList(jobId)
+
     suspend fun jobSearch(
         jobSearchRequest: JobSearchRequest
     ) = jobRecruiterApi.jobSearchApi(jobSearchRequest)

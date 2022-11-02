@@ -303,6 +303,7 @@
                         android:background="@drawable/point_icon" />
 
                     <LinearLayout
+                        android:id="@+id/jobApplicantLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

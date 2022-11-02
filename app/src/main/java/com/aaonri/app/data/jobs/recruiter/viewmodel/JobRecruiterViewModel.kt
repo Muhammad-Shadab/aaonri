@@ -61,6 +61,12 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val getUserConsultantProfileData: MutableLiveData<Resource<UserJobProfileResponse>> =
         MutableLiveData()
 
+    val navigateFromMyPostedJobToJobApplicantScreen: MutableLiveData<Int> =
+        MutableLiveData()
+
+    val jobApplicantListData: MutableLiveData<Resource<JobApplicantResponse>> =
+        MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -255,6 +261,22 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         return Resource.Error(response.message())
     }
 
+    fun getJobApplicantList(jobId: Int) = viewModelScope.launch {
+        jobApplicantListData.postValue(Resource.Loading())
+        val response = repository.getJobApplicantList(jobId)
+        jobApplicantListData.postValue(handleJobApplicantListResponse(response))
+    }
+
+    private fun handleJobApplicantListResponse(response: Response<JobApplicantResponse>): Resource<JobApplicantResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+
     fun setNavigateAllJobProfileScreenToTalentProfileDetailsScreen(
         profileId: Int
     ) {
@@ -263,6 +285,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setNavigateFromMyPostedJobToJobDetailsScreen(value: Int) {
         navigateFromMyPostedJobToJobDetailsScreen.postValue(value)
+    }
+
+    fun setNavigateFromMyPostedJobToJobApplicantScreen(value: Int) {
+        navigateFromMyPostedJobToJobApplicantScreen.postValue(value)
     }
 
 }
