@@ -37,7 +37,7 @@
         tools:layout="@layout/fragment_recruiter_bottom_success" />
     <dialog
         android:id="@+id/jobPostDetailsScreenBottomSheet"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.JobPostDetailsScreenBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectStateBottomSheet"
         android:label="fragment_job_post_details_screen_bottom_sheet"
         tools:layout="@layout/fragment_job_post_details_screen_bottom_sheet" >
         <argument
@@ -46,7 +46,7 @@
     </dialog>
     <dialog
         android:id="@+id/jobRequirementScreenBottomSheet"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.JobRequirementScreenBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.JobRequirementScreenBottomSheet"
         android:label="fragment_job_requirement_screen_bottom_sheet"
         tools:layout="@layout/fragment_job_requirement_screen_bottom_sheet" >
         <argument

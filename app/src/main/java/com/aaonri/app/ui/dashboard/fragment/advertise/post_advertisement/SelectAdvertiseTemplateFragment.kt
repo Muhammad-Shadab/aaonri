@@ -59,8 +59,10 @@ class SelectAdvertiseTemplateFragment : Fragment() {
         binding?.apply {
 
             postAdvertiseViewModel.setNavigationForStepper(AdvertiseConstant.ADVERTISE_TEMPLATE)
+
             val userArray = JSONObject(loadJSONFromAsset()).getJSONArray("AdvertisePageInfo")
             val gson = Gson()
+
             advertiseTemplatesNextBtn.setOnClickListener {
                 if (context?.let { PreferenceManager<Int>(it)["selectedTemplatePage", -1] } != -1) {
                     val action =
@@ -92,6 +94,7 @@ class SelectAdvertiseTemplateFragment : Fragment() {
                     )
                 }
             }
+
             advertiseTemplateAdapter1?.setData(advertiseTemplateList)
             horizontalRv1.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

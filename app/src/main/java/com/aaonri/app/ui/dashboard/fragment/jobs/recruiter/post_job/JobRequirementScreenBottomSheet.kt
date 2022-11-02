@@ -1,10 +1,9 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
+package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.aaonri.app.databinding.FragmentJobRequirementScreenBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

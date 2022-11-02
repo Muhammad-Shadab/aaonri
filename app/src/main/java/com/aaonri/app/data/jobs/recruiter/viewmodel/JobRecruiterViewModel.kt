@@ -71,6 +71,9 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var navigateToUploadConsultantProfile: MutableLiveData<Boolean> = MutableLiveData()
 
+    var userSelectedState: MutableLiveData<String> = MutableLiveData()
+
+    var isUpdateJob = false
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
@@ -302,6 +305,14 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setNavigateToUploadConsultantProfile(value: Boolean) {
         navigateToUploadConsultantProfile.postValue(value)
+    }
+
+    fun setIsUpdateJobValue(value: Boolean) {
+        isUpdateJob = value
+    }
+
+    fun setUserSelectedState(value: String) {
+        userSelectedState.postValue(value)
     }
 
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobDetailsBinding
@@ -29,7 +30,13 @@ class RecruiterPostJobDetailsFragment : Fragment() {
 
             jobRecruiterViewModel.addNavigationForStepper(JobRecruiterConstant.RECRUITER_POST_JOB_DETAILS_SCREEN)
 
-            skillSetDescEt.textSize = 14F
+            selectStateTv.setOnClickListener {
+                val action =
+                    RecruiterPostJobDetailsFragmentDirections.actionRecruiterPostJobDetailsFragmentToJobPostDetailsScreenBottomSheet(
+                        ""
+                    )
+                findNavController().navigate(action)
+            }
 
             nextBtn.setOnClickListener {
 
@@ -43,7 +50,6 @@ class RecruiterPostJobDetailsFragment : Fragment() {
                                 ) {
                                     if (recruiterNameEt.text.toString().length >= 3) {
                                         if (skillSetDescEt.text.toString().trim().length >= 3) {
-
                                             jobRecruiterViewModel.setRecruiterPostJobDetails(
                                                 jobTitle = jobTitleEt.text.toString(),
                                                 cityName = cityNameEt.text.toString(),
@@ -53,7 +59,9 @@ class RecruiterPostJobDetailsFragment : Fragment() {
                                                 recruiterName = recruiterNameEt.text.toString(),
                                                 skillSet = skillSetDescEt.text.toString()
                                             )
-
+                                            val action =
+                                                RecruiterPostJobDetailsFragmentDirections.actionRecruiterPostJobDetailsFragmentToRecruiterPostJobCompanyDetailsFragment()
+                                            findNavController().navigate(action)
                                         } else {
                                             showAlert("Please enter valid skill set description")
                                         }
@@ -74,6 +82,12 @@ class RecruiterPostJobDetailsFragment : Fragment() {
                     }
                 } else {
                     showAlert("Please enter valid Job title")
+                }
+            }
+
+            jobRecruiterViewModel.userSelectedState.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    selectStateTv.text = it
                 }
             }
 

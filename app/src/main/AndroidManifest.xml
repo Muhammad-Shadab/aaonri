@@ -102,15 +102,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity
-            android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.JobRecruiterActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -125,7 +116,8 @@
 
         <activity
             android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
 
         <service
             android:name=".utils.firebase.FireBase"

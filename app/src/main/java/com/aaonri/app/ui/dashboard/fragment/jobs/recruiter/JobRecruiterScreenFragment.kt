@@ -283,9 +283,14 @@ class JobRecruiterScreenFragment : Fragment() {
                 addOnFloatingBtnClick()
             }
 
+            val intent = Intent(context, RecruiterPostJobActivity::class.java)
+            intent.putExtra("isUpdateJob", false)
+            activity?.startActivity(intent)
+
             postAJob.setOnClickListener {
                 addOnFloatingBtnClick()
                 val intent = Intent(context, RecruiterPostJobActivity::class.java)
+                intent.putExtra("isUpdateJob", false)
                 activity?.startActivity(intent)
             }
 

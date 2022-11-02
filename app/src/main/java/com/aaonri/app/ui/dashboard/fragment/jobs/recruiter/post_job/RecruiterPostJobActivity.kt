@@ -25,6 +25,10 @@ class RecruiterPostJobActivity : BaseActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         window.statusBarColor = Color.TRANSPARENT
 
+        val isUpdateJob = intent.getBooleanExtra("isUpdateJob", false)
+
+        jobRecruiterViewModel.setIsUpdateJobValue(isUpdateJob)
+
         binding?.apply {
 
             navigateBack.setOnClickListener {
