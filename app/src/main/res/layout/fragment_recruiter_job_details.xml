@@ -65,11 +65,11 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_26sdp"
             android:paddingVertical="@dimen/_26sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@+id/registrationText">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -468,7 +468,7 @@
         android:minHeight="0dp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:text="DeActivate  this Job"
+        android:text="DeActivate this Job"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="gone"

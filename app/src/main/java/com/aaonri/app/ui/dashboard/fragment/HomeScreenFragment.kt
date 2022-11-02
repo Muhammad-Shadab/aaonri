@@ -1218,9 +1218,9 @@ class HomeScreenFragment : Fragment() {
                         HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
                     findNavController().navigate(action)
                 } else {
-                    val action =
+                    /*val action =
                         HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                    findNavController().navigate(action)
+                    findNavController().navigate(action)*/
                 }
 
             } else if (interests == "$shopWithUsId" || interests == "Shop With Us") {

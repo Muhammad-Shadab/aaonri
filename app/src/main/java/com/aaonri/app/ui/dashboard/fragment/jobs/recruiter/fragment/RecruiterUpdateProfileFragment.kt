@@ -1,6 +1,8 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,6 +109,33 @@ class RecruiterUpdateProfileFragment : Fragment() {
                 }
             }
 
+            phoneNumberEt.addTextChangedListener(object :
+                TextWatcher {
+                var length_before = 0
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    length_before = s.length
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable) {
+
+                    if (length_before < s.length) {
+                        if (s.length == 3 || s.length == 7) s.append("-")
+                        if (s.length > 3) {
+                            if (Character.isDigit(s[3])) s.insert(3, "-")
+                        }
+                        if (s.length > 7) {
+                            if (Character.isDigit(s[7])) s.insert(7, "-")
+                        }
+                    }
+                }
+            })
+
             jobRecruiterViewModel.getUserConsultantProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
@@ -120,7 +149,13 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                 firstNameEt.setText(it.firstName)
                                 lastNameEt.setText(it.lastName)
                                 contactEmailEt.setText(it.contactEmailId)
-                                phoneNumberEt.setText(it.phoneNo)
+                                phoneNumberEt.setText(
+                                    it.phoneNo.replace("""[(,), ]""".toRegex(), "")
+                                        .replace("-", "").replaceFirst(
+                                            "(\\d{3})(\\d{3})(\\d+)".toRegex(),
+                                            "$1-$2-$3"
+                                        )
+                                )
                                 locationEt.setText(it.location)
                             }
                         } else {

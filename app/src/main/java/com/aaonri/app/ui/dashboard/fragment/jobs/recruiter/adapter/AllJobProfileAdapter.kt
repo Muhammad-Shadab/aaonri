@@ -42,6 +42,9 @@ class AllJobProfileAdapter(private var selectedJobProfile: ((value: AllJobProfil
             viewProfileBtn.setOnClickListener {
                 selectedJobProfile(data[position])
             }
+            profileCard.setOnClickListener {
+                selectedJobProfile(data[position])
+            }
 
         }
 

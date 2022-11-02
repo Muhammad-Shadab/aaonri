@@ -112,7 +112,6 @@ class JobRecruiterScreenFragment : Fragment() {
         val fragment = this
         val jobPagerAdapter = RecruiterPagerAdapter(fragment)
 
-
         /** Dialog for edit/update profile and logout user **/
         val updateLogoutDialog = Dialog(requireContext())
         updateLogoutDialog.setContentView(R.layout.update_profile_dialog)
