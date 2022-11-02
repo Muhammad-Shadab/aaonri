@@ -37,6 +37,8 @@ class RecruiterUpdateProfileFragment : Fragment() {
 
         binding?.apply {
 
+            val phoneNumber = contactEmailEt.text.toString().trim().replace("-", "")
+
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -45,7 +47,7 @@ class RecruiterUpdateProfileFragment : Fragment() {
                 if (firstNameEt.text.toString().length >= 3) {
                     if (lastNameEt.text.toString().length >= 3) {
                         if (Validator.emailValidation(contactEmailEt.text.toString().trim())) {
-                            if (phoneNumberEt.text.toString().length == 10) {
+                            if (phoneNumber.length == 10) {
                                 if (locationEt.text.toString().length >= 3) {
 
                                     if (isUpdateConsultantProfile) {

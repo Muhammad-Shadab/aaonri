@@ -224,7 +224,9 @@ class JobRecruiterScreenFragment : Fragment() {
         }
 
         editProfileBtn.setOnClickListener {
-
+            val action =
+                JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment()
+            findNavController().navigate(action)
         }
 
         /**  Dialog for guest user **/
@@ -403,15 +405,11 @@ class JobRecruiterScreenFragment : Fragment() {
             binding?.postAJob?.visibility = View.VISIBLE
             binding?.uploadConsultantProfile?.visibility = View.VISIBLE
             binding?.hideBackground?.visibility = View.VISIBLE
-            binding?.navigateBack?.visibility = View.GONE
-            binding?.profilePicCv?.visibility = View.GONE
         } else {
             binding?.searchTalentBtn?.visibility = View.GONE
             binding?.postAJob?.visibility = View.GONE
             binding?.uploadConsultantProfile?.visibility = View.GONE
             binding?.hideBackground?.visibility = View.GONE
-            binding?.navigateBack?.visibility = View.VISIBLE
-            binding?.profilePicCv?.visibility = View.VISIBLE
         }
     }
 

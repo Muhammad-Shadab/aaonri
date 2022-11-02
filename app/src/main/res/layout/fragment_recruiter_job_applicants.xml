@@ -66,11 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_14sdp"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Job Applicants for this job (45)"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/applicantRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/job_applicant_item" />

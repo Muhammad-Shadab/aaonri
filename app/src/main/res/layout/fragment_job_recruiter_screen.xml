@@ -539,7 +539,7 @@
         android:id="@+id/hideBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/darkGrayColor"
+        android:background="#7F707070"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

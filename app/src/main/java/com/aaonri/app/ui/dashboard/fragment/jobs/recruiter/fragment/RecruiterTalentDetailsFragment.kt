@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterTalentDetailsBinding
@@ -52,7 +53,7 @@ class RecruiterTalentDetailsFragment : Fragment() {
                 val intent = Intent(requireContext(), WebViewActivity::class.java)
                 intent.putExtra(
                     "url",
-                    "http://docs.google.com/gview?embedded=true&url=${talentResume}"
+                    "http://docs.google.com/gview?embedded=true&url=${BuildConfig.BASE_URL}/api/v1/common/jobsFile/$talentResume"
                 )
                 startActivity(intent)
             }

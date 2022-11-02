@@ -567,6 +567,9 @@
         <argument
             android:name="jobId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_recruiterJobApplicantsFragment_to_recruiterTalentDetailsFragment"
+            app:destination="@id/recruiterTalentDetailsFragment" />
     </fragment>
 
 

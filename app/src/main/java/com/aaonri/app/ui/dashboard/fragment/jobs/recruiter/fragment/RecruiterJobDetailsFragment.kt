@@ -15,8 +15,6 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
@@ -51,6 +49,14 @@ class RecruiterJobDetailsFragment : Fragment() {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
+            }
+
+            jobApplicantLl.setOnClickListener {
+                val action =
+                    RecruiterJobDetailsFragmentDirections.actionRecruiterJobDetailsFragmentToRecruiterJobApplicantsFragment(
+                        it.id
+                    )
+                findNavController().navigate(action)
             }
 
             editJobIv.setOnClickListener {

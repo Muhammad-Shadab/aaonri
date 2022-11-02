@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
