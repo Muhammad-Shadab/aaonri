@@ -278,6 +278,7 @@ class JobRecruiterScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
+
             floatingActionBtnClassified.setOnClickListener {
                 addOnFloatingBtnClick()
             }
@@ -318,10 +319,17 @@ class JobRecruiterScreenFragment : Fragment() {
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 2) {
-
+                        jobRecruiterViewModel.visibilityToTheFloatingActionBtn.observe(
+                            viewLifecycleOwner
+                        ) {
+                            if (it) {
+                                floatingActionBtnClassified.visibility = View.GONE
+                            }
+                        }
                     } else {
-
+                        floatingActionBtnClassified.visibility = View.VISIBLE
                     }
+
                     if (tab?.position != 0) {
 
                     } else {
@@ -381,6 +389,19 @@ class JobRecruiterScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 jobRecruiterViewModel.navigateFromMyPostedJobToJobApplicantScreen.postValue(
+                    null
+                )
+            }
+        }
+
+        jobRecruiterViewModel.navigateToUploadConsultantProfile.observe(
+            viewLifecycleOwner
+        ) {
+            if (it != null) {
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterUpdateProfileFragment()
+                findNavController().navigate(action)
+                jobRecruiterViewModel.navigateToUploadConsultantProfile.postValue(
                     null
                 )
             }

@@ -38,6 +38,10 @@ class RecruiterConsultantProfileFragment : Fragment() {
             recyclerViewConsultantProfile.layoutManager = LinearLayoutManager(context)
             recyclerViewConsultantProfile.adapter = consultantProfileAdapter
 
+            uploadYourProfileBtn.setOnClickListener {
+                jobRecruiterViewModel.setNavigateToUploadConsultantProfile(true)
+            }
+
             jobRecruiterViewModel.getUserConsultantProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
@@ -48,11 +52,18 @@ class RecruiterConsultantProfileFragment : Fragment() {
                             recyclerViewConsultantProfile.visibility = View.VISIBLE
                             resultsNotFoundLL.visibility = View.GONE
                             uploadYourProfileBtn.visibility = View.GONE
+                            jobRecruiterViewModel.setVisibilityToTheFloatingActionBtnValue(
+                                hideFloatingBtn = false
+                            )
                             response.data.let { consultantProfileAdapter?.setData(it) }
                         } else {
                             resultsNotFoundLL.visibility = View.VISIBLE
                             uploadYourProfileBtn.visibility = View.VISIBLE
                             recyclerViewConsultantProfile.visibility = View.GONE
+                            /** Floating action btn will be gone in this screen because there is another already visible for uploading profile**/
+                            jobRecruiterViewModel.setVisibilityToTheFloatingActionBtnValue(
+                                hideFloatingBtn = true
+                            )
                         }
                         binding?.progressBar?.visibility = View.GONE
                     }

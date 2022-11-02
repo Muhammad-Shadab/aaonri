@@ -67,6 +67,11 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val jobApplicantListData: MutableLiveData<Resource<JobApplicantResponse>> =
         MutableLiveData()
 
+    var visibilityToTheFloatingActionBtn: MutableLiveData<Boolean> = MutableLiveData()
+
+    var navigateToUploadConsultantProfile: MutableLiveData<Boolean> = MutableLiveData()
+
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -289,6 +294,14 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setNavigateFromMyPostedJobToJobApplicantScreen(value: Int) {
         navigateFromMyPostedJobToJobApplicantScreen.postValue(value)
+    }
+
+    fun setVisibilityToTheFloatingActionBtnValue(hideFloatingBtn: Boolean) {
+        visibilityToTheFloatingActionBtn.postValue(hideFloatingBtn)
+    }
+
+    fun setNavigateToUploadConsultantProfile(value: Boolean) {
+        navigateToUploadConsultantProfile.postValue(value)
     }
 
 }

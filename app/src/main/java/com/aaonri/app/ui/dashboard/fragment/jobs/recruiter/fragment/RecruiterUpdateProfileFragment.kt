@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -37,19 +38,20 @@ class RecruiterUpdateProfileFragment : Fragment() {
 
         binding?.apply {
 
-            val phoneNumber = contactEmailEt.text.toString().trim().replace("-", "")
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
 
             submitBtn.setOnClickListener {
+
+                val phoneNumber = phoneNumberEt.text.toString().trim().replace("-", "")
+
                 if (firstNameEt.text.toString().length >= 3) {
                     if (lastNameEt.text.toString().length >= 3) {
                         if (Validator.emailValidation(contactEmailEt.text.toString().trim())) {
                             if (phoneNumber.length == 10) {
                                 if (locationEt.text.toString().length >= 3) {
-
                                     if (isUpdateConsultantProfile) {
                                         jobRecruiterViewModel.updateConsultantProfile(
                                             consultantProfileId,
@@ -65,7 +67,7 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                                 isApplicant = false,
                                                 lastName = lastNameEt.text.toString(),
                                                 location = locationEt.text.toString(),
-                                                phoneNo = phoneNumberEt.text.toString(),
+                                                phoneNo = phoneNumber,
                                                 resumeName = "",
                                                 skillSet = "",
                                                 title = "",
@@ -86,7 +88,7 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                                 isApplicant = false,
                                                 lastName = lastNameEt.text.toString(),
                                                 location = locationEt.text.toString(),
-                                                phoneNo = phoneNumberEt.text.toString(),
+                                                phoneNo = phoneNumber,
                                                 resumeName = "",
                                                 skillSet = "",
                                                 title = "",
