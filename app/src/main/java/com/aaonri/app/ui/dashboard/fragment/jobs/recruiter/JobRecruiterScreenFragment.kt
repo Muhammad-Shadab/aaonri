@@ -107,6 +107,8 @@ class JobRecruiterScreenFragment : Fragment() {
             )
         )
 
+        jobRecruiterViewModel.getUserConsultantProfile("$email", false)
+
         val fragment = this
         val jobPagerAdapter = RecruiterPagerAdapter(fragment)
 
@@ -280,20 +282,20 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             postAJob.setOnClickListener {
-                setVisibility(clicked)
-                setAnimation(clicked)
+                addOnFloatingBtnClick()
                 val intent = Intent(context, RecruiterPostJobActivity::class.java)
                 activity?.startActivity(intent)
             }
 
             uploadConsultantProfile.setOnClickListener {
-                setVisibility(clicked)
-                setAnimation(clicked)
+                addOnFloatingBtnClick()
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterUpdateProfileFragment()
+                findNavController().navigate(action)
             }
 
             searchTalentBtn.setOnClickListener {
-                setVisibility(clicked)
-                setAnimation(clicked)
+                addOnFloatingBtnClick()
             }
 
             jobScreenViewPager.adapter = jobPagerAdapter

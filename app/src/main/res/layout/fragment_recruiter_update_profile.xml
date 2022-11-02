@@ -171,16 +171,14 @@
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp" />
 
-
-
-
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/uploadProfileNextBtn"
+        android:id="@+id/submitBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -197,4 +195,16 @@
         android:text="SUBMIT"
         android:textColor="@color/white"
         android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

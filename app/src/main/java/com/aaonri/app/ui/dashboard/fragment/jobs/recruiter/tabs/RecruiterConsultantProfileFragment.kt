@@ -20,6 +20,7 @@ class RecruiterConsultantProfileFragment : Fragment() {
     var binding: FragmentRecruiterConsultantProfileBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
     var consultantProfileAdapter: ConsultantProfileAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +32,6 @@ class RecruiterConsultantProfileFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         consultantProfileAdapter = ConsultantProfileAdapter()
-
-        jobRecruiterViewModel.getUserConsultantProfile("$email", false)
 
         binding?.apply {
 

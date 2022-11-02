@@ -447,6 +447,12 @@
         <action
             android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterTalentDetailsFragment"
             app:destination="@id/recruiterTalentDetailsFragment" />
+        <action
+            android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterUpdateProfileFragment"
+            app:destination="@id/recruiterUpdateProfileFragment" />
+        <action
+            android:id="@+id/action_jobRecruiterScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
 
     <fragment
@@ -540,6 +546,12 @@
         <argument
             android:name="profileId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/recruiterUpdateProfileFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterUpdateProfileFragment"
+        android:label="fragment_recruiter_update_profile"
+        tools:layout="@layout/fragment_recruiter_update_profile" >
     </fragment>
 
 
