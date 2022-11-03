@@ -61,7 +61,11 @@ interface JobRecruiterApi {
         @Body updateJobProfileRequest: AddJobProfileRequest
     ): Response<AddJobProfileResponse>
 
-    //@POST("")
+
+    @POST("/api/v1/jobs")
+    suspend fun postJob(
+        @Body postJobRequest: PostJobRequest
+    ): Response<PostJobRequest>
 
 
 }

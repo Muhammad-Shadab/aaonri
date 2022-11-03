@@ -104,7 +104,11 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                                     if (companyNameEt.text.toString().length >= 3) {
                                         if (jobTv.text.isNotEmpty()) {
                                             if (jobDescEt.text.toString().trim().length >= 3) {
-
+                                                if (jobRecruiterViewModel.isUpdateJob) {
+                                                    updateJob()
+                                                } else {
+                                                    postJob()
+                                                }
                                             } else {
                                                 showAlert("Please enter valid job description")
                                             }
@@ -181,6 +185,14 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
         }
 
         return binding?.root
+    }
+
+    private fun postJob() {
+        jobRecruiterViewModel
+    }
+
+    private fun updateJob() {
+
     }
 
     private fun showAlert(text: String) {

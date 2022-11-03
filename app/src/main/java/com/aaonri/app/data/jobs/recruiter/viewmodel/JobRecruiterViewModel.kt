@@ -75,6 +75,8 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var jobBillingTypeData: MutableLiveData<Resource<BillingTypeResponse>> = MutableLiveData()
 
+    var postJobData: MutableLiveData<Resource<PostJobRequest>> = MutableLiveData()
+
     var userSelectedExperienceLevel: MutableLiveData<AllActiveExperienceLevelResponseItem> =
         MutableLiveData()
 
@@ -306,6 +308,21 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     }
 
     private fun handleJobBillingResponse(response: Response<BillingTypeResponse>): Resource<BillingTypeResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun postJob(postJobRequest: PostJobRequest) = viewModelScope.launch {
+        postJobData.postValue(Resource.Loading())
+        val response = repository.postJob(postJobRequest)
+        postJobData.postValue(handlePostJobResponse(response))
+    }
+
+    private fun handlePostJobResponse(response: Response<PostJobRequest>): Resource<PostJobRequest>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -3,6 +3,7 @@ package com.aaonri.app.data.jobs.recruiter.repository
 import com.aaonri.app.data.jobs.recruiter.api.DeactivateJobApi
 import com.aaonri.app.data.jobs.recruiter.api.JobRecruiterApi
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import com.aaonri.app.data.jobs.recruiter.model.PostJobRequest
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import javax.inject.Inject
 
@@ -46,5 +47,7 @@ class JobRecruiterRepository @Inject constructor(
         consultantProfileId: Int,
         addJobProfileRequest: AddJobProfileRequest
     ) = jobRecruiterApi.updateConsultantProfile(consultantProfileId, addJobProfileRequest)
+
+    suspend fun postJob(postJobRequest: PostJobRequest) = jobRecruiterApi.postJob(postJobRequest)
 
 }
