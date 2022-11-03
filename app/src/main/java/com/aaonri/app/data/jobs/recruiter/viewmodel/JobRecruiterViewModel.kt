@@ -73,6 +73,15 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var userSelectedState: MutableLiveData<String> = MutableLiveData()
 
+    var jobBillingTypeData: MutableLiveData<Resource<BillingTypeResponse>> = MutableLiveData()
+
+    var userSelectedExperienceLevel: MutableLiveData<AllActiveExperienceLevelResponseItem> =
+        MutableLiveData()
+
+    var userSelectedIndustry: MutableLiveData<AllActiveIndustryResponseItem> = MutableLiveData()
+
+    var userSelectedBillingType: MutableLiveData<BillingTypeResponseItem> = MutableLiveData()
+
     var isUpdateJob = false
 
     fun addNavigationForStepper(value: String) {
@@ -284,6 +293,20 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         return Resource.Error(response.message())
     }
 
+    fun findAllActiveJobBillingType() = viewModelScope.launch {
+        jobBillingTypeData.postValue(Resource.Loading())
+        val response = repository.findAllActiveJobBillingType()
+        jobBillingTypeData.postValue(handleJobBillingResponse(response))
+    }
+
+    private fun handleJobBillingResponse(response: Response<BillingTypeResponse>): Resource<BillingTypeResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
 
     fun setNavigateAllJobProfileScreenToTalentProfileDetailsScreen(
         profileId: Int
@@ -313,6 +336,18 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setUserSelectedState(value: String) {
         userSelectedState.postValue(value)
+    }
+
+    fun setUserSelectedExperienceLevel(value: AllActiveExperienceLevelResponseItem) {
+        userSelectedExperienceLevel.postValue(value)
+    }
+
+    fun setUserSelectedIndustry(value: AllActiveIndustryResponseItem) {
+        userSelectedIndustry.postValue(value)
+    }
+
+    fun setUserSelectedBillingType(value: BillingTypeResponseItem) {
+        userSelectedBillingType.postValue(value)
     }
 
 }

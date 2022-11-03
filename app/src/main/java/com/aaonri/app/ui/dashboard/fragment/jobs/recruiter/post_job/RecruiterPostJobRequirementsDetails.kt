@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobCompanyDetailsBinding
@@ -32,41 +33,83 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
 
             jobDescEt.textSize = 14F
 
-            val salary =
-                if (salaryEt.text.isNotEmpty()) salaryEt.text.toString().toDouble() else 0.0
+            experienceTv.setOnClickListener {
+                val action =
+                    RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToJobRequirementScreenBottomSheet(
+                        "selectExperience"
+                    )
+                findNavController().navigate(action)
+            }
 
-            if (experienceTv.text.isNotEmpty()) {
-                if (industriesTv.text.isNotEmpty()) {
-                    if (salary > 0.0) {
-                        if (billingTypeTv.text.isNotEmpty()) {
-                            if (visaStatusTv.text.isNotEmpty()) {
-                                if (companyNameEt.text.toString().length >= 3) {
-                                    if (jobTypeTv.text.isNotEmpty()) {
-                                        if (jobDescEt.text.toString().trim().length >= 3) {
+            industriesTv.setOnClickListener {
+                val action =
+                    RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToJobRequirementScreenBottomSheet(
+                        "selectIndustries"
+                    )
+                findNavController().navigate(action)
+            }
 
+            billingTypeTv.setOnClickListener {
+                val action =
+                    RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToJobRequirementScreenBottomSheet(
+                        "selectBillingType"
+                    )
+                findNavController().navigate(action)
+            }
+
+            submitBtn.setOnClickListener {
+                val salary =
+                    if (salaryEt.text.isNotEmpty()) salaryEt.text.toString().toDouble() else 0.0
+
+                if (experienceTv.text.isNotEmpty()) {
+                    if (industriesTv.text.isNotEmpty()) {
+                        if (salary > 0.0) {
+                            if (billingTypeTv.text.isNotEmpty()) {
+                                if (visaStatusTv.text.isNotEmpty()) {
+                                    if (companyNameEt.text.toString().length >= 3) {
+                                        if (jobTypeTv.text.isNotEmpty()) {
+                                            if (jobDescEt.text.toString().trim().length >= 3) {
+
+                                            } else {
+                                                showAlert("Please enter valid job description")
+                                            }
                                         } else {
-                                            showAlert("Please enter valid job description")
+                                            showAlert("Please select valid job type")
                                         }
                                     } else {
-                                        showAlert("Please select valid job type")
+                                        showAlert("Please enter valid company name")
                                     }
                                 } else {
-                                    showAlert("Please enter valid company name")
+                                    showAlert("Please select valid Visa Status")
                                 }
                             } else {
-                                showAlert("Please select valid Visa Status")
+                                showAlert("Please select valid billing type")
                             }
                         } else {
-                            showAlert("Please select valid billing type")
+                            showAlert("Please enter valid salary")
                         }
                     } else {
-                        showAlert("Please enter valid salary")
+                        showAlert("Please select valid industry")
                     }
                 } else {
-                    showAlert("Please select valid industry")
+                    showAlert("Please select valid experience level")
                 }
-            } else {
-                showAlert("Please select valid experience level")
+            }
+
+            jobRecruiterViewModel.userSelectedExperienceLevel.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    experienceTv.text = it.experienceLevel
+                }
+            }
+            jobRecruiterViewModel.userSelectedIndustry.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    industriesTv.text = it.industryType
+                }
+            }
+            jobRecruiterViewModel.userSelectedBillingType.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    billingTypeTv.text = it.billingType
+                }
             }
 
         }

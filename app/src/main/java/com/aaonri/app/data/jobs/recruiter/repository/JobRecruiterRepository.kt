@@ -29,6 +29,8 @@ class JobRecruiterRepository @Inject constructor(
 
     suspend fun getJobApplicantList(jobId: Int) = jobRecruiterApi.getJobApplicantList(jobId)
 
+    suspend fun findAllActiveJobBillingType() = jobRecruiterApi.findAllActiveJobBillingType()
+
     suspend fun jobSearch(
         jobSearchRequest: JobSearchRequest
     ) = jobRecruiterApi.jobSearchApi(jobSearchRequest)

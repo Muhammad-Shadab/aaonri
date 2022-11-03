@@ -42,6 +42,9 @@ interface JobRecruiterApi {
         @Path("jobId") jobId: Int
     ): Response<JobApplicantResponse>
 
+    @GET("/api/v1/jobs/findAllActiveJobBillingType")
+    suspend fun findAllActiveJobBillingType(): Response<BillingTypeResponse>
+
     @POST("/api/v1/jobs/search")
     suspend fun jobSearchApi(
         @Body jobSearchRequest: JobSearchRequest

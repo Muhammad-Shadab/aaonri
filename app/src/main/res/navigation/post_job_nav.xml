@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_job_nav"
-    app:startDestination="@id/recruiterPostJobDetailsFragment">
+    app:startDestination="@id/recruiterPostJobCompanyDetailsFragment">
 
     <fragment
         android:id="@+id/recruiterPostJobDetailsFragment"
@@ -40,13 +40,10 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectStateBottomSheet"
         android:label="fragment_job_post_details_screen_bottom_sheet"
         tools:layout="@layout/fragment_job_post_details_screen_bottom_sheet" >
-        <argument
-            android:name="clickedOptionName"
-            app:argType="string" />
     </dialog>
     <dialog
         android:id="@+id/jobRequirementScreenBottomSheet"
-        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.JobRequirementScreenBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.ExperienceIndustriesBillingTypeBottomSheet"
         android:label="fragment_job_requirement_screen_bottom_sheet"
         tools:layout="@layout/fragment_job_requirement_screen_bottom_sheet" >
         <argument

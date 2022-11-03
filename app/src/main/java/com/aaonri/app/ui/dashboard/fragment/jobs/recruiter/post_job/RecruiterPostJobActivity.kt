@@ -29,6 +29,14 @@ class RecruiterPostJobActivity : BaseActivity() {
 
         jobRecruiterViewModel.setIsUpdateJobValue(isUpdateJob)
 
+        jobRecruiterViewModel.findAllActiveExperienceLevel()
+        jobRecruiterViewModel.findAllActiveIndustry()
+
+        jobRecruiterViewModel.findAllActiveJobApplicability()
+        jobRecruiterViewModel.findAllActiveJobBillingType()
+
+
+
         binding?.apply {
 
             navigateBack.setOnClickListener {

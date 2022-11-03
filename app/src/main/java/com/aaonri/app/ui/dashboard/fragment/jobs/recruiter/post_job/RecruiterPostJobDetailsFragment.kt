@@ -32,9 +32,7 @@ class RecruiterPostJobDetailsFragment : Fragment() {
 
             selectStateTv.setOnClickListener {
                 val action =
-                    RecruiterPostJobDetailsFragmentDirections.actionRecruiterPostJobDetailsFragmentToJobPostDetailsScreenBottomSheet(
-                        ""
-                    )
+                    RecruiterPostJobDetailsFragmentDirections.actionRecruiterPostJobDetailsFragmentToJobPostDetailsScreenBottomSheet()
                 findNavController().navigate(action)
             }
 
