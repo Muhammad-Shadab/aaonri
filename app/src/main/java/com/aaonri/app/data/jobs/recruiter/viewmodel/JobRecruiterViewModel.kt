@@ -84,6 +84,12 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var isUpdateJob = false
 
+    var selectedVisaStatusJobApplicability: MutableLiveData<List<AllActiveJobApplicabilityResponseItem>> =
+        MutableLiveData()
+
+    var selectedJobList: MutableLiveData<List<JobType>> =
+        MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -349,5 +355,14 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     fun setUserSelectedBillingType(value: BillingTypeResponseItem) {
         userSelectedBillingType.postValue(value)
     }
+
+    fun setSelectedVisaStatusJobApplicabilityValue(value: List<AllActiveJobApplicabilityResponseItem>) {
+        selectedVisaStatusJobApplicability.postValue(value)
+    }
+
+    fun setSelectJobListMutableValue(value: List<JobType>) {
+        selectedJobList.postValue(value)
+    }
+
 
 }

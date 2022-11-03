@@ -29,6 +29,12 @@
         <action
             android:id="@+id/action_recruiterPostJobCompanyDetailsFragment_to_jobRequirementScreenBottomSheet"
             app:destination="@id/jobRequirementScreenBottomSheet" />
+        <action
+            android:id="@+id/action_recruiterPostJobCompanyDetailsFragment_to_selectVisaStatusBottomSheet"
+            app:destination="@id/selectVisaStatusBottomSheet" />
+        <action
+            android:id="@+id/action_recruiterPostJobCompanyDetailsFragment_to_selectJobTypeBottomSheet"
+            app:destination="@id/selectJobTypeBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/recruiterBottomSuccessFragment"
@@ -50,6 +56,16 @@
             android:name="clickedOptionName"
             app:argType="string" />
     </dialog>
+    <dialog
+        android:id="@+id/selectVisaStatusBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectVisaStatusBottomSheet"
+        android:label="fragment_select_visa_status_bottom_sheet"
+        tools:layout="@layout/fragment_select_visa_status_bottom_sheet" />
+    <dialog
+        android:id="@+id/selectJobTypeBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectJobTypeBottomSheet"
+        android:label="fragment_select_job_type_bottom_sheet"
+        tools:layout="@layout/fragment_select_job_type_bottom_sheet" />
 
 
 </navigation>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/_26sdp"
-    android:paddingBottom="@dimen/_26sdp"
     tools:context=".ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobRequirementsDetails">
 
     <androidx.core.widget.NestedScrollView
@@ -29,7 +28,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:gravity="center_vertical"
-                android:hint="Experience Level"
+                android:hint="Experience Level*"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_4sdp"
@@ -48,7 +47,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:gravity="center_vertical"
-                android:hint="Industries"
+                android:hint="Industries*"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_4sdp"
@@ -89,7 +88,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:gravity="center_vertical"
-                android:hint="Billing Type"
+                android:hint="Billing Type*"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_4sdp"
@@ -100,24 +99,66 @@
                 android:textSize="16sp"
                 app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-            <TextView
-                android:id="@+id/visaStatusTv"
+            <FrameLayout
+                android:id="@+id/visaStatusFl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:background="@drawable/edit_text_shape"
-                android:fontFamily="@font/helvetica_regular"
-                android:gravity="center_vertical"
-                android:hint="Visa Status"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/_4sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_8sdp"
-                android:textColor="@color/editTextColor"
-                android:textColorHint="@color/hintColor"
-                android:textSize="16sp"
-                app:drawableRightCompat="@drawable/arrow_down_spinner" />
+                android:background="@drawable/edit_text_shape">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/visaStatusCl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_8sdp">
+
+                    <TextView
+                        android:id="@+id/visaStatusTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Visa Status*"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:textColor="@color/editTextColor"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinner"
+                        app:layout_constraintHorizontal_bias="0.018"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.47" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/visaStatusRv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/arrowDownSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down_spinner"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
 
             <EditText
                 android:id="@+id/companyNameEt"
@@ -126,7 +167,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:hint="Company Name"
+                android:hint="Company Name*"
                 android:inputType="textCapSentences"
                 android:lines="1"
                 android:maxLines="1"
@@ -138,7 +179,67 @@
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp" />
 
-            <TextView
+            <FrameLayout
+                android:id="@+id/jobFl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/edit_text_shape">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/jobCl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_8sdp">
+
+                    <TextView
+                        android:id="@+id/jobTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Job Type*"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:textColor="@color/editTextColor"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinnerJob"
+                        app:layout_constraintHorizontal_bias="0.018"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.47" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/jobRv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinnerJob"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/arrowDownSpinnerJob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down_spinner"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
+            <!--<TextView
                 android:id="@+id/jobTypeTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,7 +247,7 @@
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
                 android:gravity="center_vertical"
-                android:hint="Job Type"
+                android:hint="Job Type*"
                 android:lines="1"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_4sdp"
@@ -155,7 +256,7 @@
                 android:textColor="@color/editTextColor"
                 android:textColorHint="@color/hintColor"
                 android:textSize="16sp"
-                app:drawableRightCompat="@drawable/arrow_down_spinner" />
+                app:drawableRightCompat="@drawable/arrow_down_spinner" />-->
 
 
             <androidx.core.widget.NestedScrollView
@@ -172,7 +273,7 @@
                     android:layout_margin="@dimen/_2sdp"
                     android:fontFamily="@font/helvetica_regular"
                     android:gravity="left"
-                    android:hint="Description"
+                    android:hint="Description*"
                     android:includeFontPadding="false"
                     android:padding="@dimen/_5sdp"
                     android:paddingHorizontal="@dimen/_12sdp"
@@ -182,26 +283,27 @@
                     tools:ignore="RtlHardcoded" />
             </androidx.core.widget.NestedScrollView>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/green_btn_shape"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:minHeight="0dp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="SUBMIT"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:background="@drawable/green_btn_shape"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:minHeight="0dp"
-        android:paddingTop="@dimen/_4sdp"
-        android:paddingBottom="@dimen/_4sdp"
-        android:text="SUBMIT"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
