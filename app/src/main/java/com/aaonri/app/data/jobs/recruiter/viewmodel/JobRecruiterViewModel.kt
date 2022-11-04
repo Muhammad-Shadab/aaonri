@@ -92,6 +92,8 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     var selectedJobList: MutableLiveData<List<JobType>> =
         MutableLiveData()
 
+    var selectedJobListDemo = mutableListOf<JobType>()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -379,6 +381,7 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setSelectJobListMutableValue(value: List<JobType>) {
         selectedJobList.postValue(value)
+        selectedJobListDemo = value as MutableList<JobType>
     }
 
 

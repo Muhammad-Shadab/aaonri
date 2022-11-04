@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,8 +23,6 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
     var visaStatusAdapter: SelectedVisaStatusAdapter? = null
     var selectedJobAdapter: SelectedJobAdapter? = null
-    var selectVisaStatusList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
-    var selectJobList = mutableListOf<JobType>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -152,9 +151,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             }
 
             jobRecruiterViewModel.selectedVisaStatusJobApplicability.observe(viewLifecycleOwner) {
-                selectVisaStatusList = it as MutableList<AllActiveJobApplicabilityResponseItem>
                 if (it.isNotEmpty()) {
-                    visaStatusAdapter?.setData(it.filter { it.isSelected })
+                    visaStatusAdapter?.setData(it)
                     val index = it.indexOfFirst { it.isSelected }
                     if (index == -1) {
                         visaStatusTv.visibility = View.VISIBLE
@@ -167,9 +165,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             }
 
             jobRecruiterViewModel.selectedJobList.observe(viewLifecycleOwner) {
-                selectJobList = it as MutableList<JobType>
                 if (it.isNotEmpty()) {
-                    selectedJobAdapter?.setData(it.filter { it.isSelected })
+                    selectedJobAdapter?.setData(it)
                     val index = it.indexOfFirst { it.isSelected }
                     if (index == -1) {
                         jobTv.visibility = View.VISIBLE

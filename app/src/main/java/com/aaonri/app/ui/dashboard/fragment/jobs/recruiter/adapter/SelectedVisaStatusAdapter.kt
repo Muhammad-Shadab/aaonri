@@ -2,6 +2,7 @@ package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.jobs.recruiter.model.AllActiveJobApplicabilityResponseItem
@@ -21,7 +22,12 @@ class SelectedVisaStatusAdapter(private var selectedVisaStatusJobApplicability: 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
 
-        holder.binding.selectedCommunityText.text = data[position].applicability
+        if (data[position].isSelected) {
+            holder.binding.selectedCommunityText.text = data[position].applicability
+            holder.binding.selectedCommunityText.visibility = View.VISIBLE
+        }else{
+            holder.binding.selectedCommunityText.visibility = View.GONE
+        }
 
         holder.itemView.setOnClickListener {
             data[position].isSelected = !data[position].isSelected

@@ -31,21 +31,8 @@ class SelectJobTypeBottomSheet : BottomSheetDialogFragment() {
         isCancelable = false
         binding = FragmentSelectJobTypeBottomSheetBinding.inflate(layoutInflater, container, false)
 
-
         selectJobAdapter = SelectJobAdapter {
             jobRecruiterViewModel.setSelectJobListMutableValue(it)
-        }
-
-        jobRecruiterViewModel.selectedJobList.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                it.forEach { item ->
-                    if (!userSelectedJobOptionList.contains(item)) {
-                        userSelectedJobOptionList.add(item)
-                    }
-                }
-                setApiData = false
-                selectJobAdapter?.setData(userSelectedJobOptionList)
-            }
         }
 
         binding?.apply {
@@ -61,6 +48,12 @@ class SelectJobTypeBottomSheet : BottomSheetDialogFragment() {
             rvBottomFragment.layoutManager = FlexboxLayoutManager(context)
             rvBottomFragment.adapter = selectJobAdapter
 
+            jobRecruiterViewModel.selectedJobListDemo.forEach { item ->
+                if (!userSelectedJobOptionList.contains(item)) {
+                    userSelectedJobOptionList.add(item)
+                }
+                setApiData = false
+            }
 
             apiJobOptionList.addAll(
                 listOf(
@@ -94,6 +87,8 @@ class SelectJobTypeBottomSheet : BottomSheetDialogFragment() {
 
             if (setApiData) {
                 selectJobAdapter?.setData(apiJobOptionList)
+            } else {
+                selectJobAdapter?.setData(userSelectedJobOptionList)
             }
 
         }
