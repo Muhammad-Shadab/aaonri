@@ -295,10 +295,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                         if (editable.toString()
                                 .isNotEmpty() && editable.toString().length >= 5
                         ) {
-                            /*postEventViewModel.getLocationByZipCode(
+                            postEventViewModel.getLocationByZipCode(
                                 editable.toString(),
                                 "US"
-                            )*/
+                            )
                         } else {
                             //invalidZipCodeTv.visibility = View.GONE
                         }

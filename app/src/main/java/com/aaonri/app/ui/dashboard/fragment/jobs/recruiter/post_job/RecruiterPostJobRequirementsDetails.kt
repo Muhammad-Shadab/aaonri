@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
+import com.aaonri.app.data.jobs.recruiter.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.data.jobs.recruiter.model.PostJobRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
@@ -35,6 +36,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
     var description = ""
     var visaStatus = ""
     var jobType = ""
+    var jobIdWhileUpdating = 0
+    var selectedJobApplicabilityList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -199,6 +202,9 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                     }
 
                     it.forEach { item ->
+                        if (!selectedJobApplicabilityList.contains(item)) {
+                            selectedJobApplicabilityList.add(item)
+                        }
                         if (item.isSelected) {
                             if (!visaStatus.contains(item.applicability)) {
                                 visaStatus += item.applicability + ","
@@ -249,9 +255,28 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                 }
             }
 
+            jobRecruiterViewModel.updateJobData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBarContainer.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        val action =
+                            RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToRecruiterBottomSuccessFragment()
+                        findNavController().navigate(action)
+                        progressBarContainer.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
+                        progressBarContainer.visibility = View.GONE
+                    }
+                }
+            }
+
             if (jobRecruiterViewModel.isUpdateJob) {
 
                 JobRecruiterStaticData.getJobDetailsValue()?.let { jobDetails ->
+                    jobIdWhileUpdating = jobDetails.jobId
                     experienceTv.text = jobDetails.experienceLevel
                     industriesTv.text = jobDetails.industry
                     salaryEt.setText(jobDetails.salaryRange)
@@ -260,8 +285,10 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                     companyNameEt.setText(jobDetails.company)
                     submitBtn.text = "UPDATE"
 
-                    val tempList = mutableListOf<JobType>()
-                    tempList.addAll(
+                    val tempJobList = mutableListOf<JobType>()
+                    val tempApplicabilityList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
+
+                    tempJobList.addAll(
                         listOf(
                             JobType(
                                 count = 0,
@@ -291,17 +318,26 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         )
                     )
 
-                    tempList.forEachIndexed { index, jobType ->
+                    tempJobList.forEachIndexed { index, jobType ->
                         if (jobDetails.jobType.contains(jobType.name)) {
-                            tempList[index].isSelected = true
+                            tempJobList[index].isSelected = true
                         }
                     }
 
-                    jobRecruiterViewModel.setSelectJobListMutableValue(tempList)
+                    jobDetails.applicability.forEachIndexed { index, jobType ->
+                        jobDetails.applicability[index].isSelected = true
+                        if (!tempApplicabilityList.contains(jobType)) {
+                            tempApplicabilityList.add(jobType)
+                        }
+                    }
+
+                    jobRecruiterViewModel.setSelectJobListMutableValue(tempJobList)
+
+                    jobRecruiterViewModel.setSelectedVisaStatusJobApplicabilityValue(tempApplicabilityList)
                     jobDescEt.text = Html.fromHtml(jobDetails.description)
+                    description = jobDetails.description
                 }
             }
-
         }
 
 
@@ -344,7 +380,36 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
     }
 
     private fun updateJob() {
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+        jobRecruiterViewModel.updateJob(
+            PostJobRequest(
+                applicability = null,
+                applyCount = 0,
+                billingType = binding?.billingTypeTv?.text.toString(),
+                city = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.CITY_NAME]!!,
+                company = binding?.companyNameEt?.text.toString(),
+                contactPerson = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.CONTACT_PERSONAL_EMAIL]!!,
+                country = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.COUNTRY_NAME]!!,
+                createdBy = "$email",
+                createdOn = "",
+                description = if (description.isNotEmpty()) description else binding?.jobDescEt?.text.toString()
+                    .trim(),
+                experienceLevel = binding?.experienceTv?.text.toString(),
+                industry = binding?.industriesTv?.text.toString(),
+                isActive = true,
+                jobId = jobIdWhileUpdating,
+                jobType = jobType,
+                recruiter = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.RECRUITER_NAME]!!,
+                salaryRange = binding?.salaryEt?.text.toString(),
+                skillSet = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.SKILL_SET]!!,
+                state = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.STATE_NAME]!!,
+                street = "",
+                title = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.JOB_TITLE]!!,
+                viewCount = 0,
+                zipCode = "",
+            )
+        )
     }
 
     private fun showAlert(text: String) {

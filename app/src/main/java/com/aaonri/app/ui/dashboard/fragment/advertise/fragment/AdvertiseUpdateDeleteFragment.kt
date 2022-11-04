@@ -49,7 +49,7 @@ class AdvertiseUpdateDeleteFragment : BottomSheetDialogFragment() {
             cancelAdvrstBtn.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to Cancel?")
+                builder.setMessage("Are you sure you want to cancel this Advertisement?")
                 builder.setPositiveButton("OK") { dialog, which ->
                     advertiseViewModel.cancelAdvertise(args.advertiseId)
                 }

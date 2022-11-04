@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentRecruiterSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RecruiterSearchTalentFragment : Fragment() {
    var binding:FragmentRecruiterSearchBinding? = null
 

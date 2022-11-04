@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.tabs
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,13 +36,37 @@ class RecruiterMyPostedJobFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data = result.data?.getBooleanExtra("updateJobData", false)
+                    if (data == true) {
+                        jobRecruiterViewModel.jobSearch(
+                            JobSearchRequest(
+                                city = "",
+                                company = "",
+                                createdByMe = true,
+                                experience = "",
+                                industry = "",
+                                jobType = "",
+                                keyWord = "",
+                                skill = "",
+                                userEmail = "$email"
+                            )
+                        )
+                    }
+                }
+            }
+
         myPostedJobAdapter =
             MyPostedJobAdapter { isEditBtnClicked, isActivateBtnClicked, isDeactivateBtnClicked, isJobApplicantClicked, isJobCardClicked, value ->
                 if (isEditBtnClicked) {
+
                     JobRecruiterStaticData.setJobDetailsData(value)
                     val intent = Intent(context, RecruiterPostJobActivity::class.java)
                     intent.putExtra("isUpdateJob", true)
-                    activity?.startActivity(intent)
+                    resultLauncher.launch(intent)
+
                 } else if (isActivateBtnClicked) {
                     jobRecruiterViewModel.changeJobActiveStatus(value.jobId, true)
                 } else if (isDeactivateBtnClicked) {

@@ -456,6 +456,9 @@
         <action
             android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterJobApplicantsFragment"
             app:destination="@id/recruiterJobApplicantsFragment" />
+        <action
+            android:id="@+id/action_jobRecruiterScreenFragment_to_recruiterSearchTalentFragment"
+            app:destination="@id/recruiterSearchTalentFragment" />
     </fragment>
 
     <fragment
@@ -585,6 +588,11 @@
             app:popUpTo="@id/jobRecruiterScreenFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/recruiterSearchTalentFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterSearchTalentFragment"
+        android:label="fragment_recruiter_search"
+        tools:layout="@layout/fragment_recruiter_search" />
 
 
 </navigation>

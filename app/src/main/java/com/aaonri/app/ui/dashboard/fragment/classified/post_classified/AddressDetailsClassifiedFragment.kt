@@ -31,7 +31,6 @@ import com.aaonri.app.databinding.FragmentAddressDetailsClassifiedBinding
 import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -58,6 +57,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
             FragmentAddressDetailsClassifiedBinding.inflate(inflater, container, false)
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+        val userPhoneNumber =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
         val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
@@ -182,6 +183,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 if (p1) {
                     phoneTv.setTextColor(Color.parseColor("#333333"))
                     phoneNumberAddressDetails.visibility = View.VISIBLE
+                    emailAddressBasicDetails.setText(userPhoneNumber)
                 } else {
                     phoneNumberAddressDetails.setText("")
                     phoneNumberAddressDetails.visibility = View.GONE
@@ -471,7 +473,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                         file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val requestImage =
                         MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    if (!listOfImages.contains(requestImage)){
+                    if (!listOfImages.contains(requestImage)) {
                         listOfImages.add(requestImage)
                     }
                 }
@@ -481,10 +483,11 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 if (!it.toString().startsWith("htt")) {
                     val file = File(it.toString().replace("file:", ""))
 
-                    val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val requestImage =
                         MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    if (!listOfImages.contains(requestImage)){
+                    if (!listOfImages.contains(requestImage)) {
                         listOfImages.add(requestImage)
                     }
                 }
@@ -496,9 +499,9 @@ class AddressDetailsClassifiedFragment : Fragment() {
             if (imageIdToBeDeleted.isNotEmpty()) imageIdToBeDeleted.toRequestBody("multipart/form-data".toMediaTypeOrNull()) else "".toString()
                 .toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        if (listOfImages.size > 0){
+        if (listOfImages.size > 0) {
             postClassifiedViewModel.uploadClassifiedPics(listOfImages, addId, delId)
-        }else{
+        } else {
             val attachmentEmpty = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), "");
             val fileToUpload = MultipartBody.Part.createFormData("files", "", attachmentEmpty)
             postClassifiedViewModel.deleteClassifiedPics(fileToUpload, addId, delId)

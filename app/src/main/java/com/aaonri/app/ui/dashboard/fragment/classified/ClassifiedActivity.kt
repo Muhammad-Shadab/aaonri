@@ -34,7 +34,7 @@ class ClassifiedActivity : AppCompatActivity() {
         postClassifiedViewModel.setUpdateClassifiedId(updateClassifiedId)
 
         if (isUpdateClassified) {
-            binding?.registrationText?.text = "Update Your Classified"
+            binding?.registrationText?.text = "Update Classified"
         } else {
             if (ClassifiedStaticData.getCategoryList().isEmpty()) {
                 postClassifiedViewModel.getClassifiedCategory()

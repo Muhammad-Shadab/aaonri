@@ -38,8 +38,6 @@ class RecruiterBottomSuccessFragment : BottomSheetDialogFragment() {
             }
 
 
-
-
             viewYourAdvertiseBtn.setOnClickListener {
                 val data = Intent()
                 data.putExtra("updateJobData", true)

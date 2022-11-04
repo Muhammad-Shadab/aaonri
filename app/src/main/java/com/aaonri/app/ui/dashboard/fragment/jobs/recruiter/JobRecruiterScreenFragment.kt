@@ -323,6 +323,16 @@ class JobRecruiterScreenFragment : Fragment() {
 
             searchTalentBtn.setOnClickListener {
                 addOnFloatingBtnClick()
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
+                findNavController().navigate(action)
+            }
+
+            searchTalentBtn.setOnClickListener {
+                addOnFloatingBtnClick()
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
+                findNavController().navigate(action)
             }
 
             jobScreenViewPager.adapter = jobPagerAdapter
@@ -451,11 +461,15 @@ class JobRecruiterScreenFragment : Fragment() {
             binding?.postAJob?.visibility = View.VISIBLE
             binding?.uploadConsultantProfile?.visibility = View.VISIBLE
             binding?.hideBackground?.visibility = View.VISIBLE
+            binding?.navigateBack?.isEnabled = false
+            binding?.profilePicCv?.isEnabled = false
         } else {
             binding?.searchTalentBtn?.visibility = View.GONE
             binding?.postAJob?.visibility = View.GONE
             binding?.uploadConsultantProfile?.visibility = View.GONE
             binding?.hideBackground?.visibility = View.GONE
+            binding?.navigateBack?.isEnabled = true
+            binding?.profilePicCv?.isEnabled = true
         }
     }
 

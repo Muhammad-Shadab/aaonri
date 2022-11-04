@@ -80,7 +80,7 @@ class PostAdvertiseCompanyDetailsFragment : Fragment() {
             advertiseDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditorActivity::class.java)
                 intent.putExtra("data", description)
-                intent.putExtra("placeholder", "Please describe product/service")
+                intent.putExtra("placeholder", "Please describe your business or services*")
                 resultLauncher.launch(intent)
             }
 

@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -7,14 +8,18 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
@@ -32,12 +37,23 @@ class RecruiterJobDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentRecruiterJobDetailsBinding.inflate(inflater, container, false)
 
-
         jobRecruiterViewModel.findJobDetailsById(args.jobId)
 
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data = result.data?.getBooleanExtra("updateJobData", false)
+                    if (data == true) {
+                        jobRecruiterViewModel.findJobDetailsById(args.jobId)
+                    }
+                }
+            }
 
         binding?.apply {
 
+            editJobIv.setOnClickListener {
+
+            }
 
             activateJobBtn.setOnClickListener {
                 jobRecruiterViewModel.changeJobActiveStatus(args.jobId, true)
@@ -61,7 +77,8 @@ class RecruiterJobDetailsFragment : Fragment() {
 
             editJobIv.setOnClickListener {
                 val intent = Intent(context, RecruiterPostJobActivity::class.java)
-                activity?.startActivity(intent)
+                intent.putExtra("isUpdateJob", true)
+                resultLauncher.launch(intent)
             }
 
             jobRecruiterViewModel.jobDetailsByIdData.observe(viewLifecycleOwner) { response ->
@@ -72,6 +89,8 @@ class RecruiterJobDetailsFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.let {
+
+                            JobRecruiterStaticData.setJobDetailsData(it)
 
                             jobTitle.text = it.title
                             companyNameTv.text = it.company

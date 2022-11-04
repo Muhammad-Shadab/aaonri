@@ -31,7 +31,7 @@ class EventScreenActivity : BaseActivity() {
         postEventViewModel.setUpdateEventId(updateEventId)
 
         if (isUpdateEvent) {
-            binding?.registrationText?.text = "Update Your Event"
+            binding?.registrationText?.text = "Update Event"
         } else {
             if (EventStaticData.getEventCategory().isEmpty()) {
                 postEventViewModel.getEventCategory()

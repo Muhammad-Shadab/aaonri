@@ -1,7 +1,7 @@
 package com.aaonri.app.data.jobs.recruiter.model
 
 data class JobDetails(
-    val applicability: List<Any>,
+    val applicability: List<AllActiveJobApplicabilityResponseItem>,
     val applyCount: Int,
     val billingType: String,
     val city: String,

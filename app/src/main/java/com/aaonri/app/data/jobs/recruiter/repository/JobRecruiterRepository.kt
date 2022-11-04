@@ -50,4 +50,7 @@ class JobRecruiterRepository @Inject constructor(
 
     suspend fun postJob(postJobRequest: PostJobRequest) = jobRecruiterApi.postJob(postJobRequest)
 
+    suspend fun updateJob(postJobRequest: PostJobRequest) =
+        jobRecruiterApi.updateJob(postJobRequest)
+
 }
