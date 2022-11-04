@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterConstant
+import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobDetailsBinding
 import com.aaonri.app.utils.Validator
@@ -89,6 +90,16 @@ class RecruiterPostJobDetailsFragment : Fragment() {
                 }
             }
 
+            if (jobRecruiterViewModel.isUpdateJob) {
+                JobRecruiterStaticData.getJobDetailsValue()?.let { jobDetails ->
+                    jobTitleEt.setText(jobDetails.title)
+                    cityNameEt.setText(jobDetails.city)
+                    selectStateTv.text = jobDetails.state
+                    recruiterEmailEt.setText(jobDetails.contactPerson)
+                    recruiterNameEt.setText(jobDetails.recruiter)
+                    skillSetDescEt.setText(jobDetails.skillSet)
+                }
+            }
 
         }
 

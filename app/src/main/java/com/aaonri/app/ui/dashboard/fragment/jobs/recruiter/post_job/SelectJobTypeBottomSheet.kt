@@ -48,7 +48,7 @@ class SelectJobTypeBottomSheet : BottomSheetDialogFragment() {
             rvBottomFragment.layoutManager = FlexboxLayoutManager(context)
             rvBottomFragment.adapter = selectJobAdapter
 
-            jobRecruiterViewModel.selectedJobListDemo.forEach { item ->
+            jobRecruiterViewModel.selectedJobListTemp.forEach { item ->
                 if (!userSelectedJobOptionList.contains(item)) {
                     userSelectedJobOptionList.add(item)
                 }

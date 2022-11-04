@@ -86,13 +86,15 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var isUpdateJob = false
 
+    var isUpdateConsultantProfile = false
+
     var selectedVisaStatusJobApplicability: MutableLiveData<List<AllActiveJobApplicabilityResponseItem>> =
         MutableLiveData()
 
     var selectedJobList: MutableLiveData<List<JobType>> =
         MutableLiveData()
 
-    var selectedJobListDemo = mutableListOf<JobType>()
+    var selectedJobListTemp = mutableListOf<JobType>()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
@@ -359,6 +361,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         isUpdateJob = value
     }
 
+    fun setIsUpdateConsultantProfileValue(value: Boolean) {
+        isUpdateConsultantProfile = value
+    }
+
     fun setUserSelectedState(value: String) {
         userSelectedState.postValue(value)
     }
@@ -381,7 +387,7 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setSelectJobListMutableValue(value: List<JobType>) {
         selectedJobList.postValue(value)
-        selectedJobListDemo = value as MutableList<JobType>
+        selectedJobListTemp = value as MutableList<JobType>
     }
 
 

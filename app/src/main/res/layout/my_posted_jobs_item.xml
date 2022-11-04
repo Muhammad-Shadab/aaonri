@@ -118,7 +118,7 @@
                             android:id="@+id/locationTv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginStart="@dimen/_15sdp"
                             android:layout_marginTop="6dp"
                             android:drawableLeft="@drawable/job_location_icon"
                             android:drawablePadding="6dp"

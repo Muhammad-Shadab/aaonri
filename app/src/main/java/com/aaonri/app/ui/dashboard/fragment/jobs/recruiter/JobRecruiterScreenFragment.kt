@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -91,6 +93,28 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
         jobRecruiterViewModel.getAllJobProfile()
+
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data = result.data?.getBooleanExtra("updateJobData", false)
+                    if (data == true) {
+                        jobRecruiterViewModel.jobSearch(
+                            JobSearchRequest(
+                                city = "",
+                                company = "",
+                                createdByMe = true,
+                                experience = "",
+                                industry = "",
+                                jobType = "",
+                                keyWord = "",
+                                skill = "",
+                                userEmail = "$email"
+                            )
+                        )
+                    }
+                }
+            }
 
         /** calling api for my posted job screen **/
         jobRecruiterViewModel.jobSearch(
@@ -283,15 +307,11 @@ class JobRecruiterScreenFragment : Fragment() {
                 addOnFloatingBtnClick()
             }
 
-            val intent = Intent(context, RecruiterPostJobActivity::class.java)
-            intent.putExtra("isUpdateJob", false)
-            activity?.startActivity(intent)
-
             postAJob.setOnClickListener {
                 addOnFloatingBtnClick()
                 val intent = Intent(context, RecruiterPostJobActivity::class.java)
                 intent.putExtra("isUpdateJob", false)
-                activity?.startActivity(intent)
+                resultLauncher.launch(intent)
             }
 
             uploadConsultantProfile.setOnClickListener {

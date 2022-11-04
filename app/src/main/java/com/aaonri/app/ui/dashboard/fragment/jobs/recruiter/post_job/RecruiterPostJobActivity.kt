@@ -43,6 +43,10 @@ class RecruiterPostJobActivity : BaseActivity() {
                 onBackPressed()
             }
 
+            if (isUpdateJob) {
+                registrationText.text = "Update Job"
+            }
+
             jobRecruiterViewModel.navigationForStepper.observe(this@RecruiterPostJobActivity) { route ->
                 when (route) {
                     JobRecruiterConstant.RECRUITER_POST_JOB_DETAILS_SCREEN -> {

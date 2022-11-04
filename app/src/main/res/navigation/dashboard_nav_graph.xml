@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/jobRecruiterScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -558,6 +558,9 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterUpdateProfileFragment"
         android:label="fragment_recruiter_update_profile"
         tools:layout="@layout/fragment_recruiter_update_profile" >
+        <action
+            android:id="@+id/action_recruiterUpdateProfileFragment_to_recruiterProfileSuccessfulBottom2"
+            app:destination="@id/recruiterProfileSuccessfulBottom2" />
     </fragment>
     <fragment
         android:id="@+id/recruiterJobApplicantsFragment"
@@ -571,6 +574,17 @@
             android:id="@+id/action_recruiterJobApplicantsFragment_to_recruiterTalentDetailsFragment"
             app:destination="@id/recruiterTalentDetailsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/recruiterProfileSuccessfulBottom2"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterProfileSuccessfulBottom"
+        android:label="fragment_recruiter_profile_successful_bottom"
+        tools:layout="@layout/fragment_recruiter_profile_successful_bottom" >
+        <action
+            android:id="@+id/action_recruiterProfileSuccessfulBottom2_to_jobRecruiterScreenFragment"
+            app:destination="@id/jobRecruiterScreenFragment"
+            app:popUpTo="@id/jobRecruiterScreenFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 
 
 </navigation>

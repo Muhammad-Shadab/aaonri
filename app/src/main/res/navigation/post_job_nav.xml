@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_job_nav"
-    app:startDestination="@id/recruiterPostJobCompanyDetailsFragment">
+    app:startDestination="@id/recruiterPostJobDetailsFragment">
 
     <fragment
         android:id="@+id/recruiterPostJobDetailsFragment"
@@ -40,7 +40,9 @@
         android:id="@+id/recruiterBottomSuccessFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterBottomSuccessFragment"
         android:label="fragment_recruiter_bottom_success"
-        tools:layout="@layout/fragment_recruiter_bottom_success" />
+        tools:layout="@layout/fragment_recruiter_bottom_success" >
+
+    </dialog>
     <dialog
         android:id="@+id/jobPostDetailsScreenBottomSheet"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectStateBottomSheet"

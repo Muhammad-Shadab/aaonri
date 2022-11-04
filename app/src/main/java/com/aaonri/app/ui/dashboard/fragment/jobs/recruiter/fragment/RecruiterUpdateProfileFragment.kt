@@ -152,6 +152,8 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                 firstNameEt.setText(it.firstName)
                                 lastNameEt.setText(it.lastName)
                                 contactEmailEt.setText(it.contactEmailId)
+                                appbarTextTv.text = "Update Consultant Profile"
+                                submitBtn.text = "UPDATE"
                                 phoneNumberEt.setText(
                                     it.phoneNo.replace("""[(,), ]""".toRegex(), "")
                                         .replace("-", "").replaceFirst(
@@ -160,6 +162,7 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                         )
                                 )
                                 locationEt.setText(it.location)
+                                jobRecruiterViewModel.setIsUpdateConsultantProfileValue(true)
                             }
                         } else {
                             isUpdateConsultantProfile = false
@@ -181,7 +184,9 @@ class RecruiterUpdateProfileFragment : Fragment() {
                         }
                         is Resource.Success -> {
                             binding?.progressBar?.visibility = View.GONE
-                            findNavController().navigateUp()
+                            val action =
+                                RecruiterUpdateProfileFragmentDirections.actionRecruiterUpdateProfileFragmentToRecruiterProfileSuccessfulBottom2()
+                            findNavController().navigate(action)
                             jobRecruiterViewModel.addConsultantProfileData.postValue(null)
                         }
                         is Resource.Error -> {
@@ -199,7 +204,9 @@ class RecruiterUpdateProfileFragment : Fragment() {
                         }
                         is Resource.Success -> {
                             binding?.progressBar?.visibility = View.GONE
-                            findNavController().navigateUp()
+                            val action =
+                                RecruiterUpdateProfileFragmentDirections.actionRecruiterUpdateProfileFragmentToRecruiterProfileSuccessfulBottom2()
+                            findNavController().navigate(action)
                             jobRecruiterViewModel.updateConsultantProfileData.postValue(null)
                         }
                         is Resource.Error -> {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterMyPostedJobBinding
@@ -36,7 +37,9 @@ class RecruiterMyPostedJobFragment : Fragment() {
         myPostedJobAdapter =
             MyPostedJobAdapter { isEditBtnClicked, isActivateBtnClicked, isDeactivateBtnClicked, isJobApplicantClicked, isJobCardClicked, value ->
                 if (isEditBtnClicked) {
+                    JobRecruiterStaticData.setJobDetailsData(value)
                     val intent = Intent(context, RecruiterPostJobActivity::class.java)
+                    intent.putExtra("isUpdateJob", true)
                     activity?.startActivity(intent)
                 } else if (isActivateBtnClicked) {
                     jobRecruiterViewModel.changeJobActiveStatus(value.jobId, true)
@@ -44,7 +47,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
                     jobRecruiterViewModel.changeJobActiveStatus(value.jobId, false)
                 } else if (isJobApplicantClicked) {
                     jobRecruiterViewModel.setNavigateFromMyPostedJobToJobApplicantScreen(value.jobId)
-                }else if (isJobCardClicked) {
+                } else if (isJobCardClicked) {
                     jobRecruiterViewModel.setNavigateFromMyPostedJobToJobDetailsScreen(value.jobId)
                 }
             }

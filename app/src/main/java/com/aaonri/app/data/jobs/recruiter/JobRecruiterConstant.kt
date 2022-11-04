@@ -6,8 +6,6 @@ object JobRecruiterConstant {
     const val RECRUITER_POST_JOB_REQUIREMENT_DETAILS_SCREEN =
         "RECRUITER_POST_JOB_REQUIREMENT_DETAILS_SCREEN"
 
-
-
     const val JOB_TITLE = "JOB_TITLE"
     const val CITY_NAME = "CITY_NAME"
     const val STATE_NAME = "STATE_NAME"

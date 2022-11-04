@@ -1,7 +1,7 @@
 package com.aaonri.app.data.jobs.recruiter.model
 
 data class PostJobRequest(
-    val applicability: Any,
+    val applicability: Any?,
     val applyCount: Int,
     val billingType: String,
     val city: String,
