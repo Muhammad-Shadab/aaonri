@@ -176,6 +176,6 @@ dependencies {
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
-
+    implementation "com.hootsuite.android:nachos:1.1.2"
 
 }

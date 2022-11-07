@@ -70,7 +70,14 @@ class MoreScreenFragment : Fragment() {
                     findNavController().navigate(MoreScreenFragmentDirections.actionMoreScreenFragmentToEventScreenFragment())
                 }
                 "Jobs" -> {
+                    val isJobRecruiter =
+                        context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
 
+                    if (isJobRecruiter == true) {
+                        findNavController().navigate(R.id.action_moreScreenFragment_to_jobRecruiterScreenFragment)
+                    } else {
+                        findNavController().navigate(R.id.action_moreScreenFragment_to_jobScreenFragment)
+                    }
                 }
                 "Immigration" -> {
                     findNavController().navigate(MoreScreenFragmentDirections.actionMoreScreenFragmentToImmigrationScreenFragment())
@@ -241,13 +248,13 @@ class MoreScreenFragment : Fragment() {
 
             aboutAoonriCv.setOnClickListener {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url","https://aaonri.com/about-us")
+                intent.putExtra("url", "https://aaonri.com/about-us")
                 activity?.startActivity(intent)
             }
 
             privacyPolicyCv.setOnClickListener {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url","https://aaonri.com/privacy-policy")
+                intent.putExtra("url", "https://aaonri.com/privacy-policy")
                 activity?.startActivity(intent)
             }
 
@@ -264,7 +271,10 @@ class MoreScreenFragment : Fragment() {
                 val emailIntent = Intent(Intent.ACTION_SEND)
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("info@aaonri.com"))
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact Us!")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Dear aaonri admin, \n\nI would like to say something...\n\n")
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Dear aaonri admin, \n\nI would like to say something...\n\n"
+                )
                 emailIntent.selector = selectorIntent
 
                 activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/jobRecruiterScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -121,6 +121,12 @@
         <action
             android:id="@+id/action_eventScreenFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_jobRecruiterScreenFragment"
+            app:destination="@id/jobRecruiterScreenFragment" />
+        <action
+            android:id="@+id/action_moreScreenFragment_to_jobScreenFragment"
+            app:destination="@id/jobScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedFilterFragmentBottom"
@@ -592,7 +598,16 @@
         android:id="@+id/recruiterSearchTalentFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.RecruiterSearchTalentFragment"
         android:label="fragment_recruiter_search"
-        tools:layout="@layout/fragment_recruiter_search" />
+        tools:layout="@layout/fragment_recruiter_search" >
+        <action
+            android:id="@+id/action_recruiterSearchTalentFragment_to_availabilityBottomSheet"
+            app:destination="@id/availabilityBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/availabilityBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.AvailabilityBottomSheet"
+        android:label="fragment_availability_bottom_sheet"
+        tools:layout="@layout/fragment_availability_bottom_sheet" />
 
 
 </navigation>

@@ -47,7 +47,7 @@
                 android:id="@+id/aliasNameCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_28sdp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -258,7 +258,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_36sdp"
-                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_70sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"
                 android:textColor="@color/textViewColor"

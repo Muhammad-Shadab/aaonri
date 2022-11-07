@@ -98,6 +98,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var selectedJobListTemp = mutableListOf<JobType>()
 
+    var selectedAvailability: MutableLiveData<String> = MutableLiveData()
+
+    var allAvailabilityData: MutableLiveData<Resource<AvailabilityResponse>> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -322,6 +326,21 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         return Resource.Error(response.message())
     }
 
+    fun getAllAvailability() = viewModelScope.launch {
+        allAvailabilityData.postValue(Resource.Loading())
+        val response = repository.getAllAvailability()
+        allAvailabilityData.postValue(handleAllAvailabilityResponse(response))
+    }
+
+    private fun handleAllAvailabilityResponse(response: Response<AvailabilityResponse>): Resource<AvailabilityResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     fun postJob(postJobRequest: PostJobRequest) = viewModelScope.launch {
         postJobData.postValue(Resource.Loading())
         val response = repository.postJob(postJobRequest)
@@ -405,6 +424,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     fun setSelectJobListMutableValue(value: List<JobType>) {
         selectedJobList.postValue(value)
         selectedJobListTemp = value as MutableList<JobType>
+    }
+
+    fun setSelectedAvailability(value: String) {
+        selectedAvailability.postValue(value)
     }
 
 

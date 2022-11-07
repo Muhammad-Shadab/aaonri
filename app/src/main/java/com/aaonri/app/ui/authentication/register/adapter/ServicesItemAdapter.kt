@@ -282,9 +282,9 @@ class ServicesItemAdapter(
                     }
                 }
 
-                if (data[position].id == jobId) {
+               /* if (data[position].id == jobId) {
                     data[position].active = false
-                }
+                }*/
 
                 if (data[position].active && !isProfileScreen) {
                     servicesGridIv.setColorFilter(

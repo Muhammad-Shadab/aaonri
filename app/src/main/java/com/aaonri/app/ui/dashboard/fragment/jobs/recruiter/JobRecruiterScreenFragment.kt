@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -71,6 +72,7 @@ class JobRecruiterScreenFragment : Fragment() {
     private val tabTitles =
         arrayListOf("All Talents", "My Posted Jobs", "Consultant Profile")
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,6 +95,7 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
         jobRecruiterViewModel.getAllJobProfile()
+        jobRecruiterViewModel.getAllAvailability()
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -334,6 +337,17 @@ class JobRecruiterScreenFragment : Fragment() {
                     JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
                 findNavController().navigate(action)
             }
+
+            searchViewIcon.setOnClickListener {
+                searchView.performClick()
+            }
+            searchView.performClick()
+            searchView.setOnClickListener {
+                val action =
+                    JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
+                findNavController().navigate(action)
+            }
+
 
             jobScreenViewPager.adapter = jobPagerAdapter
             TabLayoutMediator(

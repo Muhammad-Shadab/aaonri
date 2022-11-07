@@ -45,6 +45,9 @@ interface JobRecruiterApi {
     @GET("/api/v1/jobs/findAllActiveJobBillingType")
     suspend fun findAllActiveJobBillingType(): Response<BillingTypeResponse>
 
+    @GET("/api/v1/jobs/findAllActiveAvailability")
+    suspend fun getAllAvailability(): Response<AvailabilityResponse>
+
     @POST("/api/v1/jobs/search")
     suspend fun jobSearchApi(
         @Body jobSearchRequest: JobSearchRequest
