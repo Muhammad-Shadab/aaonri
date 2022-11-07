@@ -357,7 +357,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (postEventViewModel.listOfImagesUri.size > 0) {
+                    if (imagesUriWhileUpdating.size > 0) {
                         callUploadEventPicApi(postEventViewModel.updateEventId, true)
                     } else {
                         findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)

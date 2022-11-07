@@ -356,7 +356,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (postClassifiedViewModel.listOfImagesUri.size > 0) {
+                    if (imagesUriWhileUpdating.size > 0) {
                         callUploadClassifiedPicApi(postClassifiedViewModel.updateClassifiedId, true)
                     } else {
                         val action =

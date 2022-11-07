@@ -8,7 +8,6 @@ import com.aaonri.app.NoInternetConnectionActivity
 import com.google.android.material.snackbar.Snackbar
 
 class ConnectivityReceiver : BroadcastReceiver() {
-    var snackbar: Snackbar? = null
     override fun onReceive(context: Context, arg1: Intent) {
         val isConnected = arg1.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)
         if (isConnected) {
