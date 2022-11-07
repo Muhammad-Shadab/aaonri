@@ -1175,12 +1175,11 @@ class HomeScreenFragment : Fragment() {
                         }
                         binding?.interestRecyclerView?.visibility = View.VISIBLE
                         binding?.interestBorder?.visibility = View.VISIBLE
-                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" /*&& it.id != jobId*/ })
+                        interestAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id != jobId })
                         if (interests.isNullOrEmpty()) {
                             /**This will show all active interested services in guest user**/
                             homeInterestsServiceAdapter?.setData(response.data.filter { it.active && it.interestDesc.isNotEmpty() && it.interestDesc != "string" && it.id == eventId } as MutableList<InterestResponseItem>)
                         } else {
-                            //Toast.makeText(context, "${activeServiceList.size}", Toast.LENGTH_SHORT).show()
                             homeInterestsServiceAdapter?.setData(activeServiceList)
                         }
                     }

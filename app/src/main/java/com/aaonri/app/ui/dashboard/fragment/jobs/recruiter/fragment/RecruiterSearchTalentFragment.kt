@@ -1,8 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.Spanned
-import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterSearchBinding
+import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
-import com.hootsuite.nachos.terminator.ChipTerminatorHandler
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -39,13 +37,23 @@ class RecruiterSearchTalentFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            val chipDrawable = context?.let { ChipDrawable.createFromResource(it, R.xml.chip) }
 
-            chipDrawable?.setBounds(0, 0, chipDrawable.intrinsicWidth, chipDrawable.intrinsicHeight)
-            val span = chipDrawable?.let { ImageSpan(it) }
-            val text = locationEt.text!!
+            //chipsInput.addChip("shadab","")
 
-            text.setSpan(span, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            edit.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    addNewChip(textView.text.toString(), flex)
+                    edit.setText("")
+
+                    return@setOnEditorActionListener true
+                }
+                false
+            }
+
+
+
+
 
             availablityTv.setOnClickListener {
                 val action =
@@ -65,6 +73,15 @@ class RecruiterSearchTalentFragment : Fragment() {
         return binding?.root
     }
 
-
-
+    private fun addNewChip(person: String, chipGroup: FlexboxLayout) {
+        val chip = Chip(context)
+        chip.text = person
+        //chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_launcher_round)
+        chip.isCloseIconEnabled = true
+        chip.isClickable = true
+        chip.isCheckable = false
+        chip.setTextAppearanceResource(R.style.ChipTextStyle_Selected)
+        chipGroup.addView(chip as View, chipGroup.childCount - 1)
+        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+    }
 }

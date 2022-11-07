@@ -83,11 +83,38 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
-                <EditText
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/flex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_34sdp"
+                    android:background="@drawable/edit_text_shape"
+                    android:paddingVertical="@dimen/_2sdp"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    app:alignContent="space_around"
+                    app:alignItems="stretch"
+                    app:flexWrap="wrap"
+                    app:showDivider="beginning|middle|end">
+
+                    <EditText
+                        android:id="@+id/edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Any Keyword"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        app:layout_flexGrow="1" />
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <!--<EditText
                     android:id="@+id/keyWordEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_34sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:hint="Any Keyword"
@@ -100,7 +127,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" />-->
 
                 <EditText
                     android:id="@+id/allKeywordEt"
@@ -150,6 +177,7 @@
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:hint="Location"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapSentences"
                     android:lines="1"
                     android:maxLines="1"

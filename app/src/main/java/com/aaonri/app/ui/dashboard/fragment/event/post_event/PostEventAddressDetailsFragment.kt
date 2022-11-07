@@ -357,8 +357,16 @@ class PostEventAddressDetailsFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (imagesUriWhileUpdating.size > 0) {
-                        callUploadEventPicApi(postEventViewModel.updateEventId, true)
+                    if (postEventViewModel.listOfImagesUri.size > 0) {
+                        if (postEventViewModel.isUpdateEvent) {
+                            if (imagesUriWhileUpdating.isNotEmpty() || imageIdToBeDeleted.isNotEmpty()) {
+                                callUploadEventPicApi(postEventViewModel.updateEventId, true)
+                            } else {
+                                findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
+                            }
+                        } else {
+                            callUploadEventPicApi(postEventViewModel.updateEventId, true)
+                        }
                     } else {
                         findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     }
@@ -604,7 +612,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                 title = postEventViewModel.eventBasicDetailMap[EventConstants.EVENT_TITLE]!!,
                 totalFavourite = 0,
                 totalVisiting = 0,
-                zipCode = postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_ZIPCODE]!!
+                zipCode = if (postEventViewModel.isEventOffline) postEventViewModel.eventAddressDetailMap[EventConstants.ADDRESS_ZIPCODE]!! else ""
             )
         )
     }

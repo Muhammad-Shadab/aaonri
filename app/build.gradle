@@ -18,7 +18,7 @@ android {
         minSdk 24
         targetSdk 32
         versionCode 8
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         renderscriptTargetApi 19
@@ -65,7 +65,7 @@ android {
     viewBinding {
         enabled = true
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
     lintOptions {
@@ -176,6 +176,5 @@ dependencies {
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
-    implementation "com.hootsuite.android:nachos:1.1.2"
 
 }

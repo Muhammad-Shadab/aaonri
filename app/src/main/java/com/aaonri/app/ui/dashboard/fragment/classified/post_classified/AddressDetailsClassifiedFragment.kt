@@ -62,6 +62,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
 
+        //Toast.makeText(context, "$userPhoneNumber", Toast.LENGTH_SHORT).show()
+
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
         val text = resources.getString(R.string.your_classified_will)
@@ -190,6 +192,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     phoneTv.setTextColor(Color.parseColor("#979797"))
                 }
             }
+
             emailRadioBtn.setOnCheckedChangeListener { p0, p1 ->
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
@@ -356,7 +359,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
                     binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    if (imagesUriWhileUpdating.size > 0) {
+                    if (postClassifiedViewModel.listOfImagesUri.size > 0) {
                         callUploadClassifiedPicApi(postClassifiedViewModel.updateClassifiedId, true)
                     } else {
                         val action =

@@ -151,7 +151,9 @@ class MainActivity : BaseActivity() {
 
             dashboardCommonViewModel.showBottomNavigation.observe(this@MainActivity) {
                 if (it) {
-                    bottomNavigation.visibility = View.VISIBLE
+                    if (navController.currentDestination?.id != R.id.eventScreenFragment && navController.currentDestination?.id != R.id.immigrationScreenFragment) {
+                        bottomNavigation.visibility = View.VISIBLE
+                    }
                 } else {
                     bottomNavigation.visibility = View.GONE
                 }
