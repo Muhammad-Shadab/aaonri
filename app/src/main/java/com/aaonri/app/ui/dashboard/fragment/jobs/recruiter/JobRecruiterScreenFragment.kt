@@ -19,6 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import com.aaonri.app.data.jobs.recruiter.model.RecruiterJobFilterModel
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentJobRecruiterScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -40,6 +41,9 @@ import com.google.firebase.auth.FirebaseAuth
 class JobRecruiterScreenFragment : Fragment() {
     var binding: FragmentJobRecruiterScreenBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
+    var noOfSelectedFilter = 0
+    var isFilterEnable = false
+    var recruiterJobFilterModel: RecruiterJobFilterModel? = null
 
     private var clicked = false
     private val rotateOpen: Animation by lazy {
@@ -133,6 +137,8 @@ class JobRecruiterScreenFragment : Fragment() {
                 userEmail = "$email"
             )
         )
+
+
 
         jobRecruiterViewModel.getUserConsultantProfile("$email", false)
 
@@ -341,7 +347,7 @@ class JobRecruiterScreenFragment : Fragment() {
             searchViewIcon.setOnClickListener {
                 searchView.performClick()
             }
-            searchView.performClick()
+
             searchView.setOnClickListener {
                 val action =
                     JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
@@ -395,6 +401,77 @@ class JobRecruiterScreenFragment : Fragment() {
                 }
             })
             jobScreenViewPager.isUserInputEnabled = false
+
+            anyKeywordDeleteFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
+                anyKeywordFilterCv.visibility = View.GONE
+                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                    RecruiterJobFilterModel(
+                        anyKeywords = "",
+                        allKeywords = "${recruiterJobFilterModel?.allKeywords}",
+                        availability = "${recruiterJobFilterModel?.availability}",
+                        location = "${recruiterJobFilterModel?.location}",
+                        skillSet = "${recruiterJobFilterModel?.skillSet}",
+                    )
+                )
+            }
+
+            allKeywordDeleteFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
+                allKeywordFilterCv.visibility = View.GONE
+                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                    RecruiterJobFilterModel(
+                        anyKeywords = "${recruiterJobFilterModel?.anyKeywords}",
+                        allKeywords = "",
+                        availability = "${recruiterJobFilterModel?.availability}",
+                        location = "${recruiterJobFilterModel?.location}",
+                        skillSet = "${recruiterJobFilterModel?.skillSet}",
+                    )
+                )
+            }
+
+            availabilityDeleteFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
+                availabilityFilterCv.visibility = View.GONE
+                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                    RecruiterJobFilterModel(
+                        anyKeywords = "${recruiterJobFilterModel?.anyKeywords}",
+                        allKeywords = "${recruiterJobFilterModel?.allKeywords}",
+                        availability = "",
+                        location = "${recruiterJobFilterModel?.location}",
+                        skillSet = "${recruiterJobFilterModel?.skillSet}",
+                    )
+                )
+            }
+
+            locationDeleteFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
+                locationFilterCv.visibility = View.GONE
+                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                    RecruiterJobFilterModel(
+                        anyKeywords = "${recruiterJobFilterModel?.anyKeywords}",
+                        allKeywords = "${recruiterJobFilterModel?.allKeywords}",
+                        availability = "${recruiterJobFilterModel?.availability}",
+                        location = "",
+                        skillSet = "${recruiterJobFilterModel?.skillSet}",
+                    )
+                )
+            }
+
+            skillDeleteFilterIv.setOnClickListener {
+                numberOfAppliedFilter(--noOfSelectedFilter)
+                skillFilterCv.visibility = View.GONE
+                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                    RecruiterJobFilterModel(
+                        anyKeywords = "${recruiterJobFilterModel?.anyKeywords}",
+                        allKeywords = "${recruiterJobFilterModel?.allKeywords}",
+                        availability = "${recruiterJobFilterModel?.availability}",
+                        location = "${recruiterJobFilterModel?.location}",
+                        skillSet = "",
+                    )
+                )
+            }
+
         }
 
 
@@ -456,11 +533,61 @@ class JobRecruiterScreenFragment : Fragment() {
             }
         }
 
+        jobRecruiterViewModel.jobRecruiterFilterValues.observe(viewLifecycleOwner) { filterData ->
+            noOfSelectedFilter = 0
+            recruiterJobFilterModel = filterData
+            if (filterData.anyKeywords.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.anyKeywordFilterCv?.visibility = View.VISIBLE
+                binding?.anyKeywordFilterTv?.text = filterData.anyKeywords
+            }
+
+            if (filterData.allKeywords.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.allKeywordFilterCv?.visibility = View.VISIBLE
+                binding?.allKeywordFilterTv?.text = filterData.allKeywords
+            }
+
+            if (filterData.availability.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.availabilityFilterCv?.visibility = View.VISIBLE
+                binding?.availabilityFilterTv?.text = filterData.availability
+            }
+
+            if (filterData.location.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.locationFilterCv?.visibility = View.VISIBLE
+                binding?.locationFilterTv?.text = filterData.location
+            }
+
+            if (filterData.skillSet.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.skillFilterCv?.visibility = View.VISIBLE
+                binding?.skillFilterTv?.text = filterData.skillSet
+            }
+
+            if (filterData.anyKeywords.isNotEmpty() || filterData.allKeywords.isNotEmpty() || filterData.availability.isNotEmpty() || filterData.location.isNotEmpty() || filterData.skillSet.isNotEmpty()) {
+                isFilterEnable = true
+                binding?.selectedFilters?.visibility = View.VISIBLE
+                //binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
+            } else {
+                isFilterEnable = false
+                binding?.selectedFilters?.visibility = View.GONE
+                //binding?.numberOfSelectedFilterCv?.visibility = View.GONE
+            }
+
+            numberOfAppliedFilter(noOfSelectedFilter)
+
+        }
 
 
 
 
         return binding?.root
+    }
+
+    private fun numberOfAppliedFilter(value: Int) {
+        //binding?.numberOfSelectedFilterTv?.text = value.toString()
     }
 
     private fun addOnFloatingBtnClick() {

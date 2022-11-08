@@ -178,7 +178,7 @@
             android:scrollbars="none">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv1"
+                android:id="@+id/anyKeywordFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -194,7 +194,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText1"
+                    android:id="@+id/anyKeywordFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -207,7 +207,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv1"
+                    android:id="@+id/anyKeywordDeleteFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -218,7 +218,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv2"
+                android:id="@+id/allKeywordFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -234,7 +234,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText2"
+                    android:id="@+id/allKeywordFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -247,7 +247,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv2"
+                    android:id="@+id/allKeywordDeleteFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -258,7 +258,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv3"
+                android:id="@+id/availabilityFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -274,7 +274,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText3"
+                    android:id="@+id/availabilityFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -287,7 +287,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv3"
+                    android:id="@+id/availabilityDeleteFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -298,7 +298,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv4"
+                android:id="@+id/locationFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -314,7 +314,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText4"
+                    android:id="@+id/locationFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -327,7 +327,47 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv4"
+                    android:id="@+id/locationDeleteFilterIv"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/skillFilterCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/skillFilterTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/skillDeleteFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"

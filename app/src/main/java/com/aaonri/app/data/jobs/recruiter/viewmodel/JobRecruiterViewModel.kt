@@ -102,6 +102,8 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var allAvailabilityData: MutableLiveData<Resource<AvailabilityResponse>> = MutableLiveData()
 
+    var jobRecruiterFilterValues: MutableLiveData<RecruiterJobFilterModel> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -428,6 +430,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setSelectedAvailability(value: String) {
         selectedAvailability.postValue(value)
+    }
+
+    fun setJobRecruiterFilterValues(value: RecruiterJobFilterModel) {
+        jobRecruiterFilterValues.postValue(value)
     }
 
 

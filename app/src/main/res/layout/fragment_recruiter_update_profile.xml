@@ -140,7 +140,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
-                    android:hint="Phone No*"
+                    android:hint="Phone No.*"
                     android:inputType="phone"
                     android:lines="1"
                     android:maxLength="12"

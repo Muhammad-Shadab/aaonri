@@ -12,6 +12,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -702,7 +703,10 @@ class ClassifiedDetailsFragment : Fragment() {
                 isEmailAvailable = data.adEmail
                 isPhoneAvailable = ""
                 binding?.emailTv?.text = "Email"
-                binding?.classifiedSellerEmail?.text = data.adEmail
+                //binding?.classifiedSellerEmail?.text = data.adEmail
+                val content =  SpannableString(data.adEmail)
+                content.setSpan(UnderlineSpan(), 0, data.adEmail.length, 0);
+                binding?.classifiedSellerEmail?.setText(content)
             }
         } else {
             classifiedViewModel.getClassifiedSellerName(data.userId)
@@ -710,6 +714,9 @@ class ClassifiedDetailsFragment : Fragment() {
             isPhoneAvailable = data.adPhone
             binding?.emailTv?.text = "Phone"
             binding?.classifiedSellerEmail?.text = data.adPhone
+            val content =  SpannableString(data.adPhone)
+            content.setSpan(UnderlineSpan(), 0, data.adPhone.length, 0);
+            binding?.classifiedSellerEmail?.setText(content)
         }
 
         /*if (data.adEmail.isNotEmpty()) {

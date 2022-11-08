@@ -176,5 +176,6 @@ dependencies {
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
+    implementation 'com.github.iamageo:another-read-more-lib:1.0.0'
 
 }

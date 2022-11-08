@@ -31,10 +31,13 @@
         <item name="android:background">@drawable/arrow_down_spinner</item>
     </style>
 
-    <style name="ChipTextStyle_Selected">
+    <style name="ChipTextStyle_Selected_Custom">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="chipBackgroundColor">@color/blueBtnColor</item>
+        <item name="textStartPadding">0dp</item>
+        <item name="textEndPadding">0dp</item>
     </style>
+
 
 </resources>

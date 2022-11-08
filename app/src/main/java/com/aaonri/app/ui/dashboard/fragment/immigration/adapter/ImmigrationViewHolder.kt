@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -19,6 +18,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.iamageo.library.AnotherReadMore
 import java.time.format.DateTimeFormatter
 
 sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -127,9 +127,16 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
 
     class ImmigrationDetailScreenViewHolder(private val binding: ImmigrationReplyItemBinding) :
         ImmigrationViewHolder(binding) {
+
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
             val context = binding.discussionUserReplyTv.context
+
+            val anotherReadMore: AnotherReadMore =
+                AnotherReadMore.Builder(context).textLength(4, AnotherReadMore.TYPE_LINE)
+                    .moreLabel("+ See more")
+                    .lessLabel("- See less")
+                    .build()
 
             val nameParts =
                 discussionDetailsResponseItem.userFullName.trim().replace("  ", " ").split(" ")
@@ -148,7 +155,12 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
             binding.apply {
 
                 userNameTv.text = firstNameChar + lastNameChar
-                userReplyDescTv.setText(discussionDetailsResponseItem.replyDesc)
+                //userReplyDescTv.setText(discussionDetailsResponseItem.replyDesc)
+
+                anotherReadMore.addReadMoreTo(
+                    userReplyDescTv,
+                    discussionDetailsResponseItem.replyDesc
+                )
 
                 if (discussionDetailsResponseItem.userImage != null) {
                     Glide.with(context)

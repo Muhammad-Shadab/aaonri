@@ -42,8 +42,8 @@
                     android:id="@+id/userProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible"
-                    android:src="@drawable/profile_pic_placeholder"/>
+                    android:src="@drawable/profile_pic_placeholder"
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/userNameTv"
@@ -113,7 +113,7 @@
                 android:src="@drawable/replysolid" />
         </LinearLayout>
 
-        <com.borjabravo.readmoretextview.ReadMoreTextView
+        <!--<com.borjabravo.readmoretextview.ReadMoreTextView
             android:id="@+id/userReplyDescTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +126,19 @@
             app:trimCollapsedText="@string/see_more"
             app:trimExpandedText="@string/see_less"
             app:trimLines="4"
-            app:trimMode="trimModeLine" />
+            app:trimMode="trimModeLine" />-->
+
+        <TextView
+            android:id="@+id/userReplyDescTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:fontFamily="@font/sf_pro_regular"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            app:colorClickableText="#2f6ca8" />
+
 
         <View
             android:layout_width="match_parent"

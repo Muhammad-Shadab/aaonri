@@ -194,16 +194,13 @@ class ImmigrationDetailsFragment : Fragment() {
                     discussionTitle.text = it.discussionTopic
                     immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                     discussionNameTv.text = it.discussionTopic
-                    val content = SpannableString("${it.createdBy}")
-                    content.setSpan(UnderlineSpan(), 0, content.length, 0)
-                    postedByTv.setText(
-                        "Posted by: ${content} on ${
-                            DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                                .format(
-                                    DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn)
-                                )
-                        }"
-                    )
+                    val content = SpannableString("Posted by: ${it.createdBy} on ${DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        .format(
+                            DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn)
+                        )
+                    }")
+                    content.setSpan(UnderlineSpan(), 11, content.indexOf("on") - 1 , 0)
+                    postedByTv.setText(content)
                     discussionDesc.text = it.discussionDesc
                     noOfReply.text = it.noOfReplies.toString()
                     discussionDetailsLl.visibility = View.VISIBLE

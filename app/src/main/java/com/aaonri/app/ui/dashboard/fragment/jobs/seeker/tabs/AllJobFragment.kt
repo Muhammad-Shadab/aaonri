@@ -51,6 +51,7 @@ class AllJobFragment : Fragment() {
             recyclerViewAllJob.adapter = jobAdapter
         }
 
+
         jobSeekerViewModel.getAllActiveJobs()
 
         jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->

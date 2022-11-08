@@ -47,8 +47,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
     var addId = 0
     var deletedItemList = mutableListOf<UserAdsImage>()
     var imageIdToBeDeleted = ""
-    var isUserUploadedNewImages = false
     var imagesUriWhileUpdating = mutableListOf<Uri>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,8 +61,6 @@ class AddressDetailsClassifiedFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_PHONE_NUMBER, ""] }
         val city = context?.let { PreferenceManager<String>(it)[Constant.USER_CITY, ""] }
         val zipCode = context?.let { PreferenceManager<String>(it)[Constant.USER_ZIP_CODE, ""] }
-
-        //Toast.makeText(context, "$userPhoneNumber", Toast.LENGTH_SHORT).show()
 
         postClassifiedViewModel.addNavigationForStepper(ClassifiedConstant.ADDRESS_DETAILS_SCREEN)
 
@@ -184,8 +182,8 @@ class AddressDetailsClassifiedFragment : Fragment() {
                 activity?.let { view?.let { it1 -> SystemServiceUtil.closeKeyboard(it, it1) } }
                 if (p1) {
                     phoneTv.setTextColor(Color.parseColor("#333333"))
+                    phoneNumberAddressDetails.setText(userPhoneNumber)
                     phoneNumberAddressDetails.visibility = View.VISIBLE
-                    emailAddressBasicDetails.setText(userPhoneNumber)
                 } else {
                     phoneNumberAddressDetails.setText("")
                     phoneNumberAddressDetails.visibility = View.GONE

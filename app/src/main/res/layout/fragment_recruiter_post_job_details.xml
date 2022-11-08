@@ -104,7 +104,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/edit_text_shape"
                 android:fontFamily="@font/helvetica_regular"
-                android:hint="Contact Personal Email*"
+                android:hint="Contact Person Email*"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:maxLines="1"
