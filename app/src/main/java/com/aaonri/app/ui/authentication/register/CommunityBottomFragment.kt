@@ -35,7 +35,7 @@ class CommunityBottomFragment : BottomSheetDialogFragment() {
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     private var communityItemAdapter: CommunityItemAdapter? = null
     var selectedCommunitiesSize = 0
-    var communityAdapter: CommunityItemAdapter? = null
+    //var communityAdapter: CommunityItemAdapter? = null
     var tempArrayList = mutableListOf<CommunityAuth>()
 
     @SuppressLint("SetTextI18n")

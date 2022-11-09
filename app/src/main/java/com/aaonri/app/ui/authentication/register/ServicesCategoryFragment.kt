@@ -377,20 +377,22 @@ class ServicesCategoryFragment : Fragment() {
                                     false
                                 )
                             } else {
-                                dialog.setContentView(R.layout.success_register_dialog)
-                                dialog.window?.setBackgroundDrawable(
-                                    ContextCompat.getDrawable(
-                                        requireContext(),
-                                        R.drawable.dialog_shape
+                                if (!authCommonViewModel.isUpdateProfile){
+                                    dialog.setContentView(R.layout.success_register_dialog)
+                                    dialog.window?.setBackgroundDrawable(
+                                        ContextCompat.getDrawable(
+                                            requireContext(),
+                                            R.drawable.dialog_shape
+                                        )
                                     )
-                                )
-                                dialog.setCancelable(false)
-                                dialog.show()
-                                val continueBtn =
-                                    dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                                continueBtn.setOnClickListener {
-                                    dialog.dismiss()
-                                    activity?.finish()
+                                    dialog.setCancelable(false)
+                                    dialog.show()
+                                    val continueBtn =
+                                        dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                                    continueBtn.setOnClickListener {
+                                        dialog.dismiss()
+                                        activity?.finish()
+                                    }
                                 }
                             }
                         } else {
@@ -432,8 +434,8 @@ class ServicesCategoryFragment : Fragment() {
                     (CommunityAuth(
                         community.communityId,
                         community.communityName,
-                        community.createdDt,
-                        community.id
+                        /*community.createdDt,
+                        community.id*/
                     ))
                 )
             }
@@ -446,21 +448,24 @@ class ServicesCategoryFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    dialog.setContentView(R.layout.success_register_dialog)
-                    dialog.window?.setBackgroundDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.dialog_shape
+                    if (!authCommonViewModel.isUpdateProfile){
+                        dialog.setContentView(R.layout.success_register_dialog)
+                        dialog.window?.setBackgroundDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.dialog_shape
+                            )
                         )
-                    )
-                    dialog.setCancelable(false)
-                    dialog.show()
-                    val continueBtn =
-                        dialog.findViewById<TextView>(R.id.continueRegisterBtn)
-                    continueBtn.setOnClickListener {
-                        dialog.dismiss()
-                        activity?.finish()
+                        dialog.setCancelable(false)
+                        dialog.show()
+                        val continueBtn =
+                            dialog.findViewById<TextView>(R.id.continueRegisterBtn)
+                        continueBtn.setOnClickListener {
+                            dialog.dismiss()
+                            activity?.finish()
+                        }
                     }
+
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

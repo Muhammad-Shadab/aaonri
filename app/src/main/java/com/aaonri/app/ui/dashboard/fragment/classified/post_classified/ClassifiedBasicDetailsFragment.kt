@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -116,9 +118,9 @@ class ClassifiedBasicDetailsFragment : Fragment() {
                 }
             }
 
-            classifiedDescEt.addTextChangedListener { editable ->
+            /*classifiedDescEt.addTextChangedListener { editable ->
                 descLength.text = "${editable.toString().length}/2000"
-            }
+            }*/
 
             classifiedDescEt.setOnClickListener {
                 val intent = Intent(context, RichTextEditorActivity::class.java)

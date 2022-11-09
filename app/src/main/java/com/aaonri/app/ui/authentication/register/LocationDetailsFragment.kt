@@ -41,11 +41,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LocationDetailsFragment : Fragment() {
+    var binding: FragmentLocationDetailsBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    var binding: FragmentLocationDetailsBinding? = null
     var selectedCommunityAdapter: SelectedCommunityAdapter? = null
+    var selectedCommunity = mutableListOf<CommunityAuth>()
     var isCommunitySelected = false
     var isCountrySelected = false
 
@@ -84,14 +85,14 @@ class LocationDetailsFragment : Fragment() {
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
 
-                if (isCommunitySelected && selectCountryLocation.text.toString().isNotEmpty()) {
+                if (!authCommonViewModel.isUpdateProfile && isCommunitySelected && selectCountryLocation.text.toString().isNotEmpty()) {
                     authCommonViewModel.addOriginLocationDetails(
                         originState = stateLocationDetails.text.toString(),
                         originCity = cityLocationDetails.text.toString()
                     )
                     findNavController().navigate(R.id.action_locationDetailsFragment_to_servicesCategoryFragment)
                 } else if (authCommonViewModel.isUpdateProfile && selectCountryLocation.text.toString()
-                        .isNotEmpty()
+                        .isNotEmpty() && isCommunitySelected
                 ) {
                     updateProfile()
                 } else {
@@ -220,6 +221,7 @@ class LocationDetailsFragment : Fragment() {
 
         authCommonViewModel.selectedCommunityList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                selectedCommunity = it
                 isCommunitySelected = true
                 binding?.selectedCommunitySizeTv?.text =
                     "Your selected ${if (it.size <= 1) "community" else "communities"} (${it.size})"
@@ -335,7 +337,7 @@ class LocationDetailsFragment : Fragment() {
                     aliasName = it.aliasName,
                     authorized = true,
                     city = it.city,
-                    community = it.community,
+                    community = selectedCommunity,
                     companyEmail = it.companyEmail,
                     emailId = it.emailId,
                     firstName = it.firstName,

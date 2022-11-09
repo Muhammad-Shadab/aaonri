@@ -1,14 +1,15 @@
 package com.aaonri.app.ui.authentication.register.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.model.CommunityAuth
 import com.aaonri.app.databinding.CommunityItemBinding
-import com.aaonri.app.utils.SystemServiceUtil
 
 
 class CommunityItemAdapter(private var selectedCommunity: ((value: List<CommunityAuth>) -> Unit)? = null) :
@@ -27,6 +28,10 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.binding.communityText.text = data[position].communityName
+
+        if (position <= 2){
+            Log.i("communityText", "onBindViewHolder: ${selectedCommunityList.get(0)} and \n${data.get(0)}")
+        }
 
         if (selectedCommunityList.contains(data[position])) {
             holder.binding.communityText.setBackgroundColor(
