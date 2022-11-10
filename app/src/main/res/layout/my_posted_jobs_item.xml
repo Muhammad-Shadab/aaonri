@@ -128,7 +128,7 @@
                             android:maxLines="1"
                             android:text="New York, NY, USA"
                             android:textColor="#797979"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/experienceTv"
@@ -144,7 +144,7 @@
                             android:maxLines="1"
                             android:text="3 to 5 Years"
                             android:textColor="#797979"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/jobPriceTv"

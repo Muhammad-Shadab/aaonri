@@ -324,6 +324,7 @@ class AdvertiseScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
+            /** close keyboeard while scrolling**/
             recyclerViewAdvertise.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -416,12 +417,12 @@ class AdvertiseScreenFragment : Fragment() {
             if (it) {
                 binding?.loginToViewAdvertisement?.visibility = View.VISIBLE
                 binding?.yourText?.visibility = View.GONE
-                binding?.postingofAdTv?.visibility = View.GONE
+                //binding?.postingofAdTv?.visibility = View.GONE
                 binding?.recyclerViewAdvertise?.visibility = View.GONE
             } else {
                 binding?.loginToViewAdvertisement?.visibility = View.GONE
                 binding?.yourText?.visibility = View.VISIBLE
-                binding?.postingofAdTv?.visibility = View.VISIBLE
+                //binding?.postingofAdTv?.visibility = View.VISIBLE
                 binding?.recyclerViewAdvertise?.visibility = View.VISIBLE
                 //classifiedDetailsBinding?.bottomViewForSpace?.visibility = View.VISIBLE
             }

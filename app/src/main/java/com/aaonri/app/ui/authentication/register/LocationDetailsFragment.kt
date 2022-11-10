@@ -243,8 +243,8 @@ class LocationDetailsFragment : Fragment() {
                 //binding?.selectCountryOrigin?.isEnabled = false
                 binding?.stateLocationDetails?.setText(it.originState)
                 binding?.cityLocationDetails?.setText(it.originCity)
-                //authCommonViewModel.addCommunityList(it.community as MutableList<CommunityAuth>)
-                binding?.selectCommunityEt?.visibility = View.GONE
+                authCommonViewModel.addCommunityList(it.community as MutableList<CommunityAuth>)
+                //binding?.selectCommunityEt?.visibility = View.GONE
                 binding?.locationDetailsNextBtn?.text = "UPDATE"
 
             }

@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.post_immigration
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -7,13 +8,14 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.method.ScrollingMovementMethod
 import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,7 @@ import com.aaonri.app.data.immigration.model.PostDiscussionRequest
 import com.aaonri.app.data.immigration.model.UpdateDiscussionRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentPostImmigrationBinding
+import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -37,6 +40,20 @@ class PostImmigrationFragment : Fragment() {
     var discussionCategoryResponseItem: DiscussionCategoryResponseItem? = null
     val args: PostImmigrationFragmentArgs by navArgs()
     var discussionData: Discussion? = null
+    var description: String? = ""
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    binding?.immigrationDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    binding?.immigrationDescEt?.text = ""
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,6 +109,16 @@ class PostImmigrationFragment : Fragment() {
             privacyPolicyTv.text = ss
             privacyPolicyTv.movementMethod = LinkMovementMethod.getInstance()
 
+            immigrationDescEt.textSize = 16F
+            immigrationDescEt.setMovementMethod(ScrollingMovementMethod())
+
+            immigrationDescEt.setOnClickListener {
+                val intent = Intent(context, RichTextEditorActivity::class.java)
+                intent.putExtra("data", description)
+                intent.putExtra("placeholder", "Describe the purpose of your discussion*")
+                resultLauncher.launch(intent)
+            }
+
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -107,7 +134,7 @@ class PostImmigrationFragment : Fragment() {
             submitBtn.setOnClickListener {
                 if (discussionTopicEt.text.toString().length >= 3) {
                     if (selectImmigrationCategory.text.toString().isNotEmpty()) {
-                        if (descEt.text.toString().length >= 3) {
+                        if (immigrationDescEt.text.toString().trim().length >= 3) {
                             if (agreeCheckbox.isChecked) {
                                 if (args.isUpdateImmigration) {
                                     /*immigrationViewModel.setIsNavigateBackFromAllImmigrationDetailScreen(
@@ -119,7 +146,8 @@ class PostImmigrationFragment : Fragment() {
                                     immigrationViewModel.updateDiscussion(
                                         UpdateDiscussionRequest(
                                             discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else if (discussionData?.discCatId != null) discussionData!!.discCatId else 0,
-                                            discussionDesc = descEt.text.toString(),
+                                            discussionDesc = if (description?.isNotEmpty() == true) description!!.trim() else immigrationDescEt.text.toString()
+                                                .trim(),
                                             discussionTopic = discussionTopicEt.text.toString(),
                                             userId = email ?: "",
                                             discussionId = if (discussionData?.discussionId != null) discussionData?.discussionId!! else 0
@@ -135,7 +163,8 @@ class PostImmigrationFragment : Fragment() {
                                     immigrationViewModel.postDiscussion(
                                         PostDiscussionRequest(
                                             discCatId = if (discussionCategoryResponseItem?.discCatId != null) discussionCategoryResponseItem!!.discCatId else 0,
-                                            discussionDesc = descEt.text.toString(),
+                                            discussionDesc = if (description?.isNotEmpty() == true) description!!.trim() else immigrationDescEt.text.toString()
+                                                .trim(),
                                             discussionTopic = discussionTopicEt.text.toString(),
                                             userId = email ?: ""
                                         )
@@ -161,13 +190,10 @@ class PostImmigrationFragment : Fragment() {
                     discussionData = discussion
                     discussionTopicEt.setText(discussion.discussionTopic)
                     selectImmigrationCategory.text = discussion.discCatValue
-                    descEt.setText(discussion.discussionDesc)
+                    immigrationDescEt.fromHtml(discussion.discussionDesc)
                 }
             }
 
-            descEt.addTextChangedListener { editable ->
-                descLength.text = "${editable.toString().length}/2000"
-            }
 
         }
 

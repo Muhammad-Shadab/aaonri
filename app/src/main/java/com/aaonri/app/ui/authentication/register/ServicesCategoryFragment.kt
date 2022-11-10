@@ -345,7 +345,9 @@ class ServicesCategoryFragment : Fragment() {
                 binding?.visibilityCardView?.visibility = View.GONE
                 binding?.isRecruiterCheckBox?.isChecked = false
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
-                binding?.privacyPolicyRegistrationTv?.visibility = View.VISIBLE
+                if (!authCommonViewModel.isUpdateProfile) {
+                    binding?.privacyPolicyRegistrationTv?.visibility = View.VISIBLE
+                }
                 binding?.servicesGridRecyclerView?.margin(bottom = 0f)
                 binding?.serviceSubmitBtn?.setBackgroundResource(R.drawable.green_btn_shape)
             } else {
@@ -377,7 +379,7 @@ class ServicesCategoryFragment : Fragment() {
                                     false
                                 )
                             } else {
-                                if (!authCommonViewModel.isUpdateProfile){
+                                if (!authCommonViewModel.isUpdateProfile) {
                                     dialog.setContentView(R.layout.success_register_dialog)
                                     dialog.window?.setBackgroundDrawable(
                                         ContextCompat.getDrawable(
@@ -448,7 +450,7 @@ class ServicesCategoryFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    if (!authCommonViewModel.isUpdateProfile){
+                    if (!authCommonViewModel.isUpdateProfile) {
                         dialog.setContentView(R.layout.success_register_dialog)
                         dialog.window?.setBackgroundDrawable(
                             ContextCompat.getDrawable(

@@ -13,12 +13,12 @@ import com.aaonri.app.data.immigration.model.*
 import com.aaonri.app.databinding.*
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.ReadMoreTextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.iamageo.library.AnotherReadMore
 import java.time.format.DateTimeFormatter
 
 sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -79,7 +79,7 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
                     context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
                 discussionNameTv.text = discussion.discussionTopic
-                discussionDesc.text = discussion.discussionDesc
+                discussionDesc.text = Html.fromHtml(discussion.discussionDesc.trim())
                 postedByTv.text = "Posted by: ${discussion.createdBy}, ${
                     DateTimeFormatter.ofPattern("MM-dd-yyyy")
                         .format(
@@ -132,10 +132,11 @@ sealed class ImmigrationViewHolder(binding: ViewBinding) : RecyclerView.ViewHold
         fun bind(discussionDetailsResponseItem: DiscussionDetailsResponseItem) {
             val context = binding.discussionUserReplyTv.context
 
-            val anotherReadMore: AnotherReadMore =
-                AnotherReadMore.Builder(context).textLength(4, AnotherReadMore.TYPE_LINE)
-                    .moreLabel("+ See more")
-                    .lessLabel("- See less")
+            val anotherReadMore: ReadMoreTextView =
+                ReadMoreTextView.Builder(context)
+                    .textLength(170, ReadMoreTextView.TYPE_LINE)
+                    .moreLabel("\n+ See more")
+                    .lessLabel("\n- See less")
                     .build()
 
             val nameParts =

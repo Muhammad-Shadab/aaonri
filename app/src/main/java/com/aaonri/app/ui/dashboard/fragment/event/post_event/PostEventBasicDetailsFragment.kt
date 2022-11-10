@@ -79,8 +79,8 @@ class PostEventBasicDetailsFragment : Fragment() {
         binding?.apply {
 
             eventDescEt.textSize = 16F
-
             eventDescEt.setMovementMethod(ScrollingMovementMethod())
+
             askingFee.filters = arrayOf(DecimalDigitsInputFilter(2))
 
             addressDetailsNextBtn.setOnClickListener {

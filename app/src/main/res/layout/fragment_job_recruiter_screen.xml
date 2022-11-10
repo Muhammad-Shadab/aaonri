@@ -382,7 +382,6 @@
 
     </HorizontalScrollView>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -426,126 +425,165 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchTalentBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_14sdp"
-        android:backgroundTint="#40BC82"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hideBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:elevation="@dimen/_8sdp"
         android:visibility="gone"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@id/floatingActionBtnClassified"
-        app:layout_constraintEnd_toEndOf="@id/floatingActionBtnClassified">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchTalentBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_3sdp">
+            android:layout_marginBottom="@dimen/_14sdp"
+            android:backgroundTint="#40BC82"
+            android:translationZ="90dp"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@id/floatingActionBtnClassified"
+            app:layout_constraintEnd_toEndOf="@id/floatingActionBtnClassified">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/search_icon_white" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:fontFamily="@font/helvetica_regular"
-                android:text="Search The Talent"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/search_icon_white" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:text="Search The Talent"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
 
-    </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/uploadConsultantProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:backgroundTint="#40BC82"
-        android:visibility="gone"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@id/searchTalentBtn"
-        app:layout_constraintEnd_toEndOf="@id/floatingActionBtnClassified">
+        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/uploadConsultantProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_3sdp">
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:backgroundTint="#40BC82"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@id/searchTalentBtn"
+            app:layout_constraintEnd_toEndOf="@id/floatingActionBtnClassified">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/upload_icon" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:fontFamily="@font/helvetica_regular"
-                android:text="Upload Consultant Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/upload_icon" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:text="Upload Consultant Profile"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
 
-    </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/postAJob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:backgroundTint="#40BC82"
-        android:visibility="gone"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@id/uploadConsultantProfile"
-        app:layout_constraintEnd_toEndOf="@id/uploadConsultantProfile">
+        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/postAJob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_3sdp">
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:backgroundTint="#40BC82"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@id/uploadConsultantProfile"
+            app:layout_constraintEnd_toEndOf="@id/uploadConsultantProfile">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/plus_icon_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:fontFamily="@font/helvetica_regular"
+                    android:text="Post A Job"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/floatingActionBtnClassified"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/greenBtnColor"
+            app:cardElevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/circle"
+            app:strokeColor="@color/white"
+            app:strokeWidth="@dimen/_4sdp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/plus_icon_small" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/plus" />
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:fontFamily="@font/helvetica_regular"
-                android:text="Post A Job"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/floatingActionBtnClassified"
+        android:id="@+id/floatingActionBtn"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
+        android:elevation="@dimen/_10sdp"
         app:cardBackgroundColor="@color/greenBtnColor"
         app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -562,18 +600,6 @@
             android:src="@drawable/plus" />
     </com.google.android.material.card.MaterialCardView>
 
-    <View
-        android:id="@+id/hideBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#BA707070"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"

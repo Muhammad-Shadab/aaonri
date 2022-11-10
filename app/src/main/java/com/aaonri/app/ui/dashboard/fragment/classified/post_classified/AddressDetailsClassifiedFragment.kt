@@ -115,7 +115,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         }
 
         ss.setSpan(clickableSpan1, 174, 201, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss1.setSpan(clickableSpan2, 86, 107, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss1.setSpan(clickableSpan2, 86, 108, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         val SpanString = SpannableString(
             resources.getString(R.string.by_posting_an_ad)

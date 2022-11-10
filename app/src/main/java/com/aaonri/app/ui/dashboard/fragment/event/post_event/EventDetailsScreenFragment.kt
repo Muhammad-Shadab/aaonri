@@ -303,87 +303,84 @@ class EventDetailsScreenFragment : Fragment() {
                 }
             }
             calendarBtn.setOnClickListener {
-                if (isUserLogin == true) {
-                    try {
-                        val mSimpleDateFormat =
-                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-                        when (eventTimeZone) {
-                            "EST" -> eventTimeZone = "America/New_York"
-                            "PST" -> eventTimeZone = "America/Los_Angeles"
-                            "CST" -> eventTimeZone = "America/Chicago"
-                            "MST" -> eventTimeZone = "America/Edmonton"
-                        }
-
-                        mSimpleDateFormat.timeZone = TimeZone.getTimeZone(eventTimeZone)
-                        val mStartTime = mSimpleDateFormat.parse(startDate)
-                        val mEndTime = mSimpleDateFormat.parse(endDate)
-                        val mSimpleDateFormat1 =
-                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-                        mSimpleDateFormat1.timeZone =
-                            TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
-                        val changedStartTime = mSimpleDateFormat1.format(mStartTime)
-                        val changedEndTime = mSimpleDateFormat1.format(mEndTime)
-
-                        Log.e("data", changedStartTime)
-                        val mIntent = Intent(Intent.ACTION_EDIT)
-                        mIntent.type = "vnd.android.cursor.item/event"
-                        mIntent.putExtra(
-                            "beginTime",
-                            mSimpleDateFormat1.parse(changedStartTime).time
-                        )
-                        mIntent.putExtra("time", true)
-                        mIntent.putExtra("rule", "FREQ=YEARLY")
-                        mIntent.putExtra(
-                            "endTime",
-                            mSimpleDateFormat1.parse(changedEndTime).time
-                        )
-                        mIntent.putExtra("title", eventTitleName)
-                        mIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationText)
-                        startActivity(mIntent)
-                    } catch (e: Exception) {
-
+                try {
+                    val mSimpleDateFormat =
+                        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+                    when (eventTimeZone) {
+                        "EST" -> eventTimeZone = "America/New_York"
+                        "PST" -> eventTimeZone = "America/Los_Angeles"
+                        "CST" -> eventTimeZone = "America/Chicago"
+                        "MST" -> eventTimeZone = "America/Edmonton"
                     }
+
+                    mSimpleDateFormat.timeZone = TimeZone.getTimeZone(eventTimeZone)
+                    val mStartTime = mSimpleDateFormat.parse(startDate)
+                    val mEndTime = mSimpleDateFormat.parse(endDate)
+                    val mSimpleDateFormat1 =
+                        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+                    mSimpleDateFormat1.timeZone =
+                        TimeZone.getTimeZone(TimeZone.getDefault().toZoneId())
+                    val changedStartTime = mSimpleDateFormat1.format(mStartTime)
+                    val changedEndTime = mSimpleDateFormat1.format(mEndTime)
+
+                    Log.e("data", changedStartTime)
+                    val mIntent = Intent(Intent.ACTION_EDIT)
+                    mIntent.type = "vnd.android.cursor.item/event"
+                    mIntent.putExtra(
+                        "beginTime",
+                        mSimpleDateFormat1.parse(changedStartTime).time
+                    )
+                    mIntent.putExtra("time", true)
+                    mIntent.putExtra("rule", "FREQ=YEARLY")
+                    mIntent.putExtra(
+                        "endTime",
+                        mSimpleDateFormat1.parse(changedEndTime).time
+                    )
+                    mIntent.putExtra("title", eventTitleName)
+                    mIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationText)
+                    startActivity(mIntent)
+                } catch (e: Exception) {
+
+                }
+                /*if (isUserLogin == true) {
+
                 } else {
                     guestUserLoginDialog.show()
-                }
+                }*/
 
             }
 
             shareBtn.setOnClickListener {
-                if (isUserLogin == true) {
 
-                    /*AsyncTask.execute {*/
-                    try {
-                        /*val url = URL(image1Link)
-                        var connection: HttpURLConnection? = null
-                        connection = url.openConnection() as HttpURLConnection?
-                        connection!!.connect()
-                        var inputStream: InputStream? = null
-                        inputStream = connection.inputStream*/
-                        val myBitmap = addImage.drawable.toBitmap()
-                        val share = Intent(Intent.ACTION_SEND)
-                        share.type = "Image/jpeg"
-                        share.type = "text/html"
-                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                        val shareSub = "${baseUrl}/events/details/${args.eventId}"
-                        share.putExtra(Intent.EXTRA_TEXT, shareSub)
-                        val bytes = ByteArrayOutputStream()
-                        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                        val path = MediaStore.Images.Media.insertImage(
-                            activity?.getContentResolver(),
-                            myBitmap,
-                            "Title",
-                            null
-                        )
-                        val imageUri = Uri.parse(path)
-                        share.putExtra(Intent.EXTRA_STREAM, imageUri)
-                        activity?.startActivity(Intent.createChooser(share, "Select"))
-                    } catch (e: Exception) {
+                try {
+                    val myBitmap = addImage.drawable.toBitmap()
+                    val share = Intent(Intent.ACTION_SEND)
+                    share.type = "Image/jpeg"
+                    share.type = "text/html"
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/events/details/${args.eventId}"
+                    share.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    val bytes = ByteArrayOutputStream()
+                    myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(
+                        activity?.getContentResolver(),
+                        myBitmap,
+                        "Title",
+                        null
+                    )
+                    val imageUri = Uri.parse(path)
+                    share.putExtra(Intent.EXTRA_STREAM, imageUri)
+                    activity?.startActivity(Intent.createChooser(share, "Select"))
+                } catch (e: Exception) {
 
-                    }
-                    /*}*/
+                }
 
-                    /*val bitmap = addImage.drawable.toBitmap()
+                /*if (isUserLogin == true) {
+
+
+                    *//*}*//*
+
+                    *//*val bitmap = addImage.drawable.toBitmap()
                     val shareIntent: Intent
                     var path =
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -407,10 +404,10 @@ class EventDetailsScreenFragment : Fragment() {
                     val shareSub = "${baseUrl}/events/details/${args.eventId}"
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
-                    startActivity(Intent.createChooser(shareIntent, "Share with"))*/
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))*//*
                 } else {
                     guestUserLoginDialog.show()
-                }
+                }*/
             }
 
             image1CardView.setOnClickListener {

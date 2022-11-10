@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.immigration.fragment
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
@@ -8,22 +9,25 @@ import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.immigration.model.*
@@ -46,6 +50,7 @@ class ImmigrationDetailsFragment : Fragment() {
     var immigrationAdapter: ImmigrationAdapter? = null
     var discussion: Discussion? = null
     var callAllImmigrationApi = false
+    var layoutManager: LinearLayoutManager? = null
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -91,6 +96,8 @@ class ImmigrationDetailsFragment : Fragment() {
 
         immigrationAdapter = ImmigrationAdapter()
 
+        layoutManager = LinearLayoutManager(context)
+
         binding?.apply {
 
             if (isUserLogin == false) {
@@ -117,14 +124,14 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationAdapter?.openUserProfile = { item ->
                 if (item is DiscussionDetailsResponseItem) {
-                    if (userId != item.createdBy){
+                    if (userId != item.createdBy) {
                         val action =
                             ImmigrationDetailsFragmentDirections.actionImmigrationDetailsFragmentToReportUserFragment(
                                 item.createdBy, item.userFullName, item.userEmail,
                                 item.userImage ?: ""
                             )
                         findNavController().navigate(action)
-                    }else{
+                    } else {
                         findNavController().navigate(R.id.action_immigrationDetailsFragment_to_updateProfileFragment)
                     }
                 }
@@ -132,12 +139,24 @@ class ImmigrationDetailsFragment : Fragment() {
 
             immigrationAdapter?.deleteReplyClickListener = { item ->
                 if (item is DiscussionDetailsResponseItem) {
-                    immigrationViewModel.deleteImmigrationReply(
-                        DeleteReplyRequest(
-                            discRepliesId = item.discRepliesId.toString(),
-                            DiscussionX(item.discussionId)
+
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Confirm")
+                    builder.setMessage("Are you sure you want to delete this comment?")
+                    builder.setPositiveButton("Delete") { dialog, which ->
+                        immigrationViewModel.deleteImmigrationReply(
+                            DeleteReplyRequest(
+                                discRepliesId = item.discRepliesId.toString(),
+                                DiscussionX(item.discussionId)
+                            )
                         )
-                    )
+                    }
+                    builder.setNegativeButton("Cancel") { dialog, which ->
+
+                    }
+                    builder.show()
+
+
                 }
             }
 
@@ -173,7 +192,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 }
             }
 
-            allReplyRv.layoutManager = LinearLayoutManager(context)
+            allReplyRv.layoutManager = layoutManager
             allReplyRv.adapter = immigrationAdapter
 
             immigrationViewModel.selectedDiscussionItem.observe(viewLifecycleOwner) {
@@ -194,14 +213,17 @@ class ImmigrationDetailsFragment : Fragment() {
                     discussionTitle.text = it.discussionTopic
                     immigrationViewModel.getDiscussionDetailsById(it.discussionId.toString())
                     discussionNameTv.text = it.discussionTopic
-                    val content = SpannableString("Posted by: ${it.createdBy} on ${DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                        .format(
-                            DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn)
-                        )
-                    }")
-                    content.setSpan(UnderlineSpan(), 11, content.indexOf("on") - 1 , 0)
+                    val content = SpannableString(
+                        "Posted by: ${it.createdBy} on ${
+                            DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                                .format(
+                                    DateTimeFormatter.ofPattern("dd-MMM-yyyy").parse(it.createdOn)
+                                )
+                        }"
+                    )
+                    content.setSpan(UnderlineSpan(), 11, content.indexOf("on") - 1, 0)
                     postedByTv.setText(content)
-                    discussionDesc.text = it.discussionDesc
+                    discussionDesc.text = Html.fromHtml(it.discussionDesc.trim())
                     noOfReply.text = it.noOfReplies.toString()
                     discussionDetailsLl.visibility = View.VISIBLE
                 }
@@ -262,6 +284,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 return@setOnTouchListener true
             }
 
+
         }
 
         binding?.postReplyEt?.addTextChangedListener { editable ->
@@ -297,7 +320,7 @@ class ImmigrationDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     binding?.discussionDetailsLl?.visibility = View.VISIBLE
-                    binding?.noOfReply?.text = response.data?.size.toString()
+
                     response.data?.let { it ->
                         immigrationAdapter?.setData(it.filter {
                             blockedUsersId?.contains(
@@ -305,6 +328,21 @@ class ImmigrationDetailsFragment : Fragment() {
                             ) == false
                         })
                     }
+
+
+                    response.data?.size?.let {
+                        binding?.noOfReply?.text = it.toString()
+
+
+                        binding?.immigrationNestedScroll?.post {
+                            binding?.allReplyRv?.bottom?.let { it1 ->
+                                binding?.immigrationNestedScroll?.smoothScrollTo(0,
+                                    it1
+                                )
+                            }
+                        }
+                    }
+
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -342,6 +380,7 @@ class ImmigrationDetailsFragment : Fragment() {
 
         return binding?.root
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

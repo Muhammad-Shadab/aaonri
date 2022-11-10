@@ -241,61 +241,70 @@ class BasicDetailsFragment : Fragment() {
                 if (firstName.toString().length >= 3 && lastName.toString().length >= 3) {
                     if (authCommonViewModel.isNewUserRegisterUsingGmail) {
                         findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
-                    } else if (isEmailValid && isPasswordValid) {
-                        authCommonViewModel.addBasicDetails(
-                            firstName.toString(),
-                            lastName.toString(),
-                            emailAddress.toString(),
-                            password.toString()
-                        )
-                        if (authCommonViewModel.isUpdateProfile) {
-                            if (!profile.startsWith("htt") && profile.isNotEmpty()) {
-                                authCommonViewModel.setProfilePicUriValue(profile.toUri())
-                            }
-                            UserProfileStaticData.getUserProfileDataValue()?.let {
-                                registrationViewModel.updateProfile(
-                                    UpdateProfileRequest(
-                                        activeUser = true,
-                                        address1 = it.address1,
-                                        address2 = it.address2,
-                                        aliasName = it.aliasName,
-                                        authorized = true,
-                                        city = it.city,
-                                        community = it.community,
-                                        companyEmail = it.companyEmail,
-                                        emailId = it.emailId,
-                                        firstName = firstNameBasicDetails.text.toString(),
-                                        interests = it.interests,
-                                        isAdmin = 0,
-                                        isFullNameAsAliasName = it.isFullNameAsAliasName,
-                                        isJobRecruiter = it.isJobRecruiter,
-                                        isPrimeUser = false,
-                                        isSurveyCompleted = false,
-                                        lastName = lastNameBasicDetails.text.toString(),
-                                        newsletter = false,
-                                        originCity = it.originCity,
-                                        originCountry = it.originCountry,
-                                        originState = it.originState,
-                                        password = it.password,
-                                        phoneNo = it.phoneNo,
-                                        regdEmailSent = false,
-                                        registeredBy = "manual",
-                                        userName = it.userName,
-                                        zipcode = it.zipcode,
-                                        state = it.state,
-                                        userType = it.userType,
-                                        country = it.country
+                    } else if (isEmailValid) {
+                        if (isPasswordValid) {
+                            authCommonViewModel.addBasicDetails(
+                                firstName.toString(),
+                                lastName.toString(),
+                                emailAddress.toString(),
+                                password.toString()
+                            )
+                            if (authCommonViewModel.isUpdateProfile) {
+                                if (!profile.startsWith("htt") && profile.isNotEmpty()) {
+                                    authCommonViewModel.setProfilePicUriValue(profile.toUri())
+                                }
+                                UserProfileStaticData.getUserProfileDataValue()?.let {
+                                    registrationViewModel.updateProfile(
+                                        UpdateProfileRequest(
+                                            activeUser = true,
+                                            address1 = it.address1,
+                                            address2 = it.address2,
+                                            aliasName = it.aliasName,
+                                            authorized = true,
+                                            city = it.city,
+                                            community = it.community,
+                                            companyEmail = it.companyEmail,
+                                            emailId = it.emailId,
+                                            firstName = firstNameBasicDetails.text.toString(),
+                                            interests = it.interests,
+                                            isAdmin = 0,
+                                            isFullNameAsAliasName = it.isFullNameAsAliasName,
+                                            isJobRecruiter = it.isJobRecruiter,
+                                            isPrimeUser = false,
+                                            isSurveyCompleted = false,
+                                            lastName = lastNameBasicDetails.text.toString(),
+                                            newsletter = false,
+                                            originCity = it.originCity,
+                                            originCountry = it.originCountry,
+                                            originState = it.originState,
+                                            password = it.password,
+                                            phoneNo = it.phoneNo,
+                                            regdEmailSent = false,
+                                            registeredBy = "manual",
+                                            userName = it.userName,
+                                            zipcode = it.zipcode,
+                                            state = it.state,
+                                            userType = it.userType,
+                                            country = it.country
+                                        )
                                     )
-                                )
+                                }
+                            } else {
+                                findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
                             }
                         } else {
-                            findNavController().navigate(R.id.action_basicDetailsFragment_to_addressDetailsFragment)
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    "Please enter valid password", Snackbar.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     } else {
                         activity?.let { it1 ->
                             Snackbar.make(
                                 it1.findViewById(android.R.id.content),
-                                "Please complete all details", Snackbar.LENGTH_LONG
+                                "Please enter valid email", Snackbar.LENGTH_LONG
                             ).show()
                         }
                     }

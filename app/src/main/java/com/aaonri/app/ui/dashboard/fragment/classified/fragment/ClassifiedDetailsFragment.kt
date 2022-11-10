@@ -260,41 +260,36 @@ class ClassifiedDetailsFragment : Fragment() {
             }
 
             shareBtn.setOnClickListener {
-                if (isUserLogin == true) {
 
-                    /*AsyncTask.execute {*/
-                    try {
-                        /*val url = URL(image1Link)
-                        var connection: HttpURLConnection? = null
-                        connection = url.openConnection() as HttpURLConnection?
-                        connection!!.connect()
-                        var inputStream: InputStream? = null
-                        inputStream = connection.inputStream*/
-                        val myBitmap = addImage.drawable.toBitmap()
-                        val share = Intent(Intent.ACTION_SEND)
-                        share.type = "Image/jpeg"
-                        share.type = "text/html"
-                        val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
-                        val shareSub = "${baseUrl}/classified/details/${args.addId}"
-                        share.putExtra(Intent.EXTRA_TEXT, shareSub)
-                        val bytes = ByteArrayOutputStream()
-                        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                        val path = MediaStore.Images.Media.insertImage(
-                            activity?.getContentResolver(),
-                            myBitmap,
-                            "Title",
-                            null
-                        )
-                        val imageUri = Uri.parse(path)
-                        share.putExtra(Intent.EXTRA_STREAM, imageUri)
-                        activity?.startActivity(Intent.createChooser(share, "Select"))
-                    } catch (e: Exception) {
+                try {
+                    val myBitmap = addImage.drawable.toBitmap()
+                    val share = Intent(Intent.ACTION_SEND)
+                    share.type = "Image/jpeg"
+                    share.type = "text/html"
+                    val baseUrl = BuildConfig.BASE_URL.replace(":8444", "")
+                    val shareSub = "${baseUrl}/classified/details/${args.addId}"
+                    share.putExtra(Intent.EXTRA_TEXT, shareSub)
+                    val bytes = ByteArrayOutputStream()
+                    myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(
+                        activity?.getContentResolver(),
+                        myBitmap,
+                        "Title",
+                        null
+                    )
+                    val imageUri = Uri.parse(path)
+                    share.putExtra(Intent.EXTRA_STREAM, imageUri)
+                    activity?.startActivity(Intent.createChooser(share, "Select"))
+                } catch (e: Exception) {
 
-                    }
-                    /*}*/
+                }
+
+                /*if (isUserLogin == true) {
 
 
-                    /*val bitmap = addImage.drawable.toBitmap()
+
+
+                    *//*val bitmap = addImage.drawable.toBitmap()
                     val shareIntent: Intent
                     var path =
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -318,10 +313,10 @@ class ClassifiedDetailsFragment : Fragment() {
                     val shareSub = "${baseUrl}/classified/details/${args.addId}"
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                     shareIntent.type = "image/png"
-                    startActivity(Intent.createChooser(shareIntent, "Share with"))*/
+                    startActivity(Intent.createChooser(shareIntent, "Share with"))*//*
                 } else {
                     guestUserLoginDialog.show()
-                }
+                }*/
             }
 
             image1CardView.setOnClickListener {
@@ -704,7 +699,7 @@ class ClassifiedDetailsFragment : Fragment() {
                 isPhoneAvailable = ""
                 binding?.emailTv?.text = "Email"
                 //binding?.classifiedSellerEmail?.text = data.adEmail
-                val content =  SpannableString(data.adEmail)
+                val content = SpannableString(data.adEmail)
                 content.setSpan(UnderlineSpan(), 0, data.adEmail.length, 0);
                 binding?.classifiedSellerEmail?.setText(content)
             }
@@ -714,7 +709,7 @@ class ClassifiedDetailsFragment : Fragment() {
             isPhoneAvailable = data.adPhone
             binding?.emailTv?.text = "Phone"
             binding?.classifiedSellerEmail?.text = data.adPhone
-            val content =  SpannableString(data.adPhone)
+            val content = SpannableString(data.adPhone)
             content.setSpan(UnderlineSpan(), 0, data.adPhone.length, 0);
             binding?.classifiedSellerEmail?.setText(content)
         }

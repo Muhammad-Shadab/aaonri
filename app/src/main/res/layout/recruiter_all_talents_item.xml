@@ -130,7 +130,8 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
                             android:text="New York, NY, USA"
-                            android:textColor="#797979" />
+                            android:textColor="#797979"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/experienceTv"
@@ -143,7 +144,8 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
                             android:text="3 to 5 Years"
-                            android:textColor="#797979" />
+                            android:textColor="#797979"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton

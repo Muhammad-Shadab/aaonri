@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.animation.Animation
@@ -12,6 +13,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -76,6 +78,7 @@ class JobRecruiterScreenFragment : Fragment() {
     private val tabTitles =
         arrayListOf("All Talents", "My Posted Jobs", "Consultant Profile")
 
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,6 +86,7 @@ class JobRecruiterScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentJobRecruiterScreenBinding.inflate(inflater, container, false)
+
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
@@ -306,11 +310,19 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             context?.let {
-                Glide.with(it).load(profile).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true).centerCrop().error(R.drawable.profile_pic_placeholder)
+                Glide.with(it)
+                    .load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder)
                     .into(profilePicIv)
             }
 
+
+            floatingActionBtn.setOnClickListener {
+                floatingActionBtnClassified.performClick()
+
+            }
 
             floatingActionBtnClassified.setOnClickListener {
                 addOnFloatingBtnClick()
@@ -471,6 +483,7 @@ class JobRecruiterScreenFragment : Fragment() {
                     )
                 )
             }
+
 
         }
 

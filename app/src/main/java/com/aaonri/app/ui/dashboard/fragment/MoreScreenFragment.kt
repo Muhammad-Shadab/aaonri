@@ -70,14 +70,14 @@ class MoreScreenFragment : Fragment() {
                     findNavController().navigate(MoreScreenFragmentDirections.actionMoreScreenFragmentToEventScreenFragment())
                 }
                 "Jobs" -> {
-                    /*val isJobRecruiter =
+                    val isJobRecruiter =
                         context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
 
                     if (isJobRecruiter == true) {
                         findNavController().navigate(R.id.action_moreScreenFragment_to_jobRecruiterScreenFragment)
                     } else {
                         findNavController().navigate(R.id.action_moreScreenFragment_to_jobScreenFragment)
-                    }*/
+                    }
                 }
                 "Immigration" -> {
                     findNavController().navigate(MoreScreenFragmentDirections.actionMoreScreenFragmentToImmigrationScreenFragment())

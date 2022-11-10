@@ -189,7 +189,7 @@ class UploadEventPicFragment : Fragment() {
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
-                            "Please upload at least one event picture", Snackbar.LENGTH_LONG
+                            "Please upload at least one event image", Snackbar.LENGTH_LONG
                         ).show()
                     }
                 }
