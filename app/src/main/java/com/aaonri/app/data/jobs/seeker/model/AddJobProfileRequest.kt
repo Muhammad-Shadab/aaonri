@@ -15,5 +15,6 @@ data class AddJobProfileRequest(
     val resumeName: String,
     val skillSet: String,
     val title: String,
-    val visaStatus: String
+    val visaStatus: String,
+    val profileImage: String?
 )

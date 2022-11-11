@@ -21,7 +21,7 @@ import com.aaonri.app.data.advertise.AdvertiseConstant
 import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCompanyDetailsFrgamentBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
+import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Validator

@@ -12,9 +12,9 @@ import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.model.RecruiterJobFilterModel
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterSearchBinding
-import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -41,11 +41,13 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             anyKeywordEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    addNewChip(textView.text.toString(), "anyKeyword", anyKeywordFlexBox)
-                    if (anyKeywordList.isNotEmpty()) {
-                        anyKeywordEt.setHint("")
+                    if (textView.text.toString().trim().length >= 3) {
+                        addNewChip(textView.text.toString(), "anyKeyword", anyKeywordFlexBox)
                     }
                     anyKeywordEt.setText("")
+                    /*if (anyKeywordList.isNotEmpty()) {
+                        anyKeywordEt.setHint("")
+                    }*/
 
                     return@setOnEditorActionListener true
                 }
@@ -54,11 +56,13 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             allKeywordMustEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    addNewChip(textView.text.toString(), "allKeyword", allKeywordMustFlexBox)
-                    allKeywordMustEt.setText("")
-                    if (allKeywordList.isNotEmpty()) {
-                        allKeywordMustEt.setHint("")
+                    if (textView.text.toString().trim().length >= 3) {
+                        addNewChip(textView.text.toString(), "allKeyword", allKeywordMustFlexBox)
                     }
+                    allKeywordMustEt.setText("")
+                    /*if (allKeywordList.isNotEmpty()) {
+                        allKeywordMustEt.setHint("")
+                    }*/
                     return@setOnEditorActionListener true
                 }
                 false
@@ -66,11 +70,13 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             skillsEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    addNewChip(textView.text.toString(), "skillSet", skillsFlexBox)
-                    skillsEt.setText("")
-                    if (skillSetList.isNotEmpty()) {
-                        skillsEt.setHint("")
+                    if (textView.text.toString().trim().length >= 3) {
+                        addNewChip(textView.text.toString(), "skillSet", skillsFlexBox)
                     }
+                    skillsEt.setText("")
+                    /*if (skillSetList.isNotEmpty()) {
+                        skillsEt.setHint("")
+                    }*/
                     return@setOnEditorActionListener true
                 }
                 false
@@ -101,8 +107,32 @@ class RecruiterSearchTalentFragment : Fragment() {
             }
 
             searchBtn.setOnClickListener {
-                if (locationEt.text.toString().isNotEmpty()) {
-                    if (locationEt.text.toString().length >= 3) {
+
+                if (anyKeywordEt.text.toString().isNotEmpty()) {
+                    showAlert("Please go to the any keyword field and hit keypad enter button.")
+                }
+                if (allKeywordMustEt.text.toString().isNotEmpty()) {
+                    showAlert("Please go to the all keyword field and hit keypad enter button.")
+                }
+                if (skillsEt.text.toString().isNotEmpty()) {
+                    showAlert("Please go to the skills field and hit keypad enter button.")
+                }
+
+                if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString().isEmpty() && skillsEt.text.toString().isEmpty()){
+                    if (locationEt.text.toString().isNotEmpty()) {
+                        if (locationEt.text.toString().length >= 3) {
+                            jobRecruiterViewModel.setJobRecruiterFilterValues(
+                                RecruiterJobFilterModel(
+                                    anyKeywords = anyKeywordList.toString(),
+                                    allKeywords = allKeywordList.toString(),
+                                    availability = availablityTv.text.toString(),
+                                    location = locationEt.text.toString(),
+                                    skillSet = skillSetList.toString()
+                                )
+                            )
+                        }
+                        findNavController().navigateUp()
+                    } else {
                         jobRecruiterViewModel.setJobRecruiterFilterValues(
                             RecruiterJobFilterModel(
                                 anyKeywords = anyKeywordList.toString(),
@@ -112,20 +142,10 @@ class RecruiterSearchTalentFragment : Fragment() {
                                 skillSet = skillSetList.toString()
                             )
                         )
+                        findNavController().navigateUp()
                     }
-                    findNavController().navigateUp()
-                } else {
-                    jobRecruiterViewModel.setJobRecruiterFilterValues(
-                        RecruiterJobFilterModel(
-                            anyKeywords = anyKeywordList.toString(),
-                            allKeywords = allKeywordList.toString(),
-                            availability = availablityTv.text.toString(),
-                            location = locationEt.text.toString(),
-                            skillSet = skillSetList.toString()
-                        )
-                    )
-                    findNavController().navigateUp()
                 }
+
 
             }
 
@@ -198,4 +218,14 @@ class RecruiterSearchTalentFragment : Fragment() {
             chipGroup.removeView(chip as View)
         }
     }
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
+
 }

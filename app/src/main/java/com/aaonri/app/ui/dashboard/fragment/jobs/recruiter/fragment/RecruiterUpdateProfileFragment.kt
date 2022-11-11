@@ -3,12 +3,15 @@ package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.databinding.FragmentRecruiterUpdateProfileBinding
@@ -35,8 +38,10 @@ class RecruiterUpdateProfileFragment : Fragment() {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        binding?.apply {
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -70,7 +75,8 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                                 resumeName = "",
                                                 skillSet = "",
                                                 title = "",
-                                                visaStatus = ""
+                                                visaStatus = "",
+                                                profileImage = "${profile?.replace("${BuildConfig.BASE_URL}/api/v1/common/profileFile/","")}"
                                             )
                                         )
                                     } else {
@@ -91,7 +97,8 @@ class RecruiterUpdateProfileFragment : Fragment() {
                                                 resumeName = "",
                                                 skillSet = "",
                                                 title = "",
-                                                visaStatus = ""
+                                                visaStatus = "",
+                                                profileImage = "${profile?.replace("${BuildConfig.BASE_URL}/api/v1/common/profileFile/","")}"
                                             )
                                         )
                                     }

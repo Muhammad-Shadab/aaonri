@@ -10,5 +10,7 @@ data class JobApplicantResponseItem(
     val jobId: Int,
     val phoneNo: String,
     val resumeName: Any,
-    val status: Any
+    val status: Any,
+    val jobProfileId: String?,
+    val location: String?
 )

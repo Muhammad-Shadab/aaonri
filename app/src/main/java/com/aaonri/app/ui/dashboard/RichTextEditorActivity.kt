@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.classified
+package com.aaonri.app.ui.dashboard
 
 import android.content.Intent
 import android.graphics.Color

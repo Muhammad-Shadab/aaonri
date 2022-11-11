@@ -14,6 +14,7 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobApplicantsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.JobApplicantAdapter
 import com.aaonri.app.utils.Resource
+import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,11 +33,14 @@ class RecruiterJobApplicantsFragment : Fragment() {
         binding = FragmentRecruiterJobApplicantsBinding.inflate(inflater, container, false)
 
         jobApplicantAdapter = JobApplicantAdapter {
-            /*val action =
-                RecruiterJobApplicantsFragmentDirections.actionRecruiterJobApplicantsFragmentToRecruiterTalentDetailsFragment(
-                    it.id
-                )
-            findNavController().navigate(action)*/
+            if (it.jobProfileId != null) {
+                val action =
+                    RecruiterJobApplicantsFragmentDirections.actionRecruiterJobApplicantsFragmentToRecruiterTalentDetailsFragment(
+                        it.jobProfileId.toInt()
+                    )
+                findNavController().navigate(action)
+            }
+
         }
 
         jobRecruiterViewModel.getJobApplicantList(args.jobId)

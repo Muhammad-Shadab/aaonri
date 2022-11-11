@@ -28,7 +28,9 @@ class JobApplicantAdapter(private var selectedProfileJob: ((value: JobApplicantR
 
             data[position].apply {
                 jobSeekerNameTv.text = fullName
-                //locationTv.text =
+                if (location != null) {
+                    locationTv.text = location
+                }
             }
 
             applicantCv.setOnClickListener {

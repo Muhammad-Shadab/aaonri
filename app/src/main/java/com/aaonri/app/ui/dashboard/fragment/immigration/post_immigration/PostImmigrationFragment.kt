@@ -28,7 +28,7 @@ import com.aaonri.app.data.immigration.model.PostDiscussionRequest
 import com.aaonri.app.data.immigration.model.UpdateDiscussionRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentPostImmigrationBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
+import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource

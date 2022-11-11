@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentUploadJobProfileBinding
@@ -52,6 +53,9 @@ class JobProfileUploadFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val profile =
+            context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
         if (args.isUpdateProfile) {
             fileName = "${email}.pdf"
@@ -193,11 +197,11 @@ class JobProfileUploadFragment : Fragment() {
                                                                             lastName = lastNameEt.text.toString(),
                                                                             location = locationEt.text.toString(),
                                                                             phoneNo = phoneNumber,
-                                                                            resumeName = fileName
-                                                                                ?: "",
+                                                                            resumeName = fileName ?: "",
                                                                             skillSet = skillSetDescEt.text.toString(),
                                                                             title = currentTitleEt.text.toString(),
-                                                                            visaStatus = selectVisaStatusTv.text.toString()
+                                                                            visaStatus = selectVisaStatusTv.text.toString(),
+                                                                            profileImage = "${profile?.replace("${BuildConfig.BASE_URL}/api/v1/common/profileFile/","")}"
                                                                         )
                                                                     )
                                                                 } else {
@@ -214,11 +218,11 @@ class JobProfileUploadFragment : Fragment() {
                                                                             lastName = lastNameEt.text.toString(),
                                                                             location = locationEt.text.toString(),
                                                                             phoneNo = phoneNumber,
-                                                                            resumeName = fileName
-                                                                                ?: "",
+                                                                            resumeName = fileName ?: "",
                                                                             skillSet = skillSetDescEt.text.toString(),
                                                                             title = currentTitleEt.text.toString(),
-                                                                            visaStatus = selectVisaStatusTv.text.toString()
+                                                                            visaStatus = selectVisaStatusTv.text.toString(),
+                                                                            profileImage = "${profile?.replace("${BuildConfig.BASE_URL}/api/v1/common/profileFile/","")}"
                                                                         )
                                                                     )
                                                                 }

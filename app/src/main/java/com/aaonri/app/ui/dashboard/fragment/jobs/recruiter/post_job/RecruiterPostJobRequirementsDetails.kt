@@ -19,7 +19,7 @@ import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.data.jobs.recruiter.model.PostJobRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobCompanyDetailsBinding
-import com.aaonri.app.ui.dashboard.fragment.classified.RichTextEditorActivity
+import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedJobAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedVisaStatusAdapter
 import com.aaonri.app.utils.Constant
