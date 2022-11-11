@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -19,9 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
-import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
+import com.aaonri.app.data.classified.model.ClassifiedFilterModel
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
@@ -50,6 +47,7 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    var filterModel: ClassifiedFilterModel? = null
 
     var addId = 0
     var isUserLogin: Boolean? = null
@@ -313,27 +311,89 @@ class ClassifiedScreenFragment : Fragment() {
                 }
             }*/
 
-            deleteFilterIv1.setOnClickListener {
-                binding?.filterCv1?.visibility = View.GONE
-                onNoOfSelectedFilterItem(--noOfSelection)
+            deleteCategoryFilterIv.setOnClickListener {
+                binding?.categoryFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
+                )
             }
 
-            deleteFilterIv2.setOnClickListener {
-                binding?.filterCv2?.visibility = View.GONE
-                onNoOfSelectedFilterItem(--noOfSelection)
+            deleteSubCategoryFilterIv.setOnClickListener {
+                binding?.subCategoryFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
+                )
             }
 
-            deleteFilterIv3.setOnClickListener {
-                binding?.filterCv3?.visibility = View.GONE
-                onNoOfSelectedFilterItem(--noOfSelection)
+            deletePriceRangeIv.setOnClickListener {
+                binding?.priceRangeCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "",
+                        maxPriceRange = "",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
+                )
             }
 
-            deleteFilterIv4.setOnClickListener {
-                onNoOfSelectedFilterItem(--noOfSelection)
+            deleteZipCodeIv.setOnClickListener {
+                binding?.zipCodeCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
+                )
             }
 
-            deleteFilterIv5.setOnClickListener {
-                onNoOfSelectedFilterItem(--noOfSelection)
+            deleteChangeSortFilterIv.setOnClickListener {
+                binding?.changeSortFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = false,
+                        isPriceHighToLowSelected = false,
+                        isPriceLowToHighSelected = false
+                    )
+                )
             }
 
             filterClassified.setOnClickListener {
@@ -398,7 +458,6 @@ class ClassifiedScreenFragment : Fragment() {
                         binding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                         binding?.searchViewll?.visibility = View.VISIBLE
-                        onNoOfSelectedFilterItem(noOfSelection)
                     }
                     if (tab?.position != 0) {
                         filterClassified.isEnabled = false
@@ -478,34 +537,95 @@ class ClassifiedScreenFragment : Fragment() {
                 }
                 is Resource.Error -> {
                 }
-                else -> {
-
-                }
             }
         }
 
-       /* postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
-            if (isFilterClicked) {
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
-                        location = "",
-                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
-                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
-                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
-                    )
-                )
-                postClassifiedViewModel.setClickedOnFilter(false)
-                noOfSelection = 0
+        postClassifiedViewModel.classifiedFilterModel.observe(viewLifecycleOwner) { filterValue ->
+            filterModel = filterValue
+            noOfSelection = 0
+
+            if (filterValue.selectedCategory.isNotEmpty()) {
+                noOfSelection++
+                binding?.categoryFilterTv?.text = filterValue.selectedCategory
+                binding?.categoryFilterCv?.visibility = View.VISIBLE
             }
-            setFilterVisibility()
-        }*/
+
+            if (filterValue.selectedSubCategory.isNotEmpty()) {
+                noOfSelection++
+                binding?.subCategoryFilterTv?.text = filterValue.selectedSubCategory
+                binding?.subCategoryFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.minPriceRange.isNotEmpty() && filterValue.maxPriceRange.isNotEmpty()) {
+                noOfSelection++
+                binding?.priceRangeTv?.text =
+                    "Range: \$${filterValue.minPriceRange} - \$${filterValue.maxPriceRange}"
+                binding?.priceRangeCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.zipCode.isNotEmpty()) {
+                noOfSelection++
+                binding?.zipCodeTv?.text = "ZipCode: ${filterValue.zipCode}"
+                binding?.zipCodeCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isDatePublishedSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: Date Published"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isPriceLowToHighSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: Low to High"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isPriceHighToLowSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: High to Low"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            /*if (filterValue.selectedCategory.isNotEmpty() ||
+                filterValue.selectedSubCategory.isNotEmpty() ||
+                filterValue.minPriceRange.isNotEmpty() ||
+                filterValue.zipCode.isNotEmpty() ||
+                filterValue.isDatePublishedSelected ||
+                filterValue.isPriceLowToHighSelected ||
+                filterValue.isPriceHighToLowSelected
+            ) {
+                binding?.selectedFilters?.visibility = View.VISIBLE
+            } else {
+                binding?.selectedFilters?.visibility = View.GONE
+            }*/
+
+            onNoOfSelectedFilterItem(noOfSelection)
+
+        }
+
+        /* postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+             if (isFilterClicked) {
+                 classifiedViewModel.getClassifiedByUser(
+                     GetClassifiedByUserRequest(
+                         category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
+                         email = if (email?.isNotEmpty() == true) email else "",
+                         fetchCatSubCat = true,
+                         keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
+                         location = "",
+                         maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
+                         minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
+                         myAdsOnly = false,
+                         popularOnAoonri = null,
+                         subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
+                         zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
+                     )
+                 )
+                 postClassifiedViewModel.setClickedOnFilter(false)
+                 noOfSelection = 0
+             }
+             setFilterVisibility()
+         }*/
 
         /*postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
             if (it) {
@@ -573,7 +693,7 @@ class ClassifiedScreenFragment : Fragment() {
 
     private fun setFilterVisibility() {
 
-        noOfSelection = 0
+        /*noOfSelection = 0
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
             postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
             postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
@@ -637,8 +757,6 @@ class ClassifiedScreenFragment : Fragment() {
                 binding?.filterCv5?.visibility = View.GONE
             }
 
-            onNoOfSelectedFilterItem(noOfSelection)
-
         } else {
             binding?.selectedFilters?.visibility = View.GONE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
@@ -654,7 +772,8 @@ class ClassifiedScreenFragment : Fragment() {
         ) {
             binding?.selectedFilters?.visibility = View.VISIBLE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-        }
+        }*/
+
     }
 
 
@@ -689,28 +808,8 @@ class ClassifiedScreenFragment : Fragment() {
         }
     }
 
-    /*private fun dynamicSetTabLayoutMode(tabLayout: TabLayout) {
-        val tabWidth = calculateTabWidth(tabLayout)
-        val screenWidth = Resources.getSystem().displayMetrics.widthPixels
-        if (tabWidth <= screenWidth) {
-            tabLayout.tabMode = TabLayout.MODE_AUTO
-        } else {
-            tabLayout.tabMode = TabLayout.MODE_FIXED
-        }
-    }
-
-    private fun calculateTabWidth(tabLayout: TabLayout): Int {
-        var tabWidth = 0
-        for (i in 0 until tabLayout.childCount) {
-            val view = tabLayout.getChildAt(i)
-            view.measure(0, 0)
-            tabWidth += view.measuredWidth
-        }
-        return tabWidth
-    }*/
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

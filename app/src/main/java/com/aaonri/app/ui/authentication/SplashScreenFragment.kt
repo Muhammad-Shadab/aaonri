@@ -33,7 +33,7 @@ class SplashScreenFragment : Fragment() {
 
         var job: Job? = null
         job = MainScope().launch {
-            delay(2000L)
+            //delay(2000L)
             if (isUserLogin == true) {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
