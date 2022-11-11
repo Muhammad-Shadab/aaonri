@@ -63,6 +63,7 @@ class ClassifiedViewModel @Inject constructor(private val classifiedRepository: 
         private set
 
     val navigateFromClassifiedScreenToAdvertiseWebView: MutableLiveData<Boolean> = MutableLiveData()
+
     /*fun getAllUserAdsClassified(email: String) = viewModelScope.launch {
         allUserAdsClassifiedData.postValue(Resource.Loading())
         val response = classifiedRepository.getAllUserAdsClassified(email)

@@ -147,6 +147,8 @@ class PostClassifiedViewModel @Inject constructor(
     var keyClassifiedKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    val classifiedFilterModel: MutableLiveData<ClassifiedFilterModel> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
     }

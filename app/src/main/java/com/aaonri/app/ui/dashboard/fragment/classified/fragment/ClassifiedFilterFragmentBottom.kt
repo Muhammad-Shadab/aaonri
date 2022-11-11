@@ -11,8 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
+import com.aaonri.app.data.classified.model.ClassifiedFilterModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
@@ -29,6 +28,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
     var isDatePublishedSelected = false
     var isPriceLowToHighSelected = false
     var isPriceHighToLowSelected = false
+    var selectedCategory = ""
+    var selectedSubCategory = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,50 +89,47 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             if (zipCodeEt.text.toString().isNotEmpty()) {
                                 if (zipCodeEt.text.toString().length >= 5) {
 
-                                    postClassifiedViewModel.setCategoryFilter(
-                                        selectCategoryClassifiedSpinner.text.toString()
-                                    )
-                                    postClassifiedViewModel.setSubCategoryFilter(
-                                        selectSubCategoryClassifiedSpinner.text.toString()
-                                    )
-                                    postClassifiedViewModel.setMinValue(minValue)
-                                    postClassifiedViewModel.setMaxValue(maxValue)
-
-                                    postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
-                                    postClassifiedViewModel.setChangeSortTripletFilter(
-                                        isDatePublishedSelected,
-                                        isPriceLowToHighSelected,
-                                        isPriceHighToLowSelected
+                                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                                        ClassifiedFilterModel(
+                                            selectedCategory = selectedCategory,
+                                            selectedSubCategory = selectedSubCategory,
+                                            minPriceRange = minValue,
+                                            maxPriceRange = maxValue,
+                                            zipCode = zipCodeEt.text.toString(),
+                                            zipCodeCheckBox = myLocationCheckBox.isChecked,
+                                            isDatePublishedSelected = isDatePublishedSelected,
+                                            isPriceLowToHighSelected = isPriceLowToHighSelected,
+                                            isPriceHighToLowSelected = isPriceHighToLowSelected
+                                        )
                                     )
 
                                     val action =
                                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                     findNavController().navigate(action)
-                                    postClassifiedViewModel.setClickedOnFilter(true)
-                                    postClassifiedViewModel.setIsFilterEnable(true)
+
                                 } else {
                                     showAlert("Please enter valid ZipCode")
                                 }
                             } else {
-                                postClassifiedViewModel.setZipCodeInFilterScreen("")
-                                postClassifiedViewModel.setCategoryFilter(
-                                    selectCategoryClassifiedSpinner.text.toString()
+
+                                postClassifiedViewModel.classifiedFilterModel.postValue(
+                                    ClassifiedFilterModel(
+                                        selectedCategory = selectedCategory,
+                                        selectedSubCategory = selectedSubCategory,
+                                        minPriceRange = minValue,
+                                        maxPriceRange = maxValue,
+                                        zipCode = "",
+                                        zipCodeCheckBox = myLocationCheckBox.isChecked,
+                                        isDatePublishedSelected = isDatePublishedSelected,
+                                        isPriceLowToHighSelected = isPriceLowToHighSelected,
+                                        isPriceHighToLowSelected = isPriceHighToLowSelected
+                                    )
                                 )
-                                postClassifiedViewModel.setSubCategoryFilter(
-                                    selectSubCategoryClassifiedSpinner.text.toString()
-                                )
-                                postClassifiedViewModel.setMinValue(minValue)
-                                postClassifiedViewModel.setMaxValue(maxValue)
-                                postClassifiedViewModel.setChangeSortTripletFilter(
-                                    isDatePublishedSelected,
-                                    isPriceLowToHighSelected,
-                                    isPriceHighToLowSelected
-                                )
+
                                 val action =
                                     ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                                 findNavController().navigate(action)
-                                postClassifiedViewModel.setClickedOnFilter(true)
-                                postClassifiedViewModel.setIsFilterEnable(true)
+
                             }
 
                         } else {
@@ -142,63 +140,71 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                 } else if (zipCodeEt.text.toString().isNotEmpty()) {
                     if (zipCodeEt.text.toString().length >= 5) {
-                        postClassifiedViewModel.setCategoryFilter(
-                            selectCategoryClassifiedSpinner.text.toString()
-                        )
-                        postClassifiedViewModel.setSubCategoryFilter(
-                            selectSubCategoryClassifiedSpinner.text.toString()
-                        )
-                        postClassifiedViewModel.setZipCodeInFilterScreen(zipCodeEt.text.toString())
 
-                        postClassifiedViewModel.setChangeSortTripletFilter(
-                            isDatePublishedSelected,
-                            isPriceLowToHighSelected,
-                            isPriceHighToLowSelected
+                        postClassifiedViewModel.classifiedFilterModel.postValue(
+                            ClassifiedFilterModel(
+                                selectedCategory = selectedCategory,
+                                selectedSubCategory = selectedSubCategory,
+                                minPriceRange = minValue,
+                                maxPriceRange = maxValue,
+                                zipCode = zipCodeEt.text.toString(),
+                                zipCodeCheckBox = myLocationCheckBox.isChecked,
+                                isDatePublishedSelected = isDatePublishedSelected,
+                                isPriceLowToHighSelected = isPriceLowToHighSelected,
+                                isPriceHighToLowSelected = isPriceHighToLowSelected
+                            )
                         )
+
                         val action =
                             ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                         findNavController().navigate(action)
-                        postClassifiedViewModel.setClickedOnFilter(true)
-                        postClassifiedViewModel.setIsFilterEnable(true)
+
 
                     } else {
                         postClassifiedViewModel.setZipCodeInFilterScreen("")
                         showAlert("Please enter valid ZipCode")
                     }
-                } else if (selectCategoryClassifiedSpinner.text.toString()
-                        .isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString()
-                        .isNotEmpty()
+                } else if (selectCategoryClassifiedSpinner.text.toString().isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString().isNotEmpty()
                 ) {
-                    postClassifiedViewModel.setChangeSortTripletFilter(
-                        isDatePublishedSelected,
-                        isPriceLowToHighSelected,
-                        isPriceHighToLowSelected
-                    )
-                    postClassifiedViewModel.setCategoryFilter(
-                        selectCategoryClassifiedSpinner.text.toString()
-                    )
-                    postClassifiedViewModel.setSubCategoryFilter(
-                        selectSubCategoryClassifiedSpinner.text.toString()
-                    )
-                    val action =
-                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
-                    findNavController().navigate(action)
-                    postClassifiedViewModel.setClickedOnFilter(true)
-                } else if (isDatePublishedSelected || isPriceHighToLowSelected || isPriceLowToHighSelected/*postClassifiedViewModel.changeSortTriplet.first || postClassifiedViewModel.changeSortTriplet.second || postClassifiedViewModel.changeSortTriplet.third*/) {
 
-                    postClassifiedViewModel.setChangeSortTripletFilter(
-                        isDatePublishedSelected,
-                        isPriceLowToHighSelected,
-                        isPriceHighToLowSelected
+                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                        ClassifiedFilterModel(
+                            selectedCategory = selectedCategory,
+                            selectedSubCategory = selectedSubCategory,
+                            minPriceRange = minValue,
+                            maxPriceRange = maxValue,
+                            zipCode = "",
+                            zipCodeCheckBox = myLocationCheckBox.isChecked,
+                            isDatePublishedSelected = isDatePublishedSelected,
+                            isPriceLowToHighSelected = isPriceLowToHighSelected,
+                            isPriceHighToLowSelected = isPriceHighToLowSelected
+                        )
+                    )
+
+                    val action =
+                        ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
+                    findNavController().navigate(action)
+
+                } else if (isDatePublishedSelected || isPriceHighToLowSelected || isPriceLowToHighSelected) {
+
+                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                        ClassifiedFilterModel(
+                            selectedCategory = selectedCategory,
+                            selectedSubCategory = selectedSubCategory,
+                            minPriceRange = minValue,
+                            maxPriceRange = maxValue,
+                            zipCode = "",
+                            zipCodeCheckBox = myLocationCheckBox.isChecked,
+                            isDatePublishedSelected = isDatePublishedSelected,
+                            isPriceLowToHighSelected = isPriceLowToHighSelected,
+                            isPriceHighToLowSelected = isPriceHighToLowSelected
+                        )
                     )
                     val action =
                         ClassifiedFilterFragmentBottomDirections.actionClassifiedFilterFragmentBottomToClassifiedScreenFragment()
                     findNavController().navigate(action)
-                    postClassifiedViewModel.setClickedOnFilter(true)
-                    //postClassifiedViewModel.setZipCodeInFilterScreen("")
+
                 }
-
-                postClassifiedViewModel.setIsMyLocationChecked(myLocationCheckBox.isChecked)
 
             }
 
@@ -212,7 +218,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
             }
 
-            setData()
 
             datePublished.setOnClickListener {
 
@@ -569,6 +574,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
+            selectedCategory = it.title
             binding?.selectCategoryClassifiedSpinner?.text = it.title
             if (postClassifiedViewModel.clearSubCategory) {
                 binding?.selectSubCategoryClassifiedSpinner?.text = ""
@@ -577,6 +583,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
+            selectedSubCategory = it.title
             binding?.selectSubCategoryClassifiedSpinner?.text = it.title
         }
 
@@ -590,7 +597,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         }
 
-        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+        /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
 
                 binding?.minPriceRange?.setText("")
@@ -634,18 +641,18 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     )
                 )
 
-                /*selectedFilterList.clear()*/
+                *//*selectedFilterList.clear()*//*
 
                 binding?.apply {
 
                     myLocationCheckBox.isChecked = false
 
-                    /*zipCode.setText("")*/
+                    *//*zipCode.setText("")*//*
 
                     isPriceHighToLowSelected = false
                     isPriceLowToHighSelected = false
-                    /*isDistanceSelected = false
-                    isRelevanceSelected = false*/
+                    *//*isDistanceSelected = false
+                    isRelevanceSelected = false*//*
                     isDatePublishedSelected = false
 
                     context?.let { it1 ->
@@ -685,7 +692,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                     context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
 
-                    /*context?.let { it1 ->
+                    *//*context?.let { it1 ->
                         ContextCompat.getColor(
                             it1,
                             R.color.white
@@ -695,9 +702,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             it2
                         )
                     }
-                    context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*/
+                    context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*//*
 
-                    /* context?.let { it1 ->
+                    *//* context?.let { it1 ->
                          ContextCompat.getColor(
                              it1,
                              R.color.white
@@ -707,7 +714,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                              it2
                          )
                      }
-                     context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*/
+                     context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*//*
 
 
                     context?.let { it1 ->
@@ -738,7 +745,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 }
             }
             postClassifiedViewModel.setClearAllFilter(false)
-        }
+        }*/
 
         /* postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
              classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
@@ -758,7 +765,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
 
     }
 
-    private fun setData() {
+    /*private fun setData() {
 
         binding?.minPriceRange?.setText(postClassifiedViewModel.minValueInFilterScreen)
         binding?.maxPriceRange?.setText(postClassifiedViewModel.maxValueInFilterScreen)
@@ -814,7 +821,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         }
 
-    }
+    }*/
 
 
     /*private fun clearAllData() {
