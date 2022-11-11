@@ -9,8 +9,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/createDeleteAccountLl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -258,12 +258,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_36sdp"
-                android:layout_marginBottom="@dimen/_70sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:text="@string/by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"
                 android:textColor="@color/textViewColor"
                 android:textSize="12sp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -271,6 +271,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/createDeleteAccountLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

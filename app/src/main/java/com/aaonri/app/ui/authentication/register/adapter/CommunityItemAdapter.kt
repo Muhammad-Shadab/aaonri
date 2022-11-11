@@ -29,10 +29,6 @@ class CommunityItemAdapter(private var selectedCommunity: ((value: List<Communit
         val context = holder.itemView.context
         holder.binding.communityText.text = data[position].communityName
 
-        if (position <= 2){
-            Log.i("communityText", "onBindViewHolder: ${selectedCommunityList.get(0)} and \n${data.get(0)}")
-        }
-
         if (selectedCommunityList.contains(data[position])) {
             holder.binding.communityText.setBackgroundColor(
                 ContextCompat.getColor(

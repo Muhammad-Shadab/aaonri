@@ -173,7 +173,9 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 countryCodePicker.imageViewFlag.invalidate()
                 val drawable = countryCodePicker.imageViewFlag.drawable
+
                 authCommonViewModel.countryFlagBmp(drawable.toBitmap())
+
                 if (userEnteredCity.toString().length >= 2 && zipCode.toString().isNotEmpty() && zipCode.toString().length >= 4 && userEnteredState.toString().length >= 2
                 ) {
                     if (cityName.isEmpty()) {

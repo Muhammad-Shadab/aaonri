@@ -264,6 +264,7 @@ class JobRecruiterScreenFragment : Fragment() {
             val action =
                 JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment()
             findNavController().navigate(action)
+            updateLogoutDialog.dismiss()
         }
 
         /**  Dialog for guest user **/
