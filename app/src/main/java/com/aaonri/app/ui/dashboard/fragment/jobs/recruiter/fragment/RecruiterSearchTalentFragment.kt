@@ -14,6 +14,7 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterSearchBinding
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -133,7 +134,7 @@ class RecruiterSearchTalentFragment : Fragment() {
         return binding?.root
     }
 
-    private fun addNewChip(person: String, optionName: String, chipGroup: FlexboxLayout) {
+    private fun addNewChip(person: String, optionName: String, chipGroup: ChipGroup) {
         val chip = Chip(context)
         chip.text = person
         chip.isCloseIconEnabled = true
@@ -143,7 +144,8 @@ class RecruiterSearchTalentFragment : Fragment() {
         chip.setTextAppearance(R.style.ChipTextStyle_Selected_Custom)
         chip.setCloseIconTintResource(R.color.white)
         chip.minimumWidth = 0
-        //chip.setEnsureMinTouchTargetSize(false)
+        chip.setEnsureMinTouchTargetSize(false)
+
         chipGroup.addView(chip as View, chipGroup.childCount - 1)
 
         when (optionName) {

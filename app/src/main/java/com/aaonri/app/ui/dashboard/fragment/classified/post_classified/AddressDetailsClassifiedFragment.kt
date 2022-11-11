@@ -96,7 +96,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
 
                 val emailIntent = Intent(
                     Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "Classfieds@aaonri.com", null
+                        "mailto", "classifieds@aaonri.com", null
                     )
                 )
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
@@ -140,7 +140,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         val privacy: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 val intent = Intent(context, WebViewActivity::class.java)
-                intent.putExtra("url", "https://aaonri.com/terms-&-conditions")
+                intent.putExtra("url", "https://aaonri.com/privacy-policy")
                 activity?.startActivity(intent)
             }
 
