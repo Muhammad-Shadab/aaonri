@@ -142,7 +142,7 @@ class ImmigrationDetailsFragment : Fragment() {
 
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Confirm")
-                    builder.setMessage("Are you sure you want to delete this comment?")
+                    builder.setMessage("Are you sure \nYou want to delete this comment?")
                     builder.setPositiveButton("Delete") { dialog, which ->
                         immigrationViewModel.deleteImmigrationReply(
                             DeleteReplyRequest(

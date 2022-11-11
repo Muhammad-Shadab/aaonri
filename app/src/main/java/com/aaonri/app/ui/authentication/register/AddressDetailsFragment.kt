@@ -172,6 +172,7 @@ class AddressDetailsFragment : Fragment(), CountryCodePicker.OnCountryChangeList
 
                 SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 countryCodePicker.imageViewFlag.invalidate()
+
                 val drawable = countryCodePicker.imageViewFlag.drawable
 
                 authCommonViewModel.countryFlagBmp(drawable.toBitmap())
