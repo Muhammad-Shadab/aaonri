@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.model.JobApplicantResponseItem
 import com.aaonri.app.databinding.JobApplicantItemBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class JobApplicantAdapter(private var selectedProfileJob: ((value: JobApplicantResponseItem) -> Unit)) :
     RecyclerView.Adapter<JobApplicantAdapter.JobApplicantViewHolder>() {
@@ -30,6 +33,16 @@ class JobApplicantAdapter(private var selectedProfileJob: ((value: JobApplicantR
                 jobSeekerNameTv.text = fullName
                 if (location != null) {
                     locationTv.text = location
+                }
+                if (profileImage != null) {
+                    context?.let {
+                        Glide.with(it)
+                            .load(profileImage).diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .circleCrop()
+                            .error(R.drawable.profile_pic_placeholder)
+                            .into(profilePicIv)
+                    }
                 }
             }
 

@@ -17,8 +17,10 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterJobKeySkillsAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
 import com.aaonri.app.utils.Resource
+import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.format.DateTimeFormatter
 
@@ -27,6 +29,7 @@ class RecruiterJobDetailsFragment : Fragment() {
     var binding: FragmentRecruiterJobDetailsBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
     val args: RecruiterJobDetailsFragmentArgs by navArgs()
+    var recruiterJobKeySkillsAdapter: RecruiterJobKeySkillsAdapter? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -36,6 +39,8 @@ class RecruiterJobDetailsFragment : Fragment() {
         binding = FragmentRecruiterJobDetailsBinding.inflate(inflater, container, false)
 
         jobRecruiterViewModel.findJobDetailsById(args.jobId)
+
+        recruiterJobKeySkillsAdapter = RecruiterJobKeySkillsAdapter()
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -49,9 +54,8 @@ class RecruiterJobDetailsFragment : Fragment() {
 
         binding?.apply {
 
-            editJobIv.setOnClickListener {
-
-            }
+            skillsRv.layoutManager = FlexboxLayoutManager(context)
+            skillsRv.adapter = recruiterJobKeySkillsAdapter
 
             activateJobBtn.setOnClickListener {
                 jobRecruiterViewModel.changeJobActiveStatus(args.jobId, true)
@@ -102,7 +106,9 @@ class RecruiterJobDetailsFragment : Fragment() {
                                     DateTimeFormatter.ofPattern("yyyy-MM-dd")
                                         .parse(it.createdOn.split("T")[0])
                                 )
-                            jobKeySkillsTv.text = it.skillSet
+                            recruiterJobKeySkillsAdapter?.setData(
+                                it.skillSet.split(",").toTypedArray().toList()
+                            )
                             if (it.applicability.isNotEmpty()) {
                                 jobRequirementTv.text = it.applicability.toString()
                             }
