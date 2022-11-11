@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
 import com.aaonri.app.data.classified.model.ClassifiedFilterModel
+import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentClassifiedFilterBinding
@@ -164,7 +166,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         postClassifiedViewModel.setZipCodeInFilterScreen("")
                         showAlert("Please enter valid ZipCode")
                     }
-                } else if (selectCategoryClassifiedSpinner.text.toString().isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString().isNotEmpty()
+                } else if (selectCategoryClassifiedSpinner.text.toString()
+                        .isNotEmpty() || selectSubCategoryClassifiedSpinner.text.toString()
+                        .isNotEmpty()
                 ) {
 
                     postClassifiedViewModel.classifiedFilterModel.postValue(
@@ -209,13 +213,14 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             closeClassifiedBtn.setOnClickListener {
-                postClassifiedViewModel.setClickedOnFilter(false)
+                //postClassifiedViewModel.setClickedOnFilter(false)
                 findNavController().navigateUp()
             }
 
             clearAllBtn.setOnClickListener {
                 postClassifiedViewModel.setClearAllFilter(true)
-                postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+
+                //postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
             }
 
 
@@ -574,8 +579,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
-            selectedCategory = it.title
-            binding?.selectCategoryClassifiedSpinner?.text = it.title
+            selectedCategory = it
+            binding?.selectCategoryClassifiedSpinner?.text = it
             if (postClassifiedViewModel.clearSubCategory) {
                 binding?.selectSubCategoryClassifiedSpinner?.text = ""
                 postClassifiedViewModel.setClearSubCategory(false)
@@ -583,8 +588,8 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
-            selectedSubCategory = it.title
-            binding?.selectSubCategoryClassifiedSpinner?.text = it.title
+            selectedSubCategory = it
+            binding?.selectSubCategoryClassifiedSpinner?.text = it
         }
 
         dashboardCommonViewModel.isGuestUser.observe(viewLifecycleOwner) {
@@ -597,7 +602,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         }
 
-        /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
 
                 binding?.minPriceRange?.setText("")
@@ -607,78 +612,52 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 binding?.selectCategoryClassifiedSpinner?.text = ""
                 binding?.selectSubCategoryClassifiedSpinner?.text = ""
 
-                postClassifiedViewModel.setSearchQuery("")
+                /*postClassifiedViewModel.setSearchQuery("")
                 postClassifiedViewModel.setMinValue("")
                 postClassifiedViewModel.setMaxValue("")
                 postClassifiedViewModel.setIsMyLocationChecked(false)
                 postClassifiedViewModel.setZipCodeInFilterScreen("")
                 postClassifiedViewModel.setClickedOnFilter(false)
                 postClassifiedViewModel.setCategoryFilter("")
-                postClassifiedViewModel.setSubCategoryFilter("")
+                postClassifiedViewModel.setSubCategoryFilter("")*/
 
-                postClassifiedViewModel.setChangeSortTripletFilter(
+                /*postClassifiedViewModel.setChangeSortTripletFilter(
                     datePublished = false,
                     priceLowToHigh = false,
                     priceHighToLow = false
-                )
+                )*/
 
-                postClassifiedViewModel.setSelectedClassifiedCategory(
-                    ClassifiedCategoryResponseItem(
-                        emptyList(),
-                        0,
-                        0,
-                        0,
-                        ""
+                postClassifiedViewModel.setSelectedClassifiedCategory("")
+
+                postClassifiedViewModel.setSelectedSubClassifiedCategory("")
+
+                postClassifiedViewModel.setSearchQuery("")
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "",
+                        selectedSubCategory = "",
+                        minPriceRange = "",
+                        maxPriceRange = "",
+                        zipCode = "",
+                        zipCodeCheckBox = false,
+                        isDatePublishedSelected = false,
+                        isPriceHighToLowSelected = false,
+                        isPriceLowToHighSelected = false
                     )
                 )
 
-                postClassifiedViewModel.setSelectedSubClassifiedCategory(
-                    ClassifiedSubcategoryX(
-                        0,
-                        0,
-                        0,
-                        ""
-                    )
-                )
-
-                *//*selectedFilterList.clear()*//*
+                //selectedFilterList.clear()
 
                 binding?.apply {
 
                     myLocationCheckBox.isChecked = false
-
-                    *//*zipCode.setText("")*//*
+                    zipCodeEt.setText("")
 
                     isPriceHighToLowSelected = false
                     isPriceLowToHighSelected = false
-                    *//*isDistanceSelected = false
-                    isRelevanceSelected = false*//*
+                    /*isDistanceSelected = false
+                    isRelevanceSelected = false*/
                     isDatePublishedSelected = false
-
-                    context?.let { it1 ->
-                        ContextCompat.getColor(
-                            it1,
-                            R.color.white
-                        )
-                    }?.let { it2 ->
-                        minPriceRange.setBackgroundColor(
-                            it2
-                        )
-                    }
-                    context?.getColor(R.color.black)?.let { it1 -> minPriceRange.setTextColor(it1) }
-
-
-                    context?.let { it1 ->
-                        ContextCompat.getColor(
-                            it1,
-                            R.color.white
-                        )
-                    }?.let { it2 ->
-                        maxPriceRange.setBackgroundColor(
-                            it2
-                        )
-                    }
-                    context?.getColor(R.color.black)?.let { it1 -> maxPriceRange.setTextColor(it1) }
 
                     context?.let { it1 ->
                         ContextCompat.getColor(
@@ -692,7 +671,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                     context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
 
-                    *//*context?.let { it1 ->
+                    /*context?.let { it1 ->
                         ContextCompat.getColor(
                             it1,
                             R.color.white
@@ -702,9 +681,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                             it2
                         )
                     }
-                    context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*//*
+                    context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*/
 
-                    *//* context?.let { it1 ->
+                     /*context?.let { it1 ->
                          ContextCompat.getColor(
                              it1,
                              R.color.white
@@ -714,7 +693,7 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                              it2
                          )
                      }
-                     context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*//*
+                     context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*/
 
 
                     context?.let { it1 ->
@@ -742,10 +721,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                     }
                     context?.getColor(R.color.black)
                         ?.let { it1 -> priceHighToLow.setTextColor(it1) }
+
                 }
             }
             postClassifiedViewModel.setClearAllFilter(false)
-        }*/
+        }
 
         /* postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
              classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
@@ -759,21 +739,92 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
         }*/
 
+        setData()
+
 
         return binding?.root
 
 
     }
 
-    /*private fun setData() {
+    private fun setData() {
 
-        binding?.minPriceRange?.setText(postClassifiedViewModel.minValueInFilterScreen)
-        binding?.maxPriceRange?.setText(postClassifiedViewModel.maxValueInFilterScreen)
-        binding?.zipCodeEt?.setText(postClassifiedViewModel.zipCodeInFilterScreen)
-        binding?.myLocationCheckBox?.isChecked =
-            postClassifiedViewModel.isMyLocationCheckedInFilterScreen
+        postClassifiedViewModel.classifiedFilterModel.observe(viewLifecycleOwner) { filterValue ->
 
-        postClassifiedViewModel.changeSortTriplet.let {
+            if (filterValue.selectedCategory.isNotEmpty()) {
+                binding?.selectCategoryClassifiedSpinner?.text = filterValue.selectedCategory
+            }
+
+            if (filterValue.selectedSubCategory.isNotEmpty()) {
+                binding?.selectSubCategoryClassifiedSpinner?.text = filterValue.selectedSubCategory
+            }
+
+            if (filterValue.minPriceRange.isNotEmpty() && filterValue.maxPriceRange.isNotEmpty()) {
+                binding?.minPriceRange?.setText(filterValue.minPriceRange)
+                binding?.maxPriceRange?.setText(filterValue.maxPriceRange)
+            }
+
+            if (filterValue.zipCode.isNotEmpty()) {
+                binding?.zipCodeEt?.setText(filterValue.zipCode)
+            }
+
+            if (filterValue.isDatePublishedSelected) {
+                isDatePublishedSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    binding?.datePublished?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> binding?.datePublished?.setTextColor(it1) }
+            }
+
+            if (filterValue.isPriceLowToHighSelected) {
+                isPriceLowToHighSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    binding?.priceLowToHigh?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> binding?.priceLowToHigh?.setTextColor(it1) }
+            }
+
+            if (filterValue.isPriceHighToLowSelected) {
+                isPriceHighToLowSelected = true
+                context?.let { it1 ->
+                    ContextCompat.getColor(
+                        it1,
+                        R.color.blueBtnColor
+                    )
+                }?.let { it2 ->
+                    binding?.priceHighToLow?.setBackgroundColor(
+                        it2
+                    )
+                }
+                context?.getColor(R.color.white)
+                    ?.let { it1 -> binding?.priceHighToLow?.setTextColor(it1) }
+            }
+
+            if (filterValue.zipCodeCheckBox) {
+                binding?.myLocationCheckBox?.isChecked = filterValue.zipCodeCheckBox
+            }
+
+        }
+
+
+
+        /*postClassifiedViewModel.changeSortTriplet.let {
             if (it.first) {
                 isDatePublishedSelected = true
                 context?.let { it1 ->
@@ -819,9 +870,9 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 context?.getColor(R.color.white)
                     ?.let { it1 -> binding?.priceHighToLow?.setTextColor(it1) }
             }
-        }
+        }*/
 
-    }*/
+    }
 
 
     /*private fun clearAllData() {

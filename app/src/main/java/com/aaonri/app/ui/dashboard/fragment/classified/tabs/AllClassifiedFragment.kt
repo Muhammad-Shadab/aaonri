@@ -202,7 +202,9 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
+
+
+        /*postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
                 binding?.recyclerViewClassified?.visibility = View.VISIBLE
                 binding?.topAdvertiseRv?.visibility = View.VISIBLE
@@ -210,7 +212,7 @@ class AllClassifiedFragment : Fragment() {
                 binding?.resultsNotFoundLL?.visibility = View.GONE
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
-        }
+        }*/
 
         return binding?.root
     }
