@@ -12,7 +12,6 @@ import com.aaonri.app.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 
 class NoInternetConnectionActivity : AppCompatActivity() {
-    var mainll: LinearLayout? = null
     var binding: ActivityNoInternetConnectionBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

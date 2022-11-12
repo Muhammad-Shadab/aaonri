@@ -12,8 +12,6 @@ class ConnectivityReceiver : BroadcastReceiver() {
         val isConnected = arg1.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)
         if (isConnected) {
             context.startActivity(Intent(context, NoInternetConnectionActivity::class.java))
-        } else {
-
         }
     }
 }
