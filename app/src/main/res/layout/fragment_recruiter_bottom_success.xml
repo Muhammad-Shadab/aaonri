@@ -52,7 +52,7 @@
         android:minHeight="0dp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:text="View Consultant Profile"
+        android:text="VIEW MY JOBS"
         android:textColor="@color/white"
         android:textSize="17sp" />
 

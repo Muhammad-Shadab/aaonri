@@ -14,8 +14,6 @@ class VisaStatusAdapter(private var selectedVisaStatusJobApplicability: ((value:
 
     private var data = listOf<AllActiveJobApplicabilityResponseItem>()
 
-    private var selectedVisaStatusList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = CommunityItemBinding.inflate(inflater, parent, false)

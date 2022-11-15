@@ -68,7 +68,7 @@
     <string name="please_enter_comma_seperated_keywords_for_your_ad_which_will_be_used_for_search_by_other_users">Please enter comma seperated keywords for your ad, which will be used for search by other users</string>
     <string name="if_you_want">If you want your ad to appear in the \n\"Featured\" section, please contact us at \nadmin classifieds@aaonri.com</string>
     <string name="please_review_your_information">Please review your information, you will \nnot be able to update the changes once\nthe Ad is approved by the aaonri administrator.</string>
-    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms of Use and our Privacy Policy</string>
+    <string name="by_posting_an_ad">By Posting an ad on aaonri.com, you agree to our\n Terms Of Use and our Privacy Policy</string>
     <string name="congratulations_you_have_successfully_posted_your_classified">Congratulations \n You have successfully posted your Classified</string>
     <string name="if_a_user_wishes_to_make_an_ad_popular_hot_please_email_to_admin_aaonri_com">If a user wishes to make an ad Popular/Hot\n Please email to admin@aaonri.com</string>
     <string name="view_your_classified">VIEW YOUR CLASSIFIEDS</string>
@@ -146,7 +146,7 @@
     <string name="we_are_using_your_default">we are using your default profile resume. if you need to change another resume, please click to (x) button and upload the resume from your device</string>
     <string name="by_tapping_get_started_you_agree_our_privacy_policy_terms_of_use"><![CDATA[By tapping GET STARTED you agree our Privacy Policy & Terms Of Use]]></string>
     <string name="bu_submitting_you_agree_to_our_privacy_policy"><![CDATA[By submitting you agree to our Privacy Policy \n& Terms Of Use]]></string>
-    <string name="by_continuing_you_agree_to_our_privacy_policy_terms_of_use"><![CDATA[By continuing you agree to our Privacy Policy \n& Terms of Use]]></string>
+    <string name="by_continuing_you_agree_to_our_privacy_policy_terms_of_use"><![CDATA[By continuing you agree to our Privacy Policy \n& Terms Of Use]]></string>
     <string name="report_inappropriate"><u>Report Inappropriate</u></string>
     <string name="app_version">Version: 1.3 -dev</string>
 

@@ -17,6 +17,7 @@ import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.data.jobs.recruiter.model.PostJobRequest
+import com.aaonri.app.data.jobs.recruiter.model.PostingApplicabilityModel
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobCompanyDetailsBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
@@ -37,7 +38,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
     var visaStatus = ""
     var jobType = ""
     var jobIdWhileUpdating = 0
-    var selectedJobApplicabilityList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
+    var jobDetailsApplicabilityList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
+    var selectedJobApplicabilityList = mutableListOf<PostingApplicabilityModel>()
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -172,6 +174,32 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                 }
             }
 
+
+            jobRecruiterViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        response.data?.forEachIndexed { index, visaStatus ->
+
+                            response.data[index].isSelected =
+                                jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
+                        }
+
+                        response.data?.let {
+                            jobRecruiterViewModel.setSelectedVisaStatusJobApplicabilityValue(
+                                it
+                            )
+                        }
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
             jobRecruiterViewModel.userSelectedExperienceLevel.observe(viewLifecycleOwner) {
                 if (it != null) {
                     experienceTv.text = it.experienceLevel
@@ -201,11 +229,24 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         visaStatusRv.visibility = View.VISIBLE
                     }
 
+                    selectedJobApplicabilityList = mutableListOf()
+
                     it.forEach { item ->
-                        if (!selectedJobApplicabilityList.contains(item)) {
-                            selectedJobApplicabilityList.add(item)
-                        }
                         if (item.isSelected) {
+                            if (!selectedJobApplicabilityList.contains(
+                                    PostingApplicabilityModel(
+                                        applicabilityId = item.id,
+                                        applicability = item.applicability
+                                    )
+                                )
+                            ) {
+                                selectedJobApplicabilityList.add(
+                                    PostingApplicabilityModel(
+                                        applicabilityId = item.id,
+                                        applicability = item.applicability
+                                    )
+                                )
+                            }
                             if (!visaStatus.contains(item.applicability)) {
                                 visaStatus += item.applicability + ","
                             }
@@ -227,6 +268,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         jobRv.visibility = View.VISIBLE
                     }
 
+                    jobType = ""
                     it.forEach { item ->
                         if (item.isSelected) {
                             if (!jobType.contains(item.name)) {
@@ -276,17 +318,17 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             if (jobRecruiterViewModel.isUpdateJob) {
 
                 JobRecruiterStaticData.getJobDetailsValue()?.let { jobDetails ->
+                    jobDetailsApplicabilityList =
+                        jobDetails.applicability as MutableList<AllActiveJobApplicabilityResponseItem>
                     jobIdWhileUpdating = jobDetails.jobId
                     experienceTv.text = jobDetails.experienceLevel
                     industriesTv.text = jobDetails.industry
                     salaryEt.setText(jobDetails.salaryRange)
                     billingTypeTv.setText(jobDetails.billingType)
-                    /*visaStatus.setText(jobDetails.applicability)*/
                     companyNameEt.setText(jobDetails.company)
                     submitBtn.text = "UPDATE"
 
                     val tempJobList = mutableListOf<JobType>()
-                    val tempApplicabilityList = mutableListOf<AllActiveJobApplicabilityResponseItem>()
 
                     tempJobList.addAll(
                         listOf(
@@ -318,22 +360,18 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         )
                     )
 
+                    val jobTypeList = jobDetails.jobType.split(",").toTypedArray()
+
                     tempJobList.forEachIndexed { index, jobType ->
-                        if (jobDetails.jobType.contains(jobType.name)) {
+                        if (jobTypeList.contains(jobType.name)) {
                             tempJobList[index].isSelected = true
                         }
                     }
 
-                    jobDetails.applicability.forEachIndexed { index, jobType ->
-                        jobDetails.applicability[index].isSelected = true
-                        if (!tempApplicabilityList.contains(jobType)) {
-                            tempApplicabilityList.add(jobType)
-                        }
-                    }
 
                     jobRecruiterViewModel.setSelectJobListMutableValue(tempJobList)
 
-                    jobRecruiterViewModel.setSelectedVisaStatusJobApplicabilityValue(tempApplicabilityList)
+
                     jobDescEt.text = Html.fromHtml(jobDetails.description)
                     description = jobDetails.description
                 }
@@ -351,7 +389,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
 
         jobRecruiterViewModel.postJob(
             PostJobRequest(
-                applicability = null,
+                applicability = selectedJobApplicabilityList,
                 applyCount = 0,
                 billingType = binding?.billingTypeTv?.text.toString(),
                 city = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.CITY_NAME]!!,
@@ -384,7 +422,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
 
         jobRecruiterViewModel.updateJob(
             PostJobRequest(
-                applicability = null,
+                applicability = selectedJobApplicabilityList,
                 applyCount = 0,
                 billingType = binding?.billingTypeTv?.text.toString(),
                 city = jobRecruiterViewModel.recruiterPostJobDetails[JobRecruiterConstant.CITY_NAME]!!,

@@ -62,7 +62,8 @@
         android:id="@+id/selectVisaStatusBottomSheet"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectVisaStatusBottomSheet"
         android:label="fragment_select_visa_status_bottom_sheet"
-        tools:layout="@layout/fragment_select_visa_status_bottom_sheet" />
+        tools:layout="@layout/fragment_select_visa_status_bottom_sheet" >
+    </dialog>
     <dialog
         android:id="@+id/selectJobTypeBottomSheet"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.SelectJobTypeBottomSheet"

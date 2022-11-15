@@ -224,7 +224,7 @@ class PostEventAddressDetailsFragment : Fragment() {
                                                 postEvent()
                                             }
                                         } else {
-                                            showAlert("Please agree to our Terms of Use & Privacy Policy")
+                                            showAlert("Please agree to our Terms Of Use & Privacy Policy")
                                         }
                                     }
                                 }
