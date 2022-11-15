@@ -41,7 +41,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val data = result.data?.getBooleanExtra("updateJobData", false)
                     if (data == true) {
-                        jobRecruiterViewModel.jobSearch(
+                        jobRecruiterViewModel.getMyPostedJobs(
                             JobSearchRequest(
                                 city = "",
                                 company = "",
@@ -108,7 +108,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
                         is Resource.Success -> {
                             progressBar.visibility = View.GONE
                             /** calling api for my posted job screen **/
-                            jobRecruiterViewModel.jobSearch(
+                            jobRecruiterViewModel.getMyPostedJobs(
                                 JobSearchRequest(
                                     city = "",
                                     company = "",

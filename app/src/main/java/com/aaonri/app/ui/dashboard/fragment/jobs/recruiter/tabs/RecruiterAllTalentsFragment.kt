@@ -37,13 +37,22 @@ class RecruiterAllTalentsFragment : Fragment() {
             recyclerViewAllTalents.layoutManager = LinearLayoutManager(context)
             recyclerViewAllTalents.adapter = allJobProfileAdapter
 
-            jobRecruiterViewModel.allJobProfileData.observe(viewLifecycleOwner) { response ->
+            jobRecruiterViewModel.allTalentListData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        response.data?.let { allJobProfileAdapter?.setData(it.filter { it.isApplicant }) }
+                        response.data?.let {
+                            if (it.jobProfiles.isNotEmpty()) {
+                                recyclerViewAllTalents.visibility = View.VISIBLE
+                                resultsNotFoundLL.visibility = View.GONE
+                                allJobProfileAdapter?.setData(it.jobProfiles.filter { it.isApplicant })
+                            } else {
+                                recyclerViewAllTalents.visibility = View.GONE
+                                resultsNotFoundLL.visibility = View.VISIBLE
+                            }
+                        }
                         binding?.progressBar?.visibility = View.GONE
                     }
                     is Resource.Error -> {

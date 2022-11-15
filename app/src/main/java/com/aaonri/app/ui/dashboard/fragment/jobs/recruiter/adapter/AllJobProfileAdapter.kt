@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.jobs.recruiter.model.AllJobProfileResponseItem
+import com.aaonri.app.data.jobs.recruiter.model.AllTalentResponse
+import com.aaonri.app.data.jobs.recruiter.model.JobProfile
 import com.aaonri.app.databinding.RecruiterAllTalentsItemBinding
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class AllJobProfileAdapter(private var selectedJobProfile: ((value: AllJobProfileResponseItem) -> Unit)) :
+class AllJobProfileAdapter(private var selectedJobProfile: ((value: JobProfile) -> Unit)) :
     RecyclerView.Adapter<AllJobProfileAdapter.AllJobProfileViewHolder>() {
 
     var recruiterJobKeySkillsAdapter: RecruiterJobKeySkillsAdapter? = null
 
-    private var data = listOf<AllJobProfileResponseItem>()
+    private var data = listOf<JobProfile>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllJobProfileViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -54,7 +56,7 @@ class AllJobProfileAdapter(private var selectedJobProfile: ((value: AllJobProfil
 
     @JvmName("setData1")
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<AllJobProfileResponseItem>) {
+    fun setData(data: List<JobProfile>) {
         this.data = data
         notifyDataSetChanged()
     }

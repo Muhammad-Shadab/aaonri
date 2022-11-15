@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.model.RecruiterJobFilterModel
+import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentJobRecruiterScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -102,7 +103,8 @@ class JobRecruiterScreenFragment : Fragment() {
                     ?.get(Constant.IS_USER_LOGIN, false)
             }
 
-        jobRecruiterViewModel.getAllJobProfile()
+
+
         jobRecruiterViewModel.getAllAvailability()
 
         val resultLauncher =
@@ -110,7 +112,7 @@ class JobRecruiterScreenFragment : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val data = result.data?.getBooleanExtra("updateJobData", false)
                     if (data == true) {
-                        jobRecruiterViewModel.jobSearch(
+                        jobRecruiterViewModel.getMyPostedJobs(
                             JobSearchRequest(
                                 city = "",
                                 company = "",
@@ -128,7 +130,7 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
         /** calling api for my posted job screen **/
-        jobRecruiterViewModel.jobSearch(
+        jobRecruiterViewModel.getMyPostedJobs(
             JobSearchRequest(
                 city = "",
                 company = "",
@@ -484,9 +486,61 @@ class JobRecruiterScreenFragment : Fragment() {
                     )
                 )
             }
-
-
         }
+
+        jobRecruiterViewModel.jobRecruiterFilterValues.observe(viewLifecycleOwner) { filterData ->
+            noOfSelectedFilter = 0
+            recruiterJobFilterModel = filterData
+            if (filterData.anyKeywords.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.anyKeywordFilterCv?.visibility = View.VISIBLE
+                binding?.anyKeywordFilterTv?.text = "Any Keywords: ${filterData.anyKeywords}"
+            }
+
+            if (filterData.allKeywords.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.allKeywordFilterCv?.visibility = View.VISIBLE
+                binding?.allKeywordFilterTv?.text = "All Keywords: ${filterData.allKeywords}"
+            }
+
+            if (filterData.availability.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.availabilityFilterCv?.visibility = View.VISIBLE
+                binding?.availabilityFilterTv?.text = "Availability: ${filterData.availability}"
+            }
+
+            if (filterData.location.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.locationFilterCv?.visibility = View.VISIBLE
+                binding?.locationFilterTv?.text = "Location: ${filterData.location}"
+            }
+
+            if (filterData.skillSet.isNotEmpty()) {
+                noOfSelectedFilter++
+                binding?.skillFilterCv?.visibility = View.VISIBLE
+                binding?.skillFilterTv?.text = "Skill Set: ${filterData.skillSet}"
+            }
+
+            jobRecruiterViewModel.getAllTalents(
+                SearchAllTalentRequest(
+                    allKeyWord = filterData.allKeywords,
+                    anykeyWord = filterData.anyKeywords,
+                    availability = filterData.availability,
+                    location = filterData.location,
+                    skill = filterData.skillSet
+                )
+            )
+
+            if (filterData.anyKeywords.isNotEmpty() || filterData.allKeywords.isNotEmpty() || filterData.availability.isNotEmpty() || filterData.location.isNotEmpty() || filterData.skillSet.isNotEmpty()) {
+                isFilterEnable = true
+                binding?.selectedFilters?.visibility = View.VISIBLE
+            } else {
+                isFilterEnable = false
+                binding?.selectedFilters?.visibility = View.GONE
+            }
+            numberOfAppliedFilter(noOfSelectedFilter)
+        }
+
 
 
         jobRecruiterViewModel.navigateAllJobProfileScreenToTalentProfileDetailsScreen.observe(
@@ -546,55 +600,6 @@ class JobRecruiterScreenFragment : Fragment() {
                 )
             }
         }
-
-        jobRecruiterViewModel.jobRecruiterFilterValues.observe(viewLifecycleOwner) { filterData ->
-            noOfSelectedFilter = 0
-            recruiterJobFilterModel = filterData
-            if (filterData.anyKeywords.isNotEmpty()) {
-                noOfSelectedFilter++
-                binding?.anyKeywordFilterCv?.visibility = View.VISIBLE
-                binding?.anyKeywordFilterTv?.text = filterData.anyKeywords
-            }
-
-            if (filterData.allKeywords.isNotEmpty()) {
-                noOfSelectedFilter++
-                binding?.allKeywordFilterCv?.visibility = View.VISIBLE
-                binding?.allKeywordFilterTv?.text = filterData.allKeywords
-            }
-
-            if (filterData.availability.isNotEmpty()) {
-                noOfSelectedFilter++
-                binding?.availabilityFilterCv?.visibility = View.VISIBLE
-                binding?.availabilityFilterTv?.text = filterData.availability
-            }
-
-            if (filterData.location.isNotEmpty()) {
-                noOfSelectedFilter++
-                binding?.locationFilterCv?.visibility = View.VISIBLE
-                binding?.locationFilterTv?.text = filterData.location
-            }
-
-            if (filterData.skillSet.isNotEmpty()) {
-                noOfSelectedFilter++
-                binding?.skillFilterCv?.visibility = View.VISIBLE
-                binding?.skillFilterTv?.text = filterData.skillSet
-            }
-
-            if (filterData.anyKeywords.isNotEmpty() || filterData.allKeywords.isNotEmpty() || filterData.availability.isNotEmpty() || filterData.location.isNotEmpty() || filterData.skillSet.isNotEmpty()) {
-                isFilterEnable = true
-                binding?.selectedFilters?.visibility = View.VISIBLE
-                //binding?.numberOfSelectedFilterCv?.visibility = View.VISIBLE
-            } else {
-                isFilterEnable = false
-                binding?.selectedFilters?.visibility = View.GONE
-                //binding?.numberOfSelectedFilterCv?.visibility = View.GONE
-            }
-
-            numberOfAppliedFilter(noOfSelectedFilter)
-
-        }
-
-
 
 
         return binding?.root

@@ -40,6 +40,9 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val jobSearchData: MutableLiveData<Resource<JobSearchResponse>> =
         MutableLiveData()
 
+    val allTalentListData: MutableLiveData<Resource<AllTalentResponse>> =
+        MutableLiveData()
+
     val recruiterPostJobDetails: MutableMap<String, String> = mutableMapOf()
 
     val navigateAllJobProfileScreenToTalentProfileDetailsScreen: MutableLiveData<Int> =
@@ -108,20 +111,20 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         navigationForStepper.postValue(value)
     }
 
-    fun getAllJobProfile() = viewModelScope.launch {
+    /*fun getAllJobProfile() = viewModelScope.launch {
         allJobProfileData.postValue(Resource.Loading())
         val response = repository.getAllJobProfile()
         allJobProfileData.postValue(handleAllJobProfileResponse(response))
-    }
+    }*/
 
-    private fun handleAllJobProfileResponse(response: Response<AllJobProfileResponse>): Resource<AllJobProfileResponse>? {
+    /*private fun handleAllJobProfileResponse(response: Response<AllJobProfileResponse>): Resource<AllJobProfileResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
     fun findAllActiveIndustry() = viewModelScope.launch {
         allActiveIndustryData.postValue(Resource.Loading())
@@ -201,15 +204,30 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
         recruiterPostJobDetails[JobRecruiterConstant.SKILL_SET] = skillSet
     }
 
-    fun jobSearch(
+    fun getMyPostedJobs(
         jobSearchRequest: JobSearchRequest
     ) = viewModelScope.launch {
         jobSearchData.postValue(Resource.Loading())
-        val response = repository.jobSearch(jobSearchRequest)
+        val response = repository.getMyPostedJobs(jobSearchRequest)
         jobSearchData.postValue(handleJobSearchResponse(response))
     }
 
     private fun handleJobSearchResponse(response: Response<JobSearchResponse>): Resource<JobSearchResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getAllTalents(searchAllTalentRequest: SearchAllTalentRequest) = viewModelScope.launch {
+        allTalentListData.postValue(Resource.Loading())
+        val response = repository.getAllTalents(searchAllTalentRequest)
+        allTalentListData.postValue(handleAllTalentResponse(response))
+    }
+
+    private fun handleAllTalentResponse(response: Response<AllTalentResponse>): Resource<AllTalentResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

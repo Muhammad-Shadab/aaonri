@@ -1212,15 +1212,22 @@ class HomeScreenFragment : Fragment() {
                 val isJobRecruiter =
                     context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
 
-                if (isJobRecruiter == true) {
-                    val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
-                    findNavController().navigate(action)
-                } else {
+                if (guestUser) {
                     /*val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                    findNavController().navigate(action)*/
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                        findNavController().navigate(action)*/
+                } else {
+                    if (isJobRecruiter == true) {
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
+                        findNavController().navigate(action)
+                    } else {
+                        /*val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                        findNavController().navigate(action)*/
+                    }
                 }
+
 
             } else if (interests == "$shopWithUsId" || interests == "Shop With Us") {
                 //Shop With Us

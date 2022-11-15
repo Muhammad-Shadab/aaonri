@@ -479,7 +479,7 @@ class ServicesCategoryFragment : Fragment() {
             binding?.serviceSubmitBtn?.text = "UPDATE"
             binding?.privacyPolicyRegistrationTv?.visibility = View.GONE
             UserProfileStaticData.getUserProfileDataValue()?.let {
-                adapter?.setSelectedServicesList(it.interests.replace("17", ""))
+                adapter?.setSelectedServicesList(it.interests)
                 if (it.isJobRecruiter) {
                     binding?.isRecruiterCheckBox?.isChecked = true
                     binding?.companyEmailServices?.setText(it.companyEmail)

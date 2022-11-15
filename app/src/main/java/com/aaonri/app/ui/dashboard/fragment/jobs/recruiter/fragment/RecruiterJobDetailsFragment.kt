@@ -110,7 +110,13 @@ class RecruiterJobDetailsFragment : Fragment() {
                                 it.skillSet.split(",").toTypedArray().toList()
                             )
                             if (it.applicability.isNotEmpty()) {
-                                jobRequirementTv.text = it.applicability.toString()
+                                val commaSeparatedApplicabilityString =
+                                    it.applicability.joinToString(separator = ",") { item ->
+                                        "\'${item.applicability}\'"
+                                    }
+                                jobRequirementTv.text =
+                                    commaSeparatedApplicabilityString.replace("[", "")
+                                        .replace("]", "").replace("'", "")
                             }
                             jobViewCountTv.text = it.viewCount.toString()
                             jobApplicantCountTv.text = it.applyCount.toString()

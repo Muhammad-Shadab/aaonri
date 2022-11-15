@@ -128,7 +128,7 @@
                         android:textSize="16sp" />
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/anyKeywordFlexBox"
+                        android:id="@+id/any_keyword_chip_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -156,7 +156,7 @@
                         android:textSize="16sp" />
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/allKeywordMustFlexBox"
+                        android:id="@+id/allKeywordMustChipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -225,7 +225,7 @@
                         android:textSize="16sp" />
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/skillsFlexBox"
+                        android:id="@+id/skillsChipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

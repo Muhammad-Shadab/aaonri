@@ -49,9 +49,14 @@ interface JobRecruiterApi {
     suspend fun getAllAvailability(): Response<AvailabilityResponse>
 
     @POST("/api/v1/jobs/search")
-    suspend fun jobSearchApi(
+    suspend fun getMyPostedJobs(
         @Body jobSearchRequest: JobSearchRequest
     ): Response<JobSearchResponse>
+
+    @POST("/api/v1/jobprofile/searchTalent")
+    suspend fun getAllTalents(
+        @Body searchAllTalentRequest: SearchAllTalentRequest
+    ): Response<AllTalentResponse>
 
     @POST("/api/v1/jobprofile/add")
     suspend fun addConsultantProfile(

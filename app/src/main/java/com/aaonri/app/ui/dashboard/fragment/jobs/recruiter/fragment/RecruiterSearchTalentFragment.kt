@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,9 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class RecruiterSearchTalentFragment : Fragment() {
     var binding: FragmentRecruiterSearchBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
-    val anyKeywordList = mutableListOf<String>()
-    val allKeywordList = mutableListOf<String>()
-    val skillSetList = mutableListOf<String>()
+    var anyKeywordList = mutableListOf<String>()
+    var allKeywordList = mutableListOf<String>()
+    var skillSetList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class RecruiterSearchTalentFragment : Fragment() {
             anyKeywordEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     if (textView.text.toString().trim().length >= 3) {
-                        addNewChip(textView.text.toString(), "anyKeyword", anyKeywordFlexBox)
+                        addNewChip(textView.text.toString(), "anyKeyword", anyKeywordChipGroup)
                     }
                     anyKeywordEt.setText("")
                     /*if (anyKeywordList.isNotEmpty()) {
@@ -57,7 +58,7 @@ class RecruiterSearchTalentFragment : Fragment() {
             allKeywordMustEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     if (textView.text.toString().trim().length >= 3) {
-                        addNewChip(textView.text.toString(), "allKeyword", allKeywordMustFlexBox)
+                        addNewChip(textView.text.toString(), "allKeyword", allKeywordMustChipGroup)
                     }
                     allKeywordMustEt.setText("")
                     /*if (allKeywordList.isNotEmpty()) {
@@ -71,7 +72,7 @@ class RecruiterSearchTalentFragment : Fragment() {
             skillsEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     if (textView.text.toString().trim().length >= 3) {
-                        addNewChip(textView.text.toString(), "skillSet", skillsFlexBox)
+                        addNewChip(textView.text.toString(), "skillSet", skillsChipGroup)
                     }
                     skillsEt.setText("")
                     /*if (skillSetList.isNotEmpty()) {
@@ -95,6 +96,24 @@ class RecruiterSearchTalentFragment : Fragment() {
             }
 
             resetBtn.setOnClickListener {
+
+                anyKeywordList.forEachIndexed { index, s ->
+                    anyKeywordChipGroup.removeView(anyKeywordChipGroup.getChildAt(index))
+                }
+                allKeywordList.forEachIndexed { index, s ->
+                    allKeywordMustChipGroup.removeView(allKeywordMustChipGroup.getChildAt(index))
+                }
+                skillSetList.forEachIndexed { index, s ->
+                    skillsChipGroup.removeView(skillsChipGroup.getChildAt(index))
+                }
+
+                /*anyKeywordList = mutableListOf()
+                allKeywordList = mutableListOf()
+                skillSetList = mutableListOf()*/
+
+                availablityTv.text = ""
+                locationEt.setText("")
+
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
                         anyKeywords = "",
@@ -108,6 +127,13 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             searchBtn.setOnClickListener {
 
+                val commaSeparatedAnyKeywordsString =
+                    if (anyKeywordList.isNotEmpty()) anyKeywordList.joinToString(separator = ",") { it -> "\'${it}\'" } else ""
+                val commaSeparatedAllKeywordsString =
+                    if (allKeywordList.isNotEmpty()) allKeywordList.joinToString(separator = ",") { it -> "\'${it}\'" } else ""
+                val commaSeparatedSkillSetString =
+                    if (skillSetList.isNotEmpty()) skillSetList.joinToString(separator = ",") { it -> "\'${it}\'" } else ""
+
                 if (anyKeywordEt.text.toString().isNotEmpty()) {
                     showAlert("Please go to the any keyword field and hit keypad enter button.")
                 }
@@ -118,16 +144,22 @@ class RecruiterSearchTalentFragment : Fragment() {
                     showAlert("Please go to the skills field and hit keypad enter button.")
                 }
 
-                if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString().isEmpty() && skillsEt.text.toString().isEmpty()){
+
+                if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString()
+                        .isEmpty() && skillsEt.text.toString().isEmpty()
+                ) {
                     if (locationEt.text.toString().isNotEmpty()) {
                         if (locationEt.text.toString().length >= 3) {
                             jobRecruiterViewModel.setJobRecruiterFilterValues(
                                 RecruiterJobFilterModel(
-                                    anyKeywords = anyKeywordList.toString(),
-                                    allKeywords = allKeywordList.toString(),
+                                    anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
+                                        .replace("]", "").replace("'", ""),
+                                    allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
+                                        .replace("]", "").replace("'", ""),
                                     availability = availablityTv.text.toString(),
                                     location = locationEt.text.toString(),
-                                    skillSet = skillSetList.toString()
+                                    skillSet = commaSeparatedSkillSetString.replace("[", "")
+                                        .replace("]", "").replace("'", "")
                                 )
                             )
                         }
@@ -135,14 +167,45 @@ class RecruiterSearchTalentFragment : Fragment() {
                     } else {
                         jobRecruiterViewModel.setJobRecruiterFilterValues(
                             RecruiterJobFilterModel(
-                                anyKeywords = anyKeywordList.toString(),
-                                allKeywords = allKeywordList.toString(),
+                                anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
+                                    .replace("]", "").replace("'", ""),
+                                allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
+                                    .replace("]", "").replace("'", ""),
                                 availability = availablityTv.text.toString(),
                                 location = locationEt.text.toString(),
-                                skillSet = skillSetList.toString()
+                                skillSet = commaSeparatedSkillSetString.replace("[", "")
+                                    .replace("]", "").replace("'", "")
                             )
                         )
                         findNavController().navigateUp()
+                    }
+                }
+            }
+
+            jobRecruiterViewModel.jobRecruiterFilterValues.observe(viewLifecycleOwner) { filterData ->
+                if (filterData.anyKeywords.isNotEmpty()) {
+                    filterData.anyKeywords.split(",").toTypedArray().forEach {
+                        addNewChip(it, "anyKeyword", anyKeywordChipGroup)
+                    }
+                }
+
+                if (filterData.allKeywords.isNotEmpty()) {
+                    filterData.allKeywords.split(",").toTypedArray().forEach {
+                        addNewChip(it, "allKeyword", allKeywordMustChipGroup)
+                    }
+                }
+
+                if (filterData.availability.isNotEmpty()) {
+                    availablityTv.text = filterData.availability
+                }
+
+                if (filterData.location.isNotEmpty()) {
+                    locationEt.setText(filterData.location)
+                }
+
+                if (filterData.skillSet.isNotEmpty()) {
+                    filterData.skillSet.split(",").toTypedArray().forEach {
+                        addNewChip(it, "skillSet", skillsChipGroup)
                     }
                 }
 
@@ -154,9 +217,9 @@ class RecruiterSearchTalentFragment : Fragment() {
         return binding?.root
     }
 
-    private fun addNewChip(person: String, optionName: String, chipGroup: ChipGroup) {
+    private fun addNewChip(chipText: String, optionName: String, chipGroup: ChipGroup) {
         val chip = Chip(context)
-        chip.text = person
+        chip.text = chipText
         chip.isCloseIconEnabled = true
         chip.isClickable = true
         chip.isCheckable = false
@@ -170,23 +233,21 @@ class RecruiterSearchTalentFragment : Fragment() {
 
         when (optionName) {
             "anyKeyword" -> {
-                if (!anyKeywordList.contains(person)) {
-                    anyKeywordList.add(person)
+                if (!anyKeywordList.contains(chipText)) {
+                    anyKeywordList.add(chipText)
                 }
             }
             "allKeyword" -> {
-                if (!allKeywordList.contains(person)) {
-                    allKeywordList.add(person)
+                if (!allKeywordList.contains(chipText)) {
+                    allKeywordList.add(chipText)
                 }
             }
             "skillSet" -> {
-                if (!skillSetList.contains(person)) {
-                    skillSetList.add(person)
+                if (!skillSetList.contains(chipText)) {
+                    skillSetList.add(chipText)
                 }
             }
         }
-
-        //val commaSeparatedString = anyKeywordList.joinToString (separator = ",") { it -> "\'${it.nameOfStringVariable}\'" }
 
         chip.setOnCloseIconClickListener {
             when (optionName) {
