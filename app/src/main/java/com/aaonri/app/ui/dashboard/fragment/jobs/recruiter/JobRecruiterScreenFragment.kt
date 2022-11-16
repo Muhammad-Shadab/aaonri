@@ -12,6 +12,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
@@ -301,6 +302,19 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             navigateBack.setOnClickListener {
+                /** Cleared all filters  **/
+                if (isFilterEnable) {
+                    jobRecruiterViewModel.setSelectedAvailability("")
+                    jobRecruiterViewModel.setJobRecruiterFilterValues(
+                        RecruiterJobFilterModel(
+                            anyKeywords = "",
+                            allKeywords = "",
+                            availability = "",
+                            location = "",
+                            skillSet = "",
+                        )
+                    )
+                }
                 findNavController().navigateUp()
             }
 
@@ -401,9 +415,24 @@ class JobRecruiterScreenFragment : Fragment() {
                     }
 
                     if (tab?.position != 0) {
-
+                        /** Hide and disable filters Filters  **/
+                        binding?.selectedFilters?.visibility = View.GONE
+                        if (isFilterEnable) {
+                            jobRecruiterViewModel.setSelectedAvailability("")
+                            jobRecruiterViewModel.setJobRecruiterFilterValues(
+                                RecruiterJobFilterModel(
+                                    anyKeywords = "",
+                                    allKeywords = "",
+                                    availability = "",
+                                    location = "",
+                                    skillSet = "",
+                                )
+                            )
+                        }
                     } else {
-
+                        if (isFilterEnable) {
+                            binding?.selectedFilters?.visibility = View.VISIBLE
+                        }
                     }
                 }
 
@@ -542,7 +571,6 @@ class JobRecruiterScreenFragment : Fragment() {
         }
 
 
-
         jobRecruiterViewModel.navigateAllJobProfileScreenToTalentProfileDetailsScreen.observe(
             viewLifecycleOwner
         ) {
@@ -601,6 +629,27 @@ class JobRecruiterScreenFragment : Fragment() {
             }
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    /** Cleared all filters  **/
+                    if (isFilterEnable) {
+                        jobRecruiterViewModel.setSelectedAvailability("")
+                        jobRecruiterViewModel.setJobRecruiterFilterValues(
+                            RecruiterJobFilterModel(
+                                anyKeywords = "",
+                                allKeywords = "",
+                                availability = "",
+                                location = "",
+                                skillSet = "",
+                            )
+                        )
+                    }
+
+                    findNavController().navigateUp()
+                }
+            })
 
         return binding?.root
     }

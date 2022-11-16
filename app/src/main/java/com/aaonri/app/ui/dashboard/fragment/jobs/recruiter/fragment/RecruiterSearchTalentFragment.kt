@@ -97,22 +97,18 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             resetBtn.setOnClickListener {
 
-                anyKeywordList.forEachIndexed { index, s ->
-                    anyKeywordChipGroup.removeView(anyKeywordChipGroup.getChildAt(index))
-                }
-                allKeywordList.forEachIndexed { index, s ->
-                    allKeywordMustChipGroup.removeView(allKeywordMustChipGroup.getChildAt(index))
-                }
-                skillSetList.forEachIndexed { index, s ->
-                    skillsChipGroup.removeView(skillsChipGroup.getChildAt(index))
-                }
+                anyKeywordChipGroup.removeAllViews()
+                allKeywordMustChipGroup.removeAllViews()
+                skillsChipGroup.removeAllViews()
 
-                /*anyKeywordList = mutableListOf()
+                anyKeywordList = mutableListOf()
                 allKeywordList = mutableListOf()
-                skillSetList = mutableListOf()*/
+                skillSetList = mutableListOf()
 
                 availablityTv.text = ""
                 locationEt.setText("")
+
+                jobRecruiterViewModel.setSelectedAvailability("")
 
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -144,12 +140,26 @@ class RecruiterSearchTalentFragment : Fragment() {
                     showAlert("Please go to the skills field and hit keypad enter button.")
                 }
 
-
-                if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString()
-                        .isEmpty() && skillsEt.text.toString().isEmpty()
-                ) {
-                    if (locationEt.text.toString().isNotEmpty()) {
-                        if (locationEt.text.toString().length >= 3) {
+                if (anyKeywordList.isNotEmpty() || allKeywordList.isNotEmpty() || skillSetList.isNotEmpty() || availablityTv.text.toString().isNotEmpty() || locationEt.text.toString().isNotEmpty()){
+                    if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString().isEmpty() && skillsEt.text.toString().isEmpty()
+                    ) {
+                        if (locationEt.text.toString().isNotEmpty()) {
+                            if (locationEt.text.toString().length >= 3) {
+                                jobRecruiterViewModel.setJobRecruiterFilterValues(
+                                    RecruiterJobFilterModel(
+                                        anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
+                                            .replace("]", "").replace("'", ""),
+                                        allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
+                                            .replace("]", "").replace("'", ""),
+                                        availability = availablityTv.text.toString(),
+                                        location = locationEt.text.toString(),
+                                        skillSet = commaSeparatedSkillSetString.replace("[", "")
+                                            .replace("]", "").replace("'", "")
+                                    )
+                                )
+                            }
+                            findNavController().navigateUp()
+                        } else {
                             jobRecruiterViewModel.setJobRecruiterFilterValues(
                                 RecruiterJobFilterModel(
                                     anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
@@ -162,24 +172,11 @@ class RecruiterSearchTalentFragment : Fragment() {
                                         .replace("]", "").replace("'", "")
                                 )
                             )
+                            findNavController().navigateUp()
                         }
-                        findNavController().navigateUp()
-                    } else {
-                        jobRecruiterViewModel.setJobRecruiterFilterValues(
-                            RecruiterJobFilterModel(
-                                anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
-                                    .replace("]", "").replace("'", ""),
-                                allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
-                                    .replace("]", "").replace("'", ""),
-                                availability = availablityTv.text.toString(),
-                                location = locationEt.text.toString(),
-                                skillSet = commaSeparatedSkillSetString.replace("[", "")
-                                    .replace("]", "").replace("'", "")
-                            )
-                        )
-                        findNavController().navigateUp()
                     }
                 }
+
             }
 
             jobRecruiterViewModel.jobRecruiterFilterValues.observe(viewLifecycleOwner) { filterData ->
