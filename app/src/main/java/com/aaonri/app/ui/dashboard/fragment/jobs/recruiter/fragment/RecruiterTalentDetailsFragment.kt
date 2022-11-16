@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.aaonri.app.BuildConfig
 import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterTalentDetailsBinding
@@ -58,6 +57,7 @@ class RecruiterTalentDetailsFragment : Fragment() {
                     "url",
                     "http://docs.google.com/gview?embedded=true&url=https://www.africau.edu/images/default/sample.pdf"
                 )
+                intent.putExtra("hideBottomBar", true)
                 startActivity(intent)
             }
 
@@ -103,8 +103,6 @@ class RecruiterTalentDetailsFragment : Fragment() {
 
                             linearLayout.visibility = View.VISIBLE
                             connectBtn.visibility = View.VISIBLE
-
-
                         }
 
                         progressBar.visibility = View.GONE

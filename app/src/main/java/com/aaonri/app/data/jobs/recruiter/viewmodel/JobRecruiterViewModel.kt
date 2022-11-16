@@ -37,7 +37,7 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     val jobProfileDetailsByIdData: MutableLiveData<Resource<JobProfileDetailsByIdResponse>> =
         MutableLiveData()
 
-    val jobSearchData: MutableLiveData<Resource<JobSearchResponse>> =
+    val myPostedJobsData: MutableLiveData<Resource<JobSearchResponse>> =
         MutableLiveData()
 
     val allTalentListData: MutableLiveData<Resource<AllTalentResponse>> =
@@ -207,12 +207,12 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
     fun getMyPostedJobs(
         jobSearchRequest: JobSearchRequest
     ) = viewModelScope.launch {
-        jobSearchData.postValue(Resource.Loading())
+        myPostedJobsData.postValue(Resource.Loading())
         val response = repository.getMyPostedJobs(jobSearchRequest)
-        jobSearchData.postValue(handleJobSearchResponse(response))
+        myPostedJobsData.postValue(handleMyPostedJobResponse(response))
     }
 
-    private fun handleJobSearchResponse(response: Response<JobSearchResponse>): Resource<JobSearchResponse>? {
+    private fun handleMyPostedJobResponse(response: Response<JobSearchResponse>): Resource<JobSearchResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -7,6 +7,7 @@
     tools:context=".ui.dashboard.fragment.jobs.recruiter.tabs.RecruiterAllTalentsFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -20,33 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/resultsNotFoundLL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:background="@drawable/no_immigration_found" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:text="Sorry! No result found :("
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topAdvertiseRv"
@@ -64,11 +38,11 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_6sdp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@id/bottomAdvertiseRv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topAdvertiseRv"
-                tools:listitem="@layout/recruiter_all_talents_item"
-                app:layout_constraintBottom_toTopOf="@id/bottomAdvertiseRv"/>
+                tools:listitem="@layout/recruiter_all_talents_item" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bottomAdvertiseRv"
@@ -86,6 +60,33 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/resultsNotFoundLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/no_immigration_found" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:text="Sorry! No result found :("
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

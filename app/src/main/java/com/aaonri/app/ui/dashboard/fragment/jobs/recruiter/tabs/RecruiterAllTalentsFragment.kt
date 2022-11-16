@@ -45,11 +45,11 @@ class RecruiterAllTalentsFragment : Fragment() {
                     is Resource.Success -> {
                         response.data?.let {
                             if (it.jobProfiles.isNotEmpty()) {
-                                recyclerViewAllTalents.visibility = View.VISIBLE
+                                nestedScrollView.visibility = View.VISIBLE
                                 resultsNotFoundLL.visibility = View.GONE
                                 allJobProfileAdapter?.setData(it.jobProfiles.filter { it.isApplicant })
                             } else {
-                                recyclerViewAllTalents.visibility = View.GONE
+                                nestedScrollView.visibility = View.GONE
                                 resultsNotFoundLL.visibility = View.VISIBLE
                             }
                         }

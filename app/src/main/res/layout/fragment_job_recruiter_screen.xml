@@ -132,12 +132,12 @@
             android:hint="Search Talent?"
             android:inputType="none"
             android:maxLines="1"
+            android:paddingVertical="@dimen/_2sdp"
             android:textColor="@color/black"
-            android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_8sdp"
             android:textColorHint="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/searchViewIcon"

@@ -24,7 +24,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:background="@drawable/resume"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -245,7 +245,7 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:text="Posted: "
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/postedDateTv"
@@ -256,7 +256,7 @@
                             android:maxLines="1"
                             android:text="Mar 12,2022"
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <View
@@ -282,7 +282,7 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:text="Job Views: "
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/jobViewCountTv"
@@ -293,7 +293,7 @@
                             android:maxLines="1"
                             android:text="25"
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <View
@@ -315,9 +315,9 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="4dp"
                             android:fontFamily="@font/sf_pro_display_light"
-                            android:text="Job Application: "
+                            android:text="Job Applicants: "
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/jobApplicationCountTv"
@@ -328,7 +328,7 @@
                             android:maxLines="1"
                             android:text="251"
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>

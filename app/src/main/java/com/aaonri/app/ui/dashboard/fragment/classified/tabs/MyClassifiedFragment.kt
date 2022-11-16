@@ -25,9 +25,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class MyClassifiedFragment : Fragment() {
+    var binding: FragmentMyClassifiedBinding? = null
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
-    var binding: FragmentMyClassifiedBinding? = null
     var allClassifiedAdapter: AllClassifiedAdapter? = null
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null

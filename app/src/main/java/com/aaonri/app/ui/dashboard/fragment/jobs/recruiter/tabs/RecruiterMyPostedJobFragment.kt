@@ -83,15 +83,23 @@ class RecruiterMyPostedJobFragment : Fragment() {
             recyclerViewMyPostedJob.layoutManager = LinearLayoutManager(context)
             recyclerViewMyPostedJob.adapter = myPostedJobAdapter
 
-            jobRecruiterViewModel.jobSearchData.observe(viewLifecycleOwner) { response ->
+            jobRecruiterViewModel.myPostedJobsData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
                         progressBar.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-
                         progressBar.visibility = View.GONE
-                        response.data?.jobDetailsList?.let { myPostedJobAdapter?.setData(it) }
+                        if (response.data?.jobDetailsList?.isNotEmpty() == true) {
+                            emptyScreenImage.visibility = View.GONE
+                            emptyTextVew.visibility = View.GONE
+                            nestedScrollView.visibility = View.VISIBLE
+                            response.data.jobDetailsList.let { myPostedJobAdapter?.setData(it) }
+                        } else {
+                            emptyScreenImage.visibility = View.VISIBLE
+                            emptyTextVew.visibility = View.VISIBLE
+                            nestedScrollView.visibility = View.GONE
+                        }
                     }
                     is Resource.Error -> {
                         progressBar.visibility = View.GONE

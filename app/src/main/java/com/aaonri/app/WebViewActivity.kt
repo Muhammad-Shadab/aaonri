@@ -38,12 +38,20 @@ class WebViewActivity : BaseActivity() {
         window.statusBarColor = Color.TRANSPARENT
 
         val url = intent.getStringExtra("url")
+        val hideBottomBar = intent.getBooleanExtra("hideBottomBar", false)
 
         binding?.apply {
 
             progressBar.visibility = View.VISIBLE
+
             if (url != null) {
                 startWebView(url)
+            }
+
+            if (hideBottomBar) {
+                navigateBack.visibility = View.GONE
+                navigateForward.visibility = View.GONE
+                openInBrowser.visibility = View.GONE
             }
 
             closeWebViewBtn.setOnClickListener {
