@@ -213,14 +213,11 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
             closeClassifiedBtn.setOnClickListener {
-                //postClassifiedViewModel.setClickedOnFilter(false)
                 findNavController().navigateUp()
             }
 
             clearAllBtn.setOnClickListener {
                 postClassifiedViewModel.setClearAllFilter(true)
-
-                //postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
             }
 
 
@@ -821,56 +818,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
 
         }
-
-
-
-        /*postClassifiedViewModel.changeSortTriplet.let {
-            if (it.first) {
-                isDatePublishedSelected = true
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.blueBtnColor
-                    )
-                }?.let { it2 ->
-                    binding?.datePublished?.setBackgroundColor(
-                        it2
-                    )
-                }
-                context?.getColor(R.color.white)
-                    ?.let { it1 -> binding?.datePublished?.setTextColor(it1) }
-            }
-            if (it.second) {
-                isPriceLowToHighSelected = true
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.blueBtnColor
-                    )
-                }?.let { it2 ->
-                    binding?.priceLowToHigh?.setBackgroundColor(
-                        it2
-                    )
-                }
-                context?.getColor(R.color.white)
-                    ?.let { it1 -> binding?.priceLowToHigh?.setTextColor(it1) }
-            }
-            if (it.third) {
-                isPriceHighToLowSelected = true
-                context?.let { it1 ->
-                    ContextCompat.getColor(
-                        it1,
-                        R.color.blueBtnColor
-                    )
-                }?.let { it2 ->
-                    binding?.priceHighToLow?.setBackgroundColor(
-                        it2
-                    )
-                }
-                context?.getColor(R.color.white)
-                    ?.let { it1 -> binding?.priceHighToLow?.setTextColor(it1) }
-            }
-        }*/
 
     }
 
