@@ -35,6 +35,8 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
+import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
+import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -70,6 +72,9 @@ class HomeScreenFragment : Fragment() {
     val advertiseViewModel: AdvertiseViewModel by activityViewModels()
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
+    val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
+
+
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
 
@@ -81,7 +86,7 @@ class HomeScreenFragment : Fragment() {
     var homeInterestsServiceAdapter: HomeInterestsServiceAdapter? = null
     var advertiseAdapter: AdvertiseAdapter? = null
     var immigrationAdapter: ImmigrationAdapter? = null
-    var jobAdapter: JobSeekerAdapter? = null
+    var jobSeekerAdapter: JobSeekerAdapter? = null
     var interestAdapter: InterestAdapter? = null
 
     //var homeEventAdapter: HomeEventAdapter? = null
@@ -425,7 +430,7 @@ class HomeScreenFragment : Fragment() {
         }*/
 
         /** This adapter is used for showing job on home screen  **/
-        jobAdapter = JobSeekerAdapter()
+        jobSeekerAdapter = JobSeekerAdapter()
 
         searchFilterModuleAdapter = SearchFilterModuleAdapter {
             interestServiceResponseItem = it
@@ -525,7 +530,7 @@ class HomeScreenFragment : Fragment() {
                         binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
                         binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        binding?.availableServiceHorizontalRv?.adapter = jobAdapter
+                        binding?.availableServiceHorizontalRv?.adapter = jobSeekerAdapter
                     }
                     "Immigration" -> {
                         binding?.availableServiceHorizontalClassifiedRv?.visibility =
@@ -914,7 +919,23 @@ class HomeScreenFragment : Fragment() {
                         }
                     }
 
+                    if (response.data?.isJobRecruiter == true) {
+                        jobRecruiterViewModel.getAllTalents(
+                            SearchAllTalentRequest(
+                                allKeyWord = "",
+                                anykeyWord = "",
+                                availability = "",
+                                location = "",
+                                skill = ""
+                            )
+                        )
+                    } else {
+
+                    }
+
                     callApiAccordingToInterest(list?.get(0))
+
+                    /** first interest will be removed and shows remaining interest in horizontal tab row **/
                     list?.removeAt(0)
                     setUserInterestedServiceRow(list)
                 }
@@ -1313,11 +1334,12 @@ class HomeScreenFragment : Fragment() {
                 binding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests == "$jobId") {
                 //Jobs
+
                 priorityService = "Jobs"
                 binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                binding?.priorityServiceRv?.adapter = jobAdapter
+                binding?.priorityServiceRv?.adapter = jobSeekerAdapter
             } else if (interests == "$shopWithUsId") {
                 //Shop With Us
                 /*priorityService = "Shop With Us"

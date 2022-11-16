@@ -14,6 +14,7 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
+import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.databinding.FragmentUpdateProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.update_profile.adapter.UpdateProfilePagerAdapter
 import com.aaonri.app.utils.Constant

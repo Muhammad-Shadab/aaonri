@@ -276,6 +276,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                             }
                         }
                     }
+                    jobType = jobType.dropLast(1)
+
                 }
             }
 

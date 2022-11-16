@@ -31,6 +31,7 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterPage
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
@@ -301,6 +302,7 @@ class JobRecruiterScreenFragment : Fragment() {
                     .centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
 
+
             navigateBack.setOnClickListener {
                 /** Cleared all filters  **/
                 if (isFilterEnable) {
@@ -359,14 +361,15 @@ class JobRecruiterScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
 
-            searchTalentBtn.setOnClickListener {
+            /*searchTalentBtn.setOnClickListener {
                 addOnFloatingBtnClick()
                 val action =
                     JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
                 findNavController().navigate(action)
-            }
+            }*/
 
             searchTalentBtn.setOnClickListener {
+                jobsScreenTabLayout.getTabAt(0)?.select()
                 addOnFloatingBtnClick()
                 val action =
                     JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
@@ -374,10 +377,12 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             searchViewIcon.setOnClickListener {
+                jobsScreenTabLayout.getTabAt(0)?.select()
                 searchView.performClick()
             }
 
             searchView.setOnClickListener {
+                jobsScreenTabLayout.getTabAt(0)?.select()
                 val action =
                     JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToRecruiterSearchTalentFragment()
                 findNavController().navigate(action)
@@ -477,6 +482,8 @@ class JobRecruiterScreenFragment : Fragment() {
             availabilityDeleteFilterIv.setOnClickListener {
                 numberOfAppliedFilter(--noOfSelectedFilter)
                 availabilityFilterCv.visibility = View.GONE
+
+                jobRecruiterViewModel.setSelectedAvailability("")
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
                         anyKeywords = "${recruiterJobFilterModel?.anyKeywords}",
@@ -523,13 +530,13 @@ class JobRecruiterScreenFragment : Fragment() {
             if (filterData.anyKeywords.isNotEmpty()) {
                 noOfSelectedFilter++
                 binding?.anyKeywordFilterCv?.visibility = View.VISIBLE
-                binding?.anyKeywordFilterTv?.text = "Any Keywords: ${filterData.anyKeywords}"
+                binding?.anyKeywordFilterTv?.text = "Any Key: ${filterData.anyKeywords}"
             }
 
             if (filterData.allKeywords.isNotEmpty()) {
                 noOfSelectedFilter++
                 binding?.allKeywordFilterCv?.visibility = View.VISIBLE
-                binding?.allKeywordFilterTv?.text = "All Keywords: ${filterData.allKeywords}"
+                binding?.allKeywordFilterTv?.text = "All Key: ${filterData.allKeywords}"
             }
 
             if (filterData.availability.isNotEmpty()) {

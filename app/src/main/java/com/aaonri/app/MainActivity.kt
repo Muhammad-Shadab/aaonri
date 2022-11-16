@@ -12,9 +12,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
@@ -34,7 +32,6 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
-import com.aaonri.app.ui.dashboard.fragment.HomeScreenFragmentDirections
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -56,7 +53,7 @@ class MainActivity : BaseActivity() {
     val mainViewModel: MainViewModel by viewModels()
     val immigrationViewModel: ImmigrationViewModel by viewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
-    val jobRecruiterViewModel: JobRecruiterViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +101,6 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
-
 
         binding?.apply {
 
@@ -165,23 +161,6 @@ class MainActivity : BaseActivity() {
                     bottomNavigation.visibility = View.GONE
                 }
             }
-        }
-
-        val isJobRecruiter =
-            applicationContext?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
-
-        if (isJobRecruiter == true) {
-            jobRecruiterViewModel.getAllTalents(
-                SearchAllTalentRequest(
-                    allKeyWord = "",
-                    anykeyWord = "",
-                    availability = "",
-                    location = "",
-                    skill = ""
-                )
-            )
-        } else {
-
         }
 
         dashboardCommonViewModel.isGuestUser.observe(this) { isGuestUser ->

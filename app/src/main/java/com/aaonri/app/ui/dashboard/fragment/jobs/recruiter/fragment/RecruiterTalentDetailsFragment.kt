@@ -41,7 +41,6 @@ class RecruiterTalentDetailsFragment : Fragment() {
 
         binding?.apply {
 
-
             jobKeySkillsRv.layoutManager = FlexboxLayoutManager(context)
             jobKeySkillsRv.adapter = recruiterJobKeySkillsAdapter
 
@@ -51,22 +50,34 @@ class RecruiterTalentDetailsFragment : Fragment() {
 
             viewResumeTv.setOnClickListener {
                 val intent = Intent(requireContext(), WebViewActivity::class.java)
-                intent.putExtra(
+                /*intent.putExtra(
                     "url",
                     "http://docs.google.com/gview?embedded=true&url=${BuildConfig.BASE_URL}/api/v1/common/jobsFile/$talentResume"
+                )*/
+                intent.putExtra(
+                    "url",
+                    "http://docs.google.com/gview?embedded=true&url=https://www.africau.edu/images/default/sample.pdf"
                 )
                 startActivity(intent)
             }
 
             connectBtn.setOnClickListener {
-                val emailIntent = Intent(
-                    Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", talentEmail, null
-                    )
+
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(talentEmail))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Recruiter wants to connect")
+                emailIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Greetings!\n" +
+                            "Your Job Profile seems interesting, let's connect for further discussion. Please reply to this email if you are looking for a change."
                 )
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
-                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+                emailIntent.selector = selectorIntent
+
+                activity?.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+
             }
 
             jobRecruiterViewModel.jobProfileDetailsByIdData.observe(viewLifecycleOwner) { response ->

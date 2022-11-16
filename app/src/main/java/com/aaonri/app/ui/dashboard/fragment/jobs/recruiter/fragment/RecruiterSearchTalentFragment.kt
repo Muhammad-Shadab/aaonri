@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.jobs.recruiter.model.RecruiterJobFilterModel
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterSearchBinding
+import com.aaonri.app.utils.SystemServiceUtil
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
@@ -27,6 +29,7 @@ class RecruiterSearchTalentFragment : Fragment() {
     var allKeywordList = mutableListOf<String>()
     var skillSetList = mutableListOf<String>()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,16 +43,20 @@ class RecruiterSearchTalentFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
+            nestedScrollView.setOnTouchListener { view, motionEvent ->
+                SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
+                return@setOnTouchListener true
+            }
+
             anyKeywordEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    if (textView.text.toString().trim().length >= 3) {
+                    if (textView.text.toString().trim().isNotEmpty()) {
                         addNewChip(textView.text.toString(), "anyKeyword", anyKeywordChipGroup)
+                        anyKeywordEt.setText("")
                     }
-                    anyKeywordEt.setText("")
                     /*if (anyKeywordList.isNotEmpty()) {
                         anyKeywordEt.setHint("")
                     }*/
-
                     return@setOnEditorActionListener true
                 }
                 false
@@ -57,10 +64,10 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             allKeywordMustEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    if (textView.text.toString().trim().length >= 3) {
+                    if (textView.text.toString().trim().isNotEmpty()) {
                         addNewChip(textView.text.toString(), "allKeyword", allKeywordMustChipGroup)
+                        allKeywordMustEt.setText("")
                     }
-                    allKeywordMustEt.setText("")
                     /*if (allKeywordList.isNotEmpty()) {
                         allKeywordMustEt.setHint("")
                     }*/
@@ -71,10 +78,10 @@ class RecruiterSearchTalentFragment : Fragment() {
 
             skillsEt.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    if (textView.text.toString().trim().length >= 3) {
+                    if (textView.text.toString().trim().isNotEmpty()) {
                         addNewChip(textView.text.toString(), "skillSet", skillsChipGroup)
+                        skillsEt.setText("")
                     }
-                    skillsEt.setText("")
                     /*if (skillSetList.isNotEmpty()) {
                         skillsEt.setHint("")
                     }*/
