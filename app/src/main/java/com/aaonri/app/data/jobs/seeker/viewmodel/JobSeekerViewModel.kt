@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchResponse
 import com.aaonri.app.data.jobs.seeker.model.*
 import com.aaonri.app.data.jobs.seeker.repository.JobSeekerRepository
 import com.aaonri.app.utils.Resource
@@ -54,7 +56,16 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     val uploadResumeData: MutableLiveData<Resource<String>> = MutableLiveData()
 
+    val searchJobData: MutableLiveData<Resource<JobSearchResponse>> =
+        MutableLiveData()
+
+    val userJobProfileCoverLetterValue: MutableLiveData<String> =
+        MutableLiveData()
+
     var resumeFileUri: Uri? = null
+
+    var selectedVisaStatusJobApplicability: MutableLiveData<List<AllActiveJobApplicabilityResponseItem>> =
+        MutableLiveData()
 
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
@@ -209,6 +220,21 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         saveJobViewData.postValue(handleSaveJobViewResponse(response))
     }
 
+    fun searchJob(jobSearchRequest: JobSearchRequest) = viewModelScope.launch {
+        searchJobData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.searchJob(jobSearchRequest)
+        searchJobData.postValue(handleJobSearchResponse(response))
+    }
+
+    private fun handleJobSearchResponse(response: Response<JobSearchResponse>): Resource<JobSearchResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     private fun handleSaveJobViewResponse(response: Response<SaveJobViewRequest>): Resource<SaveJobViewRequest>? {
         if (response.isSuccessful) {
             response.body()?.let {
@@ -244,6 +270,14 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     fun setResumeFileUriValue(value: Uri?) {
         resumeFileUri = value
+    }
+
+    fun setUserJobProfileCoverLetterValue(value: String) {
+        userJobProfileCoverLetterValue.postValue(value)
+    }
+
+    fun setSelectedVisaStatusJobApplicabilityValue(value: List<AllActiveJobApplicabilityResponseItem>) {
+        selectedVisaStatusJobApplicability.postValue(value)
     }
 
 }

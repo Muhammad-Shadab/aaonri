@@ -22,7 +22,7 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterPostJobCompanyDetailsBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedJobAdapter
-import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedVisaStatusAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedVisaStatusAdapterJobRecruiter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -32,7 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 class RecruiterPostJobRequirementsDetails : Fragment() {
     var binding: FragmentRecruiterPostJobCompanyDetailsBinding? = null
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
-    var visaStatusAdapter: SelectedVisaStatusAdapter? = null
+    var visaStatusAdapter: SelectedVisaStatusAdapterJobRecruiter? = null
     var selectedJobAdapter: SelectedJobAdapter? = null
     var description = ""
     var visaStatus = ""
@@ -66,7 +66,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             false
         )
 
-        visaStatusAdapter = SelectedVisaStatusAdapter {
+        visaStatusAdapter = SelectedVisaStatusAdapterJobRecruiter {
             jobRecruiterViewModel.setSelectedVisaStatusJobApplicabilityValue(it)
         }
 
@@ -178,14 +178,12 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             jobRecruiterViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        progressBarContainer.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        progressBarContainer.visibility = View.GONE
                         response.data?.forEachIndexed { index, visaStatus ->
-
-                            response.data[index].isSelected =
-                                jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
+                            response.data[index].isSelected = jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
                         }
 
                         response.data?.let {
@@ -195,7 +193,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        progressBarContainer.visibility = View.GONE
                     }
                 }
             }
@@ -205,11 +203,13 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                     experienceTv.text = it.experienceLevel
                 }
             }
+
             jobRecruiterViewModel.userSelectedIndustry.observe(viewLifecycleOwner) {
                 if (it != null) {
                     industriesTv.text = it.industryType
                 }
             }
+
             jobRecruiterViewModel.userSelectedBillingType.observe(viewLifecycleOwner) {
                 if (it != null) {
                     billingTypeTv.text = it.billingType

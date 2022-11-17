@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface UploadResumeApi {
 
     @Multipart
-    @POST("/api/v1/common/uploadResume/")
+    @POST("/api/v1/common/uploadResume")
     suspend fun uploadResume(
         @Query("jobOrProfileId") jobProfileId: Int,
         @Query("jobProfile") jobProfile: Boolean,

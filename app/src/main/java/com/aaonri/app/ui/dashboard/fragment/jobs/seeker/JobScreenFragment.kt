@@ -1,6 +1,7 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,15 +40,12 @@ class JobScreenFragment : Fragment() {
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        val isJobRecruiter =
-            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
-
         val fragment = this
         val jobPagerAdapter = JobPagerAdapter(fragment)
 
         jobSeekerViewModel.getUserJobProfileByEmail(
             emailId = email ?: "",
-            isApplicant = isJobRecruiter != true
+            isApplicant = true
         )
 
         binding?.apply {
@@ -135,6 +133,14 @@ class JobScreenFragment : Fragment() {
                     )
                 findNavController().navigate(action)
                 jobSeekerViewModel.navigateToUpdateJobProfileScreen.postValue(null)
+            }
+        }
+
+        jobSeekerViewModel.userJobProfileCoverLetterValue.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToCoverLetterBottomSheet()
+                findNavController().navigate(action)
             }
         }
 

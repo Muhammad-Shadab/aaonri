@@ -1,9 +1,11 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.*
@@ -14,6 +16,9 @@ class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
     private var data = listOf<Any>()
 
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? = null
+
+    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: UserJobProfileResponseItem) -> Unit)? =
+        null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolders {
         return when (viewType) {
@@ -57,8 +62,11 @@ class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: JobViewHolders, position: Int) {
         holder.itemClickListener = itemClickListener
+        holder.viewResumeOrCoverLetterBtnListener = viewResumeOrCoverLetterBtnListener
+
         when (holder) {
             is JobViewHolders.AllActiveJobsViewHolders -> {
                 if (data[position] is AllJobsResponseItem) {

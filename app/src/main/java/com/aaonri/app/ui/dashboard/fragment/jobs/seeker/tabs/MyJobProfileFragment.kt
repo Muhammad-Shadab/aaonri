@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
+import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentMyJobProfileBinding
@@ -28,6 +31,7 @@ class MyJobProfileFragment : Fragment() {
             FragmentMyJobProfileBinding.inflate(layoutInflater, container, false)
 
         jobSeekerAdapter = JobSeekerAdapter()
+
         jobSeekerAdapter?.itemClickListener = { view, item, position ->
             if (item is UserJobProfileResponseItem) {
                 if (view.id == R.id.updateProfileBtn) {
@@ -35,6 +39,21 @@ class MyJobProfileFragment : Fragment() {
                 }
             }
         }
+
+        jobSeekerAdapter?.viewResumeOrCoverLetterBtnListener = { isViewCoverLetterClicked, item ->
+            if (isViewCoverLetterClicked) {
+                jobSeekerViewModel.setUserJobProfileCoverLetterValue(item.coverLetter)
+            } else {
+                val intent = Intent(requireContext(), WebViewActivity::class.java)
+                intent.putExtra(
+                    "url",
+                    "http://docs.google.com/gview?embedded=true&url=" + BuildConfig.BASE_URL + "/api/v1/common/jobsFile/${item.resumeName}"
+                )
+                intent.putExtra("hideBottomBar", true)
+                startActivity(intent)
+            }
+        }
+
 
         binding?.apply {
 

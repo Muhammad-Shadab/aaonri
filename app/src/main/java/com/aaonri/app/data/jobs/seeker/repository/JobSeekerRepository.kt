@@ -1,5 +1,6 @@
 package com.aaonri.app.data.jobs.seeker.repository
 
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.seeker.api.JobSeekerApi
 import com.aaonri.app.data.jobs.seeker.api.UploadResumeApi
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
@@ -42,5 +43,9 @@ class JobSeekerRepository @Inject constructor(
 
     suspend fun saveJobView(saveJobViewRequest: SaveJobViewRequest) =
         jobSeekerApi.saveJobView(saveJobViewRequest)
+
+    suspend fun searchJob(jobSearchRequest: JobSearchRequest) =
+        jobSeekerApi.searchJob(jobSearchRequest)
+
 
 }

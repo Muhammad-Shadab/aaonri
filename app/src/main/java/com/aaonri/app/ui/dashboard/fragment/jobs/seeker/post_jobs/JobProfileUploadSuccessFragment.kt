@@ -28,7 +28,7 @@ class JobProfileUploadSuccessFragment : BottomSheetDialogFragment() {
 
             when (args.screenName) {
                 "ProfileUploadScreen" -> {
-                    successfulTv.text = "You have successfully uploaded your JOB Profile."
+                    successfulTv.text = "You have successfully uploaded your Job Profile."
                     navigateScreenBtn.text = "VIEW MY JOB PROFILE"
                 }
                 "ApplyJobScreen" -> {

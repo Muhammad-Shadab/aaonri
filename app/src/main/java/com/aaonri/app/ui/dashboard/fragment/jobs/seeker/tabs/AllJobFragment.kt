@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ class AllJobFragment : Fragment() {
     var binding: FragmentAllJobBinding? = null
     var jobAdapter: JobSeekerAdapter? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var selectedJobItem: AllJobsResponseItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +40,9 @@ class AllJobFragment : Fragment() {
                     jobSeekerViewModel.setNavigateAllJobToDetailsJobScreen(item.jobId)
                 } else {
                     /** Clicked on Apply btn **/
-                    val action =
-                        JobScreenFragmentDirections.actionJobScreenFragmentToJobApplyFragment(item.jobId)
-                    findNavController().navigate(action)
+                    selectedJobItem = item
+                    /** This function will navigate user to job apply fragment screen if user already uploaded job seeker profile otherwise it will navigate to upload job seeker profile screen**/
+                    navigateToJobApplyFragment()
                 }
             }
         }
@@ -61,7 +63,7 @@ class AllJobFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { jobAdapter?.setData(it.subList(0,4)) }
+                    response.data?.let { jobAdapter?.setData(it.subList(0, 4)) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -70,8 +72,51 @@ class AllJobFragment : Fragment() {
 
         }
 
-
         return binding?.root
+    }
+
+    private fun navigateToJobApplyFragment() {
+        jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.size > 0) {
+                            val action =
+                                selectedJobItem?.jobId?.let { it1 ->
+                                    JobScreenFragmentDirections.actionJobScreenFragmentToJobApplyFragment(
+                                        it1
+                                    )
+                                }
+                            if (action != null) {
+                                findNavController().navigate(action)
+                            } else {
+
+                            }
+                        } else {
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Seems you haven't uploaded your job profile yet.")
+                            builder.setPositiveButton("Upload Profile") { dialog, which ->
+                                val action =
+                                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                                        false,
+                                        0
+                                    )
+                                findNavController().navigate(action)
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
+
+                            }
+                            builder.show()
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

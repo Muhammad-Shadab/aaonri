@@ -23,7 +23,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/resume"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
                             android:includeFontPadding="false"
                             android:text="Operations Anlyst"
                             android:textColor="@color/jobtxtcolor"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,7 +104,8 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
                             android:text="New York, NY, USA"
-                            android:textColor="#797979" />
+                            android:textColor="#797979"
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:id="@+id/experienceTv"
@@ -117,7 +118,8 @@
                             android:fontFamily="@font/sf_pro_display_light"
                             android:includeFontPadding="false"
                             android:text="3 to 5 Years"
-                            android:textColor="#797979" />
+                            android:textColor="#797979"
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:id="@+id/jobPriceTv"
@@ -132,7 +134,8 @@
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
                             android:text="255555 - Full Time"
-                            android:textColor="#797979" />
+                            android:textColor="#797979"
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -248,7 +251,7 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="4dp"
                             android:fontFamily="@font/sf_pro_display_light"
-                            android:text="Job Application: "
+                            android:text="Job Applicants: "
                             android:textColor="@color/jobtxtcolor"
                             android:textSize="12sp" />
 

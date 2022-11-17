@@ -1,15 +1,15 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.data.jobs.recruiter.model.AllActiveJobApplicabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.databinding.VisaStausItemBinding
 
-class SelectedVisaStatusAdapter(private var selectedVisaStatusJobApplicability: ((value: List<AllActiveJobApplicabilityResponseItem>) -> Unit)) :
-    RecyclerView.Adapter<SelectedVisaStatusAdapter.CustomViewHolder>() {
+class SelectedVisaStatusJobSeeker(private var selectedVisaStatusJobApplicability: ((value: List<AllActiveJobApplicabilityResponseItem>) -> Unit)) :
+    RecyclerView.Adapter<SelectedVisaStatusJobSeeker.CustomViewHolder>() {
 
     private var data = listOf<AllActiveJobApplicabilityResponseItem>()
 
@@ -25,7 +25,7 @@ class SelectedVisaStatusAdapter(private var selectedVisaStatusJobApplicability: 
         if (data[position].isSelected) {
             holder.binding.selectedCommunityText.text = data[position].applicability
             holder.binding.selectedCommunityText.visibility = View.VISIBLE
-        }else{
+        } else {
             holder.binding.selectedCommunityText.visibility = View.GONE
         }
 

@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,24 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.aaonri.app.R
-import com.aaonri.app.data.jobs.recruiter.model.AllActiveJobApplicabilityResponseItem
-import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
-import com.aaonri.app.databinding.FragmentSelectVisaStatusBottomSheetBinding
-import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.VisaStatusAdapterJobRecruiter
+import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
+import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
+import com.aaonri.app.databinding.FragmentJobSeekerSelectVisaStatusBottomSheetBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.VisaStatusAdapterJobSeeker
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
+class JobSeekerSelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
-    var binding: FragmentSelectVisaStatusBottomSheetBinding? = null
-    val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
-    var visaStatusAdapterJobRecruiter: VisaStatusAdapterJobRecruiter? = null
+    var binding: FragmentJobSeekerSelectVisaStatusBottomSheetBinding? = null
+    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var visaStatusAdapter: VisaStatusAdapterJobSeeker? = null
+    var apiVisaStatusList: MutableList<AllActiveJobApplicabilityResponseItem> = mutableListOf()
     var userSelectedVisaStatusList: MutableList<AllActiveJobApplicabilityResponseItem> =
         mutableListOf()
-    var apiVisaStatusList: MutableList<AllActiveJobApplicabilityResponseItem> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +31,20 @@ class SelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
     ): View? {
         isCancelable = false
 
-        visaStatusAdapterJobRecruiter = VisaStatusAdapterJobRecruiter {
-            jobRecruiterViewModel.setSelectedVisaStatusJobApplicabilityValue(it)
-        }
+        binding = FragmentJobSeekerSelectVisaStatusBottomSheetBinding.inflate(
+            layoutInflater,
+            container,
+            false
+        )
 
-        binding =
-            FragmentSelectVisaStatusBottomSheetBinding.inflate(layoutInflater, container, false)
+        visaStatusAdapter = VisaStatusAdapterJobSeeker {
+            jobSeekerViewModel.setSelectedVisaStatusJobApplicabilityValue(it)
+        }
 
         binding?.apply {
 
             rvBottomFragment.layoutManager = FlexboxLayoutManager(context)
-            rvBottomFragment.adapter = visaStatusAdapterJobRecruiter
+            rvBottomFragment.adapter = visaStatusAdapter
 
             submitBtn.setOnClickListener {
                 dismiss()
@@ -51,8 +54,7 @@ class SelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
                 dismiss()
             }
 
-
-            jobRecruiterViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
+            jobSeekerViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
                         progressBar.visibility = View.VISIBLE
@@ -71,7 +73,7 @@ class SelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
                 }
             }
 
-            jobRecruiterViewModel.selectedVisaStatusJobApplicability.observe(viewLifecycleOwner) {
+            jobSeekerViewModel.selectedVisaStatusJobApplicability.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     it.forEach { item ->
                         if (!userSelectedVisaStatusList.contains(item)) {
@@ -82,16 +84,17 @@ class SelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
             }
 
             if (userSelectedVisaStatusList.isNotEmpty()) {
-                visaStatusAdapterJobRecruiter?.setData(userSelectedVisaStatusList)
+                visaStatusAdapter?.setData(userSelectedVisaStatusList)
             } else {
-                visaStatusAdapterJobRecruiter?.setData(apiVisaStatusList)
+                visaStatusAdapter?.setData(apiVisaStatusList)
             }
-
 
         }
 
         return binding?.root
+
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,5 +1,7 @@
 package com.aaonri.app.data.jobs.seeker.api
 
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchResponse
 import com.aaonri.app.data.jobs.seeker.model.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -49,5 +51,10 @@ interface JobSeekerApi {
     suspend fun saveJobView(
         @Body saveJobViewRequest: SaveJobViewRequest
     ): Response<SaveJobViewRequest>
+
+    @POST("/api/v1/jobs/search")
+    suspend fun searchJob(
+        @Body jobSearchRequest: JobSearchRequest
+    ): Response<JobSearchResponse>
 
 }

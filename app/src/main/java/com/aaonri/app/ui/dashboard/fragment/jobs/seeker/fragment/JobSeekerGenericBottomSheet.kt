@@ -79,22 +79,6 @@ class JobSeekerGenericBottomSheet : BottomSheetDialogFragment() {
                         }
                     }
                 }
-                "visaStateSelection" -> {
-                    selectCategoryTv.text = "Select Visa Status"
-                    jobSeekerViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
-                        when (response) {
-                            is Resource.Loading -> {
-
-                            }
-                            is Resource.Success -> {
-                                response.data?.let { jobAdapter?.setData(it) }
-                            }
-                            is Resource.Error -> {
-
-                            }
-                        }
-                    }
-                }
                 "availabilitySelection" -> {
                     selectCategoryTv.text = "Select Availability"
                     jobSeekerViewModel.allActiveAvailabilityData.observe(viewLifecycleOwner) { response ->

@@ -55,7 +55,7 @@
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_26sdp"
-        android:paddingVertical="@dimen/_26sdp"
+        android:paddingTop="@dimen/_26sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,7 +79,6 @@
                     android:id="@+id/firstNameEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/edit_text_shape"
                     android:fontFamily="@font/helvetica_regular"
                     android:hint="First Name*"
@@ -209,7 +208,66 @@
                     android:textSize="16sp"
                     app:drawableRightCompat="@drawable/arrow_down_spinner" />
 
-                <TextView
+                <FrameLayout
+                    android:id="@+id/visaStatusFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/edit_text_shape">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/visaStatusCl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <TextView
+                            android:id="@+id/selectVisaStatusTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helvetica_regular"
+                            android:gravity="center_vertical"
+                            android:hint="Visa Status*"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:textColor="@color/editTextColor"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinner"
+                            app:layout_constraintHorizontal_bias="0.018"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.47" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/visaStatusRv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/arrowDownSpinner"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/arrowDownSpinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/arrow_down_spinner"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </FrameLayout>
+
+                <!--<TextView
                     android:id="@+id/selectVisaStatusTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -226,7 +284,7 @@
                     android:textColor="@color/editTextColor"
                     android:textColorHint="@color/hintColor"
                     android:textSize="16sp"
-                    app:drawableRightCompat="@drawable/arrow_down_spinner" />
+                    app:drawableRightCompat="@drawable/arrow_down_spinner" />-->
 
                 <TextView
                     android:id="@+id/selectAvailabilityTv"

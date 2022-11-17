@@ -1,5 +1,6 @@
 package com.aaonri.app
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
@@ -112,6 +113,7 @@ class WebViewActivity : BaseActivity() {
         binding?.advertiseWebView?.settings?.useWideViewPort = true
         binding?.advertiseWebView?.settings?.loadWithOverviewMode = true
         binding?.progressBar?.visibility = View.VISIBLE
+
         binding?.advertiseWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)

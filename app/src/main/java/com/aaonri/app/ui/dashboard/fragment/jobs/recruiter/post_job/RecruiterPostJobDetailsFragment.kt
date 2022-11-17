@@ -29,6 +29,8 @@ class RecruiterPostJobDetailsFragment : Fragment() {
 
         binding?.apply {
 
+            skillSetDescEt.isLongClickable = false
+
             jobRecruiterViewModel.addNavigationForStepper(JobRecruiterConstant.RECRUITER_POST_JOB_DETAILS_SCREEN)
 
             selectStateTv.setOnClickListener {

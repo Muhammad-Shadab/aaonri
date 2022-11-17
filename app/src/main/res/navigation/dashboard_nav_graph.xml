@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/jobScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -402,6 +402,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_jobApplyFragment"
             app:destination="@id/jobApplyFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_coverLetterBottomSheet"
+            app:destination="@id/coverLetterBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"
@@ -414,6 +417,9 @@
         <action
             android:id="@+id/action_jobDetailsFragment_to_jobApplyFragment"
             app:destination="@id/jobApplyFragment" />
+        <action
+            android:id="@+id/action_jobDetailsFragment_to_jobProfileUploadFragment"
+            app:destination="@id/jobProfileUploadFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobProfileUploadFragment"
@@ -432,6 +438,9 @@
         <argument
             android:name="jobId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_jobProfileUploadFragment_to_jobSeekerSelectVisaStatusBottomSheet"
+            app:destination="@id/jobSeekerSelectVisaStatusBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/jobGenericBottomSheet"
@@ -608,6 +617,16 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.AvailabilityBottomSheet"
         android:label="fragment_availability_bottom_sheet"
         tools:layout="@layout/fragment_availability_bottom_sheet" />
+    <dialog
+        android:id="@+id/coverLetterBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.CoverLetterBottomSheet"
+        android:label="fragment_cover_letter_bottom_sheet"
+        tools:layout="@layout/fragment_cover_letter_bottom_sheet" />
+    <dialog
+        android:id="@+id/jobSeekerSelectVisaStatusBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSeekerSelectVisaStatusBottomSheet"
+        android:label="fragment_job_seeker_select_visa_status_bottom_sheet"
+        tools:layout="@layout/fragment_job_seeker_select_visa_status_bottom_sheet" />
 
 
 </navigation>

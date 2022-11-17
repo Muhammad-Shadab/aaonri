@@ -79,5 +79,4 @@ interface JobRecruiterApi {
         @Body postJobRequest: PostJobRequest
     ): Response<PostJobRequest>
 
-
 }

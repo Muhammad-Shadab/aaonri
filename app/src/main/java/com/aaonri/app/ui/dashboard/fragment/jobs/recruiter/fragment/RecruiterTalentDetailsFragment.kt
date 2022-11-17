@@ -50,9 +50,9 @@ class RecruiterTalentDetailsFragment : Fragment() {
             viewResumeTv.setOnClickListener {
                 val intent = Intent(requireContext(), WebViewActivity::class.java)
                 /*intent.putExtra(
-                    "url",
-                    "http://docs.google.com/gview?embedded=true&url=${BuildConfig.BASE_URL}/api/v1/common/jobsFile/$talentResume"
-                )*/
+                "url",
+                "http://docs.google.com/gview?embedded=true&url=" + BuildConfig.BASE_URL+"/api/v1/common/jobsFile/${item.resumeName}"
+            )*/
                 intent.putExtra(
                     "url",
                     "http://docs.google.com/gview?embedded=true&url=https://www.africau.edu/images/default/sample.pdf"

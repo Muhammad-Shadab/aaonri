@@ -1,29 +1,48 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.aaonri.app.data.jobs.seeker.model.*
 import com.aaonri.app.databinding.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? = null
 
+    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: UserJobProfileResponseItem) -> Unit)? =
+        null
+
     class AllActiveJobsViewHolders(private val binding: AllPostedJobsItemBinding) :
         JobViewHolders(binding) {
+        @RequiresApi(Build.VERSION_CODES.O)
         @SuppressLint("SetTextI18n")
         fun bind(allJobsResponseItem: AllJobsResponseItem) {
             binding.apply {
+
+                val random =
+                    if (allJobsResponseItem.salaryRange != "string") allJobsResponseItem.salaryRange.toDouble() else 0
+                val df = DecimalFormat("#,###.00")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
                 jobTitleTv.text = allJobsResponseItem.title
                 jobCompanyNameTv.text = allJobsResponseItem.company
                 experienceTv.text = allJobsResponseItem.experienceLevel
                 locationTv.text =
                     "${allJobsResponseItem.country}, ${allJobsResponseItem.state}, ${allJobsResponseItem.city}"
-                jobPriceTv.text =
-                    "${allJobsResponseItem.salaryRange} - ${allJobsResponseItem.jobType}"
-                dateTv.text = allJobsResponseItem.createdOn
+                jobPriceTv.text = "$roundoff - ${allJobsResponseItem.jobType}"
+                dateTv.text = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                    .format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                            .parse(allJobsResponseItem.createdOn.split("T")[0])
+                    )
                 jobViewTv.text = allJobsResponseItem.viewCount.toString()
                 jobApplicationTv.text = allJobsResponseItem.applyCount.toString()
 
@@ -102,6 +121,21 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
                 updateProfileBtn.setOnClickListener {
                     itemClickListener?.invoke(it, userJobProfileResponseItem, adapterPosition)
                 }
+
+                viewResumeTv.setOnClickListener {
+                    viewResumeOrCoverLetterBtnListener?.invoke(
+                        false,
+                        userJobProfileResponseItem
+                    )
+                }
+
+                viewletterTv.setOnClickListener {
+                    viewResumeOrCoverLetterBtnListener?.invoke(
+                        true,
+                        userJobProfileResponseItem
+                    )
+                }
+
 
             }
         }

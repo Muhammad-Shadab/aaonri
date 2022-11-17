@@ -43,6 +43,8 @@ class JobApplyFragment : Fragment() {
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     var fileName: String? = null
     val args: JobApplyFragmentArgs by navArgs()
+    var isProfileUploaded = false
+    var jobProfileId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -167,6 +169,8 @@ class JobApplyFragment : Fragment() {
                 } else {
                     showAlert("Please enter valid First Name")
                 }
+
+
             }
 
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
@@ -178,6 +182,8 @@ class JobApplyFragment : Fragment() {
                         progressBar.visibility = View.GONE
                         response.data?.let {
                             if (it.size > 0) {
+                                jobProfileId = it[0].id
+                                isProfileUploaded = true
                                 firstNameEt.setText(it[0].firstName)
                                 lastNameEt.setText(it[0].lastName)
                                 phoneNumberEt.setText(
@@ -188,6 +194,8 @@ class JobApplyFragment : Fragment() {
                                         )
                                 )
                                 coverLetterDescEt.setText(it[0].coverLetter)
+                            } else {
+                                isProfileUploaded = false
                             }
                         }
                     }
@@ -225,25 +233,28 @@ class JobApplyFragment : Fragment() {
         }
 
         jobSeekerViewModel.applyJobData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    binding?.progressBar?.visibility = View.GONE
-                    if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
-                        //callUploadResumeApi(response.data?.id)
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
                     }
-
-                    val action =
-                        JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                            "ApplyJobScreen"
-                        )
-                    findNavController().navigate(action)
-                }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        binding?.progressBar?.visibility = View.GONE
+                        if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
+                            callUploadResumeApi(jobProfileId)
+                        } else {
+                            val action =
+                                JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
+                                    "ApplyJobScreen"
+                                )
+                            findNavController().navigate(action)
+                        }
+                        jobSeekerViewModel.applyJobData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -255,11 +266,11 @@ class JobApplyFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    /*val action =
+                    val action =
                         JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
                             "ApplyJobScreen"
                         )
-                    findNavController().navigate(action)*/
+                    findNavController().navigate(action)
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -278,7 +289,7 @@ class JobApplyFragment : Fragment() {
             file?.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         val requestImage =
-            requestFile?.let { MultipartBody.Part.createFormData("file", file?.name, it) }
+            requestFile?.let { MultipartBody.Part.createFormData("file", file.name, it) }
 
         requestImage?.let { jobSeekerViewModel.uploadResume(id ?: 0, true, it) }
     }
