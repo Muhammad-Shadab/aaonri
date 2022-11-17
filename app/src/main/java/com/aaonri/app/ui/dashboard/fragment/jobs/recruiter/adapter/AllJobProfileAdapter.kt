@@ -40,7 +40,6 @@ class AllJobProfileAdapter(private var selectedJobProfile: ((value: JobProfile) 
             skillsRv.layoutManager = FlexboxLayoutManager(context)
             skillsRv.adapter = recruiterJobKeySkillsAdapter
 
-
             viewProfileBtn.setOnClickListener {
                 selectedJobProfile(data[position])
             }

@@ -23,5 +23,5 @@ data class JobDetails(
     val street: String,
     val title: String,
     val viewCount: Int,
-    val zipCode: String
+    val zipCode: String,
 )

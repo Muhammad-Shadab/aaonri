@@ -53,7 +53,7 @@ interface RegistrationApi {
     ): Response<RegistrationResponse>
 
     @Multipart
-    @POST("/api/v1/common/uploadProfilePicExtended")
+    @POST("/api/v1/common/v2/uploadProfilePic")
     suspend fun uploadProfilePic(
         @Part file: MultipartBody.Part,
         @Part("userId") userId: RequestBody,

@@ -22,6 +22,8 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPos
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
@@ -94,10 +96,15 @@ class RecruiterJobDetailsFragment : Fragment() {
 
                             JobRecruiterStaticData.setJobDetailsData(it)
 
+                            val random = if (it.salaryRange != "string") it.salaryRange.toDouble() else 0
+                            val df = DecimalFormat("#,###.00")
+                            df.roundingMode = RoundingMode.DOWN
+                            val roundoff = df.format(random)
+
                             jobTitle.text = it.title
                             companyNameTv.text = it.company
                             addressTv.text = it.state + ", " + it.country
-                            salaryTv.text = it.salaryRange
+                            salaryTv.text = "$roundoff"
                             experienceTv.text = it.experienceLevel
                             jobCategoriesTv.text = it.jobType
                             jobDescTv.text = Html.fromHtml(it.description)

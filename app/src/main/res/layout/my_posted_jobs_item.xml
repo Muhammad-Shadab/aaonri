@@ -162,7 +162,7 @@
                             android:maxLines="1"
                             android:text="-"
                             android:textColor="#797979"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout

@@ -9,6 +9,8 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.jobs.recruiter.model.JobDetails
 import com.aaonri.app.databinding.MyPostedJobsItemBinding
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, isActivateBtnClicked: Boolean, isDeactivateBtnClicked: Boolean, isJobApplicantClick: Boolean, isJobCardClicked: Boolean, value: JobDetails) -> Unit)) :
@@ -28,7 +30,6 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
 
         var userLocation = ""
 
-
         if (data[position].city.isNotEmpty()) {
             userLocation = data[position].city + ", "
         }
@@ -43,6 +44,12 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
         holder.binding.apply {
 
             data[position].apply {
+
+                val random = if (salaryRange != "string") salaryRange.toDouble() else 0
+                val df = DecimalFormat("#,###.00")
+                df.roundingMode = RoundingMode.DOWN
+                val roundoff = df.format(random)
+
                 jobTitleTv.text = title
                 jobCompanyNameTv.text = company
                 locationTv.text = userLocation
@@ -52,8 +59,10 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")
                             .parse(createdOn.split("T")[0])
                     )
+
                 jobViewCountTv.text = viewCount.toString()
                 jobApplicationCountTv.text = applyCount.toString()
+                jobPriceTv.text = "$roundoff"
 
                 /** In flexbox layout we need to add text through programmatically in order to visible the text **/
                 inactiveTv.text = "Inactive"
