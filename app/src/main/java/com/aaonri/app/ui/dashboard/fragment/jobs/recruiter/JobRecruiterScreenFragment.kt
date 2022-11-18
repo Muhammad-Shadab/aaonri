@@ -106,9 +106,9 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
 
-
         jobRecruiterViewModel.getAllAvailability()
 
+        /** calling api if job is updated **/
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {

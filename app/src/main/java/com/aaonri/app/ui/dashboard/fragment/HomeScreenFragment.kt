@@ -37,6 +37,7 @@ import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
+import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -73,7 +74,7 @@ class HomeScreenFragment : Fragment() {
     val immigrationViewModel: ImmigrationViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
     val jobRecruiterViewModel: JobRecruiterViewModel by activityViewModels()
-
+    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
 
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
@@ -187,6 +188,9 @@ class HomeScreenFragment : Fragment() {
             context?.let { PreferenceManager<String>(it)[Constant.USER_NAME, ""] }
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        val isJobRecruiter =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
 
         val isUserLogin =
             context.let {
@@ -372,6 +376,21 @@ class HomeScreenFragment : Fragment() {
         genericAdapterForEvent = EventGenericAdapter()
         adsGenericAdapter1 = AdsGenericAdapter()
         adsGenericAdapter2 = AdsGenericAdapter()
+
+
+        if (isJobRecruiter == true) {
+            jobRecruiterViewModel.getAllTalents(
+                SearchAllTalentRequest(
+                    allKeyWord = "",
+                    anykeyWord = "",
+                    availability = "",
+                    location = "",
+                    skill = ""
+                )
+            )
+        } else {
+            jobSeekerViewModel.getAllActiveJobs()
+        }
 
         /** call back function for getting the ads clicked item **/
         adsGenericAdapter1?.itemClickListener = { view, item, position ->
@@ -917,20 +936,6 @@ class HomeScreenFragment : Fragment() {
                                 list.add("$eventId")
                             }
                         }
-                    }
-
-                    if (response.data?.isJobRecruiter == true) {
-                        jobRecruiterViewModel.getAllTalents(
-                            SearchAllTalentRequest(
-                                allKeyWord = "",
-                                anykeyWord = "",
-                                availability = "",
-                                location = "",
-                                skill = ""
-                            )
-                        )
-                    } else {
-
                     }
 
                     callApiAccordingToInterest(list?.get(0))

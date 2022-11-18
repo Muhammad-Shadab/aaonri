@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/jobScreenFragment">
+    app:startDestination="@id/homeScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
@@ -405,6 +405,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_coverLetterBottomSheet"
             app:destination="@id/coverLetterBottomSheet" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"

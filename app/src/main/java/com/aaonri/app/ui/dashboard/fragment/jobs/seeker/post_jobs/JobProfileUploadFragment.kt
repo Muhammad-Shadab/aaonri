@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -23,9 +24,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
-import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentUploadJobProfileBinding
+import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.SelectedVisaStatusJobSeeker
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
@@ -49,9 +50,22 @@ class JobProfileUploadFragment : Fragment() {
     val args: JobProfileUploadFragmentArgs by navArgs()
     var jobDetailsApplicabilityList = mutableListOf<String>()
     var fileName: String? = null
-    var commaSeparatedApplicabilityString = ""
     var description = ""
     var visaStatus = ""
+
+    /**Getting rich text content**/
+    private val resultLauncherEditText =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    binding?.coverLetterDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    binding?.coverLetterDescEt?.text = ""
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,14 +79,7 @@ class JobProfileUploadFragment : Fragment() {
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
 
-        if (args.isUpdateProfile) {
-            fileName = "${email}.pdf"
-            if (fileName?.isNotEmpty() == true) {
-                visibleResumeFile()
-                binding?.appbarTextTv?.text = "Update Profile"
-            }
-        }
-
+        /**Getting files from file manager**/
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
@@ -128,6 +135,8 @@ class JobProfileUploadFragment : Fragment() {
 
         binding?.apply {
 
+            coverLetterDescEt.textSize = 14F
+
             visaStatusRv.layoutManager = FlexboxLayoutManager(context)
             visaStatusRv.adapter = selectedVisaStatusJobSeeker
 
@@ -170,9 +179,16 @@ class JobProfileUploadFragment : Fragment() {
             deleteResume.setOnClickListener {
                 binding?.uploadResumeLl?.gravity = Gravity.CENTER
                 binding?.uploadResumeBtnLl?.visibility = View.VISIBLE
-
                 binding?.uploadedResumeShapeLl?.visibility = View.GONE
                 jobSeekerViewModel.setResumeFileUriValue("".toUri())
+            }
+
+            coverLetterDescEt.setOnClickListener {
+                val intent = Intent(context, RichTextEditorActivity::class.java)
+                intent.putExtra("isFromAdvertiseBasicDetails", false)
+                intent.putExtra("data", description)
+                intent.putExtra("placeholder", "Cover Letter*")
+                resultLauncherEditText.launch(intent)
             }
 
             uploadProfileNextBtn.setOnClickListener {
@@ -191,7 +207,9 @@ class JobProfileUploadFragment : Fragment() {
                                                         .isNotEmpty()
                                                 ) {
                                                     if (skillSetDescEt.text.toString().length >= 3) {
-                                                        if (coverLetterDescEt.text.toString().length >= 3) {
+                                                        if (coverLetterDescEt.text.toString()
+                                                                .trim().length >= 3
+                                                        ) {
                                                             if (jobSeekerViewModel.resumeFileUri != null || fileName?.isNotEmpty() == true
                                                             ) {
                                                                 if (args.isUpdateProfile) {
@@ -200,7 +218,8 @@ class JobProfileUploadFragment : Fragment() {
                                                                         addJobProfileRequest = AddJobProfileRequest(
                                                                             availability = selectAvailabilityTv.text.toString(),
                                                                             contactEmailId = contactEmailEt.text.toString(),
-                                                                            coverLetter = coverLetterDescEt.text.toString(),
+                                                                            coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
+                                                                                .trim(),
                                                                             emailId = email ?: "",
                                                                             experience = selectExperienceTv.text.toString(),
                                                                             firstName = firstNameEt.text.toString(),
@@ -213,8 +232,7 @@ class JobProfileUploadFragment : Fragment() {
                                                                                 ?: "",
                                                                             skillSet = skillSetDescEt.text.toString(),
                                                                             title = currentTitleEt.text.toString(),
-                                                                            visaStatus = commaSeparatedApplicabilityString.replace("[", "")
-                                                                                .replace("]", "").replace("'", ""),
+                                                                            visaStatus = visaStatus,
                                                                             profileImage = "${
                                                                                 profile?.replace(
                                                                                     "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
@@ -228,7 +246,8 @@ class JobProfileUploadFragment : Fragment() {
                                                                         AddJobProfileRequest(
                                                                             availability = selectAvailabilityTv.text.toString(),
                                                                             contactEmailId = contactEmailEt.text.toString(),
-                                                                            coverLetter = coverLetterDescEt.text.toString(),
+                                                                            coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
+                                                                                .trim(),
                                                                             emailId = email ?: "",
                                                                             experience = selectExperienceTv.text.toString(),
                                                                             firstName = firstNameEt.text.toString(),
@@ -241,8 +260,7 @@ class JobProfileUploadFragment : Fragment() {
                                                                                 ?: "",
                                                                             skillSet = skillSetDescEt.text.toString(),
                                                                             title = currentTitleEt.text.toString(),
-                                                                            visaStatus = commaSeparatedApplicabilityString.replace("[", "")
-                                                                                .replace("]", "").replace("'", ""),
+                                                                            visaStatus = visaStatus,
                                                                             profileImage = "${
                                                                                 profile?.replace(
                                                                                     "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
@@ -328,7 +346,7 @@ class JobProfileUploadFragment : Fragment() {
 
                                 jobDetailsApplicabilityList =
                                     it[0].visaStatus.split(",").toTypedArray().toMutableList()
-
+                                fileName = it[0].resumeName
                                 firstNameEt.setText(it[0].firstName)
                                 lastNameEt.setText(it[0].lastName)
                                 currentTitleEt.setText(it[0].title)
@@ -338,7 +356,13 @@ class JobProfileUploadFragment : Fragment() {
                                 selectExperienceTv.text = it[0].experience
                                 selectAvailabilityTv.text = it[0].availability
                                 skillSetDescEt.setText(it[0].skillSet)
-                                coverLetterDescEt.setText(it[0].coverLetter)
+                                coverLetterDescEt.text = Html.fromHtml(it[0].coverLetter)
+                                description = it[0].coverLetter
+                                if (fileName?.isNotEmpty() == true) {
+                                    visibleResumeFile()
+                                    binding?.appbarTextTv?.text = "Update Profile"
+                                }
+
                             }
                         }
 
@@ -357,7 +381,8 @@ class JobProfileUploadFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.forEachIndexed { index, visaStatus ->
-                            response.data[index].isSelected = jobDetailsApplicabilityList.indexOfFirst { it == visaStatus.applicability } != -1
+                            response.data[index].isSelected =
+                                jobDetailsApplicabilityList.indexOfFirst { it == visaStatus.applicability } != -1
                         }
 
                         response.data?.let {
@@ -374,9 +399,6 @@ class JobProfileUploadFragment : Fragment() {
 
             jobSeekerViewModel.selectedVisaStatusJobApplicability.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
-
-                    commaSeparatedApplicabilityString = it.joinToString(separator = ",") { item -> "\'${item.applicability}\'" }
-
                     selectedVisaStatusJobSeeker?.setData(it)
                     val index = it.indexOfFirst { it.isSelected }
                     if (index == -1) {
@@ -388,6 +410,7 @@ class JobProfileUploadFragment : Fragment() {
                         visaStatusRv.visibility = View.VISIBLE
                     }
 
+                    visaStatus = ""
                     it.forEach { item ->
                         if (item.isSelected) {
                             if (!visaStatus.contains(item.applicability)) {
@@ -395,6 +418,7 @@ class JobProfileUploadFragment : Fragment() {
                             }
                         }
                     }
+                    visaStatus.dropLast(1)
                 }
             }
         }
@@ -445,8 +469,17 @@ class JobProfileUploadFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
+
                         if (jobSeekerViewModel.resumeFileUri != null) {
-                            callUploadResumeApi(response.data?.id)
+                            if (jobSeekerViewModel.resumeFileUri.toString().trim().isNotEmpty()) {
+                                callUploadResumeApi(response.data?.id)
+                            } else {
+                                val action =
+                                    JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
+                                        "UpdateProfileScreen"
+                                    )
+                                findNavController().navigate(action)
+                            }
                         } else {
                             val action =
                                 JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
@@ -484,6 +517,10 @@ class JobProfileUploadFragment : Fragment() {
                 }
             }
         }
+
+        /*if (args.isUpdateProfile) {
+
+        }*/
 
         return binding?.root
     }

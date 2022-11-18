@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobApplyBinding
+import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
@@ -45,6 +47,21 @@ class JobApplyFragment : Fragment() {
     val args: JobApplyFragmentArgs by navArgs()
     var isProfileUploaded = false
     var jobProfileId = 0
+    var description = ""
+
+    /**Getting rich text content**/
+    private val resultLauncherEditText =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra("result")
+                if (data?.isNotEmpty() == true) {
+                    binding?.coverLetterDescEt?.fromHtml(data.trim())
+                    description = data.trim()
+                } else {
+                    binding?.coverLetterDescEt?.text = ""
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +71,6 @@ class JobApplyFragment : Fragment() {
 
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
-
-        fileName = "${email}.pdf"
-
-        if (fileName?.isNotEmpty() == true) {
-            visibleResumeFile(true)
-        }
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -113,6 +124,8 @@ class JobApplyFragment : Fragment() {
 
         binding?.apply {
 
+            coverLetterDescEt.textSize = 14F
+
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -136,17 +149,26 @@ class JobApplyFragment : Fragment() {
                 jobSeekerViewModel.setResumeFileUriValue("".toUri())
             }
 
+            coverLetterDescEt.setOnClickListener {
+                val intent = Intent(context, RichTextEditorActivity::class.java)
+                intent.putExtra("isFromAdvertiseBasicDetails", false)
+                intent.putExtra("data", description)
+                intent.putExtra("placeholder", "Cover Letter*")
+                resultLauncherEditText.launch(intent)
+            }
+
             applyNowBtn.setOnClickListener {
                 val phoneNumber = phoneNumberEt.text.toString().replace("-", "")
 
                 if (firstNameEt.text.toString().length >= 3) {
                     if (lastNameEt.text.toString().length >= 3) {
                         if (phoneNumber.length == 10) {
-                            if (coverLetterDescEt.text.toString().length >= 3) {
+                            if (coverLetterDescEt.text.toString().trim().length >= 3) {
                                 if (fileName?.isNotEmpty() == true) {
                                     jobSeekerViewModel.applyJob(
                                         ApplyJobRequest(
-                                            coverLetter = coverLetterDescEt.text.toString(),
+                                            coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
+                                                .trim(),
                                             email = email ?: "",
                                             fullName = "${firstNameEt.text} ${lastNameEt.text}",
                                             jobId = args.jobId,
@@ -169,8 +191,6 @@ class JobApplyFragment : Fragment() {
                 } else {
                     showAlert("Please enter valid First Name")
                 }
-
-
             }
 
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
@@ -182,6 +202,13 @@ class JobApplyFragment : Fragment() {
                         progressBar.visibility = View.GONE
                         response.data?.let {
                             if (it.size > 0) {
+
+                                fileName = it[0].resumeName
+
+                                if (fileName?.isNotEmpty() == true) {
+                                    visibleResumeFile(true)
+                                }
+
                                 jobProfileId = it[0].id
                                 isProfileUploaded = true
                                 firstNameEt.setText(it[0].firstName)
@@ -193,7 +220,8 @@ class JobApplyFragment : Fragment() {
                                             "$1-$2-$3"
                                         )
                                 )
-                                coverLetterDescEt.setText(it[0].coverLetter)
+                                description = it[0].coverLetter
+                                coverLetterDescEt.text = Html.fromHtml(it[0].coverLetter)
                             } else {
                                 isProfileUploaded = false
                             }
@@ -241,8 +269,16 @@ class JobApplyFragment : Fragment() {
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
                         binding?.progressBar?.visibility = View.GONE
-                        if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
-                            callUploadResumeApi(jobProfileId)
+                        if (jobSeekerViewModel.resumeFileUri != null) {
+                            if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
+                                callUploadResumeApi(jobProfileId)
+                            } else {
+                                val action =
+                                    JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
+                                        "ApplyJobScreen"
+                                    )
+                                findNavController().navigate(action)
+                            }
                         } else {
                             val action =
                                 JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
