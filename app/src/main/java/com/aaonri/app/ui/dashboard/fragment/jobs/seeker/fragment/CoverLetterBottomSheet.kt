@@ -5,16 +5,15 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.aaonri.app.R
+import androidx.navigation.fragment.findNavController
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentCoverLetterBottomSheetBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoverLetterBottomSheet : BottomSheetDialogFragment() {
-    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+class CoverLetterBottomSheet : Fragment() {
     var binding: FragmentCoverLetterBottomSheetBinding? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
 
@@ -22,14 +21,13 @@ class CoverLetterBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        isCancelable = false
 
         binding = FragmentCoverLetterBottomSheetBinding.inflate(layoutInflater, container, false)
 
         binding?.apply {
 
             closeCountryBtn.setOnClickListener {
-                dismiss()
+                findNavController().navigateUp()
             }
 
             jobSeekerViewModel.userJobProfileCoverLetterValue.observe(viewLifecycleOwner) {

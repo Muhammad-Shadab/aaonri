@@ -37,6 +37,8 @@ import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
+import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
+import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding
@@ -454,10 +456,27 @@ class HomeScreenFragment : Fragment() {
         /** This adapter is used for showing job on home screen  **/
         jobSeekerAdapter = JobSeekerAdapter()
 
+        jobSeekerAdapter?.itemClickListener = { view, item, position ->
+
+            /** Getting user job profile to apply jobs **/
+            jobSeekerViewModel.getUserJobProfileByEmail(
+                emailId = email ?: "",
+                isApplicant = true
+            )
+
+            if (item is AllJobsResponseItem) {
+                val action =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(item.jobId)
+                findNavController().navigate(action)
+            }
+        }
+
         allJobProfileAdapter = AllJobProfileAdapter {
-            /*jobRecruiterViewModel.setNavigateAllJobProfileScreenToTalentProfileDetailsScreen(
-                it.id
-            )*/
+            val action =
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToRecruiterTalentDetailsFragment(
+                    it.id
+                )
+            findNavController().navigate(action)
         }
 
         searchFilterModuleAdapter = SearchFilterModuleAdapter {
@@ -1113,7 +1132,8 @@ class HomeScreenFragment : Fragment() {
                         if (it.jobProfiles.isNotEmpty()) {
                             if (it.jobProfiles.size >= 4) {
                                 allJobProfileAdapter?.setData(
-                                    it.jobProfiles.filter { it.isApplicant }.subList(0,4))
+                                    it.jobProfiles.filter { it.isApplicant }.subList(0, 4)
+                                )
                             } else {
                                 allJobProfileAdapter?.setData(it.jobProfiles.filter { it.isApplicant })
                             }

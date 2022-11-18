@@ -45,6 +45,12 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_immigrationDetailsFragment"
             app:destination="@id/immigrationDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_recruiterTalentDetailsFragment"
+            app:destination="@id/recruiterTalentDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"
@@ -623,7 +629,7 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.fragment.AvailabilityBottomSheet"
         android:label="fragment_availability_bottom_sheet"
         tools:layout="@layout/fragment_availability_bottom_sheet" />
-    <dialog
+    <fragment
         android:id="@+id/coverLetterBottomSheet"
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.CoverLetterBottomSheet"
         android:label="fragment_cover_letter_bottom_sheet"

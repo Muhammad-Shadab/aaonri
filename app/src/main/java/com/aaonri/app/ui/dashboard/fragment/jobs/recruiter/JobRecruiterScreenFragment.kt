@@ -412,10 +412,12 @@ class JobRecruiterScreenFragment : Fragment() {
                         ) {
                             if (it) {
                                 floatingActionBtnClassified.visibility = View.GONE
+                                floatingActionBtn.visibility = View.GONE
                             }
                         }
                     } else {
                         floatingActionBtnClassified.visibility = View.VISIBLE
+                        floatingActionBtn.visibility = View.VISIBLE
                     }
 
                     if (tab?.position != 0) {

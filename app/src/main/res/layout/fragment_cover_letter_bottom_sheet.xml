@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:src="@drawable/ic_close" />
 
         <TextView
@@ -46,7 +46,7 @@
             <TextView
                 android:id="@+id/coverLetterTv"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:includeFontPadding="false"
                 android:textColor="#333333"

@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="31dp" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,7 +55,7 @@
         android:background="@drawable/top_rounded_corner_shape"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_26sdp"
-        android:paddingVertical="@dimen/_26sdp"
+        android:paddingTop="@dimen/_26sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,8 +64,9 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            app:layout_constraintBottom_toTopOf="@id/applyNowBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -147,9 +148,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:padding="@dimen/_4sdp"
                     android:background="@drawable/multiline_textfield_shape"
-                    android:fillViewport="true">
+                    android:fillViewport="true"
+                    android:padding="@dimen/_4sdp">
 
                     <com.chinalwb.are.render.AreTextView
                         android:id="@+id/coverLetterDescEt"
@@ -263,25 +264,29 @@
                     android:textColor="#797979"
                     android:textSize="11sp" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/applyNowBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@drawable/green_btn_shape"
-                    android:fontFamily="@font/sf_pro_semi_bold"
-                    android:minHeight="0dp"
-                    android:paddingTop="@dimen/_4sdp"
-                    android:paddingBottom="@dimen/_4sdp"
-                    android:text="APPLY NOW"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/applyNowBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/green_btn_shape"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:minHeight="0dp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="APPLY NOW"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
