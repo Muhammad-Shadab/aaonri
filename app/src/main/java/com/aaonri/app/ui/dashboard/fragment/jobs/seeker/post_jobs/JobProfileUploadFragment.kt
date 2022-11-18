@@ -424,7 +424,6 @@ class JobProfileUploadFragment : Fragment() {
         }
 
         jobSeekerViewModel.getAllActiveJobApplicability()
-        jobSeekerViewModel.getAllActiveExperienceLevel()
         jobSeekerViewModel.getAllActiveAvailability()
 
         jobSeekerViewModel.selectedExperienceLevel.observe(viewLifecycleOwner) {

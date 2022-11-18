@@ -49,8 +49,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
     val getUserJobProfileData: MutableLiveData<Resource<UserJobProfileResponse>> = MutableLiveData()
 
     val selectedExperienceLevel: MutableLiveData<ExperienceLevelResponseItem> = MutableLiveData()
+
     val selectedJobApplicability: MutableLiveData<AllActiveJobApplicabilityResponseItem> =
         MutableLiveData()
+
     val selectedJobAvailability: MutableLiveData<ActiveJobAvailabilityResponseItem> =
         MutableLiveData()
 

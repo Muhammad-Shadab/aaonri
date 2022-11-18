@@ -286,6 +286,9 @@ class JobScreenFragment : Fragment() {
 
         }
 
+        /**Calling list of all experience api just because it is used in two different screens**/
+        jobSeekerViewModel.getAllActiveExperienceLevel()
+
         jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
             if (jobId != null) {
                 val action =

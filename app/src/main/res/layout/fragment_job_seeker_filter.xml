@@ -93,9 +93,9 @@
                 android:background="@drawable/edit_text_inner_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Company Name"
+                android:imeOptions="actionSearch"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
-                android:imeOptions="actionSearch"
                 android:paddingVertical="@dimen/_7sdp"
                 android:paddingStart="@dimen/_18sdp"
                 android:paddingEnd="@dimen/_80sdp"
@@ -151,7 +151,13 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/jobExperienceRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp" />
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
@@ -257,7 +263,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -397,9 +403,9 @@
                 android:background="@drawable/edit_text_inner_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:hint="Industries"
+                android:imeOptions="actionSearch"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
-                android:imeOptions="actionSearch"
                 android:paddingVertical="@dimen/_8sdp"
                 android:paddingStart="@dimen/_18sdp"
                 android:paddingEnd="@dimen/_80sdp"
