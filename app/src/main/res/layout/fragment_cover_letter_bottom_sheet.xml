@@ -47,9 +47,12 @@
                 android:id="@+id/coverLetterTv"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:includeFontPadding="false"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

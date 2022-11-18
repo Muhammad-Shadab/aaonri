@@ -88,8 +88,8 @@
         android:visibility="gone"
         app:cardBackgroundColor="#14aa9a"
         app:cardCornerRadius="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/filterEvent"
-        app:layout_constraintEnd_toEndOf="@+id/filterEvent">
+        app:layout_constraintBottom_toTopOf="@+id/filterIcon"
+        app:layout_constraintEnd_toEndOf="@+id/filterIcon">
 
         <TextView
             android:id="@+id/numberOfSelectedFilterTv"
@@ -150,7 +150,7 @@
 
 
     <ImageView
-        android:id="@+id/filterEvent"
+        android:id="@+id/filterIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_icons_filter"

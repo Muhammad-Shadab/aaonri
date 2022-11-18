@@ -54,9 +54,6 @@ class RecruiterSearchTalentFragment : Fragment() {
                         addNewChip(textView.text.toString(), "anyKeyword", anyKeywordChipGroup)
                         anyKeywordEt.setText("")
                     }
-                    /*if (anyKeywordList.isNotEmpty()) {
-                        anyKeywordEt.setHint("")
-                    }*/
                     return@setOnEditorActionListener true
                 }
                 false
@@ -259,24 +256,15 @@ class RecruiterSearchTalentFragment : Fragment() {
                     if (anyKeywordList.contains(chip.text.toString())) {
                         anyKeywordList.remove(chip.text.toString())
                     }
-                    if (anyKeywordList.isEmpty()) {
-                        binding?.anyKeywordEt?.setHint("Any Keywords")
-                    }
                 }
                 "allKeyword" -> {
                     if (allKeywordList.contains(chip.text.toString())) {
                         allKeywordList.remove(chip.text.toString())
                     }
-                    if (allKeywordList.isEmpty()) {
-                        binding?.allKeywordMustEt?.setHint("All Keywords (must have)")
-                    }
                 }
                 "skillSet" -> {
                     if (skillSetList.contains(chip.text.toString())) {
                         skillSetList.remove(chip.text.toString())
-                    }
-                    if (skillSetList.isEmpty()) {
-                        binding?.skillsEt?.setHint("Skill set")
                     }
                 }
             }

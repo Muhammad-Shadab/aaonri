@@ -1,4 +1,4 @@
-package com.aaonri.app.ui.dashboard.fragment.jobs.seeker
+package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,16 +7,14 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
-import com.aaonri.app.databinding.FragmentJobScreenBinding
+import com.aaonri.app.databinding.FragmentJobSearchBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
-import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobPagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
@@ -25,25 +23,20 @@ import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class JobScreenFragment : Fragment() {
-    var binding: FragmentJobScreenBinding? = null
-    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
-    private val tabTitles =
-        arrayListOf("All Jobs", "Job Alerts", "My Profile")
+class JobSearchFragment : Fragment() {
+    var binding: FragmentJobSearchBinding? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
-
+    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentJobScreenBinding.inflate(inflater, container, false)
+        binding = FragmentJobSearchBinding.inflate(layoutInflater, container, false)
 
         val profile =
             context?.let { PreferenceManager<String>(it)[Constant.USER_PROFILE_PIC, ""] }
@@ -59,15 +52,6 @@ class JobScreenFragment : Fragment() {
                 it?.let { it1 -> PreferenceManager<Boolean>(it1) }
                     ?.get(Constant.IS_USER_LOGIN, false)
             }
-
-        val fragment = this
-        val jobPagerAdapter = JobPagerAdapter(fragment)
-
-        jobSeekerViewModel.getUserJobProfileByEmail(
-            emailId = email ?: "",
-            isApplicant = true
-        )
-
 
         /** Dialog for edit/update profile and logout user **/
         val updateLogoutDialog = Dialog(requireContext())
@@ -182,7 +166,7 @@ class JobScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                JobScreenFragmentDirections.actionJobScreenFragmentToUpdateProfileFragment()
+                JobSearchFragmentDirections.actionJobSearchFragmentToUpdateProfileFragment()
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }
@@ -209,14 +193,8 @@ class JobScreenFragment : Fragment() {
             guestUserLoginDialog.dismiss()
         }
 
-        binding?.apply {
 
-            context?.let {
-                Glide.with(it).load(profile)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
-            }
+        binding?.apply {
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -230,109 +208,28 @@ class JobScreenFragment : Fragment() {
                 }
             }
 
-            jobScreenViewPager.adapter = jobPagerAdapter
-            TabLayoutMediator(
-                jobsScreenTabLayout,
-                jobScreenViewPager
-            ) { tab, position ->
-                tab.text = tabTitles[position]
-            }.attach()
-
-            for (i in 0..3) {
-                val textView =
-                    LayoutInflater.from(requireContext())
-                        .inflate(R.layout.tab_title_text, null) as CardView
-                jobsScreenTabLayout.getTabAt(i)?.customView =
-                    textView
+            context?.let {
+                Glide.with(it).load(profile)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop().error(R.drawable.profile_pic_placeholder).into(profilePicIv)
             }
 
-            jobsScreenTabLayout.getTabAt(1)?.view?.isClickable = false
-
-            jobsScreenTabLayout.addOnTabSelectedListener(object :
-                TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    /*if (tab?.position == 2) {
-
-                    } else {
-
-                    }
-                    if (tab?.position != 0) {
-
-                    } else {
-
-                    }*/
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    return
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    return
-                }
-            })
-
-            jobScreenViewPager.isUserInputEnabled = false
-
-            searchViewIcon.setOnClickListener {
-                searchView.performClick()
-            }
-
-            searchView.setOnClickListener {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobSearchFragment()
+            filterIcon.setOnClickListener {
+                val action = JobSearchFragmentDirections.actionJobSearchFragmentToJobSeekerFilterFragment()
                 findNavController().navigate(action)
             }
 
-        }
 
-        jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
-            if (jobId != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId)
-                findNavController().navigate(action)
-                jobSeekerViewModel.navigateAllJobToDetailsJobScreen.postValue(null)
-            }
-        }
 
-        jobSeekerViewModel.navigateToUploadJobProfileScreen.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
-                        false,
-                        0
-                    )
-                findNavController().navigate(action)
-                jobSeekerViewModel.navigateToUploadJobProfileScreen.postValue(null)
-            }
-        }
-
-        jobSeekerViewModel.navigateToUpdateJobProfileScreen.observe(viewLifecycleOwner) { pair ->
-            if (pair != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
-                        true,
-                        pair.second
-                    )
-                findNavController().navigate(action)
-                jobSeekerViewModel.navigateToUpdateJobProfileScreen.postValue(null)
-            }
-        }
-
-        jobSeekerViewModel.userJobProfileCoverLetterValue.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToCoverLetterBottomSheet()
-                findNavController().navigate(action)
-            }
         }
 
         return binding?.root
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 }

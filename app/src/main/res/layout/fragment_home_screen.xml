@@ -394,7 +394,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/seeAllClassified"
+                        android:id="@+id/see_all_tv_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_38sdp"
@@ -411,9 +411,9 @@
                         android:layout_height="@dimen/_12sdp"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:src="@drawable/arrow_forward"
-                        app:layout_constraintBottom_toBottomOf="@id/seeAllClassified"
-                        app:layout_constraintStart_toEndOf="@id/seeAllClassified"
-                        app:layout_constraintTop_toTopOf="@id/seeAllClassified"
+                        app:layout_constraintBottom_toBottomOf="@id/see_all_tv_1"
+                        app:layout_constraintStart_toEndOf="@id/see_all_tv_1"
+                        app:layout_constraintTop_toTopOf="@id/see_all_tv_1"
                         app:tint="@color/blueBtnColor" />
 
                     <androidx.recyclerview.widget.RecyclerView

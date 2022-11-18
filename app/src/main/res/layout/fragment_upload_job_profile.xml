@@ -325,10 +325,10 @@
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_100sdp"
-                    android:padding="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/multiline_textfield_shape"
-                    android:fillViewport="true">
+                    android:fillViewport="true"
+                    android:padding="@dimen/_4sdp">
 
                     <com.chinalwb.are.render.AreTextView
                         android:id="@+id/coverLetterDescEt"

@@ -609,21 +609,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                 binding?.selectCategoryClassifiedSpinner?.text = ""
                 binding?.selectSubCategoryClassifiedSpinner?.text = ""
 
-                /*postClassifiedViewModel.setSearchQuery("")
-                postClassifiedViewModel.setMinValue("")
-                postClassifiedViewModel.setMaxValue("")
-                postClassifiedViewModel.setIsMyLocationChecked(false)
-                postClassifiedViewModel.setZipCodeInFilterScreen("")
-                postClassifiedViewModel.setClickedOnFilter(false)
-                postClassifiedViewModel.setCategoryFilter("")
-                postClassifiedViewModel.setSubCategoryFilter("")*/
-
-                /*postClassifiedViewModel.setChangeSortTripletFilter(
-                    datePublished = false,
-                    priceLowToHigh = false,
-                    priceHighToLow = false
-                )*/
-
                 postClassifiedViewModel.setSelectedClassifiedCategory("")
 
                 postClassifiedViewModel.setSelectedSubClassifiedCategory("")
@@ -642,8 +627,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
                         isPriceLowToHighSelected = false
                     )
                 )
-
-                //selectedFilterList.clear()
 
                 binding?.apply {
 
@@ -723,18 +706,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
             }
             postClassifiedViewModel.setClearAllFilter(false)
         }
-
-        /* postClassifiedViewModel.isMyLocationCheckedInFilterScreen.observe(viewLifecycleOwner) {
-             classifiedFilterBinding?.myLocationCheckBox?.isChecked = it
-         }*/
-
-        /*postClassifiedViewModel.minMaxPriceRangeZipCode.observe(viewLifecycleOwner) {
-            if (it.first.isNotEmpty() || it.second.isNotEmpty() || it.third.isNotEmpty()) {
-                classifiedFilterBinding?.minPriceRange?.setText(it.first)
-                classifiedFilterBinding?.maxPriceRange?.setText(it.second)
-                classifiedFilterBinding?.zipCode?.setText(it.third)
-            }
-        }*/
 
         setData()
 
@@ -820,130 +791,6 @@ class ClassifiedFilterFragmentBottom : Fragment() {
         }
 
     }
-
-
-    /*private fun clearAllData() {
-
-        postClassifiedViewModel.setClickOnClearAllFilter(true)
-        classifiedFilterBinding?.minPriceRange?.setText("")
-        classifiedFilterBinding?.maxPriceRange?.setText("")
-        classifiedFilterBinding?.zipCodeEt?.setText("")
-        classifiedFilterBinding?.myLocationCheckBox?.isChecked = false
-        classifiedFilterBinding?.selectCategoryClassifiedSpinner?.text = ""
-        classifiedFilterBinding?.selectSubCategoryClassifiedSpinner?.text = ""
-
-        postClassifiedViewModel.setMinValue("")
-        postClassifiedViewModel.setMaxValue("")
-        postClassifiedViewModel.setIsMyLocationChecked(false)
-        postClassifiedViewModel.setZipCodeInFilterScreen("")
-        postClassifiedViewModel.setClickedOnFilter(false)
-
-        *//*selectedFilterList.clear()*//*
-
-        classifiedFilterBinding?.apply {
-
-            myLocationCheckBox.isChecked = false
-
-            *//*zipCode.setText("")*//*
-
-
-            isPriceHighToLowSelected = false
-            isPriceLowToHighSelected = false
-            *//*isDistanceSelected = false
-            isRelevanceSelected = false*//*
-            isDatePublishedSelected = false
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                minPriceRange.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)?.let { it1 -> minPriceRange.setTextColor(it1) }
-
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                maxPriceRange.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)?.let { it1 -> maxPriceRange.setTextColor(it1) }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                datePublished.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)?.let { it1 -> datePublished.setTextColor(it1) }
-
-            *//*context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                relevance.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)?.let { it1 -> relevance.setTextColor(it1) }*//*
-
-            *//* context?.let { it1 ->
-                 ContextCompat.getColor(
-                     it1,
-                     R.color.white
-                 )
-             }?.let { it2 ->
-                 distance.setBackgroundColor(
-                     it2
-                 )
-             }
-             context?.getColor(R.color.black)?.let { it1 -> distance.setTextColor(it1) }*//*
-
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                priceLowToHigh.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)
-                ?.let { it1 -> priceLowToHigh.setTextColor(it1) }
-
-            context?.let { it1 ->
-                ContextCompat.getColor(
-                    it1,
-                    R.color.white
-                )
-            }?.let { it2 ->
-                priceHighToLow.setBackgroundColor(
-                    it2
-                )
-            }
-            context?.getColor(R.color.black)
-                ?.let { it1 -> priceHighToLow.setTextColor(it1) }
-        }
-
-
-    }*/
 
     private fun showAlert(text: String) {
         activity?.let { it1 ->

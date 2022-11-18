@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainCl"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.dashboard.fragment.event.EventScreenFragment">
+    tools:context=".ui.dashboard.fragment.jobs.seeker.fragment.JobSearchFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
@@ -38,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_28sdp"
         android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="Events"
+        android:text="Jobs"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,21 +64,10 @@
             android:id="@+id/profilePicIv"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:scaleType="fitXY"
             android:padding="@dimen/_1sdp"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
-
-   <!-- <ImageView
-        android:id="@+id/bellIconIv"
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_1sdp"
-        android:src="@drawable/ic_bell_notification"
-        app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/numberOfSelectedFilterCv"
@@ -130,9 +118,9 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/helvetica_regular"
-            android:hint="@string/what_are_you_looking_for"
+            android:hint="@string/search_jobs"
             android:imeOptions="actionDone"
-            android:inputType="textCapSentences"
+            android:inputType="text"
             android:maxLines="1"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"
@@ -144,13 +132,14 @@
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:background="@drawable/ic_icon_search" />
+
         <ImageView
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/_2sdp"
             android:id="@+id/cancelbutton"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:background="@drawable/cancel_btn" />
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/cancel_btn"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageView
@@ -342,24 +331,9 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-
         </LinearLayout>
 
     </HorizontalScrollView>
-
-    <!--<TextView
-        android:id="@+id/moreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:fontFamily="@font/sf_pro_semi_bold"
-        android:text="@string/more"
-        android:textColor="#333333"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/selectedFilters"
-        app:layout_constraintStart_toEndOf="@id/selectedFilters"
-        app:layout_constraintTop_toTopOf="@id/selectedFilters" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -374,60 +348,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/eventsScreenTabLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/tab_background_shape"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            app:tabPaddingEnd="@dimen/_2sdp"
-            app:tabPaddingStart="@dimen/_2sdp"
-            app:tabRippleColor="@null" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/eventsScreenViewPager"
+        <LinearLayout
+            android:id="@+id/noResultFound"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/eventsScreenTabLayout">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/floatingActionBtnEvents"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:cardBackgroundColor="@color/greenBtnColor"
-            app:cardElevation="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:shapeAppearanceOverlay="@style/circle"
-            app:strokeColor="@color/white"
-            app:strokeWidth="@dimen/_4sdp">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.312">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:padding="@dimen/_6sdp"
-                android:src="@drawable/plus" />
+                android:id="@+id/noResultFoundIv"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:src="@drawable/no_immigration_found" />
 
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/emptyTextVew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/sf_pro_semi_bold"
+                android:text="@string/no_result_found"
+                android:textAlignment="center"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAllJob"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

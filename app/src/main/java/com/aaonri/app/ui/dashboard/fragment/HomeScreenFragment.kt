@@ -46,6 +46,7 @@ import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedGeneric
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.EventGenericAdapter
 import com.aaonri.app.ui.dashboard.fragment.homescreen_filter.adapter.SearchFilterModuleAdapter
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.AllJobProfileAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.HomeInterestsServiceAdapter
 import com.aaonri.app.ui.dashboard.home.adapter.InterestAdapter
@@ -78,6 +79,7 @@ class HomeScreenFragment : Fragment() {
 
     var adsGenericAdapter1: AdsGenericAdapter? = null
     var adsGenericAdapter2: AdsGenericAdapter? = null
+    var allJobProfileAdapter: AllJobProfileAdapter? = null
 
     private var interestServiceResponseItem: InterestResponseItem? = null
 
@@ -98,6 +100,7 @@ class HomeScreenFragment : Fragment() {
     var navigationFromHorizontalSeeAll = ""
     var userInterestedService: MutableList<String>? = mutableListOf()
     var guestUser = false
+    var isJobRecruiter = false
     var navigateBackToCloseApp = true
 
     var homeClassifiedWithAdList = mutableListOf<Any>()
@@ -189,8 +192,8 @@ class HomeScreenFragment : Fragment() {
 
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
-        val isJobRecruiter =
-            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
+        isJobRecruiter =
+            context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] } == true
 
         val isUserLogin =
             context.let {
@@ -214,9 +217,9 @@ class HomeScreenFragment : Fragment() {
             if (userInterestedService?.contains("$advertiseId") == true) {
                 userInterestedService?.remove("$advertiseId")
             }
-            if (userInterestedService?.contains("$jobId") == true) {
-                userInterestedService?.remove("$jobId")
-            }
+            /* if (userInterestedService?.contains("$jobId") == true) {
+                 userInterestedService?.remove("$jobId")
+             }*/
 
             if (userInterestedService?.size == 1) {
                 if (userInterestedService?.contains("$classifiedId") == false) {
@@ -378,11 +381,11 @@ class HomeScreenFragment : Fragment() {
         adsGenericAdapter2 = AdsGenericAdapter()
 
 
-        if (isJobRecruiter == true) {
+        if (isJobRecruiter) {
             jobRecruiterViewModel.getAllTalents(
                 SearchAllTalentRequest(
                     allKeyWord = "",
-                    anykeyWord = "",
+                    anyKeyWord = "",
                     availability = "",
                     location = "",
                     skill = ""
@@ -450,6 +453,12 @@ class HomeScreenFragment : Fragment() {
 
         /** This adapter is used for showing job on home screen  **/
         jobSeekerAdapter = JobSeekerAdapter()
+
+        allJobProfileAdapter = AllJobProfileAdapter {
+            /*jobRecruiterViewModel.setNavigateAllJobProfileScreenToTalentProfileDetailsScreen(
+                it.id
+            )*/
+        }
 
         searchFilterModuleAdapter = SearchFilterModuleAdapter {
             interestServiceResponseItem = it
@@ -549,7 +558,12 @@ class HomeScreenFragment : Fragment() {
                         binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
                         binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        binding?.availableServiceHorizontalRv?.adapter = jobSeekerAdapter
+
+                        if (isJobRecruiter) {
+                            binding?.priorityServiceRv?.adapter = allJobProfileAdapter
+                        } else {
+                            binding?.priorityServiceRv?.adapter = jobSeekerAdapter
+                        }
                     }
                     "Immigration" -> {
                         binding?.availableServiceHorizontalClassifiedRv?.visibility =
@@ -664,7 +678,7 @@ class HomeScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
-            seeAllClassified.setOnClickListener {
+            seeAllTv1.setOnClickListener {
                 if (isUserLogin == true) {
                     navigateToTheSpecificScreen(userInterestedService?.get(0))
                 } else {
@@ -860,7 +874,7 @@ class HomeScreenFragment : Fragment() {
                 }
             })
 
-
+            /**Used to scroll home to the top**/
             homeViewModel.homeContentScrollToTop.observe(viewLifecycleOwner) {
                 if (it) {
                     homeNestedScrollView.post {
@@ -921,9 +935,10 @@ class HomeScreenFragment : Fragment() {
                     if (list?.contains("$advertiseId") == true) {
                         list.remove("$advertiseId")
                     }
-                    if (list?.contains("$jobId") == true) {
+
+                    /*if (list?.contains("$jobId") == true) {
                         list.remove("$jobId")
-                    }
+                    }*/
 
                     if (list != null) {
                         if (list.size == 1) {
@@ -1062,37 +1077,7 @@ class HomeScreenFragment : Fragment() {
             adsGenericAdapter2?.items = it
             binding?.adsAbovePopularSectionRv?.visibility = View.VISIBLE
             runAutoScrollBanner2()
-
         }
-
-
-        /*advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    if (response.data?.isNotEmpty() == true) {
-                        if (response.data.size >= 4) {
-                            advertiseAdapter?.setData(response.data.subList(0, 4))
-                        } else {
-                            advertiseAdapter?.setData(response.data)
-                        }
-                    }
-                }
-                is Resource.Error -> {
-                    Toast.makeText(
-                        context,
-                        "Error ${response.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-                else -> {
-
-                }
-            }
-        }*/
 
         immigrationViewModel.allImmigrationDiscussionListData.observe(
             viewLifecycleOwner
@@ -1115,6 +1100,56 @@ class HomeScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
+        }
+
+        /**Job recruiter data**/
+        jobRecruiterViewModel.allTalentListData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.jobProfiles.isNotEmpty()) {
+                            if (it.jobProfiles.size >= 4) {
+                                allJobProfileAdapter?.setData(
+                                    it.jobProfiles.filter { it.isApplicant }.subList(0,4))
+                            } else {
+                                allJobProfileAdapter?.setData(it.jobProfiles.filter { it.isApplicant })
+                            }
+                        }
+                    }
+                    binding?.progressBar?.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+        }
+
+        /**Job seeker data**/
+        jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    response.data?.let {
+                        if (it.isNotEmpty()) {
+                            if (it.size >= 4) {
+                                jobSeekerAdapter?.setData(it.subList(0, 4))
+                            } else {
+                                jobSeekerAdapter?.setData(it)
+                            }
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    binding?.progressBar?.visibility = View.GONE
+                }
+            }
+
         }
 
         /*requireActivity()
@@ -1235,22 +1270,20 @@ class HomeScreenFragment : Fragment() {
                 findNavController().navigate(action)
             } else if (interests == "$jobId" || interests == "Jobs") {
                 //Jobs
-                val isJobRecruiter =
-                    context?.let { PreferenceManager<Boolean>(it)[Constant.IS_JOB_RECRUITER, false] }
 
                 if (guestUser) {
-                    /*val action =
-                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                        findNavController().navigate(action)*/
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
+                    findNavController().navigate(action)
                 } else {
-                    if (isJobRecruiter == true) {
+                    if (isJobRecruiter) {
                         val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToJobRecruiterScreenFragment()
                         findNavController().navigate(action)
                     } else {
-                        /*val action =
+                        val action =
                             HomeScreenFragmentDirections.actionHomeScreenFragmentToJobScreenFragment()
-                        findNavController().navigate(action)*/
+                        findNavController().navigate(action)
                     }
                 }
 
@@ -1298,6 +1331,8 @@ class HomeScreenFragment : Fragment() {
         }
     }
 
+    /** This function is used to set first selected service data to the top **/
+
     private fun callApiAccordingToInterest(
         interests: String? = "",
     ) {
@@ -1339,12 +1374,18 @@ class HomeScreenFragment : Fragment() {
                 binding?.priorityServiceRv?.adapter = immigrationAdapter
             } else if (interests == "$jobId") {
                 //Jobs
-
                 priorityService = "Jobs"
                 binding?.priorityServiceRv?.margin(left = 10f, right = 10f)
                 binding?.priorityServiceRv?.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                binding?.priorityServiceRv?.adapter = jobSeekerAdapter
+
+                if (isJobRecruiter) {
+                    binding?.priorityServiceRv?.adapter = allJobProfileAdapter
+                } else {
+                    binding?.priorityServiceRv?.adapter = jobSeekerAdapter
+                }
+
+
             } else if (interests == "$shopWithUsId") {
                 //Shop With Us
                 /*priorityService = "Shop With Us"
@@ -1482,11 +1523,6 @@ class HomeScreenFragment : Fragment() {
     fun Context.dpToPx(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-    }
-
     override fun onResume() {
         super.onResume()
         runAutoScrollBanner2()
@@ -1558,13 +1594,11 @@ class HomeScreenFragment : Fragment() {
             }
             timer2!!.schedule(timerTask2, 4000, 4000)
         }
-
-
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }
 

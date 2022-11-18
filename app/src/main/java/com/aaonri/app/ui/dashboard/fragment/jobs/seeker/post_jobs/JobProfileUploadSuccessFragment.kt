@@ -36,7 +36,7 @@ class JobProfileUploadSuccessFragment : BottomSheetDialogFragment() {
                     navigateScreenBtn.text = "VIEW JOBS"
                 }
                 "UpdateProfileScreen" -> {
-                    successfulTv.text = "You have successfully updated your JOB Profile."
+                    successfulTv.text = "You have successfully updated your Job Profile."
                     navigateScreenBtn.text = "VIEW MY JOB PROFILE"
                 }
             }

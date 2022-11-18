@@ -249,7 +249,7 @@ class EventScreenFragment : Fragment() {
                     .into(profilePicIv)
             }
 
-            filterEvent.setOnClickListener {
+            filterIcon.setOnClickListener {
                 findNavController().navigate(R.id.eventFilterScreenFragment)
             }
 
@@ -368,8 +368,8 @@ class EventScreenFragment : Fragment() {
                         floatingActionBtnEvents.visibility = View.VISIBLE
                     }
                     if (tab?.position != 0) {
-                        filterEvent.isEnabled = false
-                        filterEvent.setColorFilter(
+                        filterIcon.isEnabled = false
+                        filterIcon.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
                                 R.color.darkGrayColor
@@ -383,13 +383,13 @@ class EventScreenFragment : Fragment() {
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                         eventViewModel.clickedOnFilter.postValue(true)
                     } else {
-                        filterEvent.setColorFilter(
+                        filterIcon.setColorFilter(
                             ContextCompat.getColor(
                                 context!!,
                                 R.color.white
                             )
                         )
-                        filterEvent.isEnabled = true
+                        filterIcon.isEnabled = true
                         setFilterVisibility()
 
                     }

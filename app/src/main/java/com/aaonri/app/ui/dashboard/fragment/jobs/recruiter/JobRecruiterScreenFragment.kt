@@ -31,7 +31,6 @@ import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterPage
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.SystemServiceUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
@@ -560,7 +559,7 @@ class JobRecruiterScreenFragment : Fragment() {
             jobRecruiterViewModel.getAllTalents(
                 SearchAllTalentRequest(
                     allKeyWord = filterData.allKeywords,
-                    anykeyWord = filterData.anyKeywords,
+                    anyKeyWord = filterData.anyKeywords,
                     availability = filterData.availability,
                     location = filterData.location,
                     skill = filterData.skillSet

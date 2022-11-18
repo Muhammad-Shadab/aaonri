@@ -361,11 +361,11 @@ class JobProfileUploadFragment : Fragment() {
                                 if (fileName?.isNotEmpty() == true) {
                                     visibleResumeFile()
                                     binding?.appbarTextTv?.text = "Update Profile"
+                                    binding?.uploadProfileNextBtn?.text = "UPDATE"
                                 }
 
                             }
                         }
-
                     }
                     is Resource.Error -> {
                         progressBar.visibility = View.GONE

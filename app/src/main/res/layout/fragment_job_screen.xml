@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background_gradient"
     tools:context=".ui.dashboard.fragment.jobs.seeker.JobScreenFragment">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/navigateBack"
         android:layout_width="@dimen/_22sdp"
@@ -79,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
 
-    <com.google.android.material.card.MaterialCardView
+    <!--<com.google.android.material.card.MaterialCardView
         android:id="@+id/numberOfSelectedFilterCv"
         android:layout_width="@dimen/_12sdp"
         android:layout_height="@dimen/_12sdp"
@@ -102,7 +103,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>-->
 
     <LinearLayout
         android:id="@+id/searchViewll"
@@ -110,16 +111,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_42sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:background="@drawable/edit_text_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:clickable="true"
         android:paddingHorizontal="@dimen/_6sdp"
         android:paddingVertical="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classifiedText">
+        app:layout_constraintTop_toBottomOf="@+id/classifiedText"
+        android:focusable="true">
 
-        <EditText
+        <TextView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,9 +154,7 @@
             android:background="@drawable/cancel_btn" />
     </LinearLayout>
 
-
-
-    <ImageView
+ <!--   <ImageView
         android:id="@+id/filterEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -161,7 +162,7 @@
         app:layout_constraintBottom_toBottomOf="@id/searchViewll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/searchViewll"
-        app:layout_constraintTop_toTopOf="@id/searchViewll" />
+        app:layout_constraintTop_toTopOf="@id/searchViewll" />-->
 
     <HorizontalScrollView
         android:id="@+id/selectedFilters"
@@ -346,8 +347,6 @@
         </LinearLayout>
 
     </HorizontalScrollView>
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

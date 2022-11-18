@@ -408,6 +408,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobSearchFragment"
+            app:destination="@id/jobSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"
@@ -630,6 +633,23 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSeekerSelectVisaStatusBottomSheet"
         android:label="fragment_job_seeker_select_visa_status_bottom_sheet"
         tools:layout="@layout/fragment_job_seeker_select_visa_status_bottom_sheet" />
+    <fragment
+        android:id="@+id/jobSearchFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSearchFragment"
+        android:label="fragment_job_search"
+        tools:layout="@layout/fragment_job_search">
+        <action
+            android:id="@+id/action_jobSearchFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_jobSearchFragment_to_jobSeekerFilterFragment"
+            app:destination="@id/jobSeekerFilterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobSeekerFilterFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSeekerFilterFragment"
+        android:label="fragment_job_seeker_filter"
+        tools:layout="@layout/fragment_job_seeker_filter" />
 
 
 </navigation>
