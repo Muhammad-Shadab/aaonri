@@ -38,7 +38,6 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
-import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentHomeScreenBinding

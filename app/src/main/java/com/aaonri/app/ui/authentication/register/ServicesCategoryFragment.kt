@@ -481,8 +481,8 @@ class ServicesCategoryFragment : Fragment() {
             UserProfileStaticData.getUserProfileDataValue()?.let {
                 adapter?.setSelectedServicesList(it.interests)
                 if (it.isJobRecruiter) {
-                    binding?.isRecruiterCheckBox?.isChecked = true
                     binding?.companyEmailServices?.setText(it.companyEmail)
+                    binding?.isRecruiterCheckBox?.isChecked = true
                 }
                 if (it.isFullNameAsAliasName) {
                     binding?.isAliasNameCheckBox?.isChecked = true
