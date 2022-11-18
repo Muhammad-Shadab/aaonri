@@ -18,6 +18,7 @@ import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
+import com.aaonri.app.data.classified.model.ClassifiedFilterModel
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -127,18 +128,22 @@ class MainActivity : BaseActivity() {
                 }
 
                 if (destination.id == R.id.homeScreenFragment || destination.id == R.id.shopScreenFragment || destination.id == R.id.advertiseScreenFragment || destination.id == R.id.moreScreenFragment) {
-                    if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
-                        postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
-                        postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
-                        postClassifiedViewModel.categoryFilter.isNotEmpty() ||
-                        postClassifiedViewModel.subCategoryFilter.isNotEmpty() ||
-                        postClassifiedViewModel.changeSortTriplet.first ||
-                        postClassifiedViewModel.changeSortTriplet.second ||
-                        postClassifiedViewModel.changeSortTriplet.third
-                    ) {
-                        postClassifiedViewModel.setClearAllFilter(true)
-                        postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
-                    }
+
+                    postClassifiedViewModel.setSearchQuery("")
+                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                        ClassifiedFilterModel(
+                            selectedCategory = "",
+                            selectedSubCategory = "",
+                            minPriceRange = "",
+                            maxPriceRange = "",
+                            zipCode = "",
+                            zipCodeCheckBox = false,
+                            isDatePublishedSelected = false,
+                            isPriceHighToLowSelected = false,
+                            isPriceLowToHighSelected = false
+                        )
+                    )
+
                     /** clearing immigration filter **/
                     immigrationViewModel.setFilterData(
                         ImmigrationFilterModel(

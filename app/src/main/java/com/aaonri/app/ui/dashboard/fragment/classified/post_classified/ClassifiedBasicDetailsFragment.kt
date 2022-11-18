@@ -143,7 +143,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.selectedClassifiedCategory.observe(viewLifecycleOwner) {
-            binding?.selectCategoryClassifiedSpinner?.text = it.title
+            binding?.selectCategoryClassifiedSpinner?.text = it
             if (postClassifiedViewModel.clearSubCategory) {
                 binding?.selectSubCategoryClassifiedSpinner?.text = ""
                 postClassifiedViewModel.setClearSubCategory(false)
@@ -151,7 +151,7 @@ class ClassifiedBasicDetailsFragment : Fragment() {
         }
 
         postClassifiedViewModel.selectedSubClassifiedCategory.observe(viewLifecycleOwner) {
-            binding?.selectSubCategoryClassifiedSpinner?.text = it.title
+            binding?.selectSubCategoryClassifiedSpinner?.text = it
         }
 
         if (postClassifiedViewModel.isUpdateClassified) {

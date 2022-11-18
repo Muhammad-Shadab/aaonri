@@ -32,7 +32,7 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
             FragmentSelectClassifiedCategoryBottomBinding.inflate(inflater, container, false)
 
         classifiedCategoryAdapter = ClassifiedCategoryAdapter {
-            postClassifiedViewModel.setSelectedClassifiedCategory(it)
+            postClassifiedViewModel.setSelectedClassifiedCategory(it.title)
             postClassifiedViewModel.setClassifiedSubCategoryList(it)
             postClassifiedViewModel.setClearSubCategory(true)
             findNavController().navigateUp()

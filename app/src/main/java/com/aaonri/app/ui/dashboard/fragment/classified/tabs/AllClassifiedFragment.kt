@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aaonri.app.R
 import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -38,6 +40,9 @@ class AllClassifiedFragment : Fragment() {
     var timerTask1: TimerTask? = null
     var timer2: Timer? = null
     var timerTask2: TimerTask? = null
+    var isDatePublishedSelected = false
+    var isPriceLowToHighSelected = false
+    var isPriceHighToLowSelected = false
 
 
     override fun onCreateView(
@@ -163,6 +168,12 @@ class AllClassifiedFragment : Fragment() {
 
         }
 
+        postClassifiedViewModel.classifiedFilterModel.observe(viewLifecycleOwner) { filterValue ->
+            isDatePublishedSelected = filterValue.isDatePublishedSelected
+            isPriceLowToHighSelected = filterValue.isPriceLowToHighSelected
+            isPriceHighToLowSelected = filterValue.isPriceHighToLowSelected
+        }
+
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -171,11 +182,11 @@ class AllClassifiedFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.userAdsList?.let { adsList ->
-                        if (postClassifiedViewModel.changeSortTriplet.first) {
+                        if (isDatePublishedSelected) {
                             allClassifiedAdapter?.setData(adsList)
-                        } else if (postClassifiedViewModel.changeSortTriplet.second) {
+                        } else if (isPriceLowToHighSelected) {
                             allClassifiedAdapter?.setData(adsList.sortedBy { it.askingPrice })
-                        } else if (postClassifiedViewModel.changeSortTriplet.third) {
+                        } else if (isPriceHighToLowSelected) {
                             allClassifiedAdapter?.setData(adsList.sortedByDescending { it.askingPrice })
                         } else {
                             allClassifiedAdapter?.setData(adsList)
@@ -202,7 +213,9 @@ class AllClassifiedFragment : Fragment() {
             }
         }
 
-        postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
+
+
+        /*postClassifiedViewModel.keyClassifiedKeyboardListener.observe(viewLifecycleOwner) {
             if (it) {
                 binding?.recyclerViewClassified?.visibility = View.VISIBLE
                 binding?.topAdvertiseRv?.visibility = View.VISIBLE
@@ -210,7 +223,7 @@ class AllClassifiedFragment : Fragment() {
                 binding?.resultsNotFoundLL?.visibility = View.GONE
                 allClassifiedAdapter?.setData(classifiedViewModel.allClassifiedList)
             }
-        }
+        }*/
 
         return binding?.root
     }

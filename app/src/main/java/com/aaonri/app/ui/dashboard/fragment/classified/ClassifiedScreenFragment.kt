@@ -19,8 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedPagerAdapter
 import com.aaonri.app.data.classified.ClassifiedStaticData
-import com.aaonri.app.data.classified.model.ClassifiedCategoryResponseItem
-import com.aaonri.app.data.classified.model.ClassifiedSubcategoryX
+import com.aaonri.app.data.classified.model.ClassifiedFilterModel
 import com.aaonri.app.data.classified.model.GetClassifiedByUserRequest
 import com.aaonri.app.data.classified.viewmodel.ClassifiedViewModel
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
@@ -50,6 +49,7 @@ class ClassifiedScreenFragment : Fragment() {
     val postClassifiedViewModel: PostClassifiedViewModel by activityViewModels()
     val classifiedViewModel: ClassifiedViewModel by activityViewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    var filterModel: ClassifiedFilterModel? = null
 
     var addId = 0
     var isUserLogin: Boolean? = null
@@ -254,12 +254,23 @@ class ClassifiedScreenFragment : Fragment() {
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
-                    callGetAllClassifiedApi(searchQuery = textView.text.toString())
                     classifiedScreenTabLayout.getTabAt(0)?.select()
                     postClassifiedViewModel.setSearchQuery(textView.text.toString())
-                    postClassifiedViewModel.setClearAllFilter(true)
-                    postClassifiedViewModel.setIsFilterEnable(true)
-                    //postClassifiedViewModel.setClickedOnFilter(true)
+                    postClassifiedViewModel.setSelectedClassifiedCategory("")
+                    postClassifiedViewModel.setSelectedSubClassifiedCategory("")
+                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                        ClassifiedFilterModel(
+                            selectedCategory = "",
+                            selectedSubCategory = "",
+                            minPriceRange = "",
+                            maxPriceRange = "",
+                            zipCode = "",
+                            zipCodeCheckBox = false,
+                            isDatePublishedSelected = false,
+                            isPriceHighToLowSelected = false,
+                            isPriceLowToHighSelected = false
+                        )
+                    )
                 }
                 false
             }
@@ -279,9 +290,9 @@ class ClassifiedScreenFragment : Fragment() {
                     }
                     if (searchView.hasFocus()) {
                         if (keyword.toString().isEmpty()) {
-                            postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
+                            //postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
                         } else {
-                            postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
+                            //postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
                         }
                     }
                 }
@@ -294,8 +305,21 @@ class ClassifiedScreenFragment : Fragment() {
             cancelbutton.setOnClickListener {
                 cancelbutton.visibility = View.GONE
                 searchViewIcon.visibility = View.VISIBLE
-                postClassifiedViewModel.setClearAllFilter(true)
-                postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+                searchView.setText("")
+                postClassifiedViewModel.setSearchQuery("")
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "",
+                        selectedSubCategory = "",
+                        minPriceRange = "",
+                        maxPriceRange = "",
+                        zipCode = "",
+                        zipCodeCheckBox = false,
+                        isDatePublishedSelected = false,
+                        isPriceHighToLowSelected = false,
+                        isPriceLowToHighSelected = false
+                    )
+                )
             }
 
             context?.let {
@@ -308,71 +332,109 @@ class ClassifiedScreenFragment : Fragment() {
             searchViewIcon.setOnClickListener {
                 if (searchView.text.toString().isNotEmpty()) {
                     classifiedScreenTabLayout.getTabAt(0)?.select()
-                    callGetAllClassifiedApi(searchView.text.toString())
+                    postClassifiedViewModel.setSearchQuery(searchView.text.toString())
+                    postClassifiedViewModel.classifiedFilterModel.postValue(
+                        ClassifiedFilterModel(
+                            selectedCategory = "",
+                            selectedSubCategory = "",
+                            minPriceRange = "",
+                            maxPriceRange = "",
+                            zipCode = "",
+                            zipCodeCheckBox = false,
+                            isDatePublishedSelected = false,
+                            isPriceHighToLowSelected = false,
+                            isPriceLowToHighSelected = false
+                        )
+                    )
                     SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                 }
             }
 
-            deleteFilterIv1.setOnClickListener {
-                binding?.filterCv1?.visibility = View.GONE
-
-                postClassifiedViewModel.setMaxValue("")
-                postClassifiedViewModel.setMinValue("")
-                postClassifiedViewModel.setClickedOnFilter(true)
-                onNoOfSelectedFilterItem(--noOfSelection)
-            }
-
-            deleteFilterIv2.setOnClickListener {
-                binding?.filterCv2?.visibility = View.GONE
-
-                postClassifiedViewModel.setSelectedClassifiedCategory(
-                    ClassifiedCategoryResponseItem(
-                        emptyList(),
-                        0,
-                        0,
-                        0,
-                        ""
+            deleteCategoryFilterIv.setOnClickListener {
+                binding?.categoryFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.setSelectedClassifiedCategory("")
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
                     )
                 )
-                postClassifiedViewModel.setCategoryFilter("")
-                postClassifiedViewModel.setClickedOnFilter(true)
-                onNoOfSelectedFilterItem(--noOfSelection)
             }
 
-            deleteFilterIv3.setOnClickListener {
-                binding?.filterCv3?.visibility = View.GONE
-
-                postClassifiedViewModel.setZipCodeInFilterScreen("")
-                postClassifiedViewModel.setIsMyLocationChecked(false)
-
-                postClassifiedViewModel.setClickedOnFilter(true)
-                onNoOfSelectedFilterItem(--noOfSelection)
-            }
-
-            deleteFilterIv4.setOnClickListener {
-                postClassifiedViewModel.setSelectedSubClassifiedCategory(
-                    ClassifiedSubcategoryX(
-                        0,
-                        0,
-                        0,
-                        ""
+            deleteSubCategoryFilterIv.setOnClickListener {
+                binding?.subCategoryFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.setSelectedSubClassifiedCategory("")
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
                     )
                 )
-                filterCv4.visibility = View.GONE
-                postClassifiedViewModel.setSubCategoryFilter("")
-                postClassifiedViewModel.setClickedOnFilter(true)
-                onNoOfSelectedFilterItem(--noOfSelection)
             }
 
-            deleteFilterIv5.setOnClickListener {
-                filterCv5.visibility = View.GONE
-                postClassifiedViewModel.setChangeSortTripletFilter(
-                    datePublished = false,
-                    priceLowToHigh = false,
-                    priceHighToLow = false
+            deletePriceRangeIv.setOnClickListener {
+                binding?.priceRangeCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "",
+                        maxPriceRange = "",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
                 )
-                postClassifiedViewModel.setClickedOnFilter(true)
-                onNoOfSelectedFilterItem(--noOfSelection)
+            }
+
+            deleteZipCodeIv.setOnClickListener {
+                binding?.zipCodeCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = filterModel?.isDatePublishedSelected!!,
+                        isPriceHighToLowSelected = filterModel?.isPriceHighToLowSelected!!,
+                        isPriceLowToHighSelected = filterModel?.isPriceLowToHighSelected!!
+                    )
+                )
+            }
+
+            deleteChangeSortFilterIv.setOnClickListener {
+                binding?.changeSortFilterCv?.visibility = View.GONE
+                postClassifiedViewModel.classifiedFilterModel.postValue(
+                    ClassifiedFilterModel(
+                        selectedCategory = "${filterModel?.selectedCategory}",
+                        selectedSubCategory = "${filterModel?.selectedSubCategory}",
+                        minPriceRange = "${filterModel?.minPriceRange}",
+                        maxPriceRange = "${filterModel?.maxPriceRange}",
+                        zipCode = "${filterModel?.zipCode}",
+                        zipCodeCheckBox = filterModel?.zipCodeCheckBox!!,
+                        isDatePublishedSelected = false,
+                        isPriceHighToLowSelected = false,
+                        isPriceLowToHighSelected = false
+                    )
+                )
             }
 
             filterClassified.setOnClickListener {
@@ -437,7 +499,6 @@ class ClassifiedScreenFragment : Fragment() {
                         binding?.floatingActionBtnClassified?.visibility =
                             View.VISIBLE
                         binding?.searchViewll?.visibility = View.VISIBLE
-                        onNoOfSelectedFilterItem(noOfSelection)
                     }
                     if (tab?.position != 0) {
                         filterClassified.isEnabled = false
@@ -447,10 +508,39 @@ class ClassifiedScreenFragment : Fragment() {
                                 R.color.darkGrayColor
                             )
                         )
-                        postClassifiedViewModel.setClearAllFilter(true)
+                        searchView.setText("")
+                        postClassifiedViewModel.setSearchQuery("")
+                        postClassifiedViewModel.classifiedFilterModel.postValue(
+                            ClassifiedFilterModel(
+                                selectedCategory = "",
+                                selectedSubCategory = "",
+                                minPriceRange = "",
+                                maxPriceRange = "",
+                                zipCode = "",
+                                zipCodeCheckBox = false,
+                                isDatePublishedSelected = false,
+                                isPriceHighToLowSelected = false,
+                                isPriceLowToHighSelected = false
+                            )
+                        )
+                        //postClassifiedViewModel.setClearAllFilter(true)
                         if (searchView.text.isNotEmpty()) {
                             searchView.setText("")
-                            postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
+                            postClassifiedViewModel.setSearchQuery("")
+                            postClassifiedViewModel.classifiedFilterModel.postValue(
+                                ClassifiedFilterModel(
+                                    selectedCategory = "",
+                                    selectedSubCategory = "",
+                                    minPriceRange = "",
+                                    maxPriceRange = "",
+                                    zipCode = "",
+                                    zipCodeCheckBox = false,
+                                    isDatePublishedSelected = false,
+                                    isPriceHighToLowSelected = false,
+                                    isPriceLowToHighSelected = false
+                                )
+                            )
+                            //postClassifiedViewModel.setClickOnClearAllFilterBtn(true)
                         }
                         SystemServiceUtil.closeKeyboard(requireActivity(), requireView())
                     } else {
@@ -474,71 +564,14 @@ class ClassifiedScreenFragment : Fragment() {
             })
 
         }
-        /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { isClearAll ->
-            if (isClearAll) {
-                noOfSelection = 0
-                onNoOfSelectedFilterItem(noOfSelection)
-            }
-        }*/
 
-
-        /*postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilerBtnClicked ->
-
-            if (isFilerBtnClicked) {
-                noofSelection = 0
-                if (minValue?.isNotEmpty() == true || maxValue?.isNotEmpty() == true || zipCodeValue?.isNotEmpty() == true) {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.VISIBLE
-                    // classifiedScreenBinding?.moreTextView?.visibility = View.VISIBLE
-
-                    if (minValue?.isNotEmpty() == true) {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText1?.text =
-                            "Range: \$$minValue - \$$maxValue"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv1?.visibility = View.GONE
-                    }
-
-                    if (maxValue?.isNotEmpty() == true) {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText2?.text = "Range: \$$maxValue"
-                    } else {
-                        classifiedScreenBinding?.filterCv2?.visibility = View.GONE
-                    }
-
-                    if (zipCodeValue?.isNotEmpty() == true) {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.VISIBLE
-                        classifiedScreenBinding?.filterText3?.text =
-                            "ZipCode: $zipCodeValue"
-                        noofSelection++
-
-                    } else {
-                        classifiedScreenBinding?.filterCv3?.visibility = View.GONE
-                    }
-
-                    OnNoOfSelectedFilterItem(noofSelection)
-
-                } else {
-                    classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-
-                    //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-                }
-            }
-            if (minValue?.isEmpty() == true && maxValue?.isEmpty() == true && zipCodeValue?.isEmpty() == true) {
-                classifiedScreenBinding?.selectedFilters?.visibility = View.GONE
-                //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-            }
-            setClassifiedViewPager(true)
-        }*/
-
-        classifiedViewModel.searchQueryFromHomeScreen.observe(viewLifecycleOwner) {
+        /*classifiedViewModel.searchQueryFromHomeScreen.observe(viewLifecycleOwner) {
             if (it != null) {
                 callGetAllClassifiedApi(searchQuery = it)
                 binding?.searchView?.setText(it)
                 classifiedViewModel.searchQueryFromHomeScreen.postValue(null)
             }
-        }
+        }*/
 
 
         postClassifiedViewModel.sendDataToClassifiedDetailsScreen.observe(viewLifecycleOwner) {
@@ -574,44 +607,108 @@ class ClassifiedScreenFragment : Fragment() {
                 }
                 is Resource.Error -> {
                 }
-                else -> {
-
-                }
             }
         }
 
-        postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
-            if (isFilterClicked) {
-                classifiedViewModel.getClassifiedByUser(
-                    GetClassifiedByUserRequest(
-                        category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
-                        email = if (email?.isNotEmpty() == true) email else "",
-                        fetchCatSubCat = true,
-                        keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
-                        location = "",
-                        maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
-                        minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
-                        myAdsOnly = false,
-                        popularOnAoonri = null,
-                        subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
-                        zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
-                    )
+        postClassifiedViewModel.classifiedFilterModel.observe(viewLifecycleOwner) { filterValue ->
+            filterModel = filterValue
+            noOfSelection = 0
+
+            if (filterValue.selectedCategory.isNotEmpty()) {
+                noOfSelection++
+                binding?.categoryFilterTv?.text = filterValue.selectedCategory
+                binding?.categoryFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.selectedSubCategory.isNotEmpty()) {
+                noOfSelection++
+                binding?.subCategoryFilterTv?.text = filterValue.selectedSubCategory
+                binding?.subCategoryFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.minPriceRange.isNotEmpty() && filterValue.maxPriceRange.isNotEmpty()) {
+                noOfSelection++
+                binding?.priceRangeTv?.text =
+                    "Range: \$${filterValue.minPriceRange} - \$${filterValue.maxPriceRange}"
+                binding?.priceRangeCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.zipCode.isNotEmpty()) {
+                noOfSelection++
+                binding?.zipCodeTv?.text = "ZipCode: ${filterValue.zipCode}"
+                binding?.zipCodeCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isDatePublishedSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: Date Published"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isPriceLowToHighSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: Low to High"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            if (filterValue.isPriceHighToLowSelected) {
+                noOfSelection++
+                binding?.changeSortFilterTv?.text = "Sort: High to Low"
+                binding?.changeSortFilterCv?.visibility = View.VISIBLE
+            }
+
+            classifiedViewModel.getClassifiedByUser(
+                GetClassifiedByUserRequest(
+                    category = filterValue.selectedCategory,
+                    email = if (email?.isNotEmpty() == true) email else "",
+                    fetchCatSubCat = true,
+                    keywords = if (postClassifiedViewModel.searchQueryFilter.isNotEmpty()) postClassifiedViewModel.searchQueryFilter else "",
+                    location = "",
+                    maxPrice = if (filterValue.maxPriceRange.isNotEmpty()) filterValue.maxPriceRange.toInt() else 0,
+                    minPrice = if (filterValue.minPriceRange.isNotEmpty()) filterValue.minPriceRange.toInt() else 0,
+                    myAdsOnly = false,
+                    popularOnAoonri = null,
+                    subCategory = filterValue.selectedSubCategory,
+                    zipCode = filterValue.zipCode
                 )
-                postClassifiedViewModel.setClickedOnFilter(false)
-                noOfSelection = 0
-            }
-            setFilterVisibility()
+            )
+
+            onNoOfSelectedFilterItem(noOfSelection)
+
         }
 
-        postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
+        /* postClassifiedViewModel.clickedOnFilter.observe(viewLifecycleOwner) { isFilterClicked ->
+             if (isFilterClicked) {
+                 classifiedViewModel.getClassifiedByUser(
+                     GetClassifiedByUserRequest(
+                         category = postClassifiedViewModel.categoryFilter.ifEmpty { "" },
+                         email = if (email?.isNotEmpty() == true) email else "",
+                         fetchCatSubCat = true,
+                         keywords = postClassifiedViewModel.searchQueryFilter.ifEmpty { "" },
+                         location = "",
+                         maxPrice = if (postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.maxValueInFilterScreen.toInt() else 0,
+                         minPrice = if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty()) postClassifiedViewModel.minValueInFilterScreen.toInt() else 0,
+                         myAdsOnly = false,
+                         popularOnAoonri = null,
+                         subCategory = postClassifiedViewModel.subCategoryFilter.ifEmpty { "" },
+                         zipCode = postClassifiedViewModel.zipCodeInFilterScreen.ifEmpty { "" }
+                     )
+                 )
+                 postClassifiedViewModel.setClickedOnFilter(false)
+                 noOfSelection = 0
+             }
+             setFilterVisibility()
+         }*/
+
+        /*postClassifiedViewModel.clearAllFilterBtn.observe(viewLifecycleOwner) {
             if (it) {
                 callGetAllClassifiedApi()
                 binding?.searchView?.setText("")
                 postClassifiedViewModel.setClickOnClearAllFilterBtn(false)
             }
         }
-
-        postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
+*/
+        /*postClassifiedViewModel.clearAllFilter.observe(viewLifecycleOwner) { clearAllFilter ->
             if (clearAllFilter) {
                 postClassifiedViewModel.setMinValue("")
                 postClassifiedViewModel.setMaxValue("")
@@ -648,7 +745,7 @@ class ClassifiedScreenFragment : Fragment() {
                 postClassifiedViewModel.clickedOnFilter.postValue(true)
             }
             postClassifiedViewModel.setClearAllFilter(false)
-        }
+        }*/
 
         classifiedViewModel.navigateFromClassifiedScreenToAdvertiseWebView.observe(
             viewLifecycleOwner
@@ -669,7 +766,7 @@ class ClassifiedScreenFragment : Fragment() {
 
     private fun setFilterVisibility() {
 
-        noOfSelection = 0
+        /*noOfSelection = 0
         if (postClassifiedViewModel.minValueInFilterScreen.isNotEmpty() ||
             postClassifiedViewModel.maxValueInFilterScreen.isNotEmpty() ||
             postClassifiedViewModel.zipCodeInFilterScreen.isNotEmpty() ||
@@ -733,8 +830,6 @@ class ClassifiedScreenFragment : Fragment() {
                 binding?.filterCv5?.visibility = View.GONE
             }
 
-            onNoOfSelectedFilterItem(noOfSelection)
-
         } else {
             binding?.selectedFilters?.visibility = View.GONE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
@@ -750,11 +845,12 @@ class ClassifiedScreenFragment : Fragment() {
         ) {
             binding?.selectedFilters?.visibility = View.VISIBLE
             //classifiedScreenBinding?.moreTextView?.visibility = View.GONE
-        }
+        }*/
+
     }
 
 
-    private fun callGetAllClassifiedApi(searchQuery: String = "") {
+    /*private fun callGetAllClassifiedApi(searchQuery: String = "") {
         val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
         classifiedViewModel.getClassifiedByUser(
             GetClassifiedByUserRequest(
@@ -771,7 +867,7 @@ class ClassifiedScreenFragment : Fragment() {
                 zipCode = ""
             )
         )
-    }
+    }*/
 
 
     fun onNoOfSelectedFilterItem(noOfSelection: Int) {
@@ -782,38 +878,11 @@ class ClassifiedScreenFragment : Fragment() {
         } else {
             binding?.selectedFilters?.visibility = View.GONE
             binding?.numberOfSelectedFilterCv?.visibility = View.GONE
-            postClassifiedViewModel.setMaxValue("")
-            postClassifiedViewModel.setMinValue("")
-            postClassifiedViewModel.setZipCodeInFilterScreen("")
-            postClassifiedViewModel.setIsMyLocationChecked(false)
-            postClassifiedViewModel.setSearchQuery("")
-            postClassifiedViewModel.setCategoryFilter("")
-            postClassifiedViewModel.setSubCategoryFilter("")
         }
     }
 
-    /*private fun dynamicSetTabLayoutMode(tabLayout: TabLayout) {
-        val tabWidth = calculateTabWidth(tabLayout)
-        val screenWidth = Resources.getSystem().displayMetrics.widthPixels
-        if (tabWidth <= screenWidth) {
-            tabLayout.tabMode = TabLayout.MODE_AUTO
-        } else {
-            tabLayout.tabMode = TabLayout.MODE_FIXED
-        }
-    }
-
-    private fun calculateTabWidth(tabLayout: TabLayout): Int {
-        var tabWidth = 0
-        for (i in 0 until tabLayout.childCount) {
-            val view = tabLayout.getChildAt(i)
-            view.measure(0, 0)
-            tabWidth += view.measuredWidth
-        }
-        return tabWidth
-    }*/
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding = null
     }
 }

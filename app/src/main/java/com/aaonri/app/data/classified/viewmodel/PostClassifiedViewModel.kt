@@ -70,13 +70,13 @@ class PostClassifiedViewModel @Inject constructor(
     var clearAllFilter: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
-    var clearAllFilterBtn: MutableLiveData<Boolean> = MutableLiveData()
-        private set
+    /*var clearAllFilterBtn: MutableLiveData<Boolean> = MutableLiveData()
+        private set*/
 
     var navigateToAllClassified: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
-    var selectedClassifiedCategory: MutableLiveData<ClassifiedCategoryResponseItem> =
+    var selectedClassifiedCategory: MutableLiveData<String> =
         MutableLiveData()
         private set
 
@@ -84,7 +84,7 @@ class PostClassifiedViewModel @Inject constructor(
         MutableLiveData()
         private set
 
-    var selectedSubClassifiedCategory: MutableLiveData<ClassifiedSubcategoryX> =
+    var selectedSubClassifiedCategory: MutableLiveData<String> =
         MutableLiveData()
         private set
 
@@ -146,6 +146,8 @@ class PostClassifiedViewModel @Inject constructor(
 
     var keyClassifiedKeyboardListener: MutableLiveData<Boolean> = MutableLiveData()
         private set
+
+    val classifiedFilterModel: MutableLiveData<ClassifiedFilterModel> = MutableLiveData()
 
     fun addNavigationForStepper(value: String) {
         navigationForStepper.value = value
@@ -358,9 +360,13 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     fun setSelectedClassifiedCategory(
-        value: ClassifiedCategoryResponseItem,
+        value: String,
     ) {
         selectedClassifiedCategory.postValue(value)
+    }
+
+    fun setSelectedSubClassifiedCategory(value: String) {
+        selectedSubClassifiedCategory.postValue(value)
     }
 
     fun setClassifiedSubCategoryList(
@@ -371,10 +377,6 @@ class PostClassifiedViewModel @Inject constructor(
 
     fun setClearSubCategory(value: Boolean) {
         clearSubCategory = value
-    }
-
-    fun setSelectedSubClassifiedCategory(value: ClassifiedSubcategoryX) {
-        selectedSubClassifiedCategory.postValue(value)
     }
 
     fun setIsUpdateClassified(value: Boolean) {
@@ -428,9 +430,9 @@ class PostClassifiedViewModel @Inject constructor(
     }
 
     //This is also used in different case
-    fun setClickOnClearAllFilterBtn(value: Boolean) {
+    /*fun setClickOnClearAllFilterBtn(value: Boolean) {
         clearAllFilterBtn.postValue(value)
-    }
+    }*/
 
     fun setKeyClassifiedKeyboardListener(value: Boolean) {
         keyClassifiedKeyboardListener.postValue(value)
