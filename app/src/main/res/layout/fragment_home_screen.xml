@@ -460,7 +460,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/activeService" />
 
                     <TextView
-                        android:id="@+id/seeAllEvents"
+                        android:id="@+id/see_all_tv_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_38sdp"
@@ -477,9 +477,9 @@
                         android:layout_height="@dimen/_12sdp"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:src="@drawable/arrow_forward"
-                        app:layout_constraintBottom_toBottomOf="@id/seeAllEvents"
-                        app:layout_constraintStart_toEndOf="@id/seeAllEvents"
-                        app:layout_constraintTop_toTopOf="@id/seeAllEvents"
+                        app:layout_constraintBottom_toBottomOf="@id/see_all_tv_2"
+                        app:layout_constraintStart_toEndOf="@id/see_all_tv_2"
+                        app:layout_constraintTop_toTopOf="@id/see_all_tv_2"
                         app:tint="@color/blueBtnColor" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat

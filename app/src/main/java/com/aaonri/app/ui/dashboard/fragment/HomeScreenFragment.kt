@@ -552,17 +552,17 @@ class HomeScreenFragment : Fragment() {
                             genericAdapterForEvent
                     }
                     "Jobs" -> {
-                        binding?.availableServiceHorizontalClassifiedRv?.visibility =
-                            View.GONE
+                        binding?.availableServiceHorizontalClassifiedRv?.visibility = View.GONE
+
                         binding?.availableServiceHorizontalRv?.visibility = View.VISIBLE
-                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 0F)
+                        binding?.availableServiceHorizontalRv?.margin(0F, 0f, 0F, 10F)
                         binding?.availableServiceHorizontalRv?.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
                         if (isJobRecruiter) {
-                            binding?.priorityServiceRv?.adapter = allJobProfileAdapter
+                            binding?.availableServiceHorizontalRv?.adapter = allJobProfileAdapter
                         } else {
-                            binding?.priorityServiceRv?.adapter = jobSeekerAdapter
+                            binding?.availableServiceHorizontalRv?.adapter = jobSeekerAdapter
                         }
                     }
                     "Immigration" -> {
@@ -686,7 +686,7 @@ class HomeScreenFragment : Fragment() {
                 }
             }
 
-            seeAllEvents.setOnClickListener {
+            seeAllTv2.setOnClickListener {
                 navigateToTheSpecificScreen(navigationFromHorizontalSeeAll)
             }
 
@@ -1388,86 +1388,56 @@ class HomeScreenFragment : Fragment() {
 
             } else if (interests == "$shopWithUsId") {
                 //Shop With Us
-                /*priorityService = "Shop With Us"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
-                binding?.priorityServiceRv?.visibility = View.GONE*/
+
             } else if (interests == "$astrologyId") {
                 //Astrology
                 priorityService = "Astrology"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
 
             } else if (interests == "$businessNeedId") {
                 //Business Needs
                 priorityService = "Business Needs"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
 
             } else if (interests == "$communityConnectId") {
                 //Community Connect
                 priorityService = "Community Connect"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
 
             } else if (interests == "$foundationAndDonationId") {
                 //Foundation & Donations
                 priorityService = "Foundation & Donations"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$homeNeedId") {
                 //Home Needs
                 priorityService = "Home Needs"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$legalServicesId") {
                 //Legal Services
                 priorityService = "Legal Services"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$matrimonyId") {
                 //Matrimony & Weddings
                 priorityService = "Matrimony & Weddings"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$medicalCareId") {
                 //Medical Care
                 priorityService = "Medical Care"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$realStateId") {
                 //Real Estate
                 priorityService = "Real Estate"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
+
             } else if (interests == "$sports") {
                 //Sports
                 priorityService = "Sports"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+
             } else if (interests == "$studentService") {
                 //Student Services
                 priorityService = "Student Services"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager = LinearLayoutManager(context)
+
             } else if (interests == "$travelStay") {
                 //Travel and Stay
                 priorityService = "Travel and Stay"
-                binding?.priorityServiceRv?.margin(left = 20f, right = 20f)
-                binding?.priorityServiceRv?.layoutManager =
-                    LinearLayoutManager(context)
-            } else if (interests.isBlank()) {
-                //Toast.makeText(context, "blank", Toast.LENGTH_SHORT).show()
             }
         }
         binding?.classifiedTv?.text = priorityService
