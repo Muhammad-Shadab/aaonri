@@ -48,8 +48,9 @@ class JobApplyFragment : Fragment() {
     var isProfileUploaded = false
     var jobProfileId = 0
     var description = ""
+    var contactEmailId = ""
 
-    /**Getting rich text content**/
+        /**Getting rich text content**/
     private val resultLauncherEditText =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -68,9 +69,6 @@ class JobApplyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentJobApplyBinding.inflate(layoutInflater, container, false)
-
-        val email =
-            context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -169,7 +167,7 @@ class JobApplyFragment : Fragment() {
                                         ApplyJobRequest(
                                             coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
                                                 .trim(),
-                                            email = email ?: "",
+                                            email = contactEmailId,
                                             fullName = "${firstNameEt.text} ${lastNameEt.text}",
                                             jobId = args.jobId,
                                             phoneNo = phoneNumber,
@@ -209,6 +207,7 @@ class JobApplyFragment : Fragment() {
                                     visibleResumeFile(true)
                                 }
 
+                                contactEmailId = it[0].contactEmailId
                                 jobProfileId = it[0].id
                                 isProfileUploaded = true
                                 firstNameEt.setText(it[0].firstName)
