@@ -62,6 +62,7 @@ class MainActivity : BaseActivity() {
 
         supportActionBar?.hide()
         val connectivityReceiver = ConnectivityReceiver()
+
         registerReceiver(
             connectivityReceiver,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
