@@ -455,18 +455,32 @@ class HomeScreenFragment : Fragment() {
         /** This adapter is used for showing job on home screen  **/
         jobSeekerAdapter = JobSeekerAdapter()
 
+
+
         jobSeekerAdapter?.itemClickListener = { view, item, position ->
 
-            /** Getting user job profile to apply jobs **/
+            /** Getting user job profile information to apply jobs **/
             jobSeekerViewModel.getUserJobProfileByEmail(
                 emailId = email ?: "",
                 isApplicant = true
             )
 
             if (item is AllJobsResponseItem) {
-                val action =
-                    HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(item.jobId)
-                findNavController().navigate(action)
+                if (view.id == R.id.jobCv) {
+                    /** Clicked on Job Card View **/
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(
+                            item.jobId
+                        )
+                    findNavController().navigate(action)
+                } else {
+                    /** Clicked on Apply btn **/
+                    val action =
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobApplyFragment(
+                            item.jobId
+                        )
+                    findNavController().navigate(action)
+                }
             }
         }
 
@@ -1054,15 +1068,12 @@ class HomeScreenFragment : Fragment() {
                         //allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
                     }*/
                     homeClassifiedWithAdList = classifiedViewModel.allClassifiedList.toMutableList()
-                    genericAdapterForClassified?.items = response.data?.userAdsList
+                    genericAdapterForClassified?.items = if (response.data?.userAdsList?.size!! >= 4) response.data.userAdsList.subList(0,4) else response.data.userAdsList
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
-
                 }
             }
         }

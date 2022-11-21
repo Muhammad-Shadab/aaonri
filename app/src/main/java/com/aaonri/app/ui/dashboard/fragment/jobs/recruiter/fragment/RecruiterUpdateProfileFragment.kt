@@ -152,9 +152,9 @@ class RecruiterUpdateProfileFragment : Fragment() {
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        if (response.data?.isNotEmpty() == true) {
+                        if (response.data?.jobProfile?.isNotEmpty() == true) {
                             isUpdateConsultantProfile = true
-                            response.data[0].let {
+                            response.data.jobProfile[0].let {
                                 consultantProfileId = it.id
                                 firstNameEt.setText(it.firstName)
                                 lastNameEt.setText(it.lastName)

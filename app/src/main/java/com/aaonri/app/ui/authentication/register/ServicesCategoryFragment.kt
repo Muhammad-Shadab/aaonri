@@ -15,7 +15,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -191,9 +190,9 @@ class ServicesCategoryFragment : Fragment() {
                     if (isCompanyEmailCheckboxSelected) {
                         if (Validator.emailValidation(companyEmail.toString()) && companyEmail.toString().length >= 8) {
                             if (aliasName.toString().isNotEmpty()) {
-                                selectedCommunity.forEach {
-                                    Log.i("selectedCommunity", "${it.communityName}")
-                                }
+//                                selectedCommunity.forEach {
+//                                    Log.i("selectedCommunity", "${it.communityName}")
+//                                }
                                 if (authCommonViewModel.isUpdateProfile) {
                                     updateProfile()
                                 } else {

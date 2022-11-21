@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
 import com.aaonri.app.data.jobs.recruiter.model.JobSearchResponse
+import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.data.jobs.seeker.model.*
 import com.aaonri.app.data.jobs.seeker.repository.JobSeekerRepository
 import com.aaonri.app.utils.Resource
@@ -68,6 +69,19 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     var selectedVisaStatusJobApplicability: MutableLiveData<List<AllActiveJobApplicabilityResponseItem>> =
         MutableLiveData()
+
+    var userJobAlertData: MutableLiveData<Resource<JobAlertResponse>> = MutableLiveData()
+
+    var createJobAlertData: MutableLiveData<Resource<CreateJobAlertResponse>> = MutableLiveData()
+
+    var navigateToUpdateJobAlert: MutableLiveData<JobAlert> = MutableLiveData()
+
+    var navigateToCreateJobAlert: MutableLiveData<Boolean> = MutableLiveData()
+
+    var selectedJobList: MutableLiveData<List<JobType>> =
+        MutableLiveData()
+
+    var selectedJobListTemp = mutableListOf<JobType>()
 
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
@@ -216,6 +230,36 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
         return Resource.Error(response.message())
     }
 
+    fun getJobAlertsByJobProfileId(jobProfileId: Int) = viewModelScope.launch {
+        userJobAlertData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.getJobAlertsByJobProfileId(jobProfileId)
+        userJobAlertData.postValue(handleJobAlertResponse(response))
+    }
+
+    private fun handleJobAlertResponse(response: Response<JobAlertResponse>): Resource<JobAlertResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun createJobAlert(createAlertRequest: CreateAlertRequest) = viewModelScope.launch {
+        createJobAlertData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.createJobAlert(createAlertRequest)
+        createJobAlertData.postValue(handleCreateJobAlertResponse(response))
+    }
+
+    private fun handleCreateJobAlertResponse(response: Response<CreateJobAlertResponse>): Resource<CreateJobAlertResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     fun saveJobView(saveJobViewRequest: SaveJobViewRequest) = viewModelScope.launch {
         saveJobViewData.postValue(Resource.Loading())
         val response = jobSeekerRepository.saveJobView(saveJobViewRequest)
@@ -280,6 +324,19 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     fun setSelectedVisaStatusJobApplicabilityValue(value: List<AllActiveJobApplicabilityResponseItem>) {
         selectedVisaStatusJobApplicability.postValue(value)
+    }
+
+    fun setNavigateToUpdateJobAlert(value: JobAlert) {
+        navigateToUpdateJobAlert.postValue(value)
+    }
+
+    fun setNavigateToCreateJobAlert(value: Boolean) {
+        navigateToCreateJobAlert.postValue(value)
+    }
+
+    fun setSelectJobListMutableValue(value: List<JobType>) {
+        selectedJobList.postValue(value)
+        selectedJobListTemp = value as MutableList<JobType>
     }
 
 }

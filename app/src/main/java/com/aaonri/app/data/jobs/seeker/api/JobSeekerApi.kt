@@ -52,6 +52,16 @@ interface JobSeekerApi {
         @Body saveJobViewRequest: SaveJobViewRequest
     ): Response<SaveJobViewRequest>
 
+    @GET("/api/v1/jobAlert/findAlertsByJobProfileId/{jobProfileId}")
+    suspend fun getJobAlertsByJobProfileId(
+        @Path("jobProfileId") jobProfileId: Int
+    ): Response<JobAlertResponse>
+
+    @POST("/api/v1/jobAlert/creatJobAlert")
+    suspend fun createJobAlert(
+        @Body createAlertRequest: CreateAlertRequest
+    ): Response<CreateJobAlertResponse>
+
     @POST("/api/v1/jobs/search")
     suspend fun searchJob(
         @Body jobSearchRequest: JobSearchRequest

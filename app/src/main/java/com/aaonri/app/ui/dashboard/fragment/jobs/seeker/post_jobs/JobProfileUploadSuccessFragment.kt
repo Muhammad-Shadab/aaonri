@@ -39,6 +39,10 @@ class JobProfileUploadSuccessFragment : BottomSheetDialogFragment() {
                     successfulTv.text = "You have successfully updated your Job Profile."
                     navigateScreenBtn.text = "VIEW MY JOB PROFILE"
                 }
+                "CreateJobAlert" -> {
+                    successfulTv.text = "You have successfully created your Job alert."
+                    navigateScreenBtn.text = "VIEW MY JOB ALERTS"
+                }
             }
 
             navigateScreenBtn.setOnClickListener {

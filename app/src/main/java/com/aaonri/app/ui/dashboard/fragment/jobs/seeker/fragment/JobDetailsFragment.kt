@@ -126,7 +126,7 @@ class JobDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     response.data?.let {
-                        if (it.size > 0) {
+                        if (it.jobProfile.isNotEmpty()) {
                             /** Profile Uploaded **/
                             val action =
                                 JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(

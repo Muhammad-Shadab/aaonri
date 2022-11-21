@@ -60,7 +60,7 @@ class AllJobFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { jobAdapter?.setData(it.subList(0, 4)) }
+                    response.data?.let { jobAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE
@@ -79,7 +79,7 @@ class AllJobFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     response.data?.let {
-                        if (it.size > 0) {
+                        if (it.jobProfile.isNotEmpty()) {
                             val action =
                                 selectedJobItem?.jobId?.let { it1 ->
                                     JobScreenFragmentDirections.actionJobScreenFragmentToJobApplyFragment(

@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dashboard_nav_graph"
-    app:startDestination="@id/jobScreenFragment">
+    android:id="@+id/homeScreenFragment"
+    app:startDestination="@id/homeScreenFragment">
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.aaonri.app.ui.dashboard.fragment.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/activity_event_screen">
+        tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_classifiedScreenFragment"
             app:destination="@id/classifiedScreenFragment" />
@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_jobDetailsFragment"
             app:destination="@id/jobDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
         <action
             android:id="@+id/action_homeScreenFragment_to_recruiterTalentDetailsFragment"
             app:destination="@id/recruiterTalentDetailsFragment" />
@@ -417,6 +420,9 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_jobSearchFragment"
             app:destination="@id/jobSearchFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_jobCreateAlertFragment"
+            app:destination="@id/jobCreateAlertFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"
@@ -656,6 +662,29 @@
         android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.JobSeekerFilterFragment"
         android:label="fragment_job_seeker_filter"
         tools:layout="@layout/fragment_job_seeker_filter" />
+    <fragment
+        android:id="@+id/jobCreateAlertFragment"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs.JobCreateAlertFragment"
+        android:label="fragment_job_create_alert"
+        tools:layout="@layout/fragment_job_create_alert">
+        <argument
+            android:name="isUpdateJobAlert"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_jobCreateAlertFragment_to_selectWorkStatusBottomSheet"
+            app:destination="@id/selectWorkStatusBottomSheet" />
+        <action
+            android:id="@+id/action_jobCreateAlertFragment_to_jobGenericBottomSheet"
+            app:destination="@id/jobGenericBottomSheet" />
+        <action
+            android:id="@+id/action_jobCreateAlertFragment_to_jobProfileUploadSuccessFragment"
+            app:destination="@id/jobProfileUploadSuccessFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/selectWorkStatusBottomSheet"
+        android:name="com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment.SelectWorkStatusBottomSheet"
+        android:label="fragment_select_work_status_bottom_sheet"
+        tools:layout="@layout/fragment_select_work_status_bottom_sheet" />
 
 
 </navigation>

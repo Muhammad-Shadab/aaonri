@@ -342,22 +342,21 @@ class JobProfileUploadFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.let {
-                            if (it.size > 0) {
+                            if (it.jobProfile.size > 0) {
 
-                                jobDetailsApplicabilityList =
-                                    it[0].visaStatus.split(",").toTypedArray().toMutableList()
-                                fileName = it[0].resumeName
-                                firstNameEt.setText(it[0].firstName)
-                                lastNameEt.setText(it[0].lastName)
-                                currentTitleEt.setText(it[0].title)
-                                contactEmailEt.setText(it[0].contactEmailId)
-                                phoneNumberEt.setText(it[0].phoneNo)
-                                locationEt.setText(it[0].location)
-                                selectExperienceTv.text = it[0].experience
-                                selectAvailabilityTv.text = it[0].availability
-                                skillSetDescEt.setText(it[0].skillSet)
-                                coverLetterDescEt.text = Html.fromHtml(it[0].coverLetter)
-                                description = it[0].coverLetter
+                                jobDetailsApplicabilityList = it.jobProfile[0].visaStatus.split(",").toTypedArray().toMutableList()
+                                fileName = it.jobProfile[0].resumeName
+                                firstNameEt.setText(it.jobProfile[0].firstName)
+                                lastNameEt.setText(it.jobProfile[0].lastName)
+                                currentTitleEt.setText(it.jobProfile[0].title)
+                                contactEmailEt.setText(it.jobProfile[0].contactEmailId)
+                                phoneNumberEt.setText(it.jobProfile[0].phoneNo)
+                                locationEt.setText(it.jobProfile[0].location)
+                                selectExperienceTv.text = it.jobProfile[0].experience
+                                selectAvailabilityTv.text = it.jobProfile[0].availability
+                                skillSetDescEt.setText(it.jobProfile[0].skillSet)
+                                coverLetterDescEt.text = Html.fromHtml(it.jobProfile[0].coverLetter)
+                                description = it.jobProfile[0].coverLetter
                                 if (fileName?.isNotEmpty() == true) {
                                     visibleResumeFile()
                                     binding?.appbarTextTv?.text = "Update Profile"

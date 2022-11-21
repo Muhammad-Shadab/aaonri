@@ -55,7 +55,6 @@ class MainActivity : BaseActivity() {
     val immigrationViewModel: ImmigrationViewModel by viewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

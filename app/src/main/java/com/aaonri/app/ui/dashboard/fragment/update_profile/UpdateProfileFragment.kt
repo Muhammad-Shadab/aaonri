@@ -14,20 +14,15 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
-import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.databinding.FragmentUpdateProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.update_profile.adapter.UpdateProfilePagerAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.UserProfileStaticData
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -223,6 +218,19 @@ class UpdateProfileFragment : Fragment() {
         }
 
         authCommonViewModel.setIsUpdateProfile(true)
+
+        /*requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isJobServiceSelected) {
+                        findNavController().navigate(R.id.action_updateProfileFragment_to_homeScreenFragment)
+                    } else {
+                        findNavController().navigateUp()
+                    }
+                }
+            })*/
+
 
         return binding?.root
     }

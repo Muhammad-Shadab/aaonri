@@ -246,8 +246,6 @@ class JobScreenFragment : Fragment() {
                     textView
             }
 
-            jobsScreenTabLayout.getTabAt(1)?.view?.isClickable = false
-
             jobsScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -326,6 +324,25 @@ class JobScreenFragment : Fragment() {
             if (it != null) {
                 val action =
                     JobScreenFragmentDirections.actionJobScreenFragmentToCoverLetterBottomSheet()
+                findNavController().navigate(action)
+            }
+        }
+
+        jobSeekerViewModel.navigateToCreateJobAlert.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobCreateAlertFragment(
+                        false
+                    )
+                findNavController().navigate(action)
+                jobSeekerViewModel.navigateToCreateJobAlert.postValue(null)
+            }
+        }
+
+        jobSeekerViewModel.navigateToUpdateJobAlert.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobCreateAlertFragment(true)
                 findNavController().navigate(action)
             }
         }

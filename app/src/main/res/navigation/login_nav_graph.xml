@@ -4,16 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_graph"
     app:startDestination="@id/splashScreenFragment">
-    <include app:graph="@navigation/dashboard_nav_graph" />
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.aaonri.app.ui.authentication.login.LoginFragment"
         android:label="fragment_intro"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_dashboard_nav_graph"
-            app:destination="@id/dashboard_nav_graph" />
         <action
             android:id="@+id/action_loginFragment_to_resetPassword"
             app:destination="@id/resetPassword" />

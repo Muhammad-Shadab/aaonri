@@ -1,6 +1,6 @@
 package com.aaonri.app.data.jobs.seeker.model
 
-data class UserJobProfileResponseItem(
+data class JobProfile(
     val availability: String,
     val contactEmailId: String,
     val coverLetter: String,
@@ -14,6 +14,7 @@ data class UserJobProfileResponseItem(
     val lastName: String,
     val location: String,
     val phoneNo: String,
+    val profileImage: String,
     val resumeName: String,
     val skillSet: String,
     val title: String,

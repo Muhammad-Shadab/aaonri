@@ -16,7 +16,7 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
 
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? = null
 
-    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: UserJobProfileResponseItem) -> Unit)? =
+    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: JobProfile) -> Unit)? =
         null
 
     class AllActiveJobsViewHolders(private val binding: AllPostedJobsItemBinding) :
@@ -25,9 +25,13 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
         @SuppressLint("SetTextI18n")
         fun bind(allJobsResponseItem: AllJobsResponseItem) {
             binding.apply {
-
-                val random =
-                    if (allJobsResponseItem.salaryRange != "string") allJobsResponseItem.salaryRange.toDouble() else 0
+                var random = 0.0
+                if (allJobsResponseItem.salaryRange != null) {
+                    if (allJobsResponseItem.salaryRange.isNotEmpty()) {
+                        random =
+                            if (allJobsResponseItem.salaryRange != "string" && allJobsResponseItem.salaryRange != "60k" && allJobsResponseItem.salaryRange != "@#$%^&") allJobsResponseItem.salaryRange.toDouble() else 0.0
+                    }
+                }
                 val df = DecimalFormat("#,###.00")
                 df.roundingMode = RoundingMode.DOWN
                 val roundoff = df.format(random)
@@ -107,7 +111,7 @@ sealed class JobViewHolders(binding: ViewBinding) : RecyclerView.ViewHolder(bind
     class MyJobProfileViewHolder(private val binding: MyJobProfileItemBinding) :
         JobViewHolders(binding) {
         @SuppressLint("SetTextI18n")
-        fun bind(userJobProfileResponseItem: UserJobProfileResponseItem) {
+        fun bind(userJobProfileResponseItem: JobProfile) {
             binding.apply {
                 jobSeekerNameTv.text =
                     "${userJobProfileResponseItem.firstName} ${userJobProfileResponseItem.lastName}"

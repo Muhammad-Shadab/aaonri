@@ -48,14 +48,14 @@ class RecruiterConsultantProfileFragment : Fragment() {
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        if (response.data?.isNotEmpty() == true) {
+                        if (response.data?.jobProfile?.isNotEmpty() == true) {
                             recyclerViewConsultantProfile.visibility = View.VISIBLE
                             resultsNotFoundLL.visibility = View.GONE
                             uploadYourProfileBtn.visibility = View.GONE
                             jobRecruiterViewModel.setVisibilityToTheFloatingActionBtnValue(
                                 hideFloatingBtn = false
                             )
-                            response.data.let { consultantProfileAdapter?.setData(it) }
+                            response.data.let { consultantProfileAdapter?.setData(it.jobProfile) }
                         } else {
                             resultsNotFoundLL.visibility = View.VISIBLE
                             uploadYourProfileBtn.visibility = View.VISIBLE

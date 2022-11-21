@@ -183,7 +183,8 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                     is Resource.Success -> {
                         progressBarContainer.visibility = View.GONE
                         response.data?.forEachIndexed { index, visaStatus ->
-                            response.data[index].isSelected = jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
+                            response.data[index].isSelected =
+                                jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
                         }
 
                         response.data?.let {
@@ -277,7 +278,6 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         }
                     }
                     jobType = jobType.dropLast(1)
-
                 }
             }
 

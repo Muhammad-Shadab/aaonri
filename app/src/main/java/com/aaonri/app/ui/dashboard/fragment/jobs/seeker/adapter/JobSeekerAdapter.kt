@@ -17,7 +17,7 @@ class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
 
     var itemClickListener: ((view: View, item: Any, position: Int) -> Unit)? = null
 
-    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: UserJobProfileResponseItem) -> Unit)? =
+    var viewResumeOrCoverLetterBtnListener: ((isViewCoverLetterClicked: Boolean, item: JobProfile) -> Unit)? =
         null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolders {
@@ -89,8 +89,8 @@ class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
                 }
             }
             is JobViewHolders.MyJobProfileViewHolder -> {
-                if (data[position] is UserJobProfileResponseItem) {
-                    holder.bind(data[position] as UserJobProfileResponseItem)
+                if (data[position] is JobProfile) {
+                    holder.bind(data[position] as JobProfile)
                 }
             }
         }
@@ -111,7 +111,7 @@ class JobSeekerAdapter : RecyclerView.Adapter<JobViewHolders>() {
             is ExperienceLevelResponseItem -> R.layout.category_card_item
             is AllActiveJobApplicabilityResponseItem -> R.layout.category_card_item1
             is ActiveJobAvailabilityResponseItem -> R.layout.category_item2
-            is UserJobProfileResponseItem -> R.layout.my_job_profile_item
+            is JobProfile -> R.layout.my_job_profile_item
             else -> R.layout.fragment_all_job
         }
     }

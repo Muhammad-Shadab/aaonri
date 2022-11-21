@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- <com.github.kwasow.bottomnavigationcircles.BottomNavigationCircles
-         android:id="@+id/bottomNavigation"
-         android:layout_width="match_parent"
-         android:layout_height="?attr/actionBarSize"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:itemTextColor="@color/blueBtnColor"
-         app:menu="@menu/bottom_navigation_menu"/>-->
-
     <View
         android:id="@+id/border"
         android:layout_width="match_parent"

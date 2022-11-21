@@ -67,7 +67,7 @@ class ClassifiedGenericAdapter : RecyclerView.Adapter<HomeScreenViewHolders>() {
         }
     }
 
-    override fun getItemCount(): Int = if (items?.isNotEmpty() == true) 4 else 0
+    override fun getItemCount(): Int = if (items?.isNotEmpty() == true) items?.size!! else 0
 
     override fun getItemViewType(position: Int): Int {
         return when (items?.get(position)) {

@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
+import com.aaonri.app.data.jobs.seeker.model.JobProfile
 import com.aaonri.app.databinding.RecruiterConsultantProfileItemBinding
 
 class ConsultantProfileAdapter :
     RecyclerView.Adapter<ConsultantProfileAdapter.ConsultantViewHolder>() {
 
-    private var data = listOf<UserJobProfileResponseItem>()
+    private var data = listOf<JobProfile>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConsultantViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -22,7 +22,6 @@ class ConsultantProfileAdapter :
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ConsultantViewHolder, position: Int) {
-        val context = holder.itemView.context
 
         holder.binding.apply {
 
@@ -35,14 +34,13 @@ class ConsultantProfileAdapter :
             }
 
         }
-
     }
 
     override fun getItemCount() = data.size
 
     @JvmName("setData1")
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<UserJobProfileResponseItem>) {
+    fun setData(data: List<JobProfile>) {
         this.data = data
         notifyDataSetChanged()
     }

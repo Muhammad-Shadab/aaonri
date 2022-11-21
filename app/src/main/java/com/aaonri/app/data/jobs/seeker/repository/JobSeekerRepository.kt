@@ -5,8 +5,10 @@ import com.aaonri.app.data.jobs.seeker.api.JobSeekerApi
 import com.aaonri.app.data.jobs.seeker.api.UploadResumeApi
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
+import com.aaonri.app.data.jobs.seeker.model.CreateAlertRequest
 import com.aaonri.app.data.jobs.seeker.model.SaveJobViewRequest
 import okhttp3.MultipartBody
+import retrofit2.http.Body
 import javax.inject.Inject
 
 class JobSeekerRepository @Inject constructor(
@@ -40,6 +42,11 @@ class JobSeekerRepository @Inject constructor(
     ) = uploadResumeApi.uploadResume(jobProfileId, jobProfile, file)
 
     suspend fun applyJob(applyJobRequest: ApplyJobRequest) = jobSeekerApi.applyJob(applyJobRequest)
+
+    suspend fun getJobAlertsByJobProfileId(jobProfileId: Int) =
+        jobSeekerApi.getJobAlertsByJobProfileId(jobProfileId)
+
+    suspend fun createJobAlert(createAlertRequest: CreateAlertRequest) = jobSeekerApi.createJobAlert(createAlertRequest)
 
     suspend fun saveJobView(saveJobViewRequest: SaveJobViewRequest) =
         jobSeekerApi.saveJobView(saveJobViewRequest)

@@ -5,15 +5,212 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.aaonri.app.R
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.aaonri.app.data.jobs.seeker.model.CreateAlertRequest
+import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
+import com.aaonri.app.databinding.FragmentJobCreateAlertBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedJobAdapter
+import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class JobCreateAlertFragment : Fragment() {
+    var binding: FragmentJobCreateAlertBinding? = null
+    val args: JobCreateAlertFragmentArgs by navArgs()
+    val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var selectedJobAdapter: SelectedJobAdapter? = null
+    var workStatus = ""
+    var userJobProfileId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_create_alert, container, false)
+        binding = FragmentJobCreateAlertBinding.inflate(layoutInflater, container, false)
+
+        val email = context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
+
+        selectedJobAdapter = SelectedJobAdapter {
+            jobSeekerViewModel.setSelectJobListMutableValue(it)
+        }
+
+        binding?.apply {
+
+            workStatusRv.layoutManager = FlexboxLayoutManager(context)
+            workStatusRv.adapter = selectedJobAdapter
+
+            navigateBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            selectWorkExperienceTv.setOnClickListener {
+                val action =
+                    JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobGenericBottomSheet(
+                        "experienceSelection"
+                    )
+                findNavController().navigate(action)
+            }
+
+            workStatusCl.setOnClickListener {
+                val action =
+                    JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToSelectWorkStatusBottomSheet()
+                findNavController().navigate(action)
+            }
+
+            submitBtn.setOnClickListener {
+
+                val salary =
+                    if (expectedSalaryEt.text.isNotEmpty()) expectedSalaryEt.text.toString()
+                        .toDouble() else 0.0
+
+                if (jobAlertNameEt.text.toString().length >= 3) {
+                    if (keywordEt.text.toString().length >= 3) {
+                        if (jobRoleEt.text.toString().length >= 3) {
+                            if (selectWorkExperienceTv.text.toString().isNotEmpty()) {
+                                if (salary >= 1.0) {
+                                    if (locationEt.text.toString().length >= 3) {
+                                        if (locationEt.text.toString().length >= 3) {
+                                            if (workStatus.isNotEmpty()) {
+                                                if (args.isUpdateJobAlert) {
+
+                                                } else {
+                                                    jobSeekerViewModel.createJobAlert(
+                                                        CreateAlertRequest(
+                                                            email = "$email",
+                                                            expectedSalary = salary.toString(),
+                                                            jobAlertName = jobAlertNameEt.text.toString(),
+                                                            jobProfileId = userJobProfileId,
+                                                            keyword = keywordEt.text.toString(),
+                                                            location = locationEt.text.toString(),
+                                                            role = jobRoleEt.text.toString(),
+                                                            workExp = selectWorkExperienceTv.text.toString(),
+                                                            workStatus = workStatus
+                                                        )
+                                                    )
+                                                }
+                                            } else {
+                                                showAlert("Please enter valid work status")
+                                            }
+                                        } else {
+                                            showAlert("Please enter valid location")
+                                        }
+                                    } else {
+                                        showAlert("Please enter valid location")
+                                    }
+                                } else {
+                                    showAlert("Please enter valid expected salary")
+                                }
+                            } else {
+                                showAlert("Please enter valid work experience")
+                            }
+                        } else {
+                            showAlert("Please enter valid job role")
+                        }
+                    } else {
+                        showAlert("Please enter valid keyword")
+                    }
+                } else {
+                    showAlert("Please enter valid job alert name")
+                }
+            }
+
+            jobSeekerViewModel.selectedExperienceLevel.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    selectWorkExperienceTv.text = it.experienceLevel
+                }
+            }
+
+            jobSeekerViewModel.selectedJobList.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    selectedJobAdapter?.setData(it)
+                    val index = it.indexOfFirst { it.isSelected }
+                    if (index == -1) {
+                        workStatus = ""
+                        workStatusTv.visibility = View.VISIBLE
+                        workStatusRv.visibility = View.GONE
+                    } else {
+                        workStatusTv.visibility = View.GONE
+                        workStatusRv.visibility = View.VISIBLE
+                    }
+                    workStatus = ""
+                    it.forEach { item ->
+                        if (item.isSelected) {
+                            if (!workStatus.contains(item.name)) {
+                                workStatus += item.name + ","
+                            }
+                        }
+                    }
+                    workStatus = workStatus.dropLast(1)
+
+                }
+            }
+
+            jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        response.data?.let {
+                            if (it.jobProfile.isNotEmpty()) {
+                                userJobProfileId = it.jobProfile[0].id
+                            }
+                        }
+                    }
+                    is Resource.Error -> {
+                    }
+                }
+            }
+
+            jobSeekerViewModel.createJobAlertData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        val action =
+                            JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobProfileUploadSuccessFragment(
+                                "CreateJobAlert"
+                            )
+                        findNavController().navigate(action)
+                        jobSeekerViewModel.createJobAlertData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
+
+
+        return binding?.root
+
+    }
+
+
+    private fun showAlert(text: String) {
+        activity?.let { it1 ->
+            Snackbar.make(
+                it1.findViewById(android.R.id.content),
+                text, Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        jobSeekerViewModel.selectedExperienceLevel.postValue(null)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

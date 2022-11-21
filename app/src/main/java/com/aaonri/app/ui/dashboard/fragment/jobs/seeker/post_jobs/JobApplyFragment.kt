@@ -199,28 +199,28 @@ class JobApplyFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.let {
-                            if (it.size > 0) {
+                            if (it.jobProfile.isNotEmpty()) {
 
-                                fileName = it[0].resumeName
+                                fileName = it.jobProfile[0].resumeName
 
                                 if (fileName?.isNotEmpty() == true) {
                                     visibleResumeFile(true)
                                 }
 
-                                contactEmailId = it[0].contactEmailId
-                                jobProfileId = it[0].id
+                                contactEmailId = it.jobProfile[0].contactEmailId
+                                jobProfileId = it.jobProfile[0].id
                                 isProfileUploaded = true
-                                firstNameEt.setText(it[0].firstName)
-                                lastNameEt.setText(it[0].lastName)
+                                firstNameEt.setText(it.jobProfile[0].firstName)
+                                lastNameEt.setText(it.jobProfile[0].lastName)
                                 phoneNumberEt.setText(
-                                    it[0].phoneNo.replace("""[(,), ]""".toRegex(), "")
+                                    it.jobProfile[0].phoneNo.replace("""[(,), ]""".toRegex(), "")
                                         .replace("-", "").replaceFirst(
                                             "(\\d{3})(\\d{3})(\\d+)".toRegex(),
                                             "$1-$2-$3"
                                         )
                                 )
-                                description = it[0].coverLetter
-                                coverLetterDescEt.text = Html.fromHtml(it[0].coverLetter)
+                                description = it.jobProfile[0].coverLetter
+                                coverLetterDescEt.text = Html.fromHtml(it.jobProfile[0].coverLetter)
                             } else {
                                 isProfileUploaded = false
                             }
@@ -363,7 +363,7 @@ class JobApplyFragment : Fragment() {
         }
     }
 
-    fun Uri.getName(context: Context): String? {
+    private fun Uri.getName(context: Context): String? {
         val returnCursor = context.contentResolver.query(this, null, null, null, null)
         val nameIndex = returnCursor?.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         returnCursor?.moveToFirst()

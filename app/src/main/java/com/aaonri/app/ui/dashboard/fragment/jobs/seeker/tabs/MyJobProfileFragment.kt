@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.WebViewActivity
-import com.aaonri.app.data.jobs.seeker.model.UserJobProfileResponseItem
+import com.aaonri.app.data.jobs.seeker.model.JobProfile
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentMyJobProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
@@ -33,7 +33,7 @@ class MyJobProfileFragment : Fragment() {
         jobSeekerAdapter = JobSeekerAdapter()
 
         jobSeekerAdapter?.itemClickListener = { view, item, position ->
-            if (item is UserJobProfileResponseItem) {
+            if (item is JobProfile) {
                 if (view.id == R.id.updateProfileBtn) {
                     jobSeekerViewModel.setNavigateToUpdateJobProfileScreen(true, item.id)
                 }
@@ -72,18 +72,17 @@ class MyJobProfileFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.let {
-                            if (it.size > 0) {
+                            if (it.jobProfile.isNotEmpty()) {
                                 itemsNestedScrollView.visibility = View.VISIBLE
                                 resultsNotFoundLL.visibility = View.GONE
                                 uploadYourProfileBtn.visibility = View.GONE
-                                jobSeekerAdapter?.setData(it)
+                                jobSeekerAdapter?.setData(it.jobProfile.subList(0, 1))
                             } else {
                                 itemsNestedScrollView.visibility = View.GONE
                                 resultsNotFoundLL.visibility = View.VISIBLE
                                 uploadYourProfileBtn.visibility = View.VISIBLE
                             }
                         }
-
                     }
                     is Resource.Error -> {
                         progressBar.visibility = View.GONE

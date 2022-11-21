@@ -5,12 +5,13 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/jobCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
-        app:cardElevation="@dimen/_3sdp"
         android:layout_marginVertical="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,8 +25,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_margin="@dimen/_11sdp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -39,50 +40,51 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-      <LinearLayout
-          android:id="@+id/namell"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          android:orientation="horizontal">
-          <TextView
-              android:id="@+id/jobAlertTitleTv"
-              android:layout_weight="1"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:drawablePadding="@dimen/_8sdp"
-              android:ellipsize="end"
-              android:fontFamily="@font/sf_pro_semi_bold"
-              android:includeFontPadding="false"
-              android:text="Job Alert: BA/PM"
-              android:textColor="@color/jobtxtcolor"
-              android:textSize="15sp"
-               />
-          <ImageView
-              android:id="@+id/updateJobAlertBtn"
-              android:layout_width="@dimen/_16sdp"
-              android:layout_height="@dimen/_16sdp"
-              android:paddingHorizontal="@dimen/_14sdp"
-              android:layout_gravity="center"
-              android:background="@drawable/editicon"
-              android:backgroundTint="@color/blueBtnColor"
-              app:layout_constraintRight_toLeftOf="@+id/delete"
-              app:layout_constraintTop_toTopOf="parent" />
 
-          <ImageView
-              android:id="@+id/deleteJobAlertBtn"
-              android:layout_width="@dimen/_16sdp"
-              android:layout_marginLeft="@dimen/_5sdp"
-              android:layout_gravity="center"
-              android:layout_height="@dimen/_16sdp"
-              android:backgroundTint="@color/redcolor"
-              android:paddingHorizontal="@dimen/_14sdp"
-              android:background="@drawable/deletewhite_icon"
-              app:layout_constraintRight_toRightOf="parent"
-              app:layout_constraintTop_toTopOf="parent" />
-      </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/namell"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
+                            <TextView
+                                android:id="@+id/jobAlertTitleTv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sf_pro_semi_bold"
+                                android:includeFontPadding="false"
+                                android:text="Job Alert: BA/PM"
+                                android:textColor="@color/jobtxtcolor"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:id="@+id/updateJobAlertBtn"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/editicon"
+                                android:backgroundTint="@color/blueBtnColor"
+                                android:paddingHorizontal="@dimen/_14sdp"
+                                app:layout_constraintRight_toLeftOf="@+id/delete"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/deleteJobAlertBtn"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:background="@drawable/deletewhite_icon"
+                                android:backgroundTint="@color/redcolor"
+                                android:paddingHorizontal="@dimen/_14sdp"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </LinearLayout>
 
 
                         <TextView
@@ -99,6 +101,7 @@
                             android:textSize="12sp"
                             android:translationY="-4dp"
                             app:layout_constraintTop_toBottomOf="@+id/namell" />
+
                         <TextView
                             android:id="@+id/jobAddressTv"
                             android:layout_width="match_parent"
@@ -113,6 +116,7 @@
                             android:textSize="12sp"
                             android:translationY="-4dp"
                             app:layout_constraintTop_toBottomOf="@+id/jobAlertSubTitleTv" />
+
                         <TextView
                             android:id="@+id/jobExperienceTv"
                             android:layout_width="match_parent"
@@ -127,6 +131,7 @@
                             android:textSize="12sp"
                             android:translationY="-4dp"
                             app:layout_constraintTop_toBottomOf="@+id/jobAddressTv" />
+
                         <TextView
                             android:id="@+id/jobCategoriesTv"
                             android:layout_width="match_parent"
@@ -147,8 +152,6 @@
 
 
                 </LinearLayout>
-
-
 
 
             </LinearLayout>
