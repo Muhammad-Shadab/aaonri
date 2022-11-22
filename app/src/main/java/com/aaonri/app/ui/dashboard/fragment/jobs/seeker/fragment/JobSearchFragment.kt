@@ -45,6 +45,7 @@ class JobSearchFragment : Fragment() {
     var jobSearchFilterModel: JobSearchFilterModel? = null
     var noOfSelectedFilter = 0
     var selectedJobItem: JobDetails? = null
+    var isFilterEnable = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -421,26 +422,29 @@ class JobSearchFragment : Fragment() {
 
                 numberOfAppliedFilter(noOfSelectedFilter)
 
-                if (filterData.companyName.isNotEmpty() || filterData.industries.isNotEmpty() || filterData.location.isNotEmpty() || filterData.yearsOfExperience.isNotEmpty() || filterData.jobType.isNotEmpty()) {
-                    jobSeekerViewModel.searchJob(
-                        JobSearchRequest(
-                            city = filterData.location,
-                            company = filterData.companyName,
-                            createdByMe = false,
-                            experience = filterData.yearsOfExperience,
-                            industry = filterData.industries,
-                            jobType = filterData.jobType,
-                            keyWord = searchView.text.trim().toString(),
-                            skill = "",
-                            userEmail = "$email"
-                        )
+                jobSeekerViewModel.searchJob(
+                    JobSearchRequest(
+                        city = filterData.location,
+                        company = filterData.companyName,
+                        createdByMe = false,
+                        experience = filterData.yearsOfExperience,
+                        industry = filterData.industries,
+                        jobType = filterData.jobType,
+                        keyWord = searchView.text.trim().toString(),
+                        skill = "",
+                        userEmail = "$email"
                     )
+                )
+
+
+                if (filterData.companyName.isNotEmpty() || filterData.industries.isNotEmpty() || filterData.location.isNotEmpty() || filterData.yearsOfExperience.isNotEmpty() || filterData.jobType.isNotEmpty()
+                ) {
+                    isFilterEnable = true
                     selectedFiltersRow.visibility = View.VISIBLE
                     numberOfSelectedFilterCv.visibility = View.VISIBLE
-                    recyclerViewAllJob.visibility = View.VISIBLE
                 } else {
+                    isFilterEnable = false
                     progressBar.visibility = View.GONE
-                    recyclerViewAllJob.visibility = View.GONE
                     selectedFiltersRow.visibility = View.GONE
                     numberOfSelectedFilterCv.visibility = View.GONE
                     noResultFound.visibility = View.GONE
@@ -459,8 +463,16 @@ class JobSearchFragment : Fragment() {
                         if (response.data?.jobDetailsList?.isNotEmpty() == true) {
                             jobAdapter?.setData(response.data.jobDetailsList)
                             noResultFound.visibility = View.GONE
+                            if (isFilterEnable) {
+                                recyclerViewAllJob.visibility = View.VISIBLE
+                            } else if (searchView.text.toString().isNotEmpty()) {
+                                recyclerViewAllJob.visibility = View.VISIBLE
+                            } else {
+                                recyclerViewAllJob.visibility = View.GONE
+                            }
                         } else {
                             noResultFound.visibility = View.VISIBLE
+                            recyclerViewAllJob.visibility = View.GONE
                         }
                     }
                     is Resource.Error -> {
