@@ -73,8 +73,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="@dimen/_250sdp"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
             android:background="@drawable/empty_my_classified" />
 
         <TextView

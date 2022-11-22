@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.data.jobs.seeker.model.CreateAlertRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobCreateAlertBinding
@@ -27,6 +28,7 @@ class JobCreateAlertFragment : Fragment() {
     var selectedJobAdapter: SelectedJobAdapter? = null
     var workStatus = ""
     var userJobProfileId = 0
+    var jobAlertId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,7 @@ class JobCreateAlertFragment : Fragment() {
             workStatusRv.adapter = selectedJobAdapter
 
             navigateBack.setOnClickListener {
+                jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
                 findNavController().navigateUp()
             }
 
@@ -78,7 +81,19 @@ class JobCreateAlertFragment : Fragment() {
                                         if (locationEt.text.toString().length >= 3) {
                                             if (workStatus.isNotEmpty()) {
                                                 if (args.isUpdateJobAlert) {
-
+                                                    jobSeekerViewModel.updateJobAlert(
+                                                        jobAlertId, CreateAlertRequest(
+                                                            email = "$email",
+                                                            expectedSalary = salary.toString(),
+                                                            jobAlertName = jobAlertNameEt.text.toString(),
+                                                            jobProfileId = userJobProfileId,
+                                                            keyword = keywordEt.text.toString(),
+                                                            location = locationEt.text.toString(),
+                                                            role = jobRoleEt.text.toString(),
+                                                            workExp = selectWorkExperienceTv.text.toString(),
+                                                            workStatus = workStatus
+                                                        )
+                                                    )
                                                 } else {
                                                     jobSeekerViewModel.createJobAlert(
                                                         CreateAlertRequest(
@@ -186,7 +201,71 @@ class JobCreateAlertFragment : Fragment() {
                 }
             }
 
+            if (args.isUpdateJobAlert) {
+
+                createJobAlertDesc.text =
+                    "Update your job alerts by filling below details\nand you can see alerts in your job alerts page in tags"
+                appbarTextTv.text = "Update Job Alert"
+                submitBtn.text = "UPDATE"
+
+                jobSeekerViewModel.navigateToUpdateJobAlert.observe(viewLifecycleOwner) {
+                    if (it != null) {
+                        jobAlertId = it.id
+                        jobAlertNameEt.setText(it.jobAlertName)
+                        keywordEt.setText(it.keyword)
+                        jobRoleEt.setText(it.role)
+                        selectWorkExperienceTv.text = it.workExp
+                        expectedSalaryEt.setText(it.expectedSalary)
+                        locationEt.setText(it.location)
+
+                        val tempJobList = mutableListOf<JobType>()
+
+                        tempJobList.addAll(
+                            listOf(
+                                JobType(
+                                    count = 0,
+                                    name = "Full Time",
+                                    isSelected = false
+                                ),
+                                JobType(
+                                    count = 0,
+                                    name = "Part Time",
+                                    isSelected = false
+                                ),
+                                JobType(
+                                    count = 0,
+                                    name = "Internship",
+                                    isSelected = false
+                                ),
+                                JobType(
+                                    count = 0,
+                                    name = "Contract",
+                                    isSelected = false
+                                ),
+                                JobType(
+                                    count = 0,
+                                    name = "Contract to Hire",
+                                    isSelected = false
+                                ),
+                            )
+                        )
+
+                        val jobTypeList = it.workStatus.split(",").toTypedArray()
+
+                        tempJobList.forEachIndexed { index, jobType ->
+                            if (jobTypeList.contains(jobType.name)) {
+                                tempJobList[index].isSelected = true
+                            }
+                        }
+
+                        jobSeekerViewModel.setSelectJobListMutableValue(tempJobList)
+
+                    }
+                }
+            }
         }
+
+
 
 
         return binding?.root
@@ -207,6 +286,7 @@ class JobCreateAlertFragment : Fragment() {
         super.onDestroy()
         jobSeekerViewModel.selectedExperienceLevel.postValue(null)
         jobSeekerViewModel.selectedJobList.postValue(null)
+        jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
     }
 
     override fun onDestroyView() {

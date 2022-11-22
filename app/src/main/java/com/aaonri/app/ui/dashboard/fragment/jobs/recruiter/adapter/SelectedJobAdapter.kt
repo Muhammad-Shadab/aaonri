@@ -20,7 +20,6 @@ class SelectedJobAdapter(private var selectedJobList: ((value: List<JobType>) ->
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val context = holder.itemView.context
 
         if (data[position].isSelected) {
             holder.binding.selectedCommunityText.text = data[position].name

@@ -74,6 +74,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     var createJobAlertData: MutableLiveData<Resource<CreateJobAlertResponse>> = MutableLiveData()
 
+    var updateJobAlertData: MutableLiveData<Resource<CreateJobAlertResponse>> = MutableLiveData()
+
+    var deleteJobAlertData: MutableLiveData<Resource<DeleteJobAlertResponse>> = MutableLiveData()
+
     var navigateToUpdateJobAlert: MutableLiveData<JobAlert> = MutableLiveData()
 
     var navigateToCreateJobAlert: MutableLiveData<Boolean> = MutableLiveData()
@@ -254,6 +258,37 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
     }
 
     private fun handleCreateJobAlertResponse(response: Response<CreateJobAlertResponse>): Resource<CreateJobAlertResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun updateJobAlert(jobAlertId: Int, createAlertRequest: CreateAlertRequest) =
+        viewModelScope.launch {
+            updateJobAlertData.postValue(Resource.Loading())
+            val response = jobSeekerRepository.updateJobAlert(jobAlertId, createAlertRequest)
+            updateJobAlertData.postValue(handleUpdateJobAlertResponse(response))
+        }
+
+    private fun handleUpdateJobAlertResponse(response: Response<CreateJobAlertResponse>): Resource<CreateJobAlertResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun deleteJobAlert(jobAlertId: Int) = viewModelScope.launch {
+        deleteJobAlertData.postValue(Resource.Loading())
+        val response = jobSeekerRepository.deleteJobAlert(jobAlertId)
+        deleteJobAlertData.postValue(handleDeleteJobAlertResponse(response))
+    }
+
+    private fun handleDeleteJobAlertResponse(response: Response<DeleteJobAlertResponse>): Resource<DeleteJobAlertResponse>? {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

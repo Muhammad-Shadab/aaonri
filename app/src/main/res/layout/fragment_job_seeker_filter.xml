@@ -38,7 +38,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:gravity="center"
-        android:text="Filters"
+        android:text="Job Filters"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/navigateBack"

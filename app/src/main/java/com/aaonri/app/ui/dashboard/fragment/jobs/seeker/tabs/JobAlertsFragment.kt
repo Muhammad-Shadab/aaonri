@@ -14,6 +14,7 @@ import com.aaonri.app.databinding.FragmentJobAlertsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.AlertAdapter
 import com.aaonri.app.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,8 @@ class JobAlertsFragment : Fragment() {
     var binding: FragmentJobAlertsBinding? = null
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     var alertAdapter: AlertAdapter? = null
+    var jobProfileId = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +35,7 @@ class JobAlertsFragment : Fragment() {
                 jobSeekerViewModel.setNavigateToUpdateJobAlert(value)
             } else if (isDeleteBtnClicked) {
                 //delete job alert
+                jobSeekerViewModel.deleteJobAlert(value.id)
             }
         }
 
@@ -53,6 +57,7 @@ class JobAlertsFragment : Fragment() {
                         progressBar.visibility = View.GONE
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
+                                jobProfileId = it.jobProfile[0].id
                                 jobSeekerViewModel.getJobAlertsByJobProfileId(it.jobProfile[0].id)
                             } else {
                                 resultsNotFoundLL.visibility = View.VISIBLE
@@ -94,7 +99,32 @@ class JobAlertsFragment : Fragment() {
                 }
             }
 
+            jobSeekerViewModel.deleteJobAlertData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        response.data?.let {
+                            activity?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(android.R.id.content),
+                                    it.message, Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            jobSeekerViewModel.getJobAlertsByJobProfileId(jobProfileId)
+                        }
+                        jobSeekerViewModel.deleteJobAlertData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
         }
+
+
 
         return binding?.root
     }

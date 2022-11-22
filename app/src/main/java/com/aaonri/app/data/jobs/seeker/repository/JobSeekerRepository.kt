@@ -8,7 +8,6 @@ import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.model.CreateAlertRequest
 import com.aaonri.app.data.jobs.seeker.model.SaveJobViewRequest
 import okhttp3.MultipartBody
-import retrofit2.http.Body
 import javax.inject.Inject
 
 class JobSeekerRepository @Inject constructor(
@@ -46,7 +45,13 @@ class JobSeekerRepository @Inject constructor(
     suspend fun getJobAlertsByJobProfileId(jobProfileId: Int) =
         jobSeekerApi.getJobAlertsByJobProfileId(jobProfileId)
 
-    suspend fun createJobAlert(createAlertRequest: CreateAlertRequest) = jobSeekerApi.createJobAlert(createAlertRequest)
+    suspend fun createJobAlert(createAlertRequest: CreateAlertRequest) =
+        jobSeekerApi.createJobAlert(createAlertRequest)
+
+    suspend fun updateJobAlert(jobAlertId: Int, createAlertRequest: CreateAlertRequest) =
+        jobSeekerApi.updateJobAlert(jobAlertId, createAlertRequest)
+
+    suspend fun deleteJobAlert(jobAlertId: Int) = jobSeekerApi.deleteJobAlert(jobAlertId)
 
     suspend fun saveJobView(saveJobViewRequest: SaveJobViewRequest) =
         jobSeekerApi.saveJobView(saveJobViewRequest)

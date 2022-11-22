@@ -62,6 +62,17 @@ interface JobSeekerApi {
         @Body createAlertRequest: CreateAlertRequest
     ): Response<CreateJobAlertResponse>
 
+    @PUT("/api/v1/jobAlert/creatJobAlert/{jobAlertId}")
+    suspend fun updateJobAlert(
+        @Path("jobAlertId") jobAlertId: Int,
+        @Body createAlertRequest: CreateAlertRequest
+    ): Response<CreateJobAlertResponse>
+
+    @DELETE("/api/v1/jobAlert/delete/{jobAlertId}")
+    suspend fun deleteJobAlert(
+        @Path("jobAlertId") jobAlertId: Int
+    ): Response<DeleteJobAlertResponse>
+
     @POST("/api/v1/jobs/search")
     suspend fun searchJob(
         @Body jobSearchRequest: JobSearchRequest
