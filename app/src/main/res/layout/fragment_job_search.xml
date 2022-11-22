@@ -153,7 +153,7 @@
         app:layout_constraintTop_toTopOf="@id/searchViewll" />
 
     <HorizontalScrollView
-        android:id="@+id/selectedFilters"
+        android:id="@+id/selectedFiltersRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
@@ -171,7 +171,7 @@
             android:scrollbars="none">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv1"
+                android:id="@+id/companyNameFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -187,7 +187,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText1"
+                    android:id="@+id/companyNameFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -200,7 +200,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv1"
+                    android:id="@+id/deleteCompanyNameFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -211,7 +211,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv2"
+                android:id="@+id/locationFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -227,7 +227,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText2"
+                    android:id="@+id/locationFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -240,7 +240,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv2"
+                    android:id="@+id/deleteLocationFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -251,7 +251,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv3"
+                android:id="@+id/experienceFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -267,7 +267,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText3"
+                    android:id="@+id/experienceFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -280,7 +280,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv3"
+                    android:id="@+id/deleteExperienceFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -291,7 +291,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCv4"
+                android:id="@+id/jobTypeFilterCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
@@ -307,7 +307,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:id="@+id/filterText4"
+                    android:id="@+id/jobTypeFilterTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -320,7 +320,47 @@
                     android:textSize="10sp" />
 
                 <ImageView
-                    android:id="@+id/deleteFilterIv4"
+                    android:id="@+id/deleteJobTypeFilterIv"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_cross" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/industriesFilterCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#a0eee4"
+                app:cardCornerRadius="@dimen/_18sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/lightGrey"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/industriesFilterTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_pro_semi_bold"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:text="Range: $10-$30"
+                    android:textColor="@color/textViewColor"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:id="@+id/deleteIndustriesFilterIv"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|center_vertical"
@@ -346,7 +386,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectedFilters">
+        app:layout_constraintTop_toBottomOf="@+id/selectedFiltersRow">
 
         <LinearLayout
             android:id="@+id/noResultFound"
@@ -384,12 +424,24 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/_6sdp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

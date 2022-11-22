@@ -62,18 +62,6 @@ class JobRecruiterScreenFragment : Fragment() {
             R.anim.rotate_close_anim
         )
     }
-    private val fromBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            context,
-            R.anim.from_bottom_anim
-        )
-    }
-    private val toBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            context,
-            R.anim.to_bottom_anim
-        )
-    }
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
 
@@ -453,7 +441,6 @@ class JobRecruiterScreenFragment : Fragment() {
             jobScreenViewPager.isUserInputEnabled = false
 
             anyKeywordDeleteFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
                 anyKeywordFilterCv.visibility = View.GONE
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -467,7 +454,6 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             allKeywordDeleteFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
                 allKeywordFilterCv.visibility = View.GONE
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -481,9 +467,7 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             availabilityDeleteFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
                 availabilityFilterCv.visibility = View.GONE
-
                 jobRecruiterViewModel.setSelectedAvailability("")
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -497,7 +481,6 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             locationDeleteFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
                 locationFilterCv.visibility = View.GONE
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -511,7 +494,6 @@ class JobRecruiterScreenFragment : Fragment() {
             }
 
             skillDeleteFilterIv.setOnClickListener {
-                numberOfAppliedFilter(--noOfSelectedFilter)
                 skillFilterCv.visibility = View.GONE
                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                     RecruiterJobFilterModel(
@@ -692,14 +674,8 @@ class JobRecruiterScreenFragment : Fragment() {
 
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
-            /*binding?.searchTalentBtn?.startAnimation(fromBottom)
-            binding?.postAJob?.startAnimation(fromBottom)
-            binding?.uploadConsultantProfile?.startAnimation(fromBottom)*/
             binding?.floatingActionBtnClassified?.startAnimation(rotateOpen)
         } else {
-            /*binding?.searchTalentBtn?.startAnimation(toBottom)
-            binding?.postAJob?.startAnimation(toBottom)
-            binding?.uploadConsultantProfile?.startAnimation(toBottom)*/
             binding?.floatingActionBtnClassified?.startAnimation(rotateClose)
         }
     }

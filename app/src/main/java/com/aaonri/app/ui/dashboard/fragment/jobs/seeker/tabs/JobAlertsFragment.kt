@@ -1,14 +1,17 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.tabs
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobAlertsBinding
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.AlertAdapter
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +41,7 @@ class JobAlertsFragment : Fragment() {
             recyclerViewJobAlert.adapter = alertAdapter
 
             createJobAlertBtn.setOnClickListener {
-                jobSeekerViewModel.setNavigateToCreateJobAlert(true)
+                navigateToJobApplyFragment()
             }
 
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
@@ -51,6 +54,8 @@ class JobAlertsFragment : Fragment() {
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
                                 jobSeekerViewModel.getJobAlertsByJobProfileId(it.jobProfile[0].id)
+                            } else {
+                                resultsNotFoundLL.visibility = View.VISIBLE
                             }
                         }
                     }
@@ -68,10 +73,15 @@ class JobAlertsFragment : Fragment() {
                     is Resource.Success -> {
                         progressBar.visibility = View.GONE
                         response.data?.let {
-                            if (it.jobAlerts.isNotEmpty()) {
-                                alertAdapter?.setData(it.jobAlerts)
-                                resultsNotFoundLL.visibility = View.GONE
-                                nestedScrollView.visibility = View.VISIBLE
+                            if (it.jobAlerts != null) {
+                                if (it.jobAlerts.isNotEmpty()) {
+                                    alertAdapter?.setData(it.jobAlerts)
+                                    resultsNotFoundLL.visibility = View.GONE
+                                    nestedScrollView.visibility = View.VISIBLE
+                                } else {
+                                    resultsNotFoundLL.visibility = View.VISIBLE
+                                    nestedScrollView.visibility = View.GONE
+                                }
                             } else {
                                 resultsNotFoundLL.visibility = View.VISIBLE
                                 nestedScrollView.visibility = View.GONE
@@ -87,5 +97,44 @@ class JobAlertsFragment : Fragment() {
         }
 
         return binding?.root
+    }
+
+    private fun navigateToJobApplyFragment() {
+        jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.jobProfile.isNotEmpty()) {
+                            jobSeekerViewModel.setNavigateToCreateJobAlert(true)
+                        } else {
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Seems you haven't uploaded your job profile yet.")
+                            builder.setPositiveButton("Upload Profile") { dialog, which ->
+                                val action =
+                                    JobScreenFragmentDirections.actionJobScreenFragmentToJobProfileUploadFragment(
+                                        false,
+                                        0
+                                    )
+                                findNavController().navigate(action)
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
+
+                            }
+                            builder.show()
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

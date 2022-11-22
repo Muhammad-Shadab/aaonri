@@ -4,19 +4,29 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.recruiter.model.JobDetails
+import com.aaonri.app.data.jobs.recruiter.model.JobSearchRequest
+import com.aaonri.app.data.jobs.seeker.model.JobSearchFilterModel
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobSearchBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
+import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSearchAdapter
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
+import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
@@ -31,6 +41,10 @@ class JobSearchFragment : Fragment() {
     var binding: FragmentJobSearchBinding? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
+    var jobAdapter: JobSearchAdapter? = null
+    var jobSearchFilterModel: JobSearchFilterModel? = null
+    var noOfSelectedFilter = 0
+    var selectedJobItem: JobDetails? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -193,10 +207,95 @@ class JobSearchFragment : Fragment() {
             guestUserLoginDialog.dismiss()
         }
 
+        jobAdapter = JobSearchAdapter { isJobApplyBtnClicked, value ->
+            if (isJobApplyBtnClicked) {
+                /** Clicked on Apply btn **/
+                selectedJobItem = value
+                /** This function will navigate user to job apply fragment screen if user already uploaded job seeker profile otherwise it will navigate to upload job seeker profile screen**/
+                navigateToJobApplyFragment()
+            } else {
+                val action =
+                    JobSearchFragmentDirections.actionJobSearchFragmentToJobDetailsFragment(
+                        value.jobId,
+                        true
+                    )
+                findNavController().navigate(action)
+            }
+        }
+
 
         binding?.apply {
 
+            recyclerViewAllJob.layoutManager = LinearLayoutManager(context)
+            recyclerViewAllJob.adapter = jobAdapter
+
+            searchView.setOnEditorActionListener { textView, i, keyEvent ->
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    jobSeekerViewModel.setJobSearchFilterData(
+                        JobSearchFilterModel(
+                            companyName = "",
+                            location = "",
+                            yearsOfExperience = "",
+                            jobType = "",
+                            industries = ""
+                        )
+                    )
+                }
+                false
+            }
+
+            searchView.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(keyword: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (searchView.text.toString().isNotEmpty()) {
+                        cancelbutton.visibility = View.VISIBLE
+                        searchViewIcon.visibility = View.GONE
+                    } else {
+                        cancelbutton.visibility = View.GONE
+                        searchViewIcon.visibility = View.VISIBLE
+                    }
+                    if (searchView.hasFocus()) {
+                        if (keyword.toString().isEmpty()) {
+                            //postClassifiedViewModel.setKeyClassifiedKeyboardListener(true)
+                        } else {
+                            //postClassifiedViewModel.setKeyClassifiedKeyboardListener(false)
+                        }
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+
+            cancelbutton.setOnClickListener {
+                cancelbutton.visibility = View.GONE
+                searchViewIcon.visibility = View.VISIBLE
+                searchView.setText("")
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "",
+                        location = "",
+                        yearsOfExperience = "",
+                        jobType = "",
+                        industries = ""
+                    )
+                )
+            }
+
             navigateBack.setOnClickListener {
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "",
+                        location = "",
+                        yearsOfExperience = "",
+                        jobType = "",
+                        industries = ""
+                    )
+                )
                 findNavController().navigateUp()
             }
 
@@ -216,17 +315,229 @@ class JobSearchFragment : Fragment() {
             }
 
             filterIcon.setOnClickListener {
-                val action = JobSearchFragmentDirections.actionJobSearchFragmentToJobSeekerFilterFragment()
+                val action =
+                    JobSearchFragmentDirections.actionJobSearchFragmentToJobSeekerFilterFragment()
                 findNavController().navigate(action)
             }
 
+            deleteCompanyNameFilterIv.setOnClickListener {
+                companyNameFilterCv.visibility = View.GONE
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "",
+                        location = "${jobSearchFilterModel?.location}",
+                        yearsOfExperience = "${jobSearchFilterModel?.yearsOfExperience}",
+                        jobType = "${jobSearchFilterModel?.jobType}",
+                        industries = "${jobSearchFilterModel?.industries}"
+                    )
+                )
+            }
+
+            deleteLocationFilterIv.setOnClickListener {
+                locationFilterCv.visibility = View.GONE
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "${jobSearchFilterModel?.companyName}",
+                        location = "",
+                        yearsOfExperience = "${jobSearchFilterModel?.yearsOfExperience}",
+                        jobType = "${jobSearchFilterModel?.jobType}",
+                        industries = "${jobSearchFilterModel?.industries}"
+                    )
+                )
+            }
+
+            deleteExperienceFilterIv.setOnClickListener {
+                experienceFilterCv.visibility = View.GONE
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "${jobSearchFilterModel?.companyName}",
+                        location = "${jobSearchFilterModel?.location}",
+                        yearsOfExperience = "",
+                        jobType = "${jobSearchFilterModel?.jobType}",
+                        industries = "${jobSearchFilterModel?.industries}"
+                    )
+                )
+            }
+
+            deleteJobTypeFilterIv.setOnClickListener {
+                jobTypeFilterCv.visibility = View.GONE
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "${jobSearchFilterModel?.companyName}",
+                        location = "${jobSearchFilterModel?.location}",
+                        yearsOfExperience = "${jobSearchFilterModel?.yearsOfExperience}",
+                        jobType = "",
+                        industries = "${jobSearchFilterModel?.industries}"
+                    )
+                )
+            }
+
+            deleteIndustriesFilterIv.setOnClickListener {
+                industriesFilterCv.visibility = View.GONE
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "${jobSearchFilterModel?.companyName}",
+                        location = "${jobSearchFilterModel?.location}",
+                        yearsOfExperience = "${jobSearchFilterModel?.yearsOfExperience}",
+                        jobType = "${jobSearchFilterModel?.jobType}",
+                        industries = ""
+                    )
+                )
+            }
 
 
+            jobSeekerViewModel.jobSearchFilterData.observe(viewLifecycleOwner) { filterData ->
+                jobSearchFilterModel = filterData
+                noOfSelectedFilter = 0
+                if (filterData.companyName.isNotEmpty()) {
+                    noOfSelectedFilter++
+                    companyNameFilterCv.visibility = View.VISIBLE
+                    companyNameFilterTv.text = "Company Name: ${filterData.companyName}"
+                }
+
+                if (filterData.industries.isNotEmpty()) {
+                    noOfSelectedFilter++
+                    industriesFilterCv.visibility = View.VISIBLE
+                    industriesFilterTv.text = "Industries: ${filterData.industries}"
+                }
+
+                if (filterData.location.isNotEmpty()) {
+                    noOfSelectedFilter++
+                    locationFilterCv.visibility = View.VISIBLE
+                    locationFilterTv.text = "Location: ${filterData.location}"
+                }
+
+                if (filterData.yearsOfExperience.isNotEmpty()) {
+                    noOfSelectedFilter++
+                    experienceFilterCv.visibility = View.VISIBLE
+                    experienceFilterTv.text = "Experience: ${filterData.yearsOfExperience}"
+                }
+
+                if (filterData.jobType.isNotEmpty()) {
+                    noOfSelectedFilter++
+                    jobTypeFilterCv.visibility = View.VISIBLE
+                    jobTypeFilterTv.text = "Job Type: ${filterData.jobType}"
+                }
+
+                numberOfAppliedFilter(noOfSelectedFilter)
+
+                if (filterData.companyName.isNotEmpty() || filterData.industries.isNotEmpty() || filterData.location.isNotEmpty() || filterData.yearsOfExperience.isNotEmpty() || filterData.jobType.isNotEmpty()) {
+                    jobSeekerViewModel.searchJob(
+                        JobSearchRequest(
+                            city = filterData.location,
+                            company = filterData.companyName,
+                            createdByMe = false,
+                            experience = filterData.yearsOfExperience,
+                            industry = filterData.industries,
+                            jobType = filterData.jobType,
+                            keyWord = searchView.text.trim().toString(),
+                            skill = "",
+                            userEmail = "$email"
+                        )
+                    )
+                    selectedFiltersRow.visibility = View.VISIBLE
+                    numberOfSelectedFilterCv.visibility = View.VISIBLE
+                    recyclerViewAllJob.visibility = View.VISIBLE
+                } else {
+                    progressBar.visibility = View.GONE
+                    recyclerViewAllJob.visibility = View.GONE
+                    selectedFiltersRow.visibility = View.GONE
+                    numberOfSelectedFilterCv.visibility = View.GONE
+                    noResultFound.visibility = View.GONE
+                }
+
+            }
+
+
+            jobSeekerViewModel.searchJobData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        if (response.data?.jobDetailsList?.isNotEmpty() == true) {
+                            jobAdapter?.setData(response.data.jobDetailsList)
+                            noResultFound.visibility = View.GONE
+                        } else {
+                            noResultFound.visibility = View.VISIBLE
+                        }
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    /** Cleared all filters  **/
+                    jobSeekerViewModel.setJobSearchFilterData(
+                        JobSearchFilterModel(
+                            companyName = "",
+                            location = "",
+                            yearsOfExperience = "",
+                            jobType = "",
+                            industries = ""
+                        )
+                    )
+                    findNavController().navigateUp()
+                }
+            })
 
         return binding?.root
     }
 
+    private fun navigateToJobApplyFragment() {
+        jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.jobProfile.isNotEmpty()) {
+                            val action =
+                                selectedJobItem?.jobId?.let { it1 ->
+                                    JobSearchFragmentDirections.actionJobSearchFragmentToJobApplyFragment(
+                                        it1, true
+                                    )
+                                }
+                            if (action != null) {
+                                findNavController().navigate(action)
+                            } else {
+
+                            }
+                        } else {
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("Confirm")
+                            builder.setMessage("Seems you haven't uploaded your job profile yet.")
+                            builder.setPositiveButton("Upload Profile") { dialog, which ->
+                                val action =
+                                    JobSearchFragmentDirections.actionJobSearchFragmentToJobProfileUploadFragment(
+                                        false,
+                                        0
+                                    )
+                                findNavController().navigate(action)
+                            }
+                            builder.setNegativeButton("Cancel") { dialog, which ->
+
+                            }
+                            builder.show()
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                }
+            }
+        }
+    }
+
+    private fun numberOfAppliedFilter(value: Int) {
+        binding?.numberOfSelectedFilterTv?.text = value.toString()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

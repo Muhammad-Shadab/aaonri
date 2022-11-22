@@ -55,12 +55,12 @@ class RecruiterConsultantProfileFragment : Fragment() {
                             jobRecruiterViewModel.setVisibilityToTheFloatingActionBtnValue(
                                 hideFloatingBtn = false
                             )
-                            response.data.let { consultantProfileAdapter?.setData(it.jobProfile) }
+                            response.data.let { consultantProfileAdapter?.setData(it.jobProfile.subList(0,1)) }
                         } else {
                             resultsNotFoundLL.visibility = View.VISIBLE
                             uploadYourProfileBtn.visibility = View.VISIBLE
                             recyclerViewConsultantProfile.visibility = View.GONE
-                            /** Floating action btn will be gone in this screen because there is another already visible for uploading profile**/
+                            /** Floating action btn will be gone in this screen because there is another btn already visible for uploading profile**/
                             jobRecruiterViewModel.setVisibilityToTheFloatingActionBtnValue(
                                 hideFloatingBtn = true
                             )

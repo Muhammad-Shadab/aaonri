@@ -43,12 +43,19 @@ class JobProfileUploadSuccessFragment : BottomSheetDialogFragment() {
                     successfulTv.text = "You have successfully created your Job alert."
                     navigateScreenBtn.text = "VIEW MY JOB ALERTS"
                 }
+
             }
 
             navigateScreenBtn.setOnClickListener {
-                val action =
-                    JobProfileUploadSuccessFragmentDirections.actionJobProfileUploadSuccessFragmentToJobScreenFragment()
-                findNavController().navigate(action)
+                if (args.isNavigatingFromSearchScreen) {
+                    val action =
+                        JobProfileUploadSuccessFragmentDirections.actionJobProfileUploadSuccessFragmentToJobSearchFragment()
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        JobProfileUploadSuccessFragmentDirections.actionJobProfileUploadSuccessFragmentToJobScreenFragment()
+                    findNavController().navigate(action)
+                }
             }
 
 

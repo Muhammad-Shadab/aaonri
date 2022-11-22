@@ -290,7 +290,7 @@ class JobScreenFragment : Fragment() {
         jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
             if (jobId != null) {
                 val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId)
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId, false)
                 findNavController().navigate(action)
                 jobSeekerViewModel.navigateAllJobToDetailsJobScreen.postValue(null)
             }

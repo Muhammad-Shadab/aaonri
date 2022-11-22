@@ -147,7 +147,6 @@ class JobCreateAlertFragment : Fragment() {
                         }
                     }
                     workStatus = workStatus.dropLast(1)
-
                 }
             }
 
@@ -176,7 +175,7 @@ class JobCreateAlertFragment : Fragment() {
                         progressBar.visibility = View.GONE
                         val action =
                             JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobProfileUploadSuccessFragment(
-                                "CreateJobAlert"
+                                "CreateJobAlert", false
                             )
                         findNavController().navigate(action)
                         jobSeekerViewModel.createJobAlertData.postValue(null)
@@ -207,6 +206,7 @@ class JobCreateAlertFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         jobSeekerViewModel.selectedExperienceLevel.postValue(null)
+        jobSeekerViewModel.selectedJobList.postValue(null)
     }
 
     override fun onDestroyView() {

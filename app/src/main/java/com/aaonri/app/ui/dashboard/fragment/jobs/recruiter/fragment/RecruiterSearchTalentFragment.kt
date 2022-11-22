@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -144,16 +143,25 @@ class RecruiterSearchTalentFragment : Fragment() {
                     showAlert("Please go to the skills field and hit keypad enter button.")
                 }
 
-                if (anyKeywordList.isNotEmpty() || allKeywordList.isNotEmpty() || skillSetList.isNotEmpty() || availablityTv.text.toString().isNotEmpty() || locationEt.text.toString().isNotEmpty()){
-                    if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString().isEmpty() && skillsEt.text.toString().isEmpty()
+                if (anyKeywordList.isNotEmpty() || allKeywordList.isNotEmpty() || skillSetList.isNotEmpty() || availablityTv.text.toString()
+                        .isNotEmpty() || locationEt.text.toString().isNotEmpty()
+                ) {
+                    if (anyKeywordEt.text.toString().isEmpty() && allKeywordMustEt.text.toString()
+                            .isEmpty() && skillsEt.text.toString().isEmpty()
                     ) {
                         if (locationEt.text.toString().isNotEmpty()) {
                             if (locationEt.text.toString().length >= 3) {
                                 jobRecruiterViewModel.setJobRecruiterFilterValues(
                                     RecruiterJobFilterModel(
-                                        anyKeywords = commaSeparatedAnyKeywordsString.replace("[", "")
+                                        anyKeywords = commaSeparatedAnyKeywordsString.replace(
+                                            "[",
+                                            ""
+                                        )
                                             .replace("]", "").replace("'", ""),
-                                        allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
+                                        allKeywords = commaSeparatedAllKeywordsString.replace(
+                                            "[",
+                                            ""
+                                        )
                                             .replace("]", "").replace("'", ""),
                                         availability = availablityTv.text.toString(),
                                         location = locationEt.text.toString(),
@@ -161,8 +169,10 @@ class RecruiterSearchTalentFragment : Fragment() {
                                             .replace("]", "").replace("'", "")
                                     )
                                 )
+                                findNavController().navigateUp()
+                            } else {
+                                showAlert("Please enter valid location")
                             }
-                            findNavController().navigateUp()
                         } else {
                             jobRecruiterViewModel.setJobRecruiterFilterValues(
                                 RecruiterJobFilterModel(
@@ -171,7 +181,7 @@ class RecruiterSearchTalentFragment : Fragment() {
                                     allKeywords = commaSeparatedAllKeywordsString.replace("[", "")
                                         .replace("]", "").replace("'", ""),
                                     availability = availablityTv.text.toString(),
-                                    location = locationEt.text.toString(),
+                                    location = "",
                                     skillSet = commaSeparatedSkillSetString.replace("[", "")
                                         .replace("]", "").replace("'", "")
                                 )

@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeScreenFragment"
-    app:startDestination="@id/homeScreenFragment">
+    android:id="@+id/dashboard_nav_graph"
+    app:startDestination="@id/jobScreenFragment">
 
     <fragment
         android:id="@+id/homeScreenFragment"
@@ -439,6 +439,9 @@
         <action
             android:id="@+id/action_jobDetailsFragment_to_jobProfileUploadFragment"
             app:destination="@id/jobProfileUploadFragment" />
+        <argument
+            android:name="isNavigatingFromSearchScreen"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/jobProfileUploadFragment"
@@ -506,6 +509,9 @@
         <action
             android:id="@+id/action_jobApplyFragment_to_jobProfileUploadSuccessFragment"
             app:destination="@id/jobProfileUploadSuccessFragment" />
+        <argument
+            android:name="isNavigatingFromSearchScreen"
+            app:argType="boolean" />
     </fragment>
     <dialog
         android:id="@+id/jobProfileUploadSuccessFragment"
@@ -520,6 +526,14 @@
             app:destination="@id/jobScreenFragment"
             app:popUpTo="@id/jobScreenFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_jobProfileUploadSuccessFragment_to_jobSearchFragment"
+            app:destination="@id/jobSearchFragment"
+            app:popUpTo="@id/jobSearchFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="isNavigatingFromSearchScreen"
+            app:argType="boolean" />
     </dialog>
     <fragment
         android:id="@+id/updateProfileFragment"
@@ -657,6 +671,15 @@
         <action
             android:id="@+id/action_jobSearchFragment_to_jobSeekerFilterFragment"
             app:destination="@id/jobSeekerFilterFragment" />
+        <action
+            android:id="@+id/action_jobSearchFragment_to_jobDetailsFragment"
+            app:destination="@id/jobDetailsFragment" />
+        <action
+            android:id="@+id/action_jobSearchFragment_to_jobProfileUploadFragment"
+            app:destination="@id/jobProfileUploadFragment" />
+        <action
+            android:id="@+id/action_jobSearchFragment_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/jobSeekerFilterFragment"

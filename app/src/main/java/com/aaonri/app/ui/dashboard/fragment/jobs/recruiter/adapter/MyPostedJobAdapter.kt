@@ -45,7 +45,7 @@ class MyPostedJobAdapter(private var selectedJob: ((isEditBtnClicked: Boolean, i
 
             data[position].apply {
 
-                val random = if (salaryRange != "string") salaryRange.toDouble() else 0
+                val random = if (salaryRange != "string") salaryRange?.toDouble() else 0
                 val df = DecimalFormat("#,###.00")
                 df.roundingMode = RoundingMode.DOWN
                 val roundoff = df.format(random)

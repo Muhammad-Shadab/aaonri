@@ -123,16 +123,15 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/zipcodeEt"
+                android:id="@+id/locationEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:background="@drawable/edit_text_inner_shadow"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:hint="Enter Zip Code"
-                android:inputType="number"
-                android:maxLength="6"
+                android:hint="Enter Location"
+                android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_7sdp"
                 android:paddingStart="@dimen/_18sdp"
@@ -275,7 +274,13 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/jobTypeRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp" />
+
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
@@ -382,7 +387,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -433,8 +438,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
         android:background="@drawable/green_btn_shape"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:minHeight="0dp"

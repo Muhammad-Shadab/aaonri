@@ -469,16 +469,13 @@ class HomeScreenFragment : Fragment() {
                 if (view.id == R.id.jobCv) {
                     /** Clicked on Job Card View **/
                     val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(
-                            item.jobId
-                        )
+                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(item.jobId, false)
                     findNavController().navigate(action)
                 } else {
                     /** Clicked on Apply btn **/
                     val action =
                         HomeScreenFragmentDirections.actionHomeScreenFragmentToJobApplyFragment(
-                            item.jobId
-                        )
+                            item.jobId, false)
                     findNavController().navigate(action)
                 }
             }

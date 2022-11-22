@@ -17,7 +17,7 @@ data class JobDetails(
     val jobId: Int,
     val jobType: String,
     val recruiter: String,
-    val salaryRange: String,
+    val salaryRange: String?,
     val skillSet: String,
     val state: String,
     val street: String,

@@ -344,7 +344,9 @@ class JobProfileUploadFragment : Fragment() {
                         response.data?.let {
                             if (it.jobProfile.size > 0) {
 
-                                jobDetailsApplicabilityList = it.jobProfile[0].visaStatus.split(",").toTypedArray().toMutableList()
+                                jobDetailsApplicabilityList =
+                                    it.jobProfile[0].visaStatus.split(",").toTypedArray()
+                                        .toMutableList()
                                 fileName = it.jobProfile[0].resumeName
                                 firstNameEt.setText(it.jobProfile[0].firstName)
                                 lastNameEt.setText(it.jobProfile[0].lastName)
@@ -474,14 +476,14 @@ class JobProfileUploadFragment : Fragment() {
                             } else {
                                 val action =
                                     JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
-                                        "UpdateProfileScreen"
+                                        "UpdateProfileScreen", false
                                     )
                                 findNavController().navigate(action)
                             }
                         } else {
                             val action =
                                 JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
-                                    "UpdateProfileScreen"
+                                    "UpdateProfileScreen", false
                                 )
                             findNavController().navigate(action)
                         }
@@ -504,7 +506,7 @@ class JobProfileUploadFragment : Fragment() {
                         binding?.progressBar?.visibility = View.GONE
                         val action =
                             JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
-                                "ProfileUploadScreen"
+                                "ProfileUploadScreen", false
                             )
                         findNavController().navigate(action)
                         jobSeekerViewModel.uploadResumeData.postValue(null)

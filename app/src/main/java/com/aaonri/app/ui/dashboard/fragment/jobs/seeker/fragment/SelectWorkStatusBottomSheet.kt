@@ -37,7 +37,6 @@ class SelectWorkStatusBottomSheet : BottomSheetDialogFragment() {
             jobSeekerViewModel.setSelectJobListMutableValue(it)
         }
 
-
         binding?.apply {
 
             closeBtn.setOnClickListener {

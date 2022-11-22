@@ -10,9 +10,9 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_6sdp"
         android:fillViewport="true"
         android:orientation="vertical"
-        android:layout_marginBottom="@dimen/_6sdp"
         app:layout_constraintBottom_toTopOf="@id/createJobAlertBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,18 +75,18 @@
         <ImageView
             android:layout_width="@dimen/_220sdp"
             android:layout_height="@dimen/_250sdp"
-            android:background="@drawable/upload_job_profile" />
+            android:background="@drawable/empty_my_classified" />
 
-        <!--<TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/sf_pro_medium"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/_6sdp"
-            android:text="Please upload your profile, we will find the\nright opportunities for you."
+            android:text="You haven't listed anything yet"
             android:textColor="@color/black"
-            android:textSize="16sp" />-->
+            android:textSize="16sp" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -94,9 +94,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_28sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_28sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:background="@drawable/green_btn_shape"
         android:fontFamily="@font/sf_pro_semi_bold"
         android:minHeight="0dp"

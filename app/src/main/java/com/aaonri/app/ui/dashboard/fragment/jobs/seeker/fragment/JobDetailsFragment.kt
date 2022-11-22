@@ -129,9 +129,7 @@ class JobDetailsFragment : Fragment() {
                         if (it.jobProfile.isNotEmpty()) {
                             /** Profile Uploaded **/
                             val action =
-                                JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(
-                                    jobId
-                                )
+                                JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(jobId, args.isNavigatingFromSearchScreen)
                             findNavController().navigate(action)
                         } else {
                             val builder = AlertDialog.Builder(context)

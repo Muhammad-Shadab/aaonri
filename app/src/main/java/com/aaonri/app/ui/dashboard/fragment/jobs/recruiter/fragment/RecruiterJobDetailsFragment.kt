@@ -96,7 +96,7 @@ class RecruiterJobDetailsFragment : Fragment() {
 
                             JobRecruiterStaticData.setJobDetailsData(it)
 
-                            val random = if (it.salaryRange != "string") it.salaryRange.toDouble() else 0
+                            val random = if (it.salaryRange != "string") it.salaryRange?.toDouble() else 0
                             val df = DecimalFormat("#,###.00")
                             df.roundingMode = RoundingMode.DOWN
                             val roundoff = df.format(random)

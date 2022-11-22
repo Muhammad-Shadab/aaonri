@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.R
-import com.aaonri.app.data.jobs.seeker.model.ExperienceLevelResponseItem
+import com.aaonri.app.data.jobs.recruiter.model.JobType
 import com.aaonri.app.databinding.JobExperienceItemBinding
 
-class JobExperienceAdapter(private var selectedExperience: ((value: String) -> Unit)) :
-    RecyclerView.Adapter<JobExperienceAdapter.CustomViewHolder>() {
+class JobTypeAdapter(private var selectedJobList: ((value: List<JobType>) -> Unit)) :
+    RecyclerView.Adapter<JobTypeAdapter.CustomViewHolder>() {
 
-    private var data = listOf<ExperienceLevelResponseItem>()
-    var selectedExperienceValue = ""
+    private var data = listOf<JobType>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,13 +20,18 @@ class JobExperienceAdapter(private var selectedExperience: ((value: String) -> U
         return CustomViewHolder(binding)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val context = holder.itemView.context
-        holder.binding.experienceTv.text = data[position].experienceLevel
 
-        if (data[position].experienceLevel == selectedExperienceValue) {
-            selectedExperience(data[position].experienceLevel)
+        holder.binding.experienceTv.text = data[position].name
+
+        holder.itemView.setOnClickListener {
+            data[position].isSelected = !data[position].isSelected
+            selectedJobList(data)
+            notifyDataSetChanged()
+        }
+
+        if (data[position].isSelected) {
             holder.binding.experienceTv.setBackgroundColor(
                 ContextCompat.getColor(
                     context,
@@ -45,29 +49,14 @@ class JobExperienceAdapter(private var selectedExperience: ((value: String) -> U
             holder.binding.experienceTv.setTextColor(context.getColor(R.color.textViewColor))
         }
 
-        holder.itemView.setOnClickListener {
-            if (selectedExperienceValue == data[position].experienceLevel) {
-                selectedExperienceValue = ""
-                selectedExperience("")
-            } else {
-                selectedExperienceValue = data[position].experienceLevel
-            }
-            notifyDataSetChanged()
-        }
-
     }
 
     override fun getItemCount() = data.size
 
     @JvmName("setData1")
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<ExperienceLevelResponseItem>) {
+    fun setData(data: List<JobType>) {
         this.data = data
-        notifyDataSetChanged()
-    }
-
-    fun setSelectedExperienceData(value: String) {
-        this.selectedExperienceValue = value
         notifyDataSetChanged()
     }
 

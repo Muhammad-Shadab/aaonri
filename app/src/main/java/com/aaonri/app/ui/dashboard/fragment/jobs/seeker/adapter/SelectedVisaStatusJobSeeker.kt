@@ -20,7 +20,6 @@ class SelectedVisaStatusJobSeeker(private var selectedVisaStatusJobApplicability
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val context = holder.itemView.context
 
         if (data[position].isSelected) {
             holder.binding.selectedCommunityText.text = data[position].applicability

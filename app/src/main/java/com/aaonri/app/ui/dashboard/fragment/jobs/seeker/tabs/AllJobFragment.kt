@@ -83,7 +83,7 @@ class AllJobFragment : Fragment() {
                             val action =
                                 selectedJobItem?.jobId?.let { it1 ->
                                     JobScreenFragmentDirections.actionJobScreenFragmentToJobApplyFragment(
-                                        it1
+                                        it1, false
                                     )
                                 }
                             if (action != null) {

@@ -274,15 +274,13 @@ class JobApplyFragment : Fragment() {
                             } else {
                                 val action =
                                     JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                                        "ApplyJobScreen"
-                                    )
+                                        "ApplyJobScreen", args.isNavigatingFromSearchScreen)
                                 findNavController().navigate(action)
                             }
                         } else {
                             val action =
                                 JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                                    "ApplyJobScreen"
-                                )
+                                    "ApplyJobScreen", args.isNavigatingFromSearchScreen)
                             findNavController().navigate(action)
                         }
                         jobSeekerViewModel.applyJobData.postValue(null)
@@ -303,8 +301,7 @@ class JobApplyFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     val action =
                         JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                            "ApplyJobScreen"
-                        )
+                            "ApplyJobScreen", args.isNavigatingFromSearchScreen)
                     findNavController().navigate(action)
                 }
                 is Resource.Error -> {
