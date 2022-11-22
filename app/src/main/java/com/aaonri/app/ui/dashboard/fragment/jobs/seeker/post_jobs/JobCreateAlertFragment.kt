@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -142,26 +143,28 @@ class JobCreateAlertFragment : Fragment() {
             }
 
             jobSeekerViewModel.selectedJobList.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    selectedJobAdapter?.setData(it)
-                    val index = it.indexOfFirst { it.isSelected }
-                    if (index == -1) {
+                if (it != null) {
+                    if (it.isNotEmpty()) {
+                        selectedJobAdapter?.setData(it)
+                        val index = it.indexOfFirst { it.isSelected }
+                        if (index == -1) {
+                            workStatus = ""
+                            workStatusTv.visibility = View.VISIBLE
+                            workStatusRv.visibility = View.GONE
+                        } else {
+                            workStatusTv.visibility = View.GONE
+                            workStatusRv.visibility = View.VISIBLE
+                        }
                         workStatus = ""
-                        workStatusTv.visibility = View.VISIBLE
-                        workStatusRv.visibility = View.GONE
-                    } else {
-                        workStatusTv.visibility = View.GONE
-                        workStatusRv.visibility = View.VISIBLE
-                    }
-                    workStatus = ""
-                    it.forEach { item ->
-                        if (item.isSelected) {
-                            if (!workStatus.contains(item.name)) {
-                                workStatus += item.name + ","
+                        it.forEach { item ->
+                            if (item.isSelected) {
+                                if (!workStatus.contains(item.name)) {
+                                    workStatus += item.name + ","
+                                }
                             }
                         }
+                        workStatus = workStatus.dropLast(1)
                     }
-                    workStatus = workStatus.dropLast(1)
                 }
             }
 
@@ -194,6 +197,27 @@ class JobCreateAlertFragment : Fragment() {
                             )
                         findNavController().navigate(action)
                         jobSeekerViewModel.createJobAlertData.postValue(null)
+                    }
+                    is Resource.Error -> {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+            jobSeekerViewModel.updateJobAlertData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        progressBar.visibility = View.GONE
+                        val action =
+                            JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobProfileUploadSuccessFragment(
+                                "CreateJobAlert", false
+                            )
+                        findNavController().navigate(action)
+                        jobSeekerViewModel.updateJobAlertData.postValue(null)
+                        jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
                     }
                     is Resource.Error -> {
                         progressBar.visibility = View.GONE
@@ -265,6 +289,14 @@ class JobCreateAlertFragment : Fragment() {
             }
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
+                    findNavController().navigateUp()
+                }
+            })
 
 
 

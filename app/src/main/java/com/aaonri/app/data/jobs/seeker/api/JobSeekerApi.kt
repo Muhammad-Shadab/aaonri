@@ -62,7 +62,7 @@ interface JobSeekerApi {
         @Body createAlertRequest: CreateAlertRequest
     ): Response<CreateJobAlertResponse>
 
-    @PUT("/api/v1/jobAlert/creatJobAlert/{jobAlertId}")
+    @PUT("/api/v1/jobAlert/update/{jobAlertId}")
     suspend fun updateJobAlert(
         @Path("jobAlertId") jobAlertId: Int,
         @Body createAlertRequest: CreateAlertRequest
