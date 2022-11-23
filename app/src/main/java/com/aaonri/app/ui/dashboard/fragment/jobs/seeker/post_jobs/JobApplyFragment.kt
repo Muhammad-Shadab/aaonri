@@ -170,6 +170,7 @@ class JobApplyFragment : Fragment() {
                                             jobId = args.jobId,
                                             phoneNo = phoneNumber,
                                             resumeName = fileName ?: "",
+                                            jobProfileId = jobProfileId
                                         )
                                     )
                                 } else {

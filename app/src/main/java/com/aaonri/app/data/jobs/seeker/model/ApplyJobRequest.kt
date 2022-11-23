@@ -6,5 +6,6 @@ data class ApplyJobRequest(
     val fullName: String,
     val jobId: Int,
     val phoneNo: String,
-    val resumeName: String
+    val resumeName: String,
+    val jobProfileId: Int
 )

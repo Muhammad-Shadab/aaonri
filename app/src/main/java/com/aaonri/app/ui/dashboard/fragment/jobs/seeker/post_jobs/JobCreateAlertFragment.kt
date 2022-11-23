@@ -1,6 +1,5 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs
 
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -284,6 +283,8 @@ class JobCreateAlertFragment : Fragment() {
                         expectedSalaryEt.setText(it.expectedSalary)
                         locationEt.setText(it.location)
 
+
+                        /**This list needs to be different from the above lists**/
                         val tempJobList = mutableListOf<JobType>()
 
                         tempJobList.addAll(
