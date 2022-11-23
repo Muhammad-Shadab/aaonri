@@ -35,8 +35,10 @@ import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.data.immigration.model.Discussion
 import com.aaonri.app.data.immigration.model.GetAllImmigrationRequest
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
+import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
+import com.aaonri.app.data.jobs.seeker.JobSeekerStaticData
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
@@ -1150,6 +1152,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.let {
                         if (it.jobProfiles.isNotEmpty()) {
+                            JobRecruiterStaticData.setTalentListData(it.jobProfiles)
                             if (it.jobProfiles.size >= 4) {
                                 allJobProfileAdapter?.setData(
                                     it.jobProfiles.filter { it.isApplicant }.subList(0, 4)
@@ -1177,6 +1180,7 @@ class HomeScreenFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                     response.data?.let {
                         if (it.isNotEmpty()) {
+                            JobSeekerStaticData.setJobListData(it)
                             if (it.size >= 4) {
                                 jobSeekerAdapter?.setData(it.subList(0, 4))
                             } else {
