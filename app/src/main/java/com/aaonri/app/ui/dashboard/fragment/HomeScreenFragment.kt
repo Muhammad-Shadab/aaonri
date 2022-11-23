@@ -694,6 +694,7 @@ class HomeScreenFragment : Fragment() {
             loginBtn.setOnClickListener {
                 activity?.finish()
             }
+
             dismissBtn.setOnClickListener {
                 guestUserLoginDialog.dismiss()
             }

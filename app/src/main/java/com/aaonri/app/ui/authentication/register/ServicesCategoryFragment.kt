@@ -162,6 +162,9 @@ class ServicesCategoryFragment : Fragment() {
             isRecruiterCheckBox.setOnCheckedChangeListener { p0, p1 ->
                 isCompanyEmailCheckboxSelected = p1
                 companyEmailServices.isEnabled = p1
+                if (!p1) {
+                    companyEmailServices.setText("")
+                }
             }
 
 
@@ -342,7 +345,9 @@ class ServicesCategoryFragment : Fragment() {
                 isServicesSelected = true
                 authCommonViewModel.addStepViewLastTick(true)
                 binding?.visibilityCardView?.visibility = View.GONE
-                binding?.isRecruiterCheckBox?.isChecked = false
+                if (binding?.companyEmailServices?.text.toString().trim().isEmpty()) {
+                    binding?.isRecruiterCheckBox?.isChecked = false
+                }
                 binding?.aliasNameCardView?.visibility = View.VISIBLE
                 if (!authCommonViewModel.isUpdateProfile) {
                     binding?.privacyPolicyRegistrationTv?.visibility = View.VISIBLE

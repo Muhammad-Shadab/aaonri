@@ -28,8 +28,6 @@ import com.aaonri.app.data.event.viewmodel.EventViewModel
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
-import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
-import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
@@ -96,9 +94,8 @@ class MainActivity : BaseActivity() {
                 "MadeUpWord",
                 10,
                 UserDictionary.Words.LOCALE_TYPE_CURRENT
-            );
+            )
         }
-
 
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
@@ -523,111 +520,6 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        /*dashboardCommonViewModel.isFilterApplied.observe(this) {
-            val keyword =
-                applicationContext?.let { PreferenceManager<String>(it)[ClassifiedConstant.SEARCH_KEYWORD_FILTER, ""] }
-            if (it.equals("callEventApiWithFilter")) {
-                eventViewModel.getMyEvent(
-                    AllEventRequest(
-                        category = "",
-                        city = "",
-                        from = "",
-                        isPaid = "",
-                        keyword = if (keyword?.isNotEmpty() == true) keyword else "",
-                        maxEntryFee = 0,
-                        minEntryFee = 0,
-                        myEventsOnly = true,
-                        userId = if (email?.isNotEmpty() == true) email else "",
-                        zip = ""
-                    )
-                )
-                eventViewModel.getAllEvent(
-                    AllEventRequest(
-                        category = "",
-                        city = "",
-                        from = "",
-                        isPaid = "",
-                        keyword = if (keyword?.isNotEmpty() == true) keyword else "",
-                        maxEntryFee = 0,
-                        minEntryFee = 0,
-                        myEventsOnly = false,
-                        userId = "",
-                        zip = ""
-                    )
-                )
-            } else if (it.equals("callEventApi")) {
-                eventViewModel.getMyEvent(
-                    AllEventRequest(
-                        category = "",
-                        city = "",
-                        from = "",
-                        isPaid = "",
-                        keyword = "",
-                        maxEntryFee = 0,
-                        minEntryFee = 0,
-                        myEventsOnly = true,
-                        userId = if (email?.isNotEmpty() == true) email else "",
-                        zip = ""
-                    )
-                )
-                eventViewModel.getAllEvent(
-                    AllEventRequest(
-                        category = "",
-                        city = "",
-                        from = "",
-                        isPaid = "",
-                        keyword = "",
-                        maxEntryFee = 0,
-                        minEntryFee = 0,
-                        myEventsOnly = false,
-                        userId = "",
-                        zip = ""
-                    )
-                )
-            }
-        }*/
-
-        /*homeViewModel.popularClassifiedData.observe(this) { response ->
-            when (response) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-
-                }
-                is Resource.Error -> {
-
-                }
-                else -> {}
-            }
-        }*/
-
-        /*classifiedViewModel.classifiedByUserData.observe(this) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    mainActivityBinding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
-                    response.data?.userAdsList?.let {
-                        if (classifiedViewModel.allClassifiedList.isEmpty()) {
-                            classifiedViewModel.setClassifiedForHomeScreen(it)
-                        } else {
-
-                        }
-                    }
-                }
-                is Resource.Error -> {
-                    mainActivityBinding?.progressBar?.visibility = View.GONE
-                    *//*Toast.makeText(applicationContext, "${response.message}", Toast.LENGTH_SHORT)
-                        .show()*//*
-                }
-                else -> {
-
-                }
-            }
-        }*/
-
         eventViewModel.allEventData.observe(this) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -771,7 +663,6 @@ class MainActivity : BaseActivity() {
             }
         }
 
-
     }
 
 
@@ -863,5 +754,6 @@ class MainActivity : BaseActivity() {
         UserProfileStaticData.setUserProfileDataValue(null)
         binding = null
     }
+
 
 }

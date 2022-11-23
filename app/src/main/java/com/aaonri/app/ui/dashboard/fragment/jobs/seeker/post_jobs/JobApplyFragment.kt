@@ -28,8 +28,6 @@ import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobApplyBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +48,7 @@ class JobApplyFragment : Fragment() {
     var description = ""
     var contactEmailId = ""
 
-        /**Getting rich text content**/
+    /**Getting rich text content**/
     private val resultLauncherEditText =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -274,13 +272,15 @@ class JobApplyFragment : Fragment() {
                             } else {
                                 val action =
                                     JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                                        "ApplyJobScreen", args.isNavigatingFromSearchScreen)
+                                        "ApplyJobScreen", args.isNavigatingFromSearchScreen
+                                    )
                                 findNavController().navigate(action)
                             }
                         } else {
                             val action =
                                 JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                                    "ApplyJobScreen", args.isNavigatingFromSearchScreen)
+                                    "ApplyJobScreen", args.isNavigatingFromSearchScreen
+                                )
                             findNavController().navigate(action)
                         }
                         jobSeekerViewModel.applyJobData.postValue(null)
@@ -293,19 +293,22 @@ class JobApplyFragment : Fragment() {
         }
 
         jobSeekerViewModel.uploadResumeData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
-                    val action =
-                        JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                            "ApplyJobScreen", args.isNavigatingFromSearchScreen)
-                    findNavController().navigate(action)
-                }
-                is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        val action =
+                            JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
+                                "ApplyJobScreen", args.isNavigatingFromSearchScreen
+                            )
+                        findNavController().navigate(action)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                    }
                 }
             }
         }

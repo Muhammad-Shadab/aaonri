@@ -135,6 +135,7 @@ class JobProfileUploadFragment : Fragment() {
 
         binding?.apply {
 
+            skillSetDescEt.isLongClickable = false
             coverLetterDescEt.textSize = 14F
 
             visaStatusRv.layoutManager = FlexboxLayoutManager(context)

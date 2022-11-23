@@ -227,18 +227,16 @@
 
                         <TextView
                             android:id="@+id/resumeNameTv"
-                            android:layout_width="wrap_content"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginHorizontal="@dimen/_12sdp"
                             android:layout_weight="1"
-                            android:ellipsize="end"
+                            android:ellipsize="middle"
                             android:fontFamily="@font/sf_pro_regular"
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
-                            android:maxLength="16"
                             android:maxLines="1"
-                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:visibility="visible" />
