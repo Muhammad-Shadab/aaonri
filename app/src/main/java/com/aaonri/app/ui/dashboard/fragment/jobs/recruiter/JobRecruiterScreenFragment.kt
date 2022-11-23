@@ -7,6 +7,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -253,7 +255,7 @@ class JobRecruiterScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment()
+                JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment(true)
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }
@@ -616,6 +618,19 @@ class JobRecruiterScreenFragment : Fragment() {
                 jobRecruiterViewModel.navigateToUploadConsultantProfile.postValue(
                     null
                 )
+            }
+        }
+
+        jobRecruiterViewModel.changeJobScreenTab.observe(viewLifecycleOwner) {
+            if (it != null) {
+                when (it) {
+                    "View Consultant Profile" -> {
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            { binding?.jobsScreenTabLayout?.getTabAt(2)?.select() }, 100
+                        )
+                    }
+                }
+                jobRecruiterViewModel.changeJobScreenTab.postValue(null)
             }
         }
 

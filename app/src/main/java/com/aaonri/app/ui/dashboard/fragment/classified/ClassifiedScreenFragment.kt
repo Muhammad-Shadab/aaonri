@@ -194,7 +194,7 @@ class ClassifiedScreenFragment : Fragment() {
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
             val action =
-                ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToUpdateProfileFragment()
+                ClassifiedScreenFragmentDirections.actionClassifiedScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
         }
 

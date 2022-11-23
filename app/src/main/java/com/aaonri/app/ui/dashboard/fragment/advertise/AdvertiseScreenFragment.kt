@@ -60,6 +60,7 @@ class AdvertiseScreenFragment : Fragment() {
 
     var isGuestUser = false
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -210,7 +211,7 @@ class AdvertiseScreenFragment : Fragment() {
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
             val action =
-                AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToUpdateProfileFragment()
+                AdvertiseScreenFragmentDirections.actionAdvertiseScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
         }
 

@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.aaonri.app.BuildConfig
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
@@ -35,6 +36,7 @@ class UpdateProfileFragment : Fragment() {
     var binding: FragmentUpdateProfileBinding? = null
     val authCommonViewModel: AuthCommonViewModel by activityViewModels()
     val registrationViewModel: RegistrationViewModel by activityViewModels()
+    val args: UpdateProfileFragmentArgs by navArgs()
 
     private val tabTitles =
         arrayListOf("Personal", "Address", "Origin", "Interest")
@@ -53,7 +55,13 @@ class UpdateProfileFragment : Fragment() {
             updateProfileViewPager.isUserInputEnabled = false
 
             navigateBack.setOnClickListener {
-                findNavController().navigateUp()
+                if (args.isNavigatingFromJobScreen) {
+                    val action =
+                        UpdateProfileFragmentDirections.actionUpdateProfileFragmentToHomeScreenFragment()
+                    findNavController().navigate(action)
+                } else {
+                    findNavController().navigateUp()
+                }
             }
 
             updateProfileViewPager.adapter = updateProfilePagerAdapter
@@ -218,18 +226,10 @@ class UpdateProfileFragment : Fragment() {
         }
 
         authCommonViewModel.setIsUpdateProfile(true)
+        authCommonViewModel.setIsNavigatingFromJobScreen(args.isNavigatingFromJobScreen)
 
-        /*requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (isJobServiceSelected) {
-                        findNavController().navigate(R.id.action_updateProfileFragment_to_homeScreenFragment)
-                    } else {
-                        findNavController().navigateUp()
-                    }
-                }
-            })*/
+
+
 
 
         return binding?.root

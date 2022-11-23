@@ -81,6 +81,8 @@ class AuthCommonViewModel @Inject constructor(
 
     val countryClicked: MutableLiveData<Boolean> = MutableLiveData()
 
+    val navigateToHomeScreen: MutableLiveData<Boolean> = MutableLiveData()
+
     var isUpdateProfile = false
 
     var isSelectedServices: Boolean? = false
@@ -92,6 +94,9 @@ class AuthCommonViewModel @Inject constructor(
         private set
 
     var countryFlagBmp: Bitmap? = null
+        private set
+
+    var isNavigatingFromJobScreen = false
         private set
 
     fun addNavigationForStepper(value: String) {
@@ -288,6 +293,14 @@ class AuthCommonViewModel @Inject constructor(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun setIsNavigatingFromJobScreen(navigatingFromJobScreen: Boolean) {
+        isNavigatingFromJobScreen = navigatingFromJobScreen
+    }
+
+    fun setNavigateToHomeScreen(value: Boolean) {
+        navigateToHomeScreen.postValue(value)
     }
 
 }

@@ -27,6 +27,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.AuthCommonViewModel
 import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewModel
 import com.aaonri.app.databinding.FragmentBasicDetailsBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
+import com.aaonri.app.ui.dashboard.fragment.update_profile.UpdateProfileFragmentDirections
 import com.aaonri.app.utils.*
 import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.bumptech.glide.Glide
@@ -491,14 +492,17 @@ class BasicDetailsFragment : Fragment() {
 
                 }
             }
-
         }
 
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (authCommonViewModel.isUpdateProfile) {
+                    if (authCommonViewModel.isNavigatingFromJobScreen) {
+                        val action =
+                            UpdateProfileFragmentDirections.actionUpdateProfileFragmentToHomeScreenFragment()
+                        findNavController().navigate(action)
+                    } else if (authCommonViewModel.isUpdateProfile) {
                         findNavController().navigateUp()
                     } else {
                         activity?.finish()

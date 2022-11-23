@@ -181,7 +181,7 @@ class JobSearchFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                JobSearchFragmentDirections.actionJobSearchFragmentToUpdateProfileFragment()
+                JobSearchFragmentDirections.actionJobSearchFragmentToUpdateProfileFragment(true)
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }
@@ -209,18 +209,22 @@ class JobSearchFragment : Fragment() {
         }
 
         jobAdapter = JobSearchAdapter { isJobApplyBtnClicked, value ->
-            if (isJobApplyBtnClicked) {
-                /** Clicked on Apply btn **/
-                selectedJobItem = value
-                /** This function will navigate user to job apply fragment screen if user already uploaded job seeker profile otherwise it will navigate to upload job seeker profile screen**/
-                navigateToJobApplyFragment()
+            if (isUserLogin == true) {
+                if (isJobApplyBtnClicked) {
+                    /** Clicked on Apply btn **/
+                    selectedJobItem = value
+                    /** This function will navigate user to job apply fragment screen if user already uploaded job seeker profile otherwise it will navigate to upload job seeker profile screen**/
+                    navigateToJobApplyFragment()
+                } else {
+                    val action =
+                        JobSearchFragmentDirections.actionJobSearchFragmentToJobDetailsFragment(
+                            value.jobId,
+                            true
+                        )
+                    findNavController().navigate(action)
+                }
             } else {
-                val action =
-                    JobSearchFragmentDirections.actionJobSearchFragmentToJobDetailsFragment(
-                        value.jobId,
-                        true
-                    )
-                findNavController().navigate(action)
+                guestUserLoginDialog.show()
             }
         }
 
@@ -463,13 +467,7 @@ class JobSearchFragment : Fragment() {
                         if (response.data?.jobDetailsList?.isNotEmpty() == true) {
                             jobAdapter?.setData(response.data.jobDetailsList)
                             noResultFound.visibility = View.GONE
-                            if (isFilterEnable) {
-                                recyclerViewAllJob.visibility = View.VISIBLE
-                            } else if (searchView.text.toString().isNotEmpty()) {
-                                recyclerViewAllJob.visibility = View.VISIBLE
-                            } else {
-                                recyclerViewAllJob.visibility = View.GONE
-                            }
+                            recyclerViewAllJob.visibility = View.VISIBLE
                         } else {
                             noResultFound.visibility = View.VISIBLE
                             recyclerViewAllJob.visibility = View.GONE

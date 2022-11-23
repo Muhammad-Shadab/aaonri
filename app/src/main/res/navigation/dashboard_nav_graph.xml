@@ -551,6 +551,14 @@
         <action
             android:id="@+id/action_updateProfileFragment_to_communityBottomFragment2"
             app:destination="@id/communityBottomFragment2" />
+        <argument
+            android:name="isNavigatingFromJobScreen"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_updateProfileFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

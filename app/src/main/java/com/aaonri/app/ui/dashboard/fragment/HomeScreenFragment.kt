@@ -356,7 +356,7 @@ class HomeScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment()
+                HomeScreenFragmentDirections.actionHomeScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }

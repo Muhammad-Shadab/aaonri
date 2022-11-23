@@ -107,6 +107,8 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     var jobRecruiterFilterValues: MutableLiveData<RecruiterJobFilterModel> = MutableLiveData()
 
+    var changeJobScreenTab: MutableLiveData<String> = MutableLiveData()
+
     fun addNavigationForStepper(value: String) {
         navigationForStepper.postValue(value)
     }
@@ -452,6 +454,10 @@ class JobRecruiterViewModel @Inject constructor(val repository: JobRecruiterRepo
 
     fun setJobRecruiterFilterValues(value: RecruiterJobFilterModel) {
         jobRecruiterFilterValues.postValue(value)
+    }
+
+    fun setChangeJobScreenTab(value: String) {
+        changeJobScreenTab.postValue(value)
     }
 
 

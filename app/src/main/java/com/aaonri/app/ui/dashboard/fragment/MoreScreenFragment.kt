@@ -159,14 +159,14 @@ class MoreScreenFragment : Fragment() {
 
             profileInfoLl.setOnClickListener {
                 val action =
-                    MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment()
+                    MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment(false)
                 findNavController().navigate(action)
                 //dialog.show()
             }
 
             editProfileBtn.setOnClickListener {
                 val action =
-                    MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment()
+                    MoreScreenFragmentDirections.actionMoreScreenFragmentToUpdateProfileFragment(false)
                 findNavController().navigate(action)
                 dialog.dismiss()
             }

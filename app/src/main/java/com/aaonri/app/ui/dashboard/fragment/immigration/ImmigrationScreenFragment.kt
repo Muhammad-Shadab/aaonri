@@ -188,7 +188,7 @@ class ImmigrationScreenFragment : Fragment() {
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
             val action =
-                ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToUpdateProfileFragment()
+                ImmigrationScreenFragmentDirections.actionImmigrationScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
         }
 

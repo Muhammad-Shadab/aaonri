@@ -12,6 +12,7 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityWebViewBinding
 import com.aaonri.app.utils.custom.ConnectivityReceiver
@@ -116,7 +117,9 @@ class WebViewActivity : BaseActivity() {
 
         binding?.advertiseWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
+                if (url.contains(".pdf")) {
+                    view.loadUrl(url)
+                }
                 return true
             }
 

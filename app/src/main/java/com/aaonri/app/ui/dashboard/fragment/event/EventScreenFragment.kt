@@ -185,7 +185,7 @@ class EventScreenFragment : Fragment() {
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
             val action =
-                EventScreenFragmentDirections.actionEventScreenFragmentToUpdateProfileFragment()
+                EventScreenFragmentDirections.actionEventScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
         }
 

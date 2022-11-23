@@ -140,7 +140,7 @@ class JobApplyFragment : Fragment() {
                 binding?.uploadResumeLl?.gravity = Gravity.CENTER
                 binding?.uploadResumeTv?.visibility = View.VISIBLE
                 binding?.sizeLimitTv?.visibility = View.VISIBLE
-
+                fileName = ""
                 binding?.uploadedResumeShapeLl?.visibility = View.GONE
                 jobSeekerViewModel.setResumeFileUriValue("".toUri())
             }

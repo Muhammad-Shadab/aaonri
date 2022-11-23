@@ -163,33 +163,35 @@ class JobSeekerFilterFragment : Fragment() {
 
                 jobExperienceAdapter?.setSelectedExperienceData("")
 
-                jobTypeAdapter?.setData(listOf(
-                    JobType(
-                        count = 0,
-                        name = "Full Time",
-                        isSelected = false
-                    ),
-                    JobType(
-                        count = 0,
-                        name = "Part Time",
-                        isSelected = false
-                    ),
-                    JobType(
-                        count = 0,
-                        name = "Internship",
-                        isSelected = false
-                    ),
-                    JobType(
-                        count = 0,
-                        name = "Contract",
-                        isSelected = false
-                    ),
-                    JobType(
-                        count = 0,
-                        name = "Contract to Hire",
-                        isSelected = false
-                    ),
-                ))
+                jobTypeAdapter?.setData(
+                    listOf(
+                        JobType(
+                            count = 0,
+                            name = "Full Time",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Part Time",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Internship",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Contract",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Contract to Hire",
+                            isSelected = false
+                        ),
+                    )
+                )
 
                 selectedJobType = ""
                 selectedYearsOfExperience = ""

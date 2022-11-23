@@ -162,7 +162,7 @@ class ShopScreenFragment : Fragment() {
         editProfileBtn.setOnClickListener {
             updateLogoutDialog.dismiss()
             val action =
-                ShopScreenFragmentDirections.actionShopScreenFragmentToUpdateProfileFragment()
+                ShopScreenFragmentDirections.actionShopScreenFragmentToUpdateProfileFragment(false)
             findNavController().navigate(action)
         }
 

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.seeker.model.JobSearchFilterModel
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
@@ -185,7 +186,7 @@ class JobScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                JobScreenFragmentDirections.actionJobScreenFragmentToUpdateProfileFragment()
+                JobScreenFragmentDirections.actionJobScreenFragmentToUpdateProfileFragment(true)
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }
@@ -222,7 +223,8 @@ class JobScreenFragment : Fragment() {
             }
 
             navigateBack.setOnClickListener {
-                val action = JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
+                val action =
+                    JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
                 findNavController().navigate(action)
             }
 
@@ -268,10 +270,28 @@ class JobScreenFragment : Fragment() {
             jobScreenViewPager.isUserInputEnabled = false
 
             searchViewIcon.setOnClickListener {
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "",
+                        location = "",
+                        yearsOfExperience = "",
+                        jobType = "",
+                        industries = ""
+                    )
+                )
                 searchView.performClick()
             }
 
             searchView.setOnClickListener {
+                jobSeekerViewModel.setJobSearchFilterData(
+                    JobSearchFilterModel(
+                        companyName = "",
+                        location = "",
+                        yearsOfExperience = "",
+                        jobType = "",
+                        industries = ""
+                    )
+                )
                 val action =
                     JobScreenFragmentDirections.actionJobScreenFragmentToJobSearchFragment()
                 findNavController().navigate(action)
@@ -377,7 +397,8 @@ class JobScreenFragment : Fragment() {
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    val action = JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
+                    val action =
+                        JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
                     findNavController().navigate(action)
                 }
             })

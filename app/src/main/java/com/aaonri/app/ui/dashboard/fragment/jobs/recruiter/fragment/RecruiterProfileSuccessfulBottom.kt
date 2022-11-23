@@ -37,6 +37,7 @@ class RecruiterProfileSuccessfulBottom : BottomSheetDialogFragment() {
             }
 
             viewYourAdvertiseBtn.setOnClickListener {
+                jobRecruiterViewModel.setChangeJobScreenTab("View Consultant Profile")
                 val action =
                     RecruiterProfileSuccessfulBottomDirections.actionRecruiterProfileSuccessfulBottom2ToJobRecruiterScreenFragment()
                 findNavController().navigate(action)
