@@ -1,16 +1,20 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aaonri.app.R
 import com.aaonri.app.data.jobs.seeker.model.SaveJobViewRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobDetailsBinding
@@ -28,6 +32,8 @@ class JobDetailsFragment : Fragment() {
     val args: JobDetailsFragmentArgs by navArgs()
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     var jobId = 0
+    var isUserLogin = false
+    lateinit var guestUserLoginDialog: Dialog
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -36,11 +42,40 @@ class JobDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentJobDetailsBinding.inflate(inflater, container, false)
 
+        guestUserLoginDialog = Dialog(requireContext())
+
         val email =
             context?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
         val userId =
             context?.let { PreferenceManager<Int>(it)[Constant.USER_ID, 0] }
+
+        isUserLogin =
+            context.let {
+                it?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                    ?.get(Constant.IS_USER_LOGIN, false)
+            }!!
+
+        /**  Dialog for guest user **/
+        guestUserLoginDialog.setContentView(R.layout.guest_user_login_dialog)
+        guestUserLoginDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialog_shape
+            )
+        )
+        guestUserLoginDialog.setCancelable(false)
+        val dismissBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.dismissDialogTv)
+        val loginBtn =
+            guestUserLoginDialog.findViewById<TextView>(R.id.loginDialogTv)
+
+        loginBtn.setOnClickListener {
+            activity?.finish()
+        }
+        dismissBtn.setOnClickListener {
+            guestUserLoginDialog.dismiss()
+        }
 
         binding?.apply {
 
@@ -120,40 +155,47 @@ class JobDetailsFragment : Fragment() {
     }
 
     private fun navigateToJobApplyScreen() {
-        jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Loading -> {
-                }
-                is Resource.Success -> {
-                    response.data?.let {
-                        if (it.jobProfile.isNotEmpty()) {
-                            /** Profile Uploaded **/
-                            val action =
-                                JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(jobId, args.isNavigatingFromSearchScreen)
-                            findNavController().navigate(action)
-                        } else {
-                            val builder = AlertDialog.Builder(context)
-                            builder.setTitle("Confirm")
-                            builder.setMessage("Seems you haven't uploaded your job profile yet.")
-                            builder.setPositiveButton("Upload Profile") { dialog, which ->
+        if (isUserLogin) {
+            jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        response.data?.let {
+                            if (it.jobProfile.isNotEmpty()) {
+                                /** Profile Uploaded **/
                                 val action =
-                                    JobDetailsFragmentDirections.actionJobDetailsFragmentToJobProfileUploadFragment(
-                                        false,
-                                        0
+                                    JobDetailsFragmentDirections.actionJobDetailsFragmentToJobApplyFragment(
+                                        jobId,
+                                        args.isNavigatingFromSearchScreen
                                     )
                                 findNavController().navigate(action)
-                            }
-                            builder.setNegativeButton("Cancel") { dialog, which ->
+                            } else {
+                                val builder = AlertDialog.Builder(context)
+                                builder.setTitle("Confirm")
+                                builder.setMessage("Seems you haven't uploaded your job profile yet.")
+                                builder.setPositiveButton("Upload Profile") { dialog, which ->
+                                    val action =
+                                        JobDetailsFragmentDirections.actionJobDetailsFragmentToJobProfileUploadFragment(
+                                            false,
+                                            0
+                                        )
+                                    findNavController().navigate(action)
+                                }
+                                builder.setNegativeButton("Cancel") { dialog, which ->
 
+                                }
+                                builder.show()
                             }
-                            builder.show()
                         }
-                    }
 
-                }
-                is Resource.Error -> {
+                    }
+                    is Resource.Error -> {
+                    }
                 }
             }
+        } else {
+            guestUserLoginDialog.show()
         }
     }
 

@@ -136,6 +136,46 @@ class JobCreateAlertFragment : Fragment() {
                 }
             }
 
+            clearTv.setOnClickListener {
+                jobAlertNameEt.setText("")
+                keywordEt.setText("")
+                jobRoleEt.setText("")
+                selectWorkExperienceTv.text = ""
+                expectedSalaryEt.setText("")
+                locationEt.setText("")
+
+                jobSeekerViewModel.setSelectJobListMutableValue(
+                    listOf(
+                        JobType(
+                            count = 0,
+                            name = "Full Time",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Part Time",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Internship",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Contract",
+                            isSelected = false
+                        ),
+                        JobType(
+                            count = 0,
+                            name = "Contract to Hire",
+                            isSelected = false
+                        ),
+                    )
+                )
+
+            }
+
             jobSeekerViewModel.selectedExperienceLevel.observe(viewLifecycleOwner) {
                 if (it != null) {
                     selectWorkExperienceTv.text = it.experienceLevel

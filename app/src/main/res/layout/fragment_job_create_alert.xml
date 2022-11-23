@@ -97,7 +97,6 @@
                     android:hint="Job alert name*"
                     android:inputType="textCapSentences"
                     android:lines="1"
-
                     android:maxLines="1"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_6sdp"

@@ -4,9 +4,12 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -219,7 +222,8 @@ class JobScreenFragment : Fragment() {
             }
 
             navigateBack.setOnClickListener {
-                findNavController().navigateUp()
+                val action = JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
+                findNavController().navigate(action)
             }
 
             profilePicCv.setOnClickListener {
@@ -249,16 +253,7 @@ class JobScreenFragment : Fragment() {
             jobsScreenTabLayout.addOnTabSelectedListener(object :
                 TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    /*if (tab?.position == 2) {
 
-                    } else {
-
-                    }
-                    if (tab?.position != 0) {
-
-                    } else {
-
-                    }*/
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -282,6 +277,11 @@ class JobScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
 
+            if (isUserLogin == false) {
+                jobsScreenTabLayout.visibility = View.GONE
+                jobScreenViewPager.isUserInputEnabled = false
+            }
+
         }
 
         /**Calling list of all experience api just because it is used in two different screens**/
@@ -290,7 +290,10 @@ class JobScreenFragment : Fragment() {
         jobSeekerViewModel.navigateAllJobToDetailsJobScreen.observe(viewLifecycleOwner) { jobId ->
             if (jobId != null) {
                 val action =
-                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(jobId, false)
+                    JobScreenFragmentDirections.actionJobScreenFragmentToJobDetailsFragment(
+                        jobId,
+                        false
+                    )
                 findNavController().navigate(action)
                 jobSeekerViewModel.navigateAllJobToDetailsJobScreen.postValue(null)
             }
@@ -346,6 +349,39 @@ class JobScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
+        jobSeekerViewModel.changeJobScreenTab.observe(viewLifecycleOwner) {
+            if (it != null) {
+                when (it) {
+                    "VIEW MY JOB PROFILE" -> {
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            { binding?.jobsScreenTabLayout?.getTabAt(2)?.select() }, 100
+                        )
+                    }
+                    "VIEW JOBS" -> {
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            { binding?.jobsScreenTabLayout?.getTabAt(0)?.select() }, 100
+                        )
+                    }
+                    "VIEW MY JOB ALERTS" -> {
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            { binding?.jobsScreenTabLayout?.getTabAt(1)?.select() }, 100
+                        )
+                    }
+                }
+                jobSeekerViewModel.changeJobScreenTab.postValue(null)
+            }
+        }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action = JobScreenFragmentDirections.actionJobScreenFragmentToHomeScreenFragment()
+                    findNavController().navigate(action)
+                }
+            })
+
 
         return binding?.root
     }

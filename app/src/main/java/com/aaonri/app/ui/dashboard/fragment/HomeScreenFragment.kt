@@ -466,17 +466,25 @@ class HomeScreenFragment : Fragment() {
             )
 
             if (item is AllJobsResponseItem) {
-                if (view.id == R.id.jobCv) {
-                    /** Clicked on Job Card View **/
-                    val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(item.jobId, false)
-                    findNavController().navigate(action)
+                if (isUserLogin == true) {
+                    if (view.id == R.id.jobCv) {
+                        /** Clicked on Job Card View **/
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobDetailsFragment(
+                                item.jobId,
+                                false
+                            )
+                        findNavController().navigate(action)
+                    } else {
+                        /** Clicked on Apply btn **/
+                        val action =
+                            HomeScreenFragmentDirections.actionHomeScreenFragmentToJobApplyFragment(
+                                item.jobId, false
+                            )
+                        findNavController().navigate(action)
+                    }
                 } else {
-                    /** Clicked on Apply btn **/
-                    val action =
-                        HomeScreenFragmentDirections.actionHomeScreenFragmentToJobApplyFragment(
-                            item.jobId, false)
-                    findNavController().navigate(action)
+                    guestUserLoginDialog.show()
                 }
             }
         }
@@ -1065,7 +1073,11 @@ class HomeScreenFragment : Fragment() {
                         //allClassifiedAdapterForHorizontal?.setData(classifiedViewModel.allClassifiedList)
                     }*/
                     homeClassifiedWithAdList = classifiedViewModel.allClassifiedList.toMutableList()
-                    genericAdapterForClassified?.items = if (response.data?.userAdsList?.size!! >= 4) response.data.userAdsList.subList(0,4) else response.data.userAdsList
+                    genericAdapterForClassified?.items =
+                        if (response.data?.userAdsList?.size!! >= 4) response.data.userAdsList.subList(
+                            0,
+                            4
+                        ) else response.data.userAdsList
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

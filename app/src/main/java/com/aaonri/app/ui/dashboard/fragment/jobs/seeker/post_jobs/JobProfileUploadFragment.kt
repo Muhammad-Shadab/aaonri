@@ -211,73 +211,66 @@ class JobProfileUploadFragment : Fragment() {
                                                         if (coverLetterDescEt.text.toString()
                                                                 .trim().length >= 3
                                                         ) {
-                                                            if (jobSeekerViewModel.resumeFileUri != null
+                                                            if (fileName?.isNotEmpty() == true
                                                             ) {
-                                                                if (jobSeekerViewModel.resumeFileUri.toString()
-                                                                        .isNotEmpty() || fileName?.isNotEmpty() == true
-                                                                ) {
-                                                                    if (args.isUpdateProfile) {
-                                                                        jobSeekerViewModel.updateJobProfile(
-                                                                            profileId = args.jobId,
-                                                                            addJobProfileRequest = AddJobProfileRequest(
-                                                                                availability = selectAvailabilityTv.text.toString(),
-                                                                                contactEmailId = contactEmailEt.text.toString(),
-                                                                                coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
-                                                                                    .trim(),
-                                                                                emailId = email
-                                                                                    ?: "",
-                                                                                experience = selectExperienceTv.text.toString(),
-                                                                                firstName = firstNameEt.text.toString(),
-                                                                                isActive = true,
-                                                                                isApplicant = true,
-                                                                                lastName = lastNameEt.text.toString(),
-                                                                                location = locationEt.text.toString(),
-                                                                                phoneNo = phoneNumber,
-                                                                                resumeName = fileName
-                                                                                    ?: "",
-                                                                                skillSet = skillSetDescEt.text.toString(),
-                                                                                title = currentTitleEt.text.toString(),
-                                                                                visaStatus = visaStatus,
-                                                                                profileImage = "${
-                                                                                    profile?.replace(
-                                                                                        "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
-                                                                                        ""
-                                                                                    )
-                                                                                }"
-                                                                            )
+                                                                if (args.isUpdateProfile) {
+                                                                    jobSeekerViewModel.updateJobProfile(
+                                                                        profileId = args.jobId,
+                                                                        addJobProfileRequest = AddJobProfileRequest(
+                                                                            availability = selectAvailabilityTv.text.toString(),
+                                                                            contactEmailId = contactEmailEt.text.toString(),
+                                                                            coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
+                                                                                .trim(),
+                                                                            emailId = email
+                                                                                ?: "",
+                                                                            experience = selectExperienceTv.text.toString(),
+                                                                            firstName = firstNameEt.text.toString(),
+                                                                            isActive = true,
+                                                                            isApplicant = true,
+                                                                            lastName = lastNameEt.text.toString(),
+                                                                            location = locationEt.text.toString(),
+                                                                            phoneNo = phoneNumber,
+                                                                            resumeName = fileName
+                                                                                ?: "",
+                                                                            skillSet = skillSetDescEt.text.toString(),
+                                                                            title = currentTitleEt.text.toString(),
+                                                                            visaStatus = visaStatus,
+                                                                            profileImage = "${
+                                                                                profile?.replace(
+                                                                                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
+                                                                                    ""
+                                                                                )
+                                                                            }"
                                                                         )
-                                                                    } else {
-                                                                        jobSeekerViewModel.addJobProfile(
-                                                                            AddJobProfileRequest(
-                                                                                availability = selectAvailabilityTv.text.toString(),
-                                                                                contactEmailId = contactEmailEt.text.toString(),
-                                                                                coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
-                                                                                    .trim(),
-                                                                                emailId = email
-                                                                                    ?: "",
-                                                                                experience = selectExperienceTv.text.toString(),
-                                                                                firstName = firstNameEt.text.toString(),
-                                                                                isActive = true,
-                                                                                isApplicant = true,
-                                                                                lastName = lastNameEt.text.toString(),
-                                                                                location = locationEt.text.toString(),
-                                                                                phoneNo = phoneNumber,
-                                                                                resumeName = fileName
-                                                                                    ?: "",
-                                                                                skillSet = skillSetDescEt.text.toString(),
-                                                                                title = currentTitleEt.text.toString(),
-                                                                                visaStatus = visaStatus,
-                                                                                profileImage = "${
-                                                                                    profile?.replace(
-                                                                                        "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
-                                                                                        ""
-                                                                                    )
-                                                                                }"
-                                                                            )
-                                                                        )
-                                                                    }
+                                                                    )
                                                                 } else {
-                                                                    showAlert("Please upload Resume")
+                                                                    jobSeekerViewModel.addJobProfile(
+                                                                        AddJobProfileRequest(
+                                                                            availability = selectAvailabilityTv.text.toString(),
+                                                                            contactEmailId = contactEmailEt.text.toString(),
+                                                                            coverLetter = if (description.isNotEmpty()) description else coverLetterDescEt.text.toString()
+                                                                                .trim(),
+                                                                            emailId = email
+                                                                                ?: "",
+                                                                            experience = selectExperienceTv.text.toString(),
+                                                                            firstName = firstNameEt.text.toString(),
+                                                                            isActive = true,
+                                                                            isApplicant = true,
+                                                                            lastName = lastNameEt.text.toString(),
+                                                                            location = locationEt.text.toString(),
+                                                                            phoneNo = phoneNumber,
+                                                                            resumeName = fileName ?: "",
+                                                                            skillSet = skillSetDescEt.text.toString(),
+                                                                            title = currentTitleEt.text.toString(),
+                                                                            visaStatus = visaStatus,
+                                                                            profileImage = "${
+                                                                                profile?.replace(
+                                                                                    "${BuildConfig.BASE_URL}/api/v1/common/profileFile/",
+                                                                                    ""
+                                                                                )
+                                                                            }"
+                                                                        )
+                                                                    )
                                                                 }
                                                             } else {
                                                                 showAlert("Please upload Resume")

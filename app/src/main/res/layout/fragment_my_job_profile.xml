@@ -75,7 +75,7 @@
         <ImageView
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_200sdp"
-            android:background="@drawable/empty_my_classified" />
+            android:background="@drawable/upload_job_profile" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,8 +83,8 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/sf_pro_medium"
             android:gravity="center"
-            android:lineSpacingExtra="@dimen/_6sdp"
-            android:text="You haven't listed anything yet"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:text="Please upload your profile, we will find\nthe right opportunities for you."
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>

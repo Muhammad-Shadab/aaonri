@@ -89,6 +89,8 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
 
     var jobSearchFilterData: MutableLiveData<JobSearchFilterModel> = MutableLiveData()
 
+    var changeJobScreenTab: MutableLiveData<String> = MutableLiveData()
+
     fun getAllActiveJobs() = viewModelScope.launch {
         allActiveJobsData.postValue(Resource.Loading())
         val response = jobSeekerRepository.getAllActiveJobs()
@@ -378,6 +380,10 @@ class JobSeekerViewModel @Inject constructor(private val jobSeekerRepository: Jo
     fun setSelectJobListMutableValue(value: List<JobType>) {
         selectedJobList.postValue(value)
         selectedJobListTemp = value as MutableList<JobType>
+    }
+
+    fun setChangeJobScreenTab(value: String) {
+        changeJobScreenTab.postValue(value)
     }
 
 }

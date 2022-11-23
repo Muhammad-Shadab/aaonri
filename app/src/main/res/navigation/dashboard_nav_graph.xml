@@ -424,6 +424,11 @@
         <action
             android:id="@+id/action_jobScreenFragment_to_jobCreateAlertFragment"
             app:destination="@id/jobCreateAlertFragment" />
+        <action
+            android:id="@+id/action_jobScreenFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/jobDetailsFragment"
