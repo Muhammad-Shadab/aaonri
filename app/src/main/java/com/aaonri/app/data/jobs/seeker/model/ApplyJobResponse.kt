@@ -10,5 +10,6 @@ data class ApplyJobResponse(
     val jobId: Int,
     val phoneNo: String,
     val resumeName: String,
-    val status: Any
+    val message: String,
+    val status: Boolean
 )

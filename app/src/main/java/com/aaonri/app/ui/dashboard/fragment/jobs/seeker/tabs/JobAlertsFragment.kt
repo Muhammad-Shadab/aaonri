@@ -37,7 +37,7 @@ class JobAlertsFragment : Fragment() {
                 //delete job alert
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Confirm")
-                builder.setMessage("Are you sure you want to delete this Job Alert?")
+                builder.setMessage("Are you sure you want to delete this job alert?")
                 builder.setPositiveButton("Delete") { dialog, which ->
                     jobSeekerViewModel.deleteJobAlert(value.id)
                 }

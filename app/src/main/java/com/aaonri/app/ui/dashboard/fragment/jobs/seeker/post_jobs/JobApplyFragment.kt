@@ -170,7 +170,7 @@ class JobApplyFragment : Fragment() {
                                             jobId = args.jobId,
                                             phoneNo = phoneNumber,
                                             resumeName = fileName ?: "",
-                                            jobProfileId = jobProfileId
+                                            profileId = "$jobProfileId"
                                         )
                                     )
                                 } else {
@@ -267,9 +267,17 @@ class JobApplyFragment : Fragment() {
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
                         binding?.progressBar?.visibility = View.GONE
-                        if (jobSeekerViewModel.resumeFileUri != null) {
-                            if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
-                                callUploadResumeApi(jobProfileId)
+                        if (response.data?.status == true) {
+                            if (jobSeekerViewModel.resumeFileUri != null) {
+                                if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
+                                    callUploadResumeApi(jobProfileId)
+                                } else {
+                                    val action =
+                                        JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
+                                            "ApplyJobScreen", args.isNavigatingFromSearchScreen
+                                        )
+                                    findNavController().navigate(action)
+                                }
                             } else {
                                 val action =
                                     JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
@@ -278,12 +286,9 @@ class JobApplyFragment : Fragment() {
                                 findNavController().navigate(action)
                             }
                         } else {
-                            val action =
-                                JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
-                                    "ApplyJobScreen", args.isNavigatingFromSearchScreen
-                                )
-                            findNavController().navigate(action)
+                            response?.data?.message?.let { showAlert(it) }
                         }
+
                         jobSeekerViewModel.applyJobData.postValue(null)
                     }
                     is Resource.Error -> {

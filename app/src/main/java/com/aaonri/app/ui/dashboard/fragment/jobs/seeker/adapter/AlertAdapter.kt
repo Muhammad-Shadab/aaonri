@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aaonri.app.data.jobs.seeker.model.JobAlert
 import com.aaonri.app.databinding.JobAlertItemBinding
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class AlertAdapter(private var selectedJobAlert: ((isUpdateBtnClicked: Boolean, isDeleteBtnClicked: Boolean, value: JobAlert) -> Unit)) :
     RecyclerView.Adapter<AlertAdapter.CustomViewHolder>() {
@@ -21,12 +23,21 @@ class AlertAdapter(private var selectedJobAlert: ((isUpdateBtnClicked: Boolean, 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
         holder.binding.apply {
+
             data[position].apply {
+
+                val random = if (expectedSalary != "string") expectedSalary.toDouble() else 0
+
+                val df = DecimalFormat("#,###.00")
+                df.roundingMode = RoundingMode.DOWN
+                val roundOff = df.format(random)
+
                 jobAlertTitleTv.text = jobAlertName
                 jobAlertSubTitleTv.text = role
                 jobAddressTv.text = location
                 jobExperienceTv.text = workExp
-                jobCategoriesTv.text = "$expectedSalary - $workStatus"
+
+                jobCategoriesTv.text = "$roundOff - $workStatus"
             }
 
             jobCv.setOnClickListener {

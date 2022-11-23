@@ -1,10 +1,12 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -48,6 +50,9 @@ class JobSeekerFilterFragment : Fragment() {
             jobSeekerViewModel.setSelectJobListMutableValue(it)
         }
 
+
+
+
         tempJobList.addAll(
             listOf(
                 JobType(
@@ -85,6 +90,8 @@ class JobSeekerFilterFragment : Fragment() {
 
             jobTypeRv.layoutManager = FlexboxLayoutManager(context)
             jobTypeRv.adapter = jobTypeAdapter
+
+
 
             navigateBack.setOnClickListener {
                 findNavController().navigateUp()

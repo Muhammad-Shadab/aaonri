@@ -234,6 +234,7 @@ class JobSearchFragment : Fragment() {
             recyclerViewAllJob.layoutManager = LinearLayoutManager(context)
             recyclerViewAllJob.adapter = jobAdapter
 
+
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     jobSeekerViewModel.setJobSearchFilterData(
@@ -468,6 +469,7 @@ class JobSearchFragment : Fragment() {
                             jobAdapter?.setData(response.data.jobDetailsList)
                             noResultFound.visibility = View.GONE
                             recyclerViewAllJob.visibility = View.VISIBLE
+
                         } else {
                             noResultFound.visibility = View.VISIBLE
                             recyclerViewAllJob.visibility = View.GONE
