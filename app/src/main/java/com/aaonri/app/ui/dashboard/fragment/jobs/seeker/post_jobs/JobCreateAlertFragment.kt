@@ -1,5 +1,6 @@
 package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.post_jobs
 
+import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class JobCreateAlertFragment : Fragment() {
     val args: JobCreateAlertFragmentArgs by navArgs()
     val jobSeekerViewModel: JobSeekerViewModel by activityViewModels()
     var selectedJobAdapter: SelectedJobAdapter? = null
+    var jobList = mutableListOf<JobType>()
     var workStatus = ""
     var userJobProfileId = 0
     var jobAlertId = 0
@@ -42,6 +44,34 @@ class JobCreateAlertFragment : Fragment() {
         selectedJobAdapter = SelectedJobAdapter {
             jobSeekerViewModel.setSelectJobListMutableValue(it)
         }
+
+        jobList = mutableListOf(
+            JobType(
+                count = 0,
+                name = "Full Time",
+                isSelected = false
+            ),
+            JobType(
+                count = 0,
+                name = "Part Time",
+                isSelected = false
+            ),
+            JobType(
+                count = 0,
+                name = "Internship",
+                isSelected = false
+            ),
+            JobType(
+                count = 0,
+                name = "Contract",
+                isSelected = false
+            ),
+            JobType(
+                count = 0,
+                name = "Contract to Hire",
+                isSelected = false
+            ),
+        )
 
         binding?.apply {
 
@@ -144,35 +174,7 @@ class JobCreateAlertFragment : Fragment() {
                 expectedSalaryEt.setText("")
                 locationEt.setText("")
 
-                jobSeekerViewModel.setSelectJobListMutableValue(
-                    listOf(
-                        JobType(
-                            count = 0,
-                            name = "Full Time",
-                            isSelected = false
-                        ),
-                        JobType(
-                            count = 0,
-                            name = "Part Time",
-                            isSelected = false
-                        ),
-                        JobType(
-                            count = 0,
-                            name = "Internship",
-                            isSelected = false
-                        ),
-                        JobType(
-                            count = 0,
-                            name = "Contract",
-                            isSelected = false
-                        ),
-                        JobType(
-                            count = 0,
-                            name = "Contract to Hire",
-                            isSelected = false
-                        ),
-                    )
-                )
+                jobSeekerViewModel.setSelectJobListMutableValue(jobList)
 
             }
 
@@ -357,7 +359,7 @@ class JobCreateAlertFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         jobSeekerViewModel.selectedExperienceLevel.postValue(null)
-        jobSeekerViewModel.selectedJobList.postValue(null)
+        jobSeekerViewModel.setSelectJobListMutableValue(jobList)
         jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
     }
 

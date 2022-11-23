@@ -96,7 +96,7 @@ class AllJobFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding?.progressBar?.visibility = View.GONE
-                    response.data?.let { jobAdapter?.setData(it.subList(0, 4)) }
+                    response.data?.let { jobAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
                     binding?.progressBar?.visibility = View.GONE

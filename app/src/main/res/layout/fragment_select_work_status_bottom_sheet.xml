@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/sf_pro_semi_bold"
-            android:text="Select Job Type"
+            android:text="Select Work Status"
             android:textColor="#333333"
             android:textSize="16sp" />
 
