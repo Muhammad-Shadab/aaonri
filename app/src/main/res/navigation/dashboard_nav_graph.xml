@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_recruiterTalentDetailsFragment"
             app:destination="@id/recruiterTalentDetailsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_jobSearchFragment"
+            app:destination="@id/jobSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/classifiedScreenFragment"

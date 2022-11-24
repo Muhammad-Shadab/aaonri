@@ -740,6 +740,7 @@ class HomeScreenFragment : Fragment() {
 
 
             /** Home Search/ Global search **/
+
             cancelButton.setOnClickListener {
                 searchView.setText("")
             }
@@ -1240,6 +1241,24 @@ class HomeScreenFragment : Fragment() {
                 advertiseViewModel.setSearchQueryToSetOnSearchViewValue(binding?.searchView?.text.toString())
                 binding?.searchView?.setText("")
                 interestServiceResponseItem = null
+            } else if (interestServiceResponseItem?.id == jobId) {
+                if (isJobRecruiter) {
+                    val bundle = Bundle()
+                    bundle.putString("searchKeyword", binding?.searchView?.text.toString())
+                    findNavController().navigate(
+                        R.id.action_homeScreenFragment_to_jobRecruiterScreenFragment,
+                        bundle
+                    )
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString("searchKeyword", binding?.searchView?.text.toString())
+                    findNavController().navigate(
+                        R.id.action_homeScreenFragment_to_jobSearchFragment,
+                        bundle
+                    )
+                }
+                binding?.searchView?.setText("")
+                interestServiceResponseItem = null
             } else {
                 activity?.let { it1 ->
                     Snackbar.make(
@@ -1268,7 +1287,7 @@ class HomeScreenFragment : Fragment() {
                 is Resource.Success -> {
                     val activeServiceList = mutableListOf<InterestResponseItem>()
                     if (response.data?.isNotEmpty() == true) {
-                        searchFilterModuleAdapter?.setData(response.data.filter { it.id == immigrationId || it.id == classifiedId || it.id == eventId || (it.id == advertiseId && !guestUser) })
+                        searchFilterModuleAdapter?.setData(response.data.filter { it.id == immigrationId || it.id == classifiedId || it.id == eventId || it.id == jobId || (it.id == advertiseId && !guestUser) })
                         if (interests?.isNotEmpty() == true) {
                             response.data.forEach {
                                 if (!activeServiceList.contains(it) && it.active && interests.contains(

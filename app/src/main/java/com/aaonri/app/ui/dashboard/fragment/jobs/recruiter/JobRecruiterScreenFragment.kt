@@ -255,7 +255,9 @@ class JobRecruiterScreenFragment : Fragment() {
 
         editProfileBtn.setOnClickListener {
             val action =
-                JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment(true)
+                JobRecruiterScreenFragmentDirections.actionJobRecruiterScreenFragmentToUpdateProfileFragment(
+                    true
+                )
             findNavController().navigate(action)
             updateLogoutDialog.dismiss()
         }
@@ -283,6 +285,22 @@ class JobRecruiterScreenFragment : Fragment() {
         }
 
         binding?.apply {
+
+            val searchKeyword = arguments?.get("searchKeyword")
+
+            if (searchKeyword != null) {
+                if (searchKeyword.toString().isNotEmpty()) {
+                    jobRecruiterViewModel.setJobRecruiterFilterValues(
+                        RecruiterJobFilterModel(
+                            anyKeywords = "",
+                            allKeywords = searchKeyword.toString(),
+                            availability = "",
+                            location = "",
+                            skillSet = ""
+                        )
+                    )
+                }
+            }
 
             context?.let {
                 Glide.with(it).load(profile)
