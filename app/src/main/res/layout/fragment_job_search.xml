@@ -117,6 +117,7 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             android:fontFamily="@font/helvetica_regular"
             android:hint="@string/search_jobs"
             android:imeOptions="actionDone"

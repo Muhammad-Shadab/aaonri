@@ -286,7 +286,7 @@ class JobApplyFragment : Fragment() {
                                 findNavController().navigate(action)
                             }
                         } else {
-                            response?.data?.message?.let { showAlert(it) }
+                            response.data?.message?.let { showAlert(it) }
                         }
 
                         jobSeekerViewModel.applyJobData.postValue(null)

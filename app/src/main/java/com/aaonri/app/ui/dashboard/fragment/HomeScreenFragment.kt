@@ -739,6 +739,7 @@ class HomeScreenFragment : Fragment() {
             }
 
 
+            /** Home Search/ Global search **/
             cancelButton.setOnClickListener {
                 searchView.setText("")
             }

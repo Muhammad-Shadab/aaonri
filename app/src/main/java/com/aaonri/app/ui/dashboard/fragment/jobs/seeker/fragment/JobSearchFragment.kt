@@ -2,12 +2,16 @@ package com.aaonri.app.ui.dashboard.fragment.jobs.seeker.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -234,6 +238,18 @@ class JobSearchFragment : Fragment() {
             recyclerViewAllJob.layoutManager = LinearLayoutManager(context)
             recyclerViewAllJob.adapter = jobAdapter
 
+            searchView.requestFocus()
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    val imm =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.toggleSoftInput(
+                        InputMethodManager.SHOW_FORCED,
+                        InputMethodManager.HIDE_IMPLICIT_ONLY
+                    )
+                }, 100
+            )
+            window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
             searchView.setOnEditorActionListener { textView, i, keyEvent ->
                 if (i == EditorInfo.IME_ACTION_DONE) {
@@ -454,7 +470,6 @@ class JobSearchFragment : Fragment() {
                     numberOfSelectedFilterCv.visibility = View.GONE
                     noResultFound.visibility = View.GONE
                 }
-
             }
 
 
@@ -469,7 +484,6 @@ class JobSearchFragment : Fragment() {
                             jobAdapter?.setData(response.data.jobDetailsList)
                             noResultFound.visibility = View.GONE
                             recyclerViewAllJob.visibility = View.VISIBLE
-
                         } else {
                             noResultFound.visibility = View.VISIBLE
                             recyclerViewAllJob.visibility = View.GONE
