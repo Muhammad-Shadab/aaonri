@@ -229,7 +229,7 @@ class ShopScreenFragment : Fragment() {
         binding?.shopWithUsWebView?.settings?.domStorageEnabled = true
         binding?.shopWithUsWebView?.clearView()
         binding?.shopWithUsWebView?.isHorizontalScrollBarEnabled = false
-        binding?.shopWithUsWebView?.settings?.setAppCacheEnabled(true)
+        //binding?.shopWithUsWebView?.settings?.setAppCacheEnabled(true)
         binding?.shopWithUsWebView?.settings?.databaseEnabled = true
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             binding?.shopWithUsWebView?.settings?.databasePath =

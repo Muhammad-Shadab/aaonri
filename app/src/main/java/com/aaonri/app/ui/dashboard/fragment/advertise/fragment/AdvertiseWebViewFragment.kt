@@ -76,7 +76,7 @@ class AdvertiseWebViewFragment : Fragment() {
         binding?.advertiseWebView?.settings?.domStorageEnabled = true
         binding?.advertiseWebView?.clearView()
         binding?.advertiseWebView?.isHorizontalScrollBarEnabled = false
-        binding?.advertiseWebView?.settings?.setAppCacheEnabled(true)
+        //binding?.advertiseWebView?.settings?.setAppCacheEnabled(true)
         binding?.advertiseWebView?.settings?.databaseEnabled = true
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             binding?.advertiseWebView?.settings?.databasePath =

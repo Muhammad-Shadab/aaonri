@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
+import com.aaonri.app.data.jobs.seeker.JobSeekerStaticData
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
@@ -89,7 +90,7 @@ class AllJobFragment : Fragment() {
             recyclerViewAllJob.adapter = jobAdapter
         }
 
-        jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
+        /*jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     binding?.progressBar?.visibility = View.VISIBLE
@@ -102,7 +103,10 @@ class AllJobFragment : Fragment() {
                     binding?.progressBar?.visibility = View.GONE
                 }
             }
+        }*/
 
+        JobSeekerStaticData.getJobListValue()?.let {
+            jobAdapter?.setData(it)
         }
 
         return binding?.root

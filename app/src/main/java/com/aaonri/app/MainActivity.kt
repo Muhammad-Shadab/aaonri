@@ -1,17 +1,26 @@
 package com.aaonri.app
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.provider.UserDictionary
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
@@ -31,13 +40,20 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
+import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import com.aaonri.app.utils.custom.UserProfileStaticData
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import java.util.concurrent.Executor
 
 
 @AndroidEntryPoint
@@ -52,7 +68,12 @@ class MainActivity : BaseActivity() {
     val mainViewModel: MainViewModel by viewModels()
     val immigrationViewModel: ImmigrationViewModel by viewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -82,6 +103,12 @@ class MainActivity : BaseActivity() {
         val email =
             applicationContext?.let { PreferenceManager<String>(it)[Constant.USER_EMAIL, ""] }
 
+        val isBioMetricEnable =
+            applicationContext?.let { PreferenceManager<Boolean>(it)[Constant.IS_BIOMETRIC_ENABLE, false] }
+
+        val showBioMetricDialogForOnce =
+            applicationContext?.let { PreferenceManager<Boolean>(it)[Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, true] }
+
         applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
             ?.set("selectedHomeServiceRow", -1)
 
@@ -100,7 +127,165 @@ class MainActivity : BaseActivity() {
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
 
+        executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+
+                    /** User clicked on use login with credential **/
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.BLOCKED_USER_ID, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_EMAIL, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_ZIP_CODE, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_CITY, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_STATE, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_USER_LOGIN, false)
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PROFILE_PIC, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_FIRST_NAME, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.GMAIL_LAST_NAME, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_NAME, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_JOB_RECRUITER, false)
+
+                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                        ?.set(Constant.USER_PHONE_NUMBER, "")
+
+                    applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+                        ?.set(Constant.USER_ID, 0)
+
+                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_BIOMETRIC_ENABLE, false)
+
+                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, true)
+
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.gmail_client_id))
+                        .requestEmail()
+                        .build()
+
+                    FirebaseAuth.getInstance().signOut()
+                    LoginManager.getInstance().logOut()
+                    mGoogleSignInClient =
+                        applicationContext?.let { GoogleSignIn.getClient(it, gso) }!!
+                    mGoogleSignInClient.signOut()
+
+                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                    /*Toast.makeText(
+                        applicationContext,
+                        "Authentication error: $errString", Toast.LENGTH_SHORT
+                    )
+                        .show()*/
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    /*Toast.makeText(
+                        applicationContext,
+                        "Authentication succeeded!", Toast.LENGTH_SHORT
+                    )
+                        .show()*/
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        applicationContext, "Authentication failed",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            })
+
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric login for aaonri")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Login with credentials?")
+            .build()
+
         binding?.apply {
+
+            if (showBioMetricDialogForOnce == true) {
+                val builder = AlertDialog.Builder(this@MainActivity)
+                builder.setTitle("Confirm")
+                builder.setMessage("Do you want to use Bio-Metric?")
+                builder.setPositiveButton("OK") { dialog, which ->
+                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                        ?.set(Constant.IS_BIOMETRIC_ENABLE, true)
+                }
+                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                }
+                builder.show()
+                applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                    ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, false)
+            }
+
+            if (isBioMetricEnable == true) {
+                val biometricManager = BiometricManager.from(applicationContext)
+                when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+                    BiometricManager.BIOMETRIC_SUCCESS -> {
+                        biometricPrompt.authenticate(promptInfo)
+                        Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
+                    }
+                    BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                        Log.e("MY_APP_TAG", "No biometric features available on this device.")
+                    }
+                    BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+                        Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                    }
+                    BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                        // Prompts the user to create credentials that your app accepts.
+                        val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                            putExtra(
+                                Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                                BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                            )
+                        }
+                        startActivityForResult(enrollIntent, 5)
+                    }
+                    BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED -> {
+                        TODO()
+                    }
+                    BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> {
+                        TODO()
+                    }
+                    BiometricManager.BIOMETRIC_STATUS_UNKNOWN -> {
+                        TODO()
+                    }
+                }
+            }
 
             bottomNavigation.setupWithNavController(navController)
 

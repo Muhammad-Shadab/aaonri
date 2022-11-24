@@ -11,12 +11,12 @@ plugins {
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.aaonri.app"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 8
         versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -175,6 +175,9 @@ dependencies {
 
     // Leak Canary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
+    // Bio metric
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
 
 
 }

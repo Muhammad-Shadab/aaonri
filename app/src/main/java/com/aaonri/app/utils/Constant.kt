@@ -22,10 +22,12 @@ object Constant {
     const val BLOCKED_USER_ID = "BLOCKED_USER_ID"
 
 
-
     // Gmail Login
     const val GMAIL_FIRST_NAME = "GMAIL_FIRST_NAME"
     const val GMAIL_LAST_NAME = "GMAIL_LAST_NAME"
+
+    const val IS_BIOMETRIC_ENABLE = "IS_BIOMETRIC_ENABLE"
+    const val SHOW_BIOMETRIC_DIALOG_FOR_ONCE = "SHOW_BIOMETRIC_DIALOG_FOR_ONCE"
 
     fun isConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
