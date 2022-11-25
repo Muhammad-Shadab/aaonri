@@ -40,17 +40,12 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
-import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import com.aaonri.app.utils.custom.UserProfileStaticData
-import com.facebook.login.LoginManager
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import java.util.concurrent.Executor
@@ -136,69 +131,69 @@ class MainActivity : BaseActivity() {
                 ) {
                     super.onAuthenticationError(errorCode, errString)
 
-                    /** User clicked on use login with credential **/
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.BLOCKED_USER_ID, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_EMAIL, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_ZIP_CODE, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_CITY, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_STATE, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_USER_LOGIN, false)
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_PROFILE_PIC, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.GMAIL_FIRST_NAME, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.GMAIL_LAST_NAME, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_INTERESTED_SERVICES, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_NAME, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_JOB_RECRUITER, false)
-
-                    applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
-                        ?.set(Constant.USER_PHONE_NUMBER, "")
-
-                    applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
-                        ?.set(Constant.USER_ID, 0)
-
-                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_BIOMETRIC_ENABLE, false)
-
-                    applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, true)
-
-                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.gmail_client_id))
-                        .requestEmail()
-                        .build()
-
-                    FirebaseAuth.getInstance().signOut()
-                    LoginManager.getInstance().logOut()
-                    mGoogleSignInClient =
-                        applicationContext?.let { GoogleSignIn.getClient(it, gso) }!!
-                    mGoogleSignInClient.signOut()
-
-                    val intent = Intent(applicationContext, LoginActivity::class.java)
-                    startActivity(intent)
+                    /** User clicked on cancel btn **/
                     finish()
+
+                    /*
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.BLOCKED_USER_ID, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_EMAIL, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_ZIP_CODE, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_CITY, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_STATE, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                         ?.set(Constant.IS_USER_LOGIN, false)
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_PROFILE_PIC, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.GMAIL_FIRST_NAME, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.GMAIL_LAST_NAME, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_INTERESTED_SERVICES, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_NAME, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                         ?.set(Constant.IS_JOB_RECRUITER, false)
+
+                     applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
+                         ?.set(Constant.USER_PHONE_NUMBER, "")
+
+                     applicationContext?.let { it1 -> PreferenceManager<Int>(it1) }
+                         ?.set(Constant.USER_ID, 0)
+
+                     applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                         ?.set(Constant.IS_BIOMETRIC_ENABLE, false)
+
+                     applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                         ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, true)
+
+                     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                         .requestIdToken(getString(R.string.gmail_client_id))
+                         .requestEmail()
+                         .build()
+
+                     FirebaseAuth.getInstance().signOut()
+                     LoginManager.getInstance().logOut()
+                     mGoogleSignInClient =
+                         applicationContext?.let { GoogleSignIn.getClient(it, gso) }!!
+                     mGoogleSignInClient.signOut()*/
+
 
                     /*Toast.makeText(
                         applicationContext,
@@ -231,7 +226,7 @@ class MainActivity : BaseActivity() {
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric login for aaonri")
             .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Login with credentials?")
+            .setNegativeButtonText("Cancel")
             .build()
 
         binding?.apply {
