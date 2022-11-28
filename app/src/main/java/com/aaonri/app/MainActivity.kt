@@ -18,7 +18,6 @@ import android.provider.UserDictionary
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -38,6 +37,7 @@ import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.event.model.AllEventRequest
 import com.aaonri.app.data.event.viewmodel.EventViewModel
+import com.aaonri.app.data.home.model.SendFcmTokenUserIdRequest
 import com.aaonri.app.data.home.viewmodel.HomeViewModel
 import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
@@ -71,6 +71,7 @@ class MainActivity : BaseActivity() {
     val registrationViewModel: RegistrationViewModel by viewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
     private var cancellationSignal: CancellationSignal? = null
+    private var fireBaseToken = ""
 
     private val authenticationCallback: BiometricPrompt.AuthenticationCallback
         get() =
@@ -252,18 +253,20 @@ class MainActivity : BaseActivity() {
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String ->
             if (!TextUtils.isEmpty(token)) {
+                //Toast.makeText(applicationContext, token, Toast.LENGTH_LONG).show()
                 Log.d("FirebaseTokenUser", "retrieve token successful : $token")
-                Toast.makeText(applicationContext, "$token", Toast.LENGTH_LONG).show()
+                fireBaseToken = token
             } else {
                 Log.w("FirebaseTokenUser", "token should not be null...")
             }
         }.addOnFailureListener { e: Exception? -> }.addOnCanceledListener {}
             .addOnCompleteListener { task: Task<String> ->
+                fireBaseToken = task.result
                 Log.v(
                     "FirebaseTokenUser",
                     "This is the token : " + task.result
                 )
-                Toast.makeText(applicationContext, task.result, Toast.LENGTH_LONG).show()
+                //Toast.makeText(applicationContext, task.result, Toast.LENGTH_LONG).show()
             }
 
         binding?.apply {
@@ -554,10 +557,7 @@ class MainActivity : BaseActivity() {
         mainViewModel.allActiveAdvertise.observe(this@MainActivity) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
+                    CustomDialog.showLoader(this)
                 }
                 is Resource.Success -> {
                     val adsAbovePopularItem = mutableListOf<FindAllActiveAdvertiseResponseItem>()
@@ -570,7 +570,6 @@ class MainActivity : BaseActivity() {
                     val eventAdJustAboveFooter = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventAdOnDetailsScreen = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     CustomDialog.hideLoader()
                     response.data?.forEach { data ->
 
@@ -730,6 +729,15 @@ class MainActivity : BaseActivity() {
                     }
 
                     response.data?.userId?.let {
+
+                        homeViewModel.sendFcmTokenAndUserId(
+                            SendFcmTokenUserIdRequest(
+                                fcmToken = fireBaseToken,
+                                deviceType = "android",
+                                userId = "$it",
+                            )
+                        )
+
                         PreferenceManager<Int>(applicationContext)[Constant.USER_ID] =
                             it
                     }
@@ -759,8 +767,6 @@ class MainActivity : BaseActivity() {
                     )
                         .show()
                 }
-                else -> {
-                }
             }
         }
 
@@ -779,7 +785,22 @@ class MainActivity : BaseActivity() {
                 is Resource.Error -> {
 
                 }
-                else -> {}
+            }
+        }
+
+        homeViewModel.sendFcmTokenAndUserIdData.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    if (response.data?.status == true) {
+
+                    }
+                }
+                is Resource.Error -> {
+
+                }
             }
         }
 
@@ -1016,10 +1037,10 @@ class MainActivity : BaseActivity() {
         ) {
             // Prompts the user to create credentials that your app accepts.
             val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                 putExtra(
-                     Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-                     BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-                 )
+                putExtra(
+                    Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                    BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                )
             }
             startActivityForResult(enrollIntent, 5)
             //notifyUser("Fingerprint has not been enabled in settings.")

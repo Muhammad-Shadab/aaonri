@@ -59,7 +59,7 @@
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="@id/homeTv"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bellIconIv"
         app:layout_constraintTop_toTopOf="@id/homeTv"
         app:strokeColor="@color/white"
         app:strokeWidth="@dimen/_1sdp">
@@ -73,7 +73,6 @@
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
-<!--
     <ImageView
         android:id="@+id/bellIconIv"
         android:layout_width="@dimen/_28sdp"
@@ -81,10 +80,34 @@
         android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
-        app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
-        app:layout_constraintEnd_toStartOf="@id/profilePicCv"
-        app:layout_constraintTop_toTopOf="@id/profilePicCv" />
--->
+        app:layout_constraintBottom_toBottomOf="@id/homeTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/homeTv" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/numberOfNotificationCv"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:translationY="14dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/redcolor"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@id/bellIconIv"
+        app:layout_constraintEnd_toEndOf="@id/bellIconIv">
+
+        <TextView
+            android:id="@+id/numberOfNotificationTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/searchViewll"
@@ -591,7 +614,7 @@
                 android:id="@+id/blurView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#F2FFFFFF"/>
+                android:background="#F2FFFFFF" />
 
             <!--<com.github.mmin18.widget.RealtimeBlurView
                 android:id="@+id/blurView"

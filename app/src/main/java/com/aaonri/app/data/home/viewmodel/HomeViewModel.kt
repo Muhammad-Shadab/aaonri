@@ -7,6 +7,8 @@ import com.aaonri.app.data.advertise.model.FindAllActiveAdvertiseResponseItem
 import com.aaonri.app.data.event.model.EventResponse
 import com.aaonri.app.data.home.model.InterestResponse
 import com.aaonri.app.data.home.model.PoplarClassifiedResponse
+import com.aaonri.app.data.home.model.SendFcmTokenUserIdRequest
+import com.aaonri.app.data.home.model.SendFcmTokenUserIdResponse
 import com.aaonri.app.data.home.repository.HomeRepository
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,6 +39,9 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         MutableLiveData()*/
 
     val popularClassifiedData: MutableLiveData<Resource<PoplarClassifiedResponse>> =
+        MutableLiveData()
+
+    val sendFcmTokenAndUserIdData: MutableLiveData<Resource<SendFcmTokenUserIdResponse>> =
         MutableLiveData()
 
     var adsBelowFirstSection: MutableLiveData<MutableList<FindAllActiveAdvertiseResponseItem>> =
@@ -125,6 +130,22 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun setHomeContentScrollToTop(value: Boolean) {
         homeContentScrollToTop.postValue(value)
+    }
+
+    fun sendFcmTokenAndUserId(sendFcmTokenUserIdRequest: SendFcmTokenUserIdRequest) =
+        viewModelScope.launch {
+            sendFcmTokenAndUserIdData.postValue(Resource.Loading())
+            val response = homeRepository.sendFcmTokenAndUserId(sendFcmTokenUserIdRequest)
+            sendFcmTokenAndUserIdData.postValue(handleSendFcmTokenUserIdResponse(response))
+        }
+
+    private fun handleSendFcmTokenUserIdResponse(response: Response<SendFcmTokenUserIdResponse>): Resource<SendFcmTokenUserIdResponse>? {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
     }
 
 
