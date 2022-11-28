@@ -16,6 +16,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.model.NewPasswordRequest
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentCreateNewPasswordBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
@@ -107,18 +108,16 @@ class CreateNewPasswordFragment : Fragment() {
         forgotPasswordViewModel.newPasswordData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     findNavController().navigate(R.id.action_createNewPasswordFragment_to_passwordResetSuccessBottom)
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
                 }
             }
         }

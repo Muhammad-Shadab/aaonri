@@ -24,6 +24,7 @@ import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedJobAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedVisaStatusAdapterJobRecruiter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -178,10 +179,10 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             jobRecruiterViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBarContainer.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.forEachIndexed { index, visaStatus ->
                             response.data[index].isSelected =
                                 jobDetailsApplicabilityList.indexOfFirst { it.applicability == visaStatus.applicability } != -1
@@ -194,7 +195,7 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -284,17 +285,17 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             jobRecruiterViewModel.postJobData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBarContainer.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         val action =
                             RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToRecruiterBottomSuccessFragment()
                         findNavController().navigate(action)
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                     is Resource.Error -> {
                         Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -302,17 +303,17 @@ class RecruiterPostJobRequirementsDetails : Fragment() {
             jobRecruiterViewModel.updateJobData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBarContainer.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         val action =
                             RecruiterPostJobRequirementsDetailsDirections.actionRecruiterPostJobCompanyDetailsFragmentToRecruiterBottomSuccessFragment()
                         findNavController().navigate(action)
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                     is Resource.Error -> {
                         Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
-                        progressBarContainer.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

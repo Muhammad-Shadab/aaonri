@@ -10,6 +10,7 @@ import com.aaonri.app.data.jobs.seeker.model.AllActiveJobApplicabilityResponseIt
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobSeekerSelectVisaStatusBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.VisaStatusAdapterJobSeeker
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -57,10 +58,10 @@ class JobSeekerSelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
             jobSeekerViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.forEach {
                             if (!apiVisaStatusList.contains(it)) {
                                 apiVisaStatusList.add(it)
@@ -68,7 +69,7 @@ class JobSeekerSelectVisaStatusBottomSheet : BottomSheetDialogFragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

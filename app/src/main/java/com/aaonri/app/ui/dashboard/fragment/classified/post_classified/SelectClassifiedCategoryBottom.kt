@@ -12,6 +12,7 @@ import com.aaonri.app.data.classified.ClassifiedStaticData
 import com.aaonri.app.ui.dashboard.fragment.classified.adapter.ClassifiedCategoryAdapter
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentSelectClassifiedCategoryBottomBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,23 +56,17 @@ class SelectClassifiedCategoryBottom : BottomSheetDialogFragment() {
             postClassifiedViewModel.classifiedCategoryData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBarCommunityBottom?.visibility =
-                            View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBarCommunityBottom?.visibility =
-                            View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             classifiedCategoryAdapter!!.setData(it)
                             ClassifiedStaticData.updateCategoryList(it)
                         }
                     }
                     is Resource.Error -> {
-                        binding?.progressBarCommunityBottom?.visibility =
-                            View.GONE
-                    }
-                    else -> {
-
+                        CustomDialog.hideLoader()
                     }
                 }
             }

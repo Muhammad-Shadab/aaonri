@@ -32,10 +32,7 @@ import com.aaonri.app.data.event.model.ImageXX
 import com.aaonri.app.data.event.model.PostEventRequest
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentPostEventAddressDetailsBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -328,7 +325,7 @@ class PostEventAddressDetailsFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
 
@@ -341,11 +338,11 @@ class PostEventAddressDetailsFragment : Fragment() {
                             }
                         }
 
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         postEventViewModel.postEventData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -354,7 +351,7 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.updateEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     if (postEventViewModel.listOfImagesUri.size > 0) {
@@ -370,10 +367,10 @@ class PostEventAddressDetailsFragment : Fragment() {
                     } else {
                         findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -381,14 +378,14 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.uploadPictureData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -476,14 +473,14 @@ class PostEventAddressDetailsFragment : Fragment() {
         postEventViewModel.deletePictureData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     findNavController().navigate(R.id.action_postEventAddressDetailsFragment_to_eventPostSuccessfulBottom)
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentResetPasswordInfoBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,10 +41,10 @@ class ResetPasswordInfoFragment : Fragment() {
         forgotPasswordViewModel.verifyPassword.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     activity?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(android.R.id.content),
@@ -52,7 +53,7 @@ class ResetPasswordInfoFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

@@ -38,7 +38,6 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.data.jobs.recruiter.JobRecruiterStaticData
 import com.aaonri.app.data.jobs.recruiter.model.SearchAllTalentRequest
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
-import com.aaonri.app.data.jobs.seeker.JobSeekerStaticData
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
@@ -933,10 +932,10 @@ class HomeScreenFragment : Fragment() {
         homeViewModel.homeEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
 
                     if (response.data?.userEvent?.isNotEmpty() == true) {
                         if (response.data.userEvent.size >= 4) {
@@ -950,7 +949,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -1021,7 +1020,7 @@ class HomeScreenFragment : Fragment() {
             when (response) {
                 is Resource.Loading -> {
                     binding?.homeConstraintLayout?.visibility = View.GONE
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     if (response.data?.isNotEmpty() == true) {
@@ -1033,11 +1032,11 @@ class HomeScreenFragment : Fragment() {
                     }
                     binding?.homeConstraintLayout?.visibility = View.VISIBLE
                     binding?.popularItemsRv?.adapter = popularClassifiedAdapter
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
                     binding?.homeConstraintLayout?.visibility = View.GONE
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -1085,7 +1084,7 @@ class HomeScreenFragment : Fragment() {
                         ) else response.data.userAdsList
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -1127,10 +1126,10 @@ class HomeScreenFragment : Fragment() {
         ) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.discussionList?.let {
                         if (it.size >= 4) {
                             immigrationAdapter?.setData(it.subList(0, 4))
@@ -1140,7 +1139,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -1149,12 +1148,11 @@ class HomeScreenFragment : Fragment() {
         jobRecruiterViewModel.allTalentListData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     response.data?.let {
                         if (it.jobProfiles.isNotEmpty()) {
-                            JobRecruiterStaticData.setTalentListData(it.jobProfiles)
                             if (it.jobProfiles.size >= 4) {
                                 allJobProfileAdapter?.setData(
                                     it.jobProfiles.filter { it.isApplicant }.subList(0, 4)
@@ -1164,10 +1162,10 @@ class HomeScreenFragment : Fragment() {
                             }
                         }
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -1176,13 +1174,12 @@ class HomeScreenFragment : Fragment() {
         jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.let {
                         if (it.isNotEmpty()) {
-                            JobSeekerStaticData.setJobListData(it)
                             if (it.size >= 4) {
                                 jobSeekerAdapter?.setData(it.subList(0, 4))
                             } else {
@@ -1192,7 +1189,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
 

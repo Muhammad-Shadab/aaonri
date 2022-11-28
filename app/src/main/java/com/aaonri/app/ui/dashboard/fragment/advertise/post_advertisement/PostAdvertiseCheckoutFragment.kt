@@ -15,6 +15,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.*
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertiseCheckoutBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -136,10 +137,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.postedAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                         response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -149,7 +150,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -157,10 +158,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.updateAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true && postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.startsWith(
                             "htt"
                         ) != true
@@ -173,7 +174,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -181,10 +182,10 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.renewAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     /*  if (postAdvertiseViewModel.companyBasicDetailsMap[AdvertiseConstant.ADVERTISE_IMAGE_URI]?.isNotEmpty() == true) {
                           *//*response.data?.advertisementId?.let {
                             callUploadAdvertisePicApi(it)
@@ -194,7 +195,7 @@ class PostAdvertiseCheckoutFragment : Fragment() {
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -202,14 +203,14 @@ class PostAdvertiseCheckoutFragment : Fragment() {
         postAdvertiseViewModel.uploadAdvertiseImageData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     findNavController().navigate(R.id.action_postAdvertiseCheckout_to_advertisePostSuccessFragment)
                 }
                 is Resource.Error -> {
-                    binding?.progressBarBasicDetails?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

@@ -230,10 +230,12 @@ class LoginFragment : Fragment() {
         registrationViewModel.loginData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
+                    //binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
+                    //binding?.progressBarCommunityBottom?.visibility = View.GONE
                     if (response.data?.userName.equals("failed")) {
                         activity?.let { it1 ->
                             Snackbar.make(
@@ -365,7 +367,8 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
+                    //binding?.progressBarCommunityBottom?.visibility = View.GONE
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -406,10 +409,10 @@ class LoginFragment : Fragment() {
         registrationViewModel.emailAlreadyRegisterData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.status == "true") {
 
                         context?.let {
@@ -429,12 +432,9 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
-                }
-                else -> {
-
                 }
             }
         }
@@ -567,7 +567,7 @@ class LoginFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         activity?.let { it1 ->
@@ -576,11 +576,11 @@ class LoginFragment : Fragment() {
                                 "${response.data?.message}", Snackbar.LENGTH_LONG
                             ).show()
                         }
-                        binding?.progressBarCommunityBottom?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         registrationViewModel.resendEmailVerificationData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBarCommunityBottom?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -599,7 +599,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun signInFacebook() {
-        binding?.progressBarCommunityBottom?.visibility = View.VISIBLE
+        CustomDialog.showLoader(requireActivity())
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
@@ -608,7 +608,7 @@ class LoginFragment : Fragment() {
 
                 override fun onCancel() {
                     //Toast.makeText(context, "ufy", Toast.LENGTH_SHORT).show()
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
 
                 override fun onError(error: FacebookException) {
@@ -616,7 +616,7 @@ class LoginFragment : Fragment() {
                     mGoogleSignInClient.signOut()
                     LoginManager.getInstance().logOut()
                     Toast.makeText(context, "${error.message}", Toast.LENGTH_SHORT).show()
-                    binding?.progressBarCommunityBottom?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             })
     }
@@ -625,13 +625,13 @@ class LoginFragment : Fragment() {
 
         val creadiantial = FacebookAuthProvider.getCredential(accessToken!!.token)
         firebaseAuth.signInWithCredential(creadiantial).addOnFailureListener {
-            binding?.progressBarCommunityBottom?.visibility = View.GONE
+            CustomDialog.hideLoader()
             FirebaseAuth.getInstance().signOut()
             mGoogleSignInClient.signOut()
             LoginManager.getInstance().logOut()
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener {
-            binding?.progressBarCommunityBottom?.visibility = View.GONE
+            CustomDialog.hideLoader()
 
             val email = it.user?.email
             val name = it.user?.displayName

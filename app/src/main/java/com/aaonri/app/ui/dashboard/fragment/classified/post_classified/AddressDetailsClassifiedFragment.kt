@@ -329,7 +329,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.postClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     if (response.data?.id.toString().isNotEmpty()) {
@@ -342,10 +342,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             findNavController().navigate(action)
                         }
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -354,7 +354,7 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.updateClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     if (postClassifiedViewModel.listOfImagesUri.size > 0) {
@@ -364,10 +364,10 @@ class AddressDetailsClassifiedFragment : Fragment() {
                             AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                         findNavController().navigate(action)
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -425,16 +425,16 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.uploadClassifiedPics.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     val action =
                         AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                     findNavController().navigate(action)
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -443,16 +443,16 @@ class AddressDetailsClassifiedFragment : Fragment() {
         postClassifiedViewModel.deleteClassifiedPics.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     val action =
                         AddressDetailsClassifiedFragmentDirections.actionAddressDetailsClassifiedFragmentToClassifiedPostSuccessBottom()
                     findNavController().navigate(action)
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }

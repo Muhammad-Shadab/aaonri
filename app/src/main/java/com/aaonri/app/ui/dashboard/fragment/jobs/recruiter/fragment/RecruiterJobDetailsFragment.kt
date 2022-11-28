@@ -19,6 +19,7 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterJobKeySkillsAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,10 +89,10 @@ class RecruiterJobDetailsFragment : Fragment() {
             jobRecruiterViewModel.jobDetailsByIdData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
 
                             JobRecruiterStaticData.setJobDetailsData(it)
@@ -142,7 +143,7 @@ class RecruiterJobDetailsFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -151,17 +152,17 @@ class RecruiterJobDetailsFragment : Fragment() {
                 if (response != null) {
                     when (response) {
                         is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                         is Resource.Success -> {
-                            progressBar.visibility = View.GONE
+                            CustomDialog.hideLoader()
 
                             jobRecruiterViewModel.findJobDetailsById(args.jobId)
 
                             jobRecruiterViewModel.changeJobStatusData.postValue(null)
                         }
                         is Resource.Error -> {
-                            progressBar.visibility = View.GONE
+                            CustomDialog.hideLoader()
                         }
                     }
                 }

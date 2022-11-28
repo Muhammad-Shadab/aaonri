@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterJobApplicantsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.JobApplicantAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,17 +58,17 @@ class RecruiterJobApplicantsFragment : Fragment() {
             jobRecruiterViewModel.jobApplicantListData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             totalApplicantTv.text = "Job Applicants for this job (${it.size})"
                             jobApplicantAdapter?.setData(it)
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
 

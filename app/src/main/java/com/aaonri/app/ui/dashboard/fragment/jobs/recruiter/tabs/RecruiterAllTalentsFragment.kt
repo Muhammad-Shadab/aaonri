@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterAllTalentsFragmetBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.AllJobProfileAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,6 +34,8 @@ class RecruiterAllTalentsFragment : Fragment() {
 
         binding?.apply {
 
+            recyclerViewAllTalents.setHasFixedSize(true)
+            recyclerViewAllTalents.isNestedScrollingEnabled = false
 
             recyclerViewAllTalents.layoutManager = LinearLayoutManager(context)
             recyclerViewAllTalents.adapter = allJobProfileAdapter
@@ -40,7 +43,7 @@ class RecruiterAllTalentsFragment : Fragment() {
             jobRecruiterViewModel.allTalentListData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         response.data?.let {
@@ -53,10 +56,10 @@ class RecruiterAllTalentsFragment : Fragment() {
                                 resultsNotFoundLL.visibility = View.VISIBLE
                             }
                         }
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

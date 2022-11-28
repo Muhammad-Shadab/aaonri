@@ -47,13 +47,6 @@
                 android:iconifiedByDefault="false"
                 android:queryHint="@string/select_your_country" />
 
-            <ProgressBar
-                android:id="@+id/progressBarCommunityBottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/countriesRv"
                 android:layout_width="match_parent"

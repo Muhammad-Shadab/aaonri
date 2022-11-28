@@ -18,6 +18,7 @@ import com.aaonri.app.data.authentication.register.viewmodel.RegistrationViewMod
 import com.aaonri.app.databinding.FragmentUpdateProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.update_profile.adapter.UpdateProfilePagerAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.UserProfileStaticData
@@ -85,10 +86,10 @@ class UpdateProfileFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         if (response.data?.user != null) {
                             if (authCommonViewModel.profilePicUri != null) {
                                 uploadProfilePicture(
@@ -117,7 +118,7 @@ class UpdateProfileFragment : Fragment() {
                         registrationViewModel.updateUserData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         Toast.makeText(
                             context,
                             "Error ${response.message}",
@@ -133,10 +134,10 @@ class UpdateProfileFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         authCommonViewModel.setProfilePicUriValue(null)
                         email?.let { registrationViewModel.findByEmail(email = it) }
                         context?.let { it1 -> PreferenceManager<Int>(it1) }
@@ -150,7 +151,7 @@ class UpdateProfileFragment : Fragment() {
                         authCommonViewModel.uploadProfilePicData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         Toast.makeText(
                             context,
                             "Error ${response.message}",

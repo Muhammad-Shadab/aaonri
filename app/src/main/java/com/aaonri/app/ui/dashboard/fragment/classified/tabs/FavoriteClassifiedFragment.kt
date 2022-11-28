@@ -150,10 +150,10 @@ FavoriteClassifiedFragment : Fragment() {
         classifiedViewModel.favoriteClassifiedData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
 
                     if (response.data?.classifieds?.isNotEmpty() == true) {
                         binding?.nestedScrollView?.visibility = View.GONE
@@ -168,11 +168,10 @@ FavoriteClassifiedFragment : Fragment() {
                         binding?.nestedScrollView?.visibility = View.VISIBLE
                     }
 
-                    binding?.recyclerViewClassified?.adapter =
-                        favoriteClassifiedAdapter
+                    binding?.recyclerViewClassified?.adapter = favoriteClassifiedAdapter
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

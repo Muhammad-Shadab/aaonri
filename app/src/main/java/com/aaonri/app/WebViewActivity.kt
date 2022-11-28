@@ -1,6 +1,5 @@
 package com.aaonri.app
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
@@ -12,16 +11,16 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import com.aaonri.app.base.BaseActivity
 import com.aaonri.app.databinding.ActivityWebViewBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WebViewActivity : BaseActivity() {
     var binding: ActivityWebViewBinding? = null
-
+    var hideBottomBar = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWebViewBinding.inflate(layoutInflater)
@@ -40,11 +39,11 @@ class WebViewActivity : BaseActivity() {
         window.statusBarColor = Color.TRANSPARENT
 
         val url = intent.getStringExtra("url")
-        val hideBottomBar = intent.getBooleanExtra("hideBottomBar", false)
+        hideBottomBar = intent.getBooleanExtra("hideBottomBar", false)
 
         binding?.apply {
 
-            progressBar.visibility = View.VISIBLE
+            CustomDialog.showLoader(this@WebViewActivity)
 
             if (url != null) {
                 startWebView(url)
@@ -102,6 +101,7 @@ class WebViewActivity : BaseActivity() {
         binding?.advertiseWebView?.settings?.useWideViewPort = true
         binding?.advertiseWebView?.settings?.loadWithOverviewMode = true
         binding?.advertiseWebView?.settings?.domStorageEnabled = true
+        binding?.advertiseWebView?.settings?.allowFileAccess = true
         binding?.advertiseWebView?.clearView()
         binding?.advertiseWebView?.isHorizontalScrollBarEnabled = false
         //binding?.advertiseWebView?.settings?.setAppCacheEnabled(true)
@@ -113,18 +113,19 @@ class WebViewActivity : BaseActivity() {
         binding?.advertiseWebView?.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
         binding?.advertiseWebView?.settings?.useWideViewPort = true
         binding?.advertiseWebView?.settings?.loadWithOverviewMode = true
-        binding?.progressBar?.visibility = View.VISIBLE
+        CustomDialog.showLoader(this)
 
         binding?.advertiseWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if (url.contains(".pdf")) {
+                /*if (url.contains(".pdf")) {
                     view.loadUrl(url)
-                }
+                }*/
+                view.loadUrl(url)
                 return true
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-                binding?.progressBar?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
 
             override fun onReceivedError(
@@ -133,10 +134,16 @@ class WebViewActivity : BaseActivity() {
                 description: String,
                 failingUrl: String
             ) {
-                binding?.progressBar?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
         }
 
-        binding?.advertiseWebView?.loadUrl(url)
+        if (hideBottomBar) {
+            val doc =
+                "<iframe src='$url' width='100%' height='100%' style='border: none;'></iframe>"
+            binding?.advertiseWebView?.loadData(doc, "text/html", "UTF-8")
+        } else {
+            binding?.advertiseWebView?.loadUrl(url)
+        }
     }
 }

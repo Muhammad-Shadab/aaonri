@@ -14,6 +14,7 @@ import com.aaonri.app.data.jobs.recruiter.model.BillingTypeResponseItem
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentJobRequirementScreenBottomSheetBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.ExperienceIndustriesBillingTypeAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,10 +69,10 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                     jobRecruiterViewModel.allExperienceLevelData.observe(viewLifecycleOwner) { response ->
                         when (response) {
                             is Resource.Loading -> {
-                                progressBar.visibility = View.VISIBLE
+                                CustomDialog.showLoader(requireActivity())
                             }
                             is Resource.Success -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                                 response.data?.let {
                                     experienceIndustriesBillingTypeAdapter?.setData(
                                         it
@@ -79,7 +80,7 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                                 }
                             }
                             is Resource.Error -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                             }
                         }
                     }
@@ -91,10 +92,10 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                     jobRecruiterViewModel.allActiveIndustryData.observe(viewLifecycleOwner) { response ->
                         when (response) {
                             is Resource.Loading -> {
-                                progressBar.visibility = View.VISIBLE
+                                CustomDialog.showLoader(requireActivity())
                             }
                             is Resource.Success -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                                 response.data?.let {
                                     experienceIndustriesBillingTypeAdapter?.setData(
                                         it
@@ -102,7 +103,7 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                                 }
                             }
                             is Resource.Error -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                             }
                         }
                     }
@@ -114,10 +115,10 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                     jobRecruiterViewModel.jobBillingTypeData.observe(viewLifecycleOwner) { response ->
                         when (response) {
                             is Resource.Loading -> {
-                                progressBar.visibility = View.VISIBLE
+                                CustomDialog.showLoader(requireActivity())
                             }
                             is Resource.Success -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                                 response.data?.let {
                                     experienceIndustriesBillingTypeAdapter?.setData(
                                         it
@@ -125,7 +126,7 @@ class ExperienceIndustriesBillingTypeBottomSheet : BottomSheetDialogFragment() {
                                 }
                             }
                             is Resource.Error -> {
-                                progressBar.visibility = View.GONE
+                                CustomDialog.hideLoader()
                             }
                         }
                     }

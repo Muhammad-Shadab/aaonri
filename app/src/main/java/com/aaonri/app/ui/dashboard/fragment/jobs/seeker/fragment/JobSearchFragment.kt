@@ -28,10 +28,7 @@ import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobSearchBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSearchAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
@@ -505,7 +502,7 @@ class JobSearchFragment : Fragment() {
                     numberOfSelectedFilterCv.visibility = View.VISIBLE
                 } else {
                     isFilterEnable = false
-                    progressBar.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     selectedFiltersRow.visibility = View.GONE
                     numberOfSelectedFilterCv.visibility = View.GONE
                     noResultFound.visibility = View.GONE
@@ -516,10 +513,10 @@ class JobSearchFragment : Fragment() {
             jobSeekerViewModel.searchJobData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         if (response.data?.jobDetailsList?.isNotEmpty() == true) {
                             jobAdapter?.setData(response.data.jobDetailsList)
                             noResultFound.visibility = View.GONE
@@ -530,7 +527,7 @@ class JobSearchFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

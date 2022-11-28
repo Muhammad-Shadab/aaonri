@@ -20,6 +20,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.model.AdvertiseDetailsResponse
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentAdvertisementDetailsBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -65,17 +66,17 @@ class AdvertisementDetailsFragment : Fragment() {
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                     binding?.classifiedDetailsBottom?.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     AdvertiseStaticData.updateAdvertiseDetails(response.data)
                     setData(response.data)
                     binding?.classifiedDetailsBottom?.visibility = View.VISIBLE
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

@@ -11,6 +11,7 @@ import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterConsultantProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.ConsultantProfileAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class RecruiterConsultantProfileFragment : Fragment() {
             jobRecruiterViewModel.getUserConsultantProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         if (response.data?.jobProfile?.isNotEmpty() == true) {
@@ -65,10 +66,10 @@ class RecruiterConsultantProfileFragment : Fragment() {
                                 hideFloatingBtn = true
                             )
                         }
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aaonri.app.databinding.FragmentAdvertiseWebviewBinding
+import com.aaonri.app.utils.CustomDialog
 
 
 class AdvertiseWebViewFragment : Fragment() {
@@ -26,7 +27,7 @@ class AdvertiseWebViewFragment : Fragment() {
         binding = FragmentAdvertiseWebviewBinding.inflate(inflater, container, false)
         binding?.apply {
 
-            progressBar.visibility = View.VISIBLE
+            CustomDialog.showLoader(requireActivity())
             startWebView(args.advertiseurl)
 
             closeWebViewBtn.setOnClickListener {
@@ -85,7 +86,7 @@ class AdvertiseWebViewFragment : Fragment() {
         binding?.advertiseWebView?.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
         binding?.advertiseWebView?.settings?.useWideViewPort = true
         binding?.advertiseWebView?.settings?.loadWithOverviewMode = true
-        binding?.progressBar?.visibility = View.VISIBLE
+        CustomDialog.showLoader(requireActivity())
         binding?.advertiseWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
@@ -93,7 +94,7 @@ class AdvertiseWebViewFragment : Fragment() {
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-                binding?.progressBar?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
 
             override fun onReceivedError(
@@ -102,7 +103,7 @@ class AdvertiseWebViewFragment : Fragment() {
                 description: String,
                 failingUrl: String
             ) {
-                binding?.progressBar?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
         }
 

@@ -13,13 +13,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aaonri.app.R
-import com.aaonri.app.data.jobs.seeker.JobSeekerStaticData
 import com.aaonri.app.data.jobs.seeker.model.AllJobsResponseItem
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentAllJobBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,23 +90,19 @@ class AllJobFragment : Fragment() {
             recyclerViewAllJob.adapter = jobAdapter
         }
 
-        /*jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
+        jobSeekerViewModel.allActiveJobsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.let { jobAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
-        }*/
-
-        JobSeekerStaticData.getJobListValue()?.let {
-            jobAdapter?.setData(it)
         }
 
         return binding?.root

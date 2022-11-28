@@ -15,8 +15,10 @@ import com.aaonri.app.data.jobs.seeker.model.JobProfile
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentMyJobProfileBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.JobSeekerAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MyJobProfileFragment : Fragment() {
@@ -67,10 +69,10 @@ class MyJobProfileFragment : Fragment() {
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
                                 itemsNestedScrollView.visibility = View.VISIBLE
@@ -85,7 +87,7 @@ class MyJobProfileFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -95,6 +97,7 @@ class MyJobProfileFragment : Fragment() {
         return binding?.root
 
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

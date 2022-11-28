@@ -177,10 +177,10 @@ class AllClassifiedFragment : Fragment() {
         classifiedViewModel.classifiedByUserData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.userAdsList?.let { adsList ->
                         if (isDatePublishedSelected) {
                             allClassifiedAdapter?.setData(adsList)
@@ -206,7 +206,7 @@ class AllClassifiedFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

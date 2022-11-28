@@ -2,25 +2,29 @@ package com.aaonri.app
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Color
-import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import android.hardware.biometrics.BiometricPrompt
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.os.CancellationSignal
 import android.provider.Settings
 import android.provider.UserDictionary
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.aaonri.app.base.BaseActivity
@@ -41,14 +45,16 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.viewmodel.MainViewModel
 import com.aaonri.app.databinding.ActivityMainBinding
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.custom.ConnectivityReceiver
 import com.aaonri.app.utils.custom.UserProfileStaticData
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import java.util.concurrent.Executor
 
 
 @AndroidEntryPoint
@@ -64,9 +70,23 @@ class MainActivity : BaseActivity() {
     val immigrationViewModel: ImmigrationViewModel by viewModels()
     val registrationViewModel: RegistrationViewModel by viewModels()
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var executor: Executor
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private var cancellationSignal: CancellationSignal? = null
+
+    private val authenticationCallback: BiometricPrompt.AuthenticationCallback
+        get() =
+            @RequiresApi(Build.VERSION_CODES.P)
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+                    super.onAuthenticationError(errorCode, errString)
+                    //notifyUser("Authentication error: $errString")
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
+                    super.onAuthenticationSucceeded(result)
+                    //notifyUser("Authentication Success!")
+
+                }
+            }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,7 +142,7 @@ class MainActivity : BaseActivity() {
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
 
-        executor = ContextCompat.getMainExecutor(this)
+        /*executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(
@@ -131,10 +151,11 @@ class MainActivity : BaseActivity() {
                 ) {
                     super.onAuthenticationError(errorCode, errString)
 
-                    /** User clicked on cancel btn **/
+                    */
+        /** User clicked on cancel btn **//*
                     finish()
 
-                    /*
+                    *//*
                      applicationContext?.let { it1 -> PreferenceManager<String>(it1) }
                          ?.set(Constant.BLOCKED_USER_ID, "")
 
@@ -192,25 +213,25 @@ class MainActivity : BaseActivity() {
                      LoginManager.getInstance().logOut()
                      mGoogleSignInClient =
                          applicationContext?.let { GoogleSignIn.getClient(it, gso) }!!
-                     mGoogleSignInClient.signOut()*/
+                     mGoogleSignInClient.signOut()*//*
 
 
-                    /*Toast.makeText(
+                    *//*Toast.makeText(
                         applicationContext,
                         "Authentication error: $errString", Toast.LENGTH_SHORT
                     )
-                        .show()*/
+                        .show()*//*
                 }
 
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    /*Toast.makeText(
+                    *//*Toast.makeText(
                         applicationContext,
                         "Authentication succeeded!", Toast.LENGTH_SHORT
                     )
-                        .show()*/
+                        .show()*//*
                 }
 
                 override fun onAuthenticationFailed() {
@@ -221,66 +242,109 @@ class MainActivity : BaseActivity() {
                     )
                         .show()
                 }
-            })
+            })*/
 
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
+        /*promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric login for aaonri")
             .setSubtitle("Log in using your biometric credential")
             .setNegativeButtonText("Cancel")
-            .build()
+            .build()*/
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token: String ->
+            if (!TextUtils.isEmpty(token)) {
+                Log.d("FirebaseTokenUser", "retrieve token successful : $token")
+                Toast.makeText(applicationContext, "$token", Toast.LENGTH_LONG).show()
+            } else {
+                Log.w("FirebaseTokenUser", "token should not be null...")
+            }
+        }.addOnFailureListener { e: Exception? -> }.addOnCanceledListener {}
+            .addOnCompleteListener { task: Task<String> ->
+                Log.v(
+                    "FirebaseTokenUser",
+                    "This is the token : " + task.result
+                )
+                Toast.makeText(applicationContext, task.result, Toast.LENGTH_LONG).show()
+            }
 
         binding?.apply {
 
-            if (showBioMetricDialogForOnce == true) {
-                val builder = AlertDialog.Builder(this@MainActivity)
-                builder.setTitle("Confirm")
-                builder.setMessage("Do you want to use Bio-Metric?")
-                builder.setPositiveButton("OK") { dialog, which ->
+            if (!guest) {
+                if (showBioMetricDialogForOnce == true) {
+                    val builder = AlertDialog.Builder(this@MainActivity)
+                    builder.setTitle("Confirm")
+                    builder.setMessage("Do you want to use Bio-Metric Login for aaonri?")
+                    builder.setPositiveButton("YES") { dialog, which ->
+                        applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
+                            ?.set(Constant.IS_BIOMETRIC_ENABLE, true)
+                        checkBiometricSupport()
+                    }
+                    builder.setNegativeButton("NO") { dialog, which ->
+
+                    }
+                    builder.show()
                     applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                        ?.set(Constant.IS_BIOMETRIC_ENABLE, true)
+                        ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, false)
                 }
-                builder.setNegativeButton("Cancel") { dialog, which ->
 
+
+                if (isBioMetricEnable == true) {
+                    if (checkBiometricSupport()) {
+                        val biometricPrompt: BiometricPrompt =
+                            BiometricPrompt.Builder(this@MainActivity)
+                                .setTitle("Biometric login for aaonri")
+                                .setSubtitle("Log in using your biometric credential")
+                                .setNegativeButton(
+                                    "Cancel",
+                                    mainExecutor
+                                ) { dialog, which ->
+                                    finish()
+                                }.build()
+
+                        biometricPrompt.authenticate(
+                            getCancellationSignal(),
+                            mainExecutor,
+                            authenticationCallback
+                        )
+                    }
                 }
-                builder.show()
-                applicationContext?.let { it1 -> PreferenceManager<Boolean>(it1) }
-                    ?.set(Constant.SHOW_BIOMETRIC_DIALOG_FOR_ONCE, false)
-            }
 
-            if (isBioMetricEnable == true) {
-                val biometricManager = BiometricManager.from(applicationContext)
-                when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
-                    BiometricManager.BIOMETRIC_SUCCESS -> {
-                        biometricPrompt.authenticate(promptInfo)
-                        Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
-                    }
-                    BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-                        Log.e("MY_APP_TAG", "No biometric features available on this device.")
-                    }
-                    BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-                        Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
-                    }
-                    BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                        // Prompts the user to create credentials that your app accepts.
-                        val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                            putExtra(
-                                Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-                                BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-                            )
+                /*if (isBioMetricEnable == true) {
+                    val biometricManager = BiometricManager.from(applicationContext)
+                    when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+                        BiometricManager.BIOMETRIC_SUCCESS -> {
+                            biometricPrompt.authenticate(promptInfo)
+                            Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
                         }
-                        startActivityForResult(enrollIntent, 5)
+                        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                            Log.e("MY_APP_TAG", "No biometric features available on this device.")
+                        }
+                        BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+                            Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                        }
+                        BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                            // Prompts the user to create credentials that your app accepts.
+                            val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                                putExtra(
+                                    Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                                    BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                                )
+                            }
+                            startActivityForResult(enrollIntent, 5)
+                        }
+                        BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED -> {
+                            Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                        }
+                        BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> {
+                            Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                        }
+                        BiometricManager.BIOMETRIC_STATUS_UNKNOWN -> {
+                            Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                        }
                     }
-                    BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED -> {
-                        TODO()
-                    }
-                    BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> {
-                        TODO()
-                    }
-                    BiometricManager.BIOMETRIC_STATUS_UNKNOWN -> {
-                        TODO()
-                    }
-                }
+                }*/
             }
+
+
 
             bottomNavigation.setupWithNavController(navController)
 
@@ -507,7 +571,7 @@ class MainActivity : BaseActivity() {
                     val eventAdOnDetailsScreen = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     val eventTopBanner = mutableListOf<FindAllActiveAdvertiseResponseItem>()
                     window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.forEach { data ->
 
                         /** one ad for classified grid**/
@@ -619,7 +683,7 @@ class MainActivity : BaseActivity() {
 
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -925,6 +989,53 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun checkBiometricSupport(): Boolean {
+
+        val keyguardManager: KeyguardManager =
+            getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+
+        if (!keyguardManager.isKeyguardSecure) {
+            //notifyUser("Fingerprint has not been enabled in settings.")
+            // Prompts the user to create credentials that your app accepts.
+            val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                putExtra(
+                    Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                    BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                )
+            }
+            startActivityForResult(enrollIntent, 5)
+            return false
+        }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.USE_BIOMETRIC
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Prompts the user to create credentials that your app accepts.
+            val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                 putExtra(
+                     Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                     BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                 )
+            }
+            startActivityForResult(enrollIntent, 5)
+            //notifyUser("Fingerprint has not been enabled in settings.")
+            return false
+        }
+        return if (packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
+            true
+        } else true
+    }
+
+    private fun getCancellationSignal(): CancellationSignal {
+        cancellationSignal = CancellationSignal()
+        cancellationSignal?.setOnCancelListener {
+            //notifyUser("Authentication was cancelled by the user")
+        }
+        return cancellationSignal as CancellationSignal
     }
 
     override fun onDestroy() {

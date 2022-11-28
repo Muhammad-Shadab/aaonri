@@ -26,6 +26,7 @@ import com.aaonri.app.R
 import com.aaonri.app.data.classified.ClassifiedConstant
 import com.aaonri.app.data.classified.viewmodel.PostClassifiedViewModel
 import com.aaonri.app.databinding.FragmentUploadClassifiedPicBinding
+import com.aaonri.app.utils.CustomDialog
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -83,7 +84,7 @@ class UploadClassifiedPicFragment : Fragment() {
                             .crop()
                             .createIntent { intent ->
                                 startForClassifiedImageResult.launch(intent)
-                                progressBarPicUpload.visibility = View.VISIBLE
+                                CustomDialog.showLoader(requireActivity())
                             }
                     }
                 } else {
@@ -238,12 +239,12 @@ class UploadClassifiedPicFragment : Fragment() {
                     setImage()
                 }
 
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
             } else {
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
         }
 

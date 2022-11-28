@@ -148,10 +148,10 @@ class MyClassifiedFragment : Fragment() {
         classifiedViewModel.myClassified.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.userAdsList?.isNotEmpty() == true) {
                         binding?.recyclerViewClassified?.visibility = View.VISIBLE
                         binding?.topAdvertiseRv?.visibility = View.VISIBLE
@@ -171,7 +171,7 @@ class MyClassifiedFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

@@ -19,6 +19,7 @@ import com.aaonri.app.data.jobs.seeker.model.SaveJobViewRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobDetailsBinding
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -105,11 +106,11 @@ class JobDetailsFragment : Fragment() {
             jobSeekerViewModel.jobDetailData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         var applicability = ""
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
 
                             val random =
@@ -143,7 +144,7 @@ class JobDetailsFragment : Fragment() {
                         linearLayout.visibility = View.VISIBLE
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

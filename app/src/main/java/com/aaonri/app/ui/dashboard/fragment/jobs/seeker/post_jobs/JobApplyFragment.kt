@@ -28,6 +28,7 @@ import com.aaonri.app.data.jobs.seeker.model.ApplyJobRequest
 import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobApplyBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -193,10 +194,10 @@ class JobApplyFragment : Fragment() {
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
 
@@ -226,7 +227,7 @@ class JobApplyFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -262,11 +263,10 @@ class JobApplyFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         if (response.data?.status == true) {
                             if (jobSeekerViewModel.resumeFileUri != null) {
                                 if (jobSeekerViewModel.resumeFileUri.toString().isNotEmpty()) {
@@ -292,7 +292,7 @@ class JobApplyFragment : Fragment() {
                         jobSeekerViewModel.applyJobData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -302,10 +302,10 @@ class JobApplyFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         val action =
                             JobApplyFragmentDirections.actionJobApplyFragmentToJobProfileUploadSuccessFragment(
                                 "ApplyJobScreen", args.isNavigatingFromSearchScreen
@@ -313,7 +313,7 @@ class JobApplyFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

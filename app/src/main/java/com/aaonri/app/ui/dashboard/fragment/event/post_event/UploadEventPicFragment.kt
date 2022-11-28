@@ -23,11 +23,11 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.aaonri.app.R
 import com.aaonri.app.data.event.EventConstants
 import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.databinding.FragmentUploadEventPicBinding
+import com.aaonri.app.utils.CustomDialog
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -83,7 +83,7 @@ class UploadEventPicFragment : Fragment() {
                                 .crop(3F, 2F)
                                 .createIntent { intent ->
                                     startForClassifiedImageResult.launch(intent)
-                                    progressBarPicUpload.visibility = View.VISIBLE
+                                    CustomDialog.showLoader(requireActivity())
                                 }
                         } else {
                             ImagePicker.with(requireActivity())
@@ -92,7 +92,7 @@ class UploadEventPicFragment : Fragment() {
                                 .crop()
                                 .createIntent { intent ->
                                     startForClassifiedImageResult.launch(intent)
-                                    progressBarPicUpload.visibility = View.VISIBLE
+                                    CustomDialog.showLoader(requireActivity())
 
                                 }
                         }
@@ -197,7 +197,7 @@ class UploadEventPicFragment : Fragment() {
         }
 
         postEventViewModel.listOfImagesUri.forEachIndexed { index, uri ->
-            when(index){
+            when (index) {
                 0 -> {
                     image1Uri = uri.toString()
                 }
@@ -362,22 +362,30 @@ class UploadEventPicFragment : Fragment() {
                     setImage()
                 }
 
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
                 //Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                binding?.progressBarPicUpload?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
         }
 
     private fun setImage() {
         if (image1 && image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
+            binding?.uploadedImage1?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Uri).into(it)
+                }
+            }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -385,9 +393,17 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(0)
         } else if (image2 && image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
+            binding?.uploadedImage2?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Uri).into(it)
+                }
+            }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -395,9 +411,17 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(1)
         } else if (image3 && image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
+            binding?.uploadedImage3?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Uri).into(it)
+                }
+            }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -405,9 +429,17 @@ class UploadEventPicFragment : Fragment() {
             changeCardViewBg(2)
         } else if (image4 && image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
+            binding?.uploadedImage4?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Uri).into(it)
+                }
+            }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }
@@ -436,9 +468,17 @@ class UploadEventPicFragment : Fragment() {
     private fun setImageOnNavigatingBack() {
         if (image1Uri.isNotEmpty()) {
             selectPicIndex = 0
-            binding?.uploadedImage1?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
+            binding?.uploadedImage1?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Uri).into(it)
+                }
+            }
             binding?.deleteImage1?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image1Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image1Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image1Uri.toUri())) {
                 showingImagesList.add(image1Uri.toUri())
             }
@@ -449,9 +489,17 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image2Uri.isNotEmpty()) {
             selectPicIndex = 1
-            binding?.uploadedImage2?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
+            binding?.uploadedImage2?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Uri).into(it)
+                }
+            }
             binding?.deleteImage2?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image2Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image2Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image2Uri.toUri())) {
                 showingImagesList.add(image2Uri.toUri())
             }
@@ -462,9 +510,17 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image3Uri.isNotEmpty()) {
             selectPicIndex = 2
-            binding?.uploadedImage3?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
+            binding?.uploadedImage3?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Uri).into(it)
+                }
+            }
             binding?.deleteImage3?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image3Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image3Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image3Uri.toUri())) {
                 showingImagesList.add(image3Uri.toUri())
             }
@@ -475,9 +531,17 @@ class UploadEventPicFragment : Fragment() {
         }
         if (image4Uri.isNotEmpty()) {
             selectPicIndex = 3
-            binding?.uploadedImage4?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
+            binding?.uploadedImage4?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Uri).into(it)
+                }
+            }
             binding?.deleteImage4?.visibility = View.VISIBLE
-            binding?.selectedImage?.let { context?.let { it1 -> Glide.with(it1).load(image4Uri).into(it) } }
+            binding?.selectedImage?.let {
+                context?.let { it1 ->
+                    Glide.with(it1).load(image4Uri).into(it)
+                }
+            }
             if (!showingImagesList.contains(image4Uri.toUri())) {
                 showingImagesList.add(image4Uri.toUri())
             }

@@ -15,6 +15,7 @@ import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobCreateAlertBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.SelectedJobAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -228,10 +229,10 @@ class JobCreateAlertFragment : Fragment() {
             jobSeekerViewModel.createJobAlertData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         val action =
                             JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobProfileUploadSuccessFragment(
                                 "CreateJobAlert", false
@@ -240,7 +241,7 @@ class JobCreateAlertFragment : Fragment() {
                         jobSeekerViewModel.createJobAlertData.postValue(null)
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -248,10 +249,10 @@ class JobCreateAlertFragment : Fragment() {
             jobSeekerViewModel.updateJobAlertData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         val action =
                             JobCreateAlertFragmentDirections.actionJobCreateAlertFragmentToJobProfileUploadSuccessFragment(
                                 "CreateJobAlert", false
@@ -261,7 +262,7 @@ class JobCreateAlertFragment : Fragment() {
                         jobSeekerViewModel.navigateToUpdateJobAlert.postValue(null)
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

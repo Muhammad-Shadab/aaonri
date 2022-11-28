@@ -16,6 +16,7 @@ import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentMyDiscussionImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -120,10 +121,10 @@ class MyDiscussionImmigrationFragment : Fragment() {
         immigrationViewModel.myImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.discussionList?.let { immigrationAdapter?.setData(it) }
                     if (response.data?.discussionList?.isNotEmpty() == true) {
                         binding?.resultsNotFoundLL?.visibility = View.GONE
@@ -132,7 +133,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -140,10 +141,10 @@ class MyDiscussionImmigrationFragment : Fragment() {
         immigrationViewModel.deleteDiscussionData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     immigrationViewModel.getMyImmigrationDiscussion(
                         GetAllImmigrationRequest(
                             categoryId = "${discussionCategoryResponseItem?.discCatId}",
@@ -153,7 +154,7 @@ class MyDiscussionImmigrationFragment : Fragment() {
                     )
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

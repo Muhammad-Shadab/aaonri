@@ -368,10 +368,10 @@ class ServicesCategoryFragment : Fragment() {
         registrationViewModel.registerData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.status.equals("true")) {
 
                         if (socialProfile?.isEmpty() == true) {
@@ -427,7 +427,7 @@ class ServicesCategoryFragment : Fragment() {
                     registrationViewModel.registerData.postValue(null)
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -450,10 +450,10 @@ class ServicesCategoryFragment : Fragment() {
         authCommonViewModel.uploadProfilePicData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (!authCommonViewModel.isUpdateProfile) {
                         dialog.setContentView(R.layout.success_register_dialog)
                         dialog.window?.setBackgroundDrawable(
@@ -474,7 +474,7 @@ class ServicesCategoryFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }
@@ -691,16 +691,16 @@ class ServicesCategoryFragment : Fragment() {
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.let { servicesResponse ->
                         adapter?.setData(servicesResponse, false)
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }

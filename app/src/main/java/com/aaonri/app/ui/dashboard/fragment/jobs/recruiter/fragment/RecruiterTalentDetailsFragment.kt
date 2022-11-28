@@ -15,6 +15,7 @@ import com.aaonri.app.WebViewActivity
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.databinding.FragmentRecruiterTalentDetailsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.RecruiterJobKeySkillsAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +84,7 @@ class RecruiterTalentDetailsFragment : Fragment() {
             jobRecruiterViewModel.jobProfileDetailsByIdData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         response.data?.let {
@@ -105,11 +106,11 @@ class RecruiterTalentDetailsFragment : Fragment() {
                             connectBtn.visibility = View.VISIBLE
                         }
 
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
 
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
 

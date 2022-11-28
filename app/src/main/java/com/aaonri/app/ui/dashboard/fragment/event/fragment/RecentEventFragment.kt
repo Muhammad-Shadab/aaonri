@@ -16,6 +16,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentRecentEventBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.RecentEventAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
@@ -138,10 +139,10 @@ class RecentEventFragment : Fragment() {
         eventViewModel.recentEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.isEmpty() == true) {
                         binding?.topAdvertiseRv?.visibility = View.GONE
                         binding?.bottomAdvertiseRv?.visibility = View.GONE
@@ -156,9 +157,8 @@ class RecentEventFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
-                else -> {}
             }
         }
 

@@ -17,6 +17,7 @@ import com.aaonri.app.databinding.FragmentRecruiterMyPostedJobBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.adapter.MyPostedJobAdapter
 import com.aaonri.app.ui.dashboard.fragment.jobs.recruiter.post_job.RecruiterPostJobActivity
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,10 +87,10 @@ class RecruiterMyPostedJobFragment : Fragment() {
             jobRecruiterViewModel.myPostedJobsData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         if (response.data?.jobDetailsList?.isNotEmpty() == true) {
                             emptyScreenImage.visibility = View.GONE
                             emptyTextVew.visibility = View.GONE
@@ -102,7 +103,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -111,10 +112,10 @@ class RecruiterMyPostedJobFragment : Fragment() {
                 if (response != null) {
                     when (response) {
                         is Resource.Loading -> {
-                            progressBar.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                         is Resource.Success -> {
-                            progressBar.visibility = View.GONE
+                            CustomDialog.hideLoader()
                             /** calling api for my posted job screen **/
                             jobRecruiterViewModel.getMyPostedJobs(
                                 JobSearchRequest(
@@ -132,7 +133,7 @@ class RecruiterMyPostedJobFragment : Fragment() {
                             jobRecruiterViewModel.changeJobStatusData.postValue(null)
                         }
                         is Resource.Error -> {
-                            progressBar.visibility = View.GONE
+                            CustomDialog.hideLoader()
                         }
                     }
                 }

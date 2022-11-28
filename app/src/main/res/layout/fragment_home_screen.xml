@@ -73,7 +73,8 @@
             android:src="@drawable/profile_pic_placeholder" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!--<ImageView
+<!--
+    <ImageView
         android:id="@+id/bellIconIv"
         android:layout_width="@dimen/_28sdp"
         android:layout_height="@dimen/_28sdp"
@@ -81,8 +82,9 @@
         android:padding="@dimen/_1sdp"
         android:src="@drawable/ic_bell_notification"
         app:layout_constraintBottom_toBottomOf="@id/profilePicCv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/profilePicCv" />-->
+        app:layout_constraintEnd_toStartOf="@id/profilePicCv"
+        app:layout_constraintTop_toTopOf="@id/profilePicCv" />
+-->
 
     <LinearLayout
         android:id="@+id/searchViewll"
@@ -670,16 +672,5 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

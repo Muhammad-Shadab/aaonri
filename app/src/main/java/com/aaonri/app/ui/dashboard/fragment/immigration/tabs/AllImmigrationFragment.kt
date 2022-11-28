@@ -16,10 +16,7 @@ import com.aaonri.app.data.immigration.model.ImmigrationFilterModel
 import com.aaonri.app.data.immigration.viewmodel.ImmigrationViewModel
 import com.aaonri.app.databinding.FragmentAllImmigrationBinding
 import com.aaonri.app.ui.dashboard.fragment.immigration.adapter.ImmigrationAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
@@ -116,10 +113,10 @@ class AllImmigrationFragment : Fragment() {
         immigrationViewModel.allImmigrationDiscussionListData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.discussionList?.let {
 
                         immigrationAdapter?.setData(it.filter { blockedUsersId?.contains(it.userId) == false }) }
@@ -137,7 +134,7 @@ class AllImmigrationFragment : Fragment() {
                     discussionList = response.data?.discussionList as MutableList<Discussion>
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

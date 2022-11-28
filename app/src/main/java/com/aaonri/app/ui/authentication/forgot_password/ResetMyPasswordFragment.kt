@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.aaonri.app.R
 import com.aaonri.app.data.authentication.forgot_password.viewmodel.ForgotPasswordViewModel
 import com.aaonri.app.databinding.FragmentResetMyPasswordBinding
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
 import com.aaonri.app.utils.Validator
@@ -80,7 +81,7 @@ class ResetMyPasswordFragment : Fragment() {
         forgotPassViewModel.forgotPasswordData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     if (response.data?.status?.equals("false") == true) {
@@ -96,10 +97,10 @@ class ResetMyPasswordFragment : Fragment() {
                         binding?.emailValidationTv?.visibility = View.GONE
                         forgotPassViewModel.forgotPasswordData.value = null
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }

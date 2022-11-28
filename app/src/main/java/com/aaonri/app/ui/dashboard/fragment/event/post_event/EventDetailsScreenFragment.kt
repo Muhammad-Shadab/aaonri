@@ -45,10 +45,7 @@ import com.aaonri.app.data.event.viewmodel.PostEventViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentEventDetailsBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -195,10 +192,10 @@ class EventDetailsScreenFragment : Fragment() {
             postEventViewModel.eventDetailsData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             setEventDetails(it)
                             EventStaticData.updateEventDetails(it)
@@ -217,11 +214,9 @@ class EventDetailsScreenFragment : Fragment() {
                             })
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                             .show()
-                    }
-                    else -> {
                     }
                 }
             }

@@ -28,10 +28,7 @@ import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentUploadJobProfileBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.SelectedVisaStatusJobSeeker
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -260,7 +257,8 @@ class JobProfileUploadFragment : Fragment() {
                                                                             lastName = lastNameEt.text.toString(),
                                                                             location = locationEt.text.toString(),
                                                                             phoneNo = phoneNumber,
-                                                                            resumeName = fileName ?: "",
+                                                                            resumeName = fileName
+                                                                                ?: "",
                                                                             skillSet = skillSetDescEt.text.toString(),
                                                                             title = currentTitleEt.text.toString(),
                                                                             visaStatus = visaStatus,
@@ -340,10 +338,12 @@ class JobProfileUploadFragment : Fragment() {
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
+                        //progressBar.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
+                        //progressBar.visibility = View.GONE
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
                                 jobDetailsApplicabilityList =
@@ -371,7 +371,7 @@ class JobProfileUploadFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -379,10 +379,12 @@ class JobProfileUploadFragment : Fragment() {
             jobSeekerViewModel.allActiveJobApplicabilityData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
+                        //progressBar.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        //progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.forEachIndexed { index, visaStatus ->
                             response.data[index].isSelected =
                                 jobDetailsApplicabilityList.indexOfFirst { it == visaStatus.applicability } != -1
@@ -395,7 +397,7 @@ class JobProfileUploadFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -449,15 +451,15 @@ class JobProfileUploadFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         callUploadResumeApi(response.data?.id)
                         jobSeekerViewModel.addJobProfileData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -467,10 +469,10 @@ class JobProfileUploadFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
 
                         if (jobSeekerViewModel.resumeFileUri != null) {
                             if (jobSeekerViewModel.resumeFileUri.toString().trim().isNotEmpty()) {
@@ -492,7 +494,7 @@ class JobProfileUploadFragment : Fragment() {
                         jobSeekerViewModel.updateJobProfileData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -502,10 +504,10 @@ class JobProfileUploadFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         val action =
                             JobProfileUploadFragmentDirections.actionJobProfileUploadFragmentToJobProfileUploadSuccessFragment(
                                 "ProfileUploadScreen", false
@@ -514,15 +516,11 @@ class JobProfileUploadFragment : Fragment() {
                         jobSeekerViewModel.uploadResumeData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
         }
-
-        /*if (args.isUpdateProfile) {
-
-        }*/
 
         return binding?.root
     }

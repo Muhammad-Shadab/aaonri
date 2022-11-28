@@ -17,6 +17,7 @@ import com.aaonri.app.data.advertise.model.AdvertisementPageLocationXXX
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentSelectTemplateLocationBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseTemplateLocationAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -108,16 +109,15 @@ class SelectTemplateLocationFragment : Fragment() {
         postAdvertiseViewModel.advertisePageLocationData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.let { advertiseTemplateLocationAdapter?.setData(it) }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
-                else -> {}
             }
         }
 

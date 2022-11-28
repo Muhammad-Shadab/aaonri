@@ -19,10 +19,7 @@ import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentMyEventBinding
 import com.aaonri.app.ui.dashboard.fragment.event.EventScreenActivity
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -151,10 +148,10 @@ class MyEventFragment : Fragment() {
         eventViewModel.myEvent.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.eventList?.isEmpty() == true) {
                         eventViewModel.setHideFloatingBtn(true)
                         if (keyword?.isNotEmpty() == true) {
@@ -187,9 +184,8 @@ class MyEventFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
-                else -> {}
             }
         }
 

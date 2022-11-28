@@ -15,10 +15,7 @@ import com.aaonri.app.BuildConfig
 import com.aaonri.app.data.jobs.recruiter.viewmodel.JobRecruiterViewModel
 import com.aaonri.app.data.jobs.seeker.model.AddJobProfileRequest
 import com.aaonri.app.databinding.FragmentRecruiterUpdateProfileBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.Validator
+import com.aaonri.app.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -149,7 +146,7 @@ class RecruiterUpdateProfileFragment : Fragment() {
             jobRecruiterViewModel.getUserConsultantProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
                         if (response.data?.jobProfile?.isNotEmpty() == true) {
@@ -175,10 +172,10 @@ class RecruiterUpdateProfileFragment : Fragment() {
                             isUpdateConsultantProfile = false
                         }
 
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -187,17 +184,17 @@ class RecruiterUpdateProfileFragment : Fragment() {
                 if (response != null) {
                     when (response) {
                         is Resource.Loading -> {
-                            binding?.progressBar?.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                         is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
+                            CustomDialog.hideLoader()
                             val action =
                                 RecruiterUpdateProfileFragmentDirections.actionRecruiterUpdateProfileFragmentToRecruiterProfileSuccessfulBottom2()
                             findNavController().navigate(action)
                             jobRecruiterViewModel.addConsultantProfileData.postValue(null)
                         }
                         is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
+                            CustomDialog.hideLoader()
                         }
                     }
                 }
@@ -207,17 +204,17 @@ class RecruiterUpdateProfileFragment : Fragment() {
                 if (response != null) {
                     when (response) {
                         is Resource.Loading -> {
-                            binding?.progressBar?.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                         is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
+                            CustomDialog.hideLoader()
                             val action =
                                 RecruiterUpdateProfileFragmentDirections.actionRecruiterUpdateProfileFragmentToRecruiterProfileSuccessfulBottom2()
                             findNavController().navigate(action)
                             jobRecruiterViewModel.updateConsultantProfileData.postValue(null)
                         }
                         is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
+                            CustomDialog.hideLoader()
                         }
                     }
                 }

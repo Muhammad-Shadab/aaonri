@@ -115,7 +115,7 @@ class BasicDetailsFragment : Fragment() {
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
-                            progressBarBasicDetails.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                 } else if (profile.contains("null")) {
                     ImagePicker.with(requireActivity())
@@ -124,7 +124,7 @@ class BasicDetailsFragment : Fragment() {
                         .maxResultSize(1080, 1080)
                         .createIntent { intent ->
                             startForProfileImageResult.launch(intent)
-                            progressBarBasicDetails.visibility = View.VISIBLE
+                            CustomDialog.showLoader(requireActivity())
                         }
                 } else {
                     val materialAlertDialogBuilder =
@@ -137,7 +137,7 @@ class BasicDetailsFragment : Fragment() {
                                 .maxResultSize(1080, 1080)
                                 .crop()
                                 .createIntent { intent ->
-                                    progressBarBasicDetails.visibility = View.VISIBLE
+                                    CustomDialog.showLoader(requireActivity())
                                     startForProfileImageResult.launch(intent)
                                 }
                             dialog.dismiss()
@@ -407,9 +407,6 @@ class BasicDetailsFragment : Fragment() {
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
-                else -> {
-
-                }
             }
         }
 
@@ -456,10 +453,10 @@ class BasicDetailsFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBarBasicDetails?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBarBasicDetails?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         if (response.data?.status == true) {
                             profile = ""
                             userId = 0
@@ -474,7 +471,7 @@ class BasicDetailsFragment : Fragment() {
                         registrationViewModel.deleteProfileImageData.postValue(null)
                     }
                     is Resource.Error -> {
-                        binding?.progressBarBasicDetails?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -523,7 +520,7 @@ class BasicDetailsFragment : Fragment() {
                 val fileUri = data?.data!!
 
                 profile = fileUri.toString()
-                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                CustomDialog.hideLoader()
                 setImage()
                 authCommonViewModel.setProfilePicUriValue(fileUri)
                 //basicDetailsBinding?.addProfileIv?.setImageURI(fileUri)
@@ -536,7 +533,7 @@ class BasicDetailsFragment : Fragment() {
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                CustomDialog.hideLoader()
             }
         }
 

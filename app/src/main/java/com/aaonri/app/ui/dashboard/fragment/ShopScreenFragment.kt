@@ -20,6 +20,7 @@ import com.aaonri.app.R
 import com.aaonri.app.databinding.FragmentShopScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -172,7 +173,7 @@ class ShopScreenFragment : Fragment() {
 
         binding = FragmentShopScreenBinding.inflate(inflater, container, false)
         binding?.apply {
-            progresShopping.visibility = View.VISIBLE
+            CustomDialog.showLoader(requireActivity())
 
             profilePicCv.setOnClickListener {
                 if (isUserLogin == false) {
@@ -238,7 +239,7 @@ class ShopScreenFragment : Fragment() {
         binding?.shopWithUsWebView?.scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
         binding?.shopWithUsWebView?.settings?.useWideViewPort = true
         binding?.shopWithUsWebView?.settings?.loadWithOverviewMode = true
-        binding?.progresShopping?.visibility = View.VISIBLE
+        CustomDialog.showLoader(requireActivity())
         binding?.shopWithUsWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
@@ -246,7 +247,7 @@ class ShopScreenFragment : Fragment() {
             }
 
             override fun onPageFinished(view: WebView, url: String) {
-                binding?.progresShopping?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
 
             override fun onReceivedError(
@@ -255,16 +256,12 @@ class ShopScreenFragment : Fragment() {
                 description: String,
                 failingUrl: String
             ) {
-                binding?.progresShopping?.visibility = View.GONE
+                CustomDialog.hideLoader()
             }
         }
 
 
         binding?.shopWithUsWebView?.loadUrl(url)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onDestroyView() {

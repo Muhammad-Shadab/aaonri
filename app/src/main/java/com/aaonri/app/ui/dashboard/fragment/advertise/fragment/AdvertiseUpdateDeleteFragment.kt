@@ -15,6 +15,7 @@ import com.aaonri.app.data.advertise.AdvertiseStaticData
 import com.aaonri.app.data.advertise.viewmodel.AdvertiseViewModel
 import com.aaonri.app.databinding.FragmentUpdateAndDeleteBottomBinding
 import com.aaonri.app.ui.dashboard.fragment.advertise.AdvertiseScreenActivity
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -100,14 +101,14 @@ class AdvertiseUpdateDeleteFragment : BottomSheetDialogFragment() {
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
                     AdvertiseStaticData.updateAdvertiseDetails(response.data)
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
             }
         }

@@ -24,6 +24,7 @@ import com.aaonri.app.databinding.FragmentMoreScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.authentication.register.adapter.ServicesItemAdapter
 import com.aaonri.app.utils.Constant
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -295,16 +296,18 @@ class MoreScreenFragment : Fragment() {
         registrationViewModel.service.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
+                    //binding?.progressBar?.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    CustomDialog.hideLoader()
                     var jobId = 0
                     if (BuildConfig.FLAVOR == "dev") {
                         jobId = 17
                     } else {
                         jobId = 3
                     }
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     response.data?.let { servicesResponse ->
                         adapter?.setData(
                             servicesResponse.filter { it.active /*&& it.id != jobId*/ },
@@ -313,7 +316,8 @@ class MoreScreenFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
+                    //binding?.progressBar?.visibility = View.GONE
                     Toast.makeText(context, "${response.message}", Toast.LENGTH_SHORT).show()
                 }
             }

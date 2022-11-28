@@ -27,10 +27,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.databinding.FragmentAdvertiseScreenBinding
 import com.aaonri.app.ui.authentication.login.LoginActivity
 import com.aaonri.app.ui.dashboard.fragment.advertise.adapter.AdvertiseAdapter
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
-import com.aaonri.app.utils.SystemServiceUtil
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.facebook.login.LoginManager
@@ -432,10 +429,10 @@ class AdvertiseScreenFragment : Fragment() {
         advertiseViewModel.allAdvertiseData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     if (response.data?.isEmpty() == true && binding?.searchView?.text.toString().isEmpty()) {
                         binding?.searchView?.isEnabled = false
                         binding?.noResultFound?.visibility = View.VISIBLE
@@ -466,7 +463,7 @@ class AdvertiseScreenFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     Toast.makeText(
                         context,
                         "Error ${response.message}",
@@ -474,19 +471,17 @@ class AdvertiseScreenFragment : Fragment() {
                     )
                         .show()
                 }
-                else -> {
-                }
             }
         }
 
         advertiseViewModel.advertiseDetailsData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
 
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     /* Toast.makeText(
                          context,
                          "${response.data?.advertisementDetails?.adImage}.",
@@ -494,9 +489,8 @@ class AdvertiseScreenFragment : Fragment() {
                      ).show()*/
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
-                else -> {}
             }
         }
 

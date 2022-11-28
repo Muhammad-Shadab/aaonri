@@ -42,10 +42,7 @@ import com.aaonri.app.data.dashboard.DashboardCommonViewModel
 import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentClassifiedDetailsBinding
-import com.aaonri.app.utils.Constant
-import com.aaonri.app.utils.GridSpacingItemDecoration
-import com.aaonri.app.utils.PreferenceManager
-import com.aaonri.app.utils.Resource
+import com.aaonri.app.utils.*
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
@@ -378,17 +375,17 @@ class ClassifiedDetailsFragment : Fragment() {
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             it.userAds?.let { it1 -> setClassifiedDetails(it1) }
                             ClassifiedStaticData.updateAddDetails(it)
                         }
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         Toast.makeText(context, "Error ${response.message}", Toast.LENGTH_SHORT)
                             .show()
                     }

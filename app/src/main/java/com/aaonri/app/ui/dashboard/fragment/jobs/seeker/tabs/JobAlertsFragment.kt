@@ -13,6 +13,7 @@ import com.aaonri.app.data.jobs.seeker.viewmodel.JobSeekerViewModel
 import com.aaonri.app.databinding.FragmentJobAlertsBinding
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.JobScreenFragmentDirections
 import com.aaonri.app.ui.dashboard.fragment.jobs.seeker.adapter.AlertAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,10 +61,10 @@ class JobAlertsFragment : Fragment() {
             jobSeekerViewModel.getUserJobProfileData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             if (it.jobProfile.isNotEmpty()) {
                                 jobProfileId = it.jobProfile[0].id
@@ -74,7 +75,7 @@ class JobAlertsFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -82,10 +83,10 @@ class JobAlertsFragment : Fragment() {
             jobSeekerViewModel.userJobAlertData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             if (it.jobAlerts != null) {
                                 if (it.jobAlerts.isNotEmpty()) {
@@ -103,7 +104,7 @@ class JobAlertsFragment : Fragment() {
                         }
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }
@@ -111,10 +112,10 @@ class JobAlertsFragment : Fragment() {
             jobSeekerViewModel.deleteJobAlertData.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Loading -> {
-                        progressBar.visibility = View.VISIBLE
+                        CustomDialog.showLoader(requireActivity())
                     }
                     is Resource.Success -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                         response.data?.let {
                             activity?.let { it1 ->
                                 Snackbar.make(
@@ -127,7 +128,7 @@ class JobAlertsFragment : Fragment() {
                         jobSeekerViewModel.deleteJobAlertData.postValue(null)
                     }
                     is Resource.Error -> {
-                        progressBar.visibility = View.GONE
+                        CustomDialog.hideLoader()
                     }
                 }
             }

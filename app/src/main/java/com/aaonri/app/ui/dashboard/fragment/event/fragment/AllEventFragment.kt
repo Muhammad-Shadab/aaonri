@@ -18,6 +18,7 @@ import com.aaonri.app.data.main.ActiveAdvertiseStaticData
 import com.aaonri.app.data.main.adapter.AdsGenericAdapter
 import com.aaonri.app.databinding.FragmentAllEventBinding
 import com.aaonri.app.ui.dashboard.fragment.event.adapter.AllEventAdapter
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.GridSpacingItemDecoration
 import com.aaonri.app.utils.Resource
 import com.aaonri.app.utils.SystemServiceUtil
@@ -140,10 +141,10 @@ class AllEventFragment : Fragment() {
         eventViewModel.allEventData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    binding?.progressBar?.visibility = View.VISIBLE
+                    CustomDialog.showLoader(requireActivity())
                 }
                 is Resource.Success -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                     val listOfCity = mutableListOf<String>()
 
                     if (response.data?.eventList?.isNotEmpty() == true) {
@@ -192,9 +193,8 @@ class AllEventFragment : Fragment() {
                     }
                 }
                 is Resource.Error -> {
-                    binding?.progressBar?.visibility = View.GONE
+                    CustomDialog.hideLoader()
                 }
-                else -> {}
             }
         }
 

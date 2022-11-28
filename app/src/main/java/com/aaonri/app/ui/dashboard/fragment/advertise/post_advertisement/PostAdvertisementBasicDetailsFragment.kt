@@ -27,6 +27,7 @@ import com.aaonri.app.data.advertise.model.AdvertisePageLocationResponseItem
 import com.aaonri.app.data.advertise.viewmodel.PostAdvertiseViewModel
 import com.aaonri.app.databinding.FragmentPostAdvertisementbasicDetailsBinding
 import com.aaonri.app.ui.dashboard.RichTextEditorActivity
+import com.aaonri.app.utils.CustomDialog
 import com.aaonri.app.utils.PreferenceManager
 import com.aaonri.app.utils.Resource
 import com.bumptech.glide.Glide
@@ -93,7 +94,7 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                             .maxResultSize(1080, 1080)
                             .createIntent { intent ->
                                 startForProfileImageResult.launch(intent)
-                                progressBarBasicDetails.visibility = View.VISIBLE
+                                CustomDialog.showLoader(requireActivity())
                             }
                     } else {
                         showAlert("Please choose template")
@@ -658,13 +659,13 @@ open class PostAdvertisementBasicDetailsFragment : Fragment(), AdapterView.OnIte
                 val fileUri = data?.data!!
 
                 advertiseImage = fileUri.toString()
-                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                CustomDialog.hideLoader()
                 setImage()
 
             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                 Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
             } else {
-                binding?.progressBarBasicDetails?.visibility = View.INVISIBLE
+                CustomDialog.hideLoader()
             }
         }
 
