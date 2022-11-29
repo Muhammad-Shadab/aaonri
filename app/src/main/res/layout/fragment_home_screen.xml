@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background_gradient"
-    tools:context=".ui.authentication.login.LoginFragment">
+    tools:context=".ui.dashboard.fragment.HomeScreenFragment">
 
     <TextView
         android:id="@+id/homeTv"

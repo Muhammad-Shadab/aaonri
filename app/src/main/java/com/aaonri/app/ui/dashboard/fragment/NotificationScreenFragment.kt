@@ -9,7 +9,7 @@ import com.aaonri.app.databinding.FragmentNotificationScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationScreen : Fragment() {
+class NotificationScreenFragment : Fragment() {
     var binding: FragmentNotificationScreenBinding? = null
 
     override fun onCreateView(

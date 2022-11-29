@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import androidx.navigation.NavDeepLinkBuilder
+import com.aaonri.app.MainActivity
 import com.aaonri.app.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -48,13 +48,17 @@ class FireBase : FirebaseMessagingService() {
         title: String,
         message: String
     ) {
-        /*val intent = Intent(this, MainActivity::class.java)*/
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(
+            "message",
+            message
+        )
         val channel_id = "notification_channel"
-        /*intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
             PendingIntent.FLAG_ONE_SHOT
-        )*/
+        )
 
         var builder = NotificationCompat.Builder(
             applicationContext,
@@ -69,7 +73,7 @@ class FireBase : FirebaseMessagingService() {
                 )
             )
             .setOnlyAlertOnce(true)
-            .setContentIntent(pendingIntent(this))
+            .setContentIntent(pendingIntent)
         builder = if (Build.VERSION.SDK_INT
             >= Build.VERSION_CODES.JELLY_BEAN
         ) {
@@ -97,12 +101,4 @@ class FireBase : FirebaseMessagingService() {
         }
         notificationManager.notify(0, builder.build())
     }
-
-    fun pendingIntent(context: Context): PendingIntent {
-        return NavDeepLinkBuilder(context)
-            .setGraph(R.navigation.dashboard_nav_graph)
-            .setDestination(R.id.notificationScreen)
-            .createPendingIntent()
-    }
-
 }

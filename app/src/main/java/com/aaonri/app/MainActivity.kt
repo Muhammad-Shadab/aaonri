@@ -95,6 +95,10 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+
+        /** Opening a specific screen from notification **/
+        val message = intent.getStringExtra("message")
+
         supportActionBar?.hide()
         val connectivityReceiver = ConnectivityReceiver()
 
@@ -142,6 +146,11 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.getAllActiveAdvertise()
         immigrationViewModel.getDiscussionCategory()
+
+
+        /*if (message == "open nav") {
+            navController.navigate(R.id.notificationScreen)
+        }*/
 
         /*executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
@@ -403,7 +412,7 @@ class MainActivity : BaseActivity() {
 
             dashboardCommonViewModel.showBottomNavigation.observe(this@MainActivity) {
                 if (it) {
-                    if (navController.currentDestination?.id != R.id.eventScreenFragment && navController.currentDestination?.id != R.id.immigrationScreenFragment) {
+                    if (navController.currentDestination?.id != R.id.eventScreenFragment && navController.currentDestination?.id != R.id.immigrationScreenFragment && navController.currentDestination?.id != R.id.jobSearchFragment) {
                         bottomNavigation.visibility = View.VISIBLE
                     }
                 } else {
