@@ -489,8 +489,11 @@ class ClassifiedScreenFragment : Fragment() {
                                 R.color.darkGrayColor
                             )
                         )
+                        /** Clear filters **/
                         searchView.setText("")
                         postClassifiedViewModel.setSearchQuery("")
+                        postClassifiedViewModel.setSelectedClassifiedCategory("")
+                        postClassifiedViewModel.setSelectedSubClassifiedCategory("")
                         postClassifiedViewModel.classifiedFilterModel.postValue(
                             ClassifiedFilterModel(
                                 selectedCategory = "",
@@ -587,13 +590,13 @@ class ClassifiedScreenFragment : Fragment() {
 
             if (filterValue.selectedCategory.isNotEmpty()) {
                 noOfSelection++
-                binding?.categoryFilterTv?.text = filterValue.selectedCategory
+                binding?.categoryFilterTv?.text = "Category: ${filterValue.selectedCategory}"
                 binding?.categoryFilterCv?.visibility = View.VISIBLE
             }
 
             if (filterValue.selectedSubCategory.isNotEmpty()) {
                 noOfSelection++
-                binding?.subCategoryFilterTv?.text = filterValue.selectedSubCategory
+                binding?.subCategoryFilterTv?.text = "Sub Category: ${filterValue.selectedSubCategory}"
                 binding?.subCategoryFilterCv?.visibility = View.VISIBLE
             }
 
